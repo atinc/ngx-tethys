@@ -1,4 +1,16 @@
-import { Directive, input, OnInit, Signal, SimpleChange, SimpleChanges, TemplateRef, model, output, OnChanges } from '@angular/core';
+import {
+    Directive,
+    input,
+    OnInit,
+    Signal,
+    SimpleChange,
+    SimpleChanges,
+    TemplateRef,
+    model,
+    output,
+    OnChanges,
+    linkedSignal
+} from '@angular/core';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
@@ -24,7 +36,8 @@ export abstract class CalendarTable implements OnInit, OnChanges {
 
     readonly prefixCls = input<string>('thy-calendar');
 
-    readonly value = model<TinyDate>();
+    readonly valueInput = input<TinyDate>(undefined, { alias: 'value' });
+    readonly value = linkedSignal(this.valueInput);
 
     readonly activeDate = model<TinyDate>(new TinyDate());
 

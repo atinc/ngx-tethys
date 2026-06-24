@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyFormGroup, ThyFormDirective, ThyFormGroupFooter, ThyFormSubmitDirective } from 'ngx-tethys/form';
 import { ThyInputCount, ThyInputDirective, ThyInputGroup } from 'ngx-tethys/input';
@@ -8,6 +8,7 @@ import { ThyButton } from 'ngx-tethys/button';
     selector: 'thy-input-count-example',
     templateUrl: './input-count.component.html',
     styleUrls: ['./input-count.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyFormGroup,
         ThyFormGroupFooter,

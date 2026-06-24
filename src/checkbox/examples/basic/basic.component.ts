@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-checkbox-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCheckbox, FormsModule]
 })
 export class ThyCheckboxBasicExampleComponent implements OnInit {

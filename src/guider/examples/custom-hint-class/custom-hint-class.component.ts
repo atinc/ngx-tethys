@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tethys/guider';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-guider-custom-hint-class-example',
     template: ` <button class="custom-hint-class-target" thyButton="info" (click)="startTour()">开始</button> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyGuiderCustomHintClassExampleComponent implements OnInit {

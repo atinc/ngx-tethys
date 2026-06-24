@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-draggable-example',
     templateUrl: './draggable.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent]
 })
 export class ThyTableDraggableExampleComponent implements OnInit {

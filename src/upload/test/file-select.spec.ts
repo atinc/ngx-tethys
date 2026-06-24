@@ -1,6 +1,6 @@
 import { createFakeEvent } from 'ngx-tethys/testing';
 import { Observable } from 'rxjs';
-import { ApplicationRef, Component, DebugElement, NgModule } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, NgModule, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyFileSelect, ThyUploadModule, ThyUploadResponse } from 'ngx-tethys/upload';
@@ -19,6 +19,7 @@ import { createFile } from './utils';
             (thyOnFileSelect)="selectFiles($event)">
         </thy-file-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFileSelect]
 })
 class FileSelectBasicComponent {
@@ -152,6 +153,7 @@ describe('ThyFileSelect', () => {
 @Component({
     selector: 'thy-file-select-static-input',
     template: ` <thy-file-select thyMultiple="true" thyAcceptFolder="false" (thyOnFileSelect)="selectFiles($event)"> </thy-file-select> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFileSelect]
 })
 class FileSelectStaticInputComponent {

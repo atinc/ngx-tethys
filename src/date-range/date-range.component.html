@@ -8,10 +8,11 @@
     class="thy-date-range-text"
     [ngClass]="{ 'thy-date-range-disabled': thyHiddenMenu() }">
     @if (selectedDate?.key === 'custom') {
-      {{ selectedDate?.begin | thyDatePickerFormat }}{{ separator() }}{{ selectedDate?.end | thyDatePickerFormat }}
+      {{ $safeNavigationMigration(selectedDate?.begin) | thyDatePickerFormat }}{{ separator()
+      }}{{ $safeNavigationMigration(selectedDate?.end) | thyDatePickerFormat }}
     }
     @if (selectedDate?.key === 'exception') {
-      {{ selectedDate?.begin | thyDatePickerFormat: thyPickerFormat() }}
+      {{ $safeNavigationMigration(selectedDate?.begin) | thyDatePickerFormat: thyPickerFormat() }}
     }
     @if (selectedDate?.key !== 'custom' && selectedDate?.key !== 'exception') {
       {{ selectedDate?.text }}

@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
@@ -11,6 +11,7 @@ export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
 @Component({
     selector: 'thy-menu,[thy-menu],[thyMenu]',
     templateUrl: './menu.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-menu',
         '[class.thy-menu-collapsed]': 'thyCollapsed()',

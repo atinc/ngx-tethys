@@ -1,4 +1,15 @@
-import { Component, ElementRef, OnDestroy, OnInit, contentChild, effect, inject, input, output } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    contentChild,
+    effect,
+    inject,
+    input,
+    output,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ThyFullscreen } from './fullscreen.service';
 import { ThyFullscreenMode } from './fullscreen.config';
 import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
@@ -11,6 +22,7 @@ import { EMPTY, fromEvent, Subject, switchMap, takeUntil } from 'rxjs';
  */
 @Component({
     selector: 'thy-fullscreen, [thyFullscreen]',
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './fullscreen.component.html'
 })
 export class ThyFullscreenComponent implements OnInit, OnDestroy {

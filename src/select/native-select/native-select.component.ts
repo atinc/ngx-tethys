@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, input, viewChild, model, signal, ElementRef } from '@angular/core';
+import { Component, forwardRef, OnInit, input, viewChild, model, signal, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
@@ -27,6 +27,7 @@ const noop = () => {};
         }
     ],
     imports: [ThyInputDirective, FormsModule, ThyIcon],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-select',
         '[attr.tabindex]': 'tabIndex',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
 
 @Component({
@@ -9,6 +9,7 @@ import { ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
             {{ content }}
         </thy-popover-body>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverPassDataContentComponent implements OnInit {

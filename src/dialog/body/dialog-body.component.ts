@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostBinding, inject, input } from '@angular/core';
+import { Component, Input, OnInit, HostBinding, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -14,6 +14,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogBody',
     hostDirectives: [CdkScrollable],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'dialog-body',
         '[class.dialog-body-clear-padding]': 'thyClearPadding()'

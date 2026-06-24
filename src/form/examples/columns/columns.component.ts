@@ -1,5 +1,5 @@
 import { ThyFormDirective, ThyFormGroup, ThyFormGroupError, ThyFormGroupFooter, ThyFormSubmitDirective } from 'ngx-tethys/form';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyRowDirective, ThyColDirective } from 'ngx-tethys/grid';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -9,6 +9,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-form-columns-example',
     templateUrl: './columns.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         FormsModule,
         ThyFormDirective,

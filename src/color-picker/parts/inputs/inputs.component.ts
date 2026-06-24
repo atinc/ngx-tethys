@@ -1,4 +1,4 @@
-import { Component, effect, HostBinding, input, OnInit, output, signal, WritableSignal } from '@angular/core';
+import { Component, effect, HostBinding, input, OnInit, output, signal, WritableSignal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective, ThyInputGroup } from 'ngx-tethys/input';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
@@ -11,6 +11,7 @@ import { ThyColor } from '../../helpers/color.class';
 @Component({
     selector: 'thy-color-inputs',
     templateUrl: './inputs.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputDirective, FormsModule, ThyEnterDirective, ThyInputNumber, ThyInputGroup]
 })
 export class ThyColorInputs implements OnInit {

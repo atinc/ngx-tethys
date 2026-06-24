@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 
 @Component({
@@ -12,6 +12,7 @@ import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRowDirective, ThyColDirective]
 })
 export class ThyStylesColorExampleComponent implements OnInit {

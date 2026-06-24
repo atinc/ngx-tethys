@@ -1,4 +1,4 @@
-import { Component, EnvironmentInjector, inject, runInInjectionContext, Signal } from '@angular/core';
+import { Component, EnvironmentInjector, inject, runInInjectionContext, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
     enUsLocale,
@@ -13,7 +13,7 @@ import {
     zhHansLocale
 } from 'ngx-tethys/i18n';
 
-@Component({ template: 'thy-i18n-test' })
+@Component({ changeDetection: ChangeDetectionStrategy.Eager, template: 'thy-i18n-test' })
 export class ThyI18nTestComponent {
     i18n = inject(ThyI18nService);
 

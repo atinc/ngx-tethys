@@ -22,11 +22,11 @@ import { ThyNativeTableTrMeasureComponent } from '../row/tr-measure.component';
             <tr class="thy-table-empty">
                 <td colspan="100%">
                     <thy-empty
-                        [thyMessage]="emptyOptions()?.message"
-                        [thyIconName]="emptyOptions()?.iconName"
-                        [thySize]="emptyOptions()?.size"
-                        [thyMarginTop]="emptyOptions()?.marginTop"
-                        [thyTopAuto]="emptyOptions()?.topAuto"></thy-empty>
+                        [thyMessage]="$safeNavigationMigration(emptyOptions()?.message)"
+                        [thyIconName]="$safeNavigationMigration(emptyOptions()?.iconName)"
+                        [thySize]="$safeNavigationMigration(emptyOptions()?.size)"
+                        [thyMarginTop]="$safeNavigationMigration(emptyOptions()?.marginTop)"
+                        [thyTopAuto]="$safeNavigationMigration(emptyOptions()?.topAuto)"></thy-empty>
                 </td>
             </tr>
         }

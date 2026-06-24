@@ -1,9 +1,9 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ElementRef, viewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -39,7 +39,7 @@ describe('ThyPickerComponent', () => {
                     provide: CdkConnectedOverlay,
                     useValue: CdkConnectedOverlaySpy
                 },
-                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClient(withXhr(), withInterceptorsFromDi()),
                 provideHttpClientTesting()
             ]
         });
@@ -133,6 +133,7 @@ describe('ThyPickerComponent', () => {
             (inputChange)="onInputChange($event)">
         </thy-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [OverlayModule, ThyPicker, ThyIcon]
 })
 class ThyTestPickerComponent {

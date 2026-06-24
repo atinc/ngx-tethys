@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, WritableSignal, signal } from '@angular/core';
+import { Component, OnInit, inject, WritableSignal, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { clone, options } from '../cascader-address-options';
@@ -55,6 +55,7 @@ const customerOptions = [
 @Component({
     selector: 'thy-cascader-disabled-example',
     templateUrl: './disabled.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderDisabledExampleComponent implements OnInit {

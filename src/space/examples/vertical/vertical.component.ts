@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -7,6 +7,7 @@ import { ThyButton } from 'ngx-tethys/button';
     templateUrl: './vertical.component.html',
     styleUrls: ['./vertical.component.scss'],
     host: {},
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySpace, ThySpaceItemDirective, ThyButton]
 })
 export class ThySpaceVerticalExampleComponent implements OnInit {

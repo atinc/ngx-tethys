@@ -21,7 +21,8 @@ import {
     Signal,
     TemplateRef,
     viewChild,
-    viewChildren
+    viewChildren,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -70,6 +71,7 @@ import { ThyLoading } from 'ngx-tethys/loading';
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,

@@ -1,8 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyIcon } from 'ngx-tethys/icon';
 import {
     ThyLayout,
@@ -29,6 +29,7 @@ import {
             </thy-content>
         </thy-layout>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLayout, ThyHeader, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutBasicComponent {
@@ -50,6 +51,7 @@ class ThyDemoLayoutBasicComponent {
             <thy-content> 恩，我是 content </thy-content>
         </thy-layout>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLayout, ThyHeader, ThyLayoutDirective, ThyHeaderDirective, ThyContent, ThyContentSection, ThyContentMain, ThyIcon]
 })
 class ThyDemoLayoutCustomHeaderComponent {}
@@ -65,6 +67,7 @@ class ThyDemoLayoutCustomHeaderComponent {}
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLayoutDirective, ThyHeaderDirective, ThyContentDirective, ThyContentSectionDirective, ThyContentMainDirective]
 })
 class ThyDemoLayoutDirectiveBasicComponent {
@@ -76,7 +79,7 @@ class ThyDemoLayoutDirectiveBasicComponent {
 describe(`layout`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

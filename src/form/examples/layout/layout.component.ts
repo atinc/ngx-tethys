@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
 import { ThyFormDirective, ThyFormGroupFooter, ThyFormLayout, ThyFormSubmitDirective, ThyFormGroup } from 'ngx-tethys/form';
@@ -13,6 +13,7 @@ interface LayoutInfo {
 @Component({
     selector: 'thy-form-layout-example',
     templateUrl: './layout.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyButtonGroup,
         ThyButton,

@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, ElementRef, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -20,6 +20,7 @@ import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyColorPickerModule, ThyAlpha]
 })
 class ThyDemoAlphaComponent {
@@ -37,6 +38,7 @@ class ThyDemoAlphaComponent {
 @Component({
     selector: 'thy-demo-hue',
     template: ` <thy-hue [color]="color" (colorChange)="colorChangeEvent($event)"></thy-hue> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyColorPickerModule, ThyHue]
 })
 class ThyDemoHueComponent {
@@ -54,6 +56,7 @@ class ThyDemoHueComponent {
 @Component({
     selector: 'thy-demo-saturation',
     template: ` <thy-saturation [color]="color" (colorChange)="colorChangeEvent($event)"></thy-saturation> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyColorPickerModule, ThySaturation]
 })
 class ThyDemoSaturationComponent {
@@ -71,6 +74,7 @@ class ThyDemoSaturationComponent {
 @Component({
     selector: 'thy-demo-inputs',
     template: ` <thy-color-inputs [color]="color" (colorChange)="colorChangeEvent($event)"></thy-color-inputs> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyColorPickerModule, ThyColorInputs]
 })
 class ThyDemoColorInputsComponent {
@@ -89,6 +93,7 @@ class ThyDemoColorInputsComponent {
 @Component({
     selector: 'thy-demo-indicator',
     template: ` <thy-indicator [color]="color" (colorChange)="colorChangeEvent($event)"></thy-indicator> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyColorPickerModule, ThyIndicator]
 })
 class ThyDemoIndicatorComponent {
@@ -110,7 +115,7 @@ describe('thy-alpha', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
     });
@@ -166,7 +171,7 @@ describe('thy-hue', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
     });
@@ -223,7 +228,7 @@ describe('thy-saturation', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
     });
@@ -285,7 +290,7 @@ describe('thy-color-inputs', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
     });
@@ -339,7 +344,7 @@ describe('thy-indicator', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { FormsModule } from '@angular/forms';
@@ -63,6 +63,7 @@ const customerOptions = [
 @Component({
     selector: 'thy-cascader-custom-option-template-example',
     templateUrl: './custom-option-template.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCascader, FormsModule, ThyIcon, ThyFlexibleText]
 })
 export class ThyCascaderCustomOptionTemplateExampleComponent implements OnInit {

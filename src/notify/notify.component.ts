@@ -1,4 +1,4 @@
-import { Component, HostBinding, effect, signal, computed, inject } from '@angular/core';
+import { Component, HostBinding, effect, signal, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { helpers, isString } from 'ngx-tethys/util';
 import { ThyNotifyConfig, ThyNotifyDetail, ThyNotifyPlacement } from './notify.config';
@@ -35,6 +35,7 @@ import { ThyAction } from 'ngx-tethys/action';
             state('componentHide', style(HIDE_STYLE))
         ])
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon, NgClass, ThyViewOutletDirective, NgTemplateOutlet, ThyAction]
 })
 export class ThyNotify extends ThyAbstractMessageComponent<ThyNotifyConfig> {

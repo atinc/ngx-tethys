@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DEFAULT_COLORS, ThyColorPickerDirective } from 'ngx-tethys/color-picker';
 import { NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyColorPickerDirective, NgStyle, FormsModule]
 })
 export class ThyPresetColorsExampleComponent implements OnInit {

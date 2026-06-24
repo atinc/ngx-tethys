@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySlider } from 'ngx-tethys/slider';
 
 @Component({
@@ -15,6 +15,7 @@ import { ThySlider } from 'ngx-tethys/slider';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider]
 })
 export class ThySliderVerticalExampleComponent implements OnInit {

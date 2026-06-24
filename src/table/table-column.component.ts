@@ -9,7 +9,8 @@ import {
     Output,
     TemplateRef,
     ViewEncapsulation,
-    inject
+    inject,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { coerceBooleanProperty, coerceCssPixelValue, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
@@ -35,6 +36,7 @@ export type FixedDirection = 'left' | 'right';
 @Component({
     selector: 'thy-table-column',
     template: '<ng-content></ng-content>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTableColumnComponent implements OnInit {

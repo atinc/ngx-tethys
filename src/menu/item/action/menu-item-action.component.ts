@@ -2,7 +2,7 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, inject, input } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, inject, input, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * 菜单项操作组件
@@ -12,6 +12,7 @@ import { Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, injec
 @Component({
     selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',
     templateUrl: './menu-item-action.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-menu-item-action'
     }

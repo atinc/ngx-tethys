@@ -13,7 +13,8 @@ import {
     model,
     output,
     viewChild,
-    computed
+    computed,
+    linkedSignal
 } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyPopover } from 'ngx-tethys/popover';
@@ -56,7 +57,8 @@ export class ThyMenuGroup implements OnInit {
     /**
      * 是否处于收起状态
      */
-    readonly thyCollapsed: ModelSignal<boolean> = model(false);
+    readonly thyCollapsedInput = input(false, { alias: 'thyCollapsed' });
+    readonly thyCollapsed = linkedSignal(this.thyCollapsedInput);
 
     /**
      * 是否支持展开收起

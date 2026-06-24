@@ -1,6 +1,6 @@
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { Component, DebugElement, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, inject as coreInject, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import {
@@ -25,6 +25,7 @@ import { of } from 'rxjs';
             [thyTwotoneColor]="twotoneColor"
             [thyIconSet]="iconSet"></thy-icon>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIconModule]
 })
 class ThyIconTestBasicComponent {
@@ -42,7 +43,7 @@ class ThyIconTestBasicComponent {
 describe('ThyIconComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -225,7 +226,7 @@ describe('IconRegistry', () => {
         TestBed.configureTestingModule({
             providers: [
                 bypassSanitizeProvider,
-                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClient(withXhr(), withInterceptorsFromDi()),
                 provideHttpClientTesting(),
                 { provide: HttpClient, useValue: httpClientSpy }
             ]

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyHeader, ThySidebar, ThyContent, ThyLayout } from 'ngx-tethys/layout';
 
@@ -6,6 +6,7 @@ import { ThyHeader, ThySidebar, ThyContent, ThyLayout } from 'ngx-tethys/layout'
     selector: 'thy-resizable-layout-example',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.style.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyResizableDirective, ThyResizeHandle, ThyLayout, ThyHeader, ThySidebar, ThyContent]
 })
 export class ThyResizableLayoutExampleComponent {

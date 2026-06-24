@@ -1,10 +1,11 @@
-import { ApplicationRef, Component, ElementRef, viewChild } from '@angular/core';
+import { ApplicationRef, Component, ElementRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-autofocus-test',
     template: ` <input [thyAutofocus]="autofocus" [thyAutoSelect]="autoSelect" #autofocusInput /> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAutofocusDirective]
 })
 class ThyAutofocusTestComponent {

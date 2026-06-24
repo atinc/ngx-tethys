@@ -35,7 +35,8 @@ import {
     signal,
     DestroyRef,
     contentChild,
-    viewChild
+    viewChild,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -87,6 +88,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         forwardRef(() => ThyTreeSelectNodes),
         ThyStopPropagationDirective
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-select-custom thy-select',
         '[class.thy-select-custom--multiple]': 'thyMultiple()',
@@ -555,6 +557,7 @@ const DEFAULT_ITEM_SIZE = 40;
         ThyIcon,
         ThyFlexibleText
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[attr.tabindex]': '-1',
         class: 'thy-tree-select-dropdown',

@@ -1,11 +1,11 @@
 import { TestBed, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
-import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
+import { Component, ViewChild, TemplateRef, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ThyPaginationModule, ThyPagination } from 'ngx-tethys/pagination';
 import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -19,6 +19,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyPageIndexChange)="onPageIndexChange($event)"></thy-pagination>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPaginationModule]
 })
 class PaginationBasicComponent {
@@ -56,6 +57,7 @@ class PaginationBasicComponent {
             [thyPageSizeOptions]="pageSizeOptions"
             (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPaginationModule]
 })
 class PaginationTestComponent {
@@ -101,7 +103,7 @@ describe('ThyPagination', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     });

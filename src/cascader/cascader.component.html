@@ -105,7 +105,7 @@
             </ul>
           }
         } @else {
-          <div class="thy-cascader-empty-container" [ngStyle]="{ 'width.px': triggerRect?.width }">
+          <div class="thy-cascader-empty-container" [ngStyle]="{ 'width.px': $safeNavigationMigration(triggerRect?.width) }">
             <thy-empty
               class="thy-select-empty-content"
               thySize="sm"
@@ -129,7 +129,7 @@
             }
           </ul>
         } @else {
-          <div class="thy-cascader-empty-container" [ngStyle]="{ 'width.px': triggerRect?.width }">
+          <div class="thy-cascader-empty-container" [ngStyle]="{ 'width.px': $safeNavigationMigration(triggerRect?.width) }">
             <thy-empty
               class="thy-select-empty-content"
               thySize="sm"

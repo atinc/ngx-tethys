@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyInput, ThyInputGroup, ThyInputSearch } from 'ngx-tethys/input';
 import { ThyRowDirective, ThyColDirective } from 'ngx-tethys/grid';
@@ -8,6 +8,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-input-search-example',
     templateUrl: './search.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInput, ThyInputSearch, ThyInputGroup, ThyRowDirective, ThyColDirective, FormsModule, ThyButton, ThyIcon]
 })
 export class ThyInputSearchExampleComponent implements OnInit {

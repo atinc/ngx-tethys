@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTheme, ThyThemeStore } from 'ngx-tethys/core';
 import { ThySegment, ThySegmentEvent, ThySegmentItem } from 'ngx-tethys/segment';
 
@@ -7,6 +7,7 @@ const THEME_CACHE_KEY = 'docgeni-theme';
 @Component({
     selector: 'thy-theme-switch-example',
     templateUrl: './switch.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegment, ThySegmentItem]
 })
 export class ThyThemeSwitchExampleComponent implements OnInit {

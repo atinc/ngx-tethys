@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, ElementRef, inject } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyPropertyModule } from '../module';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -24,6 +24,7 @@ import { dispatchMouseEvent } from '../../testing';
                 <input class="age-input" />
             </ng-template>
         </thy-property-item>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPropertyItem, ThySelect, FormsModule]
 })
 class ThyPropertyTestBasicComponent {
@@ -56,7 +57,7 @@ describe(`thy-property-item`, () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
             });
             TestBed.compileComponents();
         }));

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyTags, ThyTagModule } from 'ngx-tethys/tag';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-tags-basic-test',
@@ -13,6 +13,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-tag id="tag1">Tag1</thy-tag>
         </thy-tags>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTagModule, ThyIconModule]
 })
 export class ThyTagsBasicTestComponent implements OnInit {
@@ -26,7 +27,7 @@ describe('thy-tags', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         }).compileComponents();
     }));
 

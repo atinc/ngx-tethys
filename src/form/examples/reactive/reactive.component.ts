@@ -6,7 +6,7 @@ import {
     ThyFormValidatorConfig,
     ThyValidateOn
 } from 'ngx-tethys/form';
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, signal, WritableSignal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
@@ -89,6 +89,7 @@ const provinceCities = [
 @Component({
     selector: 'thy-form-reactive-example',
     templateUrl: './reactive.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThySelect,
         FormsModule,

@@ -1,5 +1,5 @@
 import { ThyFileSelect, ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyProgress } from 'ngx-tethys/progress';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -8,6 +8,7 @@ const UPLOAD_URL = `https://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay
 @Component({
     selector: 'app-upload-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFileSelect, ThyButton, ThyProgress]
 })
 export class ThyUploadBasicExampleComponent {

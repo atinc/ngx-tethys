@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyBadge } from 'ngx-tethys/badge';
 
 @Component({
     selector: 'thy-badge-state-point-example',
     templateUrl: 'state-point.component.html',
     styleUrls: ['./state-point.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadge]
 })
 export class ThyBadgeStatePointExampleComponent implements OnInit {

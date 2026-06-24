@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyAbstractMessageContainerComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
 import { THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
@@ -12,6 +12,7 @@ import { AsyncPipe } from '@angular/common';
     selector: 'thy-notify-container',
     templateUrl: './notify-container.component.html',
     imports: [ThyNotify],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-notify-container'
     }

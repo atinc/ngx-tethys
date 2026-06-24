@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ThySelect } from 'ngx-tethys/select';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'thy-select-async-load-data-example',
     templateUrl: './load-async.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectAsyncLoadDataExampleComponent implements OnInit {

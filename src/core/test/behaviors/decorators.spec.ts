@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { InputNumber } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-test-decorators-component',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p>{{ value }}</p>`
 })
 class TestComponent {

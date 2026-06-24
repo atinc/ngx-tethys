@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * @name thy-list-item,[thy-list-item]
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'thy-list-item,[thy-list-item]',
     template: '<ng-content></ng-content>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-list-item'
     }

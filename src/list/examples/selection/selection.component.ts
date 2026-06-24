@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySelectionList, ThySelectionListChange } from 'ngx-tethys/list';
 import { ThyListOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'app-list-selection-example',
     templateUrl: './selection.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelectionList, ThyListOption, FormsModule]
 })
 export class ThyListSelectionExampleComponent implements OnInit {

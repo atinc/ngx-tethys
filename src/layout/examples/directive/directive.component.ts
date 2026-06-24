@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
     ThyHeaderDirective,
     ThyLayoutDirective,
@@ -13,6 +13,7 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-teth
     selector: 'thy-layout-directive-example',
     templateUrl: './directive.component.html',
     styleUrls: ['./directive.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyHeaderDirective,
         ThySidebarDirective,

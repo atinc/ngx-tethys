@@ -1,9 +1,9 @@
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyTimePanel, ThyTimePickerModule } from 'ngx-tethys/time-picker';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('ThyTimePanelComponent', () => {
     let fixture!: ComponentFixture<ThyTestTimePanelComponent>;
@@ -12,7 +12,7 @@ describe('ThyTimePanelComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -237,6 +237,7 @@ describe('ThyTimePanelComponent', () => {
             (ngModelChange)="onValueChange($event)"
             (thyClosePanel)="closePanel()"></thy-time-picker-panel>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestTimePanelComponent {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { taskTypes } from '../mock-data';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
@@ -11,6 +11,7 @@ import { ThyDivider } from 'ngx-tethys/divider';
 @Component({
     selector: 'thy-select-custom-display-example',
     templateUrl: './custom-display.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, FormsModule, ThyIcon, ThyTag, ThyText, ThyDivider]
 })
 export class ThySelectCustomDisplayExampleComponent implements OnInit {

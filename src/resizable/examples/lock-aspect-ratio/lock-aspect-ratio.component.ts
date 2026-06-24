@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tethys/resizable';
 
 @Component({
     selector: 'thy-resizable-lock-aspect-ratio-example',
     templateUrl: './lock-aspect-ratio.component.html',
     styleUrls: ['../style.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyResizableDirective, ThyResizeHandles]
 })
 export class ThyResizableLockAspectRatioExampleComponent {

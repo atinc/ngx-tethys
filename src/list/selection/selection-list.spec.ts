@@ -1,4 +1,4 @@
-import { Component, DebugElement, viewChild, ViewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThySelectionListChange } from './selection.interface';
 import { waitForAsync, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { ThyListModule, ThySelectionList } from 'ngx-tethys/list';
@@ -7,7 +7,7 @@ import { ThyListOption, ThyListLayout } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DOWN_ARROW, UP_ARROW, SPACE } from 'ngx-tethys/util';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 export function createFakeEvent(type: string, canBubble = false, cancelable = true) {
     const event = document.createEvent('Event');
@@ -23,7 +23,7 @@ describe('ThySelectionList without forms', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             });
 
             TestBed.compileComponents();
@@ -267,6 +267,7 @@ describe('ThySelectionList without forms', () => {
         <button (click)="deselectAll()">清除全部</button>
         <button (click)="determineClearActiveItem()">确认清除</button>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsComponent {
@@ -347,6 +348,7 @@ class SelectionListWithListOptionsComponent {
             <thy-list-option thyValue="drafts"> Drafts </thy-list-option>
         </thy-selection-list>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsDefaultComponent {
@@ -370,6 +372,7 @@ class SelectionListWithListOptionsDefaultComponent {
             }
         </thy-selection-list>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyListModule]
 })
 class SelectionListWithListOptionsByObjectTypeValueComponent {

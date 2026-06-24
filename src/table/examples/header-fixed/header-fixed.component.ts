@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent, ThyTableTheme } from 'ngx-tethys/table';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAvatar } from 'ngx-tethys/avatar';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'thy-table-header-fixed-example',
     templateUrl: './header-fixed.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyAvatar, ThyRadioGroup, ThyRadio, FormsModule]
 })
 export class ThyTableHeaderFixedExampleComponent implements OnInit {

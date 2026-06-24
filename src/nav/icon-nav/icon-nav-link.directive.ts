@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -13,6 +13,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.active]': 'thyIconNavLinkActive()',
         '[class.thy-icon-nav-link]': 'true'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon]
 })
 export class ThyIconNavLink {

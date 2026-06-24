@@ -24,7 +24,8 @@ import {
     TemplateRef,
     signal,
     OutputEmitterRef,
-    OnChanges
+    OnChanges,
+    linkedSignal
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -96,9 +97,11 @@ export class DatePopup implements OnInit, OnChanges {
 
     readonly className = input<string>();
 
-    readonly panelMode = model<ThyPanelMode | ThyPanelMode[]>();
+    readonly panelModeInput = input<ThyPanelMode | ThyPanelMode[]>(undefined, { alias: 'panelMode' });
+    readonly panelMode = linkedSignal(this.panelModeInput);
 
-    readonly value = model<CompatibleValue | null>();
+    readonly valueInput = input<CompatibleValue | null>(undefined, { alias: 'value' });
+    readonly value = linkedSignal(this.valueInput);
 
     readonly defaultPickerValue = input<ThyCompatibleDate | number>();
 

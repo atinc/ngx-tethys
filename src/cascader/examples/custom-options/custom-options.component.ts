@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
 import { SafeAny } from 'ngx-tethys/types';
@@ -16,6 +16,7 @@ const customOptions: SafeAny[] = [
 @Component({
     selector: 'thy-cascader-custom-options-example',
     templateUrl: './custom-options.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormDirective, ThyFormGroup, ThyCascader, ThyTagModule, FormsModule]
 })
 export class ThyCascaderCustomOptionsExampleComponent implements OnInit {

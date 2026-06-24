@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
@@ -11,6 +11,7 @@ import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
         <ng-template #emptyTpl>Empty Template</ng-template>
         <ng-template #dataTimeTpl let-data let-time="time">The data is {{ data }}, The time is {{ time }}</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStringOrTemplateOutletDirective]
 })
 class ThyStringOrTemplateOutletTestComponent {

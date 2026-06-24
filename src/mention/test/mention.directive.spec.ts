@@ -1,7 +1,7 @@
 import { ThyPopover } from 'ngx-tethys/popover';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER } from 'ngx-tethys/util';
-import { Component, DebugElement, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -19,6 +19,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
             <textarea [(ngModel)]="value" thyInput [thyMention]="mentions" [thyPopoverConfig]="popoverConfig"></textarea>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyMentionDirective, ThyInputDirective]
 })
 class ThyTestMentionBasicComponent implements OnInit {
@@ -62,6 +63,7 @@ class ThyTestMentionBasicComponent implements OnInit {
             </ng-template>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyMentionDirective, ThySelectionList, ThySelectOptionGroup, ThyListOption, ThyInputDirective]
 })
 class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
@@ -102,6 +104,7 @@ class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
                 [(ngModel)]="value" />
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyMentionDirective, ThyInputDirective]
 })
 class ThyTestInputMentionComponent implements OnInit {
@@ -128,6 +131,7 @@ class ThyTestInputMentionComponent implements OnInit {
             <p class="example-text" #exampleText contenteditable="true" [thyMention]="mentions">&#64;t</p>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMentionDirective, ThyInputDirective]
 })
 class ThyTestContenteditableMentionComponent implements OnInit {

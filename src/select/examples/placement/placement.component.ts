@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { THY_SELECT_CONFIG, ThySelect } from 'ngx-tethys/select';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyOption } from 'ngx-tethys/shared';
@@ -30,6 +30,7 @@ import { FormsModule } from '@angular/forms';
             }
         }
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectPlacementExampleComponent implements OnInit {

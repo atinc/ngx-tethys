@@ -2,7 +2,7 @@
   <thy-icon [thyIconName]="icon()"></thy-icon>
 }
 @if (feedbackOptions()?.icon) {
-  <thy-icon [class]="feedbackOptions()?.class" [thyIconName]="feedbackOptions()?.icon"></thy-icon>
+  <thy-icon [class]="feedbackOptions()?.class" [thyIconName]="$safeNavigationMigration(feedbackOptions()?.icon)"></thy-icon>
 }
 @if (thyHoverIcon()) {
   <thy-icon class="hover-icon" [thyIconName]="thyHoverIcon()"></thy-icon>

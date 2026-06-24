@@ -9,7 +9,8 @@ import {
     numberAttribute,
     inject,
     input,
-    effect
+    effect,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -26,6 +27,7 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     hostDirectives: [ThyTooltipDirective]
 })
 export class ThyFlexibleText implements AfterContentInit, OnDestroy {

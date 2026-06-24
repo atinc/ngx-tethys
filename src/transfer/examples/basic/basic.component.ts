@@ -1,9 +1,10 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal, ChangeDetectionStrategy } from '@angular/core';
 import { TransferDirection, ThyTransfer, ThyTransferItem, ThyTransferDragEvent } from 'ngx-tethys/transfer';
 
 @Component({
     selector: 'thy-transfer-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTransfer]
 })
 export class ThyTransferBasicExampleComponent implements OnInit {

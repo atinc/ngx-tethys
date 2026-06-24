@@ -6,5 +6,13 @@
     "types": ["jasmine", "ng-dev-mode"]
   },
   "files": ["test.ts"],
-  "include": ["**/*.ts", "**/*.spec.ts"]
+  "include": ["**/*.ts", "**/*.spec.ts"],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * @name thy-menu-divider,[thy-menu-divider],[thyMenuDivider]
  */
 @Component({
     selector: 'thy-menu-divider,[thy-menu-divider],[thyMenuDivider]',
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './menu-divider.component.html'
 })
 export class ThyMenuDivider implements OnInit {

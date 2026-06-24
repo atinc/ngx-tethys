@@ -9,7 +9,8 @@ import {
     input,
     output,
     computed,
-    model
+    model,
+    linkedSignal
 } from '@angular/core';
 
 import { IThyCollapseItemComponent, THY_COLLAPSE_COMPONENT } from './collapse.token';
@@ -51,7 +52,8 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
     /**
      * 是否处于激活展开状态
      */
-    thyActive = model<boolean>(false);
+    thyActiveInput = input<boolean>(false, { alias: 'thyActive' });
+    thyActive = linkedSignal(this.thyActiveInput);
 
     /**
      * 是否禁用当前面板

@@ -2,7 +2,7 @@ import { ThyCascader } from 'ngx-tethys/cascader';
 import { ThyFormGroup } from 'ngx-tethys/form';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { clone, options } from '../cascader-address-options';
@@ -11,6 +11,7 @@ import { ThyTagModule } from 'ngx-tethys/tag';
 @Component({
     selector: 'thy-cascader-any-level-selectable-example',
     templateUrl: './any-level-selectable.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormGroup, ThyCascader, ThyTagModule, FormsModule]
 })
 export class ThyCascaderAnyLevelSelectableExampleComponent implements OnInit {

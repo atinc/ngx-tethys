@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, HostBinding } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * @name thy-slide-layout
@@ -7,6 +7,7 @@ import { Component, ViewEncapsulation, OnInit, HostBinding } from '@angular/core
 @Component({
     selector: 'thy-slide-layout',
     template: '<ng-content></ng-content>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class ThySlideLayout implements OnInit {

@@ -1,10 +1,10 @@
-import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyPropertyOperationModule, ThyPropertyOperation } from 'ngx-tethys/property-operation';
 import { By } from '@angular/platform-browser';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -23,6 +23,7 @@ import { NgClass } from '@angular/common';
             (thyClick)="thyOnclick()">
         </thy-property-operation>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPropertyOperationModule, NgClass]
 })
 class PropertyOperationBasicComponent {
@@ -57,7 +58,7 @@ describe('ThyPropertyOperation', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyPropertyOperationModule],
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         }).compileComponents();
 
         injectDefaultSvgIconSet();

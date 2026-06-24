@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyBadge, ThyBadgeModule } from 'ngx-tethys/badge';
@@ -10,6 +10,7 @@ import { ThyBadge, ThyBadgeModule } from 'ngx-tethys/badge';
             <div>WORKTILE</div>
         </thy-badge>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeBasicComponent implements OnInit {
@@ -35,6 +36,7 @@ class BadgeBasicComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeBasicContextComponent implements OnInit {
@@ -52,6 +54,7 @@ class BadgeBasicContextComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeContentTestComponent implements OnInit {
@@ -69,6 +72,7 @@ class BadgeContentTestComponent implements OnInit {
             <div>WORKTILE</div>
         </thy-badge>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeBasicHollowComponent implements OnInit {
@@ -82,6 +86,7 @@ class BadgeBasicHollowComponent implements OnInit {
 @Component({
     selector: 'thy-badge-dot',
     template: ` <thy-badge [thyIsDot]="isDot"></thy-badge> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeBasicDotComponent implements OnInit {
@@ -95,6 +100,7 @@ class BadgeBasicDotComponent implements OnInit {
 @Component({
     selector: 'thy-badge-custom-color',
     template: ` <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeBasicCustomColorComponent implements OnInit {
