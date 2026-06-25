@@ -21,6 +21,7 @@ import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '..
 import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect, ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyEmptyConfig } from 'ngx-tethys/empty';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -406,6 +407,55 @@ class SearchTreeSelectComponent {
 }
 
 @Component({
+    selector: 'thy-server-search-tree-select',
+    template: `
+        <div>
+            <thy-tree-select
+                #treeSelect
+                [thyTreeNodes]="nodes"
+                thyPrimaryKey="key"
+                thyShowKey="name"
+                [(ngModel)]="selectedValue"
+                [thyShowSearch]="true"
+                [thyServerSearch]="true"
+                (thyOnSearch)="thyOnSearch($event)"></thy-tree-select>
+        </div>
+    `,
+    imports: [ThyTreeSelect, FormsModule]
+})
+class ServerSearchTreeSelectComponent {
+    nodes = searchTreeSelectData;
+
+    selectedValue = '';
+
+    readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
+
+    thyOnSearch = jasmine.createSpy('thyOnSearch callback');
+}
+
+@Component({
+    selector: 'thy-load-state-tree-select',
+    template: `
+        <div>
+            <thy-tree-select
+                #treeSelect
+                [thyTreeNodes]="nodes"
+                thyPrimaryKey="key"
+                thyShowKey="name"
+                [thyLoadState]="loadState"></thy-tree-select>
+        </div>
+    `,
+    imports: [ThyTreeSelect, FormsModule]
+})
+class LoadStateTreeSelectComponent {
+    nodes: ThyTreeSelectNode[] = [];
+
+    loadState = false;
+
+    readonly treeSelect = viewChild<ThyTreeSelect>('treeSelect');
+}
+
+@Component({
     selector: 'test-virtual-scrolling-tree-select',
     template: `
         <thy-tree-select #treeSelect [thyTreeNodes]="mockData" [(ngModel)]="selectedValue" [thyVirtualScroll]="true"> </thy-tree-select>
@@ -433,6 +483,7 @@ describe('ThyTreeSelect', () => {
             providers: [
                 provideHttpClient(withXhr()),
                 provideAnimations(),
+                ThyEmptyConfig,
                 {
                     provide: Sanitizer,
                     useValue: {
@@ -878,6 +929,54 @@ describe('ThyTreeSelect', () => {
             tick(200);
             fixture.detectChanges();
             expect(treeNodesExpands(componentInstance.treeSelect().treeNodes()).length).toEqual(treeNodesExpands(filterNodes).length);
+        }));
+    });
+
+    describe('with server search', () => {
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([ServerSearchTreeSelectComponent])));
+
+        it('should exec thyOnSearch when thyServerSearch is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(ServerSearchTreeSelectComponent);
+            fixture.detectChanges();
+            const spy = fixture.componentInstance.thyOnSearch;
+            fixture.componentInstance.treeSelect().searchValue('2-1');
+            fixture.detectChanges();
+            expect(spy).toHaveBeenCalledWith('2-1');
+        }));
+
+        it('should not filter trees locally when thyServerSearch is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(ServerSearchTreeSelectComponent);
+            const componentInstance = fixture.componentInstance;
+            fixture.detectChanges();
+            componentInstance.treeSelect().searchValue('2-1');
+            fixture.detectChanges();
+            expect(componentInstance.treeSelect().treeNodes().length).toEqual(componentInstance.treeSelect().thyTreeNodes().length);
+        }));
+    });
+
+    describe('with load state', () => {
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([LoadStateTreeSelectComponent])));
+
+        it('should show loading when thyLoadState is false and tree nodes is empty', fakeAsync(() => {
+            const fixture = TestBed.createComponent(LoadStateTreeSelectComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.treeSelect().openSelectPop();
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('thy-loading')).toBeTruthy();
+            expect(overlayContainerElement.querySelector('thy-empty')).toBeFalsy();
+        }));
+
+        it('should show empty when thyLoadState is true and tree nodes is empty', fakeAsync(() => {
+            const fixture = TestBed.createComponent(LoadStateTreeSelectComponent);
+            fixture.componentInstance.loadState = true;
+            fixture.detectChanges();
+            fixture.componentInstance.treeSelect().openSelectPop();
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('thy-empty')).toBeTruthy();
         }));
     });
 

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.5](github.com/atinc/ngx-tethys/compare/21.0.4...21.0.5) (2026-06-25)
+
+
+### Features
+
+* **tree-select:** #TINFR-3744 【TreeSelect】支持服务端搜索 ([#3819](/github.com/atinc/ngx-tethys/issues/3819)) ([84d4cdb](github.com/atinc/ngx-tethys/commits/84d4cdb447c6e6b1776749290733299ab27cd75b)), closes [#TINFR-3744](github.com/atinc/ngx-tethys/issues/TINFR-3744)
+
 ## [21.0.4](https://github.com/atinc/ngx-tethys/compare/21.0.3...21.0.4) (2026-05-19)
 
 
