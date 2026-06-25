@@ -1340,7 +1340,7 @@ describe('thy-cascader', () => {
             const beforeLoadLabels = debugElement.queryAll(By.css('.choice-item'));
             expect(beforeLoadLabels.length).toBe(selectedPaths.length);
             expect(beforeLoadLabels[0].nativeElement.innerText).toContain('hangzhou');
-            
+
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'mouseenter', true);
             fixture.detectChanges();
             expect(overlayContainerElement.querySelector('thy-loading')).toBeTruthy();
@@ -1354,7 +1354,6 @@ describe('thy-cascader', () => {
             const echoLabels = debugElement.queryAll(By.css('.choice-item'));
             expect(echoLabels.length).toBe(selectedPaths.length);
             expect(echoLabels[0].nativeElement.innerText).toContain('hangzhou');
-
 
             // const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
             // trigger.click();

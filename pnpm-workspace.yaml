@@ -1,0 +1,9 @@
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  esbuild: true
+  fsevents: true
+  lmdb: true
+  msgpackr-extract: true
+minimumReleaseAgeExclude:
+  - '@docgeni/*'

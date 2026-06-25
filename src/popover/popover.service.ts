@@ -118,9 +118,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return popoverRef;
     }
 
-    protected createInjectorProviders<T>(
-        popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer
-    ): StaticProvider[] {
+    protected createInjectorProviders<T>(popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer): StaticProvider[] {
         return [
             { provide: ThyPopoverContainer, useValue: popoverContainer },
             {

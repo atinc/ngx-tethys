@@ -1,19 +1,8 @@
 import { ThySelectionListChange, ThySelectionList } from 'ngx-tethys/list';
 import { ThyPopoverRef } from 'ngx-tethys/popover';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, debounceTime, switchMap, take } from 'rxjs/operators';
-import {
-    Component,
-    ElementRef,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    inject,
-    signal,
-    input,
-    afterNextRender,
-    Injector
-} from '@angular/core';
+import { catchError, debounceTime, switchMap } from 'rxjs/operators';
+import { Component, ElementRef, OnDestroy, OnInit, inject, signal, input, afterNextRender, Injector } from '@angular/core';
 import { SeekQueryResult } from '../adapter/adapter';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
 import { ThyListOption } from 'ngx-tethys/shared';

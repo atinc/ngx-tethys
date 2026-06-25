@@ -56,9 +56,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return dialogRef;
     }
 
-    protected createInjectorProviders<T>(
-        dialogRef: ThyDialogRef<T>, dialogContainer: ThyDialogContainer
-    ): StaticProvider[] {
+    protected createInjectorProviders<T>(dialogRef: ThyDialogRef<T>, dialogContainer: ThyDialogContainer): StaticProvider[] {
         return [
             { provide: ThyDialogContainer, useValue: dialogContainer },
             {

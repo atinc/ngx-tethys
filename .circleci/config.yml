@@ -24,13 +24,13 @@ jobs:
           google-chrome --version
           which google-chrome
       - restore_cache:
-          key: ngx-tethys-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run: npm ci
+          key: ngx-tethys-{{ .Branch }}-{{ checksum "pnpm-lock.yaml" }}
+      - run: corepack enable && pnpm install --frozen-lockfile
       - save_cache:
-          key: ngx-tethys-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: ngx-tethys-{{ .Branch }}-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - 'node_modules'
-      - run: npm run lint
-      - run: npm run test-tethys -- --no-watch --no-progress --browsers=ChromeHeadlessCI --source-map=false
-      - run: npm run test-cdk -- --no-watch --no-progress --browsers=ChromeHeadlessCI --source-map=false
-      - run: npm run test-schematics
+      - run: pnpm run lint
+      - run: pnpm run test-tethys --no-watch --no-progress --browsers=ChromeHeadlessCI --source-map=false
+      - run: pnpm run test-cdk --no-watch --no-progress --browsers=ChromeHeadlessCI --source-map=false
+      - run: pnpm run test-schematics

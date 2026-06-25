@@ -405,7 +405,7 @@ describe('ThyNotify', () => {
             expect(notify.style.opacity === '0').toBeFalsy();
             flush();
         }));
-        
+
         it('should render actions correctly', fakeAsync(() => {
             const action1Spy = jasmine.createSpy('action1');
             const action2Spy = jasmine.createSpy('action2');

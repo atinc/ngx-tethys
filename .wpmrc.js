@@ -2,7 +2,6 @@ module.exports = {
     allowBranch: ['master', 'v16.*', 'v17.*', 'v18.*', 'v19.*', 'v20.*', 'v21.*', 'release-auto-*'],
     bumpFiles: [
         'package.json',
-        'package-lock.json',
         'src/package.json',
         'cdk/package.json',
         {
@@ -23,7 +22,7 @@ module.exports = {
     // otherwise, the changelog will rebuild, and will be lost past versions
     tagPrefix: '',
     hooks: {
-        prepublish: 'npm run build',
+        prepublish: 'pnpm run build',
         prereleaseBranch: 'node ./scripts/pre-release.js {{version}}'
     }
 };
