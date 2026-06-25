@@ -7,3 +7,5 @@ allowBuilds:
   msgpackr-extract: true
 minimumReleaseAgeExclude:
   - '@docgeni/*'
+overrides:
+  conventional-changelog-angular: 8.3.1

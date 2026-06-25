@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  conventional-changelog-angular: 8.3.1
+
 importers:
 
   .:
@@ -134,7 +137,7 @@ importers:
         version: 8.60.0(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)
       '@worktile/pkg-manager':
         specifier: ^0.2.0-next.4
-        version: 0.2.0-next.7(@docgeni/angular@21.0.0(d765df798352047d4a5023a9823f8fee))(@types/node@22.19.19)(conventional-changelog-angular@6.0.0)(conventional-commits-filter@5.0.0)(typescript@5.9.3)
+        version: 0.2.0-next.7(@docgeni/angular@21.0.0(d765df798352047d4a5023a9823f8fee))(@types/node@22.19.19)(conventional-changelog-angular@8.3.1)(conventional-commits-filter@5.0.0)(typescript@5.9.3)
       angular-eslint:
         specifier: ^21.1.0
         version: 21.4.0(@angular/cli@21.2.13(@types/node@22.19.19)(chokidar@3.6.0))(chokidar@3.6.0)(eslint@9.39.4(jiti@2.7.0))(typescript-eslint@8.60.0(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))(typescript@5.9.3)
@@ -144,6 +147,9 @@ importers:
       concurrently:
         specifier: ^3.6.0
         version: 3.6.1
+      conventional-changelog-angular:
+        specifier: 8.3.1
+        version: 8.3.1
       coveralls:
         specifier: ^3.1.1
         version: 3.1.1
@@ -430,6 +436,7 @@ packages:
   '@angular/animations@21.2.14':
     resolution: {integrity: sha512-9WLnsJE0xqtd1rVtHMvsAUxFy3OdPks4bdmUIqyw23X/je7ytUALAGWNadffcZBwRpa1A6TUnLr9X4+Draz3kw==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+    deprecated: '@angular/animations is deprecated. Use `animate.enter` and `animate.leave` instead. For more information see: https://v22.angular.dev/guide/animations.'
     peerDependencies:
       '@angular/core': 21.2.14
 
@@ -543,6 +550,7 @@ packages:
   '@angular/platform-browser-dynamic@21.2.14':
     resolution: {integrity: sha512-m5U4zX8JFnxTAIGpsBXIAyefSmYqdORY/OfHC0aMmZovuFCbXXIYqYRQDBB7+YVNpSDSHllCrKEZFu/CC6dq3g==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+    deprecated: '@angular/platform-browser-dynamic is deprecated. Use `@angular/platform-browser` instead.'
     peerDependencies:
       '@angular/common': 21.2.14
       '@angular/compiler': 21.2.14
@@ -2976,7 +2984,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@docgeni/angular': 21.0.0
-      conventional-changelog-angular: ^8.3.1
+      conventional-changelog-angular: 8.3.1
 
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -3735,13 +3743,9 @@ packages:
     resolution: {integrity: sha512-j/O/d7GcZCyNl7/hwZAb606rzqkyvaDctLmckbxLzHvFBzTJHuGEdodATcP3yIRoDrLHkIATJuvzbFlp/ki2cQ==}
     engines: {node: '>=18'}
 
-  conventional-changelog-angular@5.0.13:
-    resolution: {integrity: sha512-i/gipMxs7s8L/QeuavPF2hLnJgH6pEZAttySB6aiQLWcX3puWDL3ACVmvBhJGxnAy52Qc15ua26BufY6KpmrVA==}
-    engines: {node: '>=10'}
-
-  conventional-changelog-angular@6.0.0:
-    resolution: {integrity: sha512-6qLgrBF4gueoC7AFVHu51nHL9pF9FRjXrH+ceVf7WmAfH3gs+gEYOkvxhjMPjZu57I4AGUGoNTY8V7Hrgf1uqg==}
-    engines: {node: '>=14'}
+  conventional-changelog-angular@8.3.1:
+    resolution: {integrity: sha512-6gfI3otXK5Ph5DfCOI1dblr+kN3FAm5a97hYoQkqNZxOaYa5WKfXH+AnpsmS+iUH2mgVC2Cg2Qw9m5OKcmNrIg==}
+    engines: {node: '>=18'}
 
   conventional-changelog-atom@3.0.0:
     resolution: {integrity: sha512-pnN5bWpH+iTUWU3FaYdw5lJmfWeqSyrUkG+wyHBI9tC1dLNnHkbAOg1SzTQ7zBqiFrfo55h40VsGXWMdopwc5g==}
@@ -6924,14 +6928,6 @@ packages:
     resolution: {integrity: sha512-KTqnxsgGiQ6ZAzZCVlJH5eOjSnvlyEgx1m8bkRJfOhmGRqfo5KLvmAlACQkrjEtOQ4B7wF9TdSLIs9O90MX9xA==}
     engines: {node: '>=16.0.0'}
 
-  q@1.5.1:
-    resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
-    engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
-    deprecated: |-
-      You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
-
-      (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
-
   qjobs@1.2.0:
     resolution: {integrity: sha512-8YOJEHtxpySA3fFDyCRxA+UUV+fA+rTWnuWvylOK/NCjhY+b4ocCtmu8TtsWb+mYeU+GCHf/S66KZF/AsteKHg==}
     engines: {node: '>=0.9'}
@@ -9825,7 +9821,7 @@ snapshots:
   '@commitlint/parse@16.2.1':
     dependencies:
       '@commitlint/types': 16.2.1
-      conventional-changelog-angular: 5.0.13
+      conventional-changelog-angular: 8.3.1
       conventional-commits-parser: 3.2.4
 
   '@commitlint/read@16.2.1':
@@ -11315,7 +11311,7 @@ snapshots:
 
   '@types/connect-history-api-fallback@1.5.4':
     dependencies:
-      '@types/express-serve-static-core': 4.19.8
+      '@types/express-serve-static-core': 5.1.1
       '@types/node': 22.19.19
 
   '@types/connect@3.4.38':
@@ -11662,14 +11658,14 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@worktile/pkg-manager@0.2.0-next.7(@docgeni/angular@21.0.0(d765df798352047d4a5023a9823f8fee))(@types/node@22.19.19)(conventional-changelog-angular@6.0.0)(conventional-commits-filter@5.0.0)(typescript@5.9.3)':
+  '@worktile/pkg-manager@0.2.0-next.7(@docgeni/angular@21.0.0(d765df798352047d4a5023a9823f8fee))(@types/node@22.19.19)(conventional-changelog-angular@8.3.1)(conventional-commits-filter@5.0.0)(typescript@5.9.3)':
     dependencies:
       '@docgeni/angular': 21.0.0(d765df798352047d4a5023a9823f8fee)
       '@docgeni/toolkit': 2.8.0-next.8
       chalk: 4.1.2
       commit-and-tag-version: 12.7.3
       conventional-changelog: 7.2.0(conventional-commits-filter@5.0.0)
-      conventional-changelog-angular: 6.0.0
+      conventional-changelog-angular: 8.3.1
       cosmiconfig: 9.0.1(typescript@5.9.3)
       inquirer: 8.2.7(@types/node@22.19.19)
       lodash: 4.18.1
@@ -12582,12 +12578,7 @@ snapshots:
 
   content-type@2.0.0: {}
 
-  conventional-changelog-angular@5.0.13:
-    dependencies:
-      compare-func: 2.0.0
-      q: 1.5.1
-
-  conventional-changelog-angular@6.0.0:
+  conventional-changelog-angular@8.3.1:
     dependencies:
       compare-func: 2.0.0
 
@@ -12651,7 +12642,7 @@ snapshots:
 
   conventional-changelog@4.0.0:
     dependencies:
-      conventional-changelog-angular: 6.0.0
+      conventional-changelog-angular: 8.3.1
       conventional-changelog-atom: 3.0.0
       conventional-changelog-codemirror: 3.0.0
       conventional-changelog-conventionalcommits: 6.1.0
@@ -12741,7 +12732,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 4.3.3
       serialize-javascript: 7.0.5
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.16
       webpack: 5.105.2(esbuild@0.27.3)(postcss@8.5.12)
 
   core-js-compat@3.49.0:
@@ -12822,14 +12813,14 @@ snapshots:
 
   css-loader@7.1.3(webpack@5.105.2(esbuild@0.27.3)(postcss@8.5.12)):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.12)
-      postcss: 8.5.12
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.12)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.12)
-      postcss-modules-scope: 3.2.1(postcss@8.5.12)
-      postcss-modules-values: 4.0.0(postcss@8.5.12)
+      icss-utils: 5.1.0(postcss@8.5.15)
+      postcss: 8.5.15
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.15)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.15)
+      postcss-modules-scope: 3.2.1(postcss@8.5.15)
+      postcss-modules-values: 4.0.0(postcss@8.5.15)
       postcss-value-parser: 4.2.0
-      semver: 7.7.4
+      semver: 7.8.1
     optionalDependencies:
       webpack: 5.105.2(esbuild@0.27.3)(postcss@8.5.12)
 
@@ -14363,9 +14354,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  icss-utils@5.1.0(postcss@8.5.12):
+  icss-utils@5.1.0(postcss@8.5.15):
     dependencies:
-      postcss: 8.5.12
+      postcss: 8.5.15
 
   ieee754@1.2.1: {}
 
@@ -16275,7 +16266,7 @@ snapshots:
       cosmiconfig: 9.0.1(typescript@5.9.3)
       jiti: 2.7.0
       postcss: 8.5.12
-      semver: 7.7.4
+      semver: 7.8.1
     optionalDependencies:
       webpack: 5.105.2(esbuild@0.27.3)(postcss@8.5.12)
     transitivePeerDependencies:
@@ -16283,26 +16274,26 @@ snapshots:
 
   postcss-media-query-parser@0.2.3: {}
 
-  postcss-modules-extract-imports@3.1.0(postcss@8.5.12):
+  postcss-modules-extract-imports@3.1.0(postcss@8.5.15):
     dependencies:
-      postcss: 8.5.12
+      postcss: 8.5.15
 
-  postcss-modules-local-by-default@4.2.0(postcss@8.5.12):
+  postcss-modules-local-by-default@4.2.0(postcss@8.5.15):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.12)
-      postcss: 8.5.12
+      icss-utils: 5.1.0(postcss@8.5.15)
+      postcss: 8.5.15
       postcss-selector-parser: 7.1.1
       postcss-value-parser: 4.2.0
 
-  postcss-modules-scope@3.2.1(postcss@8.5.12):
+  postcss-modules-scope@3.2.1(postcss@8.5.15):
     dependencies:
-      postcss: 8.5.12
+      postcss: 8.5.15
       postcss-selector-parser: 7.1.1
 
-  postcss-modules-values@4.0.0(postcss@8.5.12):
+  postcss-modules-values@4.0.0(postcss@8.5.15):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.12)
-      postcss: 8.5.12
+      icss-utils: 5.1.0(postcss@8.5.15)
+      postcss: 8.5.15
 
   postcss-safe-parser@7.0.1(postcss@8.5.15):
     dependencies:
@@ -16423,8 +16414,6 @@ snapshots:
       tslib: 2.8.1
 
   pvutils@1.1.5: {}
-
-  q@1.5.1: {}
 
   qjobs@1.2.0: {}
 
@@ -16666,7 +16655,7 @@ snapshots:
       adjust-sourcemap-loader: 4.0.0
       convert-source-map: 1.9.0
       loader-utils: 2.0.4
-      postcss: 8.5.12
+      postcss: 8.5.15
       source-map: 0.6.1
 
   resolve-url@0.2.1: {}
