@@ -320,9 +320,12 @@ export class ThyPicker implements AfterViewInit {
     }
 
     formatDate(value: TinyDate) {
+        if (!this.innerFormat) {
+            return '';
+        }
         // dateHelper.format() 使用的是 angular 的 format，不支持季度，修改的话，改动比较大。
         // 此处通过对 innerFormat 做下判断，如果是季度的 format，使用 date-fns 的 format()
-        if (this.innerFormat && (this.innerFormat.includes('q') || this.innerFormat.includes('Q'))) {
+        if (this.innerFormat.includes('q') || this.innerFormat.includes('Q')) {
             return value.format(this.innerFormat);
         } else {
             return this.dateHelper.format(value?.nativeDate, this.innerFormat!);

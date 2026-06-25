@@ -24,7 +24,6 @@ export class YearTable extends CalendarTable {
     private chooseYear(year: number): void {
         const newValue = this.activeDate().setYear(year);
         this.value.set(newValue);
-        this.valueChange.emit(newValue);
         this.render();
     }
 

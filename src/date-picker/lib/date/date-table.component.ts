@@ -46,7 +46,7 @@ export class DateTable extends CalendarTable {
             timeZone
         );
         this.activeDate.set(date.clone());
-        this.valueChange.emit(date);
+        this.value.set(date);
     }
 
     makeHeadRow(): DateCell[] {

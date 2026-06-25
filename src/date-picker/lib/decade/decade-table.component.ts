@@ -27,7 +27,6 @@ export class DecadeTable extends CalendarTable {
     private chooseDecade(startYear: number): void {
         const newValue = (this.value() || new TinyDate()).setYear(startYear);
         this.value.set(newValue);
-        this.valueChange.emit(newValue);
     }
 
     makeHeadRow(): DateCell[] {

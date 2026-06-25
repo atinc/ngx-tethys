@@ -97,10 +97,10 @@ export class DatePopup implements OnInit, OnChanges {
 
     readonly className = input<string>();
 
-    readonly panelModeInput = input<ThyPanelMode | ThyPanelMode[]>(undefined, { alias: 'panelMode' });
-    readonly panelMode = linkedSignal(this.panelModeInput);
+    readonly panelMode = model<ThyPanelMode | ThyPanelMode[]>();
 
     readonly valueInput = input<CompatibleValue | null>(undefined, { alias: 'value' });
+
     readonly value = linkedSignal(this.valueInput);
 
     readonly defaultPickerValue = input<ThyCompatibleDate | number>();
@@ -118,8 +118,6 @@ export class DatePopup implements OnInit, OnChanges {
     readonly timestampPrecision = input<'seconds' | 'milliseconds'>();
 
     readonly timeZone = input<string>();
-
-    readonly panelModeChange = output<ThyPanelMode | ThyPanelMode[]>();
 
     readonly calendarChange = output<CompatibleValue>();
 
@@ -193,7 +191,7 @@ export class DatePopup implements OnInit, OnChanges {
         if (changes.defaultPickerValue) {
             this.updateActiveDate();
         }
-        if (changes.value && changes.value.currentValue) {
+        if (changes.valueInput) {
             this.updateActiveDate();
         }
     }
@@ -254,7 +252,7 @@ export class DatePopup implements OnInit, OnChanges {
 
     updateActiveDate() {
         this.clearHoverValue();
-        if (!this.value()) {
+        if (!this.value() && !this.valueInput()) {
             this.value.set(this.getDefaultPickerValue());
         }
         if (this.isRange()) {
@@ -349,11 +347,12 @@ export class DatePopup implements OnInit, OnChanges {
 
     onPanelModeChange(mode: ThyPanelMode, partType?: RangePartType): void {
         if (this.isRange()) {
-            (this.panelMode() as ThyPanelMode[])[this.getPartTypeIndex(partType)] = mode;
+            const modes = [...(this.panelMode() as ThyPanelMode[])];
+            modes[this.getPartTypeIndex(partType)] = mode;
+            this.panelMode.set(modes);
         } else {
             this.panelMode.set(mode);
         }
-        this.panelModeChange.emit(this.panelMode()!);
     }
 
     onHeaderChange(value: TinyDate, partType?: RangePartType): void {

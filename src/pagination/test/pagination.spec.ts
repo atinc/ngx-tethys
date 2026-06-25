@@ -91,6 +91,7 @@ describe('ThyPagination', () => {
                 [thyShowQuickJumper]="false"
                 (thyPageIndexChange)="pageIndexChange($event)"></thy-pagination>
         `,
+        changeDetection: ChangeDetectionStrategy.Eager,
         imports: [ThyPaginationModule]
     })
     class PaginationCustomPagesComponent {
