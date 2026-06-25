@@ -38,6 +38,7 @@
   <thy-tree-select-nodes
     thyStopPropagation
     [thyVirtualScroll]="thyVirtualScroll()"
+    [loadState]="thyLoadState()"
     [treeNodes]="thyVirtualScroll() ? virtualTreeNodes() : treeNodes()"
     [animate.enter]="animateEnterClass">
   </thy-tree-select-nodes>
