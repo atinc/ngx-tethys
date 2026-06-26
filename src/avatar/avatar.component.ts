@@ -1,17 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    Signal,
-    WritableSignal,
-    computed,
-    effect,
-    inject,
-    input,
-    model,
-    output,
-    signal
-} from '@angular/core';
+import { Component, ElementRef, Signal, WritableSignal, computed, effect, inject, input, model, output, signal } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { isString, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -49,7 +36,6 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
     host: {
         class: 'thy-avatar'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
 export class ThyAvatar {

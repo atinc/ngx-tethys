@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit, ElementRef, Renderer2, inject } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, inject } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -10,7 +10,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     selector: 'thy-breadcrumb-item,[thyBreadcrumbItem]',
     template: '<ng-content></ng-content><thy-icon class="separator-icon" thyIconName="angle-right"></thy-icon>',
     exportAs: 'ThyBreadcrumbItem',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-breadcrumb-item'
     },

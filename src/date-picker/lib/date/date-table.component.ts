@@ -11,7 +11,6 @@ import { DateBodyRow, DateCell } from './types';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-table',
     exportAs: 'dateTable',

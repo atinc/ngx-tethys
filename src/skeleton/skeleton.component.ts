@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, input } from '@angular/core';
+import { Component, ViewEncapsulation, input } from '@angular/core';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
@@ -9,7 +9,6 @@ import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-skeleton',
     template: ` <ng-content></ng-content> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class ThySkeleton {

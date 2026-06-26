@@ -1,5 +1,5 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, model, OnInit, Signal, ViewContainerRef } from '@angular/core';
+import { Component, inject, input, model, OnInit, Signal, ViewContainerRef } from '@angular/core';
 import { injectLocale, ThyColorPickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
@@ -13,7 +13,6 @@ import { ThyColor } from './helpers/color.class';
 @Component({
     selector: 'thy-color-picker-panel',
     templateUrl: './color-picker-panel.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.pt-4]': '!transparentColorSelectable()',
         '[class.thy-color-picker-panel]': 'true'

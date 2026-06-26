@@ -11,7 +11,6 @@ import {
     TinyDateCompareGrain
 } from 'ngx-tethys/util';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     inject,
@@ -55,7 +54,6 @@ import { InnerPopup } from './inner-popup.component';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-popup',
     exportAs: 'datePopup',

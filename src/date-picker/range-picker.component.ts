@@ -11,7 +11,6 @@ import { ThyPicker } from './picker.component';
  * @order 70
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-range-picker',
     exportAs: 'thyRangePicker',
     templateUrl: './base-picker.component.html',

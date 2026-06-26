@@ -1,7 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -68,7 +67,6 @@ const sharpMatcherRegx = /#([^#]+)$/;
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyAffix, NgTemplateOutlet, NgStyle, NgClass],
     providers: [
         {

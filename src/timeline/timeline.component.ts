@@ -3,7 +3,6 @@ import {
     OnInit,
     ChangeDetectorRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy,
     inject,
     input,
     effect,
@@ -33,7 +32,6 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
  * @order 10
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     selector: 'thy-timeline',
     providers: [ThyTimelineService],

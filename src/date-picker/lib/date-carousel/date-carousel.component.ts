@@ -19,7 +19,6 @@ import { QUARTER_FORMAT } from '../../date-picker.config';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-carousel',
     templateUrl: './date-carousel.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,

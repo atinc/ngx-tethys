@@ -1,16 +1,13 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
-    ModelSignal,
     OnInit,
     TemplateRef,
     contentChild,
     inject,
     input,
-    model,
     output,
     viewChild,
     computed,
@@ -35,7 +32,6 @@ import { ThyMenu } from '../menu.component';
         '[class.collapsed]': 'thyCollapsed()',
         '[class.has-icon]': 'thyShowIcon()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgClass, NgTemplateOutlet, ThyIcon, ThyAnimationCollapseDirective]
 })
 export class ThyMenuGroup implements OnInit {

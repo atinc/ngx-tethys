@@ -9,7 +9,6 @@ import { NgClass } from '@angular/common';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'month-table',
     exportAs: 'monthTable',

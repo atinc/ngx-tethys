@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, Injector, ElementRef, inject } from '@angular/core';
+import { Component, ViewEncapsulation, Injector, ElementRef, inject } from '@angular/core';
 import { IThyImageDirective, IThyImageGroupComponent, THY_IMAGE_GROUP_COMPONENT } from './image.token';
 
 /**
@@ -8,7 +8,6 @@ import { IThyImageDirective, IThyImageGroupComponent, THY_IMAGE_GROUP_COMPONENT 
 @Component({
     selector: 'thy-image-group, [thyImageGroup]',
     template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [
         {

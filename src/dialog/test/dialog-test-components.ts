@@ -151,7 +151,6 @@ export class WithInjectedDataDialogTestComponent implements OnInit {
 }
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: 'hello'
 })
 export class WithOnPushViewContainerTestComponent {

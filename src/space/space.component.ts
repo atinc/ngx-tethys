@@ -1,6 +1,6 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { ChangeDetectionStrategy, Component, Directive, input, TemplateRef, computed, effect, contentChildren } from '@angular/core';
+import { Component, Directive, input, TemplateRef, computed, effect, contentChildren } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -23,7 +23,6 @@ const DEFAULT_SIZE: ThySpacingSize = 'md';
 @Component({
     selector: 'thy-space',
     templateUrl: './space.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.thy-space]': 'true',
         '[class.thy-space-vertical]': 'thyVertical()'

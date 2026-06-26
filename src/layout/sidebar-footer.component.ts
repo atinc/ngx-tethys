@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/core';
+import { Component, Directive } from '@angular/core';
 
 /**
  * 侧边栏底部布局指令
@@ -21,7 +21,6 @@ export class ThySidebarFooterDirective {}
 @Component({
     selector: 'thy-sidebar-footer',
     template: ` <ng-content></ng-content> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [ThySidebarFooterDirective]
 })
 export class ThySidebarFooter {}

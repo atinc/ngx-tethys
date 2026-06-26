@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, DestroyRef, input } from '@angular/core';
+import { Component, ElementRef, OnInit, inject, DestroyRef, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridResponsiveDescription, THY_GRID_ITEM_DEFAULT_SPAN } from './grid.type';
@@ -12,7 +12,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 @Component({
     selector: 'thy-grid-item,[thyGridItem]',
     template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-grid-item'
     }

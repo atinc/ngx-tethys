@@ -1,7 +1,6 @@
 import {
     ChangeDetectorRef,
     Component,
-    ChangeDetectionStrategy,
     OnDestroy,
     OnInit,
     TemplateRef,
@@ -37,7 +36,6 @@ const DEFAULT_ARROW_ICON = 'angle-right';
         '[class.thy-collapse-item-active]': 'thyActive()',
         '[class.thy-collapse-item-disabled]': 'thyDisabled()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet, ThyIcon, ThyAnimationCollapseDirective]
 })
 export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDestroy {

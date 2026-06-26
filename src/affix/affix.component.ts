@@ -7,7 +7,6 @@ import { Platform } from '@angular/cdk/platform';
 
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     Component,
     computed,
     effect,
@@ -43,7 +42,6 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
             <ng-content></ng-content>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class ThyAffix implements AfterViewInit, OnDestroy {

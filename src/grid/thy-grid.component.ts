@@ -1,16 +1,5 @@
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Directive,
-    ElementRef,
-    NgZone,
-    OnInit,
-    inject,
-    input,
-    contentChildren,
-    effect
-} from '@angular/core';
+import { Component, Directive, ElementRef, NgZone, OnInit, inject, input, contentChildren, effect } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, Subject } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
@@ -232,7 +221,6 @@ export class ThyGrid implements ThyGridToken, OnInit {
 @Component({
     selector: 'thy-grid',
     template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [],
     providers: [
         {

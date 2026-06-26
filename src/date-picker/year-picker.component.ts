@@ -12,7 +12,6 @@ import { ThyPanelMode } from './standard-types';
  * @order 50
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-year-picker',
     exportAs: 'thyYearPicker',
     templateUrl: './base-picker.component.html',

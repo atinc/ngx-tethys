@@ -3,7 +3,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import {
-    ChangeDetectionStrategy,
     Component,
     forwardRef,
     numberAttribute,
@@ -68,7 +67,6 @@ const treeItemSizeMap = {
     selector: 'thy-tree',
     templateUrl: './tree.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-tree',
         '[class.thy-multiple-selection-list]': 'thyMultiple()',

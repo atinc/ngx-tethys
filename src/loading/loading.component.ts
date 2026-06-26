@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
+import { Component, HostBinding, input } from '@angular/core';
 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -10,7 +10,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-loading',
     templateUrl: './loading.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: []
 })
 export class ThyLoading {

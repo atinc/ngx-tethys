@@ -32,7 +32,6 @@ import { SafeAny } from 'ngx-tethys/types';
     selector: 'thy-picker',
     exportAs: 'thyPicker',
     templateUrl: './picker.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay]
 })
 export class ThyPicker implements AfterViewInit {

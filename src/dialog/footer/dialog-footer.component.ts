@@ -1,18 +1,5 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
-import {
-    Component,
-    OnInit,
-    TemplateRef,
-    inject,
-    input,
-    contentChild,
-    computed,
-    WritableSignal,
-    effect,
-    Input,
-    ChangeDetectionStrategy
-} from '@angular/core';
-
+import { Component, OnInit, TemplateRef, inject, input, contentChild, computed, ChangeDetectionStrategy } from '@angular/core';
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign } from '../dialog.config';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -25,7 +12,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-dialog-footer',
     templateUrl: './dialog-footer.component.html',
-    // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogFooter',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgTemplateOutlet]

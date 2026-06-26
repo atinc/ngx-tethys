@@ -2,7 +2,6 @@ import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair } from '@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
@@ -34,7 +33,6 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 @Component({
     selector: 'thy-time-picker',
     templateUrl: './time-picker.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyEmpty } from 'ngx-tethys/empty';
@@ -7,7 +7,6 @@ import { ThyNativeTableTrMeasureComponent } from '../row/tr-measure.component';
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'tbody',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (listOfMeasureColumnKeys(); as listOfMeasureColumnKeys) {
             @if (isInsideNativeTable && listOfMeasureColumnKeys.length) {
