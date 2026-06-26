@@ -1,4 +1,4 @@
-import { Component, TemplateRef, OnInit, inject, input, computed, contentChild } from '@angular/core';
+import { Component, TemplateRef, OnInit, inject, input, computed, contentChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThySlideService } from '../slide.service';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -13,6 +13,7 @@ import { NgTemplateOutlet } from '@angular/common';
     selector: 'thy-slide-header',
     templateUrl: './slide-header.component.html',
     imports: [NgTemplateOutlet, ThyIcon, ThyAction],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-slide-header'
     }

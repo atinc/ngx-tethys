@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 
@@ -6,6 +6,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
     selector: 'thy-flexible-text-container',
     templateUrl: './container.component.html',
     styleUrls: ['./container.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTooltipDirective, ThyFlexibleText]
 })
 export class ThyFlexibleTextContainerExampleComponent implements OnInit {

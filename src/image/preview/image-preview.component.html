@@ -2,7 +2,10 @@
   @if (!isFullScreen) {
     <div class="thy-image-preview-header pl-10 pr-8">
       <div class="thy-image-preview-header-info">
-        <p class="thy-image-name text-truncate" [thyTooltipDisabled]="previewImage?.name?.length < 32" [thyTooltip]="previewImage?.name">
+        <p
+          class="thy-image-name text-truncate"
+          [thyTooltipDisabled]="$safeNavigationMigration(previewImage?.name?.length) < 32"
+          [thyTooltip]="$safeNavigationMigration(previewImage?.name)">
           {{ previewImage?.name }}
         </p>
         <span class="thy-image-size"> {{ previewImage?.size }}</span>

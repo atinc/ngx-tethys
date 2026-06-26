@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'thy-notify-content-example',
@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
         <div class="mb-1">段落2...</div>
         <div class="mb-1">段落3...</div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-notify-content-example'
     }

@@ -1,7 +1,7 @@
 import { ConnectionPositionPair, Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, TemplateRef, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, ElementRef, OnInit, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -60,6 +60,7 @@ interface FoodsInfo {
         </form>
         <div id="custom-select-origin" #origin style="width: 200px;height: 20px"></div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class BasicSelectComponent {
@@ -114,6 +115,7 @@ class BasicSelectComponent {
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class MultipleSelectComponent {
@@ -146,6 +148,7 @@ class MultipleSelectComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class NgModelSelectComponent {
@@ -174,6 +177,7 @@ class NgModelSelectComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithGroupsAndNgContainerComponent {
@@ -196,6 +200,7 @@ class SelectWithGroupsAndNgContainerComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SingleSelectWithPreselectedArrayValuesComponent {
@@ -220,6 +225,7 @@ class SingleSelectWithPreselectedArrayValuesComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SingleSelectNgModelComponent {
@@ -243,6 +249,7 @@ class SingleSelectNgModelComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class BasicSelectInitiallyHiddenComponent {
@@ -259,6 +266,7 @@ class BasicSelectInitiallyHiddenComponent {
             }
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectEarlyAccessSiblingComponent {}
@@ -274,6 +282,7 @@ class SelectEarlyAccessSiblingComponent {}
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchComponent {
@@ -304,6 +313,7 @@ class SelectWithSearchComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchUseSearchKeyComponent {
@@ -353,6 +363,7 @@ class SelectWithSearchUseSearchKeyComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchAndGroupComponent {
@@ -393,6 +404,7 @@ class SelectWithSearchAndGroupComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchAndServerSearchComponent {
@@ -432,6 +444,7 @@ class SelectWithSearchAndServerSearchComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectEimtOptionsChangesComponent {
@@ -464,6 +477,7 @@ class SelectEimtOptionsChangesComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithExpandStatusComponent {
@@ -483,6 +497,7 @@ class SelectWithExpandStatusComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyModeComponent {
@@ -514,6 +529,7 @@ class SelectWithThyModeComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThySortComparatorComponent {
@@ -541,6 +557,7 @@ class SelectWithThySortComparatorComponent {
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyAutoExpendComponent implements OnInit {
@@ -570,6 +587,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyPlacementComponent implements OnInit {
@@ -601,6 +619,7 @@ class SelectWithThyPlacementComponent implements OnInit {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithScrollAndSearchComponent {
@@ -636,6 +655,7 @@ class SelectWithScrollAndSearchComponent {
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithAsyncLoadComponent implements OnInit {
@@ -698,6 +718,7 @@ class SelectWithAsyncLoadComponent implements OnInit {
             </thy-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectDropdownWidthComponent {
@@ -719,6 +740,7 @@ class SelectDropdownWidthComponent {
             <thy-select [thyOptions]="options" class="select1" [(ngModel)]="selectedValue"> </thy-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWidthThyOptionsComponent {
@@ -740,7 +762,7 @@ describe('ThyCustomSelect', () => {
             providers: [
                 bypassSanitizeProvider,
                 ...providers,
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideNoopAnimations(),
                 THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER
             ]

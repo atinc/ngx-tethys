@@ -10,7 +10,7 @@
 </div>
 
 @if (showForm) {
-  <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout()?.value">
+  <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="$safeNavigationMigration(currentLayout()?.value)">
     <thy-form-group thyLabelText="Username">
       <input thyInput name="username" placeholder="Please type username" />
     </thy-form-group>

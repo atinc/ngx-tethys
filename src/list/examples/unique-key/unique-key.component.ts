@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySelectionList } from 'ngx-tethys/list';
@@ -9,6 +9,7 @@ import { ThyRadioGroup, ThyRadioButton } from 'ngx-tethys/radio';
 @Component({
     selector: 'app-list-unique-key-example',
     templateUrl: './unique-key.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThySelectionList, ThyListOption, ThyIcon, CommonModule, ThyRadioGroup, ThyRadioButton]
 })
 export class ThyListUniqueKeyExampleComponent implements OnInit {

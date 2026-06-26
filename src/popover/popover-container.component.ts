@@ -17,7 +17,8 @@ import {
     ViewChild,
     inject,
     Injector,
-    afterNextRender
+    afterNextRender,
+    ChangeDetectionStrategy
 } from '@angular/core';
 
 import { ThyPopoverConfig } from './popover.config';
@@ -47,6 +48,7 @@ import { popoverAbstractOverlayOptions } from './popover.options';
         '(@scaleMotion.start)': 'onAnimationStart($event)',
         '(@scaleMotion.done)': 'onAnimationDone($event)'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {

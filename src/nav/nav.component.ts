@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     Component,
     computed,
     contentChild,
@@ -10,7 +9,6 @@ import {
     inject,
     input,
     OnDestroy,
-    OnInit,
     signal,
     Signal,
     TemplateRef,
@@ -75,7 +73,6 @@ const tabItemRight = 20;
         '[class.thy-nav--vertical]': 'thyVertical()',
         '[class.thy-nav--fill]': 'thyFill()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         NgClass,
         NgTemplateOutlet,

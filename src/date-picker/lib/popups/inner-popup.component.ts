@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, model, input, output, Signal, TemplateRef, inject, effect } from '@angular/core';
+import { Component, model, input, output, Signal, TemplateRef, inject, effect } from '@angular/core';
 import { FunctionProp, TinyDate, coerceBooleanProperty } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { RangePartType } from '../../inner-types';
@@ -20,7 +20,6 @@ import { YearTable } from '../year/year-table.component';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'inner-popup',
     exportAs: 'innerPopup',

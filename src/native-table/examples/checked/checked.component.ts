@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyNativeTableHeaderCellCheckState, ThyNativeTableModule } from 'ngx-tethys/native-table';
 import { ThyInputModule } from 'ngx-tethys/input';
@@ -8,6 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
     selector: 'thy-native-table-checked-example',
     templateUrl: './checked.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNativeTableModule, ThyInputModule, FormsModule, ThyIcon]
 })
 export class ThyNativeTableCheckedExampleComponent implements OnInit {

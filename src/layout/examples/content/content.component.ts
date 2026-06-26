@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
     ThyContent,
     ThyContentDirective,
@@ -17,6 +17,7 @@ import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
     selector: 'thy-layout-content-example',
     templateUrl: './content.component.html',
     styleUrls: ['./content.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyLayout,
         ThyLayoutDirective,

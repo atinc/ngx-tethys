@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
     ThyGridModule,
@@ -31,6 +31,7 @@ import { By } from '@angular/platform-browser';
             <thy-flex-item thyGrow="1" id="flex-component-item-1"><div class="blue">Item 1</div></thy-flex-item>
         </thy-flex>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyGridModule]
 })
 class FlexTestComponent implements OnInit {

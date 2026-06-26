@@ -9,7 +9,6 @@ import { NgClass } from '@angular/common';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'month-table',
     exportAs: 'monthTable',
@@ -30,7 +29,6 @@ export class MonthTable extends CalendarTable {
     private chooseMonth(month: number): void {
         const newValue = this.activeDate().setMonth(month);
         this.value.set(newValue);
-        this.valueChange.emit(newValue);
         this.render();
     }
 

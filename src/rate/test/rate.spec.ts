@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -15,6 +15,7 @@ import { ThyRateTemplateExampleComponent } from '../examples/template/template.c
     template: `
         <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRateModule, FormsModule]
 })
 class RateBasicTestComponent {
@@ -32,7 +33,7 @@ describe('Rate basic component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });
@@ -114,6 +115,7 @@ describe('Rate basic component', () => {
 @Component({
     selector: 'thy-rate-count-test',
     template: ` <thy-rate [(ngModel)]="value" [thyCount]="count"></thy-rate> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRateModule, FormsModule]
 })
 class RateCountTestComponent {
@@ -130,7 +132,7 @@ describe('Rate count component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });
@@ -161,6 +163,7 @@ describe('Rate count component', () => {
 @Component({
     selector: 'thy-rate-half-test',
     template: ` <thy-rate [(ngModel)]="value" [thyAllowHalf]="allowHalf" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRateModule, FormsModule]
 })
 class RateHalfTestComponent {
@@ -178,7 +181,7 @@ describe('Rate half component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });
@@ -233,6 +236,7 @@ describe('Rate half component', () => {
 @Component({
     selector: 'thy-rate-clear-test',
     template: ` <thy-rate [(ngModel)]="value" [thyAllowClear]="allowClear" (ngModelChange)="modelChange($event)"></thy-rate> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRateModule, FormsModule]
 })
 class RateClearTestComponent {
@@ -250,7 +254,7 @@ describe('Rate clear component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });
@@ -302,6 +306,7 @@ describe('Rate clear component', () => {
             (ngModelChange)="modelChange($event)"
             (thyItemHoverChange)="hoverChange($event)"></thy-rate>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRateModule, FormsModule]
 })
 class RateDisabledTestComponent {
@@ -320,7 +325,7 @@ describe('Rate disabled component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });
@@ -370,6 +375,7 @@ describe('Rate disabled component', () => {
 @Component({
     selector: 'thy-rate-tooltip-test',
     template: ` <thy-rate [(ngModel)]="value" [thyTooltips]="tooltips" (ngModelChange)="modelChange($event)"></thy-rate> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRateModule, FormsModule]
 })
 class RateTooltipTestComponent {
@@ -390,7 +396,7 @@ describe('Rate tooltip component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
 
@@ -452,6 +458,7 @@ describe('Rate tooltip component', () => {
         <ng-template #icon4>欲</ng-template>
         <ng-template #icon5>赞</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRateModule, FormsModule]
 })
 class RateTemplateTestComponent {
@@ -482,7 +489,7 @@ describe('Rate template component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyRateModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });

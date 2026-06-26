@@ -1,7 +1,6 @@
 import {
     Component,
     TemplateRef,
-    ChangeDetectionStrategy,
     ContentChildren,
     QueryList,
     ChangeDetectorRef,
@@ -43,7 +42,6 @@ export interface ThyAutocompleteActivatedEvent {
 @Component({
     selector: 'thy-autocomplete',
     templateUrl: 'autocomplete.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyStopPropagationDirective, NgClass, ThyEmpty, ThyOptionRender]
 })
 export class ThyAutocomplete {

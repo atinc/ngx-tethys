@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Directive, Input, TemplateRef, computed, contentChild, input } from '@angular/core';
+import { Component, Directive, TemplateRef, computed, contentChild, input } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -61,7 +61,6 @@ export class ThyHeaderDirective {
     selector: 'thy-header',
     preserveWhitespaces: false,
     templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [
         {
             directive: ThyHeaderDirective,

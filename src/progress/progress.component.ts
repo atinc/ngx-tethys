@@ -1,15 +1,5 @@
 import { isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    TemplateRef,
-    ViewEncapsulation,
-    numberAttribute,
-    input,
-    viewChildren,
-    effect
-} from '@angular/core';
+import { Component, computed, TemplateRef, ViewEncapsulation, numberAttribute, input, viewChildren, effect } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './progress-strip.component';
@@ -24,7 +14,6 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 @Component({
     selector: 'thy-progress',
     templateUrl: './progress.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [
         {

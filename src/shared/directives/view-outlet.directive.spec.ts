@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges, input } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, input, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThySharedModule } from 'ngx-tethys/shared';
 
@@ -9,6 +9,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 
         <ng-template #counter let-count="count">Count: {{ count }}</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyViewOutletTemplateTestComponent {
@@ -18,6 +19,7 @@ class ThyViewOutletTemplateTestComponent {
 @Component({
     selector: 'thy-shared-view-outlet-content',
     template: `Count: {{ count }}`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyViewOutletContentTestComponent {
@@ -27,6 +29,7 @@ class ThyViewOutletContentTestComponent {
 @Component({
     selector: 'thy-shared-view-outlet-component-test',
     template: `<ng-container *thyViewOutlet="contentComponent; context: context"></ng-container>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyViewOutletComponentTestComponent {
@@ -38,6 +41,7 @@ let contentMultiTestChanges!: SimpleChanges;
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
     template: `Count: {{ count() }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}, Input Name: {{ inputName() }}`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyViewOutletContentMultiTestComponent implements OnChanges {
@@ -63,6 +67,7 @@ class ThyViewOutletContentMultiTestComponent implements OnChanges {
     selector: 'thy-shared-view-outlet-component-multi-test',
     template: `<ng-container
         *thyViewOutlet="contentComponent; context: { count: count, name: name, inputName: inputName }"></ng-container>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyViewOutletComponentMultiTestComponent {

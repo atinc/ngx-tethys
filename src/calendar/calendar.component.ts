@@ -2,7 +2,6 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 import { TinyDate } from 'ngx-tethys/util';
 
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
@@ -37,7 +36,6 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
     selector: 'thy-calendar',
     templateUrl: './calendar.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThyCalendar), multi: true }],
     imports: [ThyCalendarHeader, DateTable, MonthTable]
 })

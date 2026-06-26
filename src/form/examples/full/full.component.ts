@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { FormsModule } from '@angular/forms';
 import { ThyFormSubmitDirective, ThyFormGroupFooter, ThyFormDirective, ThyFormGroup } from 'ngx-tethys/form';
@@ -75,6 +75,7 @@ const provinceCities = [
 @Component({
     selector: 'thy-form-full-example',
     templateUrl: './full.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         FormsModule,
         ThyFormDirective,

@@ -1,5 +1,5 @@
 import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 const linearGradientSvg = `
@@ -22,6 +22,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" >
     selector: 'thy-icon-linear-gradient-example',
     templateUrl: './linear-gradient.component.html',
     styleUrls: ['./linear-gradient.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon]
 })
 export class ThyIconLinearGradientExampleComponent {

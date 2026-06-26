@@ -8,7 +8,8 @@ import {
     output,
     contentChild,
     numberAttribute,
-    effect
+    effect,
+    ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -38,6 +39,7 @@ import { coerceBooleanProperty, isUndefinedOrNull, ThyBooleanInput } from 'ngx-t
         class: 'thy-transfer'
     },
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTransferList, ThyIcon, NgClass, NgTemplateOutlet, ThyFlexibleText]
 })
 export class ThyTransfer implements OnInit {

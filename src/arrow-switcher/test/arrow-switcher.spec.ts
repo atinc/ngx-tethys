@@ -1,10 +1,10 @@
 import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { ThyArrowSwitcherModule, ThyArrowSwitcher } from 'ngx-tethys/arrow-switcher';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('ThyArrowSwitcher', () => {
     let fixture!: ComponentFixture<ThyDemoArrowSwitcherComponent>;
@@ -15,7 +15,7 @@ describe('ThyArrowSwitcher', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyArrowSwitcherModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));
@@ -133,6 +133,7 @@ describe('ThyArrowSwitcher', () => {
             [thyPreviousTooltip]="previousTooltip"
             [thyNextTooltip]="nextTooltip"></thy-arrow-switcher>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyArrowSwitcher, FormsModule]
 })
 class ThyDemoArrowSwitcherComponent {

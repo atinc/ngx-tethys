@@ -33,6 +33,6 @@ export class ThyEnterDirective implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.removeKeydownListenerFn();
+        this.removeKeydownListenerFn?.();
     }
 }

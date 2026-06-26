@@ -1,6 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     Component,
     TemplateRef,
     numberAttribute,
@@ -32,7 +31,6 @@ import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18
 @Component({
     selector: 'thy-pagination',
     templateUrl: './pagination.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         NgTemplateOutlet,
         ThySelect,

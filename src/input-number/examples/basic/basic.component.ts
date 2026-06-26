@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'thy-input-number-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputNumber, FormsModule]
 })
 export class ThyInputNumberBasicExampleComponent implements OnInit {

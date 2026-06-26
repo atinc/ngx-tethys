@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { basicTreeSelectData } from '../mock-data';
 import { ThyTreeSelect } from 'ngx-tethys/tree-select';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
@@ -7,6 +7,7 @@ import { NgClass } from '@angular/common';
 @Component({
     selector: 'app-tree-select-size-example',
     templateUrl: './size.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyTreeSelectSizeExampleComponent implements OnInit {

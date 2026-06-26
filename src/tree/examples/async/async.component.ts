@@ -1,10 +1,11 @@
-import { Component, viewChild } from '@angular/core';
+import { Component, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTree, ThyTreeEmitEvent, ThyTreeNodeData } from 'ngx-tethys/tree';
 import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-tree-async-example',
     templateUrl: './async.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTree]
 })
 export class ThyTreeAsyncExampleComponent {

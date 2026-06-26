@@ -1,7 +1,6 @@
 import {
     ChangeDetectorRef,
     Component,
-    ChangeDetectionStrategy,
     OnDestroy,
     OnInit,
     TemplateRef,
@@ -9,7 +8,8 @@ import {
     input,
     output,
     computed,
-    model
+    model,
+    linkedSignal
 } from '@angular/core';
 
 import { IThyCollapseItemComponent, THY_COLLAPSE_COMPONENT } from './collapse.token';
@@ -36,7 +36,6 @@ const DEFAULT_ARROW_ICON = 'angle-right';
         '[class.thy-collapse-item-active]': 'thyActive()',
         '[class.thy-collapse-item-disabled]': 'thyDisabled()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet, ThyIcon, ThyAnimationCollapseDirective]
 })
 export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDestroy {
@@ -51,7 +50,9 @@ export class ThyCollapseItem implements IThyCollapseItemComponent, OnInit, OnDes
     /**
      * 是否处于激活展开状态
      */
-    thyActive = model<boolean>(false);
+    readonly thyActiveInput = input<boolean>(false, { alias: 'thyActive' });
+
+    readonly thyActive = linkedSignal(this.thyActiveInput);
 
     /**
      * 是否禁用当前面板

@@ -19,6 +19,7 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 export const MY_TOKEN = new InjectionToken<string>('MY_TOKEN');
 @Component({
     selector: 'thy-dialog-content-test-component',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <div>Hello Dialog <button>Close</button></div> `
 })
 export class DialogSimpleContentTestComponent {
@@ -39,6 +40,7 @@ export class DialogSimpleContentTestComponent {
             <button thyButton="link-secondary" (click)="close()">取消</button>
         </thy-dialog-footer>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule, ThyButtonModule]
 })
 export class DialogFullContentTestComponent {
@@ -74,6 +76,7 @@ export class DialogFullContentTestComponent {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule, ThyButtonModule]
 })
 export class DialogRestoreTestComponent {
@@ -103,6 +106,7 @@ export class WithViewContainerTestDirective {
 @Component({
     selector: 'thy-with-child-view-test-component',
     template: ` <div thyWithViewContainerTestDirective></div> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [WithViewContainerTestDirective]
 })
 export class WithChildViewContainerTestComponent {
@@ -120,6 +124,7 @@ export class WithChildViewContainerTestComponent {
             Cheese {{ localValue }} {{ initialState?.value }}{{ setDialogRef(dialogRef) }}</ng-template
         >
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule]
 })
 export class WithTemplateRefTestComponent {
@@ -134,7 +139,7 @@ export class WithTemplateRefTestComponent {
     }
 }
 
-@Component({ template: '' })
+@Component({ changeDetection: ChangeDetectionStrategy.Eager, template: '' })
 export class WithInjectedDataDialogTestComponent implements OnInit {
     data!: any;
 
@@ -146,7 +151,6 @@ export class WithInjectedDataDialogTestComponent implements OnInit {
 }
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: 'hello'
 })
 export class WithOnPushViewContainerTestComponent {
@@ -162,6 +166,7 @@ export class WithOnPushViewContainerTestComponent {
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule, ThyButtonModule]
 })
 class PopupFirstTestComponent {
@@ -181,6 +186,7 @@ class PopupFirstTestComponent {
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule, ThyButtonModule]
 })
 class PopupSecondTestComponent {
@@ -198,6 +204,7 @@ class PopupSecondTestComponent {
             <button thyButton="primary" (click)="open()">Open Dialog</button>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule, ThyButtonModule]
 })
 export class DialogToTopTestComponent implements OnInit {

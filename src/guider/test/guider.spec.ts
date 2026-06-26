@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, OnInit, TemplateRef, inject as coreInject, viewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, TemplateRef, inject as coreInject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -91,6 +91,7 @@ const directiveGuiderSteps: ThyGuiderStep[] = [
 
 @Component({
     selector: 'thy-guider-basic',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <ng-template #descTemp>
             <span>{{ innerText }}</span>
@@ -164,6 +165,7 @@ class GuiderBasicComponent implements OnInit {
             <span thyGuiderTarget="directive-tip-target-second" class="test-directive-span-second"> directive 2</span>
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyGuiderTargetDirective]
 })
 class TestGuiderDirectiveComponent implements OnInit {
@@ -188,6 +190,7 @@ class TestGuiderDirectiveComponent implements OnInit {
 
 @Component({
     selector: 'test-guider-multi-targets',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         @if (show) {
             <span class="target-0">Target-0</span>

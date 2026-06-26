@@ -1,5 +1,5 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -8,6 +8,7 @@ import { ThyStrength, ThyStrengthModule } from 'ngx-tethys/strength';
 @Component({
     selector: 'thy-strength-basic-test',
     template: ` <thy-strength [(ngModel)]="value"></thy-strength> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStrengthModule, FormsModule, ThyButtonModule]
 })
 class StrengthBasicTestComponent {
@@ -58,6 +59,7 @@ describe('Strength basic component', () => {
             [averageKey]="text[currentTextType].averageKey"
             [lowKey]="text[currentTextType].lowKey"></thy-strength>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStrengthModule, FormsModule, ThyButtonModule]
 })
 class StrengthTestComponent {

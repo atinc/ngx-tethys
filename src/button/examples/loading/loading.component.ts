@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-button-loading-example',
     templateUrl: './loading.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyButtonLoadingExampleComponent {

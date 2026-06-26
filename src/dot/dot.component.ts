@@ -1,6 +1,6 @@
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, Renderer2, ViewEncapsulation } from '@angular/core';
+import { Component, effect, ElementRef, inject, input, Renderer2, ViewEncapsulation } from '@angular/core';
 
 export type ThyColorType = ThyThemeColor | string;
 export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
@@ -23,7 +23,6 @@ export const DEFAULT_SHAPE_NAME = 'circle';
     selector: 'thy-dot,[thy-dot],[thyDot]',
     template: '',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-dot',
         '[class.dot-theme-fill]': 'thyTheme() === "fill"',

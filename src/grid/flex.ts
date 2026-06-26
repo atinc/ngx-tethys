@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, effect, input } from '@angular/core';
+import { Component, Directive, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
 
@@ -100,7 +100,6 @@ export class ThyFlex {
 @Component({
     selector: 'thy-flex',
     template: `<ng-content></ng-content>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [
         {
             directive: ThyFlex,
@@ -188,7 +187,6 @@ export class ThyFlexItem {
 @Component({
     selector: 'thy-flex-item',
     template: `<ng-content></ng-content>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [],
     hostDirectives: [
         {

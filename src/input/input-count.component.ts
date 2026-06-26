@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject, DestroyRef, input, effect, signal } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, input, effect, signal } from '@angular/core';
 import { ThyInputDirective } from './input.directive';
 import { switchMap, filter, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -13,7 +13,6 @@ import { ThyInputGroup } from './input-group.component';
 @Component({
     selector: 'thy-input-count',
     template: '{{inputLength()}} / {{maxLength()}}',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-input-count text-muted'
     }

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDivider, ThyDividerColor } from 'ngx-tethys/divider';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
@@ -7,6 +7,7 @@ import { NgClass } from '@angular/common';
     encapsulation: ViewEncapsulation.None,
     selector: 'thy-divider-color-example',
     templateUrl: './color.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDivider, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyDividerColorExampleComponent {

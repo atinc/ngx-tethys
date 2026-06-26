@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySlider } from 'ngx-tethys/slider';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
         </div>
         <thy-input-number [(ngModel)]="value" placeholder="请输入"></thy-input-number>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider, ThyInputNumber, FormsModule]
 })
 export class ThySliderInputValueExampleComponent implements OnInit {

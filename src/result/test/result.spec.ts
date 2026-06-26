@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyResult } from 'ngx-tethys/result';
@@ -67,6 +67,7 @@ describe('ThyResult', () => {
             </ng-template>
         </thy-result>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyResult]
 })
 class ThyResultDemoComponent {}

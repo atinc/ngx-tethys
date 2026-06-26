@@ -8,7 +8,7 @@
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
       <span thyText class="w-100"
-        ><thy-icon thyTextColor="primary" [thyIconName]="option?.icon"></thy-icon
+        ><thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(option?.icon)"></thy-icon
         ><span class="text-truncate">{{ option?.display_name }}</span>
       </span>
     </thy-option>
@@ -19,7 +19,8 @@
     }
     @if (value) {
       <span thyText class="w-100">
-        <thy-icon thyTextColor="primary" [thyIconName]="value?.icon"></thy-icon><span class="text-truncate">{{ value?.display_name }}</span>
+        <thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(value?.icon)"></thy-icon
+        ><span class="text-truncate">{{ value?.display_name }}</span>
       </span>
     }
   </ng-template>
@@ -30,7 +31,7 @@
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
       <span thyText class="w-100"
-        ><thy-icon thyTextColor="primary" [thyIconName]="option?.icon"></thy-icon
+        ><thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(option?.icon)"></thy-icon
         ><span class="text-truncate">{{ option?.display_name }}</span>
       </span>
     </thy-option>
@@ -41,7 +42,7 @@
     }
     @if (value) {
       <span thyText class="w-100">
-        <thy-icon thyTextColor="primary" [thyIconName]="value?.icon"></thy-icon>
+        <thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(value?.icon)"></thy-icon>
         <span class="text-truncate">{{ value?.display_name }}</span>
       </span>
     }
@@ -53,7 +54,7 @@
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
       <span thyText class="w-100"
-        ><thy-icon thyTextColor="primary" [thyIconName]="option?.icon"></thy-icon
+        ><thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(option?.icon)"></thy-icon
         ><span class="text-truncate">{{ option?.display_name }}</span>
       </span>
     </thy-option>

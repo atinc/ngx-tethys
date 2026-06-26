@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTab, ThyTabs } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-disabled-example',
     templateUrl: './disabled.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabs, ThyTab]
 })
 export class ThyTabsDisabledExampleComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -14,6 +14,7 @@ import { SafeAny } from 'ngx-tethys/types';
             [(ngModel)]="isChecked"
             [thyLoading]="isLoading"></thy-switch>
         <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySwitchModule, FormsModule]
 })
 class SwitchTestComponent {

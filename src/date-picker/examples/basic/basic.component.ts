@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker } from 'ngx-tethys/date-picker';
 import { ThyFormGroup } from 'ngx-tethys/form';
@@ -7,6 +7,7 @@ import { TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-date-picker-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormGroup, ThyDatePicker, FormsModule, ThyMonthPicker, ThyYearPicker, ThyQuarterPicker]
 })
 export class ThyDatePickerBasicExampleComponent {

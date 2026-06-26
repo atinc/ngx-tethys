@@ -1,19 +1,17 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
-    ModelSignal,
     OnInit,
     TemplateRef,
     contentChild,
     inject,
     input,
-    model,
     output,
     viewChild,
-    computed
+    computed,
+    linkedSignal
 } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyPopover } from 'ngx-tethys/popover';
@@ -34,7 +32,6 @@ import { ThyMenu } from '../menu.component';
         '[class.collapsed]': 'thyCollapsed()',
         '[class.has-icon]': 'thyShowIcon()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgClass, NgTemplateOutlet, ThyIcon, ThyAnimationCollapseDirective]
 })
 export class ThyMenuGroup implements OnInit {
@@ -56,7 +53,8 @@ export class ThyMenuGroup implements OnInit {
     /**
      * 是否处于收起状态
      */
-    readonly thyCollapsed: ModelSignal<boolean> = model(false);
+    readonly thyCollapsedInput = input(false, { alias: 'thyCollapsed' });
+    readonly thyCollapsed = linkedSignal(this.thyCollapsedInput);
 
     /**
      * 是否支持展开收起

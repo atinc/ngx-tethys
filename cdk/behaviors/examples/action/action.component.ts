@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { setDefaultErrorHandler, actionBehavior } from '@tethys/cdk/behaviors';
 import { of, Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { ThyButton } from 'ngx-tethys/button';
     selector: 'thy-behaviors-action',
     templateUrl: './action.component.html',
     styleUrls: ['./action.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyBehaviorsActionComponent implements OnInit {

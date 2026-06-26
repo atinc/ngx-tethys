@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
     "strict": false,
     "paths": {
       "ngx-tethys": ["../src/public-api"],

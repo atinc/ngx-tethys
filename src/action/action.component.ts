@@ -1,6 +1,5 @@
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     Component,
     DestroyRef,
     ElementRef,
@@ -50,7 +49,6 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
 @Component({
     selector: 'thy-action, [thyAction]',
     templateUrl: './action.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-action',
         '[class.active]': 'active()',

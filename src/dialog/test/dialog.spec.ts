@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { SpyLocation } from '@angular/common/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
@@ -44,7 +44,7 @@ describe('ThyDialog', () => {
         TestBed.configureTestingModule({
             imports: [ThyDialogModule],
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideNoopAnimations(),
                 { provide: Location, useClass: SpyLocation },
                 {

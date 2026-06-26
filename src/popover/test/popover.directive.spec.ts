@@ -1,14 +1,14 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopoverDirective, ThyPopoverModule } from 'ngx-tethys/popover';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-popover-basic',
@@ -25,6 +25,7 @@ import { provideHttpClient } from '@angular/common/http';
         </button>
         <ng-template #template> 恩，这是一个 Template </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverDirective]
 })
 class ThyDemoVisiblePopoverComponent {
@@ -51,7 +52,7 @@ describe(`ThyTooltip`, () => {
 
         TestBed.configureTestingModule({
             imports: [ThyPopoverModule],
-            providers: [provideHttpClient(), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();
@@ -184,6 +185,7 @@ describe(`ThyTooltip`, () => {
         </button>
         <ng-template #template> 恩，这是一个 Template </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverDirective]
 })
 class TestPopoverDirectiveClickComponent {
@@ -219,7 +221,7 @@ describe(`ThyPopoverDirective`, () => {
 
         TestBed.configureTestingModule({
             imports: [ThyPopoverModule],
-            providers: [provideHttpClient(), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();

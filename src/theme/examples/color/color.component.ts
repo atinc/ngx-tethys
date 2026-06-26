@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { cssVariables } from './css-variables';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThyDivider } from 'ngx-tethys/divider';
@@ -26,6 +26,7 @@ import { ThyDivider } from 'ngx-tethys/divider';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyColDirective, ThyRowDirective, ThyDivider]
 })
 export class ThyThemeColorExampleComponent {

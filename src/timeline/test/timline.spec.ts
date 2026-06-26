@@ -1,8 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyTimeDirection, ThyTimeline, ThyTimelineModule } from 'ngx-tethys/timeline';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     template: `
@@ -16,6 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-timeline-item [thyColor]="color">333</thy-timeline-item>
         </thy-timeline>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimelineModule]
 })
 export class TestTimelineBasicComponent {
@@ -31,6 +32,7 @@ export class TestTimelineBasicComponent {
             <thy-timeline-item thyPosition="left">222</thy-timeline-item>
         </thy-timeline>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomPositionComponent {
@@ -47,6 +49,7 @@ export class TestTimelineCustomPositionComponent {
             </thy-timeline-item>
         </thy-timeline>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomDescriptionComponent {
@@ -63,6 +66,7 @@ export class TestTimelineCustomDescriptionComponent {
             </thy-timeline-item>
         </thy-timeline>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomHorizontalComponent {
@@ -77,6 +81,7 @@ export class TestTimelineCustomHorizontalComponent {
             }
         </thy-timeline>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimelineModule]
 })
 export class TestTimelineCustomItemsComponent {
@@ -92,7 +97,7 @@ describe('timeline', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             }).compileComponents();
         }));
 

@@ -87,10 +87,9 @@ export class ThyFormValidatorService implements OnDestroy {
         const element: HTMLElement = this._getElement(control.name as string) as HTMLElement;
         if (element) {
             // 继承了 AbstractControlValueAccessor 的自定义 Accessor，通过 __onBlurValidation 控制触发验证函数
-            //@ts-ignore
-            if (control.valueAccessor['__onBlurValidation']) {
-                //@ts-ignore
-                control.valueAccessor['__onBlurValidation'] = () => {
+            const valueAccessor = control.valueAccessor as SafeAny;
+            if (valueAccessor?.__onBlurValidation) {
+                valueAccessor.__onBlurValidation = () => {
                     this.validateControl(control.name as string);
                 };
             } else {

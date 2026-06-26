@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, OnInit, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { injectLocale, ThyStrengthLocale } from 'ngx-tethys/i18n';
 import { NgClass } from '@angular/common';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'app-strength-custom-example',
     templateUrl: './custom.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStrength, FormsModule, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyStrengthCustomExampleComponent implements OnInit {

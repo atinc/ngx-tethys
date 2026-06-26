@@ -1,6 +1,6 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceModule } from 'ngx-tethys/space';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -15,6 +15,7 @@ import { By } from '@angular/platform-browser';
             }
         </thy-space>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule, ThySpaceModule]
 })
 class TestBasicComponent {
@@ -31,6 +32,7 @@ class TestBasicComponent {
             <button *thySpaceItem thyButton="info">Button2</button>
         </thy-space>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule, ThySpaceModule]
 })
 class TestSizeComponent {

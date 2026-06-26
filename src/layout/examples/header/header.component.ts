@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -11,6 +11,7 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
     selector: 'thy-layout-header-example',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyLayout,
         ThyLayoutDirective,

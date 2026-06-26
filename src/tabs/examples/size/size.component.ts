@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyTabs, ThyTab } from 'ngx-tethys/tabs';
 import { NgClass } from '@angular/common';
@@ -7,6 +7,7 @@ import { NgClass } from '@angular/common';
     selector: 'thy-tabs-size-example',
     templateUrl: './size.component.html',
     styleUrls: ['./size.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabs, ThyTab, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyTabsSizeExampleComponent implements OnInit {

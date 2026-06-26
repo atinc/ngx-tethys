@@ -11,7 +11,6 @@ import {
 } from 'ngx-tethys/core';
 
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     forwardRef,
@@ -60,7 +59,6 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     templateUrl: './input-search.component.html',
     providers: [CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',

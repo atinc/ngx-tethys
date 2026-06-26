@@ -16,7 +16,8 @@ import {
     StaticProvider,
     ViewChild,
     ViewContainerRef,
-    inject as coreInject
+    inject as coreInject,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
 import {
@@ -63,6 +64,7 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
         // '(@dialogContainer.start)': 'onAnimationStart($event)',
         // '(@dialogContainer.done)': 'onAnimationDone($event)'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CdkPortalOutlet]
 })
 export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnDestroy {
@@ -195,6 +197,7 @@ export class TestDialogModule {}
 @Component({
     selector: 'test-dialog-basic',
     template: `Hello Test Dialog<ng-content></ng-content> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [TestDialogModule]
 })
 class TestDialogBasicContentComponent {
@@ -214,6 +217,7 @@ class TestDialogBasicContentComponent {
 @Component({
     selector: 'test-dialog-view-container',
     template: 'Hello Test Dialog',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [TestDialogModule]
 })
 class TestDialogViewContainerComponent {

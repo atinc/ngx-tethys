@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -8,6 +8,7 @@ import { ThyText, ThyTextColorDirective } from 'ngx-tethys/typography';
     selector: 'thy-typography-text-with-icon-example',
     templateUrl: './text-with-icon.component.html',
     styleUrls: ['./text-with-icon.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyText, ThyIcon, ThyDivider, ThyTextColorDirective, ThyFlexibleText]
 })
 export class ThyTypographyTextWithIconExampleComponent implements OnInit {

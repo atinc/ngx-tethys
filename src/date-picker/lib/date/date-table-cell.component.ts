@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { isEmpty, isFunction, isString, isTemplateRef, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { DateCell } from './types';
@@ -12,6 +12,7 @@ import { DateCell } from './types';
     selector: '[date-table-cell]',
     exportAs: 'dateTableCell',
     templateUrl: './date-table-cell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgTemplateOutlet]
 })
 export class DateTableCell {

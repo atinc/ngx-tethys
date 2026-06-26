@@ -3,13 +3,13 @@ import { of } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { addDays, addWeeks, startOfDay, startOfWeek } from 'date-fns';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyPropertyOperation } from 'ngx-tethys/property-operation';
@@ -29,7 +29,7 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPopoverModule],
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             });
 
             TestBed.compileComponents();
@@ -348,7 +348,7 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPopoverModule],
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
         }));
 
@@ -491,6 +491,7 @@ describe('ThyPickerDirective', () => {
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerComponent {
@@ -530,6 +531,7 @@ class ThyTestPickerComponent {
             thyDatePicker
             [(ngModel)]="thyValue"></thy-property-operation>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPropertyOperation, ThyDatePickerDirective, FormsModule]
 })
 class ThyTestPickerPlacementComponent {
@@ -544,6 +546,7 @@ class ThyTestPickerPlacementComponent {
             </thy-property-operation>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPropertyOperation, ThyDatePickerDirective]
 })
 class ThyTestPickerStopPropagationComponent {
@@ -559,7 +562,7 @@ describe('should get correct default thyStopPropagation', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyPopoverModule],
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         }).compileComponents();
     }));
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCopyDirective, ThyCopyEvent } from 'ngx-tethys/copy';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
@@ -7,6 +7,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 @Component({
     selector: 'thy-copy-copy-content-example',
     templateUrl: './copy-content.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCopyDirective, FormsModule, ThyButton, ThyInputDirective]
 })
 export class ThyCopyCopyContentExampleComponent {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, numberAttribute, input, computed } from '@angular/core';
+import { Component, numberAttribute, input, computed } from '@angular/core';
 
 export type ThyPropertiesLayout = 'horizontal' | 'vertical';
 
@@ -9,7 +9,6 @@ export type ThyPropertiesLayout = 'horizontal' | 'vertical';
 @Component({
     selector: 'thy-properties',
     templateUrl: './properties.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-properties',
         '[class.thy-properties-vertical]': 'layout() === "vertical"',

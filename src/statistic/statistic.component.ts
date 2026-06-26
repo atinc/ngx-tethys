@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ChangeDetectionStrategy, input, contentChild, effect, computed } from '@angular/core';
+import { Component, TemplateRef, input, contentChild, effect, computed } from '@angular/core';
 import { hexToRgb } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgTemplateOutlet, NgStyle } from '@angular/common';
@@ -19,7 +19,6 @@ export type ThyStatisticTitlePosition = 'top' | 'bottom';
     selector: 'thy-statistic',
     templateUrl: './statistic.component.html',
     imports: [NgTemplateOutlet, NgStyle],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: { '[class.thy-statistic]': 'true' }
 })
 export class ThyStatistic {

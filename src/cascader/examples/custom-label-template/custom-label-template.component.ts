@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { FormsModule } from '@angular/forms';
 
@@ -68,6 +68,7 @@ const customerOptions = [
 @Component({
     selector: 'thy-cascader-custom-label-template-example',
     templateUrl: './custom-label-template.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderCustomLabelTemplateExampleComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, OnInit, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
 import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'app-date-range-custom-time-display-example',
     templateUrl: './custom-time-display.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDateRange, FormsModule]
 })
 export class ThyDateRangeCustomTimeDisplayExampleComponent implements OnInit {

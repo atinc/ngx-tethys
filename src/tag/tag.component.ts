@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 import { coerceBooleanProperty, hexToRgb } from 'ngx-tethys/util';
@@ -16,7 +16,6 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
 @Component({
     selector: 'thy-tag,[thyTag]',
     templateUrl: './tag.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-tag',
         '[class.thy-tag-pill]': 'thyShape() === "pill"',

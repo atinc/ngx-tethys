@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, input, OnInit, TemplateRef } from '@angular/core';
 
 import { ThyNativeTableLayout } from '../table.interface';
 import { ThyNativeTableContentComponent } from './table-content.component';
@@ -6,7 +6,6 @@ import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
     selector: 'thy-native-table-inner-default',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <div class="thy-native-table-content">
             <table

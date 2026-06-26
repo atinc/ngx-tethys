@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, contentChildren, effect, input } from '@angular/core';
+import { Component, OnInit, contentChildren, effect, input } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 import { ThyAction } from './action.component';
 
@@ -9,7 +9,6 @@ import { ThyAction } from './action.component';
 @Component({
     selector: 'thy-actions',
     template: ` <ng-content></ng-content> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-actions'
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySkeletonCircle } from 'ngx-tethys/skeleton';
 
 @Component({
@@ -11,6 +11,7 @@ import { ThySkeletonCircle } from 'ngx-tethys/skeleton';
             [thySecondaryColor]="model.thySecondaryColor">
         </thy-skeleton-circle>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySkeletonCircle]
 })
 export class ThySkeletonExampleCircleComponent implements OnInit {

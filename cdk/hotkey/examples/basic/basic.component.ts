@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyAlert } from 'ngx-tethys/alert';
 import { ThyButton } from 'ngx-tethys/button';
@@ -9,6 +9,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
     selector: 'thy-hotkey-basic-example',
     templateUrl: './basic.component.html',
     styleUrls: ['./basic.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAlert, ThyButton, ThyHotkeyDirective, ThyInputDirective]
 })
 export class ThyHotkeyBasicExampleComponent implements OnInit {

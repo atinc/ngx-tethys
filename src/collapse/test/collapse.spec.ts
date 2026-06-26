@@ -2,11 +2,11 @@ import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/coll
 import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     template: `
@@ -16,6 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
         </thy-collapse>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCollapseModule, ThyIconModule]
 })
 export class TestCollapseBasicComponent {
@@ -50,6 +51,7 @@ export class TestCollapseBasicComponent {
             <thy-icon class="extra-template" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCollapseModule, ThyIconModule]
 })
 export class TestCollapsePanelBasicComponent {
@@ -77,7 +79,7 @@ describe('collapse', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
             injectDefaultSvgIconSet();
         });
@@ -195,7 +197,7 @@ describe('collapse-panel', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
             injectDefaultSvgIconSet();
         });

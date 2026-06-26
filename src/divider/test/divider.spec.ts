@@ -1,9 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDividerModule, ThyDividerStyle, ThyDividerTextDirection } from 'ngx-tethys/divider';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     template: `
@@ -23,6 +23,7 @@ import { provideHttpClient } from '@angular/common/http';
             </ng-template>
         </ng-container>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDividerModule, FormsModule, ThySelectModule]
 })
 class ThyTestDividerComponent {
@@ -49,7 +50,7 @@ describe('ThyDividerComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents().then(r => r);
     });

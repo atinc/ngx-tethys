@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -6,6 +6,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     selector: 'thy-resizable-customize-example',
     templateUrl: './customize.component.html',
     styleUrls: ['../style.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyResizableDirective, ThyResizeHandle, ThyIcon]
 })
 export class ThyResizableCustomizeExampleComponent {

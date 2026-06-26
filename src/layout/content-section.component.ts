@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
+import { Component, Directive } from '@angular/core';
 
 /**
  * 内容块区域布局指令
@@ -22,7 +22,6 @@ export class ThyContentSectionDirective {}
     selector: 'thy-content-section',
     preserveWhitespaces: false,
     template: ` <ng-content></ng-content> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [ThyContentSectionDirective]
 })
 export class ThyContentSection {}

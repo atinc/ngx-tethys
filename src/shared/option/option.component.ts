@@ -1,4 +1,4 @@
-import { Component, input, TemplateRef, ChangeDetectionStrategy, viewChild, inject, output, signal, contentChild } from '@angular/core';
+import { Component, input, TemplateRef, viewChild, inject, output, signal, contentChild } from '@angular/core';
 import { ThySelectOptionGroup } from './group/option-group.component';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -19,8 +19,7 @@ export class ThyOptionSelectionChangeEvent {
         <ng-template>
             <ng-content></ng-content>
         </ng-template>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    `
 })
 export class ThyOption {
     /**

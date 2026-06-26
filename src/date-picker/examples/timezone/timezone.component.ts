@@ -1,4 +1,4 @@
-import { Component, Signal, signal } from '@angular/core';
+import { Component, Signal, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDatePicker } from 'ngx-tethys/date-picker';
 import { SafeAny } from 'ngx-tethys/types';
@@ -6,6 +6,7 @@ import { SafeAny } from 'ngx-tethys/types';
 @Component({
     selector: 'thy-date-picker-timezone-example',
     templateUrl: './timezone.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePicker, FormsModule]
 })
 export class ThyDatePickerTimezoneExampleComponent {

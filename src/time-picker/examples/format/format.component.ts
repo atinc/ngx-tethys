@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 import { TinyDate } from 'ngx-tethys/util';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { NgClass } from '@angular/common';
 @Component({
     selector: 'thy-time-picker-format-example',
     templateUrl: './format.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimePicker, FormsModule, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyTimePickerFormatExampleComponent implements OnInit {
