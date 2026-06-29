@@ -3,6 +3,7 @@ import {
     buildConnectedPositionPair,
     getFallbackPlacements,
     getFlexiblePositions,
+    getPositions,
     getPlacementByPosition,
     POSITION_MAP,
     ThyPlacement
@@ -201,6 +202,18 @@ describe(`overlay`, () => {
                     ...fallbackPositions
                 ]);
             });
+        });
+    });
+
+    describe('getPositions', () => {
+        it('should get flexible positions when flexiblePosition is true', () => {
+            expect(getPositions('right', 10, 'thy-test-overlay', true)).toEqual(getFlexiblePositions('right', 10, 'thy-test-overlay'));
+        });
+
+        it('should only get current placement position when flexiblePosition is false', () => {
+            expect(getPositions('right', 10, 'thy-test-overlay', false)).toEqual([
+                buildConnectedPositionPair('right', 10, 'thy-test-overlay')
+            ]);
         });
     });
 

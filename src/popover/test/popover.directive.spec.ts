@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyPlacement } from 'ngx-tethys/core';
-import { ThyPopoverDirective, ThyPopoverModule } from 'ngx-tethys/popover';
+import { THY_POPOVER_DEFAULT_CONFIG, ThyPopoverDirective, ThyPopoverModule } from 'ngx-tethys/popover';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -219,7 +219,12 @@ describe(`ThyPopoverDirective`, () => {
 
         TestBed.configureTestingModule({
             imports: [ThyPopoverModule],
-            providers: [provideHttpClient(), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
+            providers: [
+                provideHttpClient(),
+                provideNoopAnimations(),
+                { provide: Platform, useFactory: () => platform },
+                { provide: THY_POPOVER_DEFAULT_CONFIG, useValue: { flexiblePosition: false } }
+            ]
         });
 
         TestBed.compileComponents();
@@ -251,6 +256,18 @@ describe(`ThyPopoverDirective`, () => {
             expect(getPopoverVisible()).toBe(true);
             fixture.detectChanges();
             tick(100);
+        }));
+
+        it('should inherit flexiblePosition from global config', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'click');
+            fixture.detectChanges();
+            flush();
+            const popoverRef = (popoverDirective as any).popoverRef;
+            const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
+
+            expect(positionStrategy._preferredPositions.length).toEqual(1);
+            expect(positionStrategy._hasFlexibleDimensions).toEqual(false);
+            expect(positionStrategy._canPush).toEqual(false);
         }));
 
         it('should not show popover when `thyDisabled = true` is set', fakeAsync(() => {

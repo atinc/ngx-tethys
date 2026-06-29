@@ -97,9 +97,24 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     manualClosure: false,
     originActiveClass: 'thy-popover-origin-active',
     autoAdaptive: false,
+    flexiblePosition: true,
     minWidth: '240px'
 };
 ```
+
+### 控制自适应位置
+
+默认情况下，悬浮层会根据可视区域在当前 `placement` 及其候选位置中选择一个可用位置。若希望始终按指定位置展示，即使内容超出屏幕也不翻转、不推回、不压缩尺寸，可以关闭 `flexiblePosition`：
+
+```ts
+popover.open(ProfileComponent, {
+  origin: event.currentTarget,
+  placement: 'right',
+  flexiblePosition: false
+});
+```
+
+指令方式可以使用 `[thyFlexiblePosition]="false"`，或通过 `thyConfig` 传入 `flexiblePosition: false`。
 
 ### 悬浮层组件共享数据
 如果要和悬浮层共享数据，可以通过`initialState`参数把信息传给该组件。

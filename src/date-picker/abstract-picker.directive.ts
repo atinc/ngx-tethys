@@ -50,6 +50,13 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     readonly thyPlacement = input<ThyPlacement>('bottom');
 
     /**
+     * 是否开启自适应位置
+     */
+    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
+        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
+    });
+
+    /**
      * 弹出 DatePicker 的偏移量
      */
     readonly thyOffset = input(4, {
@@ -108,42 +115,41 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     private openOverlay(): void {
         this.setPanelMode();
-        const popoverRef = this.thyPopover.open(
-            DatePopup,
-            Object.assign(
-                {
-                    origin: this.el,
-                    hasBackdrop: this.thyHasBackdrop(),
-                    backdropClass: 'thy-overlay-transparent-backdrop',
-                    offset: this.thyOffset(),
-                    outsideClosable: true,
-                    initialState: {
-                        isRange: this.isRange,
-                        panelMode: this.panelMode,
-                        showWeek: this.showWeek(),
-                        value: this.thyValue,
-                        showTime: this.thyShowTime(),
-                        mustShowTime: this.withTime,
-                        format: this.thyFormat(),
-                        dateRender: this.thyDateRender(),
-                        disabledDate: this.thyDisabledDate(),
-                        placeholder: this.placeholder(),
-                        className: this.thyPanelClassName(),
-                        defaultPickerValue: this.thyDefaultPickerValue(),
-                        minDate: this.thyMinDate(),
-                        maxDate: this.thyMaxDate(),
-                        showShortcut: this.thyShowShortcut(),
-                        shortcutPresets: this.thyShortcutPresets(),
-                        shortcutPosition: this.thyShortcutPosition(),
-                        flexible: this.flexible(),
-                        flexibleDateGranularity: this.flexibleDateGranularity,
-                        timestampPrecision: this.thyTimestampPrecision()
-                    },
-                    placement: this.thyPlacement()
-                },
-                this.thyPopoverOptions()
-            )
-        );
+        const config: ThyPopoverConfig = {
+            origin: this.el,
+            hasBackdrop: this.thyHasBackdrop(),
+            backdropClass: 'thy-overlay-transparent-backdrop',
+            offset: this.thyOffset(),
+            outsideClosable: true,
+            initialState: {
+                isRange: this.isRange,
+                panelMode: this.panelMode,
+                showWeek: this.showWeek(),
+                value: this.thyValue,
+                showTime: this.thyShowTime(),
+                mustShowTime: this.withTime,
+                format: this.thyFormat(),
+                dateRender: this.thyDateRender(),
+                disabledDate: this.thyDisabledDate(),
+                placeholder: this.placeholder(),
+                className: this.thyPanelClassName(),
+                defaultPickerValue: this.thyDefaultPickerValue(),
+                minDate: this.thyMinDate(),
+                maxDate: this.thyMaxDate(),
+                showShortcut: this.thyShowShortcut(),
+                shortcutPresets: this.thyShortcutPresets(),
+                shortcutPosition: this.thyShortcutPosition(),
+                flexible: this.flexible(),
+                flexibleDateGranularity: this.flexibleDateGranularity,
+                timestampPrecision: this.thyTimestampPrecision()
+            },
+            placement: this.thyPlacement()
+        };
+        const flexiblePosition = this.thyFlexiblePosition();
+        if (flexiblePosition !== undefined) {
+            config.flexiblePosition = flexiblePosition;
+        }
+        const popoverRef = this.thyPopover.open(DatePopup, Object.assign(config, this.thyPopoverOptions()));
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
 

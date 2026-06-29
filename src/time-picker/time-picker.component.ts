@@ -18,7 +18,7 @@ import {
     viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getFlexiblePositions, thyAnimationZoom, ThyPlacement } from 'ngx-tethys/core';
+import { getPositions, THY_GLOBAL_CONFIG, thyAnimationZoom, ThyGlobalConfig, ThyPlacement } from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -52,6 +52,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccessor {
     private cdr = inject(ChangeDetectorRef);
     private elementRef = inject(ElementRef);
+    private globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
     locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
     readonly cdkConnectedOverlay = viewChild(CdkConnectedOverlay);
@@ -79,6 +80,13 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
      * @type 'top' | 'topLeft'| 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
      */
     readonly thyPlacement = input<ThyPlacement>('bottomLeft');
+
+    /**
+     * 是否开启自适应位置
+     */
+    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
+        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
+    });
 
     /**
      * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
@@ -152,7 +160,11 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     prefixCls = 'thy-time-picker';
 
-    overlayPositions: ConnectionPositionPair[] = getFlexiblePositions(this.thyPlacement(), 4);
+    readonly flexiblePosition = computed(() => {
+        return this.thyFlexiblePosition() ?? (this.globalConfig?.overlay?.flexiblePosition !== false);
+    });
+
+    overlayPositions: ConnectionPositionPair[] = this.getOverlayPositions();
 
     readonly showText = model<string>('');
 
@@ -194,6 +206,10 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
 
     constructor() {
         effect(() => {
+            this.overlayPositions = this.getOverlayPositions();
+        });
+
+        effect(() => {
             if (this.thyFormat() && this.value && isValid(this.value)) {
                 this.showText.set(new TinyDate(this.value).format(this.thyFormat()));
             }
@@ -203,7 +219,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     ngOnInit() {}
 
     ngAfterViewInit() {
-        this.overlayPositions = getFlexiblePositions(this.thyPlacement(), 4);
+        this.overlayPositions = this.getOverlayPositions();
     }
 
     onInputPickerClick() {
@@ -283,6 +299,10 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
         if (cdkConnectedOverlay && cdkConnectedOverlay.overlayRef) {
             cdkConnectedOverlay.overlayRef.updatePosition();
         }
+    }
+
+    private getOverlayPositions(): ConnectionPositionPair[] {
+        return getPositions(this.thyPlacement(), 4, undefined, this.flexiblePosition());
     }
 
     openOverlay() {

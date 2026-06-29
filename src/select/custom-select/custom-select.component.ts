@@ -1,10 +1,12 @@
 import {
-    getFlexiblePositions,
+    getPositions,
     injectPanelEmptyIcon,
     thyAnimationZoom,
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
+    THY_GLOBAL_CONFIG,
+    ThyGlobalConfig,
     ThyPlacement
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
@@ -183,6 +185,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     private locale: Signal<ThySelectLocale> = injectLocale('select');
     scrollStrategyFactory = inject<FunctionProp<ScrollStrategy>>(THY_SELECT_SCROLL_STRATEGY, { optional: true })!;
     selectConfig = inject(THY_SELECT_CONFIG, { optional: true })!;
+    globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     disabled = false;
@@ -222,8 +225,19 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     readonly thyDropdownWidthMode = input<ThyDropdownWidthMode>();
 
+    /**
+     * 是否开启自适应位置
+     */
+    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
+        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
+    });
+
     readonly placement = computed<ThyPlacement>(() => {
         return this.thyPlacement() || this.config.placement!;
+    });
+
+    readonly flexiblePosition = computed(() => {
+        return this.thyFlexiblePosition() ?? (this.config.flexiblePosition !== false);
     });
 
     readonly animateEnterClass = computed<string>(() => {
@@ -249,7 +263,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     });
 
     readonly dropDownPositions = computed<ConnectionPositionPair[]>(() => {
-        return getFlexiblePositions(this.placement(), this.defaultOffset);
+        return getPositions(this.placement(), this.defaultOffset, undefined, this.flexiblePosition());
     });
 
     public thyItemSize = input(SELECT_OPTION_MAX_HEIGHT, { transform: value => numberAttribute(value) });
@@ -556,9 +570,13 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     constructor() {
         super();
-        const selectConfig = this.selectConfig;
+        const selectConfig = this.selectConfig === DEFAULT_SELECT_CONFIG ? {} : this.selectConfig;
 
-        this.config = { ...DEFAULT_SELECT_CONFIG, ...selectConfig };
+        this.config = {
+            ...DEFAULT_SELECT_CONFIG,
+            flexiblePosition: this.globalConfig?.overlay?.flexiblePosition ?? DEFAULT_SELECT_CONFIG.flexiblePosition,
+            ...selectConfig
+        };
         this.buildScrollStrategy();
 
         afterRenderEffect(() => {

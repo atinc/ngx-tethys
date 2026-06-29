@@ -18,6 +18,7 @@ import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement, ScrollToService } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
+import { ThyAutocompleteConfig } from './overlay/autocomplete.config';
 import { ThyAutocomplete } from './autocomplete.component';
 import { ThyOptionRender, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { Subject, Observable, merge, fromEvent, of, Subscription, from } from 'rxjs';
@@ -89,6 +90,13 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * 下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
      */
     readonly thyPlacement = input<ThyPlacement>('bottomLeft');
+
+    /**
+     * 是否开启自适应位置
+     */
+    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
+        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
+    });
 
     /**
      * 是否允许聚焦时打开下拉菜单
@@ -194,7 +202,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     createOverlay(): OverlayRef {
-        const config = Object.assign({
+        const config: ThyAutocompleteConfig = Object.assign({
             origin: this.elementRef.nativeElement,
             viewContainerRef: this.viewContainerRef,
             placement: this.thyPlacement(),
@@ -202,6 +210,10 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             width: this.thyAutocompleteWidth() || this.elementRef.nativeElement.clientWidth
         });
+        const flexiblePosition = this.thyFlexiblePosition();
+        if (flexiblePosition !== undefined) {
+            config.flexiblePosition = flexiblePosition;
+        }
         const autocompleteComponent = this.autocompleteComponent();
         this.autocompleteRef = this.autocompleteService.open(autocompleteComponent.contentTemplateRef()!, config);
         this.autocompleteRef.afterClosed().subscribe(() => {

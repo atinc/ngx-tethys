@@ -69,6 +69,13 @@ export class BasePicker extends AbstractPickerComponent implements OnInit, OnCha
      */
     readonly thyPlacement = input<ThyPlacement>('bottomLeft');
 
+    /**
+     * 是否开启自适应位置
+     */
+    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
+        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
+    });
+
     readonly thyOnPanelChange = output<ThyPanelMode | ThyPanelMode[]>();
 
     readonly thyOnCalendarChange = output<Date[]>();

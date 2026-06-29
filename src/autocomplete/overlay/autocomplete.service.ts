@@ -1,4 +1,4 @@
-import { getFlexiblePositions, ThyAbstractOverlayService } from 'ngx-tethys/core';
+import { getPositions, THY_GLOBAL_CONFIG, ThyAbstractOverlayService, ThyGlobalConfig } from 'ngx-tethys/core';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -22,7 +22,7 @@ import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, Te
 
 import { ThyAutocompleteContainer } from './autocomplete-container.component';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
-import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, ThyAutocompleteConfig } from './autocomplete.config';
+import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE, ThyAutocompleteConfig } from './autocomplete.config';
 import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
 /**
@@ -31,8 +31,7 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 @Injectable()
 export class ThyAutocompleteService
     extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainer>
-    implements OnDestroy
-{
+    implements OnDestroy {
     private scrollDispatcher = inject(ScrollDispatcher);
     private ngZone = inject(NgZone);
     private _viewportRuler = inject(ViewportRuler);
@@ -58,8 +57,11 @@ export class ThyAutocompleteService
             this._platform,
             this._overlayContainer
         );
-        const positions = getFlexiblePositions(config.placement!, config.offset, 'thy-autocomplete');
+        const flexiblePosition = config.flexiblePosition !== false;
+        const positions = getPositions(config.placement!, config.offset, 'thy-autocomplete', flexiblePosition);
         positionStrategy.withPositions(positions);
+        positionStrategy.withFlexibleDimensions(flexiblePosition);
+        positionStrategy.withPush(flexiblePosition ? config.canPush : false);
         positionStrategy.withGrowAfterOpen(true);
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
             if (change.scrollableViewProperties.isOverlayClipped) {
@@ -133,8 +135,15 @@ export class ThyAutocompleteService
         const overlay = inject(Overlay);
         const injector = inject(Injector);
         const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG);
+        const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
+        const autocompleteDefaultConfig = defaultConfig === THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
+        const mergedDefaultConfig = {
+            ...THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE,
+            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE.flexiblePosition,
+            ...autocompleteDefaultConfig
+        } as ThyAutocompleteConfig;
 
-        super(autocompleteAbstractOverlayOptions, overlay, injector, defaultConfig);
+        super(autocompleteAbstractOverlayOptions, overlay, injector, mergedDefaultConfig);
     }
 
     open<T, TData = any, TResult = any>(

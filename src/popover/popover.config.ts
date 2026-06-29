@@ -1,7 +1,7 @@
 import { ThyPlacement, ThyAbstractOverlayConfig } from 'ngx-tethys/core';
 
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { ElementRef, InjectionToken } from '@angular/core';
+import { ElementRef, EnvironmentProviders, InjectionToken, Provider, makeEnvironmentProviders } from '@angular/core';
 
 /**
  * @public
@@ -73,6 +73,12 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
     autoAdaptive?: boolean;
 
     /**
+     * 是否开启自适应位置，开启后会根据可视区域自动选择可用位置
+     * @description.en-us Whether to adapt the popover position to fit within the viewport.
+     */
+    flexiblePosition?: boolean;
+
+    /**
      * 是否禁用动画
      * @default false
      */
@@ -93,6 +99,7 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     manualClosure: false,
     originActiveClass: 'thy-popover-origin-active',
     autoAdaptive: false,
+    flexiblePosition: true,
     minWidth: '240px'
 };
 
@@ -112,3 +119,24 @@ export const THY_POPOVER_SCROLL_STRATEGY_PROVIDER = {
     deps: [Overlay],
     useFactory: THY_POPOVER_SCROLL_STRATEGY_FACTORY
 };
+
+export type ThyPopoverScrollStrategyFactory = (overlay: Overlay) => () => ScrollStrategy;
+
+export interface ThyPopoverProviderOptions {
+    scrollStrategyFactory?: ThyPopoverScrollStrategyFactory;
+}
+
+export function withPopoverConfig(config: Partial<ThyPopoverConfig> = {}, options?: ThyPopoverProviderOptions): EnvironmentProviders {
+    const providers: Provider[] = [
+        { provide: THY_POPOVER_DEFAULT_CONFIG, useValue: config },
+        options?.scrollStrategyFactory
+            ? {
+                  provide: THY_POPOVER_SCROLL_STRATEGY,
+                  deps: [Overlay],
+                  useFactory: options.scrollStrategyFactory
+              }
+            : THY_POPOVER_SCROLL_STRATEGY_PROVIDER
+    ];
+
+    return makeEnvironmentProviders(providers);
+}

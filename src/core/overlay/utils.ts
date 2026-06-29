@@ -63,6 +63,15 @@ export function getFlexiblePositions(placement: ThyPlacement, offset?: number, p
     });
 }
 
+export function getPositions(
+    placement: ThyPlacement,
+    offset?: number,
+    panelClassPrefix?: string,
+    flexiblePosition = true
+): ConnectionPositionPair[] {
+    return flexiblePosition ? getFlexiblePositions(placement, offset, panelClassPrefix) : [buildConnectedPositionPair(placement, offset, panelClassPrefix)];
+}
+
 export function getPlacementByPosition(position: ConnectionPositionPair) {
     const keyList = ['originX', 'originY', 'overlayX', 'overlayY'];
     for (const placement in POSITION_MAP) {

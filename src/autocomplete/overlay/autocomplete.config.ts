@@ -29,19 +29,25 @@ export class ThyAutocompleteConfig<TData = any> extends ThyAbstractOverlayConfig
 
     /** Click outside can been close */
     outsideClosable?: boolean;
+
+    /** Whether to adapt the autocomplete position to fit within the viewport. */
+    flexiblePosition?: boolean;
 }
 
 export const THY_AUTOCOMPLETE_DEFAULT_CONFIG = new InjectionToken<ThyAutocompleteConfig>('thy-autocomplete-default-config');
 
+export const THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE = {
+    hasBackdrop: false,
+    panelClass: '',
+    closeOnNavigation: true,
+    insideClosable: true,
+    manualClosure: false,
+    outsideClosable: true,
+    originActiveClass: 'thy-autocomplete-origin-active',
+    flexiblePosition: true
+};
+
 export const THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER = {
     provide: THY_AUTOCOMPLETE_DEFAULT_CONFIG,
-    useValue: {
-        hasBackdrop: false,
-        panelClass: '',
-        closeOnNavigation: true,
-        insideClosable: true,
-        manualClosure: false,
-        outsideClosable: true,
-        originActiveClass: 'thy-autocomplete-origin-active'
-    }
+    useValue: THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE
 };

@@ -31,11 +31,17 @@ export interface ThySelectConfig {
      * 下拉菜单的弹出位置
      */
     placement?: ThyPlacement;
+
+    /**
+     * 是否开启自适应位置
+     */
+    flexiblePosition?: boolean;
 }
 
 export const DEFAULT_SELECT_CONFIG: ThySelectConfig = {
     dropdownWidthMode: 'match-select',
-    placement: 'bottom'
+    placement: 'bottom',
+    flexiblePosition: true
 };
 
 export const THY_SELECT_CONFIG = new InjectionToken<ThySelectConfig>('thy-select-config');

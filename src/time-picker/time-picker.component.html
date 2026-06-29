@@ -41,6 +41,8 @@
   [cdkConnectedOverlayOpen]="openState"
   [cdkConnectedOverlayHasBackdrop]="thyBackdrop()"
   [cdkConnectedOverlayPositions]="overlayPositions"
+  [cdkConnectedOverlayFlexibleDimensions]="flexiblePosition()"
+  [cdkConnectedOverlayPush]="flexiblePosition()"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   cdkConnectedOverlayTransformOriginOn=".thy-time-picker-container"
   (positionChange)="onPositionChange($event)"
