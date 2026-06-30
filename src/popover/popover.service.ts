@@ -160,8 +160,8 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         const popoverDefaultConfig: Partial<ThyPopoverConfig> = defaultConfig === THY_POPOVER_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
         const mergedDefaultConfig = {
             ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
-            ...popoverDefaultConfig,
-            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? popoverDefaultConfig?.flexiblePosition ?? true
+            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? true,
+            ...popoverDefaultConfig
         } as ThyPopoverConfig;
 
         super(

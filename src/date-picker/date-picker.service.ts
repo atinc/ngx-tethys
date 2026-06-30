@@ -13,8 +13,8 @@ export class ThyDatePickerConfigService {
 
         this.config = {
             ...defaultConfig,
-            ...datePickerConfig,
-            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? datePickerConfig?.flexiblePosition ?? true
+            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? true,
+            ...datePickerConfig
         };
     }
 

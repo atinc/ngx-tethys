@@ -95,9 +95,9 @@ describe('thyDatePickerConfigService flexiblePosition priority', () => {
         expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(false);
     });
 
-    it('should use global flexiblePosition before date picker config flexiblePosition', () => {
+    it('should use date picker config flexiblePosition before global flexiblePosition', () => {
         configureTestingModule({ globalFlexiblePosition: false, configFlexiblePosition: true });
 
-        expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(false);
+        expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(true);
     });
 });

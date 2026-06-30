@@ -140,8 +140,8 @@ export class ThyAutocompleteService
             defaultConfig === THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
         const mergedDefaultConfig = {
             ...THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE,
-            ...autocompleteDefaultConfig,
-            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? autocompleteDefaultConfig?.flexiblePosition ?? true
+            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? true,
+            ...autocompleteDefaultConfig
         } as ThyAutocompleteConfig;
 
         super(autocompleteAbstractOverlayOptions, overlay, injector, mergedDefaultConfig);
