@@ -185,7 +185,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     private platformId = inject(PLATFORM_ID);
     private locale: Signal<ThySelectLocale> = injectLocale('select');
     scrollStrategyFactory = inject<FunctionProp<ScrollStrategy>>(THY_SELECT_SCROLL_STRATEGY, { optional: true })!;
-    selectConfig = inject(THY_SELECT_CONFIG, { optional: true })!;
+    selectConfig = inject(THY_SELECT_CONFIG, { optional: true });
     globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
@@ -571,7 +571,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     constructor() {
         super();
-        const selectConfig = this.selectConfig === DEFAULT_SELECT_CONFIG ? {} : this.selectConfig;
+        const selectConfig = this.selectConfig || {};
 
         this.config = {
             ...DEFAULT_SELECT_CONFIG,

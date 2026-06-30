@@ -155,10 +155,10 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     constructor() {
         const overlay = inject(Overlay);
         const injector = inject(Injector);
-        const defaultConfig = inject(THY_POPOVER_DEFAULT_CONFIG, { optional: true })!;
+        const defaultConfig = inject(THY_POPOVER_DEFAULT_CONFIG, { optional: true });
         const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
         const scrollStrategy = inject<FunctionProp<ScrollStrategy>>(THY_POPOVER_SCROLL_STRATEGY);
-        const popoverDefaultConfig: Partial<ThyPopoverConfig> = defaultConfig === THY_POPOVER_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
+        const popoverDefaultConfig: Partial<ThyPopoverConfig> = defaultConfig || {};
         const mergedDefaultConfig = {
             ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
             ...getOverlayGlobalConfig(globalConfig),

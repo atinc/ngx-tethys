@@ -7,7 +7,7 @@ export class ThyDatePickerConfigService {
     config!: ThyDatePickerConfig;
 
     constructor() {
-        const datePickerConfig = inject(THY_DATE_PICKER_CONFIG, { optional: true })!;
+        const datePickerConfig = inject(THY_DATE_PICKER_CONFIG, { optional: true }) || {};
         const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
         const defaultConfig = useDatePickerDefaultConfig();
 

@@ -140,10 +140,9 @@ export class ThyAutocompleteService
     constructor() {
         const overlay = inject(Overlay);
         const injector = inject(Injector);
-        const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG);
+        const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG, { optional: true });
         const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
-        const autocompleteDefaultConfig: Partial<ThyAutocompleteConfig> =
-            defaultConfig === THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
+        const autocompleteDefaultConfig: Partial<ThyAutocompleteConfig> = defaultConfig || {};
         const mergedDefaultConfig = {
             ...THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE,
             ...getOverlayGlobalConfig(globalConfig),
