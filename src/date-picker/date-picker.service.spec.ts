@@ -83,13 +83,13 @@ describe('thyDatePickerConfigService flexiblePosition priority', () => {
         });
     }
 
-    it('should use hardcoded flexiblePosition default when global and component config are unset', () => {
+    it('should leave flexiblePosition unset when global and component config are unset', () => {
         configureTestingModule();
 
-        expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(true);
+        expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBeUndefined();
     });
 
-    it('should use date picker config flexiblePosition before hardcoded default', () => {
+    it('should use date picker config flexiblePosition when set', () => {
         configureTestingModule({ configFlexiblePosition: false });
 
         expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(false);

@@ -16,6 +16,10 @@ export const THY_GLOBAL_CONFIG = new InjectionToken<ThyGlobalConfig>('thy-global
 
 export type ThyTethysFeature = Provider | EnvironmentProviders;
 
+export function getOverlayGlobalConfig(globalConfig?: ThyGlobalConfig | null): ThyOverlayGlobalConfig {
+    return globalConfig?.overlay ?? {};
+}
+
 export function provideTethys(...features: ThyTethysFeature[]): EnvironmentProviders {
     return makeEnvironmentProviders(features);
 }

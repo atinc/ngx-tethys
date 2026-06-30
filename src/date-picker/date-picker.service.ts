@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { THY_GLOBAL_CONFIG, ThyGlobalConfig } from 'ngx-tethys/core';
+import { getOverlayGlobalConfig, THY_GLOBAL_CONFIG, ThyGlobalConfig } from 'ngx-tethys/core';
 import { THY_DATE_PICKER_CONFIG, ThyDatePickerConfig, useDatePickerDefaultConfig } from './date-picker.config';
 
 @Injectable({ providedIn: 'root' })
@@ -13,7 +13,7 @@ export class ThyDatePickerConfigService {
 
         this.config = {
             ...defaultConfig,
-            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? true,
+            ...getOverlayGlobalConfig(globalConfig),
             ...datePickerConfig
         };
     }

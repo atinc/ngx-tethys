@@ -1,4 +1,10 @@
-import { getPositions, THY_GLOBAL_CONFIG, ThyAbstractOverlayService, ThyGlobalConfig } from 'ngx-tethys/core';
+import {
+    getOverlayGlobalConfig,
+    getPositions,
+    THY_GLOBAL_CONFIG,
+    ThyAbstractOverlayService,
+    ThyGlobalConfig
+} from 'ngx-tethys/core';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -140,7 +146,7 @@ export class ThyAutocompleteService
             defaultConfig === THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
         const mergedDefaultConfig = {
             ...THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE,
-            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? true,
+            ...getOverlayGlobalConfig(globalConfig),
             ...autocompleteDefaultConfig
         } as ThyAutocompleteConfig;
 

@@ -1,4 +1,5 @@
 import {
+    getOverlayGlobalConfig,
     getPositions,
     injectPanelEmptyIcon,
     thyAnimationZoom,
@@ -574,7 +575,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
         this.config = {
             ...DEFAULT_SELECT_CONFIG,
-            flexiblePosition: this.globalConfig?.overlay?.flexiblePosition ?? true,
+            ...getOverlayGlobalConfig(this.globalConfig),
             ...selectConfig
         };
         this.buildScrollStrategy();
