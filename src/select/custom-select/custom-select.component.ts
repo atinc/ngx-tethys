@@ -574,8 +574,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
         this.config = {
             ...DEFAULT_SELECT_CONFIG,
-            flexiblePosition: this.globalConfig?.overlay?.flexiblePosition ?? DEFAULT_SELECT_CONFIG.flexiblePosition,
-            ...selectConfig
+            ...selectConfig,
+            flexiblePosition: this.globalConfig?.overlay?.flexiblePosition ?? selectConfig?.flexiblePosition ?? true
         };
         this.buildScrollStrategy();
 

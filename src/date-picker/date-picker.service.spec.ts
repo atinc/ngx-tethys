@@ -1,5 +1,6 @@
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { fakeAsync, TestBed } from '@angular/core/testing';
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { THY_DATE_PICKER_CONFIG, useDatePickerDefaultConfig, ThyDatePickerConfigService } from 'ngx-tethys/date-picker';
 
@@ -47,5 +48,56 @@ describe('thyDatePickerConfigService Angular testing', () => {
 
             expect(thyDatePickerConfigService.timestampPrecision).toBe(defaultOptions.timestampPrecision);
         });
+    });
+});
+
+describe('thyDatePickerConfigService flexiblePosition priority', () => {
+    function configureTestingModule(options?: { globalFlexiblePosition?: boolean; configFlexiblePosition?: boolean }) {
+        TestBed.configureTestingModule({
+            providers: [
+                ...(options && 'globalFlexiblePosition' in options
+                    ? [
+                          provideTethys(
+                              withGlobalConfig({
+                                  overlay: {
+                                      flexiblePosition: options.globalFlexiblePosition
+                                  }
+                              })
+                          )
+                      ]
+                    : []),
+                {
+                    provide: THY_DATE_PICKER_CONFIG,
+                    useFactory: () => ({
+                        ...useDatePickerDefaultConfig(),
+                        ...(options && 'configFlexiblePosition' in options
+                            ? {
+                                  flexiblePosition: options.configFlexiblePosition
+                              }
+                            : {})
+                    }),
+                    deps: [ThyI18nService]
+                },
+                ThyDatePickerConfigService
+            ]
+        });
+    }
+
+    it('should use hardcoded flexiblePosition default when global and component config are unset', () => {
+        configureTestingModule();
+
+        expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(true);
+    });
+
+    it('should use date picker config flexiblePosition before hardcoded default', () => {
+        configureTestingModule({ configFlexiblePosition: false });
+
+        expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(false);
+    });
+
+    it('should use global flexiblePosition before date picker config flexiblePosition', () => {
+        configureTestingModule({ globalFlexiblePosition: false, configFlexiblePosition: true });
+
+        expect(TestBed.inject(ThyDatePickerConfigService).flexiblePosition).toBe(false);
     });
 });

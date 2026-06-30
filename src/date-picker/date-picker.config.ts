@@ -25,7 +25,6 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     weekStartsOn: 1,
     separator: '~',
     timestampPrecision: 'seconds',
-    flexiblePosition: true,
     shortcutDatePresets: () => {
         return [
             {
@@ -77,7 +76,6 @@ export function useDatePickerDefaultConfig(): ThyDatePickerConfig {
         weekStartsOn: 1,
         separator: '~',
         timestampPrecision: 'seconds',
-        flexiblePosition: true,
         shortcutDatePresets: () => {
             return [
                 {

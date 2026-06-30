@@ -136,11 +136,12 @@ export class ThyAutocompleteService
         const injector = inject(Injector);
         const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG);
         const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
-        const autocompleteDefaultConfig = defaultConfig === THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
+        const autocompleteDefaultConfig: Partial<ThyAutocompleteConfig> =
+            defaultConfig === THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE ? {} : defaultConfig;
         const mergedDefaultConfig = {
             ...THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE,
-            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE.flexiblePosition,
-            ...autocompleteDefaultConfig
+            ...autocompleteDefaultConfig,
+            flexiblePosition: globalConfig?.overlay?.flexiblePosition ?? autocompleteDefaultConfig?.flexiblePosition ?? true
         } as ThyAutocompleteConfig;
 
         super(autocompleteAbstractOverlayOptions, overlay, injector, mergedDefaultConfig);

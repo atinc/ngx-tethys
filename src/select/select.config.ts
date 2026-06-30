@@ -40,8 +40,7 @@ export interface ThySelectConfig {
 
 export const DEFAULT_SELECT_CONFIG: ThySelectConfig = {
     dropdownWidthMode: 'match-select',
-    placement: 'bottom',
-    flexiblePosition: true
+    placement: 'bottom'
 };
 
 export const THY_SELECT_CONFIG = new InjectionToken<ThySelectConfig>('thy-select-config');

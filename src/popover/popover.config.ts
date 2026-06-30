@@ -99,7 +99,6 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     manualClosure: false,
     originActiveClass: 'thy-popover-origin-active',
     autoAdaptive: false,
-    flexiblePosition: true,
     minWidth: '240px'
 };
 

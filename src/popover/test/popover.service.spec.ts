@@ -965,16 +965,16 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent = popoverConfigFixture.componentInstance;
             });
 
-            it('should allow withPopoverConfig to override global flexiblePosition', () => {
+            it('should use global flexiblePosition before withPopoverConfig flexiblePosition', () => {
                 const popoverRef = popover.open(popoverConfigComponent.template, {
                     origin: popoverConfigComponent.openBtn,
                     placement: 'right'
                 });
                 const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
 
-                expect(positionStrategy._preferredPositions.length).toBeGreaterThan(1);
-                expect(positionStrategy._hasFlexibleDimensions).toEqual(true);
-                expect(positionStrategy._canPush).toEqual(true);
+                expect(positionStrategy._preferredPositions.length).toEqual(1);
+                expect(positionStrategy._hasFlexibleDimensions).toEqual(false);
+                expect(positionStrategy._canPush).toEqual(false);
             });
 
             it('should apply scroll strategy factory from withPopoverConfig', () => {

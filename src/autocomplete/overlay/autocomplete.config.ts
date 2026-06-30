@@ -43,8 +43,7 @@ export const THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE = {
     insideClosable: true,
     manualClosure: false,
     outsideClosable: true,
-    originActiveClass: 'thy-autocomplete-origin-active',
-    flexiblePosition: true
+    originActiveClass: 'thy-autocomplete-origin-active'
 };
 
 export const THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER = {
