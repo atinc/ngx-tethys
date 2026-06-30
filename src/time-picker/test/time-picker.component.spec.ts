@@ -5,8 +5,9 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
+import { THY_TIME_PICKER_CONFIG, ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
 
 describe('ThyTimePickerComponent', () => {
     let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
@@ -435,6 +436,7 @@ describe('ThyTimePickerComponent', () => {
             [thyPopupClass]="popupClass"
             [thyPlaceholder]="placeholder"
             [thyShowSelectNow]="showSelectNow"
+            [thyFlexiblePosition]="flexiblePosition"
             (ngModelChange)="onValueChange($event)"
             (thyOpenChange)="onOpenChange($event)"></thy-time-picker>
     `,
@@ -469,7 +471,81 @@ class ThyTestTimePickerBaseComponent {
 
     backdrop!: boolean;
 
+    flexiblePosition?: boolean;
+
     onValueChange(value: Date) {}
 
     onOpenChange(state: boolean) {}
 }
+
+describe('ThyTimePickerComponent flexiblePosition config', () => {
+    let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
+    let fixtureInstance!: ThyTestTimePickerBaseComponent;
+    let overlayContainer!: OverlayContainer;
+
+    function configureTestingModule(providers: unknown[] = []) {
+        TestBed.configureTestingModule({
+            providers: [provideHttpClient(), provideNoopAnimations(), ...providers]
+        });
+        TestBed.compileComponents();
+
+        fixture = TestBed.createComponent(ThyTestTimePickerBaseComponent);
+        fixtureInstance = fixture.componentInstance;
+        overlayContainer = TestBed.inject(OverlayContainer);
+        fixture.detectChanges();
+    }
+
+    afterEach(() => {
+        overlayContainer?.ngOnDestroy();
+    });
+
+    it('should inherit flexiblePosition from global overlay config', fakeAsync(() => {
+        configureTestingModule([
+            provideTethys(
+                withGlobalConfig({
+                    overlay: {
+                        flexiblePosition: false
+                    }
+                })
+            )
+        ]);
+
+        expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(false);
+    }));
+
+    it('should allow time picker config to override global flexiblePosition', fakeAsync(() => {
+        configureTestingModule([
+            provideTethys(
+                withGlobalConfig({
+                    overlay: {
+                        flexiblePosition: false
+                    }
+                })
+            ),
+            {
+                provide: THY_TIME_PICKER_CONFIG,
+                useValue: {
+                    flexiblePosition: true
+                }
+            }
+        ]);
+
+        expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(true);
+    }));
+
+    it('should allow thyFlexiblePosition to override time picker config', fakeAsync(() => {
+        configureTestingModule([
+            {
+                provide: THY_TIME_PICKER_CONFIG,
+                useValue: {
+                    flexiblePosition: false
+                }
+            }
+        ]);
+
+        fixtureInstance.flexiblePosition = true;
+        fixture.detectChanges();
+
+        expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(true);
+    }));
+});

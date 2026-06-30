@@ -30,6 +30,7 @@ import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
+import { THY_TIME_PICKER_CONFIG, ThyTimePickerConfig } from './time-picker.config';
 import { ThyTimePanel } from './time-picker-panel.component';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
@@ -60,7 +61,10 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     private cdr = inject(ChangeDetectorRef);
     private elementRef = inject(ElementRef);
     private globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
-    private overlayGlobalConfig = getOverlayGlobalConfig(this.globalConfig);
+    private timePickerConfig: ThyTimePickerConfig = {
+        ...getOverlayGlobalConfig(this.globalConfig),
+        ...(inject(THY_TIME_PICKER_CONFIG, { optional: true }) || {})
+    };
     locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
     readonly cdkConnectedOverlay = viewChild(CdkConnectedOverlay);
@@ -169,7 +173,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     prefixCls = 'thy-time-picker';
 
     readonly flexiblePosition = computed(() => {
-        return this.thyFlexiblePosition() ?? (this.overlayGlobalConfig.flexiblePosition !== false);
+        return this.thyFlexiblePosition() ?? (this.timePickerConfig.flexiblePosition !== false);
     });
 
     overlayPositions: ConnectionPositionPair[] = this.getOverlayPositions();
