@@ -5,9 +5,10 @@ import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } 
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyPlacement } from 'ngx-tethys/core';
-import { THY_POPOVER_DEFAULT_CONFIG, ThyPopoverDirective, ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThyPopoverDirective, ThyPopoverModule } from 'ngx-tethys/popover';
 import { provideHttpClient } from '@angular/common/http';
 
 @Component({
@@ -223,7 +224,13 @@ describe(`ThyPopoverDirective`, () => {
                 provideHttpClient(),
                 provideNoopAnimations(),
                 { provide: Platform, useFactory: () => platform },
-                { provide: THY_POPOVER_DEFAULT_CONFIG, useValue: { flexiblePosition: false } }
+                provideTethys(
+                    withGlobalConfig({
+                        overlay: {
+                            flexiblePosition: false
+                        }
+                    })
+                )
             ]
         });
 
@@ -258,7 +265,7 @@ describe(`ThyPopoverDirective`, () => {
             tick(100);
         }));
 
-        it('should inherit flexiblePosition from popover default config', fakeAsync(() => {
+        it('should inherit flexiblePosition from global overlay config', fakeAsync(() => {
             dispatchMouseEvent(buttonElement, 'click');
             fixture.detectChanges();
             flush();

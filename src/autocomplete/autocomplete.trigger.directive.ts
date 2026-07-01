@@ -92,13 +92,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     readonly thyPlacement = input<ThyPlacement>('bottomLeft');
 
     /**
-     * 是否开启自适应位置
-     */
-    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
-        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
-    });
-
-    /**
      * 是否允许聚焦时打开下拉菜单
      */
     readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
@@ -210,10 +203,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             width: this.thyAutocompleteWidth() || this.elementRef.nativeElement.clientWidth
         });
-        const flexiblePosition = this.thyFlexiblePosition();
-        if (flexiblePosition !== undefined) {
-            config.flexiblePosition = flexiblePosition;
-        }
         const autocompleteComponent = this.autocompleteComponent();
         this.autocompleteRef = this.autocompleteService.open(autocompleteComponent.contentTemplateRef()!, config);
         this.autocompleteRef.afterClosed().subscribe(() => {

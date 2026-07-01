@@ -1,4 +1,4 @@
-import { EnvironmentProviders, InjectionToken, Provider, makeEnvironmentProviders } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 export interface ThyOverlayGlobalConfig {
     /**
@@ -14,16 +14,6 @@ export interface ThyGlobalConfig {
 
 export const THY_GLOBAL_CONFIG = new InjectionToken<ThyGlobalConfig>('thy-global-config');
 
-export type ThyTethysFeature = Provider | EnvironmentProviders;
-
 export function getOverlayGlobalConfig(globalConfig?: ThyGlobalConfig | null): ThyOverlayGlobalConfig {
     return globalConfig?.overlay ?? {};
-}
-
-export function provideTethys(...features: ThyTethysFeature[]): EnvironmentProviders {
-    return makeEnvironmentProviders(features);
-}
-
-export function withGlobalConfig(config: ThyGlobalConfig): EnvironmentProviders {
-    return makeEnvironmentProviders([{ provide: THY_GLOBAL_CONFIG, useValue: config }]);
 }

@@ -50,13 +50,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     readonly thyPlacement = input<ThyPlacement>('bottom');
 
     /**
-     * 是否开启自适应位置
-     */
-    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
-        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
-    });
-
-    /**
      * 弹出 DatePicker 的偏移量
      */
     readonly thyOffset = input(4, {
@@ -145,10 +138,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             },
             placement: this.thyPlacement()
         };
-        const flexiblePosition = this.thyFlexiblePosition();
-        if (flexiblePosition !== undefined) {
-            config.flexiblePosition = flexiblePosition;
-        }
         const popoverRef = this.thyPopover.open(DatePopup, Object.assign(config, this.thyPopoverOptions()));
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;

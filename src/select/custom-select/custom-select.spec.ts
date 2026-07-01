@@ -588,7 +588,7 @@ class SelectWithThyPlacementComponent implements OnInit {
 @Component({
     selector: 'thy-flexible-position-select',
     template: `
-        <thy-select [thyFlexiblePosition]="flexiblePosition" style="width:500px;">
+        <thy-select style="width:500px;">
             @for (option of listOfOption; track option.value) {
                 <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
             }
@@ -603,8 +603,6 @@ class SelectWithThyFlexiblePositionComponent {
             value: 'value'
         }
     ];
-
-    flexiblePosition?: boolean;
 
     readonly select = viewChild.required<ThySelect>(ThySelect);
 }
@@ -2481,50 +2479,20 @@ describe('ThyCustomSelect', () => {
                 )
             ]);
 
-            const fixture: ComponentFixture<SelectWithThyFlexiblePositionComponent> =
-                TestBed.createComponent(SelectWithThyFlexiblePositionComponent);
+            const fixture: ComponentFixture<SelectWithThyFlexiblePositionComponent> = TestBed.createComponent(
+                SelectWithThyFlexiblePositionComponent
+            );
             fixture.detectChanges();
 
             expect(fixture.componentInstance.select().flexiblePosition()).toBe(false);
         });
 
-        it('should allow THY_SELECT_CONFIG to override global flexiblePosition', () => {
-            configureThyCustomSelectTestingModule([
-                provideTethys(
-                    withGlobalConfig({
-                        overlay: {
-                            flexiblePosition: false
-                        }
-                    })
-                ),
-                {
-                    provide: THY_SELECT_CONFIG,
-                    useValue: {
-                        flexiblePosition: true
-                    }
-                }
-            ]);
+        it('should enable flexiblePosition by default', () => {
+            configureThyCustomSelectTestingModule();
 
-            const fixture: ComponentFixture<SelectWithThyFlexiblePositionComponent> =
-                TestBed.createComponent(SelectWithThyFlexiblePositionComponent);
-            fixture.detectChanges();
-
-            expect(fixture.componentInstance.select().flexiblePosition()).toBe(true);
-        });
-
-        it('should allow thyFlexiblePosition to override THY_SELECT_CONFIG', () => {
-            configureThyCustomSelectTestingModule([
-                {
-                    provide: THY_SELECT_CONFIG,
-                    useValue: {
-                        flexiblePosition: false
-                    }
-                }
-            ]);
-
-            const fixture: ComponentFixture<SelectWithThyFlexiblePositionComponent> =
-                TestBed.createComponent(SelectWithThyFlexiblePositionComponent);
-            fixture.componentInstance.flexiblePosition = true;
+            const fixture: ComponentFixture<SelectWithThyFlexiblePositionComponent> = TestBed.createComponent(
+                SelectWithThyFlexiblePositionComponent
+            );
             fixture.detectChanges();
 
             expect(fixture.componentInstance.select().flexiblePosition()).toBe(true);

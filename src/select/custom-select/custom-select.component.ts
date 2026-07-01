@@ -226,19 +226,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      */
     readonly thyDropdownWidthMode = input<ThyDropdownWidthMode>();
 
-    /**
-     * 是否开启自适应位置
-     */
-    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
-        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
-    });
-
     readonly placement = computed<ThyPlacement>(() => {
         return this.thyPlacement() || this.config.placement!;
     });
 
     readonly flexiblePosition = computed(() => {
-        return this.thyFlexiblePosition() ?? (this.config.flexiblePosition !== false);
+        return getOverlayGlobalConfig(this.globalConfig).flexiblePosition !== false;
     });
 
     readonly animateEnterClass = computed<string>(() => {
@@ -575,7 +568,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
         this.config = {
             ...DEFAULT_SELECT_CONFIG,
-            ...getOverlayGlobalConfig(this.globalConfig),
             ...selectConfig
         };
         this.buildScrollStrategy();

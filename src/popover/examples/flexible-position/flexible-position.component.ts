@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { THY_GLOBAL_CONFIG } from 'ngx-tethys/core';
-import { ThyPopover, ThyPopoverBody, ThyPopoverConfig, ThyPopoverDirective, ThyPopoverHeader } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverBody, ThyPopoverDirective, ThyPopoverHeader } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-popover-flexible-position-example',
@@ -20,8 +20,4 @@ import { ThyPopover, ThyPopoverBody, ThyPopoverConfig, ThyPopoverDirective, ThyP
         }
     ]
 })
-export class ThyPopoverFlexiblePositionExampleComponent {
-    overrideFlexibleConfig: Partial<ThyPopoverConfig> = {
-        flexiblePosition: true
-    };
-}
+export class ThyPopoverFlexiblePositionExampleComponent {}

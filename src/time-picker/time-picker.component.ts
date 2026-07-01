@@ -18,19 +18,11 @@ import {
     viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-    getOverlayGlobalConfig,
-    getPositions,
-    THY_GLOBAL_CONFIG,
-    thyAnimationZoom,
-    ThyGlobalConfig,
-    ThyPlacement
-} from 'ngx-tethys/core';
+import { getOverlayGlobalConfig, getPositions, THY_GLOBAL_CONFIG, thyAnimationZoom, ThyGlobalConfig, ThyPlacement } from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
-import { THY_TIME_PICKER_CONFIG, ThyTimePickerConfig } from './time-picker.config';
 import { ThyTimePanel } from './time-picker-panel.component';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
@@ -61,10 +53,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     private cdr = inject(ChangeDetectorRef);
     private elementRef = inject(ElementRef);
     private globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
-    private timePickerConfig: ThyTimePickerConfig = {
-        ...getOverlayGlobalConfig(this.globalConfig),
-        ...(inject(THY_TIME_PICKER_CONFIG, { optional: true }) || {})
-    };
+    private overlayGlobalConfig = getOverlayGlobalConfig(this.globalConfig);
     locale: Signal<ThyTimePickerLocale> = injectLocale('timePicker');
 
     readonly cdkConnectedOverlay = viewChild(CdkConnectedOverlay);
@@ -92,13 +81,6 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
      * @type 'top' | 'topLeft'| 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
      */
     readonly thyPlacement = input<ThyPlacement>('bottomLeft');
-
-    /**
-     * 是否开启自适应位置
-     */
-    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
-        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
-    });
 
     /**
      * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
@@ -173,7 +155,7 @@ export class ThyTimePicker implements OnInit, AfterViewInit, ControlValueAccesso
     prefixCls = 'thy-time-picker';
 
     readonly flexiblePosition = computed(() => {
-        return this.thyFlexiblePosition() ?? (this.timePickerConfig.flexiblePosition !== false);
+        return this.overlayGlobalConfig.flexiblePosition !== false;
     });
 
     overlayPositions: ConnectionPositionPair[] = this.getOverlayPositions();

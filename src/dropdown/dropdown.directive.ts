@@ -89,12 +89,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", insideClosable: true, minWidth: "240px", outsideClosable: true, manualClosure: false }`
      */
     readonly thyPopoverOptions =
-        input<
-            Pick<
-                ThyPopoverConfig,
-                'placement' | 'height' | 'insideClosable' | 'minWidth' | 'outsideClosable' | 'manualClosure' | 'flexiblePosition'
-            >
-        >();
+        input<Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth' | 'outsideClosable' | 'manualClosure'>>();
 
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
@@ -164,7 +159,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             }
         }
 
-        const { placement, height, insideClosable, outsideClosable, minWidth, manualClosure, flexiblePosition } = Object.assign(
+        const { placement, height, insideClosable, outsideClosable, minWidth, manualClosure } = Object.assign(
             { placement: 'bottomLeft', insideClosable: true, outsideClosable: true, manualClosure: false },
             this.thyPopoverOptions()
         );
@@ -182,7 +177,6 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             manualClosure,
             insideClosable: helpers.isUndefined(thyMenuInsideClosable) ? insideClosable : thyMenuInsideClosable,
             minWidth,
-            flexiblePosition,
             originActiveClass: this.thyActiveClass()
         };
         this.popoverRef = this.popover.open(componentTypeOrTemplateRef, config);

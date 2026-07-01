@@ -51,6 +51,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     private _document = inject(DOCUMENT, { optional: true })!;
     private _platform = inject(Platform);
     private _overlayContainer = inject(OverlayContainer);
+    private flexiblePosition = true;
 
     private readonly ngUnsubscribe$ = new Subject();
 
@@ -72,7 +73,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
             this._platform,
             this._overlayContainer
         );
-        const flexiblePosition = config.flexiblePosition !== false;
+        const flexiblePosition = this.flexiblePosition;
         const positions = getPositions(config.placement!, config.offset, 'thy-popover', flexiblePosition);
         positionStrategy.withPositions(positions);
         positionStrategy.withFlexibleDimensions(flexiblePosition);
@@ -128,9 +129,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return popoverRef;
     }
 
-    protected createInjectorProviders<T>(
-        popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer
-    ): StaticProvider[] {
+    protected createInjectorProviders<T>(popoverRef: ThyPopoverRef<T>, popoverContainer: ThyPopoverContainer): StaticProvider[] {
         return [
             { provide: ThyPopoverContainer, useValue: popoverContainer },
             {
@@ -159,19 +158,14 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
         const scrollStrategy = inject<FunctionProp<ScrollStrategy>>(THY_POPOVER_SCROLL_STRATEGY);
         const popoverDefaultConfig: Partial<ThyPopoverConfig> = defaultConfig || {};
+        const flexiblePosition = getOverlayGlobalConfig(globalConfig).flexiblePosition !== false;
         const mergedDefaultConfig = {
             ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
-            ...getOverlayGlobalConfig(globalConfig),
             ...popoverDefaultConfig
         } as ThyPopoverConfig;
 
-        super(
-            popoverAbstractOverlayOptions,
-            overlay,
-            injector,
-            mergedDefaultConfig,
-            scrollStrategy
-        );
+        super(popoverAbstractOverlayOptions, overlay, injector, mergedDefaultConfig, scrollStrategy);
+        this.flexiblePosition = flexiblePosition;
     }
 
     private ensureCloseClosest(origin: HTMLElement) {

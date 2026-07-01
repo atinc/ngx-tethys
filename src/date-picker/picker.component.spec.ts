@@ -6,6 +6,7 @@ import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, ElementRef, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER, TinyDate } from 'ngx-tethys/util';
@@ -115,9 +116,53 @@ describe('ThyPickerComponent', () => {
         expect(valueChange).toHaveBeenCalledWith(new TinyDate(new Date()).format('yyyy-MM-dd HH:mm:ss'));
     }));
 
+    it('should enable flexiblePosition by default', () => {
+        fixture.detectChanges();
+
+        expect(fixtureInstance.thyPicker().flexiblePositionEnabled()).toBe(true);
+    });
+
     function getPickerInputElement() {
         return fixture.debugElement.query(By.css('input')).nativeElement;
     }
+});
+
+describe('ThyPickerComponent flexiblePosition config', () => {
+    let fixture!: ComponentFixture<ThyTestPickerComponent>;
+    let fixtureInstance!: ThyTestPickerComponent;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                {
+                    provide: CdkOverlayOrigin,
+                    useValue: CdkOverlayOriginSpy
+                },
+                {
+                    provide: CdkConnectedOverlay,
+                    useValue: CdkConnectedOverlaySpy
+                },
+                provideTethys(
+                    withGlobalConfig({
+                        overlay: {
+                            flexiblePosition: false
+                        }
+                    })
+                ),
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        });
+
+        TestBed.compileComponents();
+        fixture = TestBed.createComponent(ThyTestPickerComponent);
+        fixtureInstance = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
+
+    it('should inherit flexiblePosition from global overlay config', () => {
+        expect(fixtureInstance.thyPicker().flexiblePositionEnabled()).toBe(false);
+    });
 });
 
 @Component({

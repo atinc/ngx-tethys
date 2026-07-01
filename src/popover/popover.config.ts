@@ -1,7 +1,7 @@
 import { ThyPlacement, ThyAbstractOverlayConfig } from 'ngx-tethys/core';
 
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { ElementRef, EnvironmentProviders, InjectionToken, Provider, makeEnvironmentProviders } from '@angular/core';
+import { ElementRef, EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core';
 
 /**
  * @public
@@ -113,23 +113,6 @@ export const THY_POPOVER_SCROLL_STRATEGY_PROVIDER = {
     useFactory: THY_POPOVER_SCROLL_STRATEGY_FACTORY
 };
 
-export type ThyPopoverScrollStrategyFactory = (overlay: Overlay) => () => ScrollStrategy;
-
-export interface ThyPopoverProviderOptions {
-    scrollStrategyFactory?: ThyPopoverScrollStrategyFactory;
-}
-
-export function withPopoverConfig(config: Partial<ThyPopoverConfig> = {}, options?: ThyPopoverProviderOptions): EnvironmentProviders {
-    const providers: Provider[] = [
-        { provide: THY_POPOVER_DEFAULT_CONFIG, useValue: config },
-        options?.scrollStrategyFactory
-            ? {
-                  provide: THY_POPOVER_SCROLL_STRATEGY,
-                  deps: [Overlay],
-                  useFactory: options.scrollStrategyFactory
-              }
-            : THY_POPOVER_SCROLL_STRATEGY_PROVIDER
-    ];
-
-    return makeEnvironmentProviders(providers);
+export function withPopoverConfig(config: Partial<ThyPopoverConfig> = {}): EnvironmentProviders {
+    return makeEnvironmentProviders([{ provide: THY_POPOVER_DEFAULT_CONFIG, useValue: config }]);
 }

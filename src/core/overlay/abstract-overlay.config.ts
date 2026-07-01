@@ -145,12 +145,6 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     canPush? = true;
 
     /**
-     * 是否开启自适应位置，开启后会根据可视区域自动选择可用位置
-     * @description.en-us Whether to adapt the overlay position to fit within the viewport.
-     */
-    flexiblePosition?: boolean;
-
-    /**
      * Projectable nodes of thy abstract overlay config, only for component
      * @type Node[][]
      */

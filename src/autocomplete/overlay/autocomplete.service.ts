@@ -1,10 +1,4 @@
-import {
-    getOverlayGlobalConfig,
-    getPositions,
-    THY_GLOBAL_CONFIG,
-    ThyAbstractOverlayService,
-    ThyGlobalConfig
-} from 'ngx-tethys/core';
+import { getOverlayGlobalConfig, getPositions, THY_GLOBAL_CONFIG, ThyAbstractOverlayService, ThyGlobalConfig } from 'ngx-tethys/core';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -37,13 +31,15 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 @Injectable()
 export class ThyAutocompleteService
     extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainer>
-    implements OnDestroy {
+    implements OnDestroy
+{
     private scrollDispatcher = inject(ScrollDispatcher);
     private ngZone = inject(NgZone);
     private _viewportRuler = inject(ViewportRuler);
     private _document = inject(DOCUMENT);
     private _platform = inject(Platform);
     private _overlayContainer = inject(OverlayContainer);
+    private flexiblePosition = true;
 
     private readonly ngUnsubscribe$ = new Subject();
 
@@ -63,7 +59,7 @@ export class ThyAutocompleteService
             this._platform,
             this._overlayContainer
         );
-        const flexiblePosition = config.flexiblePosition !== false;
+        const flexiblePosition = this.flexiblePosition;
         const positions = getPositions(config.placement!, config.offset, 'thy-autocomplete', flexiblePosition);
         positionStrategy.withPositions(positions);
         positionStrategy.withFlexibleDimensions(flexiblePosition);
@@ -143,13 +139,14 @@ export class ThyAutocompleteService
         const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG, { optional: true });
         const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
         const autocompleteDefaultConfig: Partial<ThyAutocompleteConfig> = defaultConfig || {};
+        const flexiblePosition = getOverlayGlobalConfig(globalConfig).flexiblePosition !== false;
         const mergedDefaultConfig = {
             ...THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE,
-            ...getOverlayGlobalConfig(globalConfig),
             ...autocompleteDefaultConfig
         } as ThyAutocompleteConfig;
 
         super(autocompleteAbstractOverlayOptions, overlay, injector, mergedDefaultConfig);
+        this.flexiblePosition = flexiblePosition;
     }
 
     open<T, TData = any, TResult = any>(

@@ -103,17 +103,7 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
 
 ### 控制自适应位置
 
-默认情况下，悬浮层会根据可视区域在当前 `placement` 及其候选位置中选择一个可用位置。若希望始终按指定位置展示，即使内容超出屏幕也不翻转、不推回、不压缩尺寸，可以关闭 `flexiblePosition`：
-
-```ts
-popover.open(ProfileComponent, {
-  origin: event.currentTarget,
-  placement: 'right',
-  flexiblePosition: false
-});
-```
-
-指令方式可以使用 `[thyFlexiblePosition]="false"`，或通过 `thyConfig` 传入 `flexiblePosition: false`。
+默认情况下，悬浮层会根据可视区域在当前 `placement` 及其候选位置中选择一个可用位置。若希望始终按指定位置展示，即使内容超出屏幕也不翻转、不推回、不压缩尺寸，可以通过全局配置关闭 `flexiblePosition`。
 
 应用级可以通过 `provideTethys` 和 `withGlobalConfig` 统一关闭所有已接入 overlay 组件的自适应位置：
 
@@ -125,23 +115,6 @@ provideTethys(
     overlay: {
       flexiblePosition: false
     }
-  })
-);
-```
-
-Popover 组件级配置可以通过 `withPopoverConfig` 覆盖全局配置：
-
-```ts
-import { withPopoverConfig } from 'ngx-tethys/popover';
-
-provideTethys(
-  withGlobalConfig({
-    overlay: {
-      flexiblePosition: false
-    }
-  }),
-  withPopoverConfig({
-    flexiblePosition: true
   })
 );
 ```

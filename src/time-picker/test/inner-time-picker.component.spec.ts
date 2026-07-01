@@ -481,7 +481,6 @@ class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;
 
     readonly timePicker = viewChild.required<ThyInnerTimePicker>('timePicker');
-    // 默认值与 timePicker 的默认值一致，见 ../time-picker.config.ts
     readonly = false;
 
     disabled = false;

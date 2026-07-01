@@ -82,13 +82,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     readonly thyAutoAdaptive = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 自动适配弹出位置
-     */
-    readonly thyFlexiblePosition = input<boolean | undefined, unknown>(undefined, {
-        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
-    });
-
-    /**
      * 是否禁用打开悬浮层
      * @default false
      */
@@ -130,10 +123,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
             offset: this.thyOffset(),
             autoAdaptive: this.thyAutoAdaptive()
         };
-        const flexiblePosition = this.thyFlexiblePosition();
-        if (flexiblePosition !== undefined) {
-            baseConfig.flexiblePosition = flexiblePosition;
-        }
         const config = Object.assign(baseConfig, this.thyConfig());
         this.popoverRef = this.popover.open(this.content()!, config);
 

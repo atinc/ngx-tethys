@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { THY_TIME_PICKER_CONFIG, ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
+import { ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
 
 describe('ThyTimePickerComponent', () => {
     let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
@@ -436,7 +436,6 @@ describe('ThyTimePickerComponent', () => {
             [thyPopupClass]="popupClass"
             [thyPlaceholder]="placeholder"
             [thyShowSelectNow]="showSelectNow"
-            [thyFlexiblePosition]="flexiblePosition"
             (ngModelChange)="onValueChange($event)"
             (thyOpenChange)="onOpenChange($event)"></thy-time-picker>
     `,
@@ -470,8 +469,6 @@ class ThyTestTimePickerBaseComponent {
     showSelectNow!: boolean;
 
     backdrop!: boolean;
-
-    flexiblePosition?: boolean;
 
     onValueChange(value: Date) {}
 
@@ -513,38 +510,8 @@ describe('ThyTimePickerComponent flexiblePosition config', () => {
         expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(false);
     }));
 
-    it('should allow time picker config to override global flexiblePosition', fakeAsync(() => {
-        configureTestingModule([
-            provideTethys(
-                withGlobalConfig({
-                    overlay: {
-                        flexiblePosition: false
-                    }
-                })
-            ),
-            {
-                provide: THY_TIME_PICKER_CONFIG,
-                useValue: {
-                    flexiblePosition: true
-                }
-            }
-        ]);
-
-        expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(true);
-    }));
-
-    it('should allow thyFlexiblePosition to override time picker config', fakeAsync(() => {
-        configureTestingModule([
-            {
-                provide: THY_TIME_PICKER_CONFIG,
-                useValue: {
-                    flexiblePosition: false
-                }
-            }
-        ]);
-
-        fixtureInstance.flexiblePosition = true;
-        fixture.detectChanges();
+    it('should enable flexiblePosition by default', fakeAsync(() => {
+        configureTestingModule();
 
         expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(true);
     }));

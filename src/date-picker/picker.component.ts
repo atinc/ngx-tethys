@@ -1,4 +1,4 @@
-import { getPositions, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
+import { getOverlayGlobalConfig, getPositions, THY_GLOBAL_CONFIG, ThyGlobalConfig, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
@@ -45,6 +45,8 @@ export class ThyPicker implements AfterViewInit {
 
     private datePickerConfigService = inject(ThyDatePickerConfigService);
 
+    private overlayGlobalConfig = getOverlayGlobalConfig(inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true }));
+
     readonly isRange = input(false, { transform: coerceBooleanProperty });
 
     readonly opened = input<boolean | undefined>(undefined);
@@ -66,10 +68,6 @@ export class ThyPicker implements AfterViewInit {
     readonly suffixIcon = input<string>();
 
     readonly placement = input<ThyPlacement>('bottomLeft');
-
-    readonly flexiblePosition = input<boolean | undefined, unknown>(undefined, {
-        transform: value => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
-    });
 
     readonly flexible = input(false, { transform: coerceBooleanProperty });
 
@@ -118,7 +116,7 @@ export class ThyPicker implements AfterViewInit {
     overlayOpen = false; // Available when "open"=undefined
 
     readonly flexiblePositionEnabled = computed(() => {
-        return this.flexiblePosition() ?? (this.datePickerConfigService.flexiblePosition !== false);
+        return this.overlayGlobalConfig.flexiblePosition !== false;
     });
 
     overlayPositions: ConnectionPositionPair[] = this.getOverlayPositions();

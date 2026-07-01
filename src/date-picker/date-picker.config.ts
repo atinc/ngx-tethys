@@ -13,7 +13,6 @@ export interface ThyDatePickerConfig {
     separator: string;
     timestampPrecision: 'seconds' | 'milliseconds';
     dateCellRender?: (date: Date) => SafeHtml | undefined;
-    flexiblePosition?: boolean;
 }
 
 /**

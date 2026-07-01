@@ -24,8 +24,7 @@ import {
     THY_POPOVER_SCROLL_STRATEGY,
     ThyPopoverConfig,
     ThyPopover,
-    ThyPopoverModule,
-    withPopoverConfig
+    ThyPopoverModule
 } from 'ngx-tethys/popover';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
@@ -736,21 +735,6 @@ describe(`thyPopover`, () => {
                 expect((popoverRef.getOverlayRef().getConfig().positionStrategy as any)._canPush).toEqual(false);
             });
 
-            it('should disable fallback position, flexible dimensions and push when flexiblePosition is false', () => {
-                const popoverRef = popover.open(popoverConfigComponent.template, {
-                    origin: popoverConfigComponent.openBtn,
-                    placement: 'right',
-                    flexiblePosition: false,
-                    canPush: true
-                });
-                const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
-
-                expect(positionStrategy._preferredPositions.length).toEqual(1);
-                expect(positionStrategy._preferredPositions[0].panelClass).toEqual('thy-popover-right');
-                expect(positionStrategy._hasFlexibleDimensions).toEqual(false);
-                expect(positionStrategy._canPush).toEqual(false);
-            });
-
             it('should use the provided defaults', () => {
                 const popoverRef = popover.open(popoverConfigComponent.template, {
                     origin: popoverConfigComponent.openBtn
@@ -906,83 +890,17 @@ describe(`thyPopover`, () => {
                 expect(positionStrategy._canPush).toEqual(false);
             });
 
-            it('should allow popover config to override global flexiblePosition', () => {
+            it('should not allow open config to override global flexiblePosition', () => {
                 const popoverRef = popover.open(popoverConfigComponent.template, {
                     origin: popoverConfigComponent.openBtn,
                     placement: 'right',
                     flexiblePosition: true
-                });
+                } as ThyPopoverConfig);
                 const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
 
-                expect(positionStrategy._preferredPositions.length).toBeGreaterThan(1);
-                expect(positionStrategy._hasFlexibleDimensions).toEqual(true);
-                expect(positionStrategy._canPush).toEqual(true);
-            });
-        });
-
-        describe('has global config and withPopoverConfig', () => {
-            let popoverConfigFixture!: ComponentFixture<PopoverConfigComponent>;
-            let popoverConfigComponent!: PopoverConfigComponent;
-            let closeScrollStrategy!: CloseScrollStrategy;
-
-            beforeEach(() => {
-                TestBed.configureTestingModule({
-                    imports: [ThyPopoverModule],
-                    providers: [
-                        provideNoopAnimations(),
-                        provideTethys(
-                            withGlobalConfig({
-                                overlay: {
-                                    flexiblePosition: false
-                                }
-                            }),
-                            withPopoverConfig(
-                                {
-                                    flexiblePosition: true
-                                },
-                                {
-                                    scrollStrategyFactory: (_overlay: Overlay) => {
-                                        closeScrollStrategy = _overlay.scrollStrategies.close();
-                                        return () => closeScrollStrategy;
-                                    }
-                                }
-                            )
-                        )
-                    ]
-                });
-                TestBed.compileComponents();
-            });
-
-            beforeEach(inject([ThyPopover, OverlayContainer], (_popover: ThyPopover, _overlayContainer: OverlayContainer) => {
-                popover = _popover;
-                overlayContainer = _overlayContainer;
-                overlayContainerElement = _overlayContainer.getContainerElement();
-            }));
-
-            beforeEach(() => {
-                popoverConfigFixture = TestBed.createComponent(PopoverConfigComponent);
-                popoverConfigFixture.detectChanges();
-                popoverConfigComponent = popoverConfigFixture.componentInstance;
-            });
-
-            it('should allow withPopoverConfig to override global flexiblePosition', () => {
-                const popoverRef = popover.open(popoverConfigComponent.template, {
-                    origin: popoverConfigComponent.openBtn,
-                    placement: 'right'
-                });
-                const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
-
-                expect(positionStrategy._preferredPositions.length).toBeGreaterThan(1);
-                expect(positionStrategy._hasFlexibleDimensions).toEqual(true);
-                expect(positionStrategy._canPush).toEqual(true);
-            });
-
-            it('should apply scroll strategy factory from withPopoverConfig', () => {
-                const popoverRef = popover.open(popoverConfigComponent.template, {
-                    origin: popoverConfigComponent.openBtn
-                });
-
-                expect(popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(closeScrollStrategy);
+                expect(positionStrategy._preferredPositions.length).toEqual(1);
+                expect(positionStrategy._hasFlexibleDimensions).toEqual(false);
+                expect(positionStrategy._canPush).toEqual(false);
             });
         });
     });
