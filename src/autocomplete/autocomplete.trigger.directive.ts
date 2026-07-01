@@ -18,7 +18,6 @@ import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement, ScrollToService } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
-import { ThyAutocompleteConfig } from './overlay/autocomplete.config';
 import { ThyAutocomplete } from './autocomplete.component';
 import { ThyOptionRender, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { Subject, Observable, merge, fromEvent, of, Subscription, from } from 'rxjs';
@@ -195,7 +194,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     createOverlay(): OverlayRef {
-        const config: ThyAutocompleteConfig = Object.assign({
+        const config = Object.assign({
             origin: this.elementRef.nativeElement,
             viewContainerRef: this.viewContainerRef,
             placement: this.thyPlacement(),

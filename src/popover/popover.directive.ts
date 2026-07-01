@@ -115,15 +115,17 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     createOverlay(): OverlayRef {
-        const baseConfig: ThyPopoverConfig = {
-            origin: this.elementRef.nativeElement,
-            hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
-            viewContainerRef: this.viewContainerRef,
-            placement: this.thyPlacement(),
-            offset: this.thyOffset(),
-            autoAdaptive: this.thyAutoAdaptive()
-        };
-        const config = Object.assign(baseConfig, this.thyConfig());
+        const config = Object.assign(
+            {
+                origin: this.elementRef.nativeElement,
+                hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
+                viewContainerRef: this.viewContainerRef,
+                placement: this.thyPlacement(),
+                offset: this.thyOffset(),
+                autoAdaptive: this.thyAutoAdaptive()
+            },
+            this.thyConfig()
+        );
         this.popoverRef = this.popover.open(this.content()!, config);
 
         this.popoverRef!.afterClosed().subscribe(() => {

@@ -108,37 +108,42 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     private openOverlay(): void {
         this.setPanelMode();
-        const config: ThyPopoverConfig = {
-            origin: this.el,
-            hasBackdrop: this.thyHasBackdrop(),
-            backdropClass: 'thy-overlay-transparent-backdrop',
-            offset: this.thyOffset(),
-            outsideClosable: true,
-            initialState: {
-                isRange: this.isRange,
-                panelMode: this.panelMode,
-                showWeek: this.showWeek(),
-                value: this.thyValue,
-                showTime: this.thyShowTime(),
-                mustShowTime: this.withTime,
-                format: this.thyFormat(),
-                dateRender: this.thyDateRender(),
-                disabledDate: this.thyDisabledDate(),
-                placeholder: this.placeholder(),
-                className: this.thyPanelClassName(),
-                defaultPickerValue: this.thyDefaultPickerValue(),
-                minDate: this.thyMinDate(),
-                maxDate: this.thyMaxDate(),
-                showShortcut: this.thyShowShortcut(),
-                shortcutPresets: this.thyShortcutPresets(),
-                shortcutPosition: this.thyShortcutPosition(),
-                flexible: this.flexible(),
-                flexibleDateGranularity: this.flexibleDateGranularity,
-                timestampPrecision: this.thyTimestampPrecision()
-            },
-            placement: this.thyPlacement()
-        };
-        const popoverRef = this.thyPopover.open(DatePopup, Object.assign(config, this.thyPopoverOptions()));
+        const popoverRef = this.thyPopover.open(
+            DatePopup,
+            Object.assign(
+                {
+                    origin: this.el,
+                    hasBackdrop: this.thyHasBackdrop(),
+                    backdropClass: 'thy-overlay-transparent-backdrop',
+                    offset: this.thyOffset(),
+                    outsideClosable: true,
+                    initialState: {
+                        isRange: this.isRange,
+                        panelMode: this.panelMode,
+                        showWeek: this.showWeek(),
+                        value: this.thyValue,
+                        showTime: this.thyShowTime(),
+                        mustShowTime: this.withTime,
+                        format: this.thyFormat(),
+                        dateRender: this.thyDateRender(),
+                        disabledDate: this.thyDisabledDate(),
+                        placeholder: this.placeholder(),
+                        className: this.thyPanelClassName(),
+                        defaultPickerValue: this.thyDefaultPickerValue(),
+                        minDate: this.thyMinDate(),
+                        maxDate: this.thyMaxDate(),
+                        showShortcut: this.thyShowShortcut(),
+                        shortcutPresets: this.thyShortcutPresets(),
+                        shortcutPosition: this.thyShortcutPosition(),
+                        flexible: this.flexible(),
+                        flexibleDateGranularity: this.flexibleDateGranularity,
+                        timestampPrecision: this.thyTimestampPrecision()
+                    },
+                    placement: this.thyPlacement()
+                },
+                this.thyPopoverOptions()
+            )
+        );
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
 

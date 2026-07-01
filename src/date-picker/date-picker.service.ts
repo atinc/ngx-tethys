@@ -6,13 +6,9 @@ export class ThyDatePickerConfigService {
     config!: ThyDatePickerConfig;
 
     constructor() {
-        const datePickerConfig = inject(THY_DATE_PICKER_CONFIG, { optional: true }) || {};
-        const defaultConfig = useDatePickerDefaultConfig();
+        const datePickerConfig = inject(THY_DATE_PICKER_CONFIG, { optional: true })!;
 
-        this.config = {
-            ...defaultConfig,
-            ...datePickerConfig
-        };
+        this.config = { ...useDatePickerDefaultConfig(), ...datePickerConfig };
     }
 
     get shortcutDatePresets() {
