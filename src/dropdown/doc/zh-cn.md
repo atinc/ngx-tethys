@@ -76,7 +76,6 @@ export class CustomMenuComponent extends ThyDropdownAbstractMenu {}
 <example name="thy-dropdown-component-example" />
 
 ## 可传入popoverOptions
-thyPopoverOptions默认值为`{ placement: 'bottom' }`
+thyPopoverOptions默认值为`{ placement: 'bottomLeft' }`，支持传入 Popover 的部分配置，例如 `placement`、`height`、`insideClosable`、`minWidth`、`outsideClosable`、`manualClosure`、`flexiblePosition`。
 
 <example name="thy-dropdown-options-example" />
-

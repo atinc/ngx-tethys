@@ -931,7 +931,7 @@ describe('dropdown-component', () => {
 })
 class DropdownOptionsTestComponent {
     trigger: ThyOverlayTrigger = 'click';
-    popoverOptions: Pick<ThyPopoverConfig, 'width' | 'height'> = {};
+    popoverOptions: Pick<ThyPopoverConfig, 'width' | 'height' | 'flexiblePosition'> = {};
     placement: ThyPlacement = 'bottomLeft';
     activeClass!: string;
     insideClosable = true;
@@ -1107,6 +1107,18 @@ describe('dropdown options', () => {
 
             expect(calledConfig).toBeTruthy();
             expect(calledConfig!.manualClosure).toBeTruthy();
+        });
+
+        it('should set flexiblePosition', () => {
+            fixture.componentInstance.popoverOptions = {
+                flexiblePosition: false
+            };
+            fixture.detectChanges();
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+
+            expect(calledConfig).toBeTruthy();
+            expect(calledConfig!.flexiblePosition).toBe(false);
         });
 
         it('should set panel class', () => {

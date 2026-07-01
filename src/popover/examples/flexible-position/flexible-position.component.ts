@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { THY_GLOBAL_CONFIG } from 'ngx-tethys/core';
 import { ThyButton } from 'ngx-tethys/button';
+import { THY_GLOBAL_CONFIG } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverBody, ThyPopoverConfig, ThyPopoverDirective, ThyPopoverHeader } from 'ngx-tethys/popover';
 
 @Component({

@@ -115,6 +115,37 @@ popover.open(ProfileComponent, {
 
 指令方式可以使用 `[thyFlexiblePosition]="false"`，或通过 `thyConfig` 传入 `flexiblePosition: false`。
 
+应用级可以通过 `provideTethys` 和 `withGlobalConfig` 统一关闭所有已接入 overlay 组件的自适应位置：
+
+```ts
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
+
+provideTethys(
+  withGlobalConfig({
+    overlay: {
+      flexiblePosition: false
+    }
+  })
+);
+```
+
+Popover 组件级配置可以通过 `withPopoverConfig` 覆盖全局配置：
+
+```ts
+import { withPopoverConfig } from 'ngx-tethys/popover';
+
+provideTethys(
+  withGlobalConfig({
+    overlay: {
+      flexiblePosition: false
+    }
+  }),
+  withPopoverConfig({
+    flexiblePosition: true
+  })
+);
+```
+
 ### 悬浮层组件共享数据
 如果要和悬浮层共享数据，可以通过`initialState`参数把信息传给该组件。
 

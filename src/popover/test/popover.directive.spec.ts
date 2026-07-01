@@ -258,7 +258,7 @@ describe(`ThyPopoverDirective`, () => {
             tick(100);
         }));
 
-        it('should inherit flexiblePosition from global config', fakeAsync(() => {
+        it('should inherit flexiblePosition from popover default config', fakeAsync(() => {
             dispatchMouseEvent(buttonElement, 'click');
             fixture.detectChanges();
             flush();

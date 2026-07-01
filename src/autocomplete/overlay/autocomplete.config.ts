@@ -29,9 +29,6 @@ export class ThyAutocompleteConfig<TData = any> extends ThyAbstractOverlayConfig
 
     /** Click outside can been close */
     outsideClosable?: boolean;
-
-    /** Whether to adapt the autocomplete position to fit within the viewport. */
-    flexiblePosition?: boolean;
 }
 
 export const THY_AUTOCOMPLETE_DEFAULT_CONFIG = new InjectionToken<ThyAutocompleteConfig>('thy-autocomplete-default-config');

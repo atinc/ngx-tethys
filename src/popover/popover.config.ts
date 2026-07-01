@@ -73,12 +73,6 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
     autoAdaptive?: boolean;
 
     /**
-     * 是否开启自适应位置，开启后会根据可视区域自动选择可用位置
-     * @description.en-us Whether to adapt the popover position to fit within the viewport.
-     */
-    flexiblePosition?: boolean;
-
-    /**
      * 是否禁用动画
      * @default false
      */
