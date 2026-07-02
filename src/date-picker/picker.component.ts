@@ -1,6 +1,6 @@
-import { getOverlayGlobalConfig, getPositions, THY_GLOBAL_CONFIG, ThyGlobalConfig, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
+import { getFlexiblePositions, getOverlayGlobalConfig, THY_GLOBAL_CONFIG, ThyGlobalConfig, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -24,7 +24,6 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyDatePickerConfigService } from './date-picker.service';
 
 /**
  * @private
@@ -117,7 +116,9 @@ export class ThyPicker implements AfterViewInit {
         return this.overlayGlobalConfig.flexiblePosition !== false;
     });
 
-    overlayPositions: ConnectionPositionPair[] = this.getOverlayPositions();
+    readonly overlayPositions = computed(() => {
+        return getFlexiblePositions(this.placement(), 4, undefined, this.flexiblePositionEnabled());
+    });
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
@@ -151,10 +152,6 @@ export class ThyPicker implements AfterViewInit {
     });
 
     constructor() {
-        effect(() => {
-            this.overlayPositions = this.getOverlayPositions();
-        });
-
         effect(() => {
             this.innerValue = this.value();
             if (!this.entering) {
@@ -195,14 +192,9 @@ export class ThyPicker implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.overlayPositions = this.getOverlayPositions();
         if (this.autoFocus()) {
             this.focus();
         }
-    }
-
-    private getOverlayPositions(): ConnectionPositionPair[] {
-        return getPositions(this.placement(), 4, undefined, this.flexiblePositionEnabled());
     }
 
     focus(): void {

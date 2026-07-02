@@ -1,4 +1,4 @@
-import { getOverlayGlobalConfig, getPositions, THY_GLOBAL_CONFIG, ThyAbstractOverlayService, ThyGlobalConfig } from 'ngx-tethys/core';
+import { getFlexiblePositions, getOverlayGlobalConfig, THY_GLOBAL_CONFIG, ThyAbstractOverlayService, ThyGlobalConfig } from 'ngx-tethys/core';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -60,7 +60,7 @@ export class ThyAutocompleteService
             this._overlayContainer
         );
         const flexiblePosition = getOverlayGlobalConfig(this.globalConfig).flexiblePosition !== false;
-        const positions = getPositions(config.placement!, config.offset, 'thy-autocomplete', flexiblePosition);
+        const positions = getFlexiblePositions(config.placement!, config.offset, 'thy-autocomplete', flexiblePosition);
         positionStrategy.withPositions(positions);
         positionStrategy.withGrowAfterOpen(true);
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {

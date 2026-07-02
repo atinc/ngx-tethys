@@ -1,6 +1,6 @@
 import {
+    getFlexiblePositions,
     getOverlayGlobalConfig,
-    getPositions,
     injectPanelEmptyIcon,
     thyAnimationZoom,
     ScrollToService,
@@ -257,7 +257,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     });
 
     readonly dropDownPositions = computed<ConnectionPositionPair[]>(() => {
-        return getPositions(this.placement(), this.defaultOffset, undefined, this.flexiblePosition());
+        return getFlexiblePositions(this.placement(), this.defaultOffset, undefined, this.flexiblePosition());
     });
 
     public thyItemSize = input(SELECT_OPTION_MAX_HEIGHT, { transform: value => numberAttribute(value) });

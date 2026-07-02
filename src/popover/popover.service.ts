@@ -1,7 +1,7 @@
 import {
     ComponentTypeOrTemplateRef,
+    getFlexiblePositions,
     getOverlayGlobalConfig,
-    getPositions,
     THY_GLOBAL_CONFIG,
     ThyAbstractOverlayRef,
     ThyAbstractOverlayService,
@@ -76,7 +76,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         const overlayGlobalConfig = getOverlayGlobalConfig(this.globalConfig);
         const flexiblePosition = overlayGlobalConfig.flexiblePosition !== false;
         const canPush = config.canPush ?? overlayGlobalConfig.canPush ?? true;
-        const positions = getPositions(config.placement!, config.offset, 'thy-popover', flexiblePosition);
+        const positions = getFlexiblePositions(config.placement!, config.offset, 'thy-popover', flexiblePosition);
         positionStrategy.withPositions(positions);
         positionStrategy.withPush(canPush);
         positionStrategy.withGrowAfterOpen(true);
