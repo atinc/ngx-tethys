@@ -1,10 +1,13 @@
 import {
     getFlexiblePositions,
+    getOverlayGlobalConfig,
     injectPanelEmptyIcon,
     thyAnimationZoom,
     ScrollToService,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
+    THY_GLOBAL_CONFIG,
+    ThyGlobalConfig,
     ThyPlacement
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
@@ -182,7 +185,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     private platformId = inject(PLATFORM_ID);
     private locale: Signal<ThySelectLocale> = injectLocale('select');
     scrollStrategyFactory = inject<FunctionProp<ScrollStrategy>>(THY_SELECT_SCROLL_STRATEGY, { optional: true })!;
-    selectConfig = inject(THY_SELECT_CONFIG, { optional: true })!;
+    selectConfig = inject(THY_SELECT_CONFIG, { optional: true });
+    globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     disabled = false;
@@ -226,6 +230,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return this.thyPlacement() || this.config.placement!;
     });
 
+    readonly flexiblePosition = computed(() => {
+        return getOverlayGlobalConfig(this.globalConfig).flexiblePosition !== false;
+    });
+
     readonly animateEnterClass = computed<string>(() => {
         const placement = this.placement();
         if (placement === 'top' || placement === 'bottom') {
@@ -249,7 +257,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     });
 
     readonly dropDownPositions = computed<ConnectionPositionPair[]>(() => {
-        return getFlexiblePositions(this.placement(), this.defaultOffset);
+        return getFlexiblePositions(this.placement(), this.defaultOffset, undefined, this.flexiblePosition());
     });
 
     public thyItemSize = input(SELECT_OPTION_MAX_HEIGHT, { transform: value => numberAttribute(value) });
@@ -556,9 +564,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     constructor() {
         super();
-        const selectConfig = this.selectConfig;
+        const selectConfig = this.selectConfig || {};
 
-        this.config = { ...DEFAULT_SELECT_CONFIG, ...selectConfig };
+        this.config = {
+            ...DEFAULT_SELECT_CONFIG,
+            ...selectConfig
+        };
         this.buildScrollStrategy();
 
         afterRenderEffect(() => {

@@ -6,6 +6,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelect, ThySelectModule } from 'ngx-tethys/select';
@@ -582,6 +583,28 @@ class SelectWithThyPlacementComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+}
+
+@Component({
+    selector: 'thy-flexible-position-select',
+    template: `
+        <thy-select style="width:500px;">
+            @for (option of listOfOption; track option.value) {
+                <thy-option [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
+            }
+        </thy-select>
+    `,
+    imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
+})
+class SelectWithThyFlexiblePositionComponent {
+    listOfOption: Array<{ label: string; value: string }> = [
+        {
+            label: 'label',
+            value: 'value'
+        }
+    ];
+
+    readonly select = viewChild.required<ThySelect>(ThySelect);
 }
 
 @Component({
@@ -2442,6 +2465,38 @@ describe('ThyCustomSelect', () => {
                 );
             });
         }
+    });
+
+    describe('flexiblePosition config', () => {
+        it('should inherit flexiblePosition from global overlay config', () => {
+            configureThyCustomSelectTestingModule([
+                provideTethys(
+                    withGlobalConfig({
+                        overlay: {
+                            flexiblePosition: false
+                        }
+                    })
+                )
+            ]);
+
+            const fixture: ComponentFixture<SelectWithThyFlexiblePositionComponent> = TestBed.createComponent(
+                SelectWithThyFlexiblePositionComponent
+            );
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.select().flexiblePosition()).toBe(false);
+        });
+
+        it('should enable flexiblePosition by default', () => {
+            configureThyCustomSelectTestingModule();
+
+            const fixture: ComponentFixture<SelectWithThyFlexiblePositionComponent> = TestBed.createComponent(
+                SelectWithThyFlexiblePositionComponent
+            );
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.select().flexiblePosition()).toBe(true);
+        });
     });
 
     describe('config', () => {

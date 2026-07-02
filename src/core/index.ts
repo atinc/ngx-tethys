@@ -13,3 +13,5 @@ export * from './store';
 export * from './color';
 export * from './spacing';
 export * from './debounce-time';
+export * from './global-config';
+export * from './provide';

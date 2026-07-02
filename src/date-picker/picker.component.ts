@@ -1,6 +1,6 @@
-import { getFlexiblePositions, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
+import { getFlexiblePositions, getOverlayGlobalConfig, THY_GLOBAL_CONFIG, ThyGlobalConfig, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -41,6 +41,8 @@ export class ThyPicker implements AfterViewInit {
     private dateHelper = inject(DateHelperService);
 
     private i18n = inject(ThyI18nService);
+
+    private overlayGlobalConfig = getOverlayGlobalConfig(inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true }));
 
     readonly isRange = input(false, { transform: coerceBooleanProperty });
 
@@ -110,7 +112,13 @@ export class ThyPicker implements AfterViewInit {
 
     overlayOpen = false; // Available when "open"=undefined
 
-    overlayPositions: ConnectionPositionPair[] = getFlexiblePositions(this.placement(), 4);
+    readonly flexiblePositionEnabled = computed(() => {
+        return this.overlayGlobalConfig.flexiblePosition !== false;
+    });
+
+    readonly overlayPositions = computed(() => {
+        return getFlexiblePositions(this.placement(), 4, undefined, this.flexiblePositionEnabled());
+    });
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
@@ -184,7 +192,6 @@ export class ThyPicker implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.overlayPositions = getFlexiblePositions(this.placement(), 4);
         if (this.autoFocus()) {
             this.focus();
         }

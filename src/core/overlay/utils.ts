@@ -55,7 +55,16 @@ export function getFallbackPlacements(placement: ThyPlacement): ThyPlacement[] {
  * [{topPosition}, {topLeftPosition}, {topRightPosition}, {bottomPosition}, {bottomLeftPosition}, {bottomRightPosition},]
  * @returns [ConnectionPositionPair]
  */
-export function getFlexiblePositions(placement: ThyPlacement, offset?: number, panelClassPrefix?: string): ConnectionPositionPair[] {
+export function getFlexiblePositions(
+    placement: ThyPlacement,
+    offset?: number,
+    panelClassPrefix?: string,
+    flexiblePosition = true
+): ConnectionPositionPair[] {
+    if (!flexiblePosition) {
+        return [buildConnectedPositionPair(placement, offset, panelClassPrefix)];
+    }
+
     const fallbackPlacements = getFallbackPlacements(placement);
 
     return [placement, ...fallbackPlacements].map(placementName => {

@@ -1,4 +1,12 @@
-import { ComponentTypeOrTemplateRef, getFlexiblePositions, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
+import {
+    ComponentTypeOrTemplateRef,
+    getFlexiblePositions,
+    getOverlayGlobalConfig,
+    THY_GLOBAL_CONFIG,
+    ThyAbstractOverlayRef,
+    ThyAbstractOverlayService,
+    ThyGlobalConfig
+} from 'ngx-tethys/core';
 import { FunctionProp, isFunction } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -43,6 +51,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     private _document = inject(DOCUMENT, { optional: true })!;
     private _platform = inject(Platform);
     private _overlayContainer = inject(OverlayContainer);
+    private globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
 
     private readonly ngUnsubscribe$ = new Subject();
 
@@ -64,9 +73,12 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
             this._platform,
             this._overlayContainer
         );
-        const positions = getFlexiblePositions(config.placement!, config.offset, 'thy-popover');
+        const overlayGlobalConfig = getOverlayGlobalConfig(this.globalConfig);
+        const flexiblePosition = overlayGlobalConfig.flexiblePosition !== false;
+        const canPush = config.canPush ?? overlayGlobalConfig.canPush ?? true;
+        const positions = getFlexiblePositions(config.placement!, config.offset, 'thy-popover', flexiblePosition);
         positionStrategy.withPositions(positions);
-        positionStrategy.withPush(config.canPush);
+        positionStrategy.withPush(canPush);
         positionStrategy.withGrowAfterOpen(true);
         positionStrategy.withTransformOriginOn('.thy-popover-container');
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
@@ -143,19 +155,15 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     constructor() {
         const overlay = inject(Overlay);
         const injector = inject(Injector);
-        const defaultConfig = inject(THY_POPOVER_DEFAULT_CONFIG, { optional: true })!;
+        const defaultConfig = inject(THY_POPOVER_DEFAULT_CONFIG, { optional: true });
         const scrollStrategy = inject<FunctionProp<ScrollStrategy>>(THY_POPOVER_SCROLL_STRATEGY);
+        const popoverDefaultConfig: Partial<ThyPopoverConfig> = defaultConfig || {};
+        const mergedDefaultConfig = {
+            ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
+            ...popoverDefaultConfig
+        } as ThyPopoverConfig;
 
-        super(
-            popoverAbstractOverlayOptions,
-            overlay,
-            injector,
-            {
-                ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
-                ...defaultConfig
-            },
-            scrollStrategy
-        );
+        super(popoverAbstractOverlayOptions, overlay, injector, mergedDefaultConfig, scrollStrategy);
     }
 
     private ensureCloseClosest(origin: HTMLElement) {

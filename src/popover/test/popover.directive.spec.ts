@@ -5,6 +5,7 @@ import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } 
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopoverDirective, ThyPopoverModule } from 'ngx-tethys/popover';
@@ -219,7 +220,18 @@ describe(`ThyPopoverDirective`, () => {
 
         TestBed.configureTestingModule({
             imports: [ThyPopoverModule],
-            providers: [provideHttpClient(), provideNoopAnimations(), { provide: Platform, useFactory: () => platform }]
+            providers: [
+                provideHttpClient(),
+                provideNoopAnimations(),
+                { provide: Platform, useFactory: () => platform },
+                provideTethys(
+                    withGlobalConfig({
+                        overlay: {
+                            flexiblePosition: false
+                        }
+                    })
+                )
+            ]
         });
 
         TestBed.compileComponents();
@@ -251,6 +263,16 @@ describe(`ThyPopoverDirective`, () => {
             expect(getPopoverVisible()).toBe(true);
             fixture.detectChanges();
             tick(100);
+        }));
+
+        it('should inherit flexiblePosition from global overlay config', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'click');
+            fixture.detectChanges();
+            flush();
+            const popoverRef = (popoverDirective as any).popoverRef;
+            const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
+
+            expect(positionStrategy._preferredPositions.length).toEqual(1);
         }));
 
         it('should not show popover when `thyDisabled = true` is set', fakeAsync(() => {

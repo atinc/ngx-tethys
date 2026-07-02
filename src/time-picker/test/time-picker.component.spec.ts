@@ -5,6 +5,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
 
@@ -473,3 +474,45 @@ class ThyTestTimePickerBaseComponent {
 
     onOpenChange(state: boolean) {}
 }
+
+describe('ThyTimePickerComponent flexiblePosition config', () => {
+    let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
+    let fixtureInstance!: ThyTestTimePickerBaseComponent;
+    let overlayContainer!: OverlayContainer;
+
+    function configureTestingModule(providers: unknown[] = []) {
+        TestBed.configureTestingModule({
+            providers: [provideHttpClient(), provideNoopAnimations(), ...providers]
+        });
+        TestBed.compileComponents();
+
+        fixture = TestBed.createComponent(ThyTestTimePickerBaseComponent);
+        fixtureInstance = fixture.componentInstance;
+        overlayContainer = TestBed.inject(OverlayContainer);
+        fixture.detectChanges();
+    }
+
+    afterEach(() => {
+        overlayContainer?.ngOnDestroy();
+    });
+
+    it('should inherit flexiblePosition from global overlay config', fakeAsync(() => {
+        configureTestingModule([
+            provideTethys(
+                withGlobalConfig({
+                    overlay: {
+                        flexiblePosition: false
+                    }
+                })
+            )
+        ]);
+
+        expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(false);
+    }));
+
+    it('should enable flexiblePosition by default', fakeAsync(() => {
+        configureTestingModule();
+
+        expect(fixtureInstance.timePickerRef().flexiblePosition()).toBe(true);
+    }));
+});
