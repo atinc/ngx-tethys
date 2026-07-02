@@ -73,11 +73,12 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
             this._platform,
             this._overlayContainer
         );
-        const flexiblePosition = getOverlayGlobalConfig(this.globalConfig).flexiblePosition !== false;
+        const overlayGlobalConfig = getOverlayGlobalConfig(this.globalConfig);
+        const flexiblePosition = overlayGlobalConfig.flexiblePosition !== false;
+        const canPush = config.canPush ?? overlayGlobalConfig.canPush ?? true;
         const positions = getPositions(config.placement!, config.offset, 'thy-popover', flexiblePosition);
         positionStrategy.withPositions(positions);
-        positionStrategy.withFlexibleDimensions(flexiblePosition);
-        positionStrategy.withPush(flexiblePosition ? config.canPush : false);
+        positionStrategy.withPush(canPush);
         positionStrategy.withGrowAfterOpen(true);
         positionStrategy.withTransformOriginOn('.thy-popover-container');
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {

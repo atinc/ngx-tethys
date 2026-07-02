@@ -886,8 +886,7 @@ describe(`thyPopover`, () => {
                 const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
 
                 expect(positionStrategy._preferredPositions.length).toEqual(1);
-                expect(positionStrategy._hasFlexibleDimensions).toEqual(false);
-                expect(positionStrategy._canPush).toEqual(false);
+                expect(positionStrategy._canPush).toEqual(true);
             });
 
             it('should not allow open config to override global flexiblePosition', () => {
@@ -899,8 +898,112 @@ describe(`thyPopover`, () => {
                 const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
 
                 expect(positionStrategy._preferredPositions.length).toEqual(1);
-                expect(positionStrategy._hasFlexibleDimensions).toEqual(false);
+                expect(positionStrategy._canPush).toEqual(true);
+            });
+        });
+
+        describe('has global canPush config', () => {
+            let popoverConfigFixture!: ComponentFixture<PopoverConfigComponent>;
+            let popoverConfigComponent!: PopoverConfigComponent;
+
+            beforeEach(() => {
+                TestBed.configureTestingModule({
+                    imports: [ThyPopoverModule],
+                    providers: [
+                        provideNoopAnimations(),
+                        provideTethys(
+                            withGlobalConfig({
+                                overlay: {
+                                    canPush: false
+                                }
+                            })
+                        )
+                    ]
+                });
+                TestBed.compileComponents();
+            });
+
+            beforeEach(inject([ThyPopover, OverlayContainer], (_popover: ThyPopover, _overlayContainer: OverlayContainer) => {
+                popover = _popover;
+                overlayContainer = _overlayContainer;
+                overlayContainerElement = _overlayContainer.getContainerElement();
+            }));
+
+            beforeEach(() => {
+                popoverConfigFixture = TestBed.createComponent(PopoverConfigComponent);
+                popoverConfigFixture.detectChanges();
+                popoverConfigComponent = popoverConfigFixture.componentInstance;
+            });
+
+            it('should inherit canPush from global overlay config', () => {
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    placement: 'right'
+                });
+                const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
+
                 expect(positionStrategy._canPush).toEqual(false);
+            });
+
+            it('should allow open config to override global canPush', () => {
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    placement: 'right',
+                    canPush: true
+                });
+                const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
+
+                expect(positionStrategy._canPush).toEqual(true);
+            });
+        });
+
+        describe('has global canPush config and default popover canPush config', () => {
+            let popoverConfigFixture!: ComponentFixture<PopoverConfigComponent>;
+            let popoverConfigComponent!: PopoverConfigComponent;
+
+            beforeEach(() => {
+                TestBed.configureTestingModule({
+                    imports: [ThyPopoverModule],
+                    providers: [
+                        provideNoopAnimations(),
+                        provideTethys(
+                            withGlobalConfig({
+                                overlay: {
+                                    canPush: false
+                                }
+                            })
+                        ),
+                        {
+                            provide: THY_POPOVER_DEFAULT_CONFIG,
+                            useValue: {
+                                canPush: true
+                            }
+                        }
+                    ]
+                });
+                TestBed.compileComponents();
+            });
+
+            beforeEach(inject([ThyPopover, OverlayContainer], (_popover: ThyPopover, _overlayContainer: OverlayContainer) => {
+                popover = _popover;
+                overlayContainer = _overlayContainer;
+                overlayContainerElement = _overlayContainer.getContainerElement();
+            }));
+
+            beforeEach(() => {
+                popoverConfigFixture = TestBed.createComponent(PopoverConfigComponent);
+                popoverConfigFixture.detectChanges();
+                popoverConfigComponent = popoverConfigFixture.componentInstance;
+            });
+
+            it('should allow default popover config to override global canPush', () => {
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    placement: 'right'
+                });
+                const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
+
+                expect(positionStrategy._canPush).toEqual(true);
             });
         });
     });

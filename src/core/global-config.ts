@@ -6,6 +6,11 @@ export interface ThyOverlayGlobalConfig {
      * from their fallback positions when the preferred placement does not fit.
      */
     flexiblePosition?: boolean;
+
+    /**
+     * Whether overlay-based components can be pushed on-screen if none of the provided positions fit.
+     */
+    canPush?: boolean;
 }
 
 export interface ThyGlobalConfig {

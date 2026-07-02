@@ -62,8 +62,6 @@ export class ThyAutocompleteService
         const flexiblePosition = getOverlayGlobalConfig(this.globalConfig).flexiblePosition !== false;
         const positions = getPositions(config.placement!, config.offset, 'thy-autocomplete', flexiblePosition);
         positionStrategy.withPositions(positions);
-        positionStrategy.withFlexibleDimensions(flexiblePosition);
-        positionStrategy.withPush(flexiblePosition ? config.canPush : false);
         positionStrategy.withGrowAfterOpen(true);
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
             if (change.scrollableViewProperties.isOverlayClipped) {

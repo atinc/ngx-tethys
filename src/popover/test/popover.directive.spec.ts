@@ -273,8 +273,6 @@ describe(`ThyPopoverDirective`, () => {
             const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
 
             expect(positionStrategy._preferredPositions.length).toEqual(1);
-            expect(positionStrategy._hasFlexibleDimensions).toEqual(false);
-            expect(positionStrategy._canPush).toEqual(false);
         }));
 
         it('should not show popover when `thyDisabled = true` is set', fakeAsync(() => {
