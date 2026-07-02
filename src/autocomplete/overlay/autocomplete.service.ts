@@ -22,7 +22,7 @@ import { ElementRef, Injectable, Injector, NgZone, OnDestroy, StaticProvider, Te
 
 import { ThyAutocompleteContainer } from './autocomplete-container.component';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
-import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE, ThyAutocompleteConfig } from './autocomplete.config';
+import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, ThyAutocompleteConfig } from './autocomplete.config';
 import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
 /**
@@ -136,16 +136,11 @@ export class ThyAutocompleteService
     constructor() {
         const overlay = inject(Overlay);
         const injector = inject(Injector);
-        const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG, { optional: true });
+        const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG);
         const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
-        const autocompleteDefaultConfig: Partial<ThyAutocompleteConfig> = defaultConfig || {};
         const flexiblePosition = getOverlayGlobalConfig(globalConfig).flexiblePosition !== false;
-        const mergedDefaultConfig = {
-            ...THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE,
-            ...autocompleteDefaultConfig
-        } as ThyAutocompleteConfig;
 
-        super(autocompleteAbstractOverlayOptions, overlay, injector, mergedDefaultConfig);
+        super(autocompleteAbstractOverlayOptions, overlay, injector, defaultConfig);
         this.flexiblePosition = flexiblePosition;
     }
 

@@ -33,17 +33,15 @@ export class ThyAutocompleteConfig<TData = any> extends ThyAbstractOverlayConfig
 
 export const THY_AUTOCOMPLETE_DEFAULT_CONFIG = new InjectionToken<ThyAutocompleteConfig>('thy-autocomplete-default-config');
 
-export const THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE = {
-    hasBackdrop: false,
-    panelClass: '',
-    closeOnNavigation: true,
-    insideClosable: true,
-    manualClosure: false,
-    outsideClosable: true,
-    originActiveClass: 'thy-autocomplete-origin-active'
-};
-
 export const THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER = {
     provide: THY_AUTOCOMPLETE_DEFAULT_CONFIG,
-    useValue: THY_AUTOCOMPLETE_DEFAULT_CONFIG_VALUE
+    useValue: {
+        hasBackdrop: false,
+        panelClass: '',
+        closeOnNavigation: true,
+        insideClosable: true,
+        manualClosure: false,
+        outsideClosable: true,
+        originActiveClass: 'thy-autocomplete-origin-active'
+    }
 };
