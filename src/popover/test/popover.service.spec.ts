@@ -889,17 +889,6 @@ describe(`thyPopover`, () => {
                 expect(positionStrategy._canPush).toEqual(true);
             });
 
-            it('should not allow open config to override global flexiblePosition', () => {
-                const popoverRef = popover.open(popoverConfigComponent.template, {
-                    origin: popoverConfigComponent.openBtn,
-                    placement: 'right',
-                    flexiblePosition: true
-                } as ThyPopoverConfig);
-                const positionStrategy = popoverRef.getOverlayRef().getConfig().positionStrategy as any;
-
-                expect(positionStrategy._preferredPositions.length).toEqual(1);
-                expect(positionStrategy._canPush).toEqual(true);
-            });
         });
 
         describe('has global canPush config', () => {

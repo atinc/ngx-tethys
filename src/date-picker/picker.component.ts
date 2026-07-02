@@ -43,8 +43,6 @@ export class ThyPicker implements AfterViewInit {
 
     private i18n = inject(ThyI18nService);
 
-    private datePickerConfigService = inject(ThyDatePickerConfigService);
-
     private overlayGlobalConfig = getOverlayGlobalConfig(inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true }));
 
     readonly isRange = input(false, { transform: coerceBooleanProperty });
