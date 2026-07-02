@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.6](github.com/atinc/ngx-tethys/compare/21.0.5...21.0.6) (2026-07-02)
+
+
+### Features
+
+* add flexiblePosition config for overlays #NEXUS-2762 ([#3826](/github.com/atinc/ngx-tethys/issues/3826)) ([9771c12](github.com/atinc/ngx-tethys/commits/9771c123245b5518a5f2b6f15123f34ccf1f4249)), closes [#NEXUS-2762](github.com/atinc/ngx-tethys/issues/NEXUS-2762)
+
 ## [21.0.5](github.com/atinc/ngx-tethys/compare/21.0.4...21.0.5) (2026-06-25)
 
 
