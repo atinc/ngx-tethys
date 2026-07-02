@@ -14,7 +14,8 @@ import { ThyPopover, ThyPopoverBody, ThyPopoverDirective, ThyPopoverHeader } fro
             provide: THY_GLOBAL_CONFIG,
             useValue: {
                 overlay: {
-                    flexiblePosition: false
+                    flexiblePosition: false,
+                    canPush: false
                 }
             }
         }
