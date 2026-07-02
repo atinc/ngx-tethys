@@ -39,7 +39,7 @@ export class ThyAutocompleteService
     private _document = inject(DOCUMENT);
     private _platform = inject(Platform);
     private _overlayContainer = inject(OverlayContainer);
-    private flexiblePosition = true;
+    private globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
 
     private readonly ngUnsubscribe$ = new Subject();
 
@@ -59,7 +59,7 @@ export class ThyAutocompleteService
             this._platform,
             this._overlayContainer
         );
-        const flexiblePosition = this.flexiblePosition;
+        const flexiblePosition = getOverlayGlobalConfig(this.globalConfig).flexiblePosition !== false;
         const positions = getPositions(config.placement!, config.offset, 'thy-autocomplete', flexiblePosition);
         positionStrategy.withPositions(positions);
         positionStrategy.withFlexibleDimensions(flexiblePosition);
@@ -137,11 +137,8 @@ export class ThyAutocompleteService
         const overlay = inject(Overlay);
         const injector = inject(Injector);
         const defaultConfig = inject(THY_AUTOCOMPLETE_DEFAULT_CONFIG);
-        const globalConfig = inject<ThyGlobalConfig>(THY_GLOBAL_CONFIG, { optional: true });
-        const flexiblePosition = getOverlayGlobalConfig(globalConfig).flexiblePosition !== false;
 
         super(autocompleteAbstractOverlayOptions, overlay, injector, defaultConfig);
-        this.flexiblePosition = flexiblePosition;
     }
 
     open<T, TData = any, TResult = any>(
