@@ -35,7 +35,9 @@
                 <span>{{ column.title }}</span>
               }
               @if (column.headerTemplateRef()) {
-                <ng-template [ngTemplateOutlet]="column.headerTemplateRef()" [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
+                <ng-template
+                  [ngTemplateOutlet]="column.headerTemplateRef()"
+                  [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
               }
               @if (column.sortable) {
                 <thy-icon [ngClass]="['thy-table-column-sortable-icon', 'px-1', column.sortDirection]" thyIconName="sort-vertical-tt">
