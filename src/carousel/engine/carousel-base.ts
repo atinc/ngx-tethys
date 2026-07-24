@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Renderer2, QueryList } from '@angular/core';
+import { ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
@@ -35,7 +35,7 @@ export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
         this.carouselComponent = thyCarouselComponent;
     }
 
-    initializeContents(contents: QueryList<ThyCarouselItemDirective> | null) {
+    initializeContents(contents: readonly ThyCarouselItemDirective[] | null) {
         const carousel = this.carouselComponent!;
         const { wrapperEl, playTime } = carousel;
         this.wrapperEl = wrapperEl;
@@ -44,7 +44,7 @@ export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
         this.contentHeight = height;
         this.contentWidth = width;
 
-        this.contents = contents?.toArray() || [];
+        this.contents = contents ? [...contents] : [];
         this.length = this.contents.length;
         if (this.platform.isBrowser && this.contents.length) {
             this.renderer.setStyle(this.wrapperEl, 'transform', 'translate3d(0, 0, 0)');
@@ -57,7 +57,7 @@ export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
 
     abstract dragging(pointerVector: ThyDistanceVector, rect: DOMRect): void;
 
-    abstract initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;
+    abstract initializeCarouselContents(contents: readonly ThyCarouselItemDirective[] | null): void;
 
     abstract switch(to: number, from: number): Observable<void>;
 

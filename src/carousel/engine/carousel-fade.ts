@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, QueryList, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable, Subject } from 'rxjs';
 import { IThyCarouselComponent } from '../carousel.token';
@@ -21,7 +21,7 @@ export class ThyCarouselFadeEngine extends ThyCarouselBaseEngine {
         this.renderer.setStyle(currentContent, 'opacity', `${1 - Math.abs(x) / width}`);
     }
 
-    initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void {
+    initializeCarouselContents(contents: readonly ThyCarouselItemDirective[] | null): void {
         this.initializeContents(contents);
         this.contentsEl = [];
         (contents || []).forEach((content, index) => {

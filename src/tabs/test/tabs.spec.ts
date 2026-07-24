@@ -199,7 +199,7 @@ describe('tabs', () => {
             expect(tabsElement).toBeTruthy();
 
             expect(tabsElement.classList.contains('thy-tabs')).toBeTruthy();
-            expect(tabsInstance.tabs.length).toBe(3);
+            expect(tabsInstance.tabs().length).toBe(3);
         });
 
         it('should emit correct data when change active tab', () => {
@@ -378,23 +378,23 @@ describe('tabs', () => {
 
         it('should support add tab dynamically', fakeAsync(() => {
             const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
-            expect(tabsInstance.tabs.length).toBe(3);
+            expect(tabsInstance.tabs().length).toBe(3);
 
             fixture.debugElement.componentInstance.addTab();
             fixture.detectChanges();
             tick();
             fixture.detectChanges();
-            expect(tabsInstance.tabs.length).toBe(4);
+            expect(tabsInstance.tabs().length).toBe(4);
         }));
 
         it('should set thyActiveTab successfully when add tab', fakeAsync(() => {
             const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
-            expect(tabsInstance.tabs.length).toBe(3);
+            expect(tabsInstance.tabs().length).toBe(3);
 
             fixture.debugElement.componentInstance.addTab();
             fixture.detectChanges();
             tick();
-            expect(tabsInstance.tabs.length).toBe(4);
+            expect(tabsInstance.tabs().length).toBe(4);
 
             const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
             expect(!tabContent.style.marginLeft).toBeTruthy();
@@ -405,13 +405,13 @@ describe('tabs', () => {
 
         it('should set thyActiveTab successfully when add tab and thyAnimated', fakeAsync(() => {
             const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
-            expect(tabsInstance.tabs.length).toBe(3);
+            expect(tabsInstance.tabs().length).toBe(3);
 
             fixture.debugElement.componentInstance.addTab();
             fixture.debugElement.componentInstance.thyAnimated = true;
             fixture.detectChanges();
             tick();
-            expect(tabsInstance.tabs.length).toBe(4);
+            expect(tabsInstance.tabs().length).toBe(4);
 
             const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
             expect(tabContent.style.marginLeft === '-300%').toBeTruthy();

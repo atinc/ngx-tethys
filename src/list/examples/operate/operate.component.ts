@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ThyListOption } from 'ngx-tethys/shared';
 import { ThySelectionListChange, ThySelectionList } from 'ngx-tethys/list';
 import { ThyButton } from 'ngx-tethys/button';
@@ -12,8 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class ThyListOperateExampleComponent implements OnInit {
     @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
-
-    @ViewChildren(ThyListOption) optionQueryList: QueryList<ThyListOption>;
 
     public items = [
         {
@@ -73,8 +71,6 @@ export class ThyListOperateExampleComponent implements OnInit {
     determineClearActiveItem() {
         this.items.shift();
         setTimeout(() => {
-            this.thySelectionListComponent.options = this.optionQueryList;
-
             this.thySelectionListComponent.determineClearActiveItem();
         }, 1000);
     }

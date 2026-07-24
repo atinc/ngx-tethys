@@ -31,11 +31,11 @@
               [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
               [ngStyle]="{ left: column.left + 'px', right: column.right + 'px' }"
               (click)="onColumnHeaderClick($event, column)">
-              @if (!column.headerTemplateRef) {
+              @if (!column.headerTemplateRef()) {
                 <span>{{ column.title }}</span>
               }
-              @if (column.headerTemplateRef) {
-                <ng-template [ngTemplateOutlet]="column.headerTemplateRef" [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
+              @if (column.headerTemplateRef()) {
+                <ng-template [ngTemplateOutlet]="column.headerTemplateRef()" [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
               }
               @if (column.sortable) {
                 <thy-icon [ngClass]="['thy-table-column-sortable-icon', 'px-1', column.sortDirection]" thyIconName="sort-vertical-tt">
@@ -72,9 +72,9 @@
                     <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
                   }
                   <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
-                  @if (groupTemplate) {
+                  @if (groupTemplate()) {
                     <ng-template
-                      [ngTemplateOutlet]="groupTemplate"
+                      [ngTemplateOutlet]="groupTemplate()"
                       [ngTemplateOutletContext]="{ $implicit: group.origin, group: group.origin }"></ng-template>
                   }
                 </div>
@@ -168,7 +168,7 @@
                 <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
               }
               <!--template-->
-              @if (isTemplateRef(column.cellTemplateRef)) {
+              @if (isTemplateRef(column.cellTemplateRef())) {
                 @if (mode === 'tree' && column.expand) {
                   <thy-icon
                     class="tree-expand-icon cursor-pointer"
@@ -176,10 +176,10 @@
                     [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
                     [style.left.px]="iconIndentComputed(level)"></thy-icon>
                 }
-                <ng-template [ngTemplateOutlet]="column.cellTemplateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
+                <ng-template [ngTemplateOutlet]="column.cellTemplateRef()" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
               }
               <!--not template-->
-              @if (!isTemplateRef(column.cellTemplateRef)) {
+              @if (!isTemplateRef(column.cellTemplateRef())) {
                 <!-- default -->
                 @if (column.model && !column.type) {
                   @if (mode === 'tree' && column.expand) {
@@ -247,8 +247,8 @@
 
   @if (loadingDone && model.length === 0 && groups.length === 0) {
     <div class="thy-table-empty clear-hover">
-      @if (emptyTemplate) {
-        <ng-template [ngTemplateOutlet]="emptyTemplate"></ng-template>
+      @if (emptyTemplate()) {
+        <ng-template [ngTemplateOutlet]="emptyTemplate()"></ng-template>
       } @else {
         <thy-empty
           [thyMessage]="emptyOptions.message"

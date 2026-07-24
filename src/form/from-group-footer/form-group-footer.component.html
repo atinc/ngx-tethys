@@ -3,9 +3,9 @@
     <ng-content></ng-content>
   </div>
 
-  @if (description) {
+  @if (description()) {
     <div class="form-footer-description">
-      <ng-container [ngTemplateOutlet]="description"></ng-container>
+      <ng-container [ngTemplateOutlet]="description()"></ng-container>
     </div>
   }
 </div>

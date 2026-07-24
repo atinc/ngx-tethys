@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation, OnInit, ContentChild, TemplateRef, inject, input } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, TemplateRef, inject, input, contentChild } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyFormGroupFooterAlign, THY_FORM_CONFIG, ThyFormConfig } from '../form.class';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -22,7 +22,7 @@ export class ThyFormGroupFooter implements OnInit {
 
     @HostBinding('class.row') isHorizontal = true;
 
-    @ContentChild('description') description?: TemplateRef<any>;
+    readonly description = contentChild<TemplateRef<any>>('description');
 
     /**
      * 对齐方式

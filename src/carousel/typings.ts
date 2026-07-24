@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
-import { QueryList } from '@angular/core';
 
 export interface ThyDistanceVector {
     x: number;
@@ -20,7 +19,7 @@ export type ThyCarouselPause = 'false' | 'hover';
 
 export interface ThyCarouselEngine {
     // Initialize dragging sequences.
-    initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;
+    initializeCarouselContents(contents: readonly ThyCarouselItemDirective[] | null): void;
     // switch item
     switch(to: number, from: number): Observable<void>;
     // dragging events

@@ -6,7 +6,7 @@
   [thyExtra]="thyExtra()"
   [thyVertical]="thyPosition() === 'left'"
   [thyResponsive]="thyResponsive()">
-  @for (tab of tabs; track $index; let i = $index) {
+  @for (tab of tabs(); track $index; let i = $index) {
     <a
       href="javascript:;"
       thyNavItem
@@ -14,8 +14,8 @@
       [thyNavItemDisabled]="tab.thyDisabled()"
       [thyNavItemActive]="(tab.id() && activeTabId() && tab.id() === activeTabId()) ?? i === activeTabIndex()"
       (click)="activeTab(tab, i)">
-      @if (tab.titleTemplateRef) {
-        <ng-template [ngTemplateOutlet]="tab.titleTemplateRef"></ng-template>
+      @if (tab.titleTemplateRef()) {
+        <ng-template [ngTemplateOutlet]="tab.titleTemplateRef()"></ng-template>
       } @else {
         {{ tab.thyTitle() }}
       }
@@ -24,7 +24,7 @@
 </thy-nav>
 <!-- tabs content -->
 <div class="thy-tabs-content" [class.thy-tabs-content-animated]="tabPaneAnimated" [style.margin-left]="getTabContentMarginLeft()">
-  @for (tab of tabs; track $index; let i = $index) {
+  @for (tab of tabs(); track $index; let i = $index) {
     <div
       thyTabContent
       [active]="(tab.id() && activeTabId() && tab.id() === activeTabId()) ?? i === activeTabIndex()"

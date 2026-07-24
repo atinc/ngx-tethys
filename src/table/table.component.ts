@@ -13,8 +13,6 @@ import {
     AfterViewInit,
     ChangeDetectorRef,
     Component,
-    ContentChild,
-    ContentChildren,
     DestroyRef,
     ElementRef,
     EventEmitter,
@@ -39,7 +37,10 @@ import {
     ViewChild,
     ViewChildren,
     ViewEncapsulation,
-    DOCUMENT
+    DOCUMENT,
+    contentChild,
+    contentChildren,
+    effect
 } from '@angular/core';
 
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
@@ -220,7 +221,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 设置数据为空时展示的模板
      * @type TemplateRef
      */
-    @ContentChild('empty') emptyTemplate!: TemplateRef<SafeAny>;
+    readonly emptyTemplate = contentChild<TemplateRef<SafeAny>>('empty');
 
     @ViewChild('table', { static: true }) tableElementRef!: ElementRef<SafeAny>;
 
@@ -536,20 +537,9 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     @Output() readonly thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
-    @ContentChild('group', { static: true }) groupTemplate!: TemplateRef<SafeAny>;
+    readonly groupTemplate = contentChild<TemplateRef<SafeAny>>('group');
 
-    @ContentChildren(ThyTableColumnComponent)
-    set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {
-        if (components) {
-            this.columns = components.toArray();
-            this.hasFixed = !!this.columns.find(item => {
-                return item.fixed === this.fixedDirection.left || item.fixed === this.fixedDirection.right;
-            });
-            this.buildSkeletonColumns();
-            this._initializeColumns();
-            this._initializeDataModel();
-        }
-    }
+    readonly listOfColumnComponents = contentChildren(ThyTableColumnComponent);
 
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
@@ -564,6 +554,17 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     constructor() {
         this._bindTrackFn();
+
+        effect(() => {
+            const components = this.listOfColumnComponents();
+            this.columns = [...components];
+            this.hasFixed = !!this.columns.find(item => {
+                return item.fixed === this.fixedDirection.left || item.fixed === this.fixedDirection.right;
+            });
+            this.buildSkeletonColumns();
+            this._initializeColumns();
+            this._initializeDataModel();
+        });
     }
 
     private _initializeColumns() {
