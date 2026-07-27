@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, QueryList, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable, Subject } from 'rxjs';
 import { IThyCarouselComponent } from '../carousel.token';
@@ -13,7 +13,7 @@ export class ThyCarouselNoopEngine extends ThyCarouselBaseEngine {
 
     dragging(pointerVector: ThyDistanceVector, rect: DOMRect): void {}
 
-    initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void {
+    initializeCarouselContents(contents: readonly ThyCarouselItemDirective[] | null): void {
         this.initializeContents(contents);
     }
 

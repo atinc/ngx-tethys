@@ -1,6 +1,5 @@
 import {
     Component,
-    ContentChild,
     ElementRef,
     EventEmitter,
     InjectionToken,
@@ -9,7 +8,9 @@ import {
     Output,
     TemplateRef,
     ViewEncapsulation,
-    inject
+    inject,
+    contentChild,
+    computed
 } from '@angular/core';
 import { coerceBooleanProperty, coerceCssPixelValue, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
@@ -173,18 +174,22 @@ export class ThyTableColumnComponent implements OnInit {
      */
     @Output('thySortChange') readonly sortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
-    @ContentChild('header', { static: true }) headerTemplateRef?: TemplateRef<any>;
+    readonly headerTemplateRef = contentChild<TemplateRef<any>>('header');
 
-    @ContentChild('cell', { static: true }) cellTemplateRef?: TemplateRef<any>;
+    private readonly cellTemplate = contentChild<TemplateRef<any>>('cell');
 
-    @ContentChild(TemplateRef, { static: true })
-    set templateRef(value: TemplateRef<any>) {
-        if (value) {
-            if (!this.headerTemplateRef && !this.cellTemplateRef) {
-                this.cellTemplateRef = value;
-            }
+    private readonly firstTemplateRef = contentChild(TemplateRef);
+
+    readonly cellTemplateRef = computed(() => {
+        const cell = this.cellTemplate();
+        if (cell) {
+            return cell;
         }
-    }
+        if (!this.headerTemplateRef()) {
+            return this.firstTemplateRef() ?? undefined;
+        }
+        return undefined;
+    });
 
     public key!: string;
 

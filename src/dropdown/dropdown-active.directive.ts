@@ -1,7 +1,7 @@
-import { AfterContentInit, ContentChildren, Directive, OnInit, QueryList, Signal, computed, inject, input } from '@angular/core';
+import { Directive, OnInit, Signal, computed, inject, input, contentChildren, effect } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceArray } from 'ngx-tethys/util';
-import { mergeMap, startWith } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 import { ThyDropdownDirective } from './dropdown.directive';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 
@@ -13,7 +13,7 @@ import { outputToObservable } from '@angular/core/rxjs-interop';
 @Directive({
     selector: '[thyDropdownActive]'
 })
-export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
+export class ThyDropdownActiveDirective implements OnInit {
     private trigger = inject(ThyDropdownDirective, { optional: true });
 
     readonly classes: Signal<string[]> = computed(() => {
@@ -31,29 +31,26 @@ export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
     /**
      * @private
      */
-    @ContentChildren(ThyDropdownDirective, { descendants: true }) triggers!: QueryList<ThyDropdownDirective>;
+    readonly triggers = contentChildren(ThyDropdownDirective, { descendants: true });
 
-    ngOnInit(): void {}
-
-    ngAfterContentInit(): void {
-        this.triggers.changes
-            .pipe(
-                startWith(this.triggers.toArray()),
-                mergeMap((triggers: ThyDropdownDirective[]) => {
-                    const result = triggers.map(item => {
-                        return outputToObservable(item.thyActiveChange);
-                    });
-                    this.trigger && result.push(outputToObservable(this.trigger.thyActiveChange));
-                    return result;
-                }),
-                mergeMap(result => {
-                    return result;
-                })
-            )
-            .subscribe(active => {
+    constructor() {
+        effect(onCleanup => {
+            const triggers = this.triggers();
+            const sources = triggers.map(item => outputToObservable(item.thyActiveChange));
+            this.trigger && sources.push(outputToObservable(this.trigger.thyActiveChange));
+            if (!sources.length) {
+                return;
+            }
+            const subscription: Subscription = merge(...sources).subscribe(active => {
                 this.update(active);
             });
+            onCleanup(() => {
+                subscription.unsubscribe();
+            });
+        });
     }
+
+    ngOnInit(): void {}
 
     update(active: boolean) {
         this.classes().forEach(className => {
