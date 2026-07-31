@@ -17,6 +17,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <button [thyButton]="type" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
+        <thy-button id="btn-default">Default Button</thy-button>
     `,
     imports: [ThyButtonModule]
 })
@@ -57,6 +58,13 @@ describe('ThyButton', () => {
             expect(btnElement.classList.contains('btn')).toBeTruthy();
             expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
             expect(btnElement.textContent).toBe('Basic Button');
+        });
+
+        it('should use primary type by default', () => {
+            const defaultButton = fixture.debugElement.query(By.css('#btn-default'));
+            const btnElement: HTMLElement = defaultButton.nativeElement;
+
+            expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
         });
 
         it('should set size success', () => {
