@@ -155,8 +155,8 @@ export class ThyButton {
         return null;
     });
 
-    private buttonType = computed(() => {
-        return this.thyButton() || this.thyType();
+    private readonly buttonType = computed<ThyButtonType>(() => {
+        return this.thyButton() || this.thyType() || 'primary';
     });
 
     protected isRadiusSquare = computed(() => {
