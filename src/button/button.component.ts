@@ -35,6 +35,8 @@ export type ThyButtonType =
     | 'link-danger'
     | 'link-success';
 
+const defaultButtonType: ThyButtonType = 'primary';
+
 const btnTypeClassesMap: Record<string, string[]> = {
     primary: ['btn-primary'],
     secondary: ['btn-primary', 'btn-md'],
@@ -156,7 +158,7 @@ export class ThyButton {
     });
 
     private readonly buttonType = computed<ThyButtonType>(() => {
-        return this.thyButton() || this.thyType() || 'primary';
+        return this.thyButton() || this.thyType() || defaultButtonType;
     });
 
     protected isRadiusSquare = computed(() => {

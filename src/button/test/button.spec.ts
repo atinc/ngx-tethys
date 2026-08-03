@@ -18,6 +18,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
         <thy-button id="btn-default">Default Button</thy-button>
+        <thy-button id="btn-input-priority" [thyButton]="thyButtonType" [thyType]="thyType">Input Priority Button</thy-button>
     `,
     imports: [ThyButtonModule]
 })
@@ -27,6 +28,8 @@ class ThyTestButtonBasicComponent {
     loading = false;
     loadingText = 'Loading...';
     icon = 'inbox';
+    thyButtonType = '';
+    thyType = 'danger';
 }
 
 describe('ThyButton', () => {
@@ -65,6 +68,23 @@ describe('ThyButton', () => {
             const btnElement: HTMLElement = defaultButton.nativeElement;
 
             expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
+        });
+
+        it('should use thyType when thyButton is empty', () => {
+            const inputPriorityButton = fixture.debugElement.query(By.css('#btn-input-priority'));
+            const btnElement: HTMLElement = inputPriorityButton.nativeElement;
+
+            expect(btnElement.classList.contains('btn-danger')).toBeTruthy();
+        });
+
+        it('should prefer thyButton when both inputs have values', () => {
+            basicTestComponent.thyButtonType = 'primary';
+            fixture.detectChanges();
+            const inputPriorityButton = fixture.debugElement.query(By.css('#btn-input-priority'));
+            const btnElement: HTMLElement = inputPriorityButton.nativeElement;
+
+            expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-danger')).toBeFalsy();
         });
 
         it('should set size success', () => {
