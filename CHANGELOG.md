@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.7](github.com/atinc/ngx-tethys/compare/21.0.6...21.0.7) (2026-08-04)
+
+
+### Bug Fixes
+
+* **button:** 修复button type参数无默认值 #TINFR-3815 ([6839cc6](github.com/atinc/ngx-tethys/commits/6839cc6c21b642772ad03b88a8526e0d29a3e75c)), closes [#TINFR-3815](github.com/atinc/ngx-tethys/issues/TINFR-3815)
+
+
+### Features
+
+* add sidebar to thy-layout set has-sidebar class #NEXUS-3955 ([cd02729](github.com/atinc/ngx-tethys/commits/cd027295ad942f9427399feeb2da9dcd7d746ab7)), closes [#NEXUS-3955](github.com/atinc/ngx-tethys/issues/NEXUS-3955)
+
 ## [21.0.6](github.com/atinc/ngx-tethys/compare/21.0.5...21.0.6) (2026-07-02)
 
 
