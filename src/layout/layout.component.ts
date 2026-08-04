@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, Directive, HostBinding, signal } from '@angular/core';
-import { ThySidebarDirection } from './sidebar.component';
+import { ChangeDetectionStrategy, Component, computed, contentChild, Directive, effect, forwardRef, inject, signal } from '@angular/core';
+import { ThySidebar, ThySidebarDirection } from './sidebar.component';
 
 /**
  * 布局指令
@@ -33,4 +33,15 @@ export class ThyLayoutDirective {
     changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [ThyLayoutDirective]
 })
-export class ThyLayout {}
+export class ThyLayout {
+    private sidebar = contentChild(forwardRef(() => ThySidebar));
+    private layoutDirective = inject(ThyLayoutDirective, { self: true });
+
+    constructor() {
+        effect(() => {
+            if (this.sidebar() && this.layoutDirective) {
+                this.layoutDirective.sidebarDirection.set(this.sidebar()!.sidebarDirective!.thyDirection());
+            }
+        });
+    }
+}
