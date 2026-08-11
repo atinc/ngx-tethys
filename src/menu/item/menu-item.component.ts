@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, Renderer2, inject, input, viewChild } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, ElementRef, Renderer2, inject, input, viewChild } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -15,7 +15,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     },
     imports: [ThyIcon]
 })
-export class ThyMenuItem implements OnInit, AfterViewInit {
+export class ThyMenuItem {
     private renderer = inject(Renderer2);
 
     readonly content = viewChild.required('content', { read: ElementRef });
@@ -24,10 +24,10 @@ export class ThyMenuItem implements OnInit, AfterViewInit {
      */
     readonly thyIcon = input<string>();
 
-    ngOnInit(): void {}
-
-    ngAfterViewInit() {
-        this.wrapSpanForText(this.content().nativeElement.childNodes);
+    constructor() {
+        afterNextRender(() => {
+            this.wrapSpanForText(this.content().nativeElement.childNodes);
+        });
     }
 
     private wrapSpanForText(nodes: NodeList): void {
