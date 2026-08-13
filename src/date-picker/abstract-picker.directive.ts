@@ -7,6 +7,7 @@ import { coerceArray, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     AfterViewInit,
     ChangeDetectorRef,
+    ComponentRef,
     Directive,
     ElementRef,
     OnChanges,
@@ -102,6 +103,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     private dateValueChangeSubscription?: OutputRefSubscription;
 
+    private datePopupRef?: ComponentRef<DatePopup>;
+
     ngOnInit() {
         this.setPanelMode();
     }
@@ -146,6 +149,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         );
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
+            this.datePopupRef = popoverRef.containerInstance.portalOutlet.attachedRef as ComponentRef<DatePopup>;
 
             if (this.valueChangeSubscription) {
                 this.valueChangeSubscription.unsubscribe();
@@ -184,7 +188,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             popoverRef
                 .afterClosed()
                 .pipe(takeUntilDestroyed(this.destroyRef))
-                .subscribe(() => this.thyOpenChange.emit(false));
+                .subscribe(() => {
+                    this.datePopupRef = undefined;
+                    this.thyOpenChange.emit(false);
+                });
         }
     }
 
@@ -229,5 +236,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     onShowTimePickerChange(show: boolean): void {
         this.withTime = show;
+        // initialState 仅注入一次，需用 setInput 同步，对齐组件 [mustShowTime]="withTime"
+        this.datePopupRef?.setInput('mustShowTime', show);
     }
 }
