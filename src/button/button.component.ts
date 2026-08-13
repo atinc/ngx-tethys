@@ -176,8 +176,9 @@ export class ThyButton {
     private setButtonText() {
         const text = this.thyLoading() ? this.thyLoadingText() : this._originalText;
         const spanElement = this.nativeElement.querySelector('span');
-        if (spanElement && text) {
-            this.renderer.setProperty(spanElement, 'innerText', text);
+        const textNode = spanElement?.firstChild;
+        if (spanElement && textNode && text) {
+            this.renderer.setValue(textNode, text);
         }
     }
 
