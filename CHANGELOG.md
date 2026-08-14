@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.8](github.com/atinc/ngx-tethys/compare/21.0.7...21.0.8) (2026-08-14)
+
+
+### Bug Fixes
+
+* **button:** 修复button-group 样式 #TINFR-3823 ([#3844](/github.com/atinc/ngx-tethys/issues/3844)) ([c1eb10d](github.com/atinc/ngx-tethys/commits/c1eb10d01ca6b2c85494549f534b76ebcd87fd47)), closes [#TINFR-3823](github.com/atinc/ngx-tethys/issues/TINFR-3823)
+* update ngAfterViewInit to afterNextRender support dynamic updated #TINFR-3818 ([#3841](/github.com/atinc/ngx-tethys/issues/3841)) ([9889022](github.com/atinc/ngx-tethys/commits/98890225cde6e772c65881e92a1da38c7dc4b4ef)), closes [#TINFR-3818](github.com/atinc/ngx-tethys/issues/TINFR-3818)
+
 ## [21.0.7](github.com/atinc/ngx-tethys/compare/21.0.6...21.0.7) (2026-08-04)
 
 
