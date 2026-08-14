@@ -1,5 +1,5 @@
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -112,6 +112,72 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeDefined();
                 expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeNull();
+            }));
+
+            it('should sync mustShowTime to DatePopup when showTimePickerChange emits', fakeAsync(() => {
+                const showTimePickerChange$ = new Subject<boolean>();
+                const setInputSpy = jasmine.createSpy('setInput');
+                const thyPopover = TestBed.inject(ThyPopover);
+                spyOn(thyPopover, 'open').and.returnValue({
+                    componentInstance: {
+                        valueChange: of(),
+                        calendarChange: of(),
+                        showTimePickerChange: showTimePickerChange$,
+                        dateValueChange: of(),
+                        ngOnChanges: () => {}
+                    },
+                    containerInstance: {
+                        portalOutlet: {
+                            attachedRef: { setInput: setInputSpy }
+                        }
+                    },
+                    afterOpened: () => of(),
+                    afterClosed: () => of()
+                } as any);
+
+                fixtureInstance.thyShowTime = true;
+                fixture.detectChanges();
+                openPickerByClickTrigger();
+
+                showTimePickerChange$.next(true);
+                expect(setInputSpy).toHaveBeenCalledWith('mustShowTime', true);
+
+                showTimePickerChange$.next(false);
+                expect(setInputSpy).toHaveBeenCalledWith('mustShowTime', false);
+            }));
+
+            it('should clear datePopupRef when popover closed', fakeAsync(() => {
+                const showTimePickerChange$ = new Subject<boolean>();
+                const afterClosed$ = new Subject<void>();
+                const setInputSpy = jasmine.createSpy('setInput');
+                const thyPopover = TestBed.inject(ThyPopover);
+                spyOn(thyPopover, 'open').and.returnValue({
+                    componentInstance: {
+                        valueChange: of(),
+                        calendarChange: of(),
+                        showTimePickerChange: showTimePickerChange$,
+                        dateValueChange: of(),
+                        ngOnChanges: () => {}
+                    },
+                    containerInstance: {
+                        portalOutlet: {
+                            attachedRef: { setInput: setInputSpy }
+                        }
+                    },
+                    afterOpened: () => of(),
+                    afterClosed: () => afterClosed$
+                } as any);
+
+                fixtureInstance.thyShowTime = true;
+                fixture.detectChanges();
+                openPickerByClickTrigger();
+
+                showTimePickerChange$.next(true);
+                expect(setInputSpy).toHaveBeenCalledTimes(1);
+
+                afterClosed$.next();
+                showTimePickerChange$.next(true);
+                expect(setInputSpy).toHaveBeenCalledTimes(1);
             }));
 
             it('should support thyShowShortcut', fakeAsync(() => {
@@ -434,6 +500,11 @@ describe('ThyPickerDirective', () => {
         const spy = spyOn(thyPopover, 'open');
         spy.and.returnValue({
             componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} },
+            containerInstance: {
+                portalOutlet: {
+                    attachedRef: { setInput: () => {} }
+                }
+            },
             afterOpened: () => of(),
             afterClosed: () => of()
         });
