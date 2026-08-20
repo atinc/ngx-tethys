@@ -57,14 +57,14 @@ export class ThyTag {
      * @type outline | fill | weak-fill
      * @default fill
      */
-    readonly thyAppearance = input<ThyTagAppearance>('fill');
+    readonly thyAppearance = input<ThyTagAppearance>();
 
     /**
      * 废弃，标签外观，请使用 thyAppearance 代替
      * @type outline | fill | weak-fill
      * @deprecated please use thyAppearance instead
      */
-    readonly thyTheme = input<ThyTagAppearance>();
+    readonly thyTheme = input<ThyTagAppearance>('fill');
 
     /**
      * 标签大小
