@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyTagColor, ThyTagShape, ThyTagModule } from 'ngx-tethys/tag';
+import { ThyTagAppearance, ThyTagColor, ThyTagShape, ThyTagModule } from 'ngx-tethys/tag';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -11,6 +11,8 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-tag id="default">Default Tag</thy-tag>
         <thy-tag id="color" [thyColor]="color">Tag 1</thy-tag>
         <thy-tag id="theme" [thyTag]="color" [thyColor]="color" [thyTheme]="theme">Tag 2</thy-tag>
+        <thy-tag id="appearance" [thyColor]="color" [thyAppearance]="appearance">Tag 8</thy-tag>
+        <thy-tag id="appearance-priority" [thyColor]="color" [thyAppearance]="appearance" [thyTheme]="theme">Tag 9</thy-tag>
         <thy-tag id="shape" [thyShape]="shape">Tag 3</thy-tag>
         <thy-tag id="icon"> <thy-icon class="text-primary" thyIconName="smile"></thy-icon>Tag 4 </thy-tag>
         <thy-tag id="size" [thySize]="size">Tag 5</thy-tag>
@@ -22,7 +24,8 @@ import { provideHttpClient } from '@angular/common/http';
 export class ThyTagBasicTestComponent implements OnInit {
     size: string = 'md';
     color: ThyTagColor = 'default';
-    theme: 'outline' | 'fill' | 'weak-fill' = 'fill';
+    theme: ThyTagAppearance = 'fill';
+    appearance: ThyTagAppearance = 'fill';
     shape: ThyTagShape = 'rectangle';
     hoverable!: boolean;
 
@@ -64,7 +67,7 @@ describe('thy-tag', () => {
         });
     });
 
-    it('should create tag with theme style', () => {
+    it('should create tag with deprecated thyTheme', () => {
         const tagDebugElement = fixture.debugElement.query(By.css('#theme'));
         const tagElement: HTMLElement = tagDebugElement.nativeElement;
         fixture.componentInstance.color = '#56abfb';
@@ -72,10 +75,54 @@ describe('thy-tag', () => {
         fixture.componentInstance.theme = 'outline';
         fixture.detectChanges();
         expect(tagElement.style.borderColor === 'rgb(86, 171, 251)').toBe(true);
+        expect(tagElement.classList.contains('thy-tag-outline')).toBe(true);
 
         fixture.componentInstance.theme = 'weak-fill';
         fixture.detectChanges();
         expect(tagElement.style.backgroundColor === 'rgba(86, 171, 251, 0.1)').toBe(true);
+        expect(tagElement.classList.contains('thy-tag-outline')).toBe(false);
+    });
+
+    it('should create tag with thyAppearance', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#appearance'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        fixture.componentInstance.color = 'primary';
+
+        fixture.componentInstance.appearance = 'fill';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains('thy-tag-primary')).toBe(true);
+        expect(tagElement.classList.contains('thy-tag-outline')).toBe(false);
+
+        fixture.componentInstance.appearance = 'outline';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains('thy-tag-outline-primary')).toBe(true);
+        expect(tagElement.classList.contains('thy-tag-outline')).toBe(true);
+
+        fixture.componentInstance.appearance = 'weak-fill';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains('thy-tag-weak-fill-primary')).toBe(true);
+        expect(tagElement.classList.contains('thy-tag-outline')).toBe(false);
+
+        fixture.componentInstance.color = '#56abfb';
+        fixture.componentInstance.appearance = 'outline';
+        fixture.detectChanges();
+        expect(tagElement.style.borderColor === 'rgb(86, 171, 251)').toBe(true);
+
+        fixture.componentInstance.appearance = 'weak-fill';
+        fixture.detectChanges();
+        expect(tagElement.style.backgroundColor === 'rgba(86, 171, 251, 0.1)').toBe(true);
+    });
+
+    it('should prefer thyAppearance over deprecated thyTheme', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#appearance-priority'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        fixture.componentInstance.color = 'primary';
+        fixture.componentInstance.theme = 'fill';
+        fixture.componentInstance.appearance = 'outline';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains('thy-tag-outline-primary')).toBe(true);
+        expect(tagElement.classList.contains('thy-tag-outline')).toBe(true);
+        expect(tagElement.classList.contains('thy-tag-primary')).toBe(false);
     });
 
     it('should show icon with thy-icon', () => {
