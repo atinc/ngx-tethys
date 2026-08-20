@@ -1,0 +1,25 @@
+<thy-button-group thySize="sm" thyType="outline-default">
+  @for (item of appearances; track $index) {
+    <button thyButton (click)="appearance = item" [ngClass]="{ active: appearance === item }">
+      {{ item }}
+    </button>
+  }
+</thy-button-group>
+
+<div class="mt-4">
+  <thy-tag [thyAppearance]="appearance">Tag 1</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyColor="primary">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyColor="info">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyColor="success">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyColor="warning">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyColor="danger">Tag 2</thy-tag>
+</div>
+
+<div class="mt-4">
+  <thy-tag [thyAppearance]="appearance" thyShape="pill">Tag 1</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyShape="pill" thyColor="primary">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyShape="pill" thyColor="info">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyShape="pill" thyColor="success">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyShape="pill" thyColor="warning">Tag 2</thy-tag>
+  <thy-tag [thyAppearance]="appearance" thyShape="pill" thyColor="danger">Tag 2</thy-tag>
+</div>
