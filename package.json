@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "21.0.8",
+  "version": "21.0.9",
   "license": "MIT",
   "packageManager": "pnpm@11.4.0",
   "engines": {
