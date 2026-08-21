@@ -81,6 +81,11 @@ describe('thy-tag', () => {
         fixture.detectChanges();
         expect(tagElement.style.backgroundColor === 'rgba(86, 171, 251, 0.1)').toBe(true);
         expect(tagElement.classList.contains('thy-tag-outline')).toBe(false);
+
+        fixture.componentInstance.color = 'primary';
+        fixture.componentInstance.theme = 'weak-fill';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains('thy-tag-subtle-primary')).toBe(true);
     });
 
     it('should create tag with thyAppearance', () => {
@@ -98,15 +103,23 @@ describe('thy-tag', () => {
         expect(tagElement.classList.contains('thy-tag-outline-primary')).toBe(true);
         expect(tagElement.classList.contains('thy-tag-outline')).toBe(true);
 
+        fixture.componentInstance.appearance = 'subtle';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains('thy-tag-subtle-primary')).toBe(true);
+        expect(tagElement.classList.contains('thy-tag-outline')).toBe(false);
+
         fixture.componentInstance.appearance = 'weak-fill';
         fixture.detectChanges();
-        expect(tagElement.classList.contains('thy-tag-weak-fill-primary')).toBe(true);
-        expect(tagElement.classList.contains('thy-tag-outline')).toBe(false);
+        expect(tagElement.classList.contains('thy-tag-subtle-primary')).toBe(true);
 
         fixture.componentInstance.color = '#56abfb';
         fixture.componentInstance.appearance = 'outline';
         fixture.detectChanges();
         expect(tagElement.style.borderColor === 'rgb(86, 171, 251)').toBe(true);
+
+        fixture.componentInstance.appearance = 'subtle';
+        fixture.detectChanges();
+        expect(tagElement.style.backgroundColor === 'rgba(86, 171, 251, 0.1)').toBe(true);
 
         fixture.componentInstance.appearance = 'weak-fill';
         fixture.detectChanges();

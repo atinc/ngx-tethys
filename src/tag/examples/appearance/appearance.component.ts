@@ -10,7 +10,7 @@ import { NgClass } from '@angular/common';
     imports: [ThyTag, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyTagAppearanceExampleComponent implements OnInit {
-    appearances: ThyTagAppearance[] = ['fill', 'outline', 'weak-fill'];
+    appearances: ThyTagAppearance[] = ['fill', 'outline', 'subtle'];
 
     appearance: ThyTagAppearance = 'fill';
 

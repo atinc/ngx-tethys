@@ -9,7 +9,7 @@ export type ThyTagShape = 'pill' | 'rectangle';
 
 export type ThyTagSize = 'sm' | 'md' | 'lg';
 
-export type ThyTagAppearance = 'outline' | 'fill' | 'weak-fill';
+export type ThyTagAppearance = 'outline' | 'fill' | 'subtle' | 'weak-fill';
 
 /**
  * 标签组件
@@ -53,15 +53,15 @@ export class ThyTag {
     readonly thyColor = input<ThyTagColor>('');
 
     /**
-     * 标签外观，fill 为颜色填充，outline 为线框，weak-fill 为背景色 0.1 透明度效果
-     * @type outline | fill | weak-fill
+     * 标签外观，fill 为颜色填充，subtle 为浅背景色填充，outline 为线框，weak-fill 为 subtle 的兼容值
+     * @type outline | fill | subtle
      * @default fill
      */
     readonly thyAppearance = input<ThyTagAppearance>();
 
     /**
      * 废弃，标签外观，请使用 thyAppearance 代替
-     * @type outline | fill | weak-fill
+     * @type outline | fill | subtle
      * @deprecated please use thyAppearance instead
      */
     readonly thyTheme = input<ThyTagAppearance>('fill');
@@ -80,7 +80,10 @@ export class ThyTag {
 
     protected readonly color = computed(() => this.thyColor() || this.thyTag() || 'default');
 
-    protected readonly appearance = computed(() => this.thyAppearance() || this.thyTheme());
+    protected readonly appearance = computed(() => {
+        const appearance = this.thyAppearance() || this.thyTheme();
+        return appearance === 'weak-fill' ? 'subtle' : appearance;
+    });
 
     constructor() {
         effect(() => {
