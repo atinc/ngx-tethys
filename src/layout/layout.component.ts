@@ -34,13 +34,19 @@ export class ThyLayoutDirective {
     hostDirectives: [ThyLayoutDirective]
 })
 export class ThyLayout {
-    private sidebar = contentChild(forwardRef(() => ThySidebar));
+    private sidebar = contentChild(
+        forwardRef(() => ThySidebar),
+        { descendants: false }
+    );
     private layoutDirective = inject(ThyLayoutDirective, { self: true });
 
     constructor() {
         effect(() => {
-            if (this.sidebar() && this.layoutDirective) {
-                this.layoutDirective.sidebarDirection.set(this.sidebar()!.sidebarDirective!.thyDirection());
+            const sidebar = this.sidebar();
+            if (sidebar?.sidebarDirective) {
+                this.layoutDirective.sidebarDirection.set(sidebar.sidebarDirective.thyDirection());
+            } else {
+                this.layoutDirective.sidebarDirection.set(null);
             }
         });
     }
