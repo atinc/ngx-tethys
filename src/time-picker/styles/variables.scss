@@ -18,7 +18,7 @@ $time-picker-panel-column-cell-height: 24px;
 $time-picker-panel-column-cell-padding-left: 23px;
 $time-picker-panel-column-cell-spacing: 4px;
 
-$time-picker-column-hover-bg-color: rgba(variables.$primary, 0.1);
+$time-picker-column-hover-bg-color: variables.$primary-subtle;
 $time-picker-column-hover-color: variables.$primary;
 
 $time-picker-panel-padding: 12px;

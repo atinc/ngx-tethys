@@ -17,7 +17,7 @@
         }
 
         &.active .thy-menu-item-content {
-            background: rgba(variables.$primary, 0.1);
+            background: variables.$primary-subtle;
         }
 
         .thy-menu-item-content {
@@ -182,7 +182,7 @@
                 display: inline-block !important;
                 margin-left: 4px;
                 .thy-action {
-                    background: rgba(variables.$primary, 0.1);
+                    background: variables.$primary-subtle;
                     color: variables.$primary;
                 }
             }

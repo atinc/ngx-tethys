@@ -10,9 +10,9 @@
     }
 }
 
-@mixin thy-alert-variant($color) {
+@mixin thy-alert-variant($color, $subtle: rgba($color, 0.1)) {
     color: variables.$gray-700;
-    @include gradients.gradient-bg(rgba($color, 0.1));
+    @include gradients.gradient-bg($subtle);
     border-color: $color;
     @include thy-alert-inner($color);
 }

@@ -56,7 +56,11 @@
             @include mixin.tag-color-variant(variables.$white, variables.$white);
         }
         &-weak-fill-#{$color} {
-            @include mixin.tag-bg-variant(rgba($value, 0.1));
+            $subtle: map.get(variables.$theme-colors-subtle, $color);
+            @if not $subtle {
+                $subtle: rgba($value, 0.1);
+            }
+            @include mixin.tag-bg-variant($subtle);
             @include mixin.tag-color-variant($value, $value);
         }
         &-outline-#{$color} {
