@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.9](github.com/atinc/ngx-tethys/compare/21.0.8...21.0.9) (2026-08-21)
+
+
+### Bug Fixes
+
+* **date-picker:** sync mustShowTime when show time picker in directive #TINFR-3806 ([#3843](/github.com/atinc/ngx-tethys/issues/3843)) ([5d8b7f7](github.com/atinc/ngx-tethys/commits/5d8b7f7ed1ecc3e53e037bc65a83eba3f2a3923c)), closes [#TINFR-3806](github.com/atinc/ngx-tethys/issues/TINFR-3806)
+* **layout:** fix sidebar style error ([615e9e8](github.com/atinc/ngx-tethys/commits/615e9e8db7b4bd7684fd87e2991e21308ab974eb))
+
+
+### Features
+
+* **tag:** add subtle to thyAppearance #TINFR-3835 ([#3850](/github.com/atinc/ngx-tethys/issues/3850)) ([83b5a0a](github.com/atinc/ngx-tethys/commits/83b5a0a12e7c5e6f810363237d5bf761fd05dca2)), closes [#TINFR-3835](github.com/atinc/ngx-tethys/issues/TINFR-3835)
+* **tag:** add thyAppearance instead of thyTheme #TINFR-3826 ([#3846](/github.com/atinc/ngx-tethys/issues/3846)) ([f81aa8e](github.com/atinc/ngx-tethys/commits/f81aa8ed227b277ce610a018b7af659c55f2c9b2)), closes [#TINFR-3826](github.com/atinc/ngx-tethys/issues/TINFR-3826)
+
 ## [21.0.8](github.com/atinc/ngx-tethys/compare/21.0.7...21.0.8) (2026-08-14)
 
 
