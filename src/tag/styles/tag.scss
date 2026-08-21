@@ -55,6 +55,7 @@
             @include mixin.tag-bg-variant($value);
             @include mixin.tag-color-variant(variables.$white, variables.$white);
         }
+        &-subtle-#{$color},
         &-weak-fill-#{$color} {
             $subtle: map.get(variables.$theme-colors-subtle, $color);
             @if not $subtle {
@@ -64,6 +65,7 @@
             @include mixin.tag-color-variant($value, $value);
         }
         &-outline-#{$color} {
+            @include mixin.tag-bg-variant(rgba($value, 0.1));
             @include mixin.tag-border-variant($value, $value);
         }
     }
@@ -74,6 +76,7 @@
         @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
     }
 
+    &-subtle-default,
     &-weak-fill-default {
         @include mixin.tag-bg-variant(variables.$tag-default-bg, variables.$tag-default-hover-bg);
         @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
