@@ -14,7 +14,7 @@
         &-active:not(&-disabled) {
             &,
             &:hover {
-                background: rgba($primary, .1);
+                background: $primary-subtle;
                 color: $primary;
             }
 

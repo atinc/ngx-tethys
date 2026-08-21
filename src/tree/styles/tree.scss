@@ -118,7 +118,7 @@
                 }
 
                 &.active {
-                    background: rgba(variables.$primary, 0.1);
+                    background: variables.$tree-node-wrapper-active-background-color;
                     color: variables.$primary;
 
                     .thy-tree-node-content {

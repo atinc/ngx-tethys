@@ -74,7 +74,7 @@ $avatarHeight: (
                 &:hover {
                     background-color: variables.$bg-default;
                     span {
-                        background-color: rgba(variables.$danger, 0.1);
+                        background-color: variables.$danger-subtle;
                     }
 
                     .thy-icon {

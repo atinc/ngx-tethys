@@ -23,10 +23,30 @@ $warning: #ffcd5d !default;
 $danger: #ff7575 !default;
 $black: #000 !default;
 
+$primary-subtle: rgba($primary, 0.1) !default;
+$success-subtle: rgba($success, 0.1) !default;
+$info-subtle: rgba($info, 0.1) !default;
+$warning-subtle: rgba($warning, 0.1) !default;
+$danger-subtle: rgba($danger, 0.1) !default;
+
+$theme-colors-subtle: () !default;
+$theme-colors-subtle: map.merge(
+    (
+        'primary': $primary-subtle,
+        'success': $success-subtle,
+        'info': $info-subtle,
+        'warning': $warning-subtle,
+        'danger': $danger-subtle
+    ),
+    $theme-colors-subtle
+);
+
 $body-color: $gray-800 !default;
 $secondary: $gray-700 !default;
-$secondary-item-active: rgba($primary, 0.1) !default;
-$item-active-bg-color: rgba($primary, 0.1) !default;
+//废弃，请使用 $primary-subtle
+$secondary-item-active: $primary-subtle !default;
+//废弃，请使用 $primary-subtle
+$item-active-bg-color: $primary-subtle !default;
 $light: $gray-300 !default;
 $dark: #48525c !default;
 $pass: #2cccda !default;
@@ -565,7 +585,7 @@ $icon-nav-link-padding-y: 0.282rem !default;
 
 $action-color: $gray-600 !default;
 $action-hover-color: $primary !default;
-$action-hover-bg-color: rgba($primary, 0.1) !default;
+$action-hover-bg-color: $primary-subtle !default;
 $action-padding-x: 0.5rem !default;
 $action-padding-y: 0.5rem !default;
 
@@ -825,7 +845,7 @@ $tree-node-wrapper-height: 44px !default;
 $tree-node-wrapper-line-height: 44px !default;
 $tree-node-wrapper-border-bottom: 1px solid $gray-200 !default;
 $tree-node-wrapper-active-border-color: rgba($primary, 0.3) !default;
-$tree-node-wrapper-active-background-color: rgba($primary, 0.1) !default;
+$tree-node-wrapper-active-background-color: $primary-subtle !default;
 $tree-node-wrapper-hover-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08) !default;
 $tree-node-wrapper-height-sm: 42px !default;
 // stepper

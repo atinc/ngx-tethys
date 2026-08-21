@@ -42,7 +42,7 @@
 
 .thy-icon-nav-link {
     transition: opacity 0.2s ease-in-out;
-    @include icon-nav-link-variant(variables.$icon-nav-link-color, variables.$icon-nav-link-hover-color, rgba(variables.$primary, 0.1));
+    @include icon-nav-link-variant(variables.$icon-nav-link-color, variables.$icon-nav-link-hover-color, variables.$primary-subtle);
 }
 
 .thy-icon-nav {
@@ -68,7 +68,7 @@
         // @include icon-nav-link-variant(
         //     variables.$icon-nav-link-secondary-color,
         //     variables.$icon-nav-link-hover-color,
-        //     rgba(variables.$primary, 0.1)
+        //     variables.$primary-subtle
         // );
     }
 }
@@ -82,7 +82,7 @@
         // @include icon-nav-link-variant(
         //     variables.$icon-nav-link-secondary-color,
         //     variables.$icon-nav-link-hover-color,
-        //     rgba(variables.$primary, 0.1)
+        //     variables.$primary-subtle
         // );
     }
 }
