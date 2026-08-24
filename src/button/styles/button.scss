@@ -61,6 +61,7 @@
         color: variables.$btn-disabled-color;
         background-color: variables.$btn-disabled-bg-color;
         border-color: variables.$btn-disabled-border-color; // opacity: $btn-disabled-opacity;
+        pointer-events: none;
         @include shadow.box-shadow(none);
     }
 

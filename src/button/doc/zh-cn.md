@@ -38,6 +38,15 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ```
 <example name="thy-button-basic-example"></example>
 
+## 禁用
+`<thy-button>` 是自定义元素，请使用 `thyDisabled`。指令写法 `<button thyButton>` 使用原生 `disabled`。
+
+```html
+<thy-button thyType="primary" [thyDisabled]="true">Primary</thy-button>
+<button thyButton="primary" disabled>Primary</button>
+```
+<example name="thy-button-disabled-example"></example>
+
 ## 按钮大小
 - `default: 36px`， 一般用于表单中的保存和确定。
 - `md: 32px`，一般用于页面右上角的新建和编辑

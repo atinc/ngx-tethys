@@ -1,20 +1,21 @@
 import {
+    afterNextRender,
     ChangeDetectionStrategy,
     Component,
+    computed,
+    DestroyRef,
+    effect,
     ElementRef,
-    Renderer2,
-    ViewEncapsulation,
     inject,
     input,
-    computed,
-    effect,
-    afterNextRender
+    Renderer2,
+    ViewEncapsulation
 } from '@angular/core';
 
-import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass } from '@angular/common';
+import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 export type ThyButtonType =
     | 'primary'
@@ -65,19 +66,24 @@ const iconOnlyClass = 'thy-btn-icon-only';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-btn btn',
-        '[class.btn-block]': 'thyBlock()'
+        '[class.btn-block]': 'thyBlock()',
+        '[class.disabled]': 'thyDisabled()',
+        '[attr.aria-disabled]': 'thyDisabled() || null'
     },
     imports: [ThyIcon, NgClass]
 })
 export class ThyButton {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
+    private destroyRef = inject(DestroyRef);
 
     private _originalText?: string;
 
     private get nativeElement(): HTMLElement {
         return this.elementRef.nativeElement;
     }
+
+    private readonly isNativeButton = this.elementRef.nativeElement.tagName === 'BUTTON';
 
     private hostRenderer = useHostRenderer();
 
@@ -130,6 +136,12 @@ export class ThyButton {
      * @default false
      */
     readonly thyBlock = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否禁用。用于 `thy-button` 组件；指令写法请使用原生 `disabled`
+     * @default false
+     */
+    readonly thyDisabled = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     private isWtfIcon = computed(() => {
         const icon = this.thyIcon();
@@ -212,6 +224,8 @@ export class ThyButton {
     }
 
     constructor() {
+        this.preventClickWhenUnavailable();
+
         effect(() => {
             this.updateClasses();
         });
@@ -228,6 +242,20 @@ export class ThyButton {
             }
             this.wrapSpanForText(this.nativeElement.childNodes);
         });
+    }
+
+    private preventClickWhenUnavailable(): void {
+        if (this.isNativeButton) {
+            return;
+        }
+        const onClick = (event: Event) => {
+            if (this.thyDisabled() || this.thyLoading()) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            }
+        };
+        this.nativeElement.addEventListener('click', onClick, true);
+        this.destroyRef.onDestroy(() => this.nativeElement.removeEventListener('click', onClick, true));
     }
 
     private wrapSpanForText(nodes: NodeList): void {
