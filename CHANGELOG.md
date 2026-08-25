@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.10](github.com/atinc/ngx-tethys/compare/21.0.9...21.0.10) (2026-08-25)
+
+
+### Bug Fixes
+
+* **button:** intercept loading clicks on native button #TINFR-3833 ([#3854](/github.com/atinc/ngx-tethys/issues/3854)) ([733849c](github.com/atinc/ngx-tethys/commits/733849c9c7d208564275629c1cedd206982fbf03)), closes [#TINFR-3833](github.com/atinc/ngx-tethys/issues/TINFR-3833)
+
+
+### Features
+
+* **action:** add thyAppearance instead of thyTheme for action #TINFR-3830 ([#3853](/github.com/atinc/ngx-tethys/issues/3853)) ([0646a16](github.com/atinc/ngx-tethys/commits/0646a1685e502b9e2ee1271c50afafcc70ca9252)), closes [#TINFR-3830](github.com/atinc/ngx-tethys/issues/TINFR-3830)
+* **button:** add thyDisabled for custom element buttons #TINFR-3833 ([#3852](/github.com/atinc/ngx-tethys/issues/3852)) ([1798ed7](github.com/atinc/ngx-tethys/commits/1798ed781a71bdba0bbe6ec6dca611a064e3ae7b)), closes [#TINFR-3833](github.com/atinc/ngx-tethys/issues/TINFR-3833)
+
 ## [21.0.9](github.com/atinc/ngx-tethys/compare/21.0.8...21.0.9) (2026-08-21)
 
 
