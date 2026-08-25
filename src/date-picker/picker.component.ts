@@ -30,7 +30,7 @@ import { DateHelperService } from './date-helper.service';
 import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
-import { SafeAny, ThyDefaultSize } from 'ngx-tethys/types';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * @private
@@ -67,7 +67,7 @@ export class ThyPicker implements AfterViewInit {
 
     readonly className = input<string>();
 
-    readonly size = input<'sm' | 'xs' | 'lg' | 'md' | ThyDefaultSize>();
+    readonly size = input<'sm' | 'xs' | 'lg' | 'md' | 'default'>('lg');
 
     readonly suffixIcon = input<string>();
 

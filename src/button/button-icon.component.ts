@@ -2,10 +2,9 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyDefaultSize } from 'ngx-tethys/types';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
-export type ThyButtonIconSize = 'xs' | 'sm' | 'md' | 'lg' | ThyDefaultSize;
+export type ThyButtonIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
 
