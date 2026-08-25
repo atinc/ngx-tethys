@@ -40,12 +40,8 @@ export class ThySelectVerticalCenterExampleComponent implements OnInit {
             height: 32
         },
         {
-            name: 'default',
-            height: 36
-        },
-        {
             name: 'lg',
-            height: 44
+            height: 36
         }
     ];
 

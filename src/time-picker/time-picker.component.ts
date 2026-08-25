@@ -17,14 +17,22 @@ import {
     viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getFlexiblePositions, getOverlayGlobalConfig, THY_GLOBAL_CONFIG, thyAnimationZoom, ThyGlobalConfig, ThyPlacement } from 'ngx-tethys/core';
+import {
+    getFlexiblePositions,
+    getOverlayGlobalConfig,
+    THY_GLOBAL_CONFIG,
+    thyAnimationZoom,
+    ThyGlobalConfig,
+    ThyPlacement
+} from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
+import { ThyDefaultSize } from 'ngx-tethys/types';
 import { ThyTimePanel } from './time-picker-panel.component';
 
-export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
+export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | ThyDefaultSize;
 
 /**
  * 时间选择组件

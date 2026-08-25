@@ -16,6 +16,9 @@ import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { ThyDefaultSize } from 'ngx-tethys/types';
+
+export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg' | ThyDefaultSize;
 
 export type ThyButtonType =
     | 'primary'
@@ -210,7 +213,7 @@ export class ThyButton {
         }
 
         const size = this.thySize();
-        if (size) {
+        if (size && size !== 'default') {
             classNames.push(`btn-${size}`);
         }
         if (this.isRadiusSquare()) {

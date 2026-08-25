@@ -12,9 +12,9 @@ import { NgClass } from '@angular/common';
 export class ThyTreeSelectSizeExampleComponent implements OnInit {
     public treeSelectNodes = basicTreeSelectData;
 
-    public btnSizes = ['xs', 'sm', 'md', 'default', 'lg'];
+    public btnSizes = ['xs', 'sm', 'md', 'lg'];
 
-    public currentSize = 'default';
+    public currentSize = 'lg';
 
     constructor() {}
 
