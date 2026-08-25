@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.11](github.com/atinc/ngx-tethys/compare/21.0.10...21.0.11) (2026-08-25)
+
+
+### Bug Fixes
+
+* **button:** intercept thyDisabled clicks on native button #TINFR-3833 ([217122b](github.com/atinc/ngx-tethys/commits/217122bd652c5821d4d447c5400591c86f4c3baa)), closes [#TINFR-3833](github.com/atinc/ngx-tethys/issues/TINFR-3833)
+
 ## [21.0.10](github.com/atinc/ngx-tethys/compare/21.0.9...21.0.10) (2026-08-25)
 
 
