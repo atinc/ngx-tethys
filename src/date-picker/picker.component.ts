@@ -67,7 +67,7 @@ export class ThyPicker implements AfterViewInit {
 
     readonly className = input<string>();
 
-    readonly size = input<'sm' | 'xs' | 'lg' | 'md' | 'default'>('lg');
+    readonly size = input<'sm' | 'xs' | 'lg' | 'md' | 'default'>('default');
 
     readonly suffixIcon = input<string>();
 
