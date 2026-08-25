@@ -245,11 +245,8 @@ export class ThyButton {
     }
 
     private preventClickWhenUnavailable(): void {
-        if (this.isNativeButton) {
-            return;
-        }
         const onClick = (event: Event) => {
-            if (this.thyDisabled() || this.thyLoading()) {
+            if ((this.thyDisabled() && !this.isNativeButton) || this.thyLoading()) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
             }

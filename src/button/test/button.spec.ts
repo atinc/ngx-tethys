@@ -23,6 +23,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <button id="btn-attr-disabled" thyButton="primary" disabled (click)="onClick()">Attr Disabled</button>
         <button id="btn-attr-disabled-true" thyButton="primary" disabled="true" (click)="onClick()">Attr Disabled True</button>
         <thy-button id="btn-thy-loading" [thyType]="type" [thyLoading]="loading" (click)="onClick()">Loading Button</thy-button>
+        <button id="btn-native-loading" [thyButton]="type" [thyLoading]="loading" (click)="onClick()">Native Loading</button>
         <a id="btn-anchor" thyButton="primary" [thyDisabled]="disabled" (click)="onClick()">Anchor Button</a>
     `,
     imports: [ThyButtonModule]
@@ -251,6 +252,22 @@ describe('ThyButton', () => {
 
         it('should prevent click when thyLoading is true on thy-button', () => {
             const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-thy-loading')).nativeElement;
+            basicTestComponent.loading = true;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('loading')).toBeTruthy();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(0);
+
+            basicTestComponent.loading = false;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('loading')).toBeFalsy();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(1);
+        });
+
+        it('should prevent click when thyLoading is true on native button', () => {
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-native-loading')).nativeElement;
+            expect(btnElement.tagName).toBe('BUTTON');
             basicTestComponent.loading = true;
             fixture.detectChanges();
             expect(btnElement.classList.contains('loading')).toBeTruthy();
