@@ -54,7 +54,7 @@
         }
 
         &.active {
-            background: rgba(variables.$primary, 0.1);
+            background: variables.$primary-subtle;
             color: variables.$primary;
 
             .prefix-icon {
@@ -83,7 +83,7 @@
         }
 
         &.active {
-            background: rgba(variables.$primary, 0.1);
+            background: variables.$primary-subtle;
             color: variables.$primary;
 
             // &.hover,
@@ -201,7 +201,7 @@
             }
 
             &.active {
-                background: rgba(variables.$primary, 0.1);
+                background: variables.$primary-subtle;
                 color: variables.$body-color;
                 border: solid 1px variables.$primary;
 
@@ -282,7 +282,7 @@
         }
 
         &.active {
-            background: rgba(variables.$primary, 0.1);
+            background: variables.$primary-subtle;
             color: variables.$body-color;
             border: solid 1px variables.$primary;
 

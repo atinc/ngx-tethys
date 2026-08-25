@@ -1,9 +1,20 @@
-import { Component, ElementRef, Renderer2, ViewEncapsulation, inject, input, computed, effect, afterNextRender } from '@angular/core';
+import {
+    afterNextRender,
+    Component,
+    computed,
+    DestroyRef,
+    effect,
+    ElementRef,
+    inject,
+    input,
+    Renderer2,
+    ViewEncapsulation
+} from '@angular/core';
 
-import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { NgClass } from '@angular/common';
+import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 export type ThyButtonType =
     | 'primary'
@@ -53,19 +64,24 @@ const iconOnlyClass = 'thy-btn-icon-only';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-btn btn',
-        '[class.btn-block]': 'thyBlock()'
+        '[class.btn-block]': 'thyBlock()',
+        '[class.disabled]': 'thyDisabled()',
+        '[attr.aria-disabled]': 'thyDisabled() || null'
     },
     imports: [ThyIcon, NgClass]
 })
 export class ThyButton {
     private elementRef = inject(ElementRef);
     private renderer = inject(Renderer2);
+    private destroyRef = inject(DestroyRef);
 
     private _originalText?: string;
 
     private get nativeElement(): HTMLElement {
         return this.elementRef.nativeElement;
     }
+
+    private readonly isNativeButton = this.elementRef.nativeElement.tagName === 'BUTTON';
 
     private hostRenderer = useHostRenderer();
 
@@ -119,6 +135,12 @@ export class ThyButton {
      */
     readonly thyBlock = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
+    /**
+     * 是否禁用。用于 `thy-button` 组件；指令写法请使用原生 `disabled`
+     * @default false
+     */
+    readonly thyDisabled = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
+
     private isWtfIcon = computed(() => {
         const icon = this.thyIcon();
         return icon && icon.includes('wtf');
@@ -143,8 +165,8 @@ export class ThyButton {
         return null;
     });
 
-    private buttonType = computed(() => {
-        return this.thyButton() || this.thyType();
+    private readonly buttonType = computed<ThyButtonType>(() => {
+        return this.thyButton() || this.thyType() || 'primary';
     });
 
     protected isRadiusSquare = computed(() => {
@@ -164,8 +186,9 @@ export class ThyButton {
     private setButtonText() {
         const text = this.thyLoading() ? this.thyLoadingText() : this._originalText;
         const spanElement = this.nativeElement.querySelector('span');
-        if (spanElement && text) {
-            this.renderer.setProperty(spanElement, 'innerText', text);
+        const textNode = spanElement?.firstChild;
+        if (spanElement && textNode && text) {
+            this.renderer.setValue(textNode, text);
         }
     }
 
@@ -199,6 +222,8 @@ export class ThyButton {
     }
 
     constructor() {
+        this.preventClickWhenUnavailable();
+
         effect(() => {
             this.updateClasses();
         });
@@ -215,6 +240,17 @@ export class ThyButton {
             }
             this.wrapSpanForText(this.nativeElement.childNodes);
         });
+    }
+
+    private preventClickWhenUnavailable(): void {
+        const onClick = (event: Event) => {
+            if ((this.thyDisabled() && !this.isNativeButton) || this.thyLoading()) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            }
+        };
+        this.nativeElement.addEventListener('click', onClick, true);
+        this.destroyRef.onDestroy(() => this.nativeElement.removeEventListener('click', onClick, true));
     }
 
     private wrapSpanForText(nodes: NodeList): void {

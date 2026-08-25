@@ -1,7 +1,6 @@
 import {
     AfterContentInit,
     Component,
-    ContentChild,
     ElementRef,
     EventEmitter,
     HostBinding,
@@ -13,7 +12,8 @@ import {
     OnDestroy,
     NgZone,
     inject,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    contentChild
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -73,7 +73,7 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
-    @ContentChild('operationIcon') operationIcon?: TemplateRef<any>;
+    readonly operationIcon = contentChild<TemplateRef<any>>('operationIcon');
 
     @ViewChild('contentElement', { static: true }) contentElement!: ElementRef;
 

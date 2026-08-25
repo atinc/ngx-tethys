@@ -101,6 +101,36 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
 };
 ```
 
+### 控制自适应位置
+
+默认情况下，悬浮层会根据可视区域在当前 `placement` 及其候选位置中选择一个可用位置。若希望始终按指定位置展示，不使用候选位置进行翻转，可以通过全局配置关闭 `flexiblePosition`。
+
+应用级可以通过 `provideTethys` 和 `withGlobalConfig` 统一关闭所有已接入 overlay 组件的自适应位置：
+
+```ts
+import { provideTethys, withGlobalConfig } from 'ngx-tethys';
+
+provideTethys(
+  withGlobalConfig({
+    overlay: {
+      flexiblePosition: false
+    }
+  })
+);
+```
+
+`canPush` 独立控制悬浮层在候选位置都不适合时是否允许被推回可视区域。支持 `canPush` 的组件会优先使用组件或实例配置，其次使用全局配置：
+
+```ts
+provideTethys(
+  withGlobalConfig({
+    overlay: {
+      canPush: false
+    }
+  })
+);
+```
+
 ### 悬浮层组件共享数据
 如果要和悬浮层共享数据，可以通过`initialState`参数把信息传给该组件。
 

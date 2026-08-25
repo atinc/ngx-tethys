@@ -17,7 +17,8 @@ import {
     inject,
     OutputRefSubscription,
     input,
-    OnDestroy
+    OnDestroy,
+    ComponentRef
 } from '@angular/core';
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopup } from './lib/popups/date-popup.component';
@@ -101,6 +102,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     private dateValueChangeSubscription?: OutputRefSubscription;
 
+    private datePopupRef?: ComponentRef<DatePopup>;
+
     ngOnInit() {
         this.setPanelMode();
     }
@@ -145,6 +148,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         );
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
+            this.datePopupRef = popoverRef.containerInstance.portalOutlet.attachedRef as ComponentRef<DatePopup>;
 
             if (this.valueChangeSubscription) {
                 this.valueChangeSubscription.unsubscribe();
@@ -181,7 +185,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             popoverRef
                 .afterClosed()
                 .pipe(takeUntilDestroyed(this.destroyRef))
-                .subscribe(() => this.thyOpenChange.emit(false));
+                .subscribe(() => {
+                    this.datePopupRef = undefined;
+                    this.thyOpenChange.emit(false);
+                });
         }
     }
 
@@ -226,5 +233,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     onShowTimePickerChange(show: boolean): void {
         this.withTime = show;
+        this.datePopupRef?.setInput('mustShowTime', show);
     }
 }

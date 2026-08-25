@@ -4,15 +4,15 @@
       <ng-template [ngTemplateOutlet]="headerContentTemplateRef()"></ng-template>
     } @else {
       <span class="thy-menu-group-title">
-        @if (thyShowIcon()) {
-          <thy-icon class="thy-menu-group-title-icon mr-2" [thyIconName]="thyIcon()"></thy-icon>
+        @if (displayIcon()) {
+          <thy-icon class="thy-menu-group-title-icon mr-2" [thyIconName]="displayIcon()"></thy-icon>
         }
         <span class="thy-menu-group-title-text">{{ thyTitle() }}</span>
       </span>
     }
   </div>
-  @if (thyShowAction()) {
-    <thy-icon class="thy-menu-group-operation" [thyIconName]="thyActionIcon()" (click)="onActionClick($event)"></thy-icon>
+  @if (displayActionIcon()) {
+    <thy-icon class="thy-menu-group-operation" [thyIconName]="displayActionIcon()" (click)="onActionClick($event)"></thy-icon>
   }
   @if (thyCollapsible()) {
     <thy-icon thyIconName="angle-up" class="thy-menu-group-arrow"></thy-icon>

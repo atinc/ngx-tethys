@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '../../styles/mixins/hover.scss';
 @use '../../styles/bootstrap/functions-variables';
 @use '../../styles/variables.scss';
@@ -68,8 +69,12 @@
 @each $color, $value in functions-variables.$theme-colors {
     // 默认就是 Primary 无需设置样式，避免覆写 $action-hover-bg-color 颜色失效
     @if $color != 'primary' {
+        $subtle: map.get(variables.$theme-colors-subtle, $color);
+        @if not $subtle {
+            $subtle: rgba($value, 0.1);
+        }
         .action-#{$color} {
-            @include action-mixin.action-variant(variables.$action-color, $value, rgba($value, 0.1));
+            @include action-mixin.action-variant(variables.$action-color, $value, $subtle);
         }
     }
 }

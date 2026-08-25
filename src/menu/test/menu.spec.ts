@@ -28,7 +28,6 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
                 [thyCollapsed]="expand"
                 [thyCollapsible]="collapsible"
                 (thyCollapsedChange)="toggle($event)"
-                [thyShowAction]="true"
                 [thyActionIcon]="'user-group-fill'">
                 <thy-menu-item>
                     <thy-menu-item-icon class="noColorIcon">

@@ -2,8 +2,8 @@
 @let labelText = labelTextSignal();
 @let isHorizontal = isHorizontalSignal();
 @let feedbackIcon = thyFeedbackIcon();
-@if (contentTemplate || contentTemplateRef) {
-  <ng-container [ngTemplateOutlet]="contentTemplate || contentTemplateRef"></ng-container>
+@if (contentTemplate() || contentTemplateRef()) {
+  <ng-container [ngTemplateOutlet]="contentTemplate() || contentTemplateRef()"></ng-container>
   @if (feedbackIcon) {
     <thy-icon class="form-control-feedback" [thyIconName]="feedbackIcon"></thy-icon>
   }

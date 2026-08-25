@@ -41,7 +41,12 @@
     @if (actions()?.length > 0) {
       <div class="thy-notify-actions ml-n2">
         @for (action of actions(); track $index) {
-          <a href="javascript:;" thyAction thyTheme="lite" [thyIcon]="$safeNavigationMigration(action?.icon)" (click)="action?.onClick()">
+          <a
+            href="javascript:;"
+            thyAction
+            thyAppearance="lite"
+            [thyIcon]="$safeNavigationMigration(action?.icon)"
+            (click)="action?.onClick()">
             {{ action?.text }}
           </a>
         }

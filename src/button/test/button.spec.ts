@@ -17,6 +17,14 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <button [thyButton]="type" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
+        <thy-button id="btn-default">Default Button</thy-button>
+        <thy-button id="btn-thy-disabled" [thyType]="type" [thyDisabled]="disabled" (click)="onClick()">Thy Disabled</thy-button>
+        <button id="btn-native-disabled" [thyButton]="type" [disabled]="disabled" (click)="onClick()">Native Disabled</button>
+        <button id="btn-attr-disabled" thyButton="primary" disabled (click)="onClick()">Attr Disabled</button>
+        <button id="btn-attr-disabled-true" thyButton="primary" disabled="true" (click)="onClick()">Attr Disabled True</button>
+        <thy-button id="btn-thy-loading" [thyType]="type" [thyLoading]="loading" (click)="onClick()">Loading Button</thy-button>
+        <button id="btn-native-loading" [thyButton]="type" [thyLoading]="loading" (click)="onClick()">Native Loading</button>
+        <a id="btn-anchor" thyButton="primary" [thyDisabled]="disabled" (click)="onClick()">Anchor Button</a>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule]
@@ -27,6 +35,11 @@ class ThyTestButtonBasicComponent {
     loading = false;
     loadingText = 'Loading...';
     icon = 'inbox';
+    disabled = false;
+    clickCount = 0;
+    onClick() {
+        this.clickCount++;
+    }
 }
 
 describe('ThyButton', () => {
@@ -58,6 +71,13 @@ describe('ThyButton', () => {
             expect(btnElement.classList.contains('btn')).toBeTruthy();
             expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
             expect(btnElement.textContent).toBe('Basic Button');
+        });
+
+        it('should use primary type by default', () => {
+            const defaultButton = fixture.debugElement.query(By.css('#btn-default'));
+            const btnElement: HTMLElement = defaultButton.nativeElement;
+
+            expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
         });
 
         it('should set size success', () => {
@@ -172,6 +192,109 @@ describe('ThyButton', () => {
             const btnElement: HTMLElement = btnOnlyIcon.nativeElement;
             expect(btnElement.querySelector('thy-icon')).toBeTruthy();
             expect(btnElement.children.length).toEqual(1);
+        });
+
+        it('should add disabled class and prevent click when thyDisabled is true on thy-button', () => {
+            basicTestComponent.disabled = true;
+            fixture.detectChanges();
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-thy-disabled')).nativeElement;
+            expect(btnElement.classList.contains('disabled')).toBeTruthy();
+            expect(btnElement.hasAttribute('disabled')).toBeFalsy();
+            expect(btnElement.getAttribute('aria-disabled')).toBe('true');
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(0);
+        });
+
+        it('should emit click and remove disabled state when thyDisabled is set back to false', () => {
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-thy-disabled')).nativeElement;
+            basicTestComponent.disabled = true;
+            fixture.detectChanges();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(0);
+
+            basicTestComponent.disabled = false;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('disabled')).toBeFalsy();
+            expect(btnElement.getAttribute('aria-disabled')).toBeNull();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(1);
+        });
+
+        it('should set native disabled and prevent click when disabled is true on button', () => {
+            basicTestComponent.disabled = true;
+            fixture.detectChanges();
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-native-disabled')).nativeElement;
+            expect(btnElement.hasAttribute('disabled')).toBeTruthy();
+            expect(btnElement.classList.contains('disabled')).toBeFalsy();
+            expect(btnElement.getAttribute('aria-disabled')).toBeNull();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(0);
+        });
+
+        it('should prevent click when native disabled attribute is set on button', () => {
+            const attrDisabled: HTMLElement = fixture.debugElement.query(By.css('#btn-attr-disabled')).nativeElement;
+            const attrDisabledTrue: HTMLElement = fixture.debugElement.query(By.css('#btn-attr-disabled-true')).nativeElement;
+            expect(attrDisabled.hasAttribute('disabled')).toBeTruthy();
+            expect(attrDisabledTrue.hasAttribute('disabled')).toBeTruthy();
+            expect(attrDisabled.classList.contains('disabled')).toBeFalsy();
+            expect(attrDisabledTrue.classList.contains('disabled')).toBeFalsy();
+            attrDisabled.click();
+            attrDisabledTrue.click();
+            expect(basicTestComponent.clickCount).toBe(0);
+        });
+
+        it('should emit click when thy-button is not disabled', () => {
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-thy-disabled')).nativeElement;
+            expect(btnElement.classList.contains('disabled')).toBeFalsy();
+            expect(btnElement.getAttribute('aria-disabled')).toBeNull();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(1);
+        });
+
+        it('should prevent click when thyLoading is true on thy-button', () => {
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-thy-loading')).nativeElement;
+            basicTestComponent.loading = true;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('loading')).toBeTruthy();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(0);
+
+            basicTestComponent.loading = false;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('loading')).toBeFalsy();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(1);
+        });
+
+        it('should prevent click when thyLoading is true on native button', () => {
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-native-loading')).nativeElement;
+            expect(btnElement.tagName).toBe('BUTTON');
+            basicTestComponent.loading = true;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('loading')).toBeTruthy();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(0);
+
+            basicTestComponent.loading = false;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('loading')).toBeFalsy();
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(1);
+        });
+
+        it('should add disabled class and prevent click when thyDisabled is true on anchor', () => {
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-anchor')).nativeElement;
+            expect(btnElement.tagName).toBe('A');
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(1);
+
+            basicTestComponent.disabled = true;
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('disabled')).toBeTruthy();
+            expect(btnElement.hasAttribute('disabled')).toBeFalsy();
+            expect(btnElement.getAttribute('aria-disabled')).toBe('true');
+            btnElement.click();
+            expect(basicTestComponent.clickCount).toBe(1);
         });
     });
 });

@@ -67,35 +67,31 @@ describe(`carousel`, () => {
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
             fixture.detectChanges();
-            const { width } = carouselWrapper.nativeElement.getBoundingClientRect();
-            expect(carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper').style.transform).toBe(
-                `translate3d(${-width}px, 0px, 0px)`
-            );
+            const wrapperEl = carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper') as HTMLElement;
+            const { width } = wrapperEl.getBoundingClientRect();
+            expect(wrapperEl.style.transform).toBe(`translate3d(${-width}px, 0px, 0px)`);
             mouseSwipe(thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[2].nativeElement.classList).toContain('thy-carousel-item-active');
-            expect(carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper').style.transform).toBe(
-                `translate3d(${-width * 2}px, 0px, 0px)`
-            );
+            expect(wrapperEl.style.transform).toBe(`translate3d(${-width * 2}px, 0px, 0px)`);
             windowResize();
             fixture.detectChanges();
             tick(1000);
-            const newWidth = carouselWrapper.nativeElement.getBoundingClientRect().width;
-            expect(carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper').style.transform).toBe(
-                `translate3d(${-newWidth * 2}px, 0px, 0px)`
-            );
+            const newWidth = wrapperEl.getBoundingClientRect().width;
+            expect(wrapperEl.style.transform).toBe(`translate3d(${-newWidth * 2}px, 0px, 0px)`);
         };
         const centralizedStructure = () => {
             mouseSwipe(basicTestComponent.thyCarouselComponent(), 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
-            expect(carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper').style.transform).toBe(`translate3d(0px, 0px, 0px)`);
+            const wrapperEl = carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper') as HTMLElement;
+            expect(wrapperEl.style.transform).toBe(`translate3d(0px, 0px, 0px)`);
             windowResize();
             fixture.detectChanges();
             tick(1000);
-            expect(carouselWrapper.nativeElement.querySelector('.thy-carousel-wrapper').style.transform).toBe(`translate3d(0px, 0px, 0px)`);
+            expect(wrapperEl.style.transform).toBe(`translate3d(0px, 0px, 0px)`);
         };
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTestCarouselEngineComponent);

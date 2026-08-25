@@ -12,7 +12,8 @@ import {
     input,
     computed,
     Signal,
-    DOCUMENT
+    DOCUMENT,
+    Injector
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { ThyPlacement, ScrollToService } from 'ngx-tethys/core';
@@ -22,8 +23,8 @@ import { ThyAutocomplete } from './autocomplete.component';
 import { ThyOptionRender, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { Subject, Observable, merge, fromEvent, of, Subscription, from } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB, coerceBooleanProperty } from 'ngx-tethys/util';
-import { filter, map, take, delay, switchMap } from 'rxjs/operators';
-import { outputToObservable } from '@angular/core/rxjs-interop';
+import { filter, map, take, delay, switchMap, skip } from 'rxjs/operators';
+import { outputToObservable, toObservable } from '@angular/core/rxjs-interop';
 
 /**
  * 自动完成触发指令
@@ -47,6 +48,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     private viewContainerRef = inject(ViewContainerRef);
     private document = inject(DOCUMENT, { optional: true })!;
     private cdr = inject(ChangeDetectorRef);
+    private injector = inject(Injector);
 
     protected overlayRef: OverlayRef | null = null;
 
@@ -224,7 +226,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     private subscribeToClosingActions(): Subscription {
         const firstStable = from(Promise.resolve());
-        const optionChanges = this.autocompleteComponent().options.changes.pipe(
+        const optionChanges = toObservable(this.autocompleteComponent().options, { injector: this.injector }).pipe(
+            // Skip the initial emission to match QueryList.changes behavior.
+            skip(1),
             // Defer emitting to the stream until the next tick, because changing
             // bindings in here will cause "changed after checked" errors.
             delay(0)

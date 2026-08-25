@@ -2,6 +2,60 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.10](github.com/atinc/ngx-tethys/compare/21.0.9...21.0.10) (2026-08-25)
+
+
+### Bug Fixes
+
+* **button:** intercept loading clicks on native button #TINFR-3833 ([#3854](/github.com/atinc/ngx-tethys/issues/3854)) ([733849c](github.com/atinc/ngx-tethys/commits/733849c9c7d208564275629c1cedd206982fbf03)), closes [#TINFR-3833](github.com/atinc/ngx-tethys/issues/TINFR-3833)
+
+
+### Features
+
+* **action:** add thyAppearance instead of thyTheme for action #TINFR-3830 ([#3853](/github.com/atinc/ngx-tethys/issues/3853)) ([0646a16](github.com/atinc/ngx-tethys/commits/0646a1685e502b9e2ee1271c50afafcc70ca9252)), closes [#TINFR-3830](github.com/atinc/ngx-tethys/issues/TINFR-3830)
+* **button:** add thyDisabled for custom element buttons #TINFR-3833 ([#3852](/github.com/atinc/ngx-tethys/issues/3852)) ([1798ed7](github.com/atinc/ngx-tethys/commits/1798ed781a71bdba0bbe6ec6dca611a064e3ae7b)), closes [#TINFR-3833](github.com/atinc/ngx-tethys/issues/TINFR-3833)
+
+## [21.0.9](github.com/atinc/ngx-tethys/compare/21.0.8...21.0.9) (2026-08-21)
+
+
+### Bug Fixes
+
+* **date-picker:** sync mustShowTime when show time picker in directive #TINFR-3806 ([#3843](/github.com/atinc/ngx-tethys/issues/3843)) ([5d8b7f7](github.com/atinc/ngx-tethys/commits/5d8b7f7ed1ecc3e53e037bc65a83eba3f2a3923c)), closes [#TINFR-3806](github.com/atinc/ngx-tethys/issues/TINFR-3806)
+* **layout:** fix sidebar style error ([615e9e8](github.com/atinc/ngx-tethys/commits/615e9e8db7b4bd7684fd87e2991e21308ab974eb))
+
+
+### Features
+
+* **tag:** add subtle to thyAppearance #TINFR-3835 ([#3850](/github.com/atinc/ngx-tethys/issues/3850)) ([83b5a0a](github.com/atinc/ngx-tethys/commits/83b5a0a12e7c5e6f810363237d5bf761fd05dca2)), closes [#TINFR-3835](github.com/atinc/ngx-tethys/issues/TINFR-3835)
+* **tag:** add thyAppearance instead of thyTheme #TINFR-3826 ([#3846](/github.com/atinc/ngx-tethys/issues/3846)) ([f81aa8e](github.com/atinc/ngx-tethys/commits/f81aa8ed227b277ce610a018b7af659c55f2c9b2)), closes [#TINFR-3826](github.com/atinc/ngx-tethys/issues/TINFR-3826)
+
+## [21.0.8](github.com/atinc/ngx-tethys/compare/21.0.7...21.0.8) (2026-08-14)
+
+
+### Bug Fixes
+
+* **button:** 修复button-group 样式 #TINFR-3823 ([#3844](/github.com/atinc/ngx-tethys/issues/3844)) ([c1eb10d](github.com/atinc/ngx-tethys/commits/c1eb10d01ca6b2c85494549f534b76ebcd87fd47)), closes [#TINFR-3823](github.com/atinc/ngx-tethys/issues/TINFR-3823)
+* update ngAfterViewInit to afterNextRender support dynamic updated #TINFR-3818 ([#3841](/github.com/atinc/ngx-tethys/issues/3841)) ([9889022](github.com/atinc/ngx-tethys/commits/98890225cde6e772c65881e92a1da38c7dc4b4ef)), closes [#TINFR-3818](github.com/atinc/ngx-tethys/issues/TINFR-3818)
+
+## [21.0.7](github.com/atinc/ngx-tethys/compare/21.0.6...21.0.7) (2026-08-04)
+
+
+### Bug Fixes
+
+* **button:** 修复button type参数无默认值 #TINFR-3815 ([6839cc6](github.com/atinc/ngx-tethys/commits/6839cc6c21b642772ad03b88a8526e0d29a3e75c)), closes [#TINFR-3815](github.com/atinc/ngx-tethys/issues/TINFR-3815)
+
+
+### Features
+
+* add sidebar to thy-layout set has-sidebar class #NEXUS-3955 ([cd02729](github.com/atinc/ngx-tethys/commits/cd027295ad942f9427399feeb2da9dcd7d746ab7)), closes [#NEXUS-3955](github.com/atinc/ngx-tethys/issues/NEXUS-3955)
+
+## [21.0.6](github.com/atinc/ngx-tethys/compare/21.0.5...21.0.6) (2026-07-02)
+
+
+### Features
+
+* add flexiblePosition config for overlays #NEXUS-2762 ([#3826](/github.com/atinc/ngx-tethys/issues/3826)) ([9771c12](github.com/atinc/ngx-tethys/commits/9771c123245b5518a5f2b6f15123f34ccf1f4249)), closes [#NEXUS-2762](github.com/atinc/ngx-tethys/issues/NEXUS-2762)
+
 ## [21.0.5](github.com/atinc/ngx-tethys/compare/21.0.4...21.0.5) (2026-06-25)
 
 

@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, OnInit, TemplateRef, ViewEncapsulation, inject, input, computed, signal } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewEncapsulation, inject, input, computed, signal, contentChild } from '@angular/core';
 
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -124,14 +124,12 @@ export class ThyFormGroup implements OnInit {
      * 已废弃
      * @deprecated please use content because formGroup is same name with angular formGroup directive
      */
-    @ContentChild('formGroup')
-    public contentTemplateRef?: TemplateRef<any>;
+    readonly contentTemplateRef = contentChild<TemplateRef<any>>('formGroup');
 
     /**
      * 内容自定义模板，`<ng-template #content></ng-template>`
      */
-    @ContentChild('content')
-    public contentTemplate?: TemplateRef<any>;
+    readonly contentTemplate = contentChild<TemplateRef<any>>('content');
 
     constructor() {
         // effect(() => {

@@ -41,7 +41,7 @@
         }
 
         &:not(.dropdown-menu-item--disabled).active {
-            background-color: rgba(variables.$primary, 0.1);
+            background-color: variables.$primary-subtle;
             &:not(.dropdown-submenu) {
                 color: variables.$dropdown-menu-item-hover-color;
             }

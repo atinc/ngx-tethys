@@ -14,7 +14,8 @@ import {
     ThyLayoutDirective,
     ThyContentMainDirective,
     ThyContentSectionDirective,
-    ThyHeaderDirective
+    ThyHeaderDirective,
+    ThySidebar
 } from 'ngx-tethys/layout';
 
 @Component({
@@ -75,6 +76,21 @@ class ThyDemoLayoutDirectiveBasicComponent {
     shadow = false;
     size = '';
 }
+
+@Component({
+    selector: 'thy-demo-layout-nested-sidebar',
+    template: `
+        <thy-layout class="outer-layout">
+            <thy-header thyTitle="Outer"></thy-header>
+            <thy-layout class="inner-layout" style="height: 100px">
+                <thy-sidebar thyDivided="false">Sidebar</thy-sidebar>
+                <thy-content>Content</thy-content>
+            </thy-layout>
+        </thy-layout>
+    `,
+    imports: [ThyLayout, ThyHeader, ThySidebar, ThyContent]
+})
+class ThyDemoLayoutNestedSidebarComponent {}
 
 describe(`layout`, () => {
     beforeEach(() => {
@@ -296,6 +312,26 @@ describe(`layout`, () => {
             fixture.componentInstance.size = 'lg';
             fixture.detectChanges();
             expect(headerElement.classList.contains(`thy-layout-header-lg`)).toBeTruthy();
+        });
+    });
+
+    describe('nested layout with inner sidebar', () => {
+        let fixture!: ComponentFixture<ThyDemoLayoutNestedSidebarComponent>;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoLayoutNestedSidebarComponent);
+            fixture.detectChanges();
+        });
+
+        it('should not add has-sidebar on outer layout when only inner layout has sidebar', () => {
+            const layouts = fixture.debugElement.queryAll(By.directive(ThyLayout));
+            expect(layouts.length).toBe(2);
+
+            const outerLayout = layouts[0].nativeElement as HTMLElement;
+            const innerLayout = layouts[1].nativeElement as HTMLElement;
+
+            expect(outerLayout.classList.contains('thy-layout--has-sidebar')).toBe(false);
+            expect(innerLayout.classList.contains('thy-layout--has-sidebar')).toBe(true);
         });
     });
 
