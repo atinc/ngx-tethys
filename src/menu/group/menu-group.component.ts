@@ -30,7 +30,7 @@ import { ThyMenu } from '../menu.component';
     host: {
         '[class.thy-menu-group]': 'true',
         '[class.collapsed]': 'thyCollapsed()',
-        '[class.has-icon]': 'thyShowIcon()'
+        '[class.has-icon]': '!!displayIcon()'
     },
     imports: [NgClass, NgTemplateOutlet, ThyIcon, ThyAnimationCollapseDirective]
 })
@@ -63,25 +63,23 @@ export class ThyMenuGroup implements OnInit {
 
     /**
      * 是否显示 Icon
+     * @deprecated please use thyIcon
      */
     readonly thyShowIcon = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 图标
+     * 图标，传入则展示
      */
-    readonly thyIcon = input<string, string>('folder-bold', {
-        transform: (value: string) => value || 'folder-bold'
-    });
+    readonly thyIcon = input<string>();
 
     /**
-     * 操作图标
+     * 操作图标，传入则展示
      */
-    readonly thyActionIcon = input<string, string>('more', {
-        transform: (value: string) => value || 'more'
-    });
+    readonly thyActionIcon = input<string>();
 
     /**
-     *是否显示操作
+     * 是否显示操作
+     * @deprecated please use thyActionIcon
      */
     readonly thyShowAction = input(false, { transform: coerceBooleanProperty });
 
@@ -103,6 +101,28 @@ export class ThyMenuGroup implements OnInit {
     readonly thyActionMenu = input<ComponentType<any> | TemplateRef<any>>();
 
     readonly isOpen = computed(() => !this.thyCollapsed() && !this.parent?.thyCollapsed());
+
+    readonly displayIcon = computed(() => {
+        const icon = this.thyIcon();
+        if (icon) {
+            return icon;
+        }
+        if (this.thyShowIcon()) {
+            return 'folder-bold';
+        }
+        return null;
+    });
+
+    readonly displayActionIcon = computed(() => {
+        const icon = this.thyActionIcon();
+        if (icon) {
+            return icon;
+        }
+        if (this.thyShowAction()) {
+            return 'more';
+        }
+        return null;
+    });
 
     constructor() {}
 

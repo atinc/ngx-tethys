@@ -1,8 +1,6 @@
 import {
     Component,
     TemplateRef,
-    ContentChildren,
-    QueryList,
     ChangeDetectorRef,
     ElementRef,
     inject,
@@ -14,7 +12,8 @@ import {
     signal,
     DestroyRef,
     afterRenderEffect,
-    computed
+    computed,
+    contentChildren
 } from '@angular/core';
 import { ThyOption, ThyOptionRender, ThyOptionSelectionChangeEvent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
@@ -77,7 +76,7 @@ export class ThyAutocomplete {
     /**
      * @private
      */
-    @ContentChildren(ThyOption, { descendants: true }) options!: QueryList<ThyOption>;
+    readonly options = contentChildren(ThyOption, { descendants: true });
 
     readonly optionRenders = viewChildren(ThyOptionRender);
 
@@ -123,7 +122,7 @@ export class ThyAutocomplete {
         const optionRenders = this.optionRenders();
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionRender>(optionRenders).withWrap();
         this.keyManager.change.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(index => {
-            this.thyOptionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+            this.thyOptionActivated.emit({ source: this, option: this.options()[index] || null });
         });
     }
 
@@ -140,7 +139,7 @@ export class ThyAutocomplete {
 
     optionClick(event: { value: SafeAny; isUserInput?: boolean }) {
         const { value, isUserInput } = event;
-        const option = this.options.toArray().find(option => option.thyValue() === value);
+        const option = this.options().find(option => option.thyValue() === value);
         if (option) {
             option.selectionChange.emit({ option, isUserInput: !!isUserInput });
         }

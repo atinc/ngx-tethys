@@ -17,10 +17,10 @@ import {
     input,
     output,
     viewChild,
-    QueryList,
     computed,
-    ContentChildren,
-    effect
+    contentChildren,
+    effect,
+    untracked
 } from '@angular/core';
 import { ThyDot } from 'ngx-tethys/dot';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -63,7 +63,7 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     /**
      * @private
      */
-    @ContentChildren(ThyCarouselItemDirective) carouselItems!: QueryList<ThyCarouselItemDirective>;
+    readonly carouselItems = contentChildren(ThyCarouselItemDirective);
 
     /**
      * @private
@@ -177,11 +177,15 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
 
     isPause: boolean = false;
 
+    private isFirstCarouselItemsChange = true;
+
     constructor() {
         effect(() => {
             if (this.thyEffect()) {
-                this.markContentActive(0);
-                this.setInitialValue();
+                untracked(() => {
+                    this.markContentActive(0);
+                    this.setInitialValue();
+                });
             }
         });
 
@@ -198,10 +202,20 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
                 this.scheduleNextTransition();
             }
         });
+
+        effect(() => {
+            this.carouselItems();
+            if (this.isFirstCarouselItemsChange) {
+                this.isFirstCarouselItemsChange = false;
+                return;
+            }
+            this.markContentActive(0);
+            this.setInitialValue();
+        });
     }
 
     private moveTo(index: number): void {
-        const carouselItems = this.carouselItems;
+        const carouselItems = this.carouselItems();
         if (carouselItems && carouselItems.length && !this.isTransitioning) {
             this.setInitialValue();
             const len = carouselItems.length;
@@ -230,14 +244,14 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     private markContentActive(index: number) {
         this.activeIndex = index;
         this.cdr.markForCheck();
-        this.carouselItems?.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
+        this.carouselItems()?.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
             carouselContent.isActive = index === i;
         });
     }
 
     private setInitialValue(): void {
-        if (this.engine() && this.carouselItems) {
-            this.engine()?.initializeCarouselContents(this.carouselItems);
+        if (this.engine() && this.carouselItems()) {
+            this.engine()?.initializeCarouselContents(this.carouselItems());
         }
     }
 
@@ -337,10 +351,6 @@ export class ThyCarousel implements IThyCarouselComponent, OnInit, AfterViewInit
     }
 
     ngAfterViewInit(): void {
-        this.carouselItems.changes.subscribe(() => {
-            this.markContentActive(0);
-            this.setInitialValue();
-        });
         this.markContentActive(0);
         this.setInitialValue();
         if (!this.thyTouchable()) {

@@ -1,11 +1,11 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-button-loading-example',
     templateUrl: './loading.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyButton]
+    imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
 export class ThyButtonLoadingExampleComponent {
     loading = signal<boolean>(false);

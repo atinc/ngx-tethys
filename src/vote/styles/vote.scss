@@ -1,7 +1,7 @@
 @use '../../styles/variables';
 
-@mixin vote-color-variant($color) {
-    background: rgba($color, 0.1);
+@mixin vote-color-variant($color, $subtle: rgba($color, 0.1)) {
+    background: $subtle;
     color: $color;
     &:hover {
         background: rgba($color, 0.2);
@@ -12,7 +12,7 @@
         color: variables.$white;
     }
 }
-@mixin vote-color-variant-weak($color) {
+@mixin vote-color-variant-weak($color, $subtle: rgba($color, 0.1)) {
     background-color: variables.$gray-100;
     color: variables.$gray-600;
     &:hover {
@@ -20,7 +20,7 @@
         color: $color;
     }
     &.has-voted {
-        background: rgba($color, 0.1);
+        background: $subtle;
         color: $color;
         &:hover {
             background: rgba($color, 0.2);
@@ -96,19 +96,19 @@
 }
 
 .thy-vote-success {
-    @include vote-color-variant(variables.$success);
+    @include vote-color-variant(variables.$success, variables.$success-subtle);
 }
 
 .thy-vote-primary {
-    @include vote-color-variant(variables.$primary);
+    @include vote-color-variant(variables.$primary, variables.$primary-subtle);
 }
 
 .thy-vote-success-weak {
-    @include vote-color-variant-weak(variables.$success);
+    @include vote-color-variant-weak(variables.$success, variables.$success-subtle);
 }
 
 .thy-vote-primary-weak {
-    @include vote-color-variant-weak(variables.$primary);
+    @include vote-color-variant-weak(variables.$primary, variables.$primary-subtle);
 }
 
 .thy-vote-disabled {

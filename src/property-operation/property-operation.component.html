@@ -1,5 +1,5 @@
 <div class="thy-operation-icon">
-  <ng-container *ngTemplateOutlet="operationIcon"></ng-container>
+  <ng-container *ngTemplateOutlet="operationIcon()"></ng-container>
   @if (icon) {
     <button
       [ngClass]="{ disabled: disabled }"

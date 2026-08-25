@@ -40,7 +40,13 @@
     }
 }
 
-@mixin nav-item-pills-variant($color, $hover-color, $background: variables.$gray-100, $border-radius: 18px) {
+@mixin nav-item-pills-variant(
+    $color,
+    $hover-color,
+    $background: variables.$gray-100,
+    $border-radius: 18px,
+    $hover-bg: variables.$primary-subtle
+) {
     & {
         background: $background;
         color: $color;
@@ -49,13 +55,13 @@
 
     &.thy-nav-origin-active {
         text-decoration: none;
-        background: rgba($hover-color, 0.1);
+        background: $hover-bg;
         color: $hover-color;
     }
 
     @include hover.hover-active {
         text-decoration: none;
-        background: rgba($hover-color, 0.1);
+        background: $hover-bg;
         color: $hover-color;
     }
     &.disabled {

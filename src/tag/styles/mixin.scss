@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:meta';
 @use '../../styles/variables.scss';
 
 @mixin tag-bg-variant($bg-color, $hover-bg-color: null) {
@@ -10,8 +11,10 @@
         &:hover {
             @if $hover-bg-color != null {
                 background-color: $hover-bg-color;
-            } @else {
+            } @else if meta.type-of($bg-color) == 'color' {
                 background-color: color.adjust($bg-color, $lightness: -5%);
+            } @else {
+                background-color: color-mix(in srgb, #{$bg-color} 90%, black);
             }
             cursor: variables.$hand-cursor;
         }

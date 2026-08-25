@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../../styles/bootstrap/functions";
 @use "../../styles/bootstrap/functions-variables";
 @use "../../styles/bootstrap/mixins/border-radius";
@@ -101,7 +102,11 @@
 
 @each $color, $value in functions-variables.$theme-colors {
     .thy-alert-fill-#{$color} {
-        @include mixin.thy-alert-variant(functions.theme-color($color));
+        $subtle: map.get(variables.$theme-colors-subtle, $color);
+        @if not $subtle {
+            $subtle: rgba($value, 0.1);
+        }
+        @include mixin.thy-alert-variant(functions.theme-color($color), $subtle);
     }
 
     .thy-alert-bordered-#{$color} {

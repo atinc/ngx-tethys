@@ -881,7 +881,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const pickComponentInstance = fixture.debugElement.query(By.directive(ThyPicker)).componentInstance;
-            expect(pickComponentInstance.overlayPositions[0].originY).toEqual(placement);
+            expect(pickComponentInstance.overlayPositions()[0].originY).toEqual(placement);
         }));
 
         it('should support thyMode', fakeAsync(() => {

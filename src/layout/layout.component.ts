@@ -1,5 +1,5 @@
-import { Component, computed, Directive, signal } from '@angular/core';
-import { ThySidebarDirection } from './sidebar.component';
+import { Component, computed, contentChild, Directive, effect, forwardRef, inject, signal } from '@angular/core';
+import { ThySidebar, ThySidebarDirection } from './sidebar.component';
 
 /**
  * 布局指令
@@ -32,4 +32,21 @@ export class ThyLayoutDirective {
     template: ` <ng-content></ng-content> `,
     hostDirectives: [ThyLayoutDirective]
 })
-export class ThyLayout {}
+export class ThyLayout {
+    private sidebar = contentChild(
+        forwardRef(() => ThySidebar),
+        { descendants: false }
+    );
+    private layoutDirective = inject(ThyLayoutDirective, { self: true });
+
+    constructor() {
+        effect(() => {
+            const sidebar = this.sidebar();
+            if (sidebar?.sidebarDirective) {
+                this.layoutDirective.sidebarDirection.set(sidebar.sidebarDirective.thyDirection());
+            } else {
+                this.layoutDirective.sidebarDirection.set(null);
+            }
+        });
+    }
+}

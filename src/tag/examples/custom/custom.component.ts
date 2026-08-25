@@ -9,7 +9,7 @@ import { ThyTag } from 'ngx-tethys/tag';
     imports: [ThyTag]
 })
 export class ThyTagCustomExampleComponent implements OnInit {
-    themes = ['fill', 'outline', 'weak-fill'];
+    themes = ['fill', 'outline', 'subtle'];
 
     theme = 'fill';
 

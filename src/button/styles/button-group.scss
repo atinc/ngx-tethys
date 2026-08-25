@@ -153,10 +153,16 @@
 
     .btn-group-outline-#{$color} > .btn {
         @extend .btn-outline-#{$color};
+        &:hover {
+            @include shadow.box-shadow(none);
+        }
     }
 }
 .btn-group-outline-default > .btn {
     @extend .btn-outline-default;
+    &:hover {
+        @include shadow.box-shadow(none);
+    }
 }
 
 // The clickable button for toggling the menu

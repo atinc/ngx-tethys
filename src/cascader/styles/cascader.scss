@@ -89,7 +89,7 @@ $cascader-menu-min-width: 122px;
         &-active:not(&-disabled) {
             &,
             &:hover {
-                background: rgba(variables.$primary, 0.1);
+                background: variables.$primary-subtle;
                 color: variables.$primary;
             }
         }
@@ -160,7 +160,7 @@ $cascader-menu-min-width: 122px;
             background-color: variables.$dropdown-menu-item-hover-bg;
         }
         &.active:not(.multiple) {
-            background: rgba(variables.$primary, 0.1);
+            background: variables.$primary-subtle;
             color: variables.$primary;
         }
         // 覆盖 thyFlexibleText 默认样式使其垂直居中

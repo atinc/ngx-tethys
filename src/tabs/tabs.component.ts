@@ -1,9 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     DestroyRef,
     ElementRef,
     inject,
@@ -11,8 +9,10 @@ import {
     linkedSignal,
     model,
     OnInit,
-    QueryList,
-    TemplateRef
+    TemplateRef,
+    contentChildren,
+    effect,
+    untracked
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
@@ -43,13 +43,12 @@ export type ThyTabsPosition = 'top' | 'left';
     },
     imports: [ThyNav, ThyNavItemDirective, NgTemplateOutlet, ThyTabContent]
 })
-export class ThyTabs implements OnInit, AfterContentInit {
+export class ThyTabs implements OnInit {
     private cd = inject(ChangeDetectorRef);
     private el = inject(ElementRef);
-
-    @ContentChildren(ThyTab, { descendants: true }) tabs = new QueryList<ThyTab>();
-
     private readonly destroyRef = inject(DestroyRef);
+
+    readonly tabs = contentChildren(ThyTab, { descendants: true });
 
     /**
      * 标签类型
@@ -100,7 +99,22 @@ export class ThyTabs implements OnInit, AfterContentInit {
 
     transitionStarted: boolean = false;
 
-    constructor() {}
+    private isFirstTabsChange = true;
+
+    constructor() {
+        effect(() => {
+            const tabs = this.tabs();
+            if (this.isFirstTabsChange) {
+                this.isFirstTabsChange = false;
+                return;
+            }
+            untracked(() => {
+                this.thyAnimated() && (this.transitionStarted = true);
+                this.activeTabIndex.set(tabs.length - 1);
+                this.cd.markForCheck();
+            });
+        });
+    }
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');
@@ -110,14 +124,6 @@ export class ThyTabs implements OnInit, AfterContentInit {
                 this.transitionStarted = false;
                 this.cd.markForCheck();
             });
-    }
-
-    ngAfterContentInit() {
-        this.tabs.changes.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
-            this.thyAnimated() && (this.transitionStarted = true);
-            this.activeTabIndex.set(data.length - 1);
-            this.cd.markForCheck();
-        });
     }
 
     get tabPaneAnimated(): boolean {

@@ -619,7 +619,7 @@ describe('reactive form validate', () => {
         expect(formDirective.validator.validations).toEqual({});
         const controls = fixture.componentInstance.formGroup.controls;
         expect(controls).toBeTruthy();
-        expect(formDirective.controls.length).toEqual(4);
+        expect(formDirective.controls().length).toEqual(4);
         const ageControl = (fixture.componentInstance.formGroup as FormGroup).getRawValue().age;
         expect(ageControl).toEqual(0);
     }));

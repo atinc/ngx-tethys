@@ -2,27 +2,24 @@ import { keycodes } from 'ngx-tethys/util';
 
 import {
     AfterViewInit,
-    ContentChildren,
     Directive,
     ElementRef,
     HostBinding,
-    Input,
     NgZone,
     OnDestroy,
     OnInit,
-    QueryList,
     Renderer2,
     inject,
     input,
-    afterRenderEffect,
     effect,
-    afterNextRender
+    contentChildren,
+    untracked
 } from '@angular/core';
 import { ControlContainer, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyFormValidatorService } from './form-validator.service';
-import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
+import { THY_FORM_CONFIG, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
@@ -85,8 +82,9 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
 
     private _unsubscribe: (() => void) | null = null;
 
-    @ContentChildren(NgControl, { descendants: true })
-    public controls!: QueryList<NgControl>;
+    readonly controls = contentChildren(NgControl, { descendants: true });
+
+    private controlsInitialized = false;
 
     constructor() {
         effect(() => {
@@ -100,14 +98,15 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
             }
         });
 
-        // TODO:: replace ngAfterViewInit with afterNextRender
-        // afterNextRender(() => {
-        //     this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
-        //     this.validator.initializeFormControlsValidation(this.controls.toArray());
-        //     this.controls.changes.subscribe(controls => {
-        //         this.validator.initializeFormControlsValidation(this.controls.toArray());
-        //     });
-        // });
+        effect(() => {
+            const controls = this.controls();
+            if (!this.controlsInitialized) {
+                return;
+            }
+            untracked(() => {
+                this.validator.initializeFormControlsValidation([...controls]);
+            });
+        });
     }
 
     ngOnInit(): void {
@@ -118,10 +117,8 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
-        this.validator.initializeFormControlsValidation(this.controls.toArray());
-        this.controls.changes.subscribe(controls => {
-            this.validator.initializeFormControlsValidation(this.controls.toArray());
-        });
+        this.validator.initializeFormControlsValidation([...this.controls()]);
+        this.controlsInitialized = true;
     }
 
     submit($event: Event) {

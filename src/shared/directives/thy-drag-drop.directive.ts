@@ -1,7 +1,7 @@
-import { Directive, AfterContentInit, ContentChildren, QueryList, OnDestroy } from '@angular/core';
+import { Directive, contentChildren, effect, DestroyRef, inject } from '@angular/core';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
-import { takeUntil, startWith } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 /**
  * @private
@@ -9,41 +9,40 @@ import { takeUntil, startWith } from 'rxjs/operators';
 @Directive({
     selector: '[thyDragDrop]'
 })
-export class ThyDragDropDirective implements AfterContentInit, OnDestroy {
-    @ContentChildren(CdkDrag, { descendants: true }) draggables?: QueryList<CdkDrag>;
+export class ThyDragDropDirective {
+    readonly draggables = contentChildren(CdkDrag, { descendants: true });
+
+    private destroyRef = inject(DestroyRef);
 
     private ngUnsubscribe$ = new Subject<void>();
 
-    constructor() {}
+    constructor() {
+        effect(() => {
+            const draggables = this.draggables();
+            this.ngUnsubscribe$.next();
+            this.ngUnsubscribe$.complete();
+            this.ngUnsubscribe$ = new Subject();
 
-    ngAfterContentInit() {
-        if (this.draggables) {
-            this.draggables.changes.pipe(startWith(this.draggables)).subscribe(() => {
-                this.ngUnsubscribe$.next();
-                this.ngUnsubscribe$.complete();
+            if (!draggables.length) {
+                return;
+            }
 
-                this.ngUnsubscribe$ = new Subject();
-                merge(
-                    ...this.draggables!.toArray().map(dragRef => {
-                        return dragRef.started;
-                    })
-                )
-                    .pipe(takeUntil(this.ngUnsubscribe$))
-                    .subscribe(() => {
-                        document.body.classList.add('thy-dragging-body');
-                    });
+            merge(...draggables.map(dragRef => dragRef.started))
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => {
+                    document.body.classList.add('thy-dragging-body');
+                });
 
-                merge(...this.draggables!.toArray().map(dragRef => dragRef.released))
-                    .pipe(takeUntil(this.ngUnsubscribe$))
-                    .subscribe(() => {
-                        document.body.classList.remove('thy-dragging-body');
-                    });
-            });
-        }
-    }
+            merge(...draggables.map(dragRef => dragRef.released))
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => {
+                    document.body.classList.remove('thy-dragging-body');
+                });
+        });
 
-    ngOnDestroy(): void {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
+        this.destroyRef.onDestroy(() => {
+            this.ngUnsubscribe$.next();
+            this.ngUnsubscribe$.complete();
+        });
     }
 }

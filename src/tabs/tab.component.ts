@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, ContentChild, input } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, contentChild, input } from '@angular/core';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
@@ -14,7 +14,7 @@ export class ThyTab implements OnInit {
      * 自定义选项标题的模板
      * @type TemplateRef
      */
-    @ContentChild('title') titleTemplateRef?: TemplateRef<unknown>;
+    readonly titleTemplateRef = contentChild<TemplateRef<unknown>>('title');
 
     @ViewChild('content', { static: true }) content!: TemplateRef<HTMLElement>;
 

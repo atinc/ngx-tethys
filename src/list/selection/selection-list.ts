@@ -5,27 +5,25 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-    AfterContentInit,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     ElementRef,
     forwardRef,
     NgZone,
     OnDestroy,
     OnInit,
-    QueryList,
     Renderer2,
     inject,
     input,
     computed,
     effect,
     output,
-    InputSignal
+    InputSignal,
+    contentChildren,
+    untracked
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThySelectionListChange } from './selection.interface';
-import { startWith } from 'rxjs/operators';
 import { SafeAny } from 'ngx-tethys/types';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';
@@ -58,7 +56,7 @@ const listSizesMap = {
         '[class.thy-grid-list]': 'isLayoutGrid()'
     }
 })
-export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
+export class ThySelectionList implements OnInit, OnDestroy, IThyListOptionParentComponent, ControlValueAccessor {
     private renderer = inject(Renderer2);
 
     private elementRef = inject(ElementRef);
@@ -83,7 +81,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     /**
      * @internal
      */
-    @ContentChildren(ThyListOption, { descendants: true }) options!: QueryList<ThyListOption>;
+    readonly options = contentChildren(ThyListOption, { descendants: true });
 
     /**
      * 改变 grid item 的选择模式，使其支持多选
@@ -163,6 +161,24 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
         effect(() => {
             this.instanceSelectionModel();
         });
+
+        effect(() => {
+            const options = this.options();
+            const autoActiveFirstItem = this.thyAutoActiveFirstItem();
+            untracked(() => {
+                this.keyManager = new ActiveDescendantKeyManager<ThyListOption>([...options])
+                    .withWrap()
+                    // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
+                    // screenreader users, that allows reading the different options of the list.
+                    .skipPredicate(() => false);
+
+                if (autoActiveFirstItem) {
+                    if (!this.keyManager.activeItem || options.indexOf(this.keyManager.activeItem) < 0) {
+                        this.keyManager.setFirstItemActive();
+                    }
+                }
+            });
+        });
     }
 
     private emitChangeEvent(option: ThyListOption, event: Event) {
@@ -177,11 +193,12 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
 
     private emitModelValueChange() {
         const uniqueKey = this.thyUniqueKey();
-        if (this.options) {
+        const options = this.options();
+        if (options) {
             let selectedValues = this.selectionModel.selected;
             if (uniqueKey) {
                 selectedValues = selectedValues.map(selectedValue => {
-                    const selectedOption = this.options.find(option => {
+                    const selectedOption = options.find(option => {
                         return option.thyValue()[uniqueKey] === selectedValue;
                     });
                     if (selectedOption) {
@@ -208,15 +225,6 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
                 this.toggleOption(this.keyManager.activeItem!, event);
             });
         }
-    }
-
-    private initializeFocusKeyManager() {
-        this.keyManager = new ActiveDescendantKeyManager<ThyListOption>(this.options)
-            .withWrap()
-            // .withTypeAhead()
-            // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
-            // screenreader users, that allows reading the different options of the list.
-            .skipPredicate(() => false);
     }
 
     private instanceSelectionModel() {
@@ -267,7 +275,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
         // emit the changed event when something actually changed.
         let hasChanged = false;
 
-        this.options.forEach(option => {
+        this.options().forEach(option => {
             const fromIsSelected = this.selectionModel.isSelected(option.thyValue());
             if (fromIsSelected !== toIsSelected) {
                 hasChanged = true;
@@ -281,7 +289,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     }
 
     private getOptionByValue(value: any) {
-        return this.options.find(option => {
+        return this.options().find(option => {
             return this.compareValue(option.thyValue(), value);
         });
     }
@@ -326,9 +334,7 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
         }
         const values = helpers.isArray(value) ? value : value ? [value] : [];
         this.modelValues = values;
-        if (this.options) {
-            this.setSelectionByValues(values);
-        }
+        this.setSelectionByValues(values);
         this.changeDetectorRef.markForCheck();
     }
 
@@ -422,17 +428,6 @@ export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IT
     /** Deselects all of the options. */
     deselectAll() {
         this.setAllOptionsSelected(false);
-    }
-
-    ngAfterContentInit(): void {
-        this.initializeFocusKeyManager();
-        this.options.changes.pipe(startWith(true)).subscribe(() => {
-            if (this.thyAutoActiveFirstItem()) {
-                if (!this.keyManager.activeItem || this.options.toArray().indexOf(this.keyManager.activeItem) < 0) {
-                    this.keyManager.setFirstItemActive();
-                }
-            }
-        });
     }
 
     ngOnDestroy() {

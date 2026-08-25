@@ -2,7 +2,7 @@
     &-node {
         &-wrapper {
             &.active {
-                background: rgba($primary, 0.1);
+                background: $tree-node-wrapper-active-background-color;
                 color: $primary;
 
                 .thy-tree-node-content {
