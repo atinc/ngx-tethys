@@ -1,10 +1,10 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from 'ngx-tethys/image';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-image-group-test',
@@ -15,6 +15,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         </thy-image-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyImageModule, ThyDialogModule]
 })
 class ImageGroupTestComponent {
@@ -46,7 +47,7 @@ describe('image-group', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyImageModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageGroupTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;

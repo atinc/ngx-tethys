@@ -3,7 +3,6 @@ import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethy
 
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
@@ -46,7 +45,6 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText],
     host: {
         '[class.select-control-borderless]': 'thyBorderless()'

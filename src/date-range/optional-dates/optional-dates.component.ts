@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, inject } from '@angular/core';
+import { Component, OnInit, Signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DateRangeItemInfo } from '../date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { injectLocale, ThyDateRangeLocale } from 'ngx-tethys/i18n';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-range-optional',
     templateUrl: './optional-dates.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyDropdownMenuComponent,
         ThyDropdownMenuItemDirective,

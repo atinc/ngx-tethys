@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { format } from 'date-fns';
@@ -7,6 +7,7 @@ import { ThyDatePicker } from 'ngx-tethys/date-picker';
 @Component({
     selector: 'thy-date-picker-date-render-example',
     templateUrl: './date-render.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePicker, FormsModule]
 })
 export class ThyDatePickerDateRenderExampleComponent {

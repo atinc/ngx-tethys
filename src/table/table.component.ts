@@ -39,7 +39,8 @@ import {
     ViewChild,
     ViewChildren,
     ViewEncapsulation,
-    DOCUMENT
+    DOCUMENT,
+    ChangeDetectionStrategy
 } from '@angular/core';
 
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
@@ -126,6 +127,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
         '[class.thy-table-boxed]': `theme === 'boxed'`,
         '[class.thy-table-fixed-header]': 'thyHeaderFixed'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CdkScrollable,
         NgClass,

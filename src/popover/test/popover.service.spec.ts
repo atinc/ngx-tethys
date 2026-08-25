@@ -11,7 +11,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewContainerRef,
-    inject as coreInject
+    inject as coreInject,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { Subject } from 'rxjs';
@@ -29,6 +30,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 @Component({
     selector: 'thy-popover-basic',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button #trigger>Open</button>
         <ng-template #customTemplate></ng-template>
@@ -55,6 +57,7 @@ class WithViewContainerTestDirective {
             <div>template</div>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [WithViewContainerTestDirective]
 })
 class WithChildViewContainerTestComponent {
@@ -77,6 +80,7 @@ class WithChildViewContainerTestComponent {
 
 @Component({
     selector: 'thy-popover-simple-content-component',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="simple-content-test">
             Hello Popover <button>Close</button>
@@ -107,6 +111,7 @@ export class PopoverSimpleContentComponent {
 
 @Component({
     selector: 'thy-popover-manual-closure-content-component',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <a class="btn" #btn1>Open1</a>
         <ng-template #template1><div class="template1">template1</div></ng-template>
@@ -133,6 +138,7 @@ export class PopoverManualClosureContentComponent {
 
 @Component({
     selector: 'thy-popover-outside-closable',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button #outsideBtn>outside btn</button>
         <a class="btn" #openBtn>Open</a>
@@ -152,6 +158,7 @@ export class PopoverOutsideClosableComponent {
 
 @Component({
     selector: 'thy-popover-inside-closable',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div #innerContent>template</div></ng-template>
@@ -167,6 +174,7 @@ export class PopoverInsideClosableComponent {
 
 @Component({
     selector: 'thy-popover-config',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>

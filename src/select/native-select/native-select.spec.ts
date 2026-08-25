@@ -1,10 +1,10 @@
 import { ThyNativeSelect, ThySelectModule } from 'ngx-tethys/select';
-import { Component, DebugElement, Sanitizer, SecurityContext, viewChild } from '@angular/core';
+import { Component, DebugElement, Sanitizer, SecurityContext, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'app-basic-select-demo',
@@ -20,6 +20,7 @@ import { provideHttpClient } from '@angular/common/http';
             <option value="option2">选项2</option>
         </thy-native-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelectModule, FormsModule]
 })
 class BasicNativeSelectComponent {
@@ -36,7 +37,7 @@ describe(`select`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 {
                     provide: Sanitizer,
                     useValue: {

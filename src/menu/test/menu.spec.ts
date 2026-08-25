@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -63,6 +63,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMenuModule, ThyDividerModule, ThyPopoverModule, ThyIconModule]
 })
 class ThyDemoMenuComponent {
@@ -98,6 +99,7 @@ class ThyDemoMenuComponent {
             </a>
         </thy-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMenuModule, ThyDividerModule, ThyPopoverModule, ThyIconModule]
 })
 class ThyMenuTestBasicComponent {
@@ -111,7 +113,7 @@ describe('ThyMenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, ThyPopover, provideHttpClient(), provideAnimations()]
+            providers: [bypassSanitizeProvider, ThyPopover, provideHttpClient(withXhr()), provideAnimations()]
         }).compileComponents();
         injectDefaultSvgIconSet();
     });

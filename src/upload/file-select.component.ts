@@ -1,5 +1,16 @@
 import { fromEvent } from 'rxjs';
-import { Component, ElementRef, NgZone, inject, viewChild, output, input, DestroyRef, effect } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    NgZone,
+    inject,
+    viewChild,
+    output,
+    input,
+    DestroyRef,
+    effect,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FileSelectBaseDirective } from './file-select-base';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -13,6 +24,7 @@ import { ThyFileSelectEvent } from './types';
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyFileSelect],thy-file-select',
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './file-select.component.html'
 })
 export class ThyFileSelect extends FileSelectBaseDirective {

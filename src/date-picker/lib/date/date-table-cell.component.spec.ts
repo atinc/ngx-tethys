@@ -1,4 +1,4 @@
-import { Component, TemplateRef, inject, signal, viewChild } from '@angular/core';
+import { Component, TemplateRef, inject, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { ThyI18nService } from '../../../i18n';
@@ -7,6 +7,7 @@ import { DateTableCell } from './date-table-cell.component';
 
 @Component({
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <ng-template #testTemplate let-date>
             <div class="custom-template">Template Date: {{ date }}</div>

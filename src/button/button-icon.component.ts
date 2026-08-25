@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation, computed, effect, input } from '@angular/core';
+import { Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
@@ -39,7 +39,6 @@ const themeClassesMap: any = {
         '[class.btn-icon-light]': 'thyLight()',
         '[class.btn-icon-active]': 'thyActive()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyIcon, NgClass]
 })
 export class ThyButtonIcon {

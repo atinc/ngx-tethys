@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
@@ -9,7 +9,6 @@ import { QUARTER_FORMAT } from '../../date-picker.config';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'quarter-table',
     exportAs: 'quarterTable',
@@ -24,7 +23,6 @@ export class QuarterTable extends CalendarTable {
     private chooseQuarter(quarter: number): void {
         const newValue = this.activeDate().setQuarter(quarter);
         this.value.set(newValue);
-        this.valueChange.emit(newValue);
         this.render();
     }
 

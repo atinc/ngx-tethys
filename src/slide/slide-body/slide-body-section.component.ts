@@ -1,4 +1,4 @@
-import { Component, OnInit, input } from '@angular/core';
+import { Component, OnInit, input, ChangeDetectionStrategy } from '@angular/core';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
@@ -8,6 +8,7 @@ import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-slide-body-section',
     template: '<ng-content></ng-content>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-slide-body-section',
         '[class.thy-slide-body-section-divider]': 'thyDividerBorder()'

@@ -1,4 +1,14 @@
-import { Component, HostBinding, ViewEncapsulation, OnInit, ContentChild, TemplateRef, inject, input } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    ViewEncapsulation,
+    OnInit,
+    ContentChild,
+    TemplateRef,
+    inject,
+    input,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyFormGroupFooterAlign, THY_FORM_CONFIG, ThyFormConfig } from '../form.class';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -12,6 +22,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     selector: 'thy-form-group-footer',
     templateUrl: './form-group-footer.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgClass, NgTemplateOutlet]
 })
 export class ThyFormGroupFooter implements OnInit {

@@ -1,6 +1,6 @@
 import { ThyTranslate } from 'ngx-tethys/core';
 
-import { Component, computed, forwardRef, HostBinding, inject, input, OnInit, Signal } from '@angular/core';
+import { Component, computed, forwardRef, HostBinding, inject, input, OnInit, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { injectLocale, ThyStrengthLocale } from 'ngx-tethys/i18n';
 
@@ -19,6 +19,7 @@ enum ThyStrengthEnum {
 @Component({
     selector: 'thy-strength',
     templateUrl: 'strength.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,

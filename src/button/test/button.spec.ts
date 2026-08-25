@@ -1,9 +1,9 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonModule } from 'ngx-tethys/button';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
     expect(iconElement).toBeTruthy();
@@ -18,6 +18,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule]
 })
 class ThyTestButtonBasicComponent {
@@ -38,7 +39,7 @@ describe('ThyButton', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [bypassSanitizeProvider, provideHttpClient()]
+                providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
             });
 
             TestBed.compileComponents();
@@ -187,6 +188,7 @@ describe('ThyButton', () => {
             [thySize]="size"></button>
         <thy-button-icon id="button-icon-component" thyIcon="inbox"></thy-button-icon>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule]
 })
 class ThyTestButtonIconBasicComponent {
@@ -207,7 +209,7 @@ describe('ThyIconButton', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -311,6 +313,7 @@ describe('ThyIconButton', () => {
             <button thyButton>Right</button>
         </thy-button-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonGroup, ThyButton]
 })
 class ThyDemoButtonGroupComponent {
@@ -326,7 +329,7 @@ describe('ThyButtonGroup', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();

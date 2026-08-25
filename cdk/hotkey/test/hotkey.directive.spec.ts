@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyHotkeyModule } from '@tethys/cdk';
 import { createKeyboardEvent } from '@tethys/cdk/testing';
@@ -18,6 +18,7 @@ import { createKeyboardEvent } from '@tethys/cdk/testing';
             thySize="sm"
             (click)="save()"></button>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyHotkeyModule]
 })
 class ThyHotkeyDirectiveTestComponent {

@@ -1,6 +1,6 @@
 <thy-selection-list [(ngModel)]="selectionModel.selectedValues" [thyMultiple]="false" (thySelectionChange)="selectionChange($event)">
   @for (item of items; track item.id) {
-    <thy-list-option [thyValue]="item?.id">
+    <thy-list-option [thyValue]="$safeNavigationMigration(item?.id)">
       {{ item.name }}
     </thy-list-option>
   }

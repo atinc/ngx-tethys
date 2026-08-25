@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyGuiderStep, ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderTargetDirective } from 'ngx-tethys/guider';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-guider-directive-hint-example',
     templateUrl: 'directive-hint.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyGuiderTargetDirective]
 })
 export class ThyGuiderDirectiveHintExampleComponent implements OnInit {

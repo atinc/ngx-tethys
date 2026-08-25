@@ -12,7 +12,8 @@ import {
     ViewChild,
     OnDestroy,
     NgZone,
-    inject
+    inject,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -34,6 +35,7 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 @Component({
     selector: 'thy-property-operation',
     templateUrl: './property-operation.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgTemplateOutlet, NgClass, ThyButtonIcon, ThyFlexibleText, ThyIcon]
 })
 export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy {

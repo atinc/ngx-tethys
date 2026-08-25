@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 
 @Component({
@@ -14,6 +14,7 @@ import { ThySkeletonRectangle } from 'ngx-tethys/skeleton';
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-rectangle>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySkeletonRectangle]
 })
 export class ThySkeletonExampleRectangleComponent implements OnInit {

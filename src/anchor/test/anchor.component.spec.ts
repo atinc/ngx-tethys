@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit, TemplateRef, viewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
@@ -287,6 +287,7 @@ describe('thy-anchor', () => {
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAnchorModule]
 })
 class TestAnchorComponent implements OnInit {
@@ -324,6 +325,7 @@ class TestAnchorComponent implements OnInit {
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAnchorModule]
 })
 class TestContainerAnchorComponent implements OnInit {
@@ -359,6 +361,7 @@ class TestContainerAnchorComponent implements OnInit {
             </ng-template>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAnchorModule]
 })
 class TestThyAnchorLinkComponent implements OnInit {

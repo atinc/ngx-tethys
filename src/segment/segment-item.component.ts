@@ -1,15 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    DestroyRef,
-    ElementRef,
-    NgZone,
-    Renderer2,
-    afterNextRender,
-    inject,
-    input,
-    signal
-} from '@angular/core';
+import { Component, DestroyRef, ElementRef, NgZone, Renderer2, afterNextRender, inject, input, signal } from '@angular/core';
 import { IThySegmentItemComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { assertIconOnly, coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
@@ -25,7 +14,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'thy-segment-item,[thy-segment-item]',
     templateUrl: './segment-item.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-segment-item',
         '[class.disabled]': 'thyDisabled()'

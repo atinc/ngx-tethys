@@ -1,4 +1,4 @@
-import { Component, HostBinding, effect, inject } from '@angular/core';
+import { Component, HostBinding, effect, inject, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ThyMessageConfig } from './message.config';
 import { ThyMessageQueue } from './message-queue.service';
@@ -29,6 +29,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
             state('componentHide', style(HIDE_STYLE))
         ])
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon, ThyStringOrTemplateOutletDirective]
 })
 export class ThyMessage extends ThyAbstractMessageComponent<ThyMessageConfig> {

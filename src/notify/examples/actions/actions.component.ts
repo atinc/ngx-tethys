@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-notify-actions-example',
     templateUrl: './actions.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyNotifyActionsExampleComponent {

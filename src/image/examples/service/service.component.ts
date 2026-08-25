@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyImageModule, ThyImagePreviewOperationType, ThyImageService } from 'ngx-tethys/image';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-image-service-example',
     templateUrl: './service.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyImageModule]
 })
 export class ThyImageServiceExampleComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnDestroy, OnInit, Renderer2, TemplateRef, inject } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit, Renderer2, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialog, ThyDialogBody, ThyDialogConfig, ThyDialogFooter, ThyDialogHeader, ThyDialogSizes } from 'ngx-tethys/dialog';
@@ -9,6 +9,7 @@ import { ThyDialogBasicPlainContentComponent } from './plain-dialog-content.comp
 @Component({
     selector: 'thy-dialog-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyDialogHeader, ThyDialogBody, ThyDialogFooter]
 })
 export class ThyDialogBasicExampleComponent implements OnInit, OnDestroy {

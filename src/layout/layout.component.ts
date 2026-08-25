@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, Directive, HostBinding, signal } from '@angular/core';
+import { Component, computed, Directive, signal } from '@angular/core';
 import { ThySidebarDirection } from './sidebar.component';
 
 /**
@@ -30,7 +30,6 @@ export class ThyLayoutDirective {
 @Component({
     selector: 'thy-layout',
     template: ` <ng-content></ng-content> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [ThyLayoutDirective]
 })
 export class ThyLayout {}

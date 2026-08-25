@@ -15,7 +15,8 @@ import {
     signal,
     output,
     contentChild,
-    afterNextRender
+    afterNextRender,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -48,6 +49,7 @@ const password = 'password';
         '[class.form-control-active]': 'focused()',
         '[class.disabled]': 'disabled()'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
 export class ThyInput implements ControlValueAccessor, OnInit {

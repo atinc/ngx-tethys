@@ -1,11 +1,12 @@
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 @Component({
     selector: 'test-bed-input-directive',
     template: ` <input name="username" thyInput [thySize]="thySize" /> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputDirective]
 })
 class TestBedInputDirectiveComponent {

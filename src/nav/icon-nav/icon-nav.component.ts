@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, HostBinding, input } from '@angular/core';
+import { Component, effect, HostBinding, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { warnDeprecation } from 'ngx-tethys/util';
 
@@ -9,8 +9,7 @@ type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
  */
 @Component({
     selector: 'thy-icon-nav',
-    templateUrl: './icon-nav.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './icon-nav.component.html'
 })
 export class ThyIconNav {
     private hostRenderer = useHostRenderer();

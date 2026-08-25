@@ -2,12 +2,12 @@ import { addHours, format } from 'date-fns';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInnerTimePicker, ThyTimePickerModule } from 'ngx-tethys/time-picker';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -20,7 +20,7 @@ describe('ThyInnerTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -475,6 +475,7 @@ describe('ThyInnerTimePickerComponent', () => {
             [ngModel]="startDate"
             (ngModelChange)="onDateChange($event)"></thy-inner-time-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestInnerTimePickerBaseComponent {

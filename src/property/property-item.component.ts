@@ -5,7 +5,6 @@ import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     NgZone,
@@ -45,7 +44,6 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
         '[style.grid-column]': 'gridColumn()',
         '[class.thy-property-item-single]': '!parent'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyFlexibleText, NgTemplateOutlet]
 })
 export class ThyPropertyItem implements OnDestroy {

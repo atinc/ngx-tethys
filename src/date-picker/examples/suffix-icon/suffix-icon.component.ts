@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 import { TinyDate } from 'ngx-tethys/util';
@@ -6,6 +6,7 @@ import { TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-date-picker-suffix-icon-example',
     templateUrl: './suffix-icon.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePicker, FormsModule, ThyRangePicker]
 })
 export class ThyDatePickerSuffixIconExampleComponent {

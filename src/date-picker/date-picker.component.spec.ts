@@ -3,9 +3,9 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ng
 import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { formatDate, registerLocaleData } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, viewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -49,7 +49,7 @@ describe('ThyDatePickerComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideAnimations(),
                 {
                     provide: THY_DATE_PICKER_CONFIG,
@@ -1413,6 +1413,7 @@ describe('ThyDatePickerComponent', () => {
             <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestDatePickerComponent {

@@ -1,0 +1,92 @@
+diff --git a/fesm2022/docgeni-template.mjs b/fesm2022/docgeni-template.mjs
+index 10940b2fe5ec7b1f48beaf9ad2b8f8e89567b9a5..672427d11a452cb51c80afbb9bc34ad3724f53bd 100644
+--- a/fesm2022/docgeni-template.mjs
++++ b/fesm2022/docgeni-template.mjs
+@@ -1,5 +1,5 @@
+ import * as i0 from '@angular/core';
+-import { inject, ElementRef, Directive, input, effect, ChangeDetectionStrategy, Component, ChangeDetectorRef, PLATFORM_ID, signal, afterNextRender, Injectable, HostListener, HostBinding, NgModule, InjectionToken, computed, DOCUMENT, Input, Pipe, untracked, linkedSignal, EventEmitter, ɵNgModuleFactory as _NgModuleFactory, Output, viewChild, ApplicationRef, ComponentFactoryResolver, Injector, ViewContainerRef, NgZone, reflectComponentType, ViewChild, contentChild, Renderer2, APP_INITIALIZER } from '@angular/core';
++import { inject, ElementRef, Directive, input, effect, ChangeDetectionStrategy, Component, ChangeDetectorRef, PLATFORM_ID, signal, afterNextRender, Injectable, HostListener, HostBinding, NgModule, InjectionToken, computed, DOCUMENT, Input, Pipe, untracked, linkedSignal, EventEmitter, ɵNgModuleFactory as _NgModuleFactory, Output, viewChild, ApplicationRef, createComponent, Injector, ViewContainerRef, NgZone, reflectComponentType, ViewChild, contentChild, Renderer2, APP_INITIALIZER } from '@angular/core';
+ import { isPlatformBrowser, CommonModule, Location, ViewportScroller, LocationStrategy, AsyncPipe, DOCUMENT as DOCUMENT$1, SlicePipe, DatePipe, NgComponentOutlet, NgClass, NgTemplateOutlet } from '@angular/common';
+ import { HttpClient, provideHttpClient, withInterceptorsFromDi, withFetch } from '@angular/common/http';
+ import { Title, DomSanitizer } from '@angular/platform-browser';
+@@ -1556,38 +1556,42 @@ class Portal {
+  * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
+  */
+ class ComponentPortal extends Portal {
+-    constructor(component, viewContainerRef, injector, componentFactoryResolver) {
++    constructor(component, viewContainerRef, injector) {
+         super();
+         this.component = component;
+         this.viewContainerRef = viewContainerRef;
+         this.injector = injector;
+-        this.componentFactoryResolver = componentFactoryResolver;
+     }
+ }
+ class DomPortalOutlet {
+-    constructor(outletElement, componentFactoryResolver, appRef, defaultInjector, projectableNodes) {
++    constructor(outletElement, appRef, defaultInjector, projectableNodes) {
+         this.outletElement = outletElement;
+-        this.componentFactoryResolver = componentFactoryResolver;
+         this.appRef = appRef;
+         this.defaultInjector = defaultInjector;
+         this.projectableNodes = projectableNodes;
+     }
+     attach(portal, replace = false) {
+-        const resolver = portal.componentFactoryResolver || this.componentFactoryResolver;
+-        const componentFactory = resolver.resolveComponentFactory(portal.component);
+         let componentRef;
+         // If the portal specifies a ViewContainerRef, we will use that as the attachment point
+         // for the component (in terms of Angular's component tree, not rendering).
+-        // When the ViewContainerRef is missing, we use the factory to create the component directly
++        // When the ViewContainerRef is missing, we use createComponent directly
+         // and then manually attach the view to the application.
+         if (portal.viewContainerRef) {
+-            componentRef = portal.viewContainerRef.createComponent(componentFactory, portal.viewContainerRef.length, portal.injector || portal.viewContainerRef.injector, this.projectableNodes);
++            componentRef = portal.viewContainerRef.createComponent(portal.component, {
++                index: portal.viewContainerRef.length,
++                injector: portal.injector || portal.viewContainerRef.injector,
++                projectableNodes: this.projectableNodes
++            });
+             this.setDisposeFn(() => {
+                 componentRef.destroy();
+             });
+         }
+         else {
+-            componentRef = componentFactory.create(portal.injector || this.defaultInjector);
++            componentRef = createComponent(portal.component, {
++                elementInjector: portal.injector || this.defaultInjector,
++                environmentInjector: this.appRef.injector,
++                projectableNodes: this.projectableNodes
++            });
+             this.appRef.attachView(componentRef.hostView);
+             this.setDisposeFn(() => {
+                 this.appRef.detachView(componentRef.hostView);
+@@ -1646,7 +1650,6 @@ class ContentViewerComponent extends ContentRenderer {
+         super(...arguments);
+         this.elementRef = inject(ElementRef);
+         this.appRef = inject(ApplicationRef);
+-        this.componentFactoryResolver = inject(ComponentFactoryResolver);
+         this.injector = inject(Injector);
+         this.viewContainerRef = inject(ViewContainerRef);
+         this.ngZone = inject(NgZone);
+@@ -1678,7 +1681,7 @@ class ContentViewerComponent extends ContentRenderer {
+     loadComponents(selector, componentClass, replace = false) {
+         const exampleElements = this.elementRef.nativeElement.querySelectorAll(selector);
+         Array.prototype.slice.call(exampleElements).forEach((element) => {
+-            const portalHost = new DomPortalOutlet(element, this.componentFactoryResolver, this.appRef, this.injector, [
++            const portalHost = new DomPortalOutlet(element, this.appRef, this.injector, [
+                 element.childNodes,
+             ]);
+             const examplePortal = new ComponentPortal(componentClass, this.viewContainerRef);
+diff --git a/types/docgeni-template.d.ts b/types/docgeni-template.d.ts
+index ae0be4393af9fcb605bf6e6273a169c55e7e157a..7617c296d140bb5ed5ef7fdf88849a091e0fdfe1 100644
+--- a/types/docgeni-template.d.ts
++++ b/types/docgeni-template.d.ts
+@@ -643,7 +643,6 @@ declare abstract class ContentRenderer {
+ declare class ContentViewerComponent extends ContentRenderer implements OnInit, OnDestroy {
+     elementRef: ElementRef<HTMLElement>;
+     private appRef;
+-    private componentFactoryResolver;
+     private injector;
+     private viewContainerRef;
+     private ngZone;

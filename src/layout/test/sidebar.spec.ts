@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '@tethys/cdk/testing';
@@ -20,7 +20,7 @@ import {
     ThySidebarTheme
 } from 'ngx-tethys/layout';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -53,6 +53,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
             <thy-content> Yeah, I am content </thy-content>
         </thy-layout>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutSidebarBasicComponent {
@@ -96,6 +97,7 @@ class ThyDemoLayoutSidebarBasicComponent {
             <thy-content>Yeah, I am content</thy-content>
         </thy-layout>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutCustomSidebarComponent {
@@ -120,6 +122,7 @@ class ThyDemoLayoutCustomSidebarComponent {
             <div thyContent>Yeah, I am content</div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLayoutModule]
 })
 class ThyDemoLayoutSidebarDirectiveComponent {
@@ -135,7 +138,7 @@ describe(`sidebar`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyLayoutModule],
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

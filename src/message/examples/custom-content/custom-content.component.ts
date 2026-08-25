@@ -1,11 +1,12 @@
 import { ThyMessageService } from 'ngx-tethys/message';
-import { Component, TemplateRef, inject, viewChild } from '@angular/core';
+import { Component, TemplateRef, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-message-custom-content-example',
     templateUrl: './custom-content.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySpace, ThySpaceItemDirective, ThyButton]
 })
 export class ThyMessageCustomContentExampleComponent {

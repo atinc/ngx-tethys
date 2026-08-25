@@ -1,9 +1,9 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInputCount, ThyInputModule } from 'ngx-tethys/input';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'test-input-count-basic',
@@ -15,6 +15,7 @@ import { provideHttpClient } from '@angular/common/http';
             </ng-template>
         </thy-input-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountBasicComponent {
@@ -37,6 +38,7 @@ class TestInputCountBasicComponent {
             </ng-template>
         </thy-input-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputModule, FormsModule]
 })
 class TestInputCountSpecifyInputBasicComponent {
@@ -49,7 +51,7 @@ describe('input count', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
     });
 

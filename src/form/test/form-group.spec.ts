@@ -1,12 +1,12 @@
 import { ThyFormModule, ThyFormValidatorConfig, ThyFormGroup, ThyFormGroupLabelDirective } from 'ngx-tethys/form';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-form-group-basic',
@@ -29,6 +29,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-form-group-footer>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormWithGroupComponent {
@@ -68,7 +69,7 @@ describe('form-group basic', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule],
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         }).compileComponents();
     }));
 
@@ -187,6 +188,7 @@ describe('form-group basic', () => {
             </thy-form-group-footer>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormGroupVerticalComponent {
@@ -208,7 +210,7 @@ describe('form-group in vertical', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule],
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         }).compileComponents();
 
         injectDefaultSvgIconSet();
@@ -244,6 +246,7 @@ describe('form-group in vertical', () => {
             </thy-form-group>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormGroupTranslateKeyComponent {
@@ -270,7 +273,7 @@ describe('form-group for TranslateKey', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule],
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 {
                     provide: ThyTranslate,
                     useValue: {
@@ -319,6 +322,7 @@ describe('form-group for TranslateKey', () => {
                 [thyLabelRequired]="labelRequired"></label>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormModule, FormsModule, ThyButtonModule]
 })
 export class TestFormGroupLabelBasicComponent {
@@ -342,7 +346,7 @@ describe('form-group for TranslateKey', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule],
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 {
                     provide: ThyTranslate,
                     useValue: {

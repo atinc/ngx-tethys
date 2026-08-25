@@ -18,7 +18,8 @@ import {
     effect,
     signal,
     output,
-    viewChild
+    viewChild,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -45,6 +46,7 @@ enum Type {
         }
     ],
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-input-number',
         '[attr.tabindex]': 'tabIndex'

@@ -2,7 +2,7 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 import { Overlay, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -14,7 +14,7 @@ import {
     ThyPropertyItem,
     ThyPropertyItemOperationTrigger
 } from 'ngx-tethys/property';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 
@@ -43,6 +43,7 @@ import { ThyOption } from 'ngx-tethys/shared';
             </thy-property-item>
         </thy-properties>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProperties, ThyPropertyItem, ThySelect, FormsModule, ThyOption]
 })
 class ThyPropertiesTestBasicComponent {
@@ -90,6 +91,7 @@ class ThyPropertiesTestBasicComponent {
             >
         </thy-properties>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProperties, ThyPropertyItem]
 })
 class ThyPropertiesTestColumnComponent {
@@ -112,6 +114,7 @@ class ThyPropertiesTestColumnComponent {
             </thy-property-item>
         </thy-properties>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProperties, ThyPropertyItem]
 })
 class ThyPropertiesTestOperationComponent {
@@ -127,7 +130,7 @@ describe(`thy-properties`, () => {
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
             });
             TestBed.compileComponents();
         }));
@@ -279,7 +282,7 @@ describe(`thy-properties`, () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
             });
             TestBed.compileComponents();
         }));
@@ -316,7 +319,7 @@ describe(`thy-properties`, () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThyPropertyModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
             });
             TestBed.compileComponents();
         }));

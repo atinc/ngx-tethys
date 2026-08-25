@@ -1,4 +1,4 @@
-import { Component, HostBinding, ViewEncapsulation, OnInit, Input, inject, input } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, Input, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 import { ThyAlert } from 'ngx-tethys/alert';
 import { NgClass } from '@angular/common';
@@ -12,6 +12,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-form-group-error',
     templateUrl: './form-group-error.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgClass, ThyAlert]
 })
 export class ThyFormGroupError implements OnInit {

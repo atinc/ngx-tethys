@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
@@ -7,6 +7,7 @@ import { NgClass } from '@angular/common';
     selector: 'thy-nav-size-example',
     templateUrl: './size.component.html',
     styleUrls: ['./size.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNav, ThyNavItemDirective, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyNavSizeExampleComponent implements OnInit {

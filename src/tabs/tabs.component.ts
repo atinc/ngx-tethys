@@ -1,7 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
@@ -36,7 +35,6 @@ export type ThyTabsPosition = 'top' | 'left';
 @Component({
     selector: 'thy-tabs',
     templateUrl: './tabs.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-tabs',
         '[class.thy-tabs-top]': `thyPosition() === 'top'`,

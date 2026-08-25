@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, computed, forwardRef, inject, Signal, input, output } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, forwardRef, inject, Signal, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { DateRangeItemInfo } from './date-range.class';
@@ -42,6 +42,7 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     selector: 'thy-date-range',
     templateUrl: './date-range.component.html',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAction, ThyIcon, NgClass, ThyDatePickerFormatPipe]
 })
 export class ThyDateRange implements ControlValueAccessor {

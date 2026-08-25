@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
@@ -7,6 +7,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
     selector: 'thy-flexible-text-placement',
     templateUrl: './placement.component.html',
     styleUrls: ['./placement.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySpace, ThySpaceItemDirective, ThyTooltipDirective, ThyFlexibleText]
 })
 export class ThyFlexibleTextPlacementExampleComponent implements OnInit {

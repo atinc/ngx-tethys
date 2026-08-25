@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThySkeletonCircle, ThySkeletonModule } from 'ngx-tethys/skeleton';
@@ -16,6 +16,7 @@ import { ThySkeletonCircle, ThySkeletonModule } from 'ngx-tethys/skeleton';
             </thy-skeleton-circle>
         </thy-skeleton>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySkeletonModule]
 })
 class ThySkeletonCircleTestComponent {

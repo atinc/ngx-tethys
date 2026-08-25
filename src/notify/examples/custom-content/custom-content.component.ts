@@ -1,5 +1,5 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { Component, TemplateRef, inject, viewChild } from '@angular/core';
+import { Component, TemplateRef, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyContentExampleComponent } from './content.component';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
@@ -7,6 +7,7 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 @Component({
     selector: 'thy-notify-custom-content-example',
     templateUrl: './custom-content.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
 export class ThyNotifyCustomContentExampleComponent {

@@ -1,9 +1,9 @@
-import { Component, DebugElement, OnInit, viewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCarousel, ThyCarouselEffect, ThyCarouselItemDirective, ThyCarouselModule } from 'ngx-tethys/carousel';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { mouseSwipe, windowResize } from './carousel-events';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-carousel-engine',
@@ -18,6 +18,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-carousel>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCarouselModule]
 })
 class ThyTestCarouselEngineComponent implements OnInit {
@@ -38,7 +39,7 @@ class ThyTestCarouselEngineComponent implements OnInit {
 describe(`carousel`, () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));

@@ -1,7 +1,7 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySelectModule } from 'ngx-tethys/select';
-import { Component, DebugElement, ViewEncapsulation, signal, viewChild } from '@angular/core';
+import { Component, DebugElement, ViewEncapsulation, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -14,7 +14,7 @@ import {
     InnerTransferDragEvent,
     ThyTransferModule
 } from 'ngx-tethys/transfer';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 const COUNT = 9;
 const RIGHTCOUNT = 5;
@@ -146,6 +146,7 @@ function buildDataList() {
         </thy-transfer>
     `,
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferComponent {
@@ -168,6 +169,7 @@ class TestTransferComponent {
             </ng-template>
         </thy-transfer>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderComponent {
@@ -178,6 +180,7 @@ class TestTransferCustomRenderComponent {
 @Component({
     templateUrl: './transfer-template.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule]
 })
 class TestTransferCustomRenderContentComponent {
@@ -206,7 +209,7 @@ describe('transfer', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyTransferModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         }).compileComponents();
     });
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, Renderer2, inject, input, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, inject, input, viewChild } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -9,7 +9,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-menu-item,[thy-menu-item],[thyMenuItem]',
     templateUrl: './menu-item.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-menu-item'
     },

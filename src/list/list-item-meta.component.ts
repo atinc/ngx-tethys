@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, TemplateRef, input, contentChild } from '@angular/core';
+import { Component, TemplateRef, input, contentChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 
 /**
@@ -12,6 +12,7 @@ import { ThyAvatar } from 'ngx-tethys/avatar';
     host: {
         class: 'thy-list-item-meta'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatar, NgTemplateOutlet]
 })
 export class ThyListItemMeta {

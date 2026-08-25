@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
     ThyFormValidatorConfig,
     ThyFormGroup,
@@ -14,6 +14,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-form-validate-example',
     templateUrl: './validate.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         FormsModule,
         ThyFormDirective,

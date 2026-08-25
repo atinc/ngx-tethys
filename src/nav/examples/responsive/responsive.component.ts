@@ -1,11 +1,12 @@
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 
 @Component({
     selector: 'thy-nav-responsive-example',
     templateUrl: './responsive.component.html',
     styleUrls: ['./responsive.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyNav,
         ThyNavItemDirective,

@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, OnInit, DebugElement } from '@angular/core';
+import { Component, OnInit, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyCardModule, ThyCard, ThyCardContent, ThyCardHeader } from 'ngx-tethys/card';
 
@@ -11,6 +11,7 @@ import { ThyCardModule, ThyCard, ThyCardContent, ThyCardHeader } from 'ngx-tethy
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardBasicComponent implements OnInit {
@@ -29,6 +30,7 @@ class CardBasicComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardClearPaddingComponent implements OnInit {
@@ -45,6 +47,7 @@ class CardClearPaddingComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardDividedComponent implements OnInit {
@@ -61,6 +64,7 @@ class CardDividedComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardBorderedComponent implements OnInit {
@@ -77,6 +81,7 @@ class CardBorderedComponent implements OnInit {
             <thy-card-content [thySize]="size">This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardHeaderSizeComponent {
@@ -91,6 +96,7 @@ class CardHeaderSizeComponent {
             <thy-card-content [thySize]="size" [thyScroll]="isScroll">This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardContentSizeAndScrollComponent {

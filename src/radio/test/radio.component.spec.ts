@@ -1,4 +1,4 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { ThyRadioModule, ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
 @Component({
     selector: 'thy-radio-test',
     template: ` <label thyRadio [thyLabelText]="labelText" [thyDisabled]="isDisabled"></label> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRadioModule, FormsModule]
 })
 class RadioTestComponent {
@@ -69,6 +70,7 @@ describe('radio component', () => {
         </thy-radio-group>
         <p class="mt-2">选中的选项值： {{ checkedValue }}</p>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRadioModule, FormsModule]
 })
 class RadioGroupTestComponent {

@@ -1,7 +1,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, inject as coreInject, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, flushMicrotasks, inject, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -26,6 +26,7 @@ const tooltipTemplateContext = { text: 'hello world' };
 
         <button #tooltipHost>Tooltip Host</button>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTooltipDirective]
 })
 class ThyDemoTooltipBasicComponent {
@@ -61,6 +62,7 @@ class ThyDemoTooltipBasicComponent {
         </button>
         <ng-template #world let-data>{{ data.text }}</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTooltipDirective]
 })
 class ThyDemoTooltipTemplateComponent {

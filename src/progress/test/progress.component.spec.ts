@@ -1,6 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, TemplateRef } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
         <thy-progress [thyValue]="value" [thyTips]="tips" [thyType]="type" [thySize]="size"> 20% </thy-progress>
         <ng-template #demo>{{ message }}</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
 })
 class ThyDemoProgressBasicComponent {
@@ -57,6 +58,7 @@ class ThyDemoProgressBasicComponent {
             20%
         </thy-progress>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
 })
 class ThyDemoProgressCircleComponent {
@@ -86,6 +88,7 @@ class ThyDemoProgressCircleComponent {
 @Component({
     selector: 'thy-demo-progress-stacked',
     template: ` <thy-progress [thyValue]="value" [thySize]="size"> </thy-progress> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
 })
 class ThyDemoProgressStackedComponent {
@@ -110,6 +113,7 @@ class ThyDemoProgressStackedComponent {
 @Component({
     selector: 'thy-demo-progress-stacked-max',
     template: ` <thy-progress [thyMax]="max" [thyValue]="value" [thySize]="size"> </thy-progress> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
 })
 class ThyDemoProgressStackedMaxComponent {
@@ -138,6 +142,7 @@ class ThyDemoProgressStackedMaxComponent {
         <thy-progress [thyValue]="value" [thyTips]="customProgressTooTip"></thy-progress>
         <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
 })
 class ThyDemoProgressTooltipTemplateComponent {

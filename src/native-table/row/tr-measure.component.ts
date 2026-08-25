@@ -1,4 +1,15 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, inject, input, output, QueryList, ViewChildren } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    DestroyRef,
+    ElementRef,
+    inject,
+    input,
+    output,
+    QueryList,
+    ViewChildren,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, of } from 'rxjs';
 import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators';
@@ -10,6 +21,7 @@ import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators'
             <td #tdElement class="thy-native-table-disable-td" style="padding: 0; border: 0; height: 0;"></td>
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-native-table-measure-now',
         '[style.height]': '0',

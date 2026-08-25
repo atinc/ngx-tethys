@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTimeDirection, ThyTimeline, ThyTimelineItem, ThyTimeMode } from 'ngx-tethys/timeline';
 import { ThyRadioGroup, ThyRadioButton } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-timeline-position-example',
     templateUrl: './position.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimeline, ThyTimelineItem, ThyRadioGroup, ThyRadioButton, FormsModule, ThyAvatar, ThyButton]
 })
 export class ThyTimelinePositionExampleComponent {

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyBackTop } from 'ngx-tethys/back-top';
 
@@ -6,6 +6,7 @@ import { ThyBackTop } from 'ngx-tethys/back-top';
     selector: 'thy-back-top-target-example',
     templateUrl: './target.component.html',
     styleUrls: ['./target.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBackTop]
 })
 export class ThyBackTopTargetExampleComponent implements OnInit {

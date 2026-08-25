@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyWatermarkDirective } from 'ngx-tethys/watermark';
@@ -13,6 +13,7 @@ import { ThyWatermarkDirective } from 'ngx-tethys/watermark';
             [thyWatermark]="watermarkContent"
             [thyDisabled]="isDisabled"></div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyWatermarkDirective]
 })
 class ThyTestWatermarkBasicComponent implements OnInit {

@@ -1,6 +1,5 @@
 import { DecimalPipe } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
@@ -28,7 +27,6 @@ import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-time-picker-panel',
     templateUrl: './time-picker-panel.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,

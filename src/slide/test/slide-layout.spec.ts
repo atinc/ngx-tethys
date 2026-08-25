@@ -1,5 +1,5 @@
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
-import { Component, DebugElement, ElementRef } from '@angular/core';
+import { Component, DebugElement, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -15,7 +15,7 @@ import {
     ThySlideService,
     slideDefaultConfigValue
 } from 'ngx-tethys/slide';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('ThySlide', () => {
@@ -29,7 +29,7 @@ describe('ThySlide', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule],
-                providers: [provideHttpClient(), provideNoopAnimations()]
+                providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
             });
             TestBed.compileComponents();
         }));
@@ -607,7 +607,7 @@ describe('ThySlide', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule],
-                providers: [provideHttpClient(), provideNoopAnimations(), { provide: ThySlideService, useValue: ThySlideService }]
+                providers: [provideHttpClient(withXhr()), provideNoopAnimations(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
             TestBed.compileComponents();
@@ -683,7 +683,7 @@ describe('ThySlide', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThySlideModule],
-                providers: [provideHttpClient(), provideNoopAnimations(), { provide: ThySlideService, useValue: ThySlideService }]
+                providers: [provideHttpClient(withXhr()), provideNoopAnimations(), { provide: ThySlideService, useValue: ThySlideService }]
             });
 
             TestBed.compileComponents();
@@ -718,7 +718,7 @@ describe('ThySlide', () => {
                 imports: [ThySlideModule],
                 providers: [
                     provideNoopAnimations(),
-                    provideHttpClient(),
+                    provideHttpClient(withXhr()),
                     {
                         provide: THY_SLIDE_DEFAULT_CONFIG,
                         useValue: newDefaultConfig
@@ -774,6 +774,7 @@ describe('ThySlide', () => {
             </thy-slide-footer>
         </thy-slide-layout>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlideLayout, ThySlideHeader, ThySlideBody, ThySlideBodySection, ThySlideFooter]
 })
 class SlideLayoutTestComponent {
@@ -797,6 +798,7 @@ class SlideLayoutTestComponent {
             </ng-template>
         </thy-slide-header>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlideHeader]
 })
 class SlideHeaderTestComponent {}

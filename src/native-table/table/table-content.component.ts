@@ -1,12 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, input, TemplateRef } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
 import { ThyNativeTableLayout } from '../table.interface';
 
 @Component({
     selector: 'table[thy-native-table-content]',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (listOfColWidth().length > 0) {
             <colgroup>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef, ContentChild, input } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ContentChild, input } from '@angular/core';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
@@ -7,8 +7,7 @@ import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
  */
 @Component({
     selector: 'thy-tab',
-    template: ` <ng-template #content><ng-content></ng-content></ng-template> `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    template: ` <ng-template #content><ng-content></ng-content></ng-template> `
 })
 export class ThyTab implements OnInit {
     /**

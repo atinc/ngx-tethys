@@ -1,4 +1,14 @@
-import { Component, OnInit, afterNextRender, AfterViewInit, AfterContentChecked, DoCheck, afterEveryRender, signal } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    afterNextRender,
+    AfterViewInit,
+    AfterContentChecked,
+    DoCheck,
+    afterEveryRender,
+    signal,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyButton } from 'ngx-tethys/button';
@@ -23,6 +33,7 @@ function perfTracker() {
 @Component({
     selector: 'thy-table-perf-example',
     templateUrl: './perf.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyButton, ThyIcon, ThyAvatar]
 })
 export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, AfterContentChecked, DoCheck {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -10,7 +10,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-card-content',
     preserveWhitespaces: false,
     template: ` <ng-content></ng-content> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-card-content',
         '[class.thy-card-content--scroll]': '!!thyScroll()',

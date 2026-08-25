@@ -1,9 +1,9 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'test-bed',
@@ -28,6 +28,7 @@ import { provideHttpClient } from '@angular/common/http';
         </thy-input>
         <thy-input class="password" [(ngModel)]="passwordValue" thyType="password"> </thy-input>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInput, FormsModule]
 })
 class TestBedComponent {
@@ -55,7 +56,7 @@ describe('input component', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();

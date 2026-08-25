@@ -1,4 +1,4 @@
-import { HostBinding, Component, OnInit, TemplateRef, Signal } from '@angular/core';
+import { HostBinding, Component, OnInit, TemplateRef, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyGuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
 import { defaultGuiderPositionConfig, ThyGuiderStep } from '../guider.class';
@@ -12,6 +12,7 @@ import { injectLocale, ThyGuiderLocale } from 'ngx-tethys/i18n';
 @Component({
     selector: 'thy-guider-hint',
     templateUrl: 'guider-hint.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgTemplateOutlet, NgClass]
 })
 export class ThyGuiderHint implements OnInit {

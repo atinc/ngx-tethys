@@ -1,8 +1,8 @@
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyAvatarList, ThyAvatarListMode, ThyAvatar, ThyAvatarModule } from 'ngx-tethys/avatar';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { NgStyle } from '@angular/common';
 
 const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' }, { name: 'Abigail' }, { name: 'Belle' }];
@@ -23,6 +23,7 @@ const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' 
         </div>
     `,
     styleUrls: ['../styles/avatar.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatarModule, NgStyle]
 })
 export class AvatarListBasicTestComponent implements OnInit {
@@ -40,6 +41,7 @@ export class AvatarListBasicTestComponent implements OnInit {
         </div>
     `,
     styleUrls: ['../styles/avatar.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatarModule, NgStyle]
 })
 export class AvatarListTestComponent implements OnInit {
@@ -59,6 +61,7 @@ export class AvatarListTestComponent implements OnInit {
 @Component({
     template: ` <thy-avatar-list> </thy-avatar-list> `,
     styleUrls: ['../styles/avatar.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatarModule]
 })
 export class AvatarListEmptyTestComponent implements OnInit {
@@ -72,7 +75,7 @@ describe('thy-avatar-list', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         }).compileComponents();
     });
 

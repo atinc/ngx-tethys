@@ -48,7 +48,7 @@
             [thySize]="tagSize()">
             <div class="text-truncate h-100 d-flex align-items-center">
               @if (!customDisplayTemplate()) {
-                <thy-flexible-text [thyTooltipContent]="item?.thyLabelText" class="text-truncate h-100">
+                <thy-flexible-text [thyTooltipContent]="$safeNavigationMigration(item?.thyLabelText)" class="text-truncate h-100">
                   {{ item?.thyLabelText }}
                 </thy-flexible-text>
               } @else {

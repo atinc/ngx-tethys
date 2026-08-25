@@ -6,7 +6,6 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     AfterContentInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
@@ -57,8 +56,7 @@ const listSizesMap = {
         class: 'thy-list thy-selection-list',
         '[class.thy-multiple-selection-list]': 'multiple()',
         '[class.thy-grid-list]': 'isLayoutGrid()'
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class ThySelectionList implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
     private renderer = inject(Renderer2);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, forwardRef, inject, input, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, forwardRef, inject, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -38,8 +38,7 @@ const radioGroupLayoutMap: Record<string, string> = {
         '[class.btn-group]': 'isButtonGroup()',
         '[class.btn-group-outline-default]': 'isButtonGroupOutline()',
         '[attr.tabindex]': `-1`
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAccessor {
     private changeDetectorRef = inject(ChangeDetectorRef);

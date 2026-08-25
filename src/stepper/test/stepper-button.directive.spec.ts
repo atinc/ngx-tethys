@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyButton } from 'ngx-tethys/button';
@@ -9,6 +9,7 @@ import { ThyStepper, ThyStepperNextDirective, ThyStepperPreviousDirective } from
         <button thyButton thyStepperNext>上一步</button>
         <button thyButton thyStepperPrevious>下一步</button>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStepperNextDirective, ThyStepperPreviousDirective, ThyButton]
 })
 class ThyStepperButtonDirectiveComponent {}

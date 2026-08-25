@@ -44,7 +44,6 @@ import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay,
 import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -148,7 +147,6 @@ interface ThySelectFlattedItem {
         },
         ScrollDispatcher
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,

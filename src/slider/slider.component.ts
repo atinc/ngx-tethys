@@ -18,7 +18,8 @@ import {
     numberAttribute,
     output,
     signal,
-    viewChild
+    viewChild,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -54,6 +55,7 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
         '[class.thy-slider]': 'true',
         '[class.cursor-pointer]': 'true'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgStyle]
 })
 export class ThySlider

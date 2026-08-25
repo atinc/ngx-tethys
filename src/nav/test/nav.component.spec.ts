@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -32,6 +32,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             <a href="javascript:;">Extra</a>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNavModule, ThyIconModule]
 })
 export class NavBasicComponent implements OnInit {
@@ -77,6 +78,7 @@ export class NavBasicComponent implements OnInit {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNavModule, ThyIconModule, RouterModule]
 })
 export class NavResponsiveComponent implements OnInit {
@@ -109,6 +111,7 @@ export class NavResponsiveComponent implements OnInit {
 
 @Component({
     selector: 'app-nav-basic',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ``
 })
 export class NavRouteComponent {}
@@ -129,7 +132,7 @@ describe(`thy-nav`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [RouterModule.forRoot(routes)],
-            providers: [bypassSanitizeProvider, provideHttpClient(), provideAnimations()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

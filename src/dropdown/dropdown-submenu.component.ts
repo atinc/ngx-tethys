@@ -1,7 +1,7 @@
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { getElementOffset } from 'ngx-tethys/util';
 
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, OnInit, inject, input } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnInit, inject, input } from '@angular/core';
 
 import { ThyDropdownMenuItemDirective } from './dropdown-menu-item.directive';
 
@@ -22,8 +22,7 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     template: '<ng-content></ng-content>',
     host: {
         class: 'dropdown-submenu'
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class ThyDropdownSubmenu implements OnInit {
     private dropdownMenuItem = inject(ThyDropdownMenuItemDirective);

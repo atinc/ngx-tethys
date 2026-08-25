@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyDialogSidebarContentExampleComponent } from './dialog-sidebar.component';
@@ -6,6 +6,7 @@ import { ThyDialogSidebarContentExampleComponent } from './dialog-sidebar.compon
 @Component({
     selector: 'thy-dialog-sidebar-example',
     templateUrl: './sidebar.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyDialogSidebarExampleComponent {

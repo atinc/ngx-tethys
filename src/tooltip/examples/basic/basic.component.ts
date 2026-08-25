@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyFormGroup, ThyFormDirective } from 'ngx-tethys/form';
@@ -11,6 +11,7 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
 @Component({
     selector: 'thy-tooltip-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         FormsModule,
         ThyFormDirective,

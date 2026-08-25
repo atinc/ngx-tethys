@@ -1,4 +1,4 @@
-import { Component, TemplateRef, viewChild, afterRenderEffect } from '@angular/core';
+import { Component, TemplateRef, viewChild, afterRenderEffect, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { ThyStealthView, useStealthViewRenderer } from '@tethys/cdk/dom';
 
@@ -15,6 +15,7 @@ import { ThyStealthView, useStealthViewRenderer } from '@tethys/cdk/dom';
             <button thyButton="primary" disabled="disabled">Primary</button>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStealthView]
 })
 class ThyStealthViewDirectiveTestComponent {

@@ -1,15 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    Renderer2,
-    ViewEncapsulation,
-    inject,
-    input,
-    computed,
-    effect,
-    afterNextRender
-} from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewEncapsulation, inject, input, computed, effect, afterNextRender } from '@angular/core';
 
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -62,7 +51,6 @@ const iconOnlyClass = 'thy-btn-icon-only';
     selector: 'thy-button,[thy-button],[thyButton]',
     templateUrl: './button.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-btn btn',
         '[class.btn-block]': 'thyBlock()'

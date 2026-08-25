@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys/guider';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-guider-basic-tip-example',
     templateUrl: 'basic-tip.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyGuiderBasicTipExampleComponent implements OnInit {

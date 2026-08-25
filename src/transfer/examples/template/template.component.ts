@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyListItem, ThySelectionList, ThySelectionListChange } from 'ngx-tethys/list';
@@ -14,6 +14,7 @@ interface ThyTransferTemplateItem {
 @Component({
     selector: 'thy-transfer-template-example',
     templateUrl: './template.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTransfer, ThySelectionList, FormsModule, ThyListOption, ThyIcon, ThyListItem]
 })
 export class ThyTransferTemplateExampleComponent implements OnInit {

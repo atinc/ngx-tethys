@@ -12,7 +12,8 @@ import {
     output,
     PLATFORM_ID,
     TemplateRef,
-    viewChild
+    viewChild,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
@@ -29,6 +30,7 @@ import { QUARTER_FORMAT } from './date-picker.config';
  */
 @Component({
     template: ``,
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[attr.tabindex]': `tabIndex`,
         '(focus)': 'onFocus($event)',

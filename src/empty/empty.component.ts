@@ -10,7 +10,8 @@ import {
     input,
     NgZone,
     Signal,
-    TemplateRef
+    TemplateRef,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
@@ -62,6 +63,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
 @Component({
     selector: 'thy-empty',
     templateUrl: './empty.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon, NgClass, NgTemplateOutlet]
 })
 export class ThyEmpty implements AfterViewInit {

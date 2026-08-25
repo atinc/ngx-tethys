@@ -10,13 +10,13 @@ import { keycodes } from 'ngx-tethys/util';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 
-import { Component, DebugElement, viewChild, viewChildren } from '@angular/core';
+import { Component, DebugElement, viewChild, viewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyOptionModule, ThyOption } from 'ngx-tethys/shared';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective, ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
@@ -43,6 +43,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
             </thy-autocomplete>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyOptionModule, ThyInputModule, ThyAutocompleteModule]
 })
 class BasicSelectComponent {
@@ -88,6 +89,7 @@ class BasicSelectComponent {
             </thy-autocomplete>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyInputModule, ThyOptionModule, ThyAutocompleteModule]
 })
 class InputSearchSelectComponent {
@@ -110,7 +112,7 @@ describe('ThyAutocomplete', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient(), provideAnimations()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr()), provideAnimations()]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {

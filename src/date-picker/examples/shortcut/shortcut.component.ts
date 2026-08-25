@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
     ThyDateChangeEvent,
@@ -16,6 +16,7 @@ import { addWeeks, startOfDay, startOfWeek, TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-range-picker-shortcut-example',
     templateUrl: './shortcut.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyRangePicker,
         FormsModule,

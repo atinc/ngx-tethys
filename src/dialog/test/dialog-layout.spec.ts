@@ -1,13 +1,14 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooter, ThyDialogHeader, ThyDialogModule } from 'ngx-tethys/dialog';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
     template: ` <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule]
 })
 class DialogHeaderBasicComponent {
@@ -28,6 +29,7 @@ class DialogHeaderBasicComponent {
         <thy-dialog-footer class="showBorder" [thyDivided]="showBorderTop"> </thy-dialog-footer>
         <thy-dialog-footer class="noConfig"></thy-dialog-footer>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogFooter]
 })
 class DialogFooterBasicTestComponent {
@@ -41,6 +43,7 @@ class DialogFooterBasicTestComponent {
 @Component({
     selector: 'thy-test-dialog-header-basic',
     template: ` <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogModule]
 })
 class DialogHeaderTitleTranslationComponent {}
@@ -49,7 +52,7 @@ describe('dialog-layout', () => {
     describe('dialog-header', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [bypassSanitizeProvider, provideHttpClient()]
+                providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
             });
             TestBed.compileComponents();
 
@@ -97,7 +100,7 @@ describe('dialog-layout', () => {
     describe('dialog-header-title-translation', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [bypassSanitizeProvider, provideHttpClient()]
+                providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
             });
             TestBed.compileComponents();
 
@@ -130,7 +133,7 @@ describe('dialog-layout', () => {
             beforeEach(() => {
                 TestBed.configureTestingModule({
                     imports: [ThyDialogModule],
-                    providers: [bypassSanitizeProvider, provideHttpClient()]
+                    providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
                 });
                 TestBed.compileComponents();
 
@@ -224,7 +227,7 @@ describe('dialog-layout', () => {
                     imports: [ThyDialogModule],
                     providers: [
                         bypassSanitizeProvider,
-                        provideHttpClient(),
+                        provideHttpClient(withXhr()),
                         {
                             provide: THY_DIALOG_LAYOUT_CONFIG,
                             useValue: {

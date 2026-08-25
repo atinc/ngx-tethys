@@ -1,6 +1,6 @@
 import { isTextColor } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, Signal, computed, inject, input, numberAttribute } from '@angular/core';
+import { Component, ElementRef, OnInit, Signal, computed, inject, input, numberAttribute } from '@angular/core';
 
 import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
 
@@ -13,7 +13,6 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 @Component({
     selector: 'thy-badge,[thyBadge]',
     templateUrl: './badge.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-badge-container',
         '[class.thy-badge-wrapper]': 'isWrapper'

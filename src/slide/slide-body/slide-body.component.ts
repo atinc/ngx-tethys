@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * @name thy-slide-body
@@ -6,6 +6,7 @@ import { Component, HostBinding } from '@angular/core';
  */
 @Component({
     selector: 'thy-slide-body',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <ng-content></ng-content> `
 })
 export class ThySlideBody {

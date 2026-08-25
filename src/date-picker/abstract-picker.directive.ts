@@ -12,7 +12,6 @@ import {
     OnChanges,
     OnInit,
     output,
-    SimpleChange,
     TemplateRef,
     numberAttribute,
     inject,
@@ -167,8 +166,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             this.showTimePickerChangeSubscription = componentInstance?.showTimePickerChange?.subscribe((event: boolean) =>
                 this.onShowTimePickerChange(event)
             );
-
-            componentInstance?.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
 
             if (this.dateValueChangeSubscription) {
                 this.dateValueChangeSubscription.unsubscribe();

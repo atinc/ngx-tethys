@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ChangeDetectionStrategy, input, contentChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, input, contentChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 /**
@@ -10,7 +10,6 @@ import { NgTemplateOutlet } from '@angular/common';
     selector: 'thy-card-header',
     preserveWhitespaces: false,
     templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-card-header',
         '[class.thy-card-header--sm]': 'thySize() === "sm"',

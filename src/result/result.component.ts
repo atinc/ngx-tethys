@@ -1,4 +1,4 @@
-import { Component, ContentChild, HostBinding, OnInit, TemplateRef, contentChild, input } from '@angular/core';
+import { Component, ContentChild, HostBinding, OnInit, TemplateRef, contentChild, input, ChangeDetectionStrategy } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 type ThyResultStatus = 'success' | 'warning' | 'error';
@@ -11,6 +11,7 @@ type ThyResultStatus = 'success' | 'warning' | 'error';
     selector: 'thy-result',
     templateUrl: './result.component.html',
     imports: [NgTemplateOutlet],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-result'
     }

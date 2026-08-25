@@ -1,6 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     OnDestroy,
@@ -38,7 +37,6 @@ import { NgTemplateOutlet } from '@angular/common';
         <ng-content></ng-content>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet]
 })
 export class ThyAnchorLink implements IThyAnchorLinkComponent, OnInit, OnDestroy {

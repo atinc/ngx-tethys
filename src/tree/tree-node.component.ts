@@ -9,7 +9,8 @@ import {
     computed,
     contentChild,
     viewChild,
-    output
+    output,
+    ChangeDetectionStrategy
 } from '@angular/core';
 
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
@@ -31,6 +32,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None,
     imports: [ThyIcon, NgClass, NgStyle, NgTemplateOutlet, ThyLoading],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[class.thy-tree-node]': 'true',
         '[class]': 'itemClass()'

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyNativeTableModule } from 'ngx-tethys/native-table';
 import { ThyInput, ThyInputModule } from 'ngx-tethys/input';
@@ -8,6 +8,7 @@ import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk
     selector: 'thy-native-table-drag-example',
     templateUrl: './drag.component.html',
     imports: [ThyNativeTableModule, ThyInputModule, FormsModule, CdkDrag, CdkDropList],
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: [
         `
             ::ng-deep .cdk-drag-preview {

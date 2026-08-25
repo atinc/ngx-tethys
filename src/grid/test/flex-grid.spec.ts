@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { By } from '@angular/platform-browser';
@@ -15,6 +15,7 @@ import { By } from '@angular/platform-browser';
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyGridModule]
 })
 class FlexGridTestComponent implements OnInit {

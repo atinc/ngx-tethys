@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * @name thy-slide-footer
@@ -6,6 +6,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
  */
 @Component({
     selector: 'thy-slide-footer',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '<ng-content></ng-content>'
 })
 export class ThySlideFooter implements OnInit {

@@ -5,7 +5,7 @@ import { ThySelectModule } from 'ngx-tethys/select';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 
-import { Component, DebugElement, inject } from '@angular/core';
+import { Component, DebugElement, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -17,11 +17,12 @@ import {
     ThyFormDirective,
     ThyFormSubmitDirective
 } from 'ngx-tethys/form';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'app-test-basic-form',
     template: ` <form thyForm [thyLayout]="thyLayout"></form> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormDirective, ThyLayoutModule, FormsModule]
 })
 export class TestFormBasicDirectiveComponent {
@@ -67,6 +68,7 @@ export class TestFormBasicDirectiveComponent {
             </form>
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestFormFullComponent {
@@ -140,6 +142,7 @@ export class TestFormFullComponent {
             </form>
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule, ThySelectModule]
 })
 export class TestFormReactiveComponent {
@@ -179,7 +182,7 @@ describe('form basic directive', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -221,7 +224,7 @@ describe('form directive global config', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule],
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 {
                     provide: THY_FORM_CONFIG,
                     useValue: {
@@ -301,7 +304,7 @@ describe('form validate', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -594,7 +597,7 @@ describe('reactive form validate', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -751,6 +754,7 @@ describe('reactive form validate', () => {
             </thy-form-group-footer>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule]
 })
 export class TestNoFormSubmitComponent {}
@@ -765,7 +769,7 @@ describe(`enter keydown`, () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();

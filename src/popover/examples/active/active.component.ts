@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyPopoverHeader, ThyPopoverBody, ThyPopoverDirective } from 'ngx-tethys/popover';
 
@@ -6,6 +6,7 @@ import { ThyPopoverHeader, ThyPopoverBody, ThyPopoverDirective } from 'ngx-tethy
     selector: 'thy-popover-active-example',
     templateUrl: './active.component.html',
     styleUrls: ['./active.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverHeader, ThyPopoverBody, ThyAction, ThyPopoverDirective]
 })
 export class ThyPopoverActiveExampleComponent implements OnInit {

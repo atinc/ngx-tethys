@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-table-fixed-example',
     templateUrl: './fixed.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTableFixedExampleComponent implements OnInit {

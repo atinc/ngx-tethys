@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
@@ -21,6 +21,7 @@ import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
             [thyMaxTagCount]="thyMaxTagCount"
             (thyOnSearch)="search($event)"></thy-select-control>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelectControl]
 })
 class BasicSelectControlComponent {
@@ -52,7 +53,7 @@ class BasicSelectControlComponent {
 describe('ThySelectControl', () => {
     function configureThySelectControlTestingModule() {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
+            providers: [provideHttpClient(withXhr()), THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
         }).compileComponents();
     }
     describe('core', () => {

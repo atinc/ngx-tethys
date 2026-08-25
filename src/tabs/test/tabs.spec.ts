@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyNav } from 'ngx-tethys/nav';
@@ -16,6 +16,7 @@ import { SafeAny } from 'ngx-tethys/types';
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsBasicComponent {
@@ -31,6 +32,7 @@ class TestTabsBasicComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsTypeComponent {
@@ -46,6 +48,7 @@ class TestTabsTypeComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsSizeComponent {
@@ -62,6 +65,7 @@ class TestTabsSizeComponent {
             <thy-tab> <ng-template #title>烤乳猪🐷</ng-template>Tab4 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsCustomTitleComponent {}
@@ -79,6 +83,7 @@ class TestTabsCustomTitleComponent {}
             <button thyButton="outline-default" thySize="md">Extra Action</button>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsExtraComponent {}
@@ -92,6 +97,7 @@ class TestTabsExtraComponent {}
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsPositionComponent {
@@ -107,6 +113,7 @@ class TestTabsPositionComponent {
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsActiveComponent {
@@ -125,6 +132,7 @@ class TestTabsActiveComponent {
             }
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsDynamicAddComponent {
@@ -156,6 +164,7 @@ class TestTabsDynamicAddComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsDisabledComponent {
@@ -171,6 +180,7 @@ class TestTabsDisabledComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsAnimatedComponent {

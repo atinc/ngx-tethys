@@ -2,7 +2,6 @@ import {
     Component,
     TemplateRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy,
     OnInit,
     OnDestroy,
     NgZone,
@@ -40,7 +39,6 @@ const inputGroupSizeMap = {
 @Component({
     selector: 'thy-input-group',
     templateUrl: './input-group.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input-group',

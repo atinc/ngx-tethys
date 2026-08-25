@@ -1,16 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    computed,
-    forwardRef,
-    inject,
-    input,
-    model,
-    OnDestroy,
-    output,
-    StaticProvider
-} from '@angular/core';
+import { ChangeDetectorRef, Component, computed, forwardRef, inject, input, model, OnDestroy, output, StaticProvider } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -45,7 +33,6 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
  */
 @Component({
     selector: 'thy-inner-time-picker',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
     templateUrl: './inner-time-picker.component.html',
     imports: []

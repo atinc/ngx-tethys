@@ -1,4 +1,4 @@
-import { Component, TemplateRef, inject } from '@angular/core';
+import { Component, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialog, ThyDialogBody, ThyDialogFooter, ThyDialogHeader } from 'ngx-tethys/dialog';
 import { ThyStep, ThyStepper, ThyStepperNextDirective, ThyStepperPreviousDirective } from 'ngx-tethys/stepper';
@@ -6,6 +6,7 @@ import { ThyStep, ThyStepper, ThyStepperNextDirective, ThyStepperPreviousDirecti
 @Component({
     selector: 'thy-stepper-switch-dialog-example',
     templateUrl: './switch-dialog.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyButton,
         ThyDialogHeader,

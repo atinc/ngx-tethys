@@ -1,5 +1,5 @@
 import { ThySlideConfig, ThySlideFromTypes, ThySlideService } from 'ngx-tethys/slide';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyRadioGroup, ThyRadio } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
 import { ThySlideDemoContentComponent } from '../slide-content.component';
@@ -8,6 +8,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-slide-direction-example',
     templateUrl: './direction.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRadioGroup, FormsModule, ThyRadio, ThyButton]
 })
 export class ThySlideDirectionExampleComponent {

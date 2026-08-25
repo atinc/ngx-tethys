@@ -1,19 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    HostBinding,
-    Input,
-    OnInit,
-    TemplateRef,
-    ViewEncapsulation,
-    inject,
-    input,
-    computed,
-    signal,
-    effect
-} from '@angular/core';
+import { Component, ContentChild, OnInit, TemplateRef, ViewEncapsulation, inject, input, computed, signal } from '@angular/core';
 
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -37,7 +23,6 @@ type TipsMode = 'default' | 'label';
     selector: 'thy-form-group',
     templateUrl: './form-group.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet, ThyIcon, NgClass, ThyTooltipDirective],
     host: {
         class: 'form-group',

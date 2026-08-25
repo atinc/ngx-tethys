@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { endOfYear, getUnixTime, startOfYear, TinyDate } from 'ngx-tethys/util';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'app-date-range-min-and-max-date',
     templateUrl: './min-and-max-date.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDateRange, FormsModule]
 })
 export class ThyDateRangeMinAndMaxDateExampleComponent implements OnInit {
