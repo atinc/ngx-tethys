@@ -2,10 +2,10 @@
   <thy-comment [thyAuthor]="comment.author" [thyAvatar]="comment.avatar" [thyDatetime]="comment.date">
     <div thyCommentContent>{{ comment.content }}</div>
     <div thyCommentActions>
-      <a thyAction thyTheme="lite" thyIcon="edit" href="javascript:;"></a>
-      <a thyAction thyTheme="lite" thyIcon="trash" href="javascript:;"></a>
-      <a thyAction thyTheme="lite" thyIcon="comment" href="javascript:;"></a>
-      <a thyAction thyTheme="lite" thyIcon="smile-plus" href="javascript:;"></a>
+      <a thyAction thyAppearance="lite" thyIcon="edit" href="javascript:;"></a>
+      <a thyAction thyAppearance="lite" thyIcon="trash" href="javascript:;"></a>
+      <a thyAction thyAppearance="lite" thyIcon="comment" href="javascript:;"></a>
+      <a thyAction thyAppearance="lite" thyIcon="smile-plus" href="javascript:;"></a>
     </div>
     @if (comment.children && comment.children.length) {
       @for (child of comment.children; track $index) {

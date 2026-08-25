@@ -23,6 +23,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
+export type ThyActionAppearance = 'fill' | 'lite';
+
 export type ThyActionFeedback = 'success' | 'error';
 
 export interface ThyActionFeedbackOptions {
@@ -73,6 +75,8 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
 
     readonly active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
 
+    protected readonly appearance = computed(() => this.thyAppearance() || this.thyTheme());
+
     private hostRenderer = useHostRenderer();
 
     private feedbackTimer: Subscription | null = null;
@@ -106,10 +110,18 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     readonly thyActionActive = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 操作图标的主题
-     * @type fill(背景色填充) | lite(简单文本颜色变化)
+     * 操作图标的外观，fill(背景色填充) | lite(简单文本颜色变化)
+     * @type fill | lite
+     * @default fill
      */
-    readonly thyTheme = input<'fill' | 'lite'>('fill');
+    readonly thyAppearance = input<ThyActionAppearance>();
+
+    /**
+     * 废弃，操作图标的外观，请使用 thyAppearance 代替
+     * @type fill | lite
+     * @deprecated please use thyAppearance instead
+     */
+    readonly thyTheme = input<ThyActionAppearance>('fill');
 
     /**
      * Hover 展示的图标
@@ -189,7 +201,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     private updateClasses() {
         const classNames: string[] = [];
         classNames.push(`action-${this.thyType()}`);
-        if (this.thyTheme() === 'lite') {
+        if (this.appearance() === 'lite') {
             classNames.push('thy-action-lite');
         }
         this.hostRenderer.updateClass(classNames);

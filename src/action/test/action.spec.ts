@@ -13,6 +13,8 @@ import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
         <a id="with-active" thyAction thyActive="true" thyIcon="inbox"></a>
         <a id="with-type" thyAction thyType="danger" thyIcon="inbox"></a>
         <a id="with-theme-lite" thyTheme="lite" thyAction thyType="danger" thyIcon="inbox"></a>
+        <a id="with-appearance-lite" thyAppearance="lite" thyAction thyType="danger" thyIcon="inbox"></a>
+        <a id="with-appearance-priority" thyAppearance="lite" thyTheme="fill" thyAction thyType="danger" thyIcon="inbox"></a>
         <a id="with-hover-icon" thyAction thyIcon="inbox" thyHoverIcon="search"></a>
         <a id="with-text-disabled" thyAction thyIcon="inbox" thyHoverIcon="search" [thyDisabled]="true"></a>
         <a #feedbackAction1 id="with-feedback" thyAction thyIcon="inbox"></a>
@@ -94,6 +96,20 @@ describe('thy-action', () => {
         expect(actionDebugElement.componentInstance).toBeTruthy();
         assertActionExpected(actionDebugElement.nativeElement, 'inbox');
         expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
+        expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
+    });
+
+    it('should create with lite appearance', () => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-appearance-lite'));
+        expect(fixture.componentInstance).toBeTruthy();
+        expect(actionDebugElement.componentInstance).toBeTruthy();
+        assertActionExpected(actionDebugElement.nativeElement, 'inbox');
+        expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
+        expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
+    });
+
+    it('should prefer thyAppearance over deprecated thyTheme', () => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-appearance-priority'));
         expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
     });
 
