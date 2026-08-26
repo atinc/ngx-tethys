@@ -22,8 +22,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { MutationObserverFactory } from '@angular/cdk/observers';
+import { ThyInputSize } from 'ngx-tethys/types';
 
-export type InputGroupSize = 'sm' | 'lg' | 'md';
+export type InputGroupSize = Exclude<ThyInputSize, 'xs'>;
 
 const inputGroupSizeMap = {
     sm: ['input-group-sm'],

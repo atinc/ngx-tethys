@@ -28,7 +28,8 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputDirective, ThyInputSize } from './input.directive';
+import { ThyInputDirective } from './input.directive';
+import { ThyInputSize } from 'ngx-tethys/types';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

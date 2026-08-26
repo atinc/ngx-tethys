@@ -37,8 +37,8 @@ import {
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
-import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
-import { SafeAny } from 'ngx-tethys/types';
+import { SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
+import { SafeAny, ThyInputSize } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
 import { delay, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
@@ -123,7 +123,7 @@ export class ThyCascader
      * @type 'xs' ｜ 'sm' | 'md' | 'lg'
      * @default md
      */
-    readonly thySize = input<SelectControlSize>('md');
+    readonly thySize = input<ThyInputSize>('md');
 
     /**
      * 数据项

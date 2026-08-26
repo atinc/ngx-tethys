@@ -14,9 +14,8 @@ import {
 import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyButtonSize } from 'ngx-tethys/types';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
-
-export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type ThyButtonType =
     | 'primary'

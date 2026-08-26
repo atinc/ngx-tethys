@@ -10,6 +10,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
+import { ThyInputSize } from 'ngx-tethys/types';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce } from 'ngx-tethys/util';
 import { from, Observable, of } from 'rxjs';
@@ -44,8 +45,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: string, searchKey: string = 'name') {
     const filterNodes = (node: ThyTreeSelectNode, result: ThyTreeSelectNode[]) => {
@@ -221,7 +220,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<InputSize>('md');
+    readonly thySize = input<ThyInputSize>('md');
 
     /**
      * 改变空选项的情况下的提示文本

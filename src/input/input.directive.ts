@@ -1,8 +1,7 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, effect, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-
-export type ThyInputSize = 'xs' | 'sm' | 'md' | 'lg';
+import { ThyInputSize } from 'ngx-tethys/types';
 
 const inputGroupSizeMap = {
     xs: ['form-control-xs'],

@@ -13,7 +13,6 @@ import {
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyLoading } from 'ngx-tethys/loading';
 import {
-    SelectControlSize,
     ThyOption,
     ThyOptionRender,
     ThySelectControl,
@@ -86,7 +85,7 @@ import {
     ThySelectConfig
 } from '../select.config';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
-import { SafeAny } from 'ngx-tethys/types';
+import { SafeAny, ThyInputSize } from 'ngx-tethys/types';
 import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
@@ -343,7 +342,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      * @type primary | success | danger | warning
      * @default primary
      */
-    readonly thySize = input<SelectControlSize>('md');
+    readonly thySize = input<ThyInputSize>('md');
 
     /**
      * 数据为空时显示的提示文字

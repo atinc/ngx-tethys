@@ -5,9 +5,7 @@ import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { SafeAny } from 'ngx-tethys/types';
-
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg';
+import { SafeAny, ThyInputSize } from 'ngx-tethys/types';
 
 const noop = () => {};
 
@@ -44,7 +42,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
 
     private hostRenderer = useHostRenderer();
 
-    readonly thySize = input<InputSize>('md');
+    readonly thySize = input<ThyInputSize>('md');
 
     readonly name = input<string>();
 

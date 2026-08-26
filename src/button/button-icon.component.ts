@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
+import { ThyButtonSize } from 'ngx-tethys/types';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
@@ -47,7 +48,7 @@ export class ThyButtonIcon {
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<string>('md');
+    readonly thySize = input<ThyButtonSize>('md');
 
     /**
      * 图标, 和`thyButtonIcon`相同，当使用`thy-button-icon`时，只能使用 thyIcon 设置图标

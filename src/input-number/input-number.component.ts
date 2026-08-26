@@ -3,6 +3,7 @@ import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
+import { ThyInputSize } from 'ngx-tethys/types';
 import { coerceBooleanProperty, DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
@@ -22,8 +23,6 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 
 enum Type {
     up,
@@ -118,7 +117,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      * 输入框大小
      * @type xs | sm | md | lg
      */
-    readonly thySize = input<InputSize>('md');
+    readonly thySize = input<ThyInputSize>('md');
 
     /**
      * 数值精度

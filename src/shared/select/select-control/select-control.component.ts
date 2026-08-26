@@ -36,8 +36,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Observable, of, throttleTime } from 'rxjs';
 import { SelectOptionBase } from '../../option/select-option-base';
-
-export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg';
+import { ThyInputSize } from 'ngx-tethys/types';
 
 /**
  * @private
@@ -90,7 +89,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thyPlaceholder = input('');
 
-    readonly thySize = input<SelectControlSize>('md');
+    readonly thySize = input<ThyInputSize>('md');
 
     readonly tagSize: Signal<ThyTagSize> = computed(() => {
         const value = this.thySize();
