@@ -24,12 +24,8 @@ export class ThyButtonGroupExampleComponent implements OnInit {
             height: 32
         },
         {
-            value: 'default',
-            height: 36
-        },
-        {
             value: 'lg',
-            height: 44
+            height: 36
         }
     ];
 

@@ -31,21 +31,18 @@ import { ThyButtonModule } from "ngx-tethys/button";
 - 禁用：操作不可用的时候
 
 ## 基本使用
-按钮组件支持组件和指令两种使用方式
+推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
 ```html
 <button thyButton="primary">Primary</button>
-<thy-button thyType="primary">Primary</thy-button>
+<button thyButton="primary" disabled>Primary</button>
 ```
 <example name="thy-button-basic-example"></example>
 
-## 禁用
-`<thy-button>` 是自定义元素，请使用 `thyDisabled`。指令写法 `<button thyButton>` 使用原生 `disabled`。
+## 按钮链接
+<example name="thy-button-link-example"></example>
 
-```html
-<thy-button thyType="primary" [thyDisabled]="true">Primary</thy-button>
-<button thyButton="primary" disabled>Primary</button>
-```
-<example name="thy-button-disabled-example"></example>
+## 线框按钮
+<example name="thy-button-outline-example"></example>
 
 ## 按钮大小
 - `default: 36px`， 一般用于表单中的保存和确定。
@@ -56,17 +53,20 @@ import { ThyButtonModule } from "ngx-tethys/button";
 
 <example name="thy-button-size-example"></example>
 
-## 按钮对
-<example name="thy-button-pair-example"></example>
+## 加载
+<example name="thy-button-loading-example"></example>
 
-## 线框按钮
-<example name="thy-button-outline-example"></example>
-
-## 按钮链接
-<example name="thy-button-link-example"></example>
+## 块级按钮
+<example name="thy-button-block-example"></example>
 
 ## 按钮图标
 <example name="thy-button-icon-example"></example>
+
+## 图标按钮
+<example name="thy-button-btn-icon-example"></example>
+
+## 按钮对
+<example name="thy-button-pair-example"></example>
 
 ## 按钮组
 <example name="thy-button-group-example"></example>

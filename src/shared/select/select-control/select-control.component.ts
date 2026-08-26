@@ -96,8 +96,6 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         const value = this.thySize();
         if (value === 'xs' || value === 'sm') {
             return 'sm';
-        } else if (value === 'lg') {
-            return 'lg';
         } else {
             return 'md';
         }

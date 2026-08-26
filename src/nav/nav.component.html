@@ -30,7 +30,7 @@
   @if (morePopover()) {
     <ng-container [ngTemplateOutlet]="morePopover()" [ngTemplateOutletContext]="{ $implicit: hiddenItems() }"></ng-container>
   } @else {
-    <thy-dropdown-menu thyImmediateRender>
+    <thy-dropdown-menu thyImmediateRender class="dropdown-menu-height-limit">
       @for (item of hiddenItems(); track $index) {
         <span
           thyDropdownMenuItem

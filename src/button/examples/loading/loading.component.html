@@ -1,5 +1,4 @@
 <thy-space class="mt-2">
-  <div class="mb-2">button</div>
   <button *thySpaceItem thyButton="primary" [thyLoading]="'true'" [thyLoadingText]="'Loading...'">Loading</button>
   <button
     *thySpaceItem
@@ -10,18 +9,4 @@
     [thyLoadingText]="'Loading... ' + loadingSeconds() + 's'">
     Click me!
   </button>
-</thy-space>
-
-<thy-space class="mt-2">
-  <div class="mb-2">thy-button</div>
-  <thy-button *thySpaceItem thyType="primary" [thyLoading]="'true'" [thyLoadingText]="'Loading...'">Loading</thy-button>
-  <thy-button
-    *thySpaceItem
-    thyType="primary"
-    thyIcon="plus"
-    [thyLoading]="loading()"
-    (click)="startLoading()"
-    [thyLoadingText]="'Loading... ' + loadingSeconds() + 's'">
-    Click me!
-  </thy-button>
 </thy-space>
