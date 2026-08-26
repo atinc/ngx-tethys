@@ -4,7 +4,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
-export type ThyButtonIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
+export type ThyButtonIconSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
 
