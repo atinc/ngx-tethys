@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [22.0.0-next.0](github.com/atinc/ngx-tethys/compare/21.0.12...22.0.0-next.0) (2026-08-26)
+
+### Features
+
+* build: upgrade ng to v22 #TINFR-3745 ([#3824](/github.com/atinc/ngx-tethys/issues/3824)) ([7767bf2c](github.com/atinc/ngx-tethys/commits/7767bf2cebd90f468872953c8255542201aa379e)), closes [#TINFR-3745](github.com/atinc/ngx-tethys/issues/TINFR-3745)
+
 ## [21.0.12](github.com/atinc/ngx-tethys/compare/21.0.11...21.0.12) (2026-08-26)
 
 
