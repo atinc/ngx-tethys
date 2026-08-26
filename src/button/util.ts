@@ -1,33 +1,33 @@
 import type { ThyButtonAppearance } from './button.component';
 
-/** 从 thyButton/thyType 取值中解析颜色，供 thyAppearance 组合使用 */
-export function getButtonColor(value: string): string {
+/** 从 thyButton/thyType 组合值解析 color × appearance */
+export function parseButtonStyle(value: string): { color: string; appearance: ThyButtonAppearance } {
     if (value === 'link') {
-        return 'primary';
+        return { color: 'primary', appearance: 'link' };
     }
     const match = value.match(/^(outline|link)-(.+)$/);
     if (match) {
-        return match[2];
+        return { appearance: match[1] as ThyButtonAppearance, color: match[2] };
     }
-    return value;
+    return { color: value, appearance: 'fill' };
 }
 
-/** thyAppearance × color → btn-* class */
+/** appearance × color → btn-* class */
 export function buildButtonClassesByAppearance(color: string, appearance: ThyButtonAppearance): string[] {
-    if (appearance === 'fill' && color === 'secondary') {
-        return ['btn-primary', 'btn-md'];
+    switch (appearance) {
+        case 'outline':
+            return [`btn-outline-${color}`];
+        case 'link':
+            return !color || color === 'primary'
+                ? ['btn-link']
+                : ['btn-link', color === 'secondary' ? 'btn-link-primary-weak' : `btn-link-${color}`];
+        default:
+            return color === 'secondary' ? ['btn-primary', 'btn-md'] : [`btn-${color}`];
     }
-    if (appearance === 'outline') {
-        return [`btn-outline-${color}`];
-    }
-    if (appearance === 'link') {
-        if (!color || color === 'primary') {
-            return ['btn-link'];
-        }
-        if (color === 'secondary') {
-            return ['btn-link', 'btn-link-primary-weak'];
-        }
-        return ['btn-link', `btn-link-${color}`];
-    }
-    return [`btn-${color}`];
+}
+
+/** 根据 type 与可选 thyAppearance 解析最终 class */
+export function resolveButtonClasses(type: string, appearance?: ThyButtonAppearance): string[] {
+    const parsed = parseButtonStyle(type);
+    return buildButtonClassesByAppearance(parsed.color, appearance ?? parsed.appearance);
 }

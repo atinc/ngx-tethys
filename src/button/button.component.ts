@@ -16,7 +16,7 @@ import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
-import { buildButtonClassesByAppearance, getButtonColor } from './util';
+import { resolveButtonClasses } from './util';
 
 export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
 
@@ -38,22 +38,6 @@ export type ThyButtonType =
     | 'link-danger-weak'
     | 'link-danger'
     | 'link-success';
-
-const btnTypeClassesMap: Record<string, string[]> = {
-    primary: ['btn-primary'],
-    secondary: ['btn-primary', 'btn-md'],
-    info: ['btn-info'],
-    warning: ['btn-warning'],
-    danger: ['btn-danger'],
-    'outline-primary': ['btn-outline-primary'],
-    'outline-default': ['btn-outline-default'],
-    link: ['btn-link'], // 链接按钮
-    'link-info': ['btn-link', 'btn-link-info'], // 幽灵链接按钮
-    'link-secondary': ['btn-link', 'btn-link-primary-weak'], // 幽灵链接按钮
-    'link-danger-weak': ['btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
-    'link-danger': ['btn-link', 'btn-link-danger'], // 危险按钮
-    'link-success': ['btn-link', 'btn-link-success'] // 成功按钮
-};
 
 const iconOnlyClass = 'thy-btn-icon-only';
 
@@ -208,15 +192,7 @@ export class ThyButton {
             return;
         }
 
-        const appearance = this.thyAppearance();
-        let classNames: string[] = [];
-        if (appearance !== undefined) {
-            classNames = buildButtonClassesByAppearance(getButtonColor(type), appearance);
-        } else if (btnTypeClassesMap[type]) {
-            classNames = [...btnTypeClassesMap[type]];
-        } else {
-            classNames.push(`btn-${type}`);
-        }
+        const classNames = resolveButtonClasses(type, this.thyAppearance());
 
         const size = this.thySize();
         if (size) {
