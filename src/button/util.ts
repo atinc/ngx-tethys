@@ -6,7 +6,7 @@ export type ThyButtonGroupAppearance = Exclude<ThyButtonAppearance, 'link'>;
 
 
 /** 兼容：outline-primary → { primary, outline }；link-danger → { danger, link } */
-export function parseLegacyButtonStyle(value: string): {
+export function parseButtonType(value: string): {
     color: string;
     appearance: ThyButtonAppearance;
 } {
@@ -21,7 +21,7 @@ export function parseLegacyButtonStyle(value: string): {
 }
 
 /** 兼容：outline-primary → { primary, outline }；primary → { primary, fill } */
-export function parseLegacyButtonGroupStyle(value: string): {
+export function parseButtonGroupType(value: string): {
     color: string;
     appearance: ThyButtonAppearance;
 } {

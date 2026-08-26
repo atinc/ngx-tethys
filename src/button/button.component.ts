@@ -17,7 +17,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import {
-    parseLegacyButtonStyle,
+    parseButtonType,
     resolveButtonClasses,
     ThyButtonAppearance,
     ThyButtonColor
@@ -174,24 +174,24 @@ export class ThyButton {
         return null;
     });
 
-    private readonly legacyValue = computed(() => this.thyButton() || this.thyType() || 'primary');
+    private readonly typeValue = computed(() => this.thyButton() || this.thyType() || 'primary');
 
-    private readonly parsedLegacyStyle = computed(() => {
-        const raw = this.legacyValue();
+    private readonly parsedType = computed(() => {
+        const raw = this.typeValue();
         const square = raw.includes('-square');
         const value = raw.replace('-square', '');
         return {
             square,
-            ...(value ? parseLegacyButtonStyle(value) : { color: 'primary', appearance: 'fill' as ThyButtonAppearance })
+            ...(value ? parseButtonType(value) : { color: 'primary', appearance: 'fill' as ThyButtonAppearance })
         };
     });
 
-    protected isRadiusSquare = computed(() => this.parsedLegacyStyle().square);
+    protected isRadiusSquare = computed(() => this.parsedType().square);
 
-    protected readonly color = computed(() => this.thyColor() || this.parsedLegacyStyle().color);
+    protected readonly color = computed(() => this.thyColor() || this.parsedType().color);
 
     protected readonly appearance = computed<ThyButtonAppearance>(
-        () => this.thyAppearance() || this.parsedLegacyStyle().appearance
+        () => this.thyAppearance() || this.parsedType().appearance
     );
 
     private setButtonText() {

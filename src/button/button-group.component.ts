@@ -2,7 +2,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, computed, effect, input, ViewEncapsulation } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
-    parseLegacyButtonGroupStyle,
+    parseButtonGroupType,
     resolveButtonGroupClass,
     ThyButtonColor,
     ThyButtonGroupAppearance
@@ -75,20 +75,20 @@ export class ThyButtonGroup {
      */
     readonly thyClearMinWidth = input(false, { transform: coerceBooleanProperty });
 
-    private readonly parsedLegacyStyle = computed(() => {
+    private readonly parsedType = computed(() => {
         const value = this.thyType();
-        return value ? parseLegacyButtonGroupStyle(value) : null;
+        return value ? parseButtonGroupType(value) : null;
     });
 
-    protected readonly color = computed(() => this.thyColor() || this.parsedLegacyStyle()?.color);
+    protected readonly color = computed(() => this.thyColor() || this.parsedType()?.color);
 
     protected readonly appearance = computed<ThyButtonGroupAppearance | undefined>(() => {
         const value = this.thyAppearance();
         if (value) {
             return value;
         }
-        if (this.parsedLegacyStyle()) {
-            return this.parsedLegacyStyle()!.appearance as ThyButtonGroupAppearance;
+        if (this.parsedType()) {
+            return this.parsedType()!.appearance as ThyButtonGroupAppearance;
         }
         return this.thyColor() ? 'outline' : undefined;
     });
