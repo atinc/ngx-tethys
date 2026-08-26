@@ -4,8 +4,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
-export type ThyButtonIconSize = 'xs' | 'sm' | 'md' | 'lg';
-
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
 
 const sizeClassesMap: Record<string, string[]> = {
@@ -48,9 +46,9 @@ export class ThyButtonIcon {
     /**
      * 大小
      * @type xs | sm | md | lg
-     * @default lg
+     * @default 36
      */
-    readonly thySize = input<string>('lg');
+    readonly thySize = input<string>();
 
     /**
      * 图标, 和`thyButtonIcon`相同，当使用`thy-button-icon`时，只能使用 thyIcon 设置图标
