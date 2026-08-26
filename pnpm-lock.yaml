@@ -7,9 +7,6 @@ settings:
 overrides:
   conventional-changelog-angular: 8.3.1
 
-patchedDependencies:
-  '@docgeni/template@2.8.0-next.7': c2604c8d438136b5c22f238fa8aa5e59749153a0c8ca1e9fdea0fc9d6a79c64a
-
 importers:
 
   .:
@@ -103,11 +100,11 @@ importers:
         specifier: 1.2.0
         version: 1.2.0
       '@docgeni/cli':
-        specifier: 2.8.0-next.7
-        version: 2.8.0-next.7(239aa4d14985080de16181d9a6be4cec)
+        specifier: 2.8.0-next.9
+        version: 2.8.0-next.9(239aa4d14985080de16181d9a6be4cec)
       '@docgeni/template':
-        specifier: 2.8.0-next.7
-        version: 2.8.0-next.7(patch_hash=c2604c8d438136b5c22f238fa8aa5e59749153a0c8ca1e9fdea0fc9d6a79c64a)(docsearch.js@2.6.3)
+        specifier: 2.8.0-next.9
+        version: 2.8.0-next.9(docsearch.js@2.6.3)
       '@eslint/js':
         specifier: ^9.23.0
         version: 9.39.4
@@ -1304,26 +1301,26 @@ packages:
       tslib: '>=2.0.0'
       zone.js: '>=0.10.2'
 
-  '@docgeni/cli@2.8.0-next.7':
-    resolution: {integrity: sha512-4Yv+SU2tZjUZgTn72G4C8UHnXEzbtRzYLQ1XuS6k3hmVg0VqoimTMLbOYJM7u+HdFQflyQWvz465THbcE9DFiQ==}
+  '@docgeni/cli@2.8.0-next.9':
+    resolution: {integrity: sha512-MXXokV+D/6Lp9W5RNKOb5Xqn+Z3CpNvGJfO8Pf5yy59D4caEYj5GWQ0Zefuj65l8Kj7rNxYrvBGn8BCzhkhrAA==}
     hasBin: true
 
-  '@docgeni/core@2.8.0-next.7':
-    resolution: {integrity: sha512-YLFU90zTPOlK4bn1PHVzii+HJd9MvlGJZA80Y83Gq0j2OGzn1O1cDQ+HozE2IrXgCC4ZyNu5bgUTt+buq4FxkA==}
+  '@docgeni/core@2.8.0-next.9':
+    resolution: {integrity: sha512-ecFUuQ+kzedfZH2/UaUhsaVz2MQ/TDIfM8VhfnBAwe7/UDch1lS38hzxquipSwbjm/HDROVSRKLcP1R8cEcVDg==}
 
-  '@docgeni/ngdoc@2.8.0-next.7':
-    resolution: {integrity: sha512-vmriEEl7lVVjo326xpqqJ5oCAuxNysyuVKSqAWOcuPDV0TXxwtxv4tnk6MQS/AQcAdisCqHAez1lSTm6o4bmeQ==}
+  '@docgeni/ngdoc@2.8.0-next.9':
+    resolution: {integrity: sha512-RF6wJlwSVgdTj0L7aJMWELDDSzi1UPhz4uw6ysoJo8ccF0STUiCbHHIo8idLbU8V7Vzk19FFLN2fSc26xoNBNw==}
 
-  '@docgeni/template@2.8.0-next.7':
-    resolution: {integrity: sha512-GKg8jGNqNexsVCnh0xyGUg1KjJdU0cASz5zTgHXvj/dbKhoARNjQOueCozJDhtW99MT3psKDfmYNvXWXYgjeng==}
+  '@docgeni/template@2.8.0-next.9':
+    resolution: {integrity: sha512-E4j8fK3nWeE8M2Ix2HIJBZNPlPfbTlHmNCQQrf3Yj5pwvc5T0nUrP88oL4/EENumuzV/kPNb+mA9RijEAAZHvA==}
     peerDependencies:
       docsearch.js: '*'
 
-  '@docgeni/toolkit@2.8.0-next.7':
-    resolution: {integrity: sha512-/TEwijVUg2bwXrNFjljP9PkP650/N7dL/y8FajOmTPh+Er5TTdZrUITxkvkNEyZ7EeIe0CEIoPtZ2JYK+ss+lg==}
-
   '@docgeni/toolkit@2.8.0-next.8':
     resolution: {integrity: sha512-JfXmRLSCuxs7Q0pyI8a6gR4AlTiQMsdgVlsuLFQAdppWnSwnF3xfjdTJCCGUnIcIbmOZT+VkfRQYPgHh3ea6HQ==}
+
+  '@docgeni/toolkit@2.8.0-next.9':
+    resolution: {integrity: sha512-gnJtgcm78CPn4jhxkwJmvLSHbZFZfNyOB7G1uBHTq28KJ/uhGfLfeBlmiUb88mryqPguWxakfA3Gbyq2297nTQ==}
 
   '@dsherret/to-absolute-glob@2.0.2':
     resolution: {integrity: sha512-InCaQ/KEOcFtAFztn47wadritBLP2nT6m/ucbBnIgI5YwxuMzKKCHtqazR2+D1yR6y1ZTnPea9aLFEUrTttUSQ==}
@@ -4310,10 +4307,12 @@ packages:
   conventional-changelog-atom@3.0.0:
     resolution: {integrity: sha512-pnN5bWpH+iTUWU3FaYdw5lJmfWeqSyrUkG+wyHBI9tC1dLNnHkbAOg1SzTQ7zBqiFrfo55h40VsGXWMdopwc5g==}
     engines: {node: '>=14'}
+    deprecated: This preset is deprecated. Please use conventional-changelog-conventionalcommits or conventional-changelog-angular instead.
 
   conventional-changelog-codemirror@3.0.0:
     resolution: {integrity: sha512-wzchZt9HEaAZrenZAUUHMCFcuYzGoZ1wG/kTRMICxsnW5AXohYMRxnyecP9ob42Gvn5TilhC0q66AtTPRSNMfw==}
     engines: {node: '>=14'}
+    deprecated: This preset is deprecated. Please use conventional-changelog-conventionalcommits or conventional-changelog-angular instead.
 
   conventional-changelog-config-spec@2.1.0:
     resolution: {integrity: sha512-IpVePh16EbbB02V+UA+HQnnPIohgXvJRxHcS5+Uwk4AT5LjzCZJm5sp/yqs5C6KZJ1jMsV4paEV13BN1pvDuxQ==}
@@ -4325,26 +4324,32 @@ packages:
   conventional-changelog-core@5.0.2:
     resolution: {integrity: sha512-RhQOcDweXNWvlRwUDCpaqXzbZemKPKncCWZG50Alth72WITVd6nhVk9MJ6w1k9PFNBcZ3YwkdkChE+8+ZwtUug==}
     engines: {node: '>=14'}
+    deprecated: Deprecated and no longer maintained. Please use conventional-changelog instead.
 
   conventional-changelog-ember@3.0.0:
     resolution: {integrity: sha512-7PYthCoSxIS98vWhVcSphMYM322OxptpKAuHYdVspryI0ooLDehRXWeRWgN+zWSBXKl/pwdgAg8IpLNSM1/61A==}
     engines: {node: '>=14'}
+    deprecated: This preset is deprecated. Please use conventional-changelog-conventionalcommits or conventional-changelog-angular instead.
 
   conventional-changelog-eslint@4.0.0:
     resolution: {integrity: sha512-nEZ9byP89hIU0dMx37JXQkE1IpMmqKtsaR24X7aM3L6Yy/uAtbb+ogqthuNYJkeO1HyvK7JsX84z8649hvp43Q==}
     engines: {node: '>=14'}
+    deprecated: This preset is deprecated. Please use conventional-changelog-conventionalcommits or conventional-changelog-angular instead.
 
   conventional-changelog-express@3.0.0:
     resolution: {integrity: sha512-HqxihpUMfIuxvlPvC6HltA4ZktQEUan/v3XQ77+/zbu8No/fqK3rxSZaYeHYant7zRxQNIIli7S+qLS9tX9zQA==}
     engines: {node: '>=14'}
+    deprecated: This preset is deprecated. Please use conventional-changelog-conventionalcommits or conventional-changelog-angular instead.
 
   conventional-changelog-jquery@4.0.0:
     resolution: {integrity: sha512-TTIN5CyzRMf8PUwyy4IOLmLV2DFmPtasKN+x7EQKzwSX8086XYwo+NeaeA3VUT8bvKaIy5z/JoWUvi7huUOgaw==}
     engines: {node: '>=14'}
+    deprecated: This preset is deprecated. Please use conventional-changelog-conventionalcommits or conventional-changelog-angular instead.
 
   conventional-changelog-jshint@3.0.0:
     resolution: {integrity: sha512-bQof4byF4q+n+dwFRkJ/jGf9dCNUv4/kCDcjeCizBvfF81TeimPZBB6fT4HYbXgxxfxWXNl/i+J6T0nI4by6DA==}
     engines: {node: '>=14'}
+    deprecated: This preset is deprecated. Please use conventional-changelog-conventionalcommits or conventional-changelog-angular instead.
 
   conventional-changelog-preset-loader@3.0.0:
     resolution: {integrity: sha512-qy9XbdSLmVnwnvzEisjxdDiLA4OmV3o8db+Zdg4WiFw14fP3B6XNz98X0swPPpkTd/pc1K7+adKgEDM1JCUMiA==}
@@ -5020,6 +5025,7 @@ packages:
   eslint@9.39.4:
     resolution: {integrity: sha512-XoMjdBOwe/esVgEvLmNsD3IRHkm7fbKIUGvrleloJXUZgDHig2IPWNniv+GwjyJXzuNqVjlr5+4yVUZjycJwfQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -5445,13 +5451,13 @@ packages:
   git-raw-commits@2.0.11:
     resolution: {integrity: sha512-VnctFhw+xfj8Va1xtfEqCUD2XDrbAPSJx+hSrE5K7fGdjZruW7XV+QOrN7LF/RJyvspRiD2I0asWsxFp0ya26A==}
     engines: {node: '>=10'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   git-raw-commits@3.0.0:
     resolution: {integrity: sha512-b5OHmZ3vAgGrDn/X0kS+9qCfNKWe4K/jFnhwzVWWg0/k5eLa3060tZShrRg8Dja5kPc+YjS0Gc6y7cRr44Lpjw==}
     engines: {node: '>=14'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   git-remote-origin-url@2.0.0:
@@ -5461,7 +5467,7 @@ packages:
   git-semver-tags@5.0.1:
     resolution: {integrity: sha512-hIvOeZwRbQ+7YEUmCkHqo8FOLQZCEn18yevLHADlFPZY02KJGsu5FZt9YW/lybfK2uhWFI7Qg/07LekJiTv7iA==}
     engines: {node: '>=14'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   gitconfiglocal@1.0.0:
@@ -8587,11 +8593,6 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
-  typescript@5.9.3:
-    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
@@ -10628,13 +10629,13 @@ snapshots:
       - '@types/node'
       - chokidar
 
-  '@docgeni/cli@2.8.0-next.7(239aa4d14985080de16181d9a6be4cec)':
+  '@docgeni/cli@2.8.0-next.9(239aa4d14985080de16181d9a6be4cec)':
     dependencies:
       '@angular-devkit/schematics': 21.2.13(chokidar@3.6.0)
       '@angular-devkit/schematics-cli': 21.2.13(@types/node@22.19.19)(chokidar@3.6.0)
-      '@docgeni/core': 2.8.0-next.7(69faedb164f5f931d5e1191ad5cfdf19)
-      '@docgeni/template': 2.8.0-next.7(patch_hash=c2604c8d438136b5c22f238fa8aa5e59749153a0c8ca1e9fdea0fc9d6a79c64a)(docsearch.js@2.6.3)
-      '@docgeni/toolkit': 2.8.0-next.7
+      '@docgeni/core': 2.8.0-next.9(69faedb164f5f931d5e1191ad5cfdf19)
+      '@docgeni/template': 2.8.0-next.9(docsearch.js@2.6.3)
+      '@docgeni/toolkit': 2.8.0-next.9
       '@schematics/angular': 21.2.13(chokidar@3.6.0)
       chokidar: 3.6.0
       cosmiconfig: 9.0.1(typescript@6.0.3)
@@ -10677,13 +10678,13 @@ snapshots:
       - vitest
       - yaml
 
-  '@docgeni/core@2.8.0-next.7(69faedb164f5f931d5e1191ad5cfdf19)':
+  '@docgeni/core@2.8.0-next.9(69faedb164f5f931d5e1191ad5cfdf19)':
     dependencies:
       '@angular-devkit/core': 21.2.13(chokidar@3.6.0)
       '@angular-devkit/schematics': 21.2.13(chokidar@3.6.0)
       '@angular/build': 21.2.13(c0adb25e41a252306a043d3ac6ec993b)
-      '@docgeni/ngdoc': 2.8.0-next.7(chokidar@3.6.0)
-      '@docgeni/toolkit': 2.8.0-next.7
+      '@docgeni/ngdoc': 2.8.0-next.9(chokidar@3.6.0)
+      '@docgeni/toolkit': 2.8.0-next.9
       '@schematics/angular': 21.2.13(chokidar@3.6.0)
       '@types/text-table': 0.2.5
       ansi-colors: 4.1.3
@@ -10735,22 +10736,22 @@ snapshots:
       - vitest
       - yaml
 
-  '@docgeni/ngdoc@2.8.0-next.7(chokidar@3.6.0)':
+  '@docgeni/ngdoc@2.8.0-next.9(chokidar@3.6.0)':
     dependencies:
       '@angular-devkit/core': 21.2.13(chokidar@3.6.0)
-      '@docgeni/toolkit': 2.8.0-next.7
+      '@docgeni/toolkit': 2.8.0-next.9
       ts-morph: 12.1.0
-      typescript: 5.9.3
+      typescript: 6.0.3
     transitivePeerDependencies:
       - chokidar
       - supports-color
 
-  '@docgeni/template@2.8.0-next.7(patch_hash=c2604c8d438136b5c22f238fa8aa5e59749153a0c8ca1e9fdea0fc9d6a79c64a)(docsearch.js@2.6.3)':
+  '@docgeni/template@2.8.0-next.9(docsearch.js@2.6.3)':
     dependencies:
       docsearch.js: 2.6.3
       tslib: 2.8.1
 
-  '@docgeni/toolkit@2.8.0-next.7':
+  '@docgeni/toolkit@2.8.0-next.8':
     dependencies:
       '@angular-devkit/core': 21.2.13(chokidar@3.6.0)
       camelcase: 6.3.0
@@ -10775,7 +10776,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@docgeni/toolkit@2.8.0-next.8':
+  '@docgeni/toolkit@2.8.0-next.9':
     dependencies:
       '@angular-devkit/core': 21.2.13(chokidar@3.6.0)
       camelcase: 6.3.0
@@ -18850,8 +18851,6 @@ snapshots:
   typescript@3.9.10: {}
 
   typescript@4.9.5: {}
-
-  typescript@5.9.3: {}
 
   typescript@6.0.3: {}
 
