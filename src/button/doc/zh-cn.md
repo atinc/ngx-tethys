@@ -31,7 +31,7 @@ import { ThyButtonModule } from "ngx-tethys/button";
 - 禁用：操作不可用的时候
 
 ## 基本使用
-推荐使用指令写法，写在原生 `button` 上。通过 `thyColor` 控制颜色，`thyAppearance` 控制外观（`fill` / `outline` / `link`）。禁用时使用原生 `disabled`。
+推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
 ```html
 <button thyButton thyColor="primary">Primary</button>
 <button thyButton thyColor="primary" thyAppearance="outline">Outline</button>
@@ -44,11 +44,9 @@ import { ThyButtonModule } from "ngx-tethys/button";
 <example name="thy-button-basic-example"></example>
 
 ## 按钮链接
-使用 `thyAppearance="link"`，配合 `thyColor` 设置颜色。
 <example name="thy-button-link-example"></example>
 
 ## 线框按钮
-使用 `thyAppearance="outline"`，配合 `thyColor` 设置颜色。
 <example name="thy-button-outline-example"></example>
 
 ## 按钮大小
@@ -76,5 +74,4 @@ import { ThyButtonModule } from "ngx-tethys/button";
 <example name="thy-button-pair-example"></example>
 
 ## 按钮组
-通过 `thyColor` + `thyAppearance`（`fill` | `outline`，仅传颜色时默认 `outline`）控制整组皮肤。旧的 `thyType="outline-default"` 等仍可用。
 <example name="thy-button-group-example"></example>
