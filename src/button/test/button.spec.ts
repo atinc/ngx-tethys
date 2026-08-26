@@ -31,7 +31,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
 })
 class ThyTestButtonBasicComponent {
     type = `primary`;
-    size = '';
+    size = 'md';
     loading = false;
     loadingText = 'Loading...';
     icon = 'inbox';
@@ -43,7 +43,7 @@ class ThyTestButtonBasicComponent {
 }
 
 describe('ThyButton', () => {
-    const sizes = ['lg', 'default', 'md', 'sm', 'xs'];
+    const sizes = ['lg', 'md', 'sm', 'xs'];
 
     describe('Basic', () => {
         let fixture!: ComponentFixture<ThyTestButtonBasicComponent>;
@@ -70,6 +70,7 @@ describe('ThyButton', () => {
             const btnElement: HTMLElement = buttonComponent.nativeElement;
             expect(btnElement.classList.contains('btn')).toBeTruthy();
             expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-md')).toBeTruthy();
             expect(btnElement.textContent).toBe('Basic Button');
         });
 
@@ -316,7 +317,7 @@ describe('ThyButton', () => {
 })
 class ThyTestButtonIconBasicComponent {
     icon = 'inbox';
-    size = '';
+    size = 'md';
     shape = '';
     theme = '';
     isLight = false;

@@ -32,7 +32,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
     imports: [ThyInput, FormsModule]
 })
 class TestBedComponent {
-    thySize = ``;
+    thySize = `md`;
     thyType = 'text';
     readonly = false;
     passwordValue = '12345';
@@ -69,12 +69,11 @@ describe('input component', () => {
         debugContainerElement = fixture.debugElement.query(By.directive(ThyInput));
     });
 
-    it('thySize empty string', () => {
-        basicTestComponent.thySize = '';
+    it('should use md by default', () => {
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-xs')).toBe(false);
         expect(debugElement.nativeElement.classList.contains('form-control-sm')).toBe(false);
-        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(false);
+        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(true);
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(false);
     });
 

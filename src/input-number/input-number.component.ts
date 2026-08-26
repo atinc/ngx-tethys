@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 
 enum Type {
     up,
@@ -118,7 +118,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      * 输入框大小
      * @type xs | sm | md | lg
      */
-    readonly thySize = input<InputSize>();
+    readonly thySize = input<InputSize>('md');
 
     /**
      * 数值精度

@@ -45,7 +45,7 @@ import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: string, searchKey: string = 'name') {
     const filterNodes = (node: ThyTreeSelectNode, result: ThyTreeSelectNode[]) => {
@@ -218,9 +218,10 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     /**
      * 控制树选择的输入框大小
-     * @type xs | sm | md | default | lg
+     * @type xs | sm | md | lg
+     * @default md
      */
-    readonly thySize = input<InputSize>();
+    readonly thySize = input<InputSize>('md');
 
     /**
      * 改变空选项的情况下的提示文本

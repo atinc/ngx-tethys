@@ -30,7 +30,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 
-export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
+export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg';
 
 /**
  * 时间选择组件
@@ -70,9 +70,10 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
 
     /**
      * 输入框大小
-     * @type 'xs' | 'sm' | 'md' | 'lg' | 'default'
+     * @type 'xs' | 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<TimePickerSize>('default');
+    readonly thySize = input<TimePickerSize>('md');
 
     /**
      * 输入框提示文字

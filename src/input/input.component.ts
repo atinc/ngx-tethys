@@ -63,10 +63,10 @@ export class ThyInput implements ControlValueAccessor, OnInit {
 
     /**
      * 输入框大小
-     * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
-     * @default default
+     * @type 'xs' | 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<ThyInputSize>();
+    readonly thySize = input<ThyInputSize>('md');
 
     /**
      * 是否自动聚焦

@@ -7,7 +7,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { SafeAny } from 'ngx-tethys/types';
 
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+export type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 
 const noop = () => {};
 
@@ -44,7 +44,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
 
     private hostRenderer = useHostRenderer();
 
-    readonly thySize = input<InputSize>();
+    readonly thySize = input<InputSize>('md');
 
     readonly name = input<string>();
 

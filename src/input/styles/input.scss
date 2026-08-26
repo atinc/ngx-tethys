@@ -211,7 +211,7 @@
     // Enable absolute positioning
     position: relative; // Ensure icons don't overlap text
     .form-control {
-        padding-right: 2 * variables.$input-padding-x + 1rem;
+        padding-right: 2 * variables.$input-padding-x-md + 1rem;
     }
 }
 
@@ -221,7 +221,7 @@
     top: 50%;
     // margin-top: -(($font-size-md * $input-line-height) / 2);
     transform: translateY(-50%);
-    right: variables.$input-padding-x;
+    right: variables.$input-padding-x-md;
     z-index: 2; // Ensure icon is above input groups
     display: block; // width: $input-hei;
     // height: @input-height-base;
@@ -238,7 +238,7 @@
     > [class*='col-'] {
         > .form-control-feedback {
             // 0.9375rem is ($grid-gutter-width / 2)
-            right: 0.9375rem + variables.$input-padding-x;
+            right: 0.9375rem + variables.$input-padding-x-md;
         }
     }
 }
@@ -248,6 +248,6 @@ textarea {
     &::-webkit-scrollbar-corner,
     &::-webkit-scrollbar-track-piece,
     &::-webkit-scrollbar-track {
-        border-bottom-right-radius: variables.$input-border-radius;
+        border-bottom-right-radius: variables.$input-border-radius-md;
     }
 }

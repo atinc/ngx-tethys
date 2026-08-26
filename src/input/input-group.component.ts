@@ -23,7 +23,7 @@ import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 
-export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
+export type InputGroupSize = 'sm' | 'lg' | 'md';
 
 const inputGroupSizeMap = {
     sm: ['input-group-sm'],
@@ -105,10 +105,10 @@ export class ThyInputGroup implements OnInit, OnDestroy {
 
     /**
      * 输入框分组大小
-     * @type 'sm' | 'lg' | 'md' | ''
-     * @default ''
+     * @type 'sm' | 'lg' | 'md'
+     * @default md
      */
-    readonly thySize = input<InputGroupSize>();
+    readonly thySize = input<InputGroupSize>('md');
 
     /**
      * 后置模板

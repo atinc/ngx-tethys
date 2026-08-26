@@ -124,7 +124,7 @@ export abstract class AbstractPickerComponent
     /**
      * 输入框的大小
      */
-    readonly thySize = input<'lg' | 'md' | 'sm' | 'xs' | 'default'>('default');
+    readonly thySize = input<'lg' | 'md' | 'sm' | 'xs'>('md');
 
     /**
      * 设置时间戳精度

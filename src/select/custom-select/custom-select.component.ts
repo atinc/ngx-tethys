@@ -343,7 +343,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      * @type primary | success | danger | warning
      * @default primary
      */
-    readonly thySize = input<SelectControlSize>();
+    readonly thySize = input<SelectControlSize>('md');
 
     /**
      * 数据为空时显示的提示文字

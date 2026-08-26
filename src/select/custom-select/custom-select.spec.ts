@@ -88,7 +88,7 @@ class BasicSelectComponent {
     control = new UntypedFormControl();
     isRequired!: boolean;
     enableScrollLoad!: boolean;
-    size: SelectControlSize = '';
+    size: SelectControlSize = 'md';
     mode: 'multiple' | '' = '';
     thyAutoActiveFirstItem = true;
     customizeOrigin!: ElementRef | HTMLElement;
@@ -977,11 +977,11 @@ describe('ThyCustomSelect', () => {
 
             it('should has correct size', () => {
                 const sizes: SelectControlSize[] = ['xs', 'sm', 'md', 'lg'];
-                fixture.componentInstance.size = '';
+                fixture.componentInstance.size = 'md';
                 fixture.detectChanges();
                 const formControl = fixture.debugElement.query(By.css('.form-control')).nativeElement;
                 sizes.forEach(size => {
-                    expect(formControl.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+                    expect(formControl.classList.contains(`form-control-${size}`)).toBe(size === 'md');
                 });
                 sizes.forEach((size: SelectControlSize) => {
                     fixture.componentInstance.size = size;

@@ -36,7 +36,7 @@ export class ThyButtonGroup {
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<ButtonGroupSize>();
+    readonly thySize = input<ButtonGroupSize>('md');
 
     /**
      * 类型

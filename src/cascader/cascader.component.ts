@@ -119,10 +119,11 @@ export class ThyCascader
     readonly thyPlaceholder = input(this.locale().placeholder);
 
     /**
-     * 控制大小（5种）
-     * @type 'xs' ｜ 'sm' | 'md' | 'lg' | ''
+     * 控制大小
+     * @type 'xs' ｜ 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<SelectControlSize>('');
+    readonly thySize = input<SelectControlSize>('md');
 
     /**
      * 数据项
