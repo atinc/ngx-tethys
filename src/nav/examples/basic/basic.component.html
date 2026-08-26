@@ -1,7 +1,12 @@
 <thy-nav thyType="pulled">
   @for (item of navList; track $index) {
-    <div thyNavItem [thyNavItemActive]="item.index === activeIndex" [thyNavItemDisabled]="item.disabled" (click)="activeIndex = item.index">
-      {{ item.name }}
-    </div>
+    <a
+      href="javascript:;"
+      thyNavItem
+      [thyNavItemActive]="item.index === activeIndex"
+      [thyNavItemDisabled]="item.disabled"
+      (click)="activeIndex = item.index"
+      >{{ item.name }}</a
+    >
   }
 </thy-nav>
