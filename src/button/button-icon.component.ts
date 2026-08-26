@@ -46,7 +46,7 @@ export class ThyButtonIcon {
     /**
      * 大小
      * @type xs | sm | md | lg
-     * @default 36
+     * @default 36px
      */
     readonly thySize = input<string>();
 
