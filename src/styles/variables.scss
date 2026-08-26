@@ -169,8 +169,8 @@ $code-font-size: 0.875rem !default;
 
 // 按钮和输入框大小, 目前有5种大小, 按钮和输入框都是通过 padding 设置成对应大小的
 // 为了方便记录或者在某些场景下使用, 新增了高度的变量
-$input-btn-height-lg: 44px !default;
 $input-btn-height: 36px !default;
+$input-btn-height-lg: 36px !default;
 $input-btn-height-md: 32px !default;
 $input-btn-height-sm: 28px !default;
 $input-btn-height-xs: 24px !default;
@@ -178,7 +178,7 @@ $input-btn-height-xs: 24px !default;
 $input-btn-line-height: $line-height-base !default;
 $input-btn-line-height-md: $line-height-base !default;
 $input-btn-line-height-sm: $line-height-sm !default;
-$input-btn-line-height-lg: $line-height-lg !default;
+$input-btn-line-height-lg: $input-btn-line-height !default;
 $input-btn-line-height-xs: $line-height-xs !default;
 
 $input-btn-padding-x: 1.625rem !default;
@@ -213,7 +213,7 @@ $btn-padding-x-md: 15px !default; // 1.25rem !default;
 $btn-padding-y-sm: $input-btn-padding-y-sm !default; // 70*28px
 $btn-padding-x-sm: 15px !default;
 $btn-padding-y-lg: 0.375rem !default;
-$btn-padding-x-lg: 2.215rem !default;
+$btn-padding-x-lg: 1.25rem !default;
 $btn-padding-y-xs: 0.125rem !default;
 $btn-padding-x-xs: 15px !default;
 
@@ -229,25 +229,28 @@ $btn-icon-color: $gray-400 !default;
 $btn-icon-thick-dashed-color: $gray-300 !default;
 $btn-icon-thick-solid-color: $gray-400 !default;
 
-$btn-icon-circle-padding-lg: 11px;
+$btn-icon-circle-padding-lg: 8px;
 $btn-icon-circle-padding-base: 8px;
 $btn-icon-circle-padding-md: 7px;
 $btn-icon-circle-padding-sm: 6px;
 $btn-icon-circle-padding-xs: 5px;
 $btn-icon-circle-padding-difference: 1;
+$btn-icon-font-size-lg: $font-size-md !default;
+$btn-icon-only-padding-x: 0.625rem !default;
+$btn-icon-only-padding-x-lg: 0.625rem !default;
 
 // min-width
 $btn-base-min-width: 97px !default;
 $btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
-$btn-lg-min-width: 108px !default;
+$btn-lg-min-width: 97px !default;
 // font-size
 $btn-font-size-xs: $font-size-sm !default;
 $btn-font-size-sm: $font-size-base !default;
 $btn-font-size-md: $font-size-base !default;
 $btn-font-size-base: $font-size-base !default;
-$btn-font-size-lg: $font-size-lg !default;
+$btn-font-size-lg: $btn-font-size-base !default;
 
 // btn-pair
 $btn-pair-child-margin-left: 20px !default;
@@ -260,8 +263,8 @@ $btn-group-btn-padding-y-md: $btn-padding-y-md !default;
 $btn-group-btn-padding-y-sm: $btn-padding-y-sm !default;
 $btn-group-btn-padding-y-xs: $btn-padding-y-xs !default;
 
-$btn-group-btn-padding-x-lg: 25px !default;
 $btn-group-btn-padding-x-md: 20px !default;
+$btn-group-btn-padding-x-lg: $btn-group-btn-padding-x-md !default;
 $btn-group-btn-padding-x-sm: 15px !default;
 $btn-group-btn-padding-x-xs: 10px !default;
 
@@ -270,7 +273,7 @@ $btn-group-btn-padding-x-xs: 10px !default;
 // input-padding-x 之前是 0.875rem, 芳美说太大了，改成了 10px 大小
 $input-font-size: $font-size-base !default;
 $input-font-size-sm: $font-size-base !default;
-$input-font-size-lg: $font-size-xlg !default;
+$input-font-size-lg: $input-font-size !default;
 
 $input-line-height-xs: $input-btn-line-height-xs !default;
 $input-line-height-md: $input-btn-line-height-md !default;
@@ -287,13 +290,14 @@ $input-padding-y-md: $input-btn-padding-y-md !default;
 $input-padding-x-sm: $input-padding-x-fixed !default;
 $input-padding-y-sm: $input-btn-padding-y-sm !default;
 $input-padding-x-lg: $input-padding-x-fixed-lg !default;
-$input-padding-y-lg: 0.1875rem !default;
+$input-padding-y-lg: 0.375rem !default;
 $input-padding-x-xs: $input-padding-x-fixed !default;
 $input-padding-y-xs: 0.125rem !default;
 // input border-radius
 $input-border-radius-xs: 0.25rem !default;
 $input-border-radius-md: 0.25rem !default;
 $input-border-radius: 0.25rem !default;
+$input-border-radius-lg: $input-border-radius !default;
 // input height
 $input-height-xs: $input-btn-height-xs !default;
 $input-height-sm: $input-btn-height-sm !default;
@@ -1105,17 +1109,18 @@ $property-item-editor-offset: calc($property-item-padding-x * 0.5 + 0.0625rem) *
 $tabs-content-space: 1rem !default;
 
 // select-control
+$select-control-tag-height-lg: $tag-height-md !default;
 $select-control-padding-y-xs: 1px !default;
 $select-control-padding-y-sm: 3px !default;
 $select-control-padding-y-md: 3px !default;
 $select-control-padding-y-default: 5px !default;
-$select-control-padding-y-lg: 7px !default;
+$select-control-padding-y-lg: 5px !default;
 $select-option-disabled-opacity: 0.5 !default;
 $select-control-height-xs: 20px;
 $select-control-height-sm: 20px;
 $select-control-height-md: 24px;
 $select-control-height-default: 24px;
-$select-control-height-lg: 28px;
+$select-control-height-lg: 24px;
 
 // z-index
 $z-index-1: 10;

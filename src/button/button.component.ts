@@ -81,8 +81,6 @@ export class ThyButton {
         return this.elementRef.nativeElement;
     }
 
-    private readonly isNativeButton = this.elementRef.nativeElement.tagName === 'BUTTON';
-
     private hostRenderer = useHostRenderer();
 
     /**
@@ -244,7 +242,7 @@ export class ThyButton {
 
     private preventClickWhenUnavailable(): void {
         const onClick = (event: Event) => {
-            if ((this.thyDisabled() && !this.isNativeButton) || this.thyLoading()) {
+            if (this.thyDisabled() || this.thyLoading()) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
             }

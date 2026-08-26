@@ -10,6 +10,6 @@ import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYea
     imports: [ThyButtonGroup, ThyButton, NgClass, ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker, ThyRangePicker]
 })
 export class ThyDatePickerSizeExampleComponent {
-    currentSize = 'default';
-    btnSizes = ['xs', 'sm', 'md', 'default', 'lg'];
+    currentSize = 'lg';
+    btnSizes = ['xs', 'sm', 'md', 'lg'];
 }
