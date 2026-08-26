@@ -1,4 +1,4 @@
-<thy-button-group thySize="sm" thyType="outline-default">
+<thy-button-group thySize="sm" thyColor="default">
   @for (item of sizes; track $index) {
     <button thyButton (click)="size = item.value" [ngClass]="{ active: size === item.value }">
       {{ item.value }}
@@ -6,25 +6,25 @@
   }
 </thy-button-group>
 <thy-space class="mt-4">
-  <button *thySpaceItem thyButton="primary" [thySize]="size">Primary</button>
-  <button *thySpaceItem thyButton="info" [thySize]="size">Info</button>
-  <button *thySpaceItem thyButton="warning" [thySize]="size">Warning</button>
-  <button *thySpaceItem thyButton="danger" [thySize]="size">Danger</button>
-  <button *thySpaceItem thyButton="success" [thySize]="size">Success</button>
-  <button *thySpaceItem thyButton="primary" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
+  <button *thySpaceItem thyButton thyColor="primary" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton thyColor="info" [thySize]="size">Info</button>
+  <button *thySpaceItem thyButton thyColor="warning" [thySize]="size">Warning</button>
+  <button *thySpaceItem thyButton thyColor="danger" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton thyColor="success" [thySize]="size">Success</button>
+  <button *thySpaceItem thyButton thyColor="primary" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
 </thy-space>
 <thy-space class="mt-2">
-  <button *thySpaceItem thyButton="outline-primary" [thySize]="size">Primary</button>
-  <button *thySpaceItem thyButton="outline-info" [thySize]="size">Info</button>
-  <button *thySpaceItem thyButton="outline-warning" [thySize]="size">Warning</button>
-  <button *thySpaceItem thyButton="outline-danger" [thySize]="size">Danger</button>
-  <button *thySpaceItem thyButton="outline-success" [thySize]="size">Success</button>
-  <button *thySpaceItem thyButton="outline-primary" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
+  <button *thySpaceItem thyButton thyColor="primary" thyAppearance="outline" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton thyColor="info" thyAppearance="outline" [thySize]="size">Info</button>
+  <button *thySpaceItem thyButton thyColor="warning" thyAppearance="outline" [thySize]="size">Warning</button>
+  <button *thySpaceItem thyButton thyColor="danger" thyAppearance="outline" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton thyColor="success" thyAppearance="outline" [thySize]="size">Success</button>
+  <button *thySpaceItem thyButton thyColor="primary" thyAppearance="outline" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
 </thy-space>
 <thy-space class="mt-2">
-  <button *thySpaceItem thyButton="link" [thySize]="size">Default</button>
-  <button *thySpaceItem thyButton="link-secondary" [thySize]="size">Secondary</button>
+  <button *thySpaceItem thyButton thyAppearance="link" [thySize]="size">Default</button>
+  <button *thySpaceItem thyButton thyColor="secondary" thyAppearance="link" [thySize]="size">Secondary</button>
   <button *thySpaceItem thyButton="link-danger-weak" [thySize]="size">Danger Weak</button>
-  <button *thySpaceItem thyButton="link-danger" [thySize]="size">Danger</button>
-  <button *thySpaceItem thyButton="link-success" [thySize]="size">Success</button>
+  <button *thySpaceItem thyButton thyColor="danger" thyAppearance="link" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton thyColor="success" thyAppearance="link" [thySize]="size">Success</button>
 </thy-space>

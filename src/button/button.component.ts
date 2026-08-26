@@ -16,7 +16,18 @@ import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import {
+    parseLegacyButtonStyle,
+    resolveButtonClasses,
+    ThyButtonAppearance,
+    ThyButtonColor
+} from './util';
 
+export type { ThyButtonAppearance, ThyButtonColor } from './util';
+
+/**
+ * @deprecated please use thyColor + thyAppearance instead of combined type strings
+ */
 export type ThyButtonType =
     | 'primary'
     | 'secondary'
@@ -35,22 +46,6 @@ export type ThyButtonType =
     | 'link-danger-weak'
     | 'link-danger'
     | 'link-success';
-
-const btnTypeClassesMap: Record<string, string[]> = {
-    primary: ['btn-primary'],
-    secondary: ['btn-primary', 'btn-md'],
-    info: ['btn-info'],
-    warning: ['btn-warning'],
-    danger: ['btn-danger'],
-    'outline-primary': ['btn-outline-primary'],
-    'outline-default': ['btn-outline-default'],
-    link: ['btn-link'], // 链接按钮
-    'link-info': ['btn-link', 'btn-link-info'], // 幽灵链接按钮
-    'link-secondary': ['btn-link', 'btn-link-primary-weak'], // 幽灵链接按钮
-    'link-danger-weak': ['btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
-    'link-danger': ['btn-link', 'btn-link-danger'], // 危险按钮
-    'link-success': ['btn-link', 'btn-link-success'] // 成功按钮
-};
 
 const iconOnlyClass = 'thy-btn-icon-only';
 
@@ -86,17 +81,31 @@ export class ThyButton {
     private hostRenderer = useHostRenderer();
 
     /**
-     * 按钮类型，支持添加前缀`outline-`实现线框按钮，支持添加前缀`link-`实现按钮链接
-     * @type primary | info | warning | danger | success
-     * @default primary
+     * 按钮类型（颜色简写或旧的组合字符串）。推荐使用 `thyColor` + `thyAppearance`
+     * @deprecated please use thyColor and thyAppearance instead
      */
-    readonly thyButton = input<ThyButtonType>();
+    readonly thyButton = input<ThyButtonType | string>();
 
     /**
-     * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
+     * 和 `thyButton` 参数一样；通过 `thy-button` 使用时可用该参数控制类型
+     * @default primary
+     * @deprecated please use thyColor and thyAppearance instead
+     */
+    readonly thyType = input<ThyButtonType | string>();
+
+    /**
+     * 按钮颜色
+     * @type primary | info | warning | danger | success | default | secondary
      * @default primary
      */
-    readonly thyType = input<ThyButtonType>();
+    readonly thyColor = input<ThyButtonColor | string>();
+
+    /**
+     * 按钮外观：fill 填充、outline 线框、link 链接
+     * @type fill | outline | link
+     * @default fill
+     */
+    readonly thyAppearance = input<ThyButtonAppearance>();
 
     /**
      * 加载状态
@@ -165,23 +174,25 @@ export class ThyButton {
         return null;
     });
 
-    private readonly buttonType = computed<ThyButtonType>(() => {
-        return this.thyButton() || this.thyType() || 'primary';
+    private readonly legacyValue = computed(() => this.thyButton() || this.thyType() || 'primary');
+
+    private readonly parsedLegacyStyle = computed(() => {
+        const raw = this.legacyValue();
+        const square = raw.includes('-square');
+        const value = raw.replace('-square', '');
+        return {
+            square,
+            ...(value ? parseLegacyButtonStyle(value) : { color: 'primary', appearance: 'fill' as ThyButtonAppearance })
+        };
     });
 
-    protected isRadiusSquare = computed(() => {
-        const type = this.buttonType();
-        return !!type?.includes('-square');
-    });
+    protected isRadiusSquare = computed(() => this.parsedLegacyStyle().square);
 
-    protected type = computed(() => {
-        const type = this.buttonType();
-        if (this.isRadiusSquare()) {
-            return type?.replace('-square', '');
-        } else {
-            return type;
-        }
-    });
+    protected readonly color = computed(() => this.thyColor() || this.parsedLegacyStyle().color);
+
+    protected readonly appearance = computed<ThyButtonAppearance>(
+        () => this.thyAppearance() || this.parsedLegacyStyle().appearance
+    );
 
     private setButtonText() {
         const text = this.thyLoading() ? this.thyLoadingText() : this._originalText;
@@ -193,19 +204,7 @@ export class ThyButton {
     }
 
     private updateClasses() {
-        const type = this.type();
-        if (!type) {
-            return;
-        }
-
-        let classNames: string[] = [];
-        if (btnTypeClassesMap[type]) {
-            classNames = [...btnTypeClassesMap[type]];
-        } else {
-            if (type) {
-                classNames.push(`btn-${type}`);
-            }
-        }
+        const classNames = resolveButtonClasses(this.color(), this.appearance());
 
         const size = this.thySize();
         if (size) {
@@ -214,8 +213,7 @@ export class ThyButton {
         if (this.isRadiusSquare()) {
             classNames.push('btn-square');
         }
-        const loading = this.thyLoading();
-        if (loading) {
+        if (this.thyLoading()) {
             classNames.push('loading');
         }
         this.hostRenderer.updateClass(classNames);

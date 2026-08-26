@@ -25,6 +25,20 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <thy-button id="btn-thy-loading" [thyType]="type" [thyLoading]="loading" (click)="onClick()">Loading Button</thy-button>
         <button id="btn-native-loading" [thyButton]="type" [thyLoading]="loading" (click)="onClick()">Native Loading</button>
         <a id="btn-anchor" thyButton="primary" [thyDisabled]="disabled" (click)="onClick()">Anchor Button</a>
+        <button
+            id="btn-color-appearance"
+            thyButton
+            [thyColor]="color"
+            [thyAppearance]="appearance">
+            Color Appearance
+        </button>
+        <button
+            id="btn-appearance-priority"
+            thyButton="outline-primary"
+            [thyColor]="color"
+            [thyAppearance]="appearance">
+            Appearance Priority
+        </button>
     `,
     imports: [ThyButtonModule]
 })
@@ -36,6 +50,8 @@ class ThyTestButtonBasicComponent {
     icon = 'inbox';
     disabled = false;
     clickCount = 0;
+    color = 'primary';
+    appearance: 'fill' | 'outline' | 'link' = 'fill';
     onClick() {
         this.clickCount++;
     }
@@ -124,6 +140,52 @@ describe('ThyButton', () => {
                 expect(btnElement.classList.contains(`btn-${type.replace('-square', '')}`)).toBeTruthy();
                 expect(btnElement.classList.contains(`btn-square`)).toBeTruthy();
             });
+        });
+
+        it('should set classes with thyColor and thyAppearance', () => {
+            const cases: Array<{ color: string; appearance: 'fill' | 'outline' | 'link'; classes: string[] }> = [
+                { color: 'primary', appearance: 'fill', classes: ['btn-primary'] },
+                { color: 'danger', appearance: 'fill', classes: ['btn-danger'] },
+                { color: 'primary', appearance: 'outline', classes: ['btn-outline-primary'] },
+                { color: 'default', appearance: 'outline', classes: ['btn-outline-default'] },
+                { color: 'primary', appearance: 'link', classes: ['btn-link'] },
+                { color: 'danger', appearance: 'link', classes: ['btn-link', 'btn-link-danger'] },
+                { color: 'success', appearance: 'link', classes: ['btn-link', 'btn-link-success'] },
+                { color: 'secondary', appearance: 'link', classes: ['btn-link', 'btn-link-primary-weak'] }
+            ];
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-color-appearance')).nativeElement;
+            cases.forEach(({ color, appearance, classes }) => {
+                basicTestComponent.color = color;
+                basicTestComponent.appearance = appearance;
+                fixture.detectChanges();
+                classes.forEach(className => {
+                    expect(btnElement.classList.contains(className)).toBeTruthy();
+                });
+            });
+        });
+
+        it('should prefer thyColor and thyAppearance over legacy type string', () => {
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-appearance-priority')).nativeElement;
+            basicTestComponent.color = 'danger';
+            basicTestComponent.appearance = 'link';
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('btn-link')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-link-danger')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-outline-primary')).toBeFalsy();
+        });
+
+        it('should map legacy link-secondary and link-danger-weak', () => {
+            basicTestComponent.type = 'link-secondary';
+            fixture.detectChanges();
+            let btnElement: HTMLElement = buttonComponent.nativeElement;
+            expect(btnElement.classList.contains('btn-link')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-link-primary-weak')).toBeTruthy();
+
+            basicTestComponent.type = 'link-danger-weak';
+            fixture.detectChanges();
+            btnElement = buttonComponent.nativeElement;
+            expect(btnElement.classList.contains('btn-link')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-link-danger-weak')).toBeTruthy();
         });
 
         it('should set loading success', () => {
@@ -428,7 +490,12 @@ describe('ThyIconButton', () => {
 @Component({
     selector: 'thy-demo-button-group',
     template: `
-        <thy-button-group [thySize]="size" [thyType]="type" [thyClearMinWidth]="clearMinWidth">
+        <thy-button-group
+            [thySize]="size"
+            [thyType]="type"
+            [thyColor]="color"
+            [thyAppearance]="appearance"
+            [thyClearMinWidth]="clearMinWidth">
             <button thyButton>Left</button>
             <button thyButton>Middle</button>
             <button thyButton>Right</button>
@@ -439,6 +506,8 @@ describe('ThyIconButton', () => {
 class ThyDemoButtonGroupComponent {
     size = ``;
     type = `outline-primary`;
+    color = '';
+    appearance: 'fill' | 'outline' | '' = '';
     clearMinWidth = false;
 }
 
@@ -471,6 +540,37 @@ describe('ThyButtonGroup', () => {
         basicTestComponent.type = `outline-default`;
         fixture.detectChanges();
         expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-outline-default')).toBe(true);
+    });
+
+    it('should set classes with thyColor and thyAppearance', () => {
+        basicTestComponent.type = '';
+        basicTestComponent.color = 'default';
+        basicTestComponent.appearance = 'outline';
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-outline-default')).toBe(true);
+
+        basicTestComponent.color = 'primary';
+        basicTestComponent.appearance = 'fill';
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-primary')).toBe(true);
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-outline-default')).toBe(false);
+    });
+
+    it('should default to outline when only thyColor is set', () => {
+        basicTestComponent.type = '';
+        basicTestComponent.color = 'primary';
+        basicTestComponent.appearance = '';
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-outline-primary')).toBe(true);
+    });
+
+    it('should prefer thyColor and thyAppearance over legacy type', () => {
+        basicTestComponent.type = 'outline-default';
+        basicTestComponent.color = 'primary';
+        basicTestComponent.appearance = 'fill';
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-primary')).toBe(true);
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-outline-default')).toBe(false);
     });
 
     it('should have correct class when size is lg', () => {
