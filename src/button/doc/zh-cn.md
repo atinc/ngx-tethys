@@ -44,6 +44,7 @@ import { ThyButtonModule } from "ngx-tethys/button";
 <button thyButton="primary" thyAppearance="outline">Outline</button>
 <button thyButton="danger" thyAppearance="link">Link</button>
 ```
+<example name="thy-button-appearance-example"></example>
 
 仍可使用 `thyButton="outline-primary"`、`thyButton="link-danger"` 等组合写法。
 
