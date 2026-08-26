@@ -1,4 +1,4 @@
-<thy-button-group thySize="sm" thyColor="default" thyAppearance="outline">
+<thy-button-group thySize="sm" thyType="outline-default">
   @for (item of sizes; track $index) {
     <button thyButton (click)="size = item.value" [ngClass]="{ active: item.value === size }">
       {{ item.value }}
@@ -7,7 +7,7 @@
 </thy-button-group>
 
 <div class="mt-4">
-  <thy-button-group [thySize]="size" thyColor="default" thyAppearance="outline">
+  <thy-button-group [thySize]="size" thyType="outline-default">
     <button thyButton class="disabled">Left</button>
     <button thyButton class="active">Middle</button>
     <button thyButton>Right</button>
@@ -15,7 +15,7 @@
 </div>
 
 <div class="mt-2">
-  <thy-button-group [thySize]="size" thyColor="primary" thyAppearance="outline">
+  <thy-button-group [thySize]="size" thyType="outline-primary">
     <button thyButton class="disabled">Left</button>
     <button thyButton class="active">Middle</button>
     <button thyButton>Right</button>
@@ -23,20 +23,20 @@
 </div>
 
 <div class="mt-2">
-  <thy-button-group [thySize]="size" thyColor="primary" thyAppearance="fill">
+  <thy-button-group [thySize]="size" thyType="primary">
     <button thyButton><thy-icon thyIconName="angle-left"></thy-icon>Backward</button>
     <button thyButton>Forward <thy-icon thyIconName="angle-right"></thy-icon></button>
   </thy-button-group>
 </div>
 
-<thy-button-group class="mt-2" [thySize]="size" thyColor="primary" thyAppearance="fill">
+<thy-button-group class="mt-2" [thySize]="size" thyType="primary">
   <button thyButton><thy-icon thyIconName="plus"></thy-icon>New</button>
   <button thyButton><thy-icon thyIconName="caret-down"></thy-icon></button>
 </thy-button-group>
 
 <div class="mt-4">
   <div class="mb-2">Use Button Icon</div>
-  <thy-button-group [thySize]="size" thyColor="default">
+  <thy-button-group [thySize]="size" thyType="outline-default">
     <button thyButtonIcon="user-add" class="active"></button>
     <button thyButtonIcon="list-sample-fill"></button>
   </thy-button-group>
@@ -44,7 +44,7 @@
 
 <div class="mt-4">
   <div class="mb-2">Clear Min Width</div>
-  <thy-button-group [thySize]="size" thyColor="primary" thyAppearance="outline" thyClearMinWidth="true">
+  <thy-button-group [thySize]="size" thyType="outline-primary" thyClearMinWidth="true">
     <button thyButton class="disabled">Left</button>
     <button thyButton class="active">Middle</button>
     <button thyButton>Right</button>

@@ -33,15 +33,19 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ## 基本使用
 推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
 ```html
-<button thyButton thyColor="primary">Primary</button>
-<button thyButton thyColor="primary" thyAppearance="outline">Outline</button>
-<button thyButton thyColor="danger" thyAppearance="link">Link</button>
-<button thyButton thyColor="primary" disabled>Primary</button>
+<button thyButton="primary">Primary</button>
+<button thyButton="primary" disabled>Primary</button>
+```
+<example name="thy-button-basic-example"></example>
+
+## 按钮外观
+通过 `thyAppearance` 控制按钮外观，可选 `fill`（默认）、`outline`、`link`。需与 `thyButton`/`thyType` 中的颜色配合使用。
+```html
+<button thyButton="primary" thyAppearance="outline">Outline</button>
+<button thyButton="danger" thyAppearance="link">Link</button>
 ```
 
-旧的组合写法（如 `thyButton="outline-primary"`、`thyButton="link-danger"`）仍然可用，但已废弃，请迁移到 `thyColor` + `thyAppearance`。
-
-<example name="thy-button-basic-example"></example>
+仍可使用 `thyButton="outline-primary"`、`thyButton="link-danger"` 等组合写法。
 
 ## 按钮链接
 <example name="thy-button-link-example"></example>
