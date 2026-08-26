@@ -17,7 +17,14 @@ import {
     viewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getFlexiblePositions, getOverlayGlobalConfig, THY_GLOBAL_CONFIG, thyAnimationZoom, ThyGlobalConfig, ThyPlacement } from 'ngx-tethys/core';
+import {
+    getFlexiblePositions,
+    getOverlayGlobalConfig,
+    THY_GLOBAL_CONFIG,
+    thyAnimationZoom,
+    ThyGlobalConfig,
+    ThyPlacement
+} from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';

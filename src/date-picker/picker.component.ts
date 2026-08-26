@@ -1,4 +1,11 @@
-import { getFlexiblePositions, getOverlayGlobalConfig, THY_GLOBAL_CONFIG, ThyGlobalConfig, ThyPlacement, thyAnimationZoom } from 'ngx-tethys/core';
+import {
+    getFlexiblePositions,
+    getOverlayGlobalConfig,
+    THY_GLOBAL_CONFIG,
+    ThyGlobalConfig,
+    ThyPlacement,
+    thyAnimationZoom
+} from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import {

@@ -24,12 +24,8 @@ export class ThyButtonSizeExampleComponent implements OnInit {
             height: 32
         },
         {
-            value: 'default',
-            height: 36
-        },
-        {
             value: 'lg',
-            height: 44
+            height: 36
         }
     ];
 

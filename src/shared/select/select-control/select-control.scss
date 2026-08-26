@@ -36,7 +36,7 @@
     }
     &.form-control-lg {
         @include select.select-control-size(
-            variables.$tag-height-lg,
+            variables.$select-control-tag-height-lg,
             variables.$select-control-padding-y-lg,
             variables.$select-control-height-lg
         );

@@ -41,7 +41,7 @@
     @include mixin.button-icon-spacing(7px);
 
     &.thy-btn-icon-only {
-        @include mixin.btn-icon-only-variant(variables.$btn-padding-y, 0.625rem);
+        @include mixin.btn-icon-only-variant(variables.$btn-padding-y, variables.$btn-icon-only-padding-x);
     }
 
     @include hover.hover-focus {
@@ -134,7 +134,7 @@ fieldset:disabled a.btn {
         variables.$btn-lg-min-width
     );
     &.thy-btn-icon-only {
-        @include mixin.btn-icon-only-variant(variables.$btn-padding-y-lg, 0.875rem);
+        @include mixin.btn-icon-only-variant(variables.$btn-padding-y-lg, variables.$btn-icon-only-padding-x-lg);
     }
 }
 

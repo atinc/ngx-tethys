@@ -186,9 +186,9 @@
 
 .btn-icon-lg {
     @include mixin.btn-icon-size-variant(
-        variables.$font-size-lg,
+        variables.$btn-icon-font-size-lg,
         variables.$btn-icon-circle-padding-lg,
-        variables.$font-size-lg,
+        variables.$btn-icon-font-size-lg,
         variables.$input-btn-height-lg
     );
     &.btn-icon-circle.active,
