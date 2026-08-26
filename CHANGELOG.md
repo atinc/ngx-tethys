@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.12](github.com/atinc/ngx-tethys/compare/21.0.11...21.0.12) (2026-08-26)
+
+
+### Bug Fixes
+
+* **nav:** limit more menu dropdown height in responsive mode #TINFR-3838 ([#3862](/github.com/atinc/ngx-tethys/issues/3862)) ([ac3992a](github.com/atinc/ngx-tethys/commits/ac3992af0379c629aa70d24c81c1c2e9b810337f)), closes [#TINFR-3838](github.com/atinc/ngx-tethys/issues/TINFR-3838)
+* **nav:** support non-link nav items and disable pointer events #TINFR-3844 ([#3863](/github.com/atinc/ngx-tethys/issues/3863)) ([dc27442](github.com/atinc/ngx-tethys/commits/dc27442e6eb49aa774d8ca2f1764158d3a3105b5)), closes [#TINFR-3844](github.com/atinc/ngx-tethys/issues/TINFR-3844)
+
+
+### Features
+
+* **core:** adjust size #NEXUS-4458 ([#3861](/github.com/atinc/ngx-tethys/issues/3861)) ([ed08a0b](github.com/atinc/ngx-tethys/commits/ed08a0b6e76769bc67bb6da30f0fc0c3f1f9fe28)), closes [#NEXUS-4458](github.com/atinc/ngx-tethys/issues/NEXUS-4458)
+
 ## [21.0.11](github.com/atinc/ngx-tethys/compare/21.0.10...21.0.11) (2026-08-25)
 
 
