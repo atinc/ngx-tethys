@@ -176,7 +176,7 @@ $input-btn-height-xs: 24px !default;
 
 $input-btn-line-height-md: $line-height-base !default;
 $input-btn-line-height-sm: $line-height-sm !default;
-$input-btn-line-height-lg: $line-height-lg !default;
+$input-btn-line-height-lg: $line-height-base !default;
 $input-btn-line-height-xs: $line-height-xs !default;
 
 $input-btn-padding-x-md: 1rem !default;
@@ -263,7 +263,7 @@ $btn-group-btn-padding-x-xs: 10px !default;
 // input-padding-x 之前是 0.875rem, 芳美说太大了，改成了 10px 大小
 $input-font-size-md: $font-size-base !default;
 $input-font-size-sm: $font-size-base !default;
-$input-font-size-lg: $font-size-xlg !default;
+$input-font-size-lg: $font-size-base !default;
 
 $input-line-height-xs: $input-btn-line-height-xs !default;
 $input-line-height-md: $input-btn-line-height-md !default;
