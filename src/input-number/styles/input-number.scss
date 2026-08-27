@@ -15,6 +15,10 @@
     @include transition.transition(bootstrap-variables.$input-transition);
     .input-number-input {
         padding-right: variables.$input-padding-x-md + variables.$rem-20px;
+
+        &.form-control-lg {
+            padding-right: variables.$input-padding-x-lg + variables.$rem-20px;
+        }
     }
     .input-number-handler-wrap {
         width: 22px;

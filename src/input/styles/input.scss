@@ -212,6 +212,10 @@
     position: relative; // Ensure icons don't overlap text
     .form-control {
         padding-right: 2 * variables.$input-padding-x-md + 1rem;
+
+        &.form-control-lg {
+            padding-right: 2 * variables.$input-padding-x-lg + 1rem;
+        }
     }
 }
 
@@ -233,12 +237,20 @@
     color: variables.$input-icon-color;
 }
 
+.form-control-lg ~ .form-control-feedback {
+    right: variables.$input-padding-x-lg;
+}
+
 .form-group {
     > .col,
     > [class*='col-'] {
         > .form-control-feedback {
             // 0.9375rem is ($grid-gutter-width / 2)
             right: 0.9375rem + variables.$input-padding-x-md;
+        }
+
+        > .form-control-lg ~ .form-control-feedback {
+            right: 0.9375rem + variables.$input-padding-x-lg;
         }
     }
 }

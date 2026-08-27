@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
-import { SafeAny } from 'ngx-tethys/types';
+import { SafeAny, ThyInputSize } from 'ngx-tethys/types';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
@@ -124,7 +124,7 @@ export abstract class AbstractPickerComponent
     /**
      * 输入框的大小
      */
-    readonly thySize = input<'lg' | 'md' | 'sm' | 'xs'>('md');
+    readonly thySize = input<ThyInputSize>('md');
 
     /**
      * 设置时间戳精度

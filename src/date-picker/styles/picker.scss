@@ -125,6 +125,10 @@
     }
     .form-control {
         padding-right: variables.$input-padding-x-md + variables.$font-size-md;
+
+        &.form-control-lg {
+            padding-right: variables.$input-padding-x-lg + variables.$font-size-md;
+        }
     }
 
     &-input {
