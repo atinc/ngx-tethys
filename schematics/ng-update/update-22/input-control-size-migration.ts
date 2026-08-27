@@ -11,8 +11,8 @@ import {
 } from '@angular/compiler';
 
 /**
- * Components whose old implicit/default size was 36px and whose new default is md (32px).
- * Keep this list explicit because thySize is shared by unrelated components such as avatar.
+ * 旧版隐式或默认尺寸为 36px、新版默认尺寸为 md（32px）的组件。
+ * 由于 Avatar 等无关组件也使用 thySize，因此这里明确列出受影响的组件。
  */
 const SIZE_AFFECTED_ELEMENTS = new Set([
     'thy-button',
@@ -39,9 +39,8 @@ const SIZE_AFFECTED_ELEMENTS = new Set([
 const SIZE_AFFECTED_DIRECTIVES = new Set(['thyButton', 'thy-button', 'thyButtonIcon', 'thy-button-icon', 'thyInput']);
 
 /**
- * Removed public Sass variables that are consumed by downstream projects.
- * Their replacements use the lg variants because the removed defaults represented
- * the old 36px visual size.
+ * 下游项目仍在使用、但本次会被删除的公共 Sass 变量。
+ * 被删除的默认变量代表旧版 36px 视觉尺寸，因此统一替换为对应的 lg 变量。
  */
 const SASS_VARIABLE_REPLACEMENTS = new Map([
     ['input-btn-height', 'input-btn-height-lg'],
@@ -57,8 +56,7 @@ export class InputControlSizeMigration extends Migration<UpgradeData> {
     enabled = true;
 
     override visitStylesheet(stylesheet: ResolvedResource): void {
-        // External Sass files are handled by postAnalysis so that global and otherwise
-        // unreferenced stylesheets are migrated as well.
+        // 外部 Sass 文件统一在 postAnalysis 中处理，以覆盖全局样式及未被组件直接引用的样式文件。
         if (stylesheet.inline) {
             this.migrateSassVariables(stylesheet.content, stylesheet.filePath, stylesheet.start);
         }
