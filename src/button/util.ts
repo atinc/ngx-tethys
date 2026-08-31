@@ -1,5 +1,28 @@
 export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
 
+/**
+ * 特殊 color × appearance 映射（对齐旧 btnTypeClassesMap 中无法由规则推导的项）。
+ * - secondary fill → 中号主按钮
+ * - secondary / default / danger-weak 在无对应 class 的外观下回退到合法组合
+ */
+const specialButtonClassesMap: Record<string, Partial<Record<ThyButtonAppearance, string[]>>> = {
+    secondary: {
+        fill: ['btn-primary', 'btn-md'],
+        outline: ['btn-outline-default'],
+        link: ['btn-link', 'btn-link-primary-weak']
+    },
+    default: {
+        fill: ['btn-outline-default'],
+        outline: ['btn-outline-default'],
+        link: ['btn-link', 'btn-link-default']
+    },
+    'danger-weak': {
+        fill: ['btn-link', 'btn-link-danger-weak'],
+        outline: ['btn-link', 'btn-link-danger-weak'],
+        link: ['btn-link', 'btn-link-danger-weak']
+    }
+};
+
 /** 从 thyButton/thyType 组合值解析 color × appearance */
 export function parseButtonStyle(value: string): { color: string; appearance: ThyButtonAppearance } {
     if (value === 'link') {
@@ -12,24 +35,12 @@ export function parseButtonStyle(value: string): { color: string; appearance: Th
     return { color: value, appearance: 'fill' };
 }
 
-/**
- * appearance × color → btn-* class。
- * `secondary` / `default` / `danger-weak` 无对应 class 时先约束到合法色或外观，再走统一组装。
- */
+/** appearance × color → btn-* class */
 export function buildButtonClassesByAppearance(color: string, appearance: ThyButtonAppearance): string[] {
-    // 历史特例：secondary fill = 中号主按钮
-    if (color === 'secondary' && appearance === 'fill') {
-        return ['btn-primary', 'btn-md'];
+    const special = specialButtonClassesMap[color]?.[appearance];
+    if (special) {
+        return [...special];
     }
-
-    if (color === 'default' && appearance === 'fill') {
-        appearance = 'outline';
-    } else if (color === 'danger-weak') {
-        appearance = 'link';
-    } else if (color === 'secondary') {
-        color = appearance === 'outline' ? 'default' : 'primary-weak';
-    }
-
     switch (appearance) {
         case 'outline':
             return [`btn-outline-${color}`];
