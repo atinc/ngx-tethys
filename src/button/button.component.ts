@@ -16,9 +16,9 @@ import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
-import { resolveButtonClasses } from './util';
+import { resolveButtonClasses, type ThyButtonAppearance } from './util';
 
-export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
+export type { ThyButtonAppearance };
 
 export type ThyButtonType =
     | 'primary'
@@ -86,9 +86,9 @@ export class ThyButton {
     readonly thyType = input<ThyButtonType>();
 
     /**
-     * 按钮外观：fill 填充、outline 线框、link 链接。设置后与 `thyButton`/`thyType` 中的颜色组合生效
+     * 按钮外观：fill 填充、outline 线框、link 链接。与 `thyButton`/`thyType` 中的颜色组合生效。
+     * 未设置时沿用 type 字符串解析出的外观（如 `outline-primary` → outline）；显式传入时覆盖。
      * @type fill | outline | link
-     * @default fill
      */
     readonly thyAppearance = input<ThyButtonAppearance>();
 

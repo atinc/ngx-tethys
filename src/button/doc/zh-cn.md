@@ -39,7 +39,19 @@ import { ThyButtonModule } from "ngx-tethys/button";
 <example name="thy-button-basic-example"></example>
 
 ## 按钮外观
-通过 `thyAppearance` 控制按钮外观，可选 `fill`（默认）、`outline`、`link`。需与 `thyButton`/`thyType` 中的颜色配合使用。
+通过 `thyAppearance` 控制按钮外观，可选 `fill`、`outline`、`link`。需与 `thyButton`/`thyType` 中的颜色配合使用。
+
+未设置 `thyAppearance` 时，沿用 type 字符串中的外观（如 `outline-primary` → outline、`link-danger` → link）；显式传入时覆盖。
+
+合法颜色 × 外观：
+
+| 颜色 | fill | outline | link |
+|------|------|---------|------|
+| `primary` / `info` / `warning` / `danger` / `success` | ✓ | ✓ | ✓ |
+| `default` | —（无 `.btn-default`，会回退为 outline） | ✓ | ✓（`btn-link-default`） |
+| `secondary` | ✓（特例：`btn-primary btn-md`） | 回退为 `outline-default` | ✓（`btn-link-primary-weak`） |
+| `danger-weak` | — | — | ✓（`btn-link-danger-weak`） |
+
 ```html
 <button thyButton="primary" thyAppearance="outline">Outline</button>
 <button thyButton="danger" thyAppearance="link">Link</button>

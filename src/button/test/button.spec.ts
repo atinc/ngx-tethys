@@ -25,7 +25,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <thy-button id="btn-thy-loading" [thyType]="type" [thyLoading]="loading" (click)="onClick()">Loading Button</thy-button>
         <button id="btn-native-loading" [thyButton]="type" [thyLoading]="loading" (click)="onClick()">Native Loading</button>
         <a id="btn-anchor" thyButton="primary" [thyDisabled]="disabled" (click)="onClick()">Anchor Button</a>
-        <button id="btn-appearance" thyButton="primary" [thyAppearance]="appearance">Appearance Button</button>
+        <button id="btn-appearance" [thyButton]="type" [thyAppearance]="appearance">Appearance Button</button>
         <button id="btn-appearance-override" thyButton="outline-primary" [thyAppearance]="appearance">Appearance Override</button>
     `,
     imports: [ThyButtonModule]
@@ -159,6 +159,32 @@ describe('ThyButton', () => {
             fixture.detectChanges();
             const btnElement: HTMLElement = buttonComponent.nativeElement;
             expect(btnElement.classList.contains('btn-outline-primary')).toBeTruthy();
+        });
+
+        it('should constrain secondary / default / danger-weak with thyAppearance', () => {
+            const cases: Array<{ type: string; appearance: 'fill' | 'outline' | 'link'; classes: string[]; absent?: string[] }> = [
+                { type: 'secondary', appearance: 'fill', classes: ['btn-primary', 'btn-md'] },
+                { type: 'secondary', appearance: 'link', classes: ['btn-link', 'btn-link-primary-weak'] },
+                { type: 'secondary', appearance: 'outline', classes: ['btn-outline-default'], absent: ['btn-outline-secondary'] },
+                { type: 'default', appearance: 'fill', classes: ['btn-outline-default'], absent: ['btn-default'] },
+                { type: 'default', appearance: 'outline', classes: ['btn-outline-default'] },
+                { type: 'default', appearance: 'link', classes: ['btn-link', 'btn-link-default'] },
+                { type: 'danger-weak', appearance: 'fill', classes: ['btn-link', 'btn-link-danger-weak'], absent: ['btn-danger-weak'] },
+                { type: 'danger-weak', appearance: 'outline', classes: ['btn-link', 'btn-link-danger-weak'], absent: ['btn-outline-danger-weak'] },
+                { type: 'danger-weak', appearance: 'link', classes: ['btn-link', 'btn-link-danger-weak'] }
+            ];
+            const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-appearance')).nativeElement;
+            cases.forEach(({ type, appearance, classes, absent }) => {
+                basicTestComponent.type = type;
+                basicTestComponent.appearance = appearance;
+                fixture.detectChanges();
+                classes.forEach(className => {
+                    expect(btnElement.classList.contains(className)).toBeTruthy();
+                });
+                (absent || []).forEach(className => {
+                    expect(btnElement.classList.contains(className)).toBeFalsy();
+                });
+            });
         });
 
         it('should set loading success', () => {
