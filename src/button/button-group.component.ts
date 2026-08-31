@@ -1,7 +1,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { Component, effect, HostBinding, input, Input, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { ThyButtonSize } from 'ngx-tethys/types';
+import { ThyButtonSize } from './button.component';
 
 export type ButtonGroupType = 'outline-primary' | 'outline-default';
 

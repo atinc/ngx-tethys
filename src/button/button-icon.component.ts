@@ -2,8 +2,8 @@ import { NgClass } from '@angular/common';
 import { Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyButtonSize } from 'ngx-tethys/types';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { ThyButtonSize } from './button.component';
 
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
 

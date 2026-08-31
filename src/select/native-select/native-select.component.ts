@@ -68,8 +68,8 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
     }
 
     ngOnInit() {
-        const size = this.thySize();
-        const classes = size ? [`thy-select-${size}`] : [];
+        const size = this.thySize() || 'md';
+        const classes = [`thy-select-${size}`];
         this.hostRenderer.updateClass(classes);
     }
 

@@ -9,7 +9,7 @@
   [thyIsMultiple]="isMultiple()"
   [thyShowSearch]="thyShowSearch()"
   [thyAllowClear]="thyAllowClear()"
-  [thySize]="thySize()"
+  [thySize]="thySize() || 'md'"
   [thyPlaceholder]="thyPlaceHolder()"
   [customDisplayTemplate]="selectedValueDisplayRef()"
   [thyDisabled]="disabled"
@@ -70,7 +70,7 @@
 <ng-template #virtualScrollTemplate>
   <div
     #panel
-    class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }} thy-select-dropdown-options-with-virtual-scroll">
+    class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() || 'md' }} thy-select-dropdown-options-with-virtual-scroll">
     <cdk-virtual-scroll-viewport
       class="thy-select-scroll-viewport"
       [itemSize]="thyItemSize()"
@@ -102,7 +102,7 @@
 <ng-template #defaultTemplate>
   <div
     #panel
-    class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() }}"
+    class="thy-select-dropdown-options thy-select-dropdown-options-{{ thySize() || 'md' }}"
     thyScroll
     [thyEnable]="thyEnableScrollLoad()"
     (thyOnScrolled)="optionsScrolled($event)"
