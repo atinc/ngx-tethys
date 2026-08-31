@@ -43,14 +43,12 @@ import { ThyButtonModule } from "ngx-tethys/button";
 
 未设置 `thyAppearance` 时，沿用 type 字符串中的外观（如 `outline-primary` → outline、`link-danger` → link）；显式传入时覆盖。
 
-合法颜色 × 外观：
+常用组合：
+- fill：`primary` / `info` / `warning` / `danger` / `success`（`secondary` 为特例，等同中号主按钮）
+- outline：`default` / `primary` / `info` / `warning` / `danger` / `success`
+- link：`primary`（可省略）/ `secondary` / `danger-weak` / `danger` / `success` 等
 
-| 颜色 | fill | outline | link |
-|------|------|---------|------|
-| `primary` / `info` / `warning` / `danger` / `success` | ✓ | ✓ | ✓ |
-| `default` | —（无 `.btn-default`，会回退为 outline） | ✓ | ✓（`btn-link-default`） |
-| `secondary` | ✓（特例：`btn-primary btn-md`） | 回退为 `outline-default` | ✓（`btn-link-primary-weak`） |
-| `danger-weak` | — | — | ✓（`btn-link-danger-weak`） |
+`default`、`danger-weak` 仅用于 outline / link，不要与 fill 组合（库中无对应实心 class）。
 
 ```html
 <button thyButton="primary" thyAppearance="outline">Outline</button>

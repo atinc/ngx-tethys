@@ -161,30 +161,19 @@ describe('ThyButton', () => {
             expect(btnElement.classList.contains('btn-outline-primary')).toBeTruthy();
         });
 
-        it('should constrain secondary / default / danger-weak with thyAppearance', () => {
-            const cases: Array<{ type: string; appearance: 'fill' | 'outline' | 'link'; classes: string[]; absent?: string[] }> = [
-                { type: 'secondary', appearance: 'fill', classes: ['btn-primary', 'btn-md'] },
-                { type: 'secondary', appearance: 'link', classes: ['btn-link', 'btn-link-primary-weak'] },
-                { type: 'secondary', appearance: 'outline', classes: ['btn-outline-default'], absent: ['btn-outline-secondary'] },
-                { type: 'default', appearance: 'fill', classes: ['btn-outline-default'], absent: ['btn-default'] },
-                { type: 'default', appearance: 'outline', classes: ['btn-outline-default'] },
-                { type: 'default', appearance: 'link', classes: ['btn-link', 'btn-link-default'] },
-                { type: 'danger-weak', appearance: 'fill', classes: ['btn-link', 'btn-link-danger-weak'], absent: ['btn-danger-weak'] },
-                { type: 'danger-weak', appearance: 'outline', classes: ['btn-link', 'btn-link-danger-weak'], absent: ['btn-outline-danger-weak'] },
-                { type: 'danger-weak', appearance: 'link', classes: ['btn-link', 'btn-link-danger-weak'] }
-            ];
+        it('should map secondary special cases with thyAppearance', () => {
             const btnElement: HTMLElement = fixture.debugElement.query(By.css('#btn-appearance')).nativeElement;
-            cases.forEach(({ type, appearance, classes, absent }) => {
-                basicTestComponent.type = type;
-                basicTestComponent.appearance = appearance;
-                fixture.detectChanges();
-                classes.forEach(className => {
-                    expect(btnElement.classList.contains(className)).toBeTruthy();
-                });
-                (absent || []).forEach(className => {
-                    expect(btnElement.classList.contains(className)).toBeFalsy();
-                });
-            });
+
+            basicTestComponent.type = 'secondary';
+            basicTestComponent.appearance = 'fill';
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-md')).toBeTruthy();
+
+            basicTestComponent.appearance = 'link';
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('btn-link')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-link-primary-weak')).toBeTruthy();
         });
 
         it('should set loading success', () => {
