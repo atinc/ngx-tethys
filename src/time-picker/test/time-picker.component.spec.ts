@@ -8,7 +8,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTimePicker, ThyTimePickerModule } from 'ngx-tethys/time-picker';
-import { ThyInputSize } from 'ngx-tethys/types';
+import { ThyInputSize } from 'ngx-tethys/input';
 
 describe('ThyTimePickerComponent', () => {
     let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;

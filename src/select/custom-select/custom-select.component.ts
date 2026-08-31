@@ -85,7 +85,8 @@ import {
     ThySelectConfig
 } from '../select.config';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
-import { SafeAny, ThyInputSize } from 'ngx-tethys/types';
+import { ThyInputSize } from 'ngx-tethys/input';
+import { SafeAny } from 'ngx-tethys/types';
 import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isUndefinedOrNull } from '@tethys/cdk/is';

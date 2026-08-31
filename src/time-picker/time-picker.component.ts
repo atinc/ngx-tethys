@@ -26,8 +26,7 @@ import {
 } from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyInputDirective } from 'ngx-tethys/input';
-import { ThyInputSize } from 'ngx-tethys/types';
+import { ThyInputDirective, ThyInputSize } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 

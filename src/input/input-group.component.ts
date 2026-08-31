@@ -15,14 +15,13 @@ import {
 } from '@angular/core';
 import { ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyInputDirective } from './input.directive';
+import { ThyInputDirective, ThyInputSize } from './input.directive';
 import { NgTemplateOutlet } from '@angular/common';
 import { throttleTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { ThyInputSize } from 'ngx-tethys/types';
 
 export type InputGroupSize = Exclude<ThyInputSize, 'xs'>;
 

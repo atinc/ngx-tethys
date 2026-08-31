@@ -21,8 +21,7 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputDirective } from './input.directive';
-import { ThyInputSize } from 'ngx-tethys/types';
+import { ThyInputDirective, ThyInputSize } from './input.directive';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {

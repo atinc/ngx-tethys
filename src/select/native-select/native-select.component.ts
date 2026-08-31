@@ -4,8 +4,8 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyInputDirective } from 'ngx-tethys/input';
-import { SafeAny, ThyInputSize } from 'ngx-tethys/types';
+import { ThyInputDirective, ThyInputSize } from 'ngx-tethys/input';
+import { SafeAny } from 'ngx-tethys/types';
 
 const noop = () => {};
 

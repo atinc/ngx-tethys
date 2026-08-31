@@ -21,7 +21,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
-import { SafeAny, ThyInputSize } from 'ngx-tethys/types';
+import { ThyInputSize } from 'ngx-tethys/input';
+import { SafeAny } from 'ngx-tethys/types';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';

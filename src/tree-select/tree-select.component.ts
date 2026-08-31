@@ -10,7 +10,7 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
-import { ThyInputSize } from 'ngx-tethys/types';
+import { ThyInputSize } from 'ngx-tethys/input';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce } from 'ngx-tethys/util';
 import { from, Observable, of } from 'rxjs';
