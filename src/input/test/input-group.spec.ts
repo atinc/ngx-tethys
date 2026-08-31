@@ -25,7 +25,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 })
 class TestInputGroupBasicComponent {
     value = '';
-    thySize = '';
+    thySize = 'md';
     disabled = false;
 }
 
@@ -47,7 +47,7 @@ class TestInputGroupBasicComponent {
 })
 class TestInputGroupPrefixAndSuffixComponent {
     value = '';
-    thySize = '';
+    thySize = 'md';
     disabled = false;
 }
 

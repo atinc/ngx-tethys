@@ -28,7 +28,7 @@ class BasicNativeSelectComponent {
 
     value = '';
     allowClear = false;
-    size = '';
+    size = 'md';
     disabled = true;
     change(): void {}
 }
@@ -95,10 +95,10 @@ describe(`select`, () => {
 
         it('should has correct size', () => {
             const sizes = ['xs', 'sm', 'md', 'lg'];
-            testComponent.size = '';
+            testComponent.size = 'md';
             fixture.detectChanges();
             sizes.forEach(size => {
-                expect(selectElementChildren[0].classList.value.includes(`form-control-${size}`)).toBe(false);
+                expect(selectElementChildren[0].classList.value.includes(`form-control-${size}`)).toBe(size === 'md');
             });
             sizes.forEach(size => {
                 testComponent.size = size;

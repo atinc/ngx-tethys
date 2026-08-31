@@ -16,6 +16,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
+export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg';
+
 export type ThyButtonType =
     | 'primary'
     | 'secondary'
@@ -117,10 +119,10 @@ export class ThyButton {
 
     /**
      * 按钮大小
-     * @type xs | sm | md | default | lg
-     * @default default
+     * @type xs | sm | md | lg
+     * @default md
      */
-    readonly thySize = input<string>();
+    readonly thySize = input<ThyButtonSize>('md');
 
     /**
      * 按钮中显示的图标，支持SVG图标名称，比如`angle-left`，也支持传之前的 wtf 字体，比如: wtf-plus

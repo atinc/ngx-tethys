@@ -4,10 +4,8 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyInputDirective, ThyInputSize } from 'ngx-tethys/input';
 import { SafeAny } from 'ngx-tethys/types';
-
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 const noop = () => {};
 
@@ -44,7 +42,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
 
     private hostRenderer = useHostRenderer();
 
-    readonly thySize = input<InputSize>();
+    readonly thySize = input<ThyInputSize>('md');
 
     readonly name = input<string>();
 
@@ -71,7 +69,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
 
     ngOnInit() {
         const size = this.thySize();
-        const classes = size ? [`thy-select-${size}`] : [];
+        const classes = [`thy-select-${size}`];
         this.hostRenderer.updateClass(classes);
     }
 

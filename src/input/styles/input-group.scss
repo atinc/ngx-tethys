@@ -139,17 +139,13 @@
 .input-group-text {
     display: flex;
     align-items: center;
-    padding: variables.$input-padding-y variables.$input-padding-x;
     margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
-    font-size: variables.$font-size-base; // Match inputs
     font-weight: bootstrap-variables.$font-weight-normal;
-    line-height: bootstrap-variables.$input-line-height;
     color: variables.$input-group-addon-color;
     text-align: center;
     white-space: nowrap;
     background-color: variables.$input-group-addon-bg;
     border: bootstrap-variables.$input-border-width solid bootstrap-variables.$input-group-addon-border-color;
-    @include border-radius.border-radius(bootstrap-variables.$input-border-radius);
 
     // Nuke default margins from checkboxes and radios to vertically center within.
     input[type='radio'],
@@ -228,22 +224,21 @@
     }
 
     .input-group-prefix {
-        margin-left: variables.$input-padding-x-fixed-lg;
+        margin-left: variables.$input-padding-x-fixed;
         display: inline-flex;
         align-items: center;
     }
 
     .input-group-suffix {
-        margin-right: variables.$input-padding-x-fixed-lg;
+        margin-right: variables.$input-padding-x-fixed;
     }
 
-    &.input-group-sm,
-    &.input-group-md {
+    &.input-group-lg {
         .input-group-prefix {
-            margin-left: variables.$input-padding-x-fixed;
+            margin-left: variables.$input-padding-x-fixed-lg;
         }
         .input-group-suffix {
-            margin-right: variables.$input-padding-x-fixed;
+            margin-right: variables.$input-padding-x-fixed-lg;
         }
     }
 }
@@ -256,7 +251,7 @@
     }
 }
 
-.thy-input-group-with-prefix:not(.input-group-sm):not(.input-group-md) {
+.thy-input-group-with-prefix.input-group-lg {
     .form-control {
         &:last-child {
             padding-right: variables.$input-padding-x-fixed-lg;
@@ -264,7 +259,7 @@
     }
 }
 
-.thy-input-group-with-suffix:not(.input-group-sm):not(.input-group-md) {
+.thy-input-group-with-suffix.input-group-lg {
     .form-control {
         &:first-child:not(.search-input-field) {
             padding-left: variables.$input-padding-x-fixed-lg;
