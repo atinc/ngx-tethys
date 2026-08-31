@@ -978,7 +978,7 @@ describe('ThyCustomSelect', () => {
 
             it('should has correct size', () => {
                 const sizes: ThyInputSize[] = ['xs', 'sm', 'md', 'lg'];
-                fixture.componentInstance.size = '' as ThyInputSize;
+                fixture.componentInstance.size = 'md';
                 fixture.detectChanges();
                 const formControl = fixture.debugElement.query(By.css('.form-control')).nativeElement;
                 sizes.forEach(size => {
