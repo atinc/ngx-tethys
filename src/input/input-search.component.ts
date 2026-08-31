@@ -118,9 +118,10 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
 
     /**
      * 输入框大小
-     * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
+     * @type 'xs' | 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<ThyInputSize>();
+    readonly thySize = input<ThyInputSize>('md');
 
     /**
      * @deprecated please use thyClear

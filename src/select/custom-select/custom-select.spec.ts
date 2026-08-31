@@ -10,7 +10,8 @@ import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelect, ThySelectModule } from 'ngx-tethys/select';
-import { SelectControlSize, ThyOption, ThyOptionGroupRender, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
+import { ThyOption, ThyOptionGroupRender, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
+import { ThyInputSize } from 'ngx-tethys/input';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -88,7 +89,7 @@ class BasicSelectComponent {
     control = new UntypedFormControl();
     isRequired!: boolean;
     enableScrollLoad!: boolean;
-    size: SelectControlSize = '';
+    size: ThyInputSize = 'md';
     mode: 'multiple' | '' = '';
     thyAutoActiveFirstItem = true;
     customizeOrigin!: ElementRef | HTMLElement;
@@ -976,14 +977,14 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should has correct size', () => {
-                const sizes: SelectControlSize[] = ['xs', 'sm', 'md', 'lg'];
-                fixture.componentInstance.size = '';
+                const sizes: ThyInputSize[] = ['xs', 'sm', 'md', 'lg'];
+                fixture.componentInstance.size = 'md';
                 fixture.detectChanges();
                 const formControl = fixture.debugElement.query(By.css('.form-control')).nativeElement;
                 sizes.forEach(size => {
-                    expect(formControl.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+                    expect(formControl.classList.contains(`form-control-${size}`)).toBe(size === 'md');
                 });
-                sizes.forEach((size: SelectControlSize) => {
+                sizes.forEach((size: ThyInputSize) => {
                     fixture.componentInstance.size = size;
                     fixture.detectChanges();
                     expect(formControl.classList.contains(`form-control-${size}`)).toBeTruthy();

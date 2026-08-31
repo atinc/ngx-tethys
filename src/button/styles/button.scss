@@ -28,21 +28,8 @@
         line-height: 1rem;
     }
 
-    @include mixin.button-size(
-        variables.$btn-padding-y,
-        variables.$btn-padding-x,
-        variables.$btn-font-size-base,
-        variables.$btn-line-height,
-        variables.$btn-border-radius,
-        variables.$btn-base-min-width
-    );
-
     // icon space
     @include mixin.button-icon-spacing(7px);
-
-    &.thy-btn-icon-only {
-        @include mixin.btn-icon-only-variant(variables.$btn-padding-y, variables.$btn-icon-only-padding-x);
-    }
 
     @include hover.hover-focus {
         text-decoration: none;
@@ -143,12 +130,12 @@ fieldset:disabled a.btn {
         variables.$btn-padding-y-md,
         variables.$btn-padding-x-md,
         variables.$btn-font-size-md,
-        variables.$btn-line-height,
+        variables.$btn-line-height-md,
         variables.$btn-border-radius,
         variables.$btn-md-min-width
     );
     &.thy-btn-icon-only {
-        @include mixin.btn-icon-only-variant(variables.$btn-padding-y-md, 0.5rem);
+        @include mixin.btn-icon-only-variant(variables.$btn-padding-y-md, variables.$btn-icon-only-padding-x-md);
     }
 }
 

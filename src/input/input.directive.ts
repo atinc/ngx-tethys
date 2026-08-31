@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, effect, i
 import { NgControl } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-export type ThyInputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+export type ThyInputSize = 'xs' | 'sm' | 'md' | 'lg';
 
 const inputGroupSizeMap = {
     xs: ['form-control-xs'],
@@ -31,10 +31,10 @@ export class ThyInputDirective {
 
     /**
      * 输入框大小
-     * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
-     * @default default
+     * @type 'xs' | 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<ThyInputSize>();
+    readonly thySize = input<ThyInputSize>('md');
 
     get ngControl() {
         return this.control;

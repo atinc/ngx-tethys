@@ -24,7 +24,7 @@ import {
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyInputDirective, ThyInputSize } from 'ngx-tethys/input';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue, RangePartType } from './inner-types';
@@ -66,7 +66,7 @@ export class ThyPicker implements AfterViewInit {
 
     readonly className = input<string>();
 
-    readonly size = input<'sm' | 'xs' | 'lg' | 'md' | 'default'>();
+    readonly size = input<ThyInputSize>('md');
 
     readonly suffixIcon = input<string>();
 

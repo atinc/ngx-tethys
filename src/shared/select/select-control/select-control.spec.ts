@@ -35,7 +35,7 @@ class BasicSelectControlComponent {
 
     thyAllowClear = true;
 
-    thySize: SelectControlSize = null;
+    thySize: SelectControlSize = 'md';
 
     thyIsMultiple = false;
 
@@ -90,12 +90,13 @@ describe('ThySelectControl', () => {
                 expect(selectElement.classList.contains('select-control-show-search')).toBeTruthy();
             });
 
-            it('should get size class when set thySize', () => {
-                const size: SelectControlSize = 'md';
-                expect(selectElement.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+            it('should get default size class and update it when set thySize', () => {
+                expect(selectElement.classList.contains('form-control-md')).toBeTruthy();
+                const size: SelectControlSize = 'lg';
                 fixture.componentInstance.thySize = size;
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                expect(selectElement.classList.contains('form-control-md')).not.toBeTruthy();
                 expect(selectElement.classList.contains(`form-control-${size}`)).toBeTruthy();
             });
 
