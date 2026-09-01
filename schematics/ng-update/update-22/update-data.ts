@@ -17,6 +17,14 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyHasBorder',
+                        replaceWith: 'thyDivided',
+                        limitedTo: {
+                            attributes: ['thyHeader'],
+                            elements: ['thy-header']
+                        }
+                    },
+                    {
                         replace: 'thyNavLinkActive',
                         replaceWith: 'thyNavItemActive',
                         limitedTo: {
