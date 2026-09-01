@@ -77,4 +77,58 @@ export class ActionDemoComponent {}
         expect(content).toContain('thyAppearance="lite"');
         expect(content).not.toContain('thyTheme');
     });
+
+    it('should migrate thyHasBorder to thyDivided for thyHeader', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/header-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyLayoutModule } from 'ngx-tethys/layout';
+
+@Component({
+    selector: 'app-header-demo',
+    template: \`
+        <div thyHeader thyHasBorder="true">Header</div>
+    \`,
+    imports: [ThyLayoutModule]
+})
+export class HeaderDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/header-demo.component.ts');
+        expect(content).toContain('thyDivided="true"');
+        expect(content).not.toContain('thyHasBorder');
+    });
+
+    it('should migrate thyHasBorder to thyDivided for thy-header element', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/header-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyLayoutModule } from 'ngx-tethys/layout';
+
+@Component({
+    selector: 'app-header-demo',
+    template: \`
+        <thy-header thyHasBorder="false" thyTitle="Header"></thy-header>
+    \`,
+    imports: [ThyLayoutModule]
+})
+export class HeaderDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/header-demo.component.ts');
+        expect(content).toContain('thyDivided="false"');
+        expect(content).not.toContain('thyHasBorder');
+    });
 });
