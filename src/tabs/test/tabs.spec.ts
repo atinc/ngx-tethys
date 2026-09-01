@@ -212,6 +212,22 @@ describe('tabs', () => {
             expect(tabsInstance.tabs().length).toBe(3);
         });
 
+        it('should activate first tab by default when tabs have id and thyActiveTab is not set', () => {
+            expect(tabsInstance.activeTabIndex()).toBe(0);
+
+            const navItems = fixture.debugElement.queryAll(By.css('.thy-nav-item'));
+            expect(navItems[0].nativeElement.classList.contains('active')).toBe(true);
+            expect(navItems[1].nativeElement.classList.contains('active')).toBe(false);
+            expect(navItems[2].nativeElement.classList.contains('active')).toBe(false);
+
+            const tabContents = fixture.debugElement.queryAll(By.css('.thy-tab-content'));
+            expect(tabContents[0].nativeElement.getAttribute('tabindex')).toEqual('0');
+            expect(tabContents[0].styles.display).not.toBe('none');
+            expect(tabContents[1].styles.display).toBe('none');
+            expect(tabContents[2].styles.display).toBe('none');
+            expect(tabContents[0].nativeElement.textContent).toContain('Tab1 Content');
+        });
+
         it('should emit correct data when change active tab', () => {
             const activeTabChangeSpy = spyOn(fixture.debugElement.componentInstance, 'activeTabChange');
             const tabElement = document.querySelectorAll('.thy-nav-item')[1];
@@ -345,6 +361,9 @@ describe('tabs', () => {
         });
 
         it('should show right active tab when use activeTabId identifier', () => {
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance as ThyTabs;
+            expect(tabsInstance.activeTabIndex()).toBe(1);
+
             const activeTab = fixture.debugElement.queryAll(By.css('.thy-nav-item.active'));
             const activeTabContents = fixture.debugElement.queryAll(By.css('.thy-tab-content'));
             expect(activeTab.length).toBe(1);
@@ -474,6 +493,16 @@ describe('tabs', () => {
             fixture.detectChanges();
             expect(tabContent.style.marginLeft === '-100%').toBeTruthy();
         }));
+
+        it('should emit index when tab has no id', () => {
+            const tabsInstance: ThyTabs = getDebugElement(fixture, ThyTabs).componentInstance;
+            const spy = jasmine.createSpy('active tab change');
+            tabsInstance.thyActiveTab.subscribe(spy);
+            const tabElement = fixture.debugElement.queryAll(By.css('.thy-nav-item'))[1].nativeElement;
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+            expect(spy).toHaveBeenCalledWith(1);
+        });
 
         it('should remove overflow:hidden when transitioning', fakeAsync(() => {
             const header = fixture.debugElement.nativeNode.querySelector('thy-tabs');

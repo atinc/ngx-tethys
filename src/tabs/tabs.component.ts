@@ -6,10 +6,10 @@ import {
     ElementRef,
     inject,
     input,
-    linkedSignal,
     model,
     OnInit,
     TemplateRef,
+    computed,
     contentChildren,
     effect,
     untracked
@@ -63,7 +63,7 @@ export class ThyTabs implements OnInit {
     readonly thySize = input<ThyTabsSize>('md');
 
     /**
-     * 激活的项
+     * 激活的项，支持传入 tab id 或索引
      */
     readonly thyActiveTab = model<ThyActiveTabInfo>(0);
 
@@ -88,13 +88,13 @@ export class ThyTabs implements OnInit {
      */
     readonly thyResponsive = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    readonly activeTabIndex = linkedSignal(() => {
+    readonly activeTabIndex = computed(() => {
         const activeTab = this.thyActiveTab();
-        return isNumber(activeTab) ? activeTab : undefined;
-    });
-
-    readonly activeTabId = linkedSignal(() => {
-        return this.thyActiveTab() ?? undefined;
+        const matchedIndex = this.tabs().findIndex(tab => tab.id() === activeTab);
+        if (matchedIndex >= 0) {
+            return matchedIndex;
+        }
+        return isNumber(activeTab) ? activeTab : 0;
     });
 
     transitionStarted: boolean = false;
@@ -110,7 +110,11 @@ export class ThyTabs implements OnInit {
             }
             untracked(() => {
                 this.thyAnimated() && (this.transitionStarted = true);
-                this.activeTabIndex.set(tabs.length - 1);
+                const lastIndex = tabs.length - 1;
+                const lastTab = tabs[lastIndex];
+                if (lastTab) {
+                    this.thyActiveTab.set(this.getTabValue(lastTab, lastIndex));
+                }
                 this.cd.markForCheck();
             });
         });
@@ -142,7 +146,10 @@ export class ThyTabs implements OnInit {
             return;
         }
         this.thyAnimated() && (this.transitionStarted = this.activeTabIndex() !== index);
-        const id = tab.id();
-        this.thyActiveTab.set(id ? id : index);
+        this.thyActiveTab.set(this.getTabValue(tab, index));
+    }
+
+    private getTabValue(tab: ThyTab, index: number): ThyActiveTabInfo {
+        return tab.id() ?? index;
     }
 }
