@@ -73,7 +73,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
 
     readonly active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
 
-    protected readonly appearance = computed(() => this.thyAppearance() || this.thyTheme());
+    protected readonly appearance = computed(() => this.thyAppearance());
 
     private hostRenderer = useHostRenderer();
 
@@ -112,14 +112,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
      * @type fill | lite
      * @default fill
      */
-    readonly thyAppearance = input<ThyActionAppearance>();
-
-    /**
-     * 废弃，操作图标的外观，请使用 thyAppearance 代替
-     * @type fill | lite
-     * @deprecated please use thyAppearance instead
-     */
-    readonly thyTheme = input<ThyActionAppearance>('fill');
+    readonly thyAppearance = input<ThyActionAppearance>('fill');
 
     /**
      * Hover 展示的图标
