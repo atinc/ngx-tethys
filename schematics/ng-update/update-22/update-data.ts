@@ -1,7 +1,20 @@
 import { TargetVersion, UpgradeData } from '@angular/cdk/schematics';
 
 export const upgradeData: UpgradeData = {
-    classNames: {},
+    classNames: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    { replace: 'ButtonGroupSize', replaceWith: 'ThyButtonSize' },
+                    { replace: 'TimePickerSize', replaceWith: 'ThyFormControlSize' },
+                    { replace: 'InputSize', replaceWith: 'ThyFormControlSize' },
+                    { replace: 'ThyInputSize', replaceWith: 'ThyFormControlSize' },
+                    { replace: 'SelectControlSize', replaceWith: 'ThyFormControlSize' }
+                ]
+            }
+        ]
+    },
     elementSelectors: {},
     inputNames: {
         [TargetVersion.V22]: [
