@@ -20,7 +20,6 @@
                     #{$prop}-top: $length !important;
                 }
                 .#{$abbrev}r#{$infix}-#{$size},
-                .#{$abbrev}e#{$infix}-#{$size},
                 .#{$abbrev}x#{$infix}-#{$size} {
                     #{$prop}-right: $length !important;
                 }
@@ -29,9 +28,14 @@
                     #{$prop}-bottom: $length !important;
                 }
                 .#{$abbrev}l#{$infix}-#{$size},
-                .#{$abbrev}s#{$infix}-#{$size},
                 .#{$abbrev}x#{$infix}-#{$size} {
                     #{$prop}-left: $length !important;
+                }
+                .#{$abbrev}s#{$infix}-#{$size} {
+                    #{$prop}-inline-start: $length !important;
+                }
+                .#{$abbrev}e#{$infix}-#{$size} {
+                    #{$prop}-inline-end: $length !important;
                 }
             }
         }
@@ -47,7 +51,6 @@
                     margin-top: -$length !important;
                 }
                 .mr#{$infix}-n#{$size},
-                .me#{$infix}-n#{$size},
                 .mx#{$infix}-n#{$size} {
                     margin-right: -$length !important;
                 }
@@ -56,9 +59,14 @@
                     margin-bottom: -$length !important;
                 }
                 .ml#{$infix}-n#{$size},
-                .ms#{$infix}-n#{$size},
                 .mx#{$infix}-n#{$size} {
                     margin-left: -$length !important;
+                }
+                .ms#{$infix}-n#{$size} {
+                    margin-inline-start: -$length !important;
+                }
+                .me#{$infix}-n#{$size} {
+                    margin-inline-end: -$length !important;
                 }
             }
         }
@@ -72,7 +80,6 @@
             margin-top: auto !important;
         }
         .mr#{$infix}-auto,
-        .me#{$infix}-auto,
         .mx#{$infix}-auto {
             margin-right: auto !important;
         }
@@ -81,9 +88,14 @@
             margin-bottom: auto !important;
         }
         .ml#{$infix}-auto,
-        .ms#{$infix}-auto,
         .mx#{$infix}-auto {
             margin-left: auto !important;
+        }
+        .ms#{$infix}-auto {
+            margin-inline-start: auto !important;
+        }
+        .me#{$infix}-auto {
+            margin-inline-end: auto !important;
         }
     }
 }

@@ -34,8 +34,8 @@ TETHYS 除了提供了`Space`组件外，还提供了一些列关于`margin`和`
 - `b` - 设置`margin-bottom`或者`padding-bottom`
 - `l` - 设置`margin-left`或者`padding-left`
 - `r` - 设置`margin-right`或者`padding-right`
-- `s` - 设置`margin-left`或者`padding-left`，与`l`等价
-- `e` - 设置`margin-right`或者`padding-right`，与`r`等价
+- `s` - 设置`margin-inline-start`或者`padding-inline-start`，LTR 下即左侧
+- `e` - 设置`margin-inline-end`或者`padding-inline-end`，LTR 下即右侧
 - `x` - 同时设置`*-left`和`*-right`
 - `y` - 同时设置`*-top`和`*-bottom`
 - `blank` - 空，同时设置元素的`margin`或者`padding`四个边
