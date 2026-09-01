@@ -16,7 +16,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.thy-layout-header-lg]': `thySize() === 'lg'`,
         '[class.thy-layout-header-xlg]': `thySize() === 'xlg'`,
         '[class.thy-layout-header-shadow]': `thyShadow()`,
-        '[class.thy-layout-header-divided]': `divided()`
+        '[class.thy-layout-header-divided]': `thyDivided()`
     }
 })
 export class ThyHeaderDirective {
@@ -36,20 +36,6 @@ export class ThyHeaderDirective {
      * 底部是否有分割线
      */
     readonly thyDivided = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 底部是否有分割线，已废弃，请使用 thyDivided
-     * @deprecated please use thyDivided
-     */
-    readonly thyHasBorder = input(false, { transform: coerceBooleanProperty });
-
-    readonly divided = computed(() => {
-        const value = this.thyDivided();
-        if (value !== undefined) {
-            return value;
-        }
-        return this.thyHasBorder();
-    });
 }
 
 /**
@@ -64,7 +50,7 @@ export class ThyHeaderDirective {
     hostDirectives: [
         {
             directive: ThyHeaderDirective,
-            inputs: ['thySize', 'thyShadow', 'thyHasBorder', 'thyDivided']
+            inputs: ['thySize', 'thyShadow', 'thyDivided']
         }
     ],
     imports: [NgTemplateOutlet, ThyIcon, NgClass]
