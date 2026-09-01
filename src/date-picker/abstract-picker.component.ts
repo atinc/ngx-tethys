@@ -1,4 +1,4 @@
-import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlSize } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import {
     ChangeDetectorRef,
@@ -21,7 +21,6 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
-import { ThyInputSize } from 'ngx-tethys/input';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
@@ -125,7 +124,7 @@ export abstract class AbstractPickerComponent
     /**
      * 输入框的大小
      */
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 设置时间戳精度
