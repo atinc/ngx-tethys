@@ -15,6 +15,14 @@ export const upgradeData: UpgradeData = {
                             attributes: ['thyAction'],
                             elements: ['thy-action']
                         }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            attributes: ['thyTag'],
+                            elements: ['thy-tag']
+                        }
                     }
                 ]
             }
