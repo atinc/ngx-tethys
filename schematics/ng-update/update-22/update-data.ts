@@ -23,6 +23,14 @@ export const upgradeData: UpgradeData = {
                             attributes: ['thyTag'],
                             elements: ['thy-tag']
                         }
+                    },
+                    {
+                        replace: 'thyHasBorder',
+                        replaceWith: 'thyDivided',
+                        limitedTo: {
+                            attributes: ['thyHeader'],
+                            elements: ['thy-header']
+                        }
                     }
                 ]
             }

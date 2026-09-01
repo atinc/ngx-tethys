@@ -8,7 +8,8 @@ import {
     ThyClickDispatcher,
     THY_GLOBAL_CONFIG,
     ThyGlobalConfig,
-    ThyPlacement
+    ThyPlacement,
+    ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyLoading } from 'ngx-tethys/loading';
@@ -85,7 +86,6 @@ import {
     ThySelectConfig
 } from '../select.config';
 import { injectLocale, ThySelectLocale } from 'ngx-tethys/i18n';
-import { ThyInputSize } from 'ngx-tethys/input';
 import { SafeAny } from 'ngx-tethys/types';
 import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -343,7 +343,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      * @type primary | success | danger | warning
      * @default primary
      */
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 数据为空时显示的提示文字

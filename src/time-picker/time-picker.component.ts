@@ -21,12 +21,13 @@ import {
     getOverlayGlobalConfig,
     THY_GLOBAL_CONFIG,
     thyAnimationZoom,
+    ThyFormControlSize,
     ThyGlobalConfig,
     ThyPlacement
 } from 'ngx-tethys/core';
 import { injectLocale, ThyTimePickerLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyInputDirective, ThyInputSize } from 'ngx-tethys/input';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 
@@ -71,7 +72,7 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
      * @type 'xs' | 'sm' | 'md' | 'lg'
      * @default md
      */
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 输入框提示文字

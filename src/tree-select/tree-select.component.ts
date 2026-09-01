@@ -3,14 +3,14 @@ import {
     injectPanelEmptyIcon,
     thyAnimationZoom,
     TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher
+    ThyClickDispatcher,
+    ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyLoading } from 'ngx-tethys/loading';
 import { ThySelectControl, ThyStopPropagationDirective } from 'ngx-tethys/shared';
-import { ThyInputSize } from 'ngx-tethys/input';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { coerceBooleanProperty, elementMatchClosest, isArray, isObject, produce } from 'ngx-tethys/util';
 import { from, Observable, of } from 'rxjs';
@@ -220,7 +220,7 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 改变空选项的情况下的提示文本

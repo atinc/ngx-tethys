@@ -13,9 +13,9 @@ import {
     contentChild,
     signal
 } from '@angular/core';
-import { ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
+import { ThyFormControlSize, ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyInputDirective, ThyInputSize } from './input.directive';
+import { ThyInputDirective } from './input.directive';
 import { NgTemplateOutlet } from '@angular/common';
 import { throttleTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -23,7 +23,7 @@ import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 
-export type InputGroupSize = Exclude<ThyInputSize, 'xs'>;
+export type InputGroupSize = Exclude<ThyFormControlSize, 'xs'>;
 
 const inputGroupSizeMap = {
     sm: ['input-group-sm'],
