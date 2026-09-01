@@ -23,4 +23,58 @@ describe('ng-update v22 Schematic', () => {
         const packageJSON = JSON.parse(file.content.toString());
         expect(packageJSON['dependencies']['@angular/core']).toContain('^22.');
     });
+
+    it('should migrate thyTheme to thyAppearance for thyAction', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/action-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyActionModule } from 'ngx-tethys/action';
+
+@Component({
+    selector: 'app-action-demo',
+    template: \`
+        <a thyAction thyTheme="lite" thyIcon="inbox"></a>
+    \`,
+    imports: [ThyActionModule]
+})
+export class ActionDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/action-demo.component.ts');
+        expect(content).toContain('thyAppearance="lite"');
+        expect(content).not.toContain('thyTheme');
+    });
+
+    it('should migrate thyTheme to thyAppearance for thy-action element', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/action-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyActionModule } from 'ngx-tethys/action';
+
+@Component({
+    selector: 'app-action-demo',
+    template: \`
+        <thy-action thyTheme="lite" thyIcon="inbox"></thy-action>
+    \`,
+    imports: [ThyActionModule]
+})
+export class ActionDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/action-demo.component.ts');
+        expect(content).toContain('thyAppearance="lite"');
+        expect(content).not.toContain('thyTheme');
+    });
 });
