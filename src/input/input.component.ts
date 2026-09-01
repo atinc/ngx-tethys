@@ -81,11 +81,6 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     readonly thyType = input<string>();
 
     /**
-     * @deprecated please use thyType
-     */
-    readonly _type = input<string>(undefined, { alias: 'type' });
-
-    /**
      * 输入 Label 文本
      */
     readonly thyLabelText = input<string>();
@@ -133,7 +128,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
 
     constructor() {
         effect(() => {
-            this.type.set(this.thyType() || this._type());
+            this.type.set(this.thyType());
         });
 
         afterNextRender(() => {

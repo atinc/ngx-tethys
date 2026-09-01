@@ -9,6 +9,13 @@ export const upgradeData: UpgradeData = {
                 pr: 'https://github.com/atinc/ngx-tethys',
                 changes: [
                     {
+                        replace: 'type',
+                        replaceWith: 'thyType',
+                        limitedTo: {
+                            elements: ['thy-input']
+                        }
+                    },
+                    {
                         replace: 'thyTheme',
                         replaceWith: 'thyAppearance',
                         limitedTo: {

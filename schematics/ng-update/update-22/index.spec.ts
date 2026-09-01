@@ -24,6 +24,33 @@ describe('ng-update v22 Schematic', () => {
         expect(packageJSON['dependencies']['@angular/core']).toContain('^22.');
     });
 
+    it('should migrate type to thyType for thy-input', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/input-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyInputModule } from 'ngx-tethys/input';
+
+@Component({
+    selector: 'app-input-demo',
+    template: \`
+        <thy-input type="password" placeholder="Password"></thy-input>
+    \`,
+    imports: [ThyInputModule]
+})
+export class InputDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-demo.component.ts');
+        expect(content).toContain('thyType="password"');
+        expect(content).not.toMatch(/\stype="/);
+    });
+
     it('should migrate thyTheme to thyAppearance for thyAction', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
