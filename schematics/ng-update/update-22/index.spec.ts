@@ -77,4 +77,58 @@ export class ActionDemoComponent {}
         expect(content).toContain('thyAppearance="lite"');
         expect(content).not.toContain('thyTheme');
     });
+
+    it('should migrate thyNavLinkActive to thyNavItemActive for thyNavLink', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/nav-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyNavModule } from 'ngx-tethys/nav';
+
+@Component({
+    selector: 'app-nav-demo',
+    template: \`
+        <a thyNavLink thyNavLinkActive="true">Link</a>
+    \`,
+    imports: [ThyNavModule]
+})
+export class NavDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/nav-demo.component.ts');
+        expect(content).toContain('thyNavItemActive="true"');
+        expect(content).not.toContain('thyNavLinkActive');
+    });
+
+    it('should migrate thyNavLinkActive to thyNavItemActive for thyNavItem', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/nav-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyNavModule } from 'ngx-tethys/nav';
+
+@Component({
+    selector: 'app-nav-demo',
+    template: \`
+        <a thyNavItem thyNavLinkActive="true">Link</a>
+    \`,
+    imports: [ThyNavModule]
+})
+export class NavDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/nav-demo.component.ts');
+        expect(content).toContain('thyNavItemActive="true"');
+        expect(content).not.toContain('thyNavLinkActive');
+    });
 });

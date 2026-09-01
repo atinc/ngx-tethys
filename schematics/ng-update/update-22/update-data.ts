@@ -15,6 +15,13 @@ export const upgradeData: UpgradeData = {
                             attributes: ['thyAction'],
                             elements: ['thy-action']
                         }
+                    },
+                    {
+                        replace: 'thyNavLinkActive',
+                        replaceWith: 'thyNavItemActive',
+                        limitedTo: {
+                            attributes: ['thyNavLink', 'thyNavItem']
+                        }
                     }
                 ]
             }

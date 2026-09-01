@@ -24,7 +24,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             [thyHorizontal]="horizontal"
             class="custom-nav"
             [thyExtra]="extra">
-            <a thyNavLink thyNavLinkActive="true">Link1</a>
+            <a thyNavLink thyNavItemActive="true">Link1</a>
             <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
             <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
         </thy-nav>
