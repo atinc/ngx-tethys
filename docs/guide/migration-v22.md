@@ -25,8 +25,8 @@ order: 985
 - 自动将 `thy-tag` 的 `thyAppearance="weak-fill"` 和 `thyTheme="weak-fill"` 替换为 `thyAppearance="subtle"`。
 
 ## 破坏性修改
-- 组件默认尺寸从 36px 改为 md（32px）。如果需要保持 36px 的视觉效果，请添加 `thySize="lg"`。
-- 尺寸类型统一为 `ThyFormControlSize`（`'xs' | 'sm' | 'md' | 'lg'`），旧的 `InputSize`、`ThyInputSize`、`TimePickerSize`、`SelectControlSize` 已删除。按钮尺寸类型 `ButtonGroupSize` 重命名为 `ThyButtonSize`。
+- Button 类和 FormControl 类组件的默认尺寸从 36px 改为 md（32px）。如果需要保持 36px 的视觉效果，请添加 `thySize="lg"`。
+- Button 类组件的尺寸类型 `ButtonGroupSize` 重命名为 `ThyButtonSize`；FormControl 类组件的尺寸类型统一为 `ThyFormControlSize`（`'xs' | 'sm' | 'md' | 'lg'`），旧的 `InputSize`、`ThyInputSize`、`TimePickerSize`、`SelectControlSize` 已删除。
 - `thy-action` 和 `thy-tag` 的 `thyTheme` 输入参数改名为 `thyAppearance`。
 - `thy-header` 的 `thyHasBorder` 输入参数改名为 `thyDivided`。
 - `thy-tag` 的 `weak-fill` 外观值改名为 `subtle`。
