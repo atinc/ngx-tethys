@@ -1,20 +1,32 @@
 import { Migration, ResolvedResource, UpgradeData, WorkspacePath } from '@angular/cdk/schematics';
 
 /**
- * 下游项目仍在使用、但本次会被删除的公共 Sass 变量。
- * 被删除的默认变量代表旧版 36px 视觉尺寸，因此统一替换为对应的 lg 变量。
+ * v22 删除了无尺寸后缀的默认 Sass 变量（旧版对应 36px 视觉），统一替换为 -lg 版本以保持旧视觉。
  */
-const SASS_SIZE_VARIABLE_REPLACEMENTS = new Map([
+const SCSS_SIZE_VARIABLE_REPLACEMENTS = new Map([
+    // Input / FormControl
     ['input-btn-height', 'input-btn-height-lg'],
+    ['input-btn-line-height', 'input-btn-line-height-lg'],
+    ['input-btn-padding-x', 'input-btn-padding-x-lg'],
+    ['input-btn-padding-y', 'input-btn-padding-y-lg'],
     ['input-padding-x', 'input-padding-x-lg'],
     ['input-padding-y', 'input-padding-y-lg'],
+    ['input-border-radius', 'input-border-radius-lg'],
+    ['input-font-size', 'input-font-size-lg'],
+    // Button
+    ['btn-line-height', 'btn-line-height-lg'],
+    ['btn-padding-x', 'btn-padding-x-lg'],
+    ['btn-padding-y', 'btn-padding-y-lg'],
     ['btn-icon-circle-padding-base', 'btn-icon-circle-padding-lg'],
-    ['input-border-radius', 'input-border-radius-lg']
+    ['btn-icon-only-padding-x', 'btn-icon-only-padding-x-lg'],
+    // SelectControl
+    ['select-control-height-default', 'select-control-height-lg'],
+    ['select-control-padding-y-default', 'select-control-padding-y-lg']
 ]);
 
 const IGNORED_STYLE_DIRECTORIES = new Set(['.git', '.angular', 'coverage', 'dist', 'node_modules']);
 
-export class SassSizeVariableMigration extends Migration<UpgradeData> {
+export class ScssSizeVariableMigration extends Migration<UpgradeData> {
     enabled = true;
 
     override visitStylesheet(stylesheet: ResolvedResource): void {
@@ -114,7 +126,7 @@ export class SassSizeVariableMigration extends Migration<UpgradeData> {
                 continue;
             }
 
-            for (const [oldName, newName] of SASS_SIZE_VARIABLE_REPLACEMENTS) {
+            for (const [oldName, newName] of SCSS_SIZE_VARIABLE_REPLACEMENTS) {
                 if (!content.startsWith(oldName, index + 1)) {
                     continue;
                 }

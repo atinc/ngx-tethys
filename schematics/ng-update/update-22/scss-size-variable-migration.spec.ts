@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { createTestWorkspaceFactory } from '../../testing';
 
-describe('ng-update v22 sass size variable migration', () => {
+describe('ng-update v22 scss size variable migration', () => {
     const schematicRunner = new SchematicTestRunner('migrations', require.resolve('../migration-collection.json'));
     let tree!: Tree;
 

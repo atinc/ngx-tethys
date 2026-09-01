@@ -3,13 +3,13 @@ import { createMigrationSchematicRule, NullableDevkitMigration, TargetVersion } 
 import { ClassNamesMigration } from './class-name-migration';
 import { onMigrationComplete } from '../core/complete';
 import { InputControlSizeMigration } from './input-control-size-migration';
-import { SassSizeVariableMigration } from './sass-size-variable-migration';
+import { ScssSizeVariableMigration } from './scss-size-variable-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
 import { upgradeData } from './update-data';
 
 const migrations: NullableDevkitMigration[] = [
     InputControlSizeMigration,
-    SassSizeVariableMigration,
+    ScssSizeVariableMigration,
     TagAppearanceMigration,
     ClassNamesMigration
 ];
