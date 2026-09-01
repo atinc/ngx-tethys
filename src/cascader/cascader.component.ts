@@ -32,13 +32,13 @@ import {
     injectPanelEmptyIcon,
     thyAnimationZoom,
     TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher
+    ThyClickDispatcher,
+    ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
 import { SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
-import { ThyInputSize } from 'ngx-tethys/input';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
@@ -124,7 +124,7 @@ export class ThyCascader
      * @type 'xs' ｜ 'sm' | 'md' | 'lg'
      * @default md
      */
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 数据项
