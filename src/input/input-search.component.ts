@@ -5,6 +5,7 @@ import {
     mixinInitialized,
     mixinTabIndex,
     ThyCanDisable,
+    ThyFormControlSize,
     ThyHasTabIndex,
     ThyInitialized,
     useHostFocusControl
@@ -28,7 +29,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputDirective, ThyInputSize } from './input.directive';
+import { ThyInputDirective } from './input.directive';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -121,7 +122,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      * @type 'xs' | 'sm' | 'md' | 'lg'
      * @default md
      */
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * @deprecated please use thyClear

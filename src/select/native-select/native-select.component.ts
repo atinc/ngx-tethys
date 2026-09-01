@@ -1,10 +1,10 @@
 import { Component, forwardRef, OnInit, input, viewChild, model, signal, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlSize } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyInputDirective, ThyInputSize } from 'ngx-tethys/input';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { SafeAny } from 'ngx-tethys/types';
 
 const noop = () => {};
@@ -42,7 +42,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
 
     private hostRenderer = useHostRenderer();
 
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     readonly name = input<string>();
 

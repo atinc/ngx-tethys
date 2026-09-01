@@ -2,7 +2,8 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
+import { SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
 
 @Component({
@@ -35,7 +36,7 @@ class BasicSelectControlComponent {
 
     thyAllowClear = true;
 
-    thySize: SelectControlSize = 'md';
+    thySize: ThyFormControlSize = 'md';
 
     thyIsMultiple = false;
 
@@ -92,7 +93,7 @@ describe('ThySelectControl', () => {
 
             it('should get default size class and update it when set thySize', () => {
                 expect(selectElement.classList.contains('form-control-md')).toBeTruthy();
-                const size: SelectControlSize = 'lg';
+                const size: ThyFormControlSize = 'lg';
                 fixture.componentInstance.thySize = size;
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;

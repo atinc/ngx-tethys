@@ -21,7 +21,8 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputDirective, ThyInputSize } from './input.directive';
+import { ThyInputDirective } from './input.directive';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -66,7 +67,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
      * @type 'xs' | 'sm' | 'md' | 'lg'
      * @default md
      */
-    readonly thySize = input<ThyInputSize>('md');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 是否自动聚焦

@@ -2,6 +2,7 @@ import {
     getFlexiblePositions,
     getOverlayGlobalConfig,
     THY_GLOBAL_CONFIG,
+    ThyFormControlSize,
     ThyGlobalConfig,
     ThyPlacement,
     thyAnimationZoom
@@ -24,7 +25,7 @@ import {
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { ThyInputDirective, ThyInputSize } from 'ngx-tethys/input';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue, RangePartType } from './inner-types';
@@ -66,7 +67,7 @@ export class ThyPicker implements AfterViewInit {
 
     readonly className = input<string>();
 
-    readonly size = input<ThyInputSize>('md');
+    readonly size = input<ThyFormControlSize>('md');
 
     readonly suffixIcon = input<string>();
 
