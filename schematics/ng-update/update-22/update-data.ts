@@ -17,6 +17,14 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            attributes: ['thyTag'],
+                            elements: ['thy-tag']
+                        }
+                    },
+                    {
                         replace: 'thyHasBorder',
                         replaceWith: 'thyDivided',
                         limitedTo: {

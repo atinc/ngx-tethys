@@ -78,6 +78,143 @@ export class ActionDemoComponent {}
         expect(content).not.toContain('thyTheme');
     });
 
+    it('should migrate thyTheme to thyAppearance for thyTag', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/tag-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTagModule } from 'ngx-tethys/tag';
+
+@Component({
+    selector: 'app-tag-demo',
+    template: \`
+        <span thyTag thyTheme="outline">Tag</span>
+    \`,
+    imports: [ThyTagModule]
+})
+export class TagDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/tag-demo.component.ts');
+        expect(content).toContain('thyAppearance="outline"');
+        expect(content).not.toContain('thyTheme');
+    });
+
+    it('should migrate thyTheme to thyAppearance for thy-tag element', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/tag-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTagModule } from 'ngx-tethys/tag';
+
+@Component({
+    selector: 'app-tag-demo',
+    template: \`
+        <thy-tag thyTheme="outline">Tag</thy-tag>
+    \`,
+    imports: [ThyTagModule]
+})
+export class TagDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/tag-demo.component.ts');
+        expect(content).toContain('thyAppearance="outline"');
+        expect(content).not.toContain('thyTheme');
+    });
+
+    it('should migrate thyTheme weak-fill to thyAppearance subtle for thyTag', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/tag-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTagModule } from 'ngx-tethys/tag';
+
+@Component({
+    selector: 'app-tag-demo',
+    template: \`
+        <span thyTag thyTheme="weak-fill">Tag</span>
+    \`,
+    imports: [ThyTagModule]
+})
+export class TagDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/tag-demo.component.ts');
+        expect(content).toContain('thyAppearance="subtle"');
+        expect(content).not.toContain('weak-fill');
+        expect(content).not.toContain('thyTheme');
+    });
+
+    it('should migrate thyAppearance weak-fill to subtle for thy-tag element', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/tag-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTagModule } from 'ngx-tethys/tag';
+
+@Component({
+    selector: 'app-tag-demo',
+    template: \`
+        <thy-tag thyAppearance="weak-fill">Tag</thy-tag>
+    \`,
+    imports: [ThyTagModule]
+})
+export class TagDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/tag-demo.component.ts');
+        expect(content).toContain('thyAppearance="subtle"');
+        expect(content).not.toContain('weak-fill');
+    });
+
+    it('should migrate bound thyTheme weak-fill to thyAppearance subtle for thy-tag element', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/tag-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTagModule } from 'ngx-tethys/tag';
+
+@Component({
+    selector: 'app-tag-demo',
+    template: \`
+        <thy-tag [thyTheme]="'weak-fill'">Tag</thy-tag>
+    \`,
+    imports: [ThyTagModule]
+})
+export class TagDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/tag-demo.component.ts');
+        expect(content).toContain(`[thyAppearance]="'subtle'"`);
+        expect(content).not.toContain('weak-fill');
+        expect(content).not.toContain('thyTheme');
+    });
+
     it('should migrate thyHasBorder to thyDivided for thyHeader', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
