@@ -9,6 +9,14 @@ export const upgradeData: UpgradeData = {
                 pr: 'https://github.com/atinc/ngx-tethys',
                 changes: [
                     {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            attributes: ['thyAction'],
+                            elements: ['thy-action']
+                        }
+                    },
+                    {
                         replace: 'thyHasBorder',
                         replaceWith: 'thyDivided',
                         limitedTo: {
