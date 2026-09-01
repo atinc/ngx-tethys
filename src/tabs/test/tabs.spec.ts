@@ -3,7 +3,7 @@ import { Component, DebugElement, ElementRef, ViewChild, ChangeDetectionStrategy
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyNav } from 'ngx-tethys/nav';
-import { ThyActiveTabInfo, ThyTabActiveEvent, ThyTabs, ThyTabsModule, ThyTabsPosition, ThyTabsSize, ThyTabsType } from 'ngx-tethys/tabs';
+import { ThyActiveTabValue, ThyTabActiveEvent, ThyTabs, ThyTabsModule, ThyTabsPosition, ThyTabsSize, ThyTabsType } from 'ngx-tethys/tabs';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -117,7 +117,7 @@ class TestTabsPositionComponent {
     imports: [ThyTabsModule]
 })
 class TestTabsActiveComponent {
-    activeTab: ThyActiveTabInfo = 'tab2';
+    activeTab: ThyActiveTabValue = 'tab2';
     thyAnimated = false;
 }
 

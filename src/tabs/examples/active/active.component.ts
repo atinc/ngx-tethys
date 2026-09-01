@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ThyActiveTabInfo, ThyTab, ThyTabActiveEvent, ThyTabs } from 'ngx-tethys/tabs';
+import { ThyActiveTabValue, ThyTab, ThyTabActiveEvent, ThyTabs } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-active-example',
@@ -8,9 +8,9 @@ import { ThyActiveTabInfo, ThyTab, ThyTabActiveEvent, ThyTabs } from 'ngx-tethys
     imports: [ThyTabs, ThyTab]
 })
 export class ThyTabsActiveExampleComponent implements OnInit {
-    public activeTab: ThyActiveTabInfo = 2;
+    public activeTab: ThyActiveTabValue = 2;
 
-    public activeTab2: ThyActiveTabInfo = 'tab1';
+    public activeTab2: ThyActiveTabValue = 'tab1';
 
     constructor() {}
 

@@ -20,7 +20,7 @@ import { coerceBooleanProperty, isNumber, ThyBooleanInput } from 'ngx-tethys/uti
 import { fromEvent } from 'rxjs';
 import { ThyTabContent } from './tab-content.component';
 import { ThyTab } from './tab.component';
-import { ThyActiveTabInfo } from './types';
+import { ThyActiveTabValue } from './types';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -65,7 +65,7 @@ export class ThyTabs implements OnInit {
     /**
      * 激活的项，支持传入 tab id 或索引
      */
-    readonly thyActiveTab = model<ThyActiveTabInfo>(0);
+    readonly thyActiveTab = model<ThyActiveTabValue>(0);
 
     /**
      * 附加操作
@@ -113,7 +113,7 @@ export class ThyTabs implements OnInit {
                 const lastIndex = tabs.length - 1;
                 const lastTab = tabs[lastIndex];
                 if (lastTab) {
-                    this.thyActiveTab.set(this.getTabValue(lastTab, lastIndex));
+                    this.thyActiveTab.set(this.getTabActiveValue(lastTab, lastIndex));
                 }
                 this.cd.markForCheck();
             });
@@ -146,10 +146,10 @@ export class ThyTabs implements OnInit {
             return;
         }
         this.thyAnimated() && (this.transitionStarted = this.activeTabIndex() !== index);
-        this.thyActiveTab.set(this.getTabValue(tab, index));
+        this.thyActiveTab.set(this.getTabActiveValue(tab, index));
     }
 
-    private getTabValue(tab: ThyTab, index: number): ThyActiveTabInfo {
+    private getTabActiveValue(tab: ThyTab, index: number): ThyActiveTabValue {
         return tab.id() ?? index;
     }
 }

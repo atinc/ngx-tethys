@@ -25,10 +25,6 @@
 <!-- tabs content -->
 <div class="thy-tabs-content" [class.thy-tabs-content-animated]="tabPaneAnimated" [style.margin-left]="getTabContentMarginLeft()">
   @for (tab of tabs(); track $index; let i = $index) {
-    <div
-      thyTabContent
-      [active]="i === activeTabIndex()"
-      [content]="tab.content"
-      [tabPaneAnimated]="tabPaneAnimated"></div>
+    <div thyTabContent [active]="i === activeTabIndex()" [content]="tab.content" [tabPaneAnimated]="tabPaneAnimated"></div>
   }
 </div>
