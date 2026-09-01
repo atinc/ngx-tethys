@@ -15,6 +15,14 @@ export const upgradeData: UpgradeData = {
                             attributes: ['thyAction'],
                             elements: ['thy-action']
                         }
+                    },
+                    {
+                        replace: 'thyHasBorder',
+                        replaceWith: 'thyDivided',
+                        limitedTo: {
+                            attributes: ['thyHeader'],
+                            elements: ['thy-header']
+                        }
                     }
                 ]
             }

@@ -334,6 +334,4 @@ describe(`layout`, () => {
             expect(innerLayout.classList.contains('thy-layout--has-sidebar')).toBe(true);
         });
     });
-
-    // thyIconPrefix、thyHasBorder将被弃用，不加测试
 });
