@@ -1,21 +1,16 @@
-import { take } from 'rxjs/operators';
-
 import { NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     ElementRef,
     forwardRef,
-    NgZone,
-    OnInit,
     TemplateRef,
     ViewEncapsulation,
     inject,
     input,
-    effect,
+    computed,
     signal,
     output,
     contentChild,
-    afterNextRender,
     ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -53,8 +48,7 @@ const password = 'password';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIcon]
 })
-export class ThyInput implements ControlValueAccessor, OnInit {
-    private ngZone = inject(NgZone);
+export class ThyInput implements ControlValueAccessor {
     private elementRef = inject(ElementRef);
 
     /**
@@ -110,7 +104,16 @@ export class ThyInput implements ControlValueAccessor, OnInit {
      */
     readonly prependTemplate = contentChild<TemplateRef<any>>('prepend');
 
-    public type = signal<string | undefined>(undefined);
+    readonly passwordVisible = signal(false);
+
+    readonly isPasswordType = computed(() => this.thyType() === password);
+
+    readonly type = computed(() => {
+        if (this.isPasswordType()) {
+            return this.passwordVisible() ? 'text' : password;
+        }
+        return this.thyType();
+    });
 
     public value = signal('');
 
@@ -123,20 +126,6 @@ export class ThyInput implements ControlValueAccessor, OnInit {
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
-
-    public isPasswordType = signal(false);
-
-    constructor() {
-        effect(() => {
-            this.type.set(this.thyType());
-        });
-
-        afterNextRender(() => {
-            this.isPasswordType.set(this.isPassword(this.type()));
-        });
-    }
-
-    ngOnInit() {}
 
     writeValue(value: any): void {
         this.value.set(value);
@@ -174,11 +163,7 @@ export class ThyInput implements ControlValueAccessor, OnInit {
         this.blur.emit(event);
     }
 
-    isPassword(value?: string) {
-        return value === password;
-    }
-
     togglePasswordType() {
-        this.type.set(this.isPassword(this.type()) ? 'text' : 'password');
+        this.passwordVisible.update(visible => !visible);
     }
 }
