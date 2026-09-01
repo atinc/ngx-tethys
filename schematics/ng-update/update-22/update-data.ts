@@ -20,7 +20,7 @@ export const upgradeData: UpgradeData = {
                         replace: 'thyNavLinkActive',
                         replaceWith: 'thyNavItemActive',
                         limitedTo: {
-                            attributes: ['thyNavLink', 'thyNavItem']
+                            attributes: ['thyNavItem']
                         }
                     }
                 ]
@@ -29,7 +29,19 @@ export const upgradeData: UpgradeData = {
     },
     outputNames: {},
     cssTokens: {},
-    attributeSelectors: {},
+    attributeSelectors: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        replace: 'thyNavLink',
+                        replaceWith: 'thyNavItem'
+                    }
+                ]
+            }
+        ]
+    },
     constructorChecks: {},
     cssSelectors: {},
     methodCallChecks: {},

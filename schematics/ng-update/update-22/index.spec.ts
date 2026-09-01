@@ -103,6 +103,8 @@ export class NavDemoComponent {}
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/nav-demo.component.ts');
         expect(content).toContain('thyNavItemActive="true"');
         expect(content).not.toContain('thyNavLinkActive');
+        expect(content).toContain('thyNavItem');
+        expect(content).not.toContain('thyNavLink');
     });
 
     it('should migrate thyNavLinkActive to thyNavItemActive for thyNavItem', async () => {
@@ -130,5 +132,32 @@ export class NavDemoComponent {}
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/nav-demo.component.ts');
         expect(content).toContain('thyNavItemActive="true"');
         expect(content).not.toContain('thyNavLinkActive');
+    });
+
+    it('should migrate thyNavLink to thyNavItem', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/nav-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyNavModule } from 'ngx-tethys/nav';
+
+@Component({
+    selector: 'app-nav-demo',
+    template: \`
+        <a thyNavLink>Link</a>
+    \`,
+    imports: [ThyNavModule]
+})
+export class NavDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/nav-demo.component.ts');
+        expect(content).toContain('thyNavItem');
+        expect(content).not.toContain('thyNavLink');
     });
 });

@@ -24,9 +24,9 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             [thyHorizontal]="horizontal"
             class="custom-nav"
             [thyExtra]="extra">
-            <a thyNavLink thyNavItemActive="true">Link1</a>
-            <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
-            <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
+            <a thyNavItem thyNavItemActive="true">Link1</a>
+            <a thyNavItem><thy-icon thyIconName="filter"></thy-icon>Link2</a>
+            <a thyNavItem thyNavItemDisabled="true" id="disabled">Link3</a>
         </thy-nav>
         <ng-template #extra>
             <a href="javascript:;">Extra</a>
@@ -65,7 +65,7 @@ export class NavBasicComponent implements OnInit {
             class="custom-nav"
             style="width: 100px;height: 50px;display:block">
             @for (item of navLinks; track $index; let i = $index) {
-                <a class="test-link" thyNavLink [thyNavItemActive]="item.isActive" [routerLink]="[item.name]" routerLinkActive="active">{{
+                <a class="test-link" thyNavItem [thyNavItemActive]="item.isActive" [routerLink]="[item.name]" routerLinkActive="active">{{
                     item.name
                 }}</a>
             }

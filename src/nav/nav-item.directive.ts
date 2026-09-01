@@ -24,7 +24,7 @@ export type ThyNavLink = '' | 'active';
  * @order 20
  */
 @Directive({
-    selector: '[thyNavLink],[thyNavItem]',
+    selector: '[thyNavItem]',
     host: {
         class: 'thy-nav-item',
         '[class.active]': 'thyNavItemActive()',
