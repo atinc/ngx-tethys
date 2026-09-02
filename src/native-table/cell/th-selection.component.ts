@@ -11,6 +11,7 @@ import { ThyNativeTableHeaderCellCheckState } from '../table.interface';
         <label
             thyCheckbox
             [ngModel]="checked()"
+            [ngModelOptions]="{ standalone: true }"
             [thyDisabled]="thyDisabled()"
             [thyIndeterminate]="indeterminate()"
             (ngModelChange)="onCheckedChange($event)"></label>

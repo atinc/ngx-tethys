@@ -8,6 +8,7 @@
     [ngClass]="searchInputControlClass"
     (input)="updateWidth()"
     [ngModel]="inputValue()"
+    [ngModelOptions]="{ standalone: true }"
     (ngModelChange)="setInputValue($event)"
     (keydown.backspace)="handleBackspace($event)"
     [disabled]="thyDisabled()"

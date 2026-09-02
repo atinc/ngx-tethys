@@ -12,6 +12,7 @@
   [placeholder]="placeholder()"
   [disabled]="disabled()"
   [(ngModel)]="value"
+  [ngModelOptions]="{ standalone: true }"
   (ngModelChange)="onModelChange()"
   (focus)="onInputFocus($event)"
   (blur)="onInputBlur($event)"
