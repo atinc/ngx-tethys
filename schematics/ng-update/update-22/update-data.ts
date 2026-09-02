@@ -31,12 +31,34 @@ export const upgradeData: UpgradeData = {
                             attributes: ['thyHeader'],
                             elements: ['thy-header']
                         }
+                    },
+                    {
+                        replace: 'thyShowRemove',
+                        replaceWith: 'thyRemovable',
+                        limitedTo: {
+                            elements: ['thy-avatar']
+                        }
                     }
                 ]
             }
         ]
     },
-    outputNames: {},
+    outputNames: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        replace: 'thyOnRemove',
+                        replaceWith: 'thyRemove',
+                        limitedTo: {
+                            elements: ['thy-avatar']
+                        }
+                    }
+                ]
+            }
+        ]
+    },
     cssTokens: {},
     attributeSelectors: {},
     constructorChecks: {},

@@ -268,4 +268,89 @@ export class HeaderDemoComponent {}
         expect(content).toContain('thyDivided="false"');
         expect(content).not.toContain('thyHasBorder');
     });
+
+    it('should migrate thyShowRemove to thyRemovable for thy-avatar', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/avatar-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+
+@Component({
+    selector: 'app-avatar-demo',
+    template: \`
+        <thy-avatar thyName="Peter" thyShowRemove="true"></thy-avatar>
+    \`,
+    imports: [ThyAvatarModule]
+})
+export class AvatarDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/avatar-demo.component.ts');
+        expect(content).toContain('thyRemovable="true"');
+        expect(content).not.toContain('thyShowRemove');
+    });
+
+    it('should migrate thyShowRemove to thyRemovable for thy-avatar binding', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/avatar-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+
+@Component({
+    selector: 'app-avatar-demo',
+    template: \`
+        <thy-avatar thyName="Peter" [thyShowRemove]="removable"></thy-avatar>
+    \`,
+    imports: [ThyAvatarModule]
+})
+export class AvatarDemoComponent {
+    removable = true;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/avatar-demo.component.ts');
+        expect(content).toContain('[thyRemovable]="removable"');
+        expect(content).not.toContain('thyShowRemove');
+    });
+
+    it('should migrate thyOnRemove to thyRemove for thy-avatar', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/avatar-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+
+@Component({
+    selector: 'app-avatar-demo',
+    template: \`
+        <thy-avatar thyName="Peter" thyRemovable="true" (thyOnRemove)="onRemove($event)"></thy-avatar>
+    \`,
+    imports: [ThyAvatarModule]
+})
+export class AvatarDemoComponent {
+    onRemove(event: Event) {}
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/avatar-demo.component.ts');
+        expect(content).toContain('(thyRemove)="onRemove($event)"');
+        expect(content).not.toContain('thyOnRemove');
+    });
 });

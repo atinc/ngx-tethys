@@ -43,12 +43,6 @@ export class ThyAvatar {
     elementRef = inject(ElementRef);
 
     /**
-     * * 已废弃，请使用 thyRemove
-     * @deprecated
-     */
-    readonly thyOnRemove = output<Event>();
-
-    /**
      *  移除按钮的事件，当 thyRemovable 为 true 时起作用
      */
     readonly thyRemove = output<Event>();
@@ -114,17 +108,9 @@ export class ThyAvatar {
     });
 
     /**
-     * 已废弃，请使用 thyRemovable
-     * @deprecated
-     */
-    readonly thyShowRemove = input(false, { transform: coerceBooleanProperty });
-
-    /**
      * 是否展示移除按钮
      */
     readonly thyRemovable = input(false, { transform: coerceBooleanProperty });
-
-    readonly showRemove: Signal<boolean> = computed(() => this.thyRemovable() || this.thyShowRemove());
 
     /**
      * 图片自定义类
@@ -174,7 +160,6 @@ export class ThyAvatar {
     }
 
     remove($event: Event) {
-        this.thyOnRemove.emit($event);
         this.thyRemove.emit($event);
     }
 
