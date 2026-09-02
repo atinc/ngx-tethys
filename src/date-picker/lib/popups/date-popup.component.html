@@ -17,10 +17,10 @@
           <div class="{{ prefixCls }}-date-panel-flexible">
             <div class="{{ prefixCls }}-date-panel-flexible-tab">
               <thy-nav thyType="pulled" thySize="sm">
-                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'advanced'" (click)="selectTab('advanced')">{{
+                <a href="javascript:;" thyNavItem [thyNavItemActive]="flexibleActiveTab === 'advanced'" (click)="selectTab('advanced')">{{
                   locale().advance
                 }}</a>
-                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'custom'" (click)="selectTab('custom')">{{
+                <a href="javascript:;" thyNavItem [thyNavItemActive]="flexibleActiveTab === 'custom'" (click)="selectTab('custom')">{{
                   locale().custom
                 }}</a>
               </thy-nav>
