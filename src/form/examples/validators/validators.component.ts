@@ -13,7 +13,7 @@ import {
 import { Component, signal, WritableSignal, ChangeDetectionStrategy } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThySelect } from 'ngx-tethys/select';
@@ -75,8 +75,10 @@ export class ThyFormValidatorsExampleComponent {
         age: ''
     };
 
-    save() {
+    save(form: NgForm) {
         console.log(`submit success!`);
+        console.log('form value:', form.value);
+        console.log('form valid:', form.valid);
     }
 
     changeValidateOn() {

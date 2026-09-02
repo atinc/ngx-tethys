@@ -32,6 +32,7 @@
                   name="dateCarousel"
                   (ngModelChange)="changeValueFromAdvancedSelect($event)"
                   [(ngModel)]="advancedSelectedValue"
+                  [ngModelOptions]="{ standalone: true }"
                   [activeDate]="selectedValue[0]"></date-carousel>
               </div>
             </ng-container>

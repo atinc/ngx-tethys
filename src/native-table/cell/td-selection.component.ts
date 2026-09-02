@@ -7,7 +7,12 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
 @Component({
     selector: 'td[thyCell="checkbox"]',
     template: `
-        <label thyCheckbox [ngModel]="thyChecked()" [disabled]="thyDisabled()" (ngModelChange)="onCheckedChange($event)"></label>
+        <label
+            thyCheckbox
+            [ngModel]="thyChecked()"
+            [ngModelOptions]="{ standalone: true }"
+            [disabled]="thyDisabled()"
+            (ngModelChange)="onCheckedChange($event)"></label>
         <ng-content></ng-content>
     `,
     host: {},

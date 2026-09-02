@@ -14,6 +14,7 @@
         [showMeridian]="false"
         [timeZone]="timeZone()"
         [ngModel]="value()"
+        [ngModelOptions]="{ standalone: true }"
         (ngModelChange)="onSelectTime($event)"></thy-inner-time-picker>
     }
     <div class="time-picker-btn-wrap">

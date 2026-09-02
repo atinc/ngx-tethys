@@ -2,14 +2,10 @@
 # For additional information regarding the format and rule options, please see:
 # https://github.com/browserslist/browserslist#queries
 
+# For Angular's browser support policy, please see:
+# https://angular.dev/reference/versions#browser-support
+
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
-# Updated to support Angular 21 (Chrome 111+, Firefox 112+, Safari 17+, Edge 111+)
-Chrome >= 111
-ChromeAndroid >= 111
-Edge >= 111
-Firefox >= 112
-FirefoxAndroid >= 112
-Safari >= 17
-iOS >= 17
+baseline widely available on 2026-05-07

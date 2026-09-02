@@ -217,6 +217,7 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="row[column.key]"
+                    [ngModelOptions]="{ standalone: true }"
                     (ngModelChange)="onCheckboxChange(row, column)"
                     (click)="onStopPropagation($event)"
                     [disabled]="column.disabled" />
@@ -226,6 +227,7 @@
                   <input
                     type="radio"
                     [(ngModel)]="selectedRadioRow"
+                    [ngModelOptions]="{ standalone: true }"
                     [value]="row"
                     [disabled]="column.disabled"
                     (click)="onStopPropagation($event)"
@@ -235,6 +237,7 @@
                 @if (column.type === customType.switch) {
                   <thy-switch
                     [(ngModel)]="row[column.key]"
+                    [ngModelOptions]="{ standalone: true }"
                     (ngModelChange)="onModelChange(row, column)"
                     [disabled]="column.disabled"
                     (thyChange)="onSwitchChange($event, row, column)"></thy-switch>

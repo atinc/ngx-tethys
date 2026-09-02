@@ -2,6 +2,7 @@
   <thy-date-range
     class="select-date-range"
     [ngModel]="date"
+    [ngModelOptions]="{ standalone: true }"
     [thyHiddenMenu]="true"
     [thyCustomKey]="'exception'"
     [thyPickerFormat]="pickerFormat"
