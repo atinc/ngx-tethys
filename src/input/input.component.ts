@@ -69,8 +69,8 @@ export class ThyInput implements ControlValueAccessor {
     readonly thyAutofocus = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 输入框类型
-     * @type 'number' | 'input'
+     * 输入框类型，对应原生 input 的 type 属性
+     * @type 'text' | 'password' | 'number' | string
      */
     readonly thyType = input<string>();
 
