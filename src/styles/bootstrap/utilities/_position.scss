@@ -9,6 +9,12 @@
     }
 }
 
+@each $name, $value in variables.$zindex-levels {
+    .z-#{$name} {
+        z-index: $value !important;
+    }
+}
+
 // Shorthand
 
 .fixed-top {

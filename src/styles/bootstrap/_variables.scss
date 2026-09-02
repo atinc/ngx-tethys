@@ -197,6 +197,13 @@ $form-feedback-invalid-color: functions.theme-color('danger') !default;
 
 $zindex-sticky: 1020 !default;
 $zindex-fixed: 1030 !default;
+$zindex-levels: (
+    n1: -1,
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3
+) !default;
 
 $pagination-focus-outline: 0 !default;
 
@@ -220,6 +227,6 @@ $pre-color: variables.$gray-800 !default;
 $pre-scrollable-max-height: 340px !default;
 
 $displays: none, inline, inline-block, block, table, table-row, table-cell, flex, contents, inline-flex !default;
-$overflows: auto, hidden !default;
+$overflows: auto, hidden, visible, scroll !default;
 $positions: static, relative, absolute, fixed, sticky !default;
 $user-selects: all, auto, none !default;
