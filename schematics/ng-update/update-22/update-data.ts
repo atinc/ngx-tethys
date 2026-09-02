@@ -52,6 +52,13 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyNavLinkActive',
+                        replaceWith: 'thyNavItemActive',
+                        limitedTo: {
+                            attributes: ['thyNavItem']
+                        }
+                    },
+                    {
                         replace: 'thyShowRemove',
                         replaceWith: 'thyRemovable',
                         limitedTo: {
@@ -79,7 +86,19 @@ export const upgradeData: UpgradeData = {
         ]
     },
     cssTokens: {},
-    attributeSelectors: {},
+    attributeSelectors: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        replace: 'thyNavLink',
+                        replaceWith: 'thyNavItem'
+                    }
+                ]
+            }
+        ]
+    },
     constructorChecks: {},
     cssSelectors: {},
     methodCallChecks: {},
