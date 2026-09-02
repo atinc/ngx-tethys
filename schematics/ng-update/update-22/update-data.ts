@@ -10,7 +10,11 @@ export const upgradeData: UpgradeData = {
                     { replace: 'TimePickerSize', replaceWith: 'ThyFormControlSize' },
                     { replace: 'InputSize', replaceWith: 'ThyFormControlSize' },
                     { replace: 'ThyInputSize', replaceWith: 'ThyFormControlSize' },
-                    { replace: 'SelectControlSize', replaceWith: 'ThyFormControlSize' }
+                    { replace: 'SelectControlSize', replaceWith: 'ThyFormControlSize' },
+                    {
+                        replace: 'ThyActiveTabInfo',
+                        replaceWith: 'ThyActiveTabValue'
+                    }
                 ]
             }
         ]
@@ -21,6 +25,13 @@ export const upgradeData: UpgradeData = {
             {
                 pr: 'https://github.com/atinc/ngx-tethys',
                 changes: [
+                    {
+                        replace: 'type',
+                        replaceWith: 'thyType',
+                        limitedTo: {
+                            elements: ['thy-input']
+                        }
+                    },
                     {
                         replace: 'thyTheme',
                         replaceWith: 'thyAppearance',
@@ -44,12 +55,34 @@ export const upgradeData: UpgradeData = {
                             attributes: ['thyHeader'],
                             elements: ['thy-header']
                         }
+                    },
+                    {
+                        replace: 'thyShowRemove',
+                        replaceWith: 'thyRemovable',
+                        limitedTo: {
+                            elements: ['thy-avatar']
+                        }
                     }
                 ]
             }
         ]
     },
-    outputNames: {},
+    outputNames: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        replace: 'thyOnRemove',
+                        replaceWith: 'thyRemove',
+                        limitedTo: {
+                            elements: ['thy-avatar']
+                        }
+                    }
+                ]
+            }
+        ]
+    },
     cssTokens: {},
     attributeSelectors: {},
     constructorChecks: {},
