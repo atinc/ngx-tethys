@@ -380,4 +380,33 @@ export class AvatarDemoComponent {
         expect(content).toContain('(thyRemove)="onRemove($event)"');
         expect(content).not.toContain('thyOnRemove');
     });
+
+    it('should migrate ThyActiveTabInfo to ThyActiveTabValue', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/tabs-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyActiveTabInfo, ThyTabs } from 'ngx-tethys/tabs';
+
+@Component({
+    selector: 'app-tabs-demo',
+    template: \`
+        <thy-tabs [(thyActiveTab)]="activeTab"></thy-tabs>
+    \`,
+    imports: [ThyTabs]
+})
+export class TabsDemoComponent {
+    activeTab: ThyActiveTabInfo = 0;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/tabs-demo.component.ts');
+        expect(content).toContain('ThyActiveTabValue');
+        expect(content).not.toContain('ThyActiveTabInfo');
+    });
 });

@@ -1,7 +1,19 @@
 import { TargetVersion, UpgradeData } from '@angular/cdk/schematics';
 
 export const upgradeData: UpgradeData = {
-    classNames: {},
+    classNames: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        replace: 'ThyActiveTabInfo',
+                        replaceWith: 'ThyActiveTabValue'
+                    }
+                ]
+            }
+        ]
+    },
     elementSelectors: {},
     inputNames: {
         [TargetVersion.V22]: [
