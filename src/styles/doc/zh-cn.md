@@ -263,6 +263,25 @@ With align-items
 <div class="invisible">...</div>
 ```
 
+## 溢出(Overflow)
+
+使用`overflow-{value}`、`overflow-x-{value}`和`overflow-y-{value}`分别设置元素整体、水平和垂直方向的溢出行为，`value`支持`auto`、`hidden`、`visible`和`scroll`。
+
+```html
+<div class="overflow-auto">...</div>
+<div class="overflow-x-hidden">...</div>
+<div class="overflow-y-scroll">...</div>
+```
+
+## 层级(Z-index)
+
+使用`z-{value}`设置元素的`z-index`，支持`z-0`、`z-1`、`z-2`、`z-3`和`z-n1`，其中`z-n1`对应`z-index: -1`。
+
+```html
+<div class="position-relative z-1">...</div>
+<div class="position-relative z-n1">...</div>
+```
+
 ## 边框(Borders)
 <example name="thy-styles-borders-example" />
 
