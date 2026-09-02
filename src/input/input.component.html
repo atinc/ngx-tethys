@@ -22,10 +22,10 @@
   <div #append class="input-append">
     @if (isPasswordType()) {
       <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
-        @if (isPassword(type())) {
+        @if (!passwordVisible()) {
           <thy-icon thyIconName="eye"></thy-icon>
         }
-        @if (!isPassword(type())) {
+        @if (passwordVisible()) {
           <thy-icon thyIconName="eye-invisible"></thy-icon>
         }
       </a>

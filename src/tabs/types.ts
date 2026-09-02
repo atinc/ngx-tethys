@@ -1,3 +1,3 @@
-export type ThyActiveTabInfo = string | number;
+export type ThyActiveTabValue = string | number;
 
-export type ThyTabActiveEvent = ThyActiveTabInfo;
+export type ThyTabActiveEvent = ThyActiveTabValue;

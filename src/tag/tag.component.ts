@@ -9,7 +9,7 @@ export type ThyTagShape = 'pill' | 'rectangle';
 
 export type ThyTagSize = 'sm' | 'md' | 'lg';
 
-export type ThyTagAppearance = 'outline' | 'fill' | 'subtle' | 'weak-fill';
+export type ThyTagAppearance = 'outline' | 'fill' | 'subtle';
 
 /**
  * 标签组件
@@ -21,7 +21,7 @@ export type ThyTagAppearance = 'outline' | 'fill' | 'subtle' | 'weak-fill';
     host: {
         class: 'thy-tag',
         '[class.thy-tag-pill]': 'thyShape() === "pill"',
-        '[class.thy-tag-outline]': 'appearance() === "outline"',
+        '[class.thy-tag-outline]': 'thyAppearance() === "outline"',
         '[class.thy-tag-hover]': 'thyHoverable()',
         '[class.thy-tag-md]': 'thySize() === "md"',
         '[class.thy-tag-sm]': 'thySize() === "sm"',
@@ -52,18 +52,11 @@ export class ThyTag {
     readonly thyColor = input<ThyTagColor>('');
 
     /**
-     * 标签外观，fill 为颜色填充，subtle 为浅背景色填充，outline 为线框，weak-fill 为 subtle 的兼容值
+     * 标签外观，fill 为颜色填充，subtle 为浅背景色填充，outline 为线框
      * @type outline | fill | subtle
      * @default fill
      */
-    readonly thyAppearance = input<ThyTagAppearance>();
-
-    /**
-     * 废弃，标签外观，请使用 thyAppearance 代替
-     * @type outline | fill | subtle
-     * @deprecated please use thyAppearance instead
-     */
-    readonly thyTheme = input<ThyTagAppearance>('fill');
+    readonly thyAppearance = input<ThyTagAppearance>('fill');
 
     /**
      * 标签大小
@@ -79,11 +72,6 @@ export class ThyTag {
 
     protected readonly color = computed(() => this.thyColor() || this.thyTag() || 'default');
 
-    protected readonly appearance = computed(() => {
-        const appearance = this.thyAppearance() || this.thyTheme();
-        return appearance === 'weak-fill' ? 'subtle' : appearance;
-    });
-
     constructor() {
         effect(() => {
             this.setColor();
@@ -96,7 +84,7 @@ export class ThyTag {
         this.elementRef.nativeElement.style.removeProperty('color');
         this.hostRenderer.updateClass([]);
 
-        const appearance = this.appearance();
+        const appearance = this.thyAppearance();
         if (isThemeColor(this.color())) {
             this.hostRenderer.updateClass([`thy-tag-${appearance === 'fill' ? '' : `${appearance}-`}${this.color()}`]);
         } else {

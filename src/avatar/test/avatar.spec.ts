@@ -21,9 +21,9 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
             @case (3) {
                 <thy-avatar [thyName]="name" [thySize]="size"></thy-avatar>
             }
-            <!-- Suite 4 for test thyDisabled and thyShowRemove -->
+            <!-- Suite 4 for test thyDisabled and thyRemovable -->
             @case (4) {
-                <thy-avatar [thyName]="name" thyDisabled="true" thyShowRemove="true"></thy-avatar>
+                <thy-avatar [thyName]="name" thyDisabled="true" thyRemovable="true"></thy-avatar>
             }
             <!-- Suite 5 for test thySrc with thyError -->
             @case (5) {
