@@ -58,8 +58,17 @@ $gray-900: #212529 !default;
 
 /** text color  */
 $text-placeholder: $gray-400 !default;
-$text-body: $gray-800 !default;
+
+// deprecated，请使用 $text-body-tertiary
 $text-desc: $gray-500 !default;
+
+// deprecated，请使用 $text-body-secondary
+$text-muted: $gray-600 !default;
+
+$text-body: $gray-800 !default;
+$text-body-secondary: $gray-600 !default;
+$text-body-tertiary: $gray-500 !default;
+
 $text-primary: $primary !default;
 $text-secondary: $gray-700 !default;
 $text-success: $success !default;
@@ -68,14 +77,22 @@ $text-warning: $warning !default;
 $text-danger: $danger !default;
 $text-light: $light !default;
 $text-dark: $gray-800 !default;
-$text-muted: $gray-600 !default;
+
 $text-white: $white !default;
 
 /** bg color */
-$bg-default: var(--bg-color-default) !default;
+// deprecated，请使用 $bg-body-secondary
 $bg-lighter: $gray-100 !default;
+// deprecated，请使用 $bg-body-tertiary
 $bg-bright: $gray-80 !default;
+// deprecated，请使用 $bg-body-tertiary
 $bg-content: $gray-80 !default;
+
+$bg-default: var(--bg-color-default) !default;
+$bg-body: $bg-default !default;
+$bg-body-secondary: $gray-100 !default;
+$bg-body-tertiary: $gray-80 !default;
+
 $bg-primary: $primary !default;
 $bg-secondary: $secondary !default;
 $bg-success: $success !default;
@@ -84,6 +101,7 @@ $bg-warning: $warning !default;
 $bg-danger: $danger !default;
 $bg-light: $light !default;
 $bg-dark: $gray-800 !default;
+
 $bg-panel: var(--bg-color-panel) !default;
 $bg-float: var(--bg-color-float) !default;
 
