@@ -83,7 +83,45 @@ export const upgradeData: UpgradeData = {
             }
         ]
     },
-    cssTokens: {},
+    cssTokens: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    // Input / FormControl
+                    { replace: '$input-btn-height', replaceWith: '$input-btn-height-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$input-btn-line-height', replaceWith: '$input-btn-line-height-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$input-btn-padding-x', replaceWith: '$input-btn-padding-x-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$input-btn-padding-y', replaceWith: '$input-btn-padding-y-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$input-padding-x', replaceWith: '$input-padding-x-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$input-padding-y', replaceWith: '$input-padding-y-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$input-border-radius', replaceWith: '$input-border-radius-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$input-font-size', replaceWith: '$input-font-size-lg', replaceIn: { stylesheet: true } },
+                    // Button
+                    { replace: '$btn-line-height', replaceWith: '$btn-line-height-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$btn-padding-x', replaceWith: '$btn-padding-x-lg', replaceIn: { stylesheet: true } },
+                    { replace: '$btn-padding-y', replaceWith: '$btn-padding-y-lg', replaceIn: { stylesheet: true } },
+                    {
+                        replace: '$btn-icon-circle-padding-base',
+                        replaceWith: '$btn-icon-circle-padding-lg',
+                        replaceIn: { stylesheet: true }
+                    },
+                    { replace: '$btn-icon-only-padding-x', replaceWith: '$btn-icon-only-padding-x-lg', replaceIn: { stylesheet: true } },
+                    // SelectControl
+                    {
+                        replace: '$select-control-height-default',
+                        replaceWith: '$select-control-height-lg',
+                        replaceIn: { stylesheet: true }
+                    },
+                    {
+                        replace: '$select-control-padding-y-default',
+                        replaceWith: '$select-control-padding-y-lg',
+                        replaceIn: { stylesheet: true }
+                    }
+                ]
+            }
+        ]
+    },
     attributeSelectors: {},
     constructorChecks: {},
     cssSelectors: {},

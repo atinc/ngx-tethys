@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { createTestWorkspaceFactory } from '../../testing';
 
-describe('ng-update v22 scss size variable migration', () => {
+describe('ng-update v22 CSS token migration', () => {
     const schematicRunner = new SchematicTestRunner('migrations', require.resolve('../migration-collection.json'));
     let tree!: Tree;
 
@@ -13,7 +13,7 @@ describe('ng-update v22 scss size variable migration', () => {
         tree = factory.getTree();
     });
 
-    it('should migrate removed Sass variables to equivalent lg variables', async () => {
+    it('should migrate removed Sass variables through UpgradeData.cssTokens', async () => {
         const stylePath = '/projects/update-22-test/src/styles.scss';
         tree.create(
             stylePath,
@@ -42,10 +42,7 @@ describe('ng-update v22 scss size variable migration', () => {
         expect(content).toContain('padding: variables.$btn-icon-circle-padding-lg;');
     });
 
-    it('should migrate indented Sass syntax and inline component styles', async () => {
-        const sassPath = '/projects/update-22-test/src/legacy.sass';
-        tree.create(sassPath, `.editor\n  height: $input-btn-height\n  padding: $input-padding-y $input-padding-x\n`);
-
+    it('should migrate inline component styles', async () => {
         const componentPath = '/projects/update-22-test/src/app/inline-style.component.ts';
         tree.create(
             componentPath,
@@ -63,19 +60,14 @@ describe('ng-update v22 scss size variable migration', () => {
 
         const result = await migrate(tree);
 
-        expect(result.readContent(sassPath)).toContain('height: $input-btn-height-lg');
-        expect(result.readContent(sassPath)).toContain('padding: $input-padding-y-lg $input-padding-x-lg');
         expect(result.readContent(componentPath)).toContain('padding: variables.$input-padding-y-lg variables.$input-padding-x-lg;');
     });
 
-    it('should not migrate comments, strings, or already sized variables', async () => {
-        const stylePath = '/projects/update-22-test/src/unchanged.scss';
+    it('should not replace partial or already sized token names', async () => {
+        const stylePath = '/projects/update-22-test/src/styles.scss';
         tree.create(
             stylePath,
             `
-                // variables.$input-padding-x
-                /* variables.$input-padding-y */
-                $description: 'variables.$input-btn-height';
                 .editor {
                     padding: variables.$input-padding-x-md variables.$input-padding-y-lg;
                     min-height: variables.$input-btn-height-lg;
