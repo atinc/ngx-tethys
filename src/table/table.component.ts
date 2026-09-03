@@ -183,8 +183,6 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public loadingDone = true;
 
-    public loadingText!: string;
-
     public emptyOptions: ThyTableEmptyOptions = {};
 
     public draggable = false;
@@ -364,15 +362,6 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     /**
-     * 设置加载时显示的文本，已废弃
-     * @deprecated
-     */
-    @Input()
-    set thyLoadingText(value: string) {
-        this.loadingText = value;
-    }
-
-    /**
      * 配置空状态组件
      */
     @Input()
@@ -435,15 +424,6 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * @default false
      */
     @Input({ transform: coerceBooleanProperty }) thyHeadless = false;
-
-    /**
-     * 是否显示表格头，已废弃，请使用 thyHeadless
-     * @deprecated please use thyHeadless
-     */
-    @Input({ transform: coerceBooleanProperty })
-    set thyShowHeader(value: boolean) {
-        this.thyHeadless = !value;
-    }
 
     /**
      * 是否显示左侧 Total

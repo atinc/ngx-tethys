@@ -3,10 +3,16 @@ import { createMigrationSchematicRule, NullableDevkitMigration, TargetVersion } 
 import { ClassNamesMigration } from './class-name-migration';
 import { onMigrationComplete } from '../core/complete';
 import { InputControlSizeMigration } from './input-control-size-migration';
+import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
 import { upgradeData } from './update-data';
 
-const migrations: NullableDevkitMigration[] = [InputControlSizeMigration, TagAppearanceMigration, ClassNamesMigration];
+const migrations: NullableDevkitMigration[] = [
+    InputControlSizeMigration,
+    TableShowHeaderMigration,
+    TagAppearanceMigration,
+    ClassNamesMigration
+];
 
 export default function main(): Rule {
     return createMigrationSchematicRule(TargetVersion.V22, migrations, upgradeData, onMigrationComplete);

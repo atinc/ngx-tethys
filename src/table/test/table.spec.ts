@@ -35,7 +35,6 @@ import { SafeAny } from 'ngx-tethys/types';
             [thyClassName]="tableClassName"
             [thyRowClassName]="tableRowClassName"
             [thyLoadingDone]="isLoadingDone"
-            [thyLoadingText]="loadingText"
             [thyHeadless]="headless"
             (thyOnRowClick)="onRowClick($event)"
             (thyOnMultiSelectChange)="onMultiSelectChange($event)"
@@ -163,7 +162,6 @@ class ThyDemoDefaultTableComponent {
     selections: any[] = [];
     theme = 'default';
     isLoadingDone = true;
-    loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
     showSizeChanger = true;
@@ -986,8 +984,7 @@ describe('ThyTable: group', () => {
             [thyClassName]="tableClassName"
             [thyRowClassName]="tableRowClassName"
             [thyLoadingDone]="isLoadingDone"
-            [thyLoadingText]="loadingText"
-            [thyShowHeader]="isShowHeader"
+            [thyHeadless]="!isShowHeader"
             (thyOnRowClick)="onRowClick($event, row)"
             (thyOnMultiSelectChange)="onMultiSelectChange($event, row)"
             [thyPageIndex]="pagination.index"
@@ -1041,7 +1038,6 @@ class ThyDemoEmptyTableComponent {
     selections: SafeAny[] = [];
     theme = 'default';
     isLoadingDone = true;
-    loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
 
