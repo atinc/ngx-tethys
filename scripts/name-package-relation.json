@@ -729,7 +729,6 @@
   "ThyTreeFormatEmitEvent": "tree",
   "ThyTreeSelectModule": "tree-select",
   "ThyTreeSelectNode": "tree-select",
-  "ThyTreeSelectType": "tree-select",
   "filterTreeData": "tree-select",
   "ThyTreeSelect": "tree-select",
   "ThyTreeSelectNodes": "tree-select",
