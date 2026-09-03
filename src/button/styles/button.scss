@@ -84,6 +84,24 @@ fieldset:disabled a.btn {
     }
 }
 
+// fill default：文字 #666（gray-700），背景 #eee（gray-200），hover 浅阴影
+.btn-default {
+    @include mixin.button-variant(
+        variables.$gray-700,
+        variables.$gray-700,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200
+    );
+
+    &:hover {
+        @include shadow.box-shadow(0px 2px 5px 1px #fafafa);
+    }
+}
+
 @each $color, $value in functions-variables.$theme-colors {
     .btn-outline-#{$color} {
         @include mixin.button-outline-variant($value, $value, variables.$white, $value, null, $value, null);
@@ -173,21 +191,18 @@ fieldset:disabled a.btn {
 // Link buttons
 //
 // Make a button look and behave like a link
-.btn-link {
+@mixin btn-link-base {
     font-weight: bootstrap-variables.$font-weight-normal;
-    color: variables.$link-color;
     background-color: transparent;
+    border-color: transparent;
 
     @include hover.hover {
-        color: variables.$link-hover-color;
-        text-decoration: variables.$link-hover-decoration;
         background-color: transparent;
         border-color: transparent;
     }
 
     &:focus,
     &.focus {
-        text-decoration: variables.$link-hover-decoration;
         border-color: transparent;
         box-shadow: variables.$box-shadow-none;
     }
@@ -195,54 +210,89 @@ fieldset:disabled a.btn {
     &.disabled,
     &:disabled {
         background-color: transparent;
+        border-color: transparent;
+        color: variables.$btn-link-disabled-color;
 
         @include hover.hover-focus {
             color: variables.$btn-link-disabled-color;
             text-decoration: none;
         }
     }
+}
 
-    &:disabled,
-    &.disabled {
-        color: variables.$btn-link-disabled-color;
-        border-color: transparent;
+// 主色链接（兼容旧 .btn-link）
+.btn-link,
+.btn-link-primary {
+    @include btn-link-base;
+    color: variables.$link-color;
+
+    @include hover.hover {
+        color: variables.$link-hover-color;
+        text-decoration: variables.$link-hover-decoration;
     }
 
-    // No need for an active state here
+    &:focus,
+    &.focus {
+        text-decoration: variables.$link-hover-decoration;
+    }
 }
 
-// 去除按钮图标和按钮链接的最小宽度
-.btn.btn-icon,
-.btn.btn-link {
-    min-width: 0px;
+// 中性链接：灰字 → 主色（原 link-secondary / btn-link-primary-weak）
+.btn-link-default {
+    @include btn-link-base;
+    @include mixin.btn-link-variant(variables.$gray-500, variables.$primary, none);
 }
 
+.btn-link-info {
+    @include btn-link-base;
+    @include mixin.btn-link-variant(variables.$info, variables.$primary, none);
+}
+
+.btn-link-warning {
+    @include btn-link-base;
+    @include mixin.btn-link-variant(variables.$warning, variables.$warning, none);
+}
+
+.btn-link-danger {
+    @include btn-link-base;
+    @include mixin.btn-link-variant(variables.$danger, variables.$danger, underline);
+}
+
+.btn-link-success {
+    @include btn-link-base;
+    @include mixin.btn-link-variant(variables.$success, variables.$success, underline);
+}
+
+// 兼容旧双 class 写法（CSS 直接使用时）
 .btn-link.btn-link-info {
     @include mixin.btn-link-variant(variables.$info, variables.$primary, none);
 }
 
-// 兼容之前的样式
 .btn-link.btn-link-default {
     @include mixin.btn-link-variant(variables.$btn-link-color-default, variables.$primary, none);
 }
 
-// 默认显示灰色，鼠标移上去显示主色
 .btn-link.btn-link-primary-weak {
     @include mixin.btn-link-variant(variables.$gray-500, variables.$primary, none);
 }
 
-// 默认显示灰色，鼠标移上去显示红色
 .btn-link.btn-link-danger-weak {
     @include mixin.btn-link-variant(variables.$gray-500, variables.$danger, none);
 }
 
-// 默认显示灰色，鼠标移上去显示红色
 .btn-link.btn-link-danger {
     @include mixin.btn-link-variant(variables.$danger, variables.$danger, underline);
 }
 
 .btn-link.btn-link-success {
     @include mixin.btn-link-variant(variables.$success, variables.$success, underline);
+}
+
+// 去除按钮图标和按钮链接的最小宽度
+.btn.btn-icon,
+.btn.btn-link,
+.btn[class^='btn-link-'] {
+    min-width: 0px;
 }
 
 //
@@ -271,11 +321,13 @@ input[type='button'] {
     .btn + .btn {
         margin-left: variables.$btn-pair-child-margin-left;
 
-        &.btn-link {
+        &.btn-link,
+        &[class^='btn-link-'] {
             margin-left: variables.$btn-pair-child-link-margin-left;
         }
     }
-    .btn-link + .btn {
+    .btn-link + .btn,
+    [class^='btn-link-'] + .btn {
         margin-left: variables.$btn-pair-child-link-margin-left;
     }
 }

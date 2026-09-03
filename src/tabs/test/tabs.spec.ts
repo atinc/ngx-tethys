@@ -80,7 +80,7 @@ class TestTabsCustomTitleComponent {}
         </thy-tabs>
 
         <ng-template #extraTemplate>
-            <button thyButton="outline-default" thySize="md">Extra Action</button>
+            <button thyButton="default" thyAppearance="outline" thySize="md">Extra Action</button>
         </ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -124,7 +124,7 @@ class TestTabsActiveComponent {
 @Component({
     selector: 'test-tabs-dynamic-add',
     template: `
-        <button class="mb-2" thyButton="outline-default" (click)="addTab()">添加</button>
+        <button class="mb-2" thyButton="default" thyAppearance="outline" (click)="addTab()">添加</button>
 
         <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
             @for (tab of tabs; track trackByFn(i, tab); let i = $index) {
