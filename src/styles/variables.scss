@@ -58,7 +58,8 @@ $gray-900: #212529 !default;
 
 /** text color  */
 $text-placeholder: $gray-400 !default;
-$text-body: $gray-800 !default;
+$text-default: $gray-800 !default;
+$text-body: $text-default !default;
 $text-desc: $gray-500 !default;
 $text-primary: $primary !default;
 $text-secondary: $gray-700 !default;
@@ -76,8 +77,8 @@ $bg-default: var(--bg-color-default) !default;
 $bg-lighter: $gray-100 !default;
 $bg-bright: $gray-80 !default;
 $bg-content: $gray-80 !default;
+$bg-secondary: $gray-80 !default;
 $bg-primary: $primary !default;
-$bg-secondary: $secondary !default;
 $bg-success: $success !default;
 $bg-info: $info !default;
 $bg-warning: $warning !default;

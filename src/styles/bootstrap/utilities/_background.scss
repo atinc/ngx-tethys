@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 @use '../../mixins/background-variant';
 @use '../../variables';
 @use '../functions-variables';
@@ -10,9 +10,9 @@ $bg-colors: map.merge(
     (
         '.bg-lighter': variables.$bg-lighter,
         '.bg-bright': variables.$bg-bright,
+        '.bg-secondary': variables.$bg-secondary,
         '.bg-content': variables.$bg-content,
         '.bg-primary': variables.$bg-primary,
-        '.bg-secondary': variables.$bg-secondary,
         '.bg-success': variables.$bg-success,
         '.bg-info': variables.$bg-info,
         '.bg-warning': variables.$bg-warning,
@@ -27,7 +27,6 @@ $bg-subtle-colors: () !default;
 $bg-subtle-colors: map.merge(
     (
         '.bg-primary-subtle': color-mix(in srgb, variables.$bg-primary 10%, transparent),
-        '.bg-secondary-subtle': color-mix(in srgb, variables.$bg-secondary 10%, transparent),
         '.bg-success-subtle': color-mix(in srgb, variables.$bg-success 10%, transparent),
         '.bg-info-subtle': color-mix(in srgb, variables.$bg-info 10%, transparent),
         '.bg-warning-subtle': color-mix(in srgb, variables.$bg-warning 10%, transparent),

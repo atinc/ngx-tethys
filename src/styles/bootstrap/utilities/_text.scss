@@ -87,8 +87,11 @@ $text-colors: map.merge(
     (
         '.text-placeholder': variables.$text-placeholder,
         '.text-body': variables.$text-body,
+        '.text-default': variables.$text-default,
         '.text-desc': variables.$text-desc,
+        '.text-quaternary': variables.$text-desc,
         '.text-muted': variables.$text-muted,
+        '.text-tertiary': variables.$text-muted,
         '.text-white': variables.$text-white,
         '.text-primary': variables.$text-primary,
         '.text-secondary': variables.$text-secondary,
