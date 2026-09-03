@@ -16,6 +16,10 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'ThyActiveTabValue'
                     },
                     {
+                        replace: 'ThyStackedValue',
+                        replaceWith: 'ThyProgressStackedValue'
+                    },
+                    {
                         replace: 'CompatibleDate',
                         replaceWith: 'ThyCompatibleDate'
                     }
@@ -175,8 +179,30 @@ export const upgradeData: UpgradeData = {
         ]
     },
     constructorChecks: {},
-    cssSelectors: {},
+    cssSelectors: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [{ replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' }]
+            }
+        ]
+    },
     methodCallChecks: {},
-    propertyNames: {},
+    propertyNames: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        replace: 'supperLg',
+                        replaceWith: 'superLg',
+                        limitedTo: {
+                            classes: ['ThyDialogSizes']
+                        }
+                    }
+                ]
+            }
+        ]
+    },
     symbolRemoval: {}
 };
