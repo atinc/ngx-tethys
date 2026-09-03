@@ -1,4 +1,4 @@
 ---
-title: Link
+title: Type
 order: 20
 ---

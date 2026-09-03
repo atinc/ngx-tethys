@@ -1,20 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ThyButton, ThyButtonAppearance, ThyButtonType } from 'ngx-tethys/button';
+import { ThyButton, ThyButtonType } from 'ngx-tethys/button';
+import { ThyIcon } from 'ngx-tethys/icon';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
-    selector: 'thy-button-appearance-example',
-    templateUrl: './appearance.component.html',
+    selector: 'thy-button-type-example',
+    templateUrl: './type.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyButton, ThySpace, ThySpaceItemDirective]
+    imports: [ThyButton, ThyIcon, ThySpace, ThySpaceItemDirective]
 })
-export class ThyButtonAppearanceExampleComponent {
-    appearances: { value: ThyButtonAppearance; label: string }[] = [
-        { value: 'fill', label: 'fill（默认）' },
-        { value: 'outline', label: 'outline' },
-        { value: 'link', label: 'link' }
-    ];
-
+export class ThyButtonTypeExampleComponent {
     types: { value: ThyButtonType; label: string }[] = [
         { value: 'default', label: 'Default' },
         { value: 'primary', label: 'Primary' },

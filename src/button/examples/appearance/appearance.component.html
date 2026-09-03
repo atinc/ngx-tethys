@@ -1,19 +1,10 @@
-<thy-button-group thySize="sm" thyType="outline-default">
-  @for (item of appearances; track $index) {
-    <button thyButton (click)="appearance = item" [ngClass]="{ active: appearance === item }">
-      {{ item }}
-    </button>
-  }
-</thy-button-group>
-
-<thy-space class="mt-4">
-  @for (type of types; track type) {
-    <button *thySpaceItem [thyButton]="type" [thyAppearance]="appearance">{{ type }}</button>
-  }
-</thy-space>
-
-<thy-space class="mt-2">
-  @for (type of types; track type) {
-    <button *thySpaceItem [thyButton]="type" [thyAppearance]="appearance" disabled>{{ type }}</button>
-  }
-</thy-space>
+@for (item of appearances; track item.value) {
+  <div [class.mt-3]="$index > 0">
+    <div class="mb-2 text-muted">{{ item.label }}</div>
+    <thy-space>
+      @for (type of types; track type.value) {
+        <button *thySpaceItem [thyButton]="type.value" [thyAppearance]="item.value">{{ type.label }}</button>
+      }
+    </thy-space>
+  </div>
+}

@@ -1,0 +1,19 @@
+@for (item of appearances; track item.value) {
+  <div [class.mt-3]="$index > 0">
+    <div class="mb-2 text-muted">{{ item.label }} + disabled</div>
+    <thy-space>
+      @for (type of types; track type.value) {
+        <button *thySpaceItem [thyButton]="type.value" [thyAppearance]="item.value" disabled>{{ type.label }}</button>
+      }
+    </thy-space>
+  </div>
+}
+
+<div class="mt-4">
+  <div class="mb-2 text-muted">thy-button + thyDisabled</div>
+  <thy-space>
+    <thy-button *thySpaceItem thyButton="primary" thyDisabled>Primary</thy-button>
+    <thy-button *thySpaceItem thyButton="primary" thyAppearance="outline" thyDisabled>Outline</thy-button>
+    <thy-button *thySpaceItem thyButton="default" thyAppearance="link" thyDisabled>Link</thy-button>
+  </thy-space>
+</div>

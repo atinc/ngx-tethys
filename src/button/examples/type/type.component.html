@@ -1,0 +1,12 @@
+<thy-space>
+  @for (type of types; track type.value) {
+    <button *thySpaceItem [thyButton]="type.value">{{ type.label }}</button>
+  }
+</thy-space>
+
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton="primary" thyIcon="plus">New</button>
+  <button *thySpaceItem thyButton="primary">New<thy-icon thyIconName="angle-down"></thy-icon></button>
+  <button *thySpaceItem thyButton="default" thyAppearance="outline" thyIcon="plus">New</button>
+  <button *thySpaceItem thyButton="default" thyAppearance="link">Cancel</button>
+</thy-space>
