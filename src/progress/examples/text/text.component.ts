@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ThyStackedValue, ThyProgress } from 'ngx-tethys/progress';
+import { ThyProgressStackedValue, ThyProgress } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-text-example',
@@ -10,7 +10,7 @@ import { ThyStackedValue, ThyProgress } from 'ngx-tethys/progress';
 export class ThyProgressTextExampleComponent {
     value = 40;
 
-    stackedValues: ThyStackedValue[] = [
+    stackedValues: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 20,
