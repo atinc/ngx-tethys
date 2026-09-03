@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ThyButton, ThyButtonAppearance, ThyButtonType } from 'ngx-tethys/button';
+import { ThyButton, ThyButtonType } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
@@ -9,8 +9,6 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
     imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
 export class ThyButtonDisabledExampleComponent {
-    appearances: ThyButtonAppearance[] = ['fill', 'outline', 'link'];
-
     types: { value: ThyButtonType; label: string }[] = [
         { value: 'default', label: 'Default' },
         { value: 'primary', label: 'Primary' },
