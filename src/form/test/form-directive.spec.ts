@@ -135,7 +135,7 @@ export class TestFormFullComponent {
                 </thy-form-group>
                 <thy-form-group-footer>
                     <button [thyButton]="'primary'" (thyFormSubmit)="submit()"></button>
-                    <button [thyButton]="'default'" thyAppearance="link">Cancel</button>
+                    <button [thyButton]="'link-secondary'">Cancel</button>
                 </thy-form-group-footer>
             </form>
         }
