@@ -34,45 +34,18 @@
     @include mixin.set-badge-size(1rem, 0.75rem, 4px);
 }
 
-.thy-badge-dot {
-    padding: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    // vertical-align: middle;
-}
-
-.thy-badge-hollow {
-    padding: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    // vertical-align: middle;
-    border: solid 1px variables.$badge-bg;
-    background-color: transparent;
-}
-
 // #endregion
 // #region
 .thy-badge-danger {
     @include mixin.set-badge-color(variables.$white, variables.$badge-danger-color);
-    &.thy-badge-hollow {
-        background-color: transparent;
-    }
 }
 
 .thy-badge-warning {
     @include mixin.set-badge-color(variables.$white, variables.$warning);
-    &.thy-badge-hollow {
-        background-color: transparent;
-    }
 }
 
 .thy-badge-primary {
     @include mixin.set-badge-color(variables.$white, variables.$primary);
-    &.thy-badge-hollow {
-        background-color: transparent;
-    }
 }
 
 .thy-badge-default {
@@ -81,21 +54,11 @@
 
 .thy-badge-success {
     @include mixin.set-badge-color(variables.$white, variables.$success);
-    &.thy-badge-hollow {
-        background-color: transparent;
-    }
 }
 
 // 使用 thy-badge-default，暂时没有去除
 .thy-badge-secondary {
     @include mixin.set-badge-color(variables.$gray-600, variables.$gray-200);
-    &.thy-badge-dot {
-        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
-    }
-    &.thy-badge-hollow {
-        background-color: transparent;
-        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
-    }
 }
 
 // #endregion
@@ -114,25 +77,11 @@
     &.thy-badge-count {
         @include mixin.set-badge-size(1.5rem, 0.875rem, 4px);
     }
-    &.thy-badge-dot,
-    &.thy-badge-hollow {
-        width: 10px;
-        height: 10px;
-    }
-
-    &.thy-badge-hollow {
-        border-width: 2px;
-    }
 }
 
 .thy-badge-sm {
     &.thy-badge-count {
         @include mixin.set-badge-size(0.875rem, 0.75rem, 3px);
-    }
-    &.thy-badge-dot,
-    &.thy-badge-hollow {
-        width: 6px;
-        height: 6px;
     }
 }
 

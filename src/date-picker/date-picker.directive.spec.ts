@@ -303,9 +303,8 @@ describe('ThyPickerDirective', () => {
                     placement: 'bottomLeft'
                 });
 
-                fixtureInstance.thyOffset = 0;
                 fixtureInstance.thyPlacement = 'right';
-                fixtureInstance.thyHasBackdrop = false;
+                fixtureInstance.popoverOptions = { offset: 0, hasBackdrop: false };
                 fixture.detectChanges();
                 openPickerByClickTrigger();
 
@@ -314,7 +313,7 @@ describe('ThyPickerDirective', () => {
                     hasBackdrop: false,
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     outsideClosable: true,
-                    offset: fixtureInstance.thyOffset,
+                    offset: 0,
                     initialState: getInitState(),
                     placement: fixtureInstance.thyPlacement
                 });
@@ -322,10 +321,9 @@ describe('ThyPickerDirective', () => {
 
             it('should use correct options when open popover', fakeAsync(() => {
                 const spy = getPopoverOpenSpy();
-                fixtureInstance.thyOffset = 0;
                 fixtureInstance.thyPlacement = 'right';
-                fixtureInstance.thyHasBackdrop = false;
                 fixtureInstance.popoverOptions = {
+                    offset: 0,
                     hasBackdrop: false,
                     outsideClosable: true,
                     originActiveClass: 'popover-origin-active'
@@ -342,7 +340,7 @@ describe('ThyPickerDirective', () => {
                             origin: debugElement.nativeElement.childNodes[0],
                             hasBackdrop: false,
                             backdropClass: 'thy-overlay-transparent-backdrop',
-                            offset: fixtureInstance.thyOffset,
+                            offset: 0,
                             initialState: getInitState(),
                             placement: fixtureInstance.thyPlacement
                         },
@@ -549,10 +547,8 @@ describe('ThyPickerDirective', () => {
             [thyMinDate]="thyMinDate"
             [thyMaxDate]="thyMaxDate"
             [thyDefaultPickerValue]="thyDefaultPickerValue"
-            [thyOffset]="thyOffset"
             [thyPlaceholder]="thyPlaceholder"
             [thyPlacement]="thyPlacement"
-            [thyHasBackdrop]="thyHasBackdrop"
             [thyPopoverOptions]="popoverOptions"
             [thyShowTime]="thyShowTime"
             [thyTimestampPrecision]="timestampPrecision"
@@ -577,9 +573,7 @@ class ThyTestPickerComponent {
     thyShowTime: boolean | object = false;
     thyMode!: string;
     thyDisabled!: boolean;
-    thyOffset = 4;
     thyPlacement = 'bottomLeft';
-    thyHasBackdrop = true;
     popoverOptions!: Partial<ThyPopoverConfig>;
     thyShowShortcut!: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';

@@ -41,10 +41,6 @@ export interface ThyPage {
 
 export interface ThyTableEmptyOptions {
     message?: string;
-    translationKey?: string;
-    translationValues?: any;
-    entityName?: string;
-    entityNameTranslateKey?: string;
     iconName?: string;
     size?: string;
     marginTop?: string;

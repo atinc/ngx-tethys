@@ -42,7 +42,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { ThyTreeSelectNode } from './tree-select.class';
 import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -274,12 +274,6 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * @type boolean
      */
     readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
-
-    /**
-     * 图标类型，支持 default | especial，已废弃
-     * @deprecated
-     */
-    readonly thyIconType = input<ThyTreeSelectType>();
 
     /**
      * 设置是否隐藏节点(不可进行任何操作),优先级低于 thyHiddenNodeKey。

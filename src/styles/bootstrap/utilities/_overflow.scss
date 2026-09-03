@@ -6,4 +6,12 @@
     .overflow-#{$value} {
         overflow: $value !important;
     }
+
+    .overflow-x-#{$value} {
+        overflow-x: $value !important;
+    }
+
+    .overflow-y-#{$value} {
+        overflow-y: $value !important;
+    }
 }

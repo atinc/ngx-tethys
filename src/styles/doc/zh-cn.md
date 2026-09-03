@@ -34,6 +34,8 @@ TETHYS 除了提供了`Space`组件外，还提供了一些列关于`margin`和`
 - `b` - 设置`margin-bottom`或者`padding-bottom`
 - `l` - 设置`margin-left`或者`padding-left`
 - `r` - 设置`margin-right`或者`padding-right`
+- `s` - 设置`margin-inline-start`或者`padding-inline-start`，LTR 下即左侧
+- `e` - 设置`margin-inline-end`或者`padding-inline-end`，LTR 下即右侧
 - `x` - 同时设置`*-left`和`*-right`
 - `y` - 同时设置`*-top`和`*-bottom`
 - `blank` - 空，同时设置元素的`margin`或者`padding`四个边
@@ -259,6 +261,25 @@ With align-items
 ```html
 <div class="visible">...</div>
 <div class="invisible">...</div>
+```
+
+## 溢出(Overflow)
+
+使用`overflow-{value}`、`overflow-x-{value}`和`overflow-y-{value}`分别设置元素整体、水平和垂直方向的溢出行为，`value`支持`auto`、`hidden`、`visible`和`scroll`。
+
+```html
+<div class="overflow-auto">...</div>
+<div class="overflow-x-hidden">...</div>
+<div class="overflow-y-scroll">...</div>
+```
+
+## 层级(Z-index)
+
+使用`z-{value}`设置元素的`z-index`，支持`z-0`、`z-1`、`z-2`、`z-3`和`z-n1`，其中`z-n1`对应`z-index: -1`。
+
+```html
+<div class="position-relative z-1">...</div>
+<div class="position-relative z-n1">...</div>
 ```
 
 ## 边框(Borders)

@@ -23,7 +23,26 @@ $bg-colors: map.merge(
     $bg-colors
 );
 
+$bg-subtle-colors: () !default;
+$bg-subtle-colors: map.merge(
+    (
+        '.bg-primary-subtle': color-mix(in srgb, variables.$bg-primary 10%, transparent),
+        '.bg-secondary-subtle': color-mix(in srgb, variables.$bg-secondary 10%, transparent),
+        '.bg-success-subtle': color-mix(in srgb, variables.$bg-success 10%, transparent),
+        '.bg-info-subtle': color-mix(in srgb, variables.$bg-info 10%, transparent),
+        '.bg-warning-subtle': color-mix(in srgb, variables.$bg-warning 10%, transparent),
+        '.bg-danger-subtle': color-mix(in srgb, variables.$bg-danger 10%, transparent),
+        '.bg-light-subtle': color-mix(in srgb, variables.$bg-light 10%, transparent),
+        '.bg-dark-subtle': color-mix(in srgb, variables.$bg-dark 10%, transparent)
+    ),
+    $bg-subtle-colors
+);
+
 @each $color, $value in $bg-colors {
+    @include background-variant.bg-variant($color, $value, true);
+}
+
+@each $color, $value in $bg-subtle-colors {
     @include background-variant.bg-variant($color, $value, true);
 }
 

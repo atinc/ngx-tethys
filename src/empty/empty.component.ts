@@ -14,7 +14,6 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyTranslate } from 'ngx-tethys/core';
 
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -22,7 +21,6 @@ import { injectLocale, ThyEmptyLocale } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyEmptyConfig } from './empty.config';
 import { PRESET_SVG } from './svgs';
 
 const sizeClassMap = {
@@ -67,42 +65,16 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     imports: [ThyIcon, NgClass, NgTemplateOutlet]
 })
 export class ThyEmpty implements AfterViewInit {
-    private thyTranslate = inject(ThyTranslate);
-    private thyEmptyConfig = inject(ThyEmptyConfig);
     private elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
     private sanitizer = inject(DomSanitizer);
     private locale: Signal<ThyEmptyLocale> = injectLocale('empty');
 
     /**
-     * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
+     * 显示文本提示信息
      * @default 暂无数据
      */
     readonly thyMessage = input<string>();
-
-    /**
-     * 已废弃。显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
-     * @deprecated
-     */
-    readonly thyTranslationKey = input<string>();
-
-    /**
-     * 已废弃。显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效
-     * @deprecated
-     */
-    readonly thyTranslationValues = input<any>();
-
-    /**
-     * 已废弃。显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高
-     * @deprecated
-     */
-    readonly thyEntityName = input<string>();
-
-    /**
-     * 已废弃。thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效
-     * @deprecated
-     */
-    readonly thyEntityNameTranslateKey = input<string>();
 
     /**
      * 提示图标名
@@ -161,23 +133,7 @@ export class ThyEmpty implements AfterViewInit {
     });
 
     protected readonly displayText = linkedSignal(() => {
-        if (this.thyMessage()) {
-            return this.thyMessage();
-        } else if (this.thyTranslationKey()) {
-            return this.thyTranslate.instant(this.thyTranslationKey()!, this.thyTranslationValues());
-        } else if (this.thyEntityName()) {
-            return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
-                target: this.thyEntityName()
-            });
-        } else if (this.thyEntityNameTranslateKey()) {
-            return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
-                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey()!)
-            });
-        } else if (this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey) !== 'common.tips.NO_RESULT') {
-            return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey);
-        } else {
-            return this.locale().noDataText;
-        }
+        return this.thyMessage() || this.locale().noDataText;
     });
 
     setMessage(text: string) {
