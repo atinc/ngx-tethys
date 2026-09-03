@@ -85,6 +85,13 @@ export const upgradeData: UpgradeData = {
                         limitedTo: {
                             elements: ['thy-avatar']
                         }
+                    },
+                    {
+                        replace: 'clear',
+                        replaceWith: 'thyClear',
+                        limitedTo: {
+                            elements: ['thy-input-search']
+                        }
                     }
                 ]
             }

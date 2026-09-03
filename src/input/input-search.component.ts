@@ -125,11 +125,6 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thySize = input<ThyFormControlSize>('md');
 
     /**
-     * @deprecated please use thyClear
-     */
-    readonly clear = output<Event>();
-
-    /**
      * 清除搜索事件
      */
     readonly thyClear = output<Event>();
@@ -189,7 +184,6 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
         }
         this.searchText.set('');
         this.onChangeFn(this.searchText());
-        this.clear.emit(event);
         this.thyClear.emit(event);
     }
 

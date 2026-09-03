@@ -492,4 +492,33 @@ export class TabsDemoComponent {
         expect(content).toContain('ThyActiveTabValue');
         expect(content).not.toContain('ThyActiveTabInfo');
     });
+
+    it('should migrate clear to thyClear for thy-input-search', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/input-search-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyInputModule } from 'ngx-tethys/input';
+
+@Component({
+    selector: 'app-input-search-demo',
+    template: \`
+        <thy-input-search (clear)="onClear($event)"></thy-input-search>
+    \`,
+    imports: [ThyInputModule]
+})
+export class InputSearchDemoComponent {
+    onClear(event: Event) {}
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-demo.component.ts');
+        expect(content).toContain('(thyClear)="onClear($event)"');
+        expect(content).not.toContain('(clear)');
+    });
 });
