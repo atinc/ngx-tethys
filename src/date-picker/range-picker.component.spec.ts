@@ -324,15 +324,15 @@ describe('ThyRangePickerComponent', () => {
             expect(disabledCell.textContent.trim()).toBe('15');
         }));
 
-        it('should support thyPlaceHolder as string array', () => {
+        it('should support thyPlaceholder as string array', () => {
             const featureKey = 'RIGHT_PLACEHOLDER';
-            fixtureInstance.thyPlaceHolder = ['Start', featureKey];
+            fixtureInstance.thyPlaceholder = ['Start', featureKey];
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(`Start${fixture.componentInstance.thySeparator}RIGHT_PLACEHOLDER`);
         });
 
-        it('should support thyPlaceHolder as string', () => {
-            fixtureInstance.thyPlaceHolder = 'Range Date Picker PlaceHolder';
+        it('should support thyPlaceholder as string', () => {
+            fixtureInstance.thyPlaceholder = 'Range Date Picker PlaceHolder';
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe('Range Date Picker PlaceHolder');
         });
@@ -1053,7 +1053,7 @@ describe('ThyRangePickerComponent', () => {
                     [thyAllowClear]="thyAllowClear"
                     [thyDisabled]="thyDisabled"
                     [thyDisabledDate]="thyDisabledDate"
-                    [thyPlaceHolder]="thyPlaceHolder"
+                    [thyPlaceholder]="thyPlaceholder"
                     [thyPanelClassName]="thyPanelClassName"
                     [thySize]="thySize"
                     [thySuffixIcon]="thySuffixIcon"
@@ -1106,7 +1106,7 @@ class ThyTestRangePickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder!: string | string[];
+    thyPlaceholder!: string | string[];
     thyPanelClassName!: string;
     thySize!: string;
     thySuffixIcon!: string;

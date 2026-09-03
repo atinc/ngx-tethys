@@ -715,7 +715,7 @@ describe('ThyTreeSelect', () => {
             }));
         });
 
-        describe('with thyPlaceHolder', () => {
+        describe('with thyPlaceholder', () => {
             beforeEach(waitForAsync(() => {
                 configureThyCustomSelectTestingModule([PlaceHolderTreeSelectComponent]);
             }));

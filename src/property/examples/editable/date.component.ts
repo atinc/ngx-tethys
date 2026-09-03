@@ -8,7 +8,7 @@ import { ThyDatePicker } from 'ngx-tethys/date-picker';
         <thy-date-picker
             thyShowTime
             [thyFormat]="'yyyy-MM-dd HH:mm'"
-            thyPlaceHolder="选择时间"
+            thyPlaceholder="选择时间"
             [(ngModel)]="user().birth_date"
             [thyHasBackdrop]="false"
             thySize="md"></thy-date-picker>

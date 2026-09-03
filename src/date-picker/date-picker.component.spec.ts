@@ -364,8 +364,8 @@ describe('ThyDatePickerComponent', () => {
             expect(disabledCell.textContent.trim()).toBe('15');
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -1373,7 +1373,7 @@ describe('ThyDatePickerComponent', () => {
                     [thyAutoFocus]="thyAutoFocus"
                     [thyDisabled]="thyDisabled"
                     [thyDisabledDate]="thyDisabledDate"
-                    [thyPlaceHolder]="thyPlaceHolder"
+                    [thyPlaceholder]="thyPlaceholder"
                     [thyPanelClassName]="thyPanelClassName"
                     [thyDefaultPickerValue]="thyDefaultPickerValue"
                     [thySize]="thySize"
@@ -1429,7 +1429,7 @@ class ThyTestDatePickerComponent {
     thyAutoFocus!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder!: string;
+    thyPlaceholder!: string;
     thyPanelClassName!: string;
     thySize!: string;
     thySuffixIcon!: string;

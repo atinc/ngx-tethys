@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
         <div class="input-container mb-2">
             <thy-slider [(ngModel)]="value"></thy-slider>
         </div>
-        <thy-input-number [(ngModel)]="value" placeholder="请输入"></thy-input-number>
+        <thy-input-number [(ngModel)]="value" thyPlaceholder="请输入"></thy-input-number>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider, ThyInputNumber, FormsModule]

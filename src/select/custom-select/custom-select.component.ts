@@ -315,7 +315,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 选择框默认文字
      */
-    readonly thyPlaceHolder = input<string>(this.locale().placeholder);
+    readonly thyPlaceholder = input<string>(this.locale().placeholder);
 
     /**
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤

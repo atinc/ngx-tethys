@@ -550,7 +550,7 @@ describe('ThyPickerDirective', () => {
             [thyMaxDate]="thyMaxDate"
             [thyDefaultPickerValue]="thyDefaultPickerValue"
             [thyOffset]="thyOffset"
-            [thyPlaceHolder]="thyPlaceHolder"
+            [thyPlaceholder]="thyPlaceholder"
             [thyPlacement]="thyPlacement"
             [thyHasBackdrop]="thyHasBackdrop"
             [thyPopoverOptions]="popoverOptions"
@@ -567,7 +567,7 @@ describe('ThyPickerDirective', () => {
 })
 class ThyTestPickerComponent {
     readonly thyDatePickerDirective = viewChild.required<ThyDatePickerDirective>(ThyDatePickerDirective);
-    thyPlaceHolder!: string;
+    thyPlaceholder!: string;
     thyPanelClassName!: string;
     thyValue!: Date | null;
     thyDefaultPickerValue!: Date | number;

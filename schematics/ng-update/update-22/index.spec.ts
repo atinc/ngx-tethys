@@ -37,7 +37,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 @Component({
     selector: 'app-input-demo',
     template: \`
-        <thy-input type="password" placeholder="Password"></thy-input>
+        <thy-input type="password" thyPlaceholder="Password"></thy-input>
     \`,
     imports: [ThyInputModule]
 })
@@ -491,5 +491,169 @@ export class TabsDemoComponent {
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/tabs-demo.component.ts');
         expect(content).toContain('ThyActiveTabValue');
         expect(content).not.toContain('ThyActiveTabInfo');
+    });
+
+    it('should migrate placeholder to thyPlaceholder for thy-input', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/input-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyInputModule } from 'ngx-tethys/input';
+
+@Component({
+    selector: 'app-input-demo',
+    template: \`
+        <thy-input placeholder="Please type"></thy-input>
+    \`,
+    imports: [ThyInputModule]
+})
+export class InputDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-demo.component.ts');
+        expect(content).toContain('thyPlaceholder="Please type"');
+        expect(content).not.toMatch(/\splaceholder="/);
+    });
+
+    it('should migrate placeholder to thyPlaceholder for thy-input binding', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/input-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyInputModule } from 'ngx-tethys/input';
+
+@Component({
+    selector: 'app-input-demo',
+    template: \`
+        <thy-input [placeholder]="inputPlaceholder"></thy-input>
+    \`,
+    imports: [ThyInputModule]
+})
+export class InputDemoComponent {
+    inputPlaceholder = 'Please type';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-demo.component.ts');
+        expect(content).toContain('[thyPlaceholder]="inputPlaceholder"');
+        expect(content).not.toContain('[placeholder]');
+    });
+
+    it('should not migrate placeholder for native input', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/input-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyInputModule } from 'ngx-tethys/input';
+
+@Component({
+    selector: 'app-input-demo',
+    template: \`
+        <input thyInput placeholder="Please type" />
+    \`,
+    imports: [ThyInputModule]
+})
+export class InputDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-demo.component.ts');
+        expect(content).toContain('placeholder="Please type"');
+        expect(content).not.toContain('thyPlaceholder');
+    });
+
+    it('should migrate placeholder to thyPlaceholder for thy-input-search', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/input-search-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyInputModule } from 'ngx-tethys/input';
+
+@Component({
+    selector: 'app-input-search-demo',
+    template: \`
+        <thy-input-search placeholder="Search"></thy-input-search>
+    \`,
+    imports: [ThyInputModule]
+})
+export class InputSearchDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-demo.component.ts');
+        expect(content).toContain('thyPlaceholder="Search"');
+        expect(content).not.toMatch(/\splaceholder="/);
+    });
+
+    it('should migrate thyPlaceHolder to thyPlaceholder for thy-select', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/select-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThySelectModule } from 'ngx-tethys/select';
+
+@Component({
+    selector: 'app-select-demo',
+    template: \`
+        <thy-select thyPlaceHolder="请选择"></thy-select>
+    \`,
+    imports: [ThySelectModule]
+})
+export class SelectDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/select-demo.component.ts');
+        expect(content).toContain('thyPlaceholder="请选择"');
+        expect(content).not.toContain('thyPlaceHolder');
+    });
+
+    it('should migrate thyPlaceHolder to thyPlaceholder for thy-date-picker', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/date-picker-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
+
+@Component({
+    selector: 'app-date-picker-demo',
+    template: \`
+        <thy-date-picker thyPlaceHolder="选择日期"></thy-date-picker>
+    \`,
+    imports: [ThyDatePickerModule]
+})
+export class DatePickerDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/date-picker-demo.component.ts');
+        expect(content).toContain('thyPlaceholder="选择日期"');
+        expect(content).not.toContain('thyPlaceHolder');
     });
 });

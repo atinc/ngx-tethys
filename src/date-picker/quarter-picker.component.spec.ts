@@ -111,8 +111,8 @@ describe('ThyQuarterPickerComponent', () => {
             flush();
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -287,7 +287,7 @@ describe('ThyQuarterPickerComponent', () => {
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
             (thyDateChange)="thyDateChange($event)"
-            [thyPlaceHolder]="thyPlaceHolder">
+            [thyPlaceholder]="thyPlaceholder">
         </thy-quarter-picker>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -297,7 +297,7 @@ class TestQuarterPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder: string = '请选择季度';
+    thyPlaceholder: string = '请选择季度';
     thyPanelClassName!: string;
     thyValue!: Date;
     thyOpen!: boolean;

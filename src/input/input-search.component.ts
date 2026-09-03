@@ -93,7 +93,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     /**
      * 搜索框 Placeholder
      */
-    readonly placeholder = input('');
+    readonly thyPlaceholder = input('');
 
     /**
      * 搜索框风格

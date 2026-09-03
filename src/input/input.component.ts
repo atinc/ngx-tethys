@@ -54,7 +54,7 @@ export class ThyInput implements ControlValueAccessor {
     /**
      * Placeholder
      */
-    readonly placeholder = input('');
+    readonly thyPlaceholder = input('');
 
     /**
      * 输入框大小

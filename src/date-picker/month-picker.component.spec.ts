@@ -115,8 +115,8 @@ describe('ThyMonthPickerComponent', () => {
             expect(allDisabledCells.textContent).toContain('3月');
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -267,7 +267,7 @@ describe('ThyMonthPickerComponent', () => {
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
-            [thyPlaceHolder]="thyPlaceHolder">
+            [thyPlaceholder]="thyPlaceholder">
         </thy-month-picker>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -277,7 +277,7 @@ class TestMonthPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder: string = '请选择月份';
+    thyPlaceholder: string = '请选择月份';
     thyPanelClassName!: string;
     thyValue!: Date;
     thyOpen!: boolean;
