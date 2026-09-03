@@ -84,7 +84,7 @@
         padding: $padding-y 10px;
     }
 
-    @each $type in primary, default, info, warning, danger, success {
+    @each $type in default, primary, info, warning, danger, success {
         &.btn-link-#{$type} {
             padding: $padding-y 10px;
         }

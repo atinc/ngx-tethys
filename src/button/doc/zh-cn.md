@@ -17,20 +17,16 @@ import { ThyButtonModule } from "ngx-tethys/button";
 
 ## API 模型
 
-按钮由两个正交参数组成：
-
 | 参数 | 含义 | 取值 |
 |------|------|------|
-| `thyAppearance` | 外观（样式） | `fill`（默认）/ `outline` / `link` |
-| `thyButton` | 颜色类型 | `primary`（默认）/ `default` / `info` / `warning` / `danger` / `success` |
+| `thyAppearance` | 外观 | `fill`（默认）/ `outline` / `link` |
+| `thyButton` | 颜色 | `default` / `primary`（默认）/ `info` / `warning` / `danger` / `success` |
 
 生成的 class：
 
-- `fill` → `btn-{type}`（如 `btn-primary`、`btn-default`）
+- `fill` → `btn-{type}`
 - `outline` → `btn-outline-{type}`
-- `link` → `btn-link-{type}`（与 fill/outline 一样只输出一个 class；共享样式写在每个 `btn-link-*` 内）
-
-弱危险链接（灰→红）不属于 Button，请继续使用 Link CSS：`class="link-danger-weak"`。`class="link-secondary"` 同样不改动。
+- `link` → `btn-link-{type}`
 
 ## 按钮种类
 在 Worktile Design 中，有四种按钮:
@@ -43,16 +39,16 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ## 基本使用
 推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
 ```html
-<button thyButton="primary">Primary</button>
 <button thyButton="default">Default</button>
+<button thyButton="primary">Primary</button>
 <button thyButton="primary" disabled>Primary</button>
 ```
 <example name="thy-button-basic-example"></example>
 
 ## 按钮链接
 ```html
-<button thyButton="primary" thyAppearance="link">Primary</button>
 <button thyButton="default" thyAppearance="link">Cancel</button>
+<button thyButton="primary" thyAppearance="link">Primary</button>
 <button thyButton="danger" thyAppearance="link">Danger</button>
 ```
 <example name="thy-button-link-example"></example>
