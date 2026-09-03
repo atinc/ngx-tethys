@@ -7,11 +7,13 @@ import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
 import { DividerDeeperMigration } from './divider-deeper-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
+import { DatePickerPopoverOptionsMigration } from './date-picker-popover-options-migration';
 import { upgradeData } from './update-data';
 
 const migrations: NullableDevkitMigration[] = [
     InputControlSizeMigration,
     NavInsideClosableMigration,
+    DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,
     DividerDeeperMigration,
