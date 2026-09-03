@@ -820,4 +820,51 @@ export class DialogDemoComponent {
         expect(content).toContain('ThyDialogSizes.superLg');
         expect(content).not.toContain('supperLg');
     });
+
+    it('should migrate ThyPropertyItem.setKeepEditing to setEditing', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        factory.addNewFile(
+            '/projects/update-22-test/src/ngx-tethys-property.d.ts',
+            `
+declare module 'ngx-tethys/property' {
+    export class ThyPropertyItem {
+        setEditing(editing: boolean): void;
+        /** @deprecated */
+        setKeepEditing(keep: boolean): void;
+    }
+}
+`
+        );
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/property-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyPropertyItem } from 'ngx-tethys/property';
+
+@Component({
+    selector: 'app-property-demo',
+    template: \`<thy-property-item></thy-property-item>\`
+})
+export class PropertyDemoComponent {
+    private propertyItem!: ThyPropertyItem;
+
+    startEditing() {
+        this.propertyItem.setKeepEditing(true);
+    }
+
+    stopEditing() {
+        this.propertyItem.setKeepEditing(false);
+    }
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/property-demo.component.ts');
+        expect(content).toContain('.setEditing(true)');
+        expect(content).toContain('.setEditing(false)');
+        expect(content).not.toContain('setKeepEditing');
+    });
 });
