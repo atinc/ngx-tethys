@@ -13,18 +13,11 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         class: 'thy-card',
         '[class.thy-card--divided]': '!!thyDivided()',
         '[class.thy-card--bordered]': '!!thyBordered()',
-        '[class.thy-card--clear-left-right-padding]': '!thyHasLeftRightPadding()',
         '[class.thy-card-sm]': 'thySize() === "sm"',
         '[class.thy-card-lg]': 'thySize() === "lg"'
     }
 })
 export class ThyCard {
-    /**
-     * 左右是否有内边距，已废弃，如需配置间距使用 spacing 工具样式覆盖默认间距
-     * @deprecated
-     */
-    readonly thyHasLeftRightPadding = input(true, { transform: coerceBooleanProperty });
-
     /**
      * 是否是分割模式，分割模式头部和内容区之间有一条分割线
      */

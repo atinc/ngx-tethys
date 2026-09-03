@@ -3,6 +3,7 @@ import { createMigrationSchematicRule, NullableDevkitMigration, TargetVersion } 
 import { onMigrationComplete } from '../core/complete';
 import { BadgeDotHollowMigration } from './badge-dot-hollow-migration';
 import { ButtonAppearanceMigration } from './button-appearance-migration';
+import { CardDeprecatedPropsMigration } from './card-deprecated-props-migration';
 import { ClassNamesMigration } from './class-name-migration';
 import { DatePickerPopoverOptionsMigration } from './date-picker-popover-options-migration';
 import { DividerDeeperMigration } from './divider-deeper-migration';
@@ -21,6 +22,7 @@ const migrations: NullableDevkitMigration[] = [
     TagAppearanceMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
+    CardDeprecatedPropsMigration,
     BadgeDotHollowMigration,
     ClassNamesMigration,
     HeaderIconPrefixMigration
