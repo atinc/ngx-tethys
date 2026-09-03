@@ -172,10 +172,7 @@ export class ThyButton {
         if (appearance === 'fill') {
             return [`btn-${type}`];
         }
-        if (appearance === 'link') {
-            // 基类承载共享样式，颜色 class 只表达语义色
-            return ['btn-link', `btn-link-${type}`];
-        }
+        // fill / outline / link 统一：单一 class
         return [`btn-${appearance}-${type}`];
     }
 
