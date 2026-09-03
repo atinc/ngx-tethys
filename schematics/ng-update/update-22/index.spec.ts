@@ -215,6 +215,38 @@ export class BadgeDemoComponent {
         expect(content).not.toContain('thyContext');
     });
 
+    it('should remove thyIsDot and thyIsHollow from thy-badge', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/badge-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+
+@Component({
+    selector: 'app-badge-demo',
+    template: \`
+        <thy-badge thyIsDot="true" thySize="sm"></thy-badge>
+        <thy-badge thyIsHollow="true" thyType="primary"></thy-badge>
+        <span thyBadge thyIsDot="true"></span>
+    \`,
+    imports: [ThyBadgeModule]
+})
+export class BadgeDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/badge-demo.component.ts');
+        expect(content).not.toContain('thyIsDot');
+        expect(content).not.toContain('thyIsHollow');
+        expect(content).toContain('<thy-badge thySize="sm"></thy-badge>');
+        expect(content).toContain('<thy-badge thyType="primary"></thy-badge>');
+        expect(content).toContain('<span thyBadge></span>');
+    });
+
     it('should migrate thyTheme weak-fill to thyAppearance subtle for thyTag', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
