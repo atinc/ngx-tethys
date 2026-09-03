@@ -1,12 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyNav, ThyNavHorizontal, ThyNavItemDirective, ThyNavModule, ThyNavSize, ThyNavType } from 'ngx-tethys/nav';
+import { ThyPopoverConfig } from 'ngx-tethys/popover';
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
 
@@ -61,7 +62,7 @@ export class NavBasicComponent implements OnInit {
             [thyVertical]="isVertical"
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
-            [thyInsideClosable]="insideClosable"
+            [thyPopoverOptions]="popoverOptions"
             class="custom-nav"
             style="width: 100px;height: 50px;display:block">
             @for (item of navLinks; track $index; let i = $index) {
@@ -96,7 +97,7 @@ export class NavResponsiveComponent implements OnInit {
 
     navLinks = [{ name: 'nav' }, { name: 'link2' }, { name: 'link3' }];
 
-    insideClosable!: boolean;
+    popoverOptions: ThyPopoverConfig | null = null;
 
     @ViewChildren(ThyNavItemDirective) links!: ThyNavItemDirective[];
 
@@ -235,8 +236,8 @@ describe(`thy-nav`, () => {
             });
         });
 
-        it('should get correct default value for thyInsideClosable', () => {
-            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(true);
+        it('should get correct default value for thyPopoverOptions', () => {
+            expect(navDebugElement.componentInstance.thyPopoverOptions()).toBe(null);
         });
     });
 
@@ -360,11 +361,11 @@ describe(`thy-nav`, () => {
             expect(popover?.querySelectorAll('.dropdown-menu-item').length).toEqual(2);
         }));
 
-        it('should support set thyInsideClosable', fakeAsync(() => {
-            fixture.debugElement.componentInstance.insideClosable = false;
+        it('should support set thyPopoverOptions insideClosable', fakeAsync(() => {
+            fixture.debugElement.componentInstance.popoverOptions = { insideClosable: false };
             fixture.detectChanges();
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNav));
-            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(false);
+            expect(navDebugElement.componentInstance.thyPopoverOptions()).toEqual({ insideClosable: false });
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {
