@@ -42,6 +42,7 @@ import { ThyButtonModule } from "ngx-tethys/button";
 | `link` | `thyAppearance="link" thyButton="primary"` |
 | `link-danger` 等 `link-*` | `thyAppearance="link" thyButton="{color}"` |
 | `secondary` | `thyButton="primary"`（v22 默认 size 已是 `md`） |
+| `primary-square` 等 `*-square` | 去掉 `-square`（与对应颜色视觉一致，如 `primary-square` → `primary`） |
 | `link-danger-weak` | `class="link-danger-weak"`（非 Button API） |
 
 > **说明：** `ThyButtonGroup` 的 `thyType="outline-default" | outline-primary"` 仍是独立 API，本变更不要求同步改造。

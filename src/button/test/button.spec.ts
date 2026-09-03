@@ -127,26 +127,6 @@ describe('ThyButton', () => {
             });
         });
 
-        it('should set type with square success', () => {
-            ['primary-square', 'info-square', 'warning-square', 'danger-square', 'success-square', 'default-square'].forEach(type => {
-                basicTestComponent.type = type;
-                basicTestComponent.appearance = 'fill';
-                fixture.detectChanges();
-                const btnElement: HTMLElement = buttonComponent.nativeElement;
-                expect(btnElement.classList.contains(`btn-${type.replace('-square', '')}`)).toBeTruthy();
-                expect(btnElement.classList.contains(`btn-square`)).toBeTruthy();
-            });
-        });
-
-        it('should set outline square success', () => {
-            basicTestComponent.type = 'primary-square';
-            basicTestComponent.appearance = 'outline';
-            fixture.detectChanges();
-            const btnElement: HTMLElement = buttonComponent.nativeElement;
-            expect(btnElement.classList.contains('btn-outline-primary')).toBeTruthy();
-            expect(btnElement.classList.contains('btn-square')).toBeTruthy();
-        });
-
         it('should set loading success', () => {
             basicTestComponent.loading = true;
             fixture.detectChanges();

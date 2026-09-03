@@ -58,6 +58,25 @@ describe('migrateButtonAppearance', () => {
         expect(migrateButtonAppearance(content)).toBe(`<button class="mr-2 link-danger-weak">Remove</button>`);
     });
 
+    it('should migrate primary-square to primary', () => {
+        const content = `<button thyButton="primary-square">Ok</button>`;
+        expect(migrateButtonAppearance(content)).toBe(`<button thyButton="primary">Ok</button>`);
+    });
+
+    it('should migrate outline-primary-square to outline + primary', () => {
+        const content = `<button thyButton="outline-primary-square">Ok</button>`;
+        expect(migrateButtonAppearance(content)).toBe(
+            `<button thyButton="primary" thyAppearance="outline">Ok</button>`
+        );
+    });
+
+    it('should migrate default-square while keeping existing thyAppearance', () => {
+        const content = `<button thyButton="default-square" thyAppearance="outline">Today</button>`;
+        expect(migrateButtonAppearance(content)).toBe(
+            `<button thyButton="default" thyAppearance="outline">Today</button>`
+        );
+    });
+
     it('should not change ThyButtonGroup outline types', () => {
         const content = `<thy-button-group thyType="outline-default"><button>A</button></thy-button-group>`;
         expect(migrateButtonAppearance(content)).toBe(content);

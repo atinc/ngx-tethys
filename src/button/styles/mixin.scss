@@ -141,17 +141,6 @@
     }
 }
 
-@mixin btn-square-radius {
-    // 设置大小也不影响 border-radius
-    border-radius: variables.$border-radius;
-    &.btn-lg,
-    &.btn-md,
-    &.btn-sm,
-    &.btn-xs {
-        border-radius: variables.$border-radius;
-    }
-}
-
 @mixin btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size, $diameter) {
     &.btn-icon-circle {
         i,

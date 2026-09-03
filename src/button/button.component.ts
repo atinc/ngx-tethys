@@ -22,9 +22,6 @@ export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
 
 export type ThyButtonType = 'primary' | 'default' | 'info' | 'warning' | 'danger' | 'success';
 
-/** 支持 `primary-square` 等圆角方块后缀；不再接受任意旧复合 type 字符串 */
-export type ThyButtonInputType = ThyButtonType | `${ThyButtonType}-square`;
-
 const iconOnlyClass = 'thy-btn-icon-only';
 
 /**
@@ -65,17 +62,17 @@ export class ThyButton {
     readonly thyAppearance = input<ThyButtonAppearance>('fill');
 
     /**
-     * 按钮类型（颜色）；方块圆角可追加 `-square`（如 `primary-square`）
+     * 按钮类型（颜色）
      * @type primary | default | info | warning | danger | success
      * @default primary
      */
-    readonly thyButton = input<ThyButtonInputType>();
+    readonly thyButton = input<ThyButtonType>();
 
     /**
      * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
      * @default primary
      */
-    readonly thyType = input<ThyButtonInputType>();
+    readonly thyType = input<ThyButtonType>();
 
     /**
      * 加载状态
@@ -144,22 +141,8 @@ export class ThyButton {
         return null;
     });
 
-    private readonly buttonType = computed(() => {
+    private readonly type = computed(() => {
         return this.thyButton() || this.thyType() || 'primary';
-    });
-
-    protected isRadiusSquare = computed(() => {
-        const type = this.buttonType();
-        return !!type?.includes('-square');
-    });
-
-    protected type = computed(() => {
-        const type = this.buttonType();
-        if (this.isRadiusSquare()) {
-            return type?.replace('-square', '');
-        } else {
-            return type;
-        }
     });
 
     private setButtonText() {
@@ -191,11 +174,7 @@ export class ThyButton {
         if (size) {
             classNames.push(`btn-${size}`);
         }
-        if (this.isRadiusSquare()) {
-            classNames.push('btn-square');
-        }
-        const loading = this.thyLoading();
-        if (loading) {
+        const loading = this.thyLoading();        if (loading) {
             classNames.push('loading');
         }
         this.hostRenderer.updateClass(classNames);

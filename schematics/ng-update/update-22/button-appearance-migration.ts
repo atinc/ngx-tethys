@@ -13,6 +13,7 @@ interface CompoundButtonType {
 
 /**
  * 旧复合 `thyButton`/`thyType` → 新 `thyAppearance` + 颜色 type。
+ * `*-square` 与对应颜色视觉一致，统一去掉后缀。
  * `link-danger-weak` 不属于 Button 色板，迁移为 CSS `link-danger-weak`（见 CHANGELOG）。
  */
 const COMPOUND_BUTTON_TYPES: Record<string, CompoundButtonType> = {
@@ -30,6 +31,8 @@ const COMPOUND_BUTTON_TYPES: Record<string, CompoundButtonType> = {
     'link-danger': { appearance: 'link', type: 'danger' },
     'link-success': { appearance: 'link', type: 'success' }
 };
+
+const PLAIN_BUTTON_TYPES = new Set(['primary', 'default', 'info', 'warning', 'danger', 'success']);
 
 const TYPE_ATTR_NAMES = ['thyButton', 'thy-button', 'thyType'];
 
@@ -59,7 +62,7 @@ function migrateButtonTag(tag: string): string {
     for (const attrName of TYPE_ATTR_NAMES) {
         const textMatch = tag.match(new RegExp(`\\b${attrName}="([^"]+)"`));
         if (textMatch) {
-            const mapped = COMPOUND_BUTTON_TYPES[textMatch[1]];
+            const mapped = resolveButtonType(textMatch[1]);
             if (!mapped) {
                 continue;
             }
@@ -68,7 +71,7 @@ function migrateButtonTag(tag: string): string {
 
         const boundMatch = tag.match(new RegExp(`\\[${attrName}\\]="'([^']+)'"`));
         if (boundMatch) {
-            const mapped = COMPOUND_BUTTON_TYPES[boundMatch[1]];
+            const mapped = resolveButtonType(boundMatch[1]);
             if (!mapped) {
                 continue;
             }
@@ -77,6 +80,21 @@ function migrateButtonTag(tag: string): string {
     }
 
     return tag;
+}
+
+/** 去掉无视觉差异的 `-square`，再解析 outline/link 复合 type */
+export function resolveButtonType(rawType: string): CompoundButtonType | null {
+    const withoutSquare = rawType.endsWith('-square') ? rawType.slice(0, -'-square'.length) : rawType;
+
+    if (COMPOUND_BUTTON_TYPES[withoutSquare]) {
+        return COMPOUND_BUTTON_TYPES[withoutSquare];
+    }
+
+    if (PLAIN_BUTTON_TYPES.has(withoutSquare) && withoutSquare !== rawType) {
+        return { appearance: 'fill', type: withoutSquare };
+    }
+
+    return null;
 }
 
 function applyCompoundMigration(

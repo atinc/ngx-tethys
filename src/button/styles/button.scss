@@ -120,11 +120,6 @@ fieldset:disabled a.btn {
     );
 }
 
-// 圆角方正，回归正常的圆角
-.btn-square {
-    @include mixin.btn-square-radius();
-}
-
 //
 // Button Sizes
 //

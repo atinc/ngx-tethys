@@ -59,8 +59,8 @@ describe('ThyResult', () => {
                 <div class="custom-subtitle">自定义subtitle</div>
             </ng-template>
             <ng-template #thyExtra>
-                <button thyButton="primary-square">关闭</button>
-                <button thyButton="primary-square" thyAppearance="outline">查看详情</button>
+                <button thyButton="primary">关闭</button>
+                <button thyButton="primary" thyAppearance="outline">查看详情</button>
             </ng-template>
             <ng-template #thyIcon>
                 <div class="custom-icon"></div>
