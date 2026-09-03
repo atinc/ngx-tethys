@@ -28,7 +28,7 @@ import { ThyButtonModule } from "ngx-tethys/button";
 
 - `fill` → `btn-{type}`（如 `btn-primary`、`btn-default`）
 - `outline` → `btn-outline-{type}`
-- `link` → `btn-link` + `btn-link-{type}`（基类承载共享样式，颜色 class 表达语义色）
+- `link` → `btn-link-{type}`（与 fill/outline 一样只输出一个 class；共享样式写在每个 `btn-link-*` 内）
 
 弱危险链接（灰→红）不属于 Button，请继续使用 Link CSS：`class="link-danger-weak"`。`class="link-secondary"` 同样不改动。
 

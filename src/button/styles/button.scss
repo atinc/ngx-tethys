@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use 'sass:meta';
 @use '../../styles/bootstrap/functions-variables';
 @use '../../styles/mixins/hover';
@@ -201,26 +202,54 @@ fieldset:disabled a.btn {
 }
 
 //
-// Link buttons
+// Link buttons — 与 fill/outline 对齐：单一 class btn-link-{type}
+// 共享样式通过 mixin 打进每个 btn-link-*；裸 .btn-link 仅兼容旧用法
 //
-// 基类 .btn-link：共享布局/透明底；.btn-link-{type}：颜色
-// 组件 link 外观输出：btn-link + btn-link-{type}
-.btn-link {
+$btn-link-color-map: (
+    'primary': (
+        variables.$link-color,
+        variables.$link-hover-color,
+        variables.$link-hover-decoration
+    ),
+    'default': (
+        variables.$gray-500,
+        variables.$primary,
+        none
+    ),
+    'info': (
+        variables.$info,
+        variables.$primary,
+        none
+    ),
+    'warning': (
+        variables.$warning,
+        variables.$warning,
+        none
+    ),
+    'danger': (
+        variables.$danger,
+        variables.$danger,
+        underline
+    ),
+    'success': (
+        variables.$success,
+        variables.$success,
+        underline
+    )
+);
+
+@mixin btn-link-shell {
     font-weight: bootstrap-variables.$font-weight-normal;
-    color: variables.$link-color;
     background-color: transparent;
     border-color: transparent;
 
     @include hover.hover {
-        color: variables.$link-hover-color;
-        text-decoration: variables.$link-hover-decoration;
         background-color: transparent;
         border-color: transparent;
     }
 
     &:focus,
     &.focus {
-        text-decoration: variables.$link-hover-decoration;
         border-color: transparent;
         box-shadow: variables.$box-shadow-none;
     }
@@ -238,30 +267,17 @@ fieldset:disabled a.btn {
     }
 }
 
-// 主色（与基类同色，便于单独写 class="btn-link-primary"）
-.btn-link-primary {
+// 旧裸 .btn-link ≡ primary
+.btn-link {
+    @include btn-link-shell;
     @include mixin.btn-link-variant(variables.$link-color, variables.$link-hover-color, variables.$link-hover-decoration);
 }
 
-// 中性：灰字 → 主色（原 link-secondary / btn-link-primary-weak）
-.btn-link-default {
-    @include mixin.btn-link-variant(variables.$gray-500, variables.$primary, none);
-}
-
-.btn-link-info {
-    @include mixin.btn-link-variant(variables.$info, variables.$primary, none);
-}
-
-.btn-link-warning {
-    @include mixin.btn-link-variant(variables.$warning, variables.$warning, none);
-}
-
-.btn-link-danger {
-    @include mixin.btn-link-variant(variables.$danger, variables.$danger, underline);
-}
-
-.btn-link-success {
-    @include mixin.btn-link-variant(variables.$success, variables.$success, underline);
+@each $type, $colors in $btn-link-color-map {
+    .btn-link-#{$type} {
+        @include btn-link-shell;
+        @include mixin.btn-link-variant(list.nth($colors, 1), list.nth($colors, 2), list.nth($colors, 3));
+    }
 }
 
 // 旧 weak 双 class（Button 已不再产出，业务 CSS 可能仍直接使用）
@@ -277,6 +293,12 @@ fieldset:disabled a.btn {
 .btn.btn-icon,
 .btn.btn-link {
     min-width: 0px;
+}
+
+@each $type, $colors in $btn-link-color-map {
+    .btn.btn-link-#{$type} {
+        min-width: 0px;
+    }
 }
 
 //
@@ -308,9 +330,22 @@ input[type='button'] {
         &.btn-link {
             margin-left: variables.$btn-pair-child-link-margin-left;
         }
+
+        @each $type, $colors in $btn-link-color-map {
+            &.btn-link-#{$type} {
+                margin-left: variables.$btn-pair-child-link-margin-left;
+            }
+        }
     }
+
     .btn-link + .btn {
         margin-left: variables.$btn-pair-child-link-margin-left;
+    }
+
+    @each $type, $colors in $btn-link-color-map {
+        .btn-link-#{$type} + .btn {
+            margin-left: variables.$btn-pair-child-link-margin-left;
+        }
     }
 }
 
