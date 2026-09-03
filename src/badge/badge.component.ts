@@ -38,13 +38,7 @@ export class ThyBadge implements OnInit {
         if (this.thySize()) {
             classes.push(`thy-badge-${this.thySize()}`);
         }
-        if (this.thyIsDot()) {
-            classes.push(`thy-badge-dot`);
-        } else if (this.thyIsHollow()) {
-            classes.push(`thy-badge-hollow`);
-        } else {
-            classes.push(`thy-badge-count`);
-        }
+        classes.push(`thy-badge-count`);
         const builtInTextColorClass = isTextColor(this.thyTextColor()) ? `text-${this.thyTextColor()}` : null;
         if (builtInTextColorClass) {
             classes.push(builtInTextColorClass);
@@ -60,7 +54,7 @@ export class ThyBadge implements OnInit {
     protected isWrapper = false;
 
     public readonly isShowBadge: Signal<boolean> = computed(() => {
-        return !(!this.value() && !this.thyKeepShow() && !this.thyIsDot() && !this.thyIsHollow());
+        return !(!this.value() && !this.thyKeepShow());
     });
 
     private readonly value: Signal<number | string | undefined> = computed(() => {
@@ -110,18 +104,6 @@ export class ThyBadge implements OnInit {
      * @type md | sm | lg
      */
     readonly thySize = input<ThyBadgeSize, ThyBadgeSize>('md', { transform: (value: ThyBadgeSize) => value || 'md' });
-
-    /**
-     * 已废弃，徽标是一个实心点，已经被废弃
-     * @deprecated
-     */
-    readonly thyIsDot = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 已废弃，徽标是一个空心点
-     * @deprecated
-     */
-    readonly thyIsHollow = input(false, { transform: coerceBooleanProperty });
 
     /**
      * thyCount 为 0 时，强制显示数字 0，默认不显示
