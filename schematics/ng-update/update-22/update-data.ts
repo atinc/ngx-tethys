@@ -27,7 +27,14 @@ export const upgradeData: UpgradeData = {
             }
         ]
     },
-    elementSelectors: {},
+    elementSelectors: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [{ replace: 'thy-link', replaceWith: 'thy-anchor-link' }]
+            }
+        ]
+    },
     inputNames: {
         [TargetVersion.V22]: [
             {
@@ -197,6 +204,10 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'thyNavLink',
                         replaceWith: 'thyNavItem'
+                    },
+                    {
+                        replace: 'thyLink',
+                        replaceWith: 'thyAnchorLink'
                     }
                 ]
             }

@@ -23,8 +23,8 @@ import { NgTemplateOutlet } from '@angular/common';
  * @name thy-anchor-link,thyAnchorLink
  */
 @Component({
-    selector: 'thy-link,thy-anchor-link',
-    exportAs: 'thyLink,thyAnchorLink',
+    selector: 'thy-anchor-link',
+    exportAs: 'thyAnchorLink',
     preserveWhitespaces: false,
     template: `
         <a #linkTitle (click)="goToClick($event)" href="{{ thyHref() }}" class="thy-anchor-link-title" title="{{ title() }}">
@@ -69,12 +69,7 @@ export class ThyAnchorLink implements IThyAnchorLinkComponent, OnInit, OnDestroy
     readonly linkTitle = viewChild.required<ElementRef<HTMLAnchorElement>>('linkTitle');
 
     constructor() {
-        const elementRef = this.elementRef;
-
         this.hostRenderer.addClass('thy-anchor-link');
-        if (elementRef.nativeElement.tagName.toLowerCase() === 'thy-link') {
-            console.warn(`'thy-link' and 'thyLink' are deprecated, please use 'thy-anchor-link' and 'thyAnchorLink' instead.`);
-        }
     }
 
     ngOnInit(): void {
