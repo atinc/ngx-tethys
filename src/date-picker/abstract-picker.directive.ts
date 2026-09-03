@@ -1,6 +1,6 @@
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { FunctionProp, warnDeprecation } from 'ngx-tethys/util';
+import { FunctionProp } from 'ngx-tethys/util';
 import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, mapTo, tap } from 'rxjs/operators';
 import { coerceArray, coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -13,7 +13,6 @@ import {
     OnInit,
     output,
     TemplateRef,
-    numberAttribute,
     inject,
     OutputRefSubscription,
     input,
@@ -48,30 +47,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right | rightTop | rightBottom
      */
     readonly thyPlacement = input<ThyPlacement>('bottom');
-
-    /**
-     * 弹出 DatePicker 的偏移量
-     */
-    readonly thyOffset = input(4, {
-        transform: (value: number) => {
-            if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
-            }
-            return numberAttribute(value);
-        }
-    });
-
-    /**
-     * 是否有幕布
-     */
-    readonly thyHasBackdrop = input(true, {
-        transform: (value: boolean) => {
-            if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
-            }
-            return coerceBooleanProperty(value);
-        }
-    });
 
     /**
      * popover 的其它参数
@@ -115,9 +90,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             Object.assign(
                 {
                     origin: this.el,
-                    hasBackdrop: this.thyHasBackdrop(),
+                    hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
-                    offset: this.thyOffset(),
+                    offset: 4,
                     outsideClosable: true,
                     initialState: {
                         isRange: this.isRange,
