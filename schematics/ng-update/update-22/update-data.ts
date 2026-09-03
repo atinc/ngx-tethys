@@ -223,6 +223,13 @@ export const upgradeData: UpgradeData = {
                         limitedTo: {
                             classes: ['ThyDialogSizes']
                         }
+                    },
+                    {
+                        replace: 'setKeepEditing',
+                        replaceWith: 'setEditing',
+                        limitedTo: {
+                            classes: ['ThyPropertyItem']
+                        }
                     }
                 ]
             }

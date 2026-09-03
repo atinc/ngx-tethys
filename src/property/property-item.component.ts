@@ -160,13 +160,6 @@ export class ThyPropertyItem implements OnDestroy {
         });
     }
 
-    /**
-     * @deprecated please use setEditing(editing: boolean)
-     */
-    setKeepEditing(keep: boolean) {
-        this.setEditing(keep);
-    }
-
     private hasOverlay() {
         return !!this.overlayOutsideClickDispatcher._attachedOverlays.filter(overlay => !this.originOverlays.includes(overlay)).length;
     }
