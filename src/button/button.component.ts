@@ -20,7 +20,7 @@ export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
 
-export type ThyButtonType = 'primary' | 'default' | 'info' | 'warning' | 'danger' | 'success';
+export type ThyButtonType = 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'success';
 
 const iconOnlyClass = 'thy-btn-icon-only';
 
@@ -63,7 +63,7 @@ export class ThyButton {
 
     /**
      * 按钮类型（颜色）
-     * @type primary | default | info | warning | danger | success
+     * @type default | primary | info | warning | danger | success
      * @default primary
      */
     readonly thyButton = input<ThyButtonType>();

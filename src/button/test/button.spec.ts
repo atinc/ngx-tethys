@@ -2,7 +2,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonModule } from 'ngx-tethys/button';
+import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonAppearance, ThyButtonModule } from 'ngx-tethys/button';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
@@ -31,7 +31,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
 })
 class ThyTestButtonBasicComponent {
     type = `primary`;
-    appearance: 'fill' | 'outline' | 'link' = 'fill';
+    appearance: ThyButtonAppearance = 'fill';
     size = 'md';
     loading = false;
     loadingText = 'Loading...';

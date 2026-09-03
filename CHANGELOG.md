@@ -7,7 +7,6 @@ All notable changes to this project will be documented in this file. See [commit
 ### Features
 
 * build: upgrade ng to v22 #TINFR-3745 ([#3824](/github.com/atinc/ngx-tethys/issues/3824)) ([7767bf2c](github.com/atinc/ngx-tethys/commits/7767bf2cebd90f468872953c8255542201aa379e)), closes [#TINFR-3745](github.com/atinc/ngx-tethys/issues/TINFR-3745)
-* **button:** add `thyAppearance` and simplify `ThyButtonType` #TINFR-3855 — `fill` / `outline` / `link` 与颜色正交；旧复合 type（如 `outline-primary`、`link-secondary`、`*-square`）改为 `thyAppearance` + `thyButton`（`*-square` 直接去掉后缀）；库内正式用法已迁移；`ng update` `migration-v22` 含 Button Appearance Schematics。破坏性对照：`link-secondary` → `thyAppearance="link" thyButton="default"`；`primary-square` → `thyButton="primary"`；`ThyButtonGroup` 的 `outline-*` 仍为独立 API，本版未改。
 
 
 

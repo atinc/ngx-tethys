@@ -15,38 +15,6 @@ order: 10
 import { ThyButtonModule } from "ngx-tethys/button";
 ```
 
-## API 模型
-
-| 参数 | 含义 | 取值 |
-|------|------|------|
-| `thyAppearance` | 外观 | `fill`（默认）/ `outline` / `link` |
-| `thyButton` | 颜色 | `default` / `primary`（默认）/ `info` / `warning` / `danger` / `success` |
-
-生成的 class：
-
-- `fill` → `btn-{type}`
-- `outline` → `btn-outline-{type}`
-- `link` → `btn-link-{type}`
-
-弱危险链接（灰→红）不属于 Button，请继续使用 Link CSS：`class="link-danger-weak"`。`class="link-secondary"` 同样不改动。
-
-### 从旧复合 type 迁移（v22）
-
-`ng update ngx-tethys` 的 `migration-v22` 会自动改写模板；对照表：
-
-| 旧 `thyButton` / `thyType` | 新写法 |
-|---------------------------|--------|
-| `outline-primary` | `thyAppearance="outline" thyButton="primary"` |
-| `outline-default` | `thyAppearance="outline" thyButton="default"` |
-| `link-secondary` | `thyAppearance="link" thyButton="default"` |
-| `link` | `thyAppearance="link" thyButton="primary"` |
-| `link-danger` 等 `link-*` | `thyAppearance="link" thyButton="{color}"` |
-| `secondary` | `thyButton="primary"`（v22 默认 size 已是 `md`） |
-| `primary-square` 等 `*-square` | 去掉 `-square`（与对应颜色视觉一致，如 `primary-square` → `primary`） |
-| `link-danger-weak` | `class="link-danger-weak"`（非 Button API） |
-
-> **说明：** `ThyButtonGroup` 的 `thyType="outline-default" | outline-primary"` 仍是独立 API，本变更不要求同步改造。
-
 ## 按钮种类
 在 Worktile Design 中，有四种按钮:
 

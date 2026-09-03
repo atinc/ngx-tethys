@@ -23,6 +23,7 @@ order: 985
 - 自动将 `thy-action` 和 `thy-tag` 的输入参数 `thyTheme` 重命名为 `thyAppearance`。
 - 自动将 `thy-header` 的输入参数 `thyHasBorder` 重命名为 `thyDivided`。
 - 自动将 `thy-tag` 的 `thyAppearance="weak-fill"` 和 `thyTheme="weak-fill"` 替换为 `thyAppearance="subtle"`。
+- 自动将 Button 旧复合 `thyButton` / `thyType`（如 `outline-primary`、`link-secondary`、`*-square`）改写为 `thyAppearance` + 颜色 type。
 
 ## 破坏性修改
 - Button 类和 FormControl 类组件的默认尺寸从 36px 改为 md（32px）。受影响组件包括：`thy-button`、`thy-button-group`、`thy-button-icon`、`thyButton`、`thyButtonIcon`、`thy-input`、`thy-input-group`、`thy-input-search`、`thy-input-number`、`thyInput`、`thy-select`、`thy-custom-select`、`thy-native-select`、`thy-tree-select`、`thy-cascader`、`thy-select-control`、`thySelectControl`、`thy-date-picker`、`thy-range-picker`、`thy-month-picker`、`thy-quarter-picker`、`thy-week-picker`、`thy-year-picker`、`thy-time-picker`、`thyDatePicker`、`thyRangePicker`。如果需要保持 36px 的视觉效果，请添加 `thySize="lg"`。
@@ -31,4 +32,20 @@ order: 985
 - `thy-header` 的 `thyHasBorder` 输入参数改名为 `thyDivided`。
 - `thy-tag` 的 `weak-fill` 外观值改名为 `subtle`。
 - 以下 Sass 变量已被删除，请使用对应的 `lg` 变量：`$input-btn-height`、`$input-padding-x`、`$input-padding-y`、`$btn-icon-circle-padding-base`、`$input-border-radius`。
+- Button 新增 `thyAppearance`（`fill` / `outline` / `link`），`thyButton` / `thyType` 仅表示颜色（`default` / `primary` / `info` / `warning` / `danger` / `success`）。旧复合 type 对照：
+
+| 旧 `thyButton` / `thyType` | 新写法 |
+|---------------------------|--------|
+| `outline-primary` | `thyAppearance="outline" thyButton="primary"` |
+| `outline-default` | `thyAppearance="outline" thyButton="default"` |
+| `link-secondary` | `thyAppearance="link" thyButton="default"` |
+| `link` | `thyAppearance="link" thyButton="primary"` |
+| `link-danger` 等 `link-*` | `thyAppearance="link" thyButton="{color}"` |
+| `secondary` | `thyButton="primary"`（v22 默认 size 已是 `md`） |
+| `primary-square` 等 `*-square` | 去掉 `-square`（与对应颜色视觉一致，如 `primary-square` → `primary`） |
+| `link-danger-weak` | `class="link-danger-weak"`（非 Button API） |
+
+弱危险链接（灰→红）不属于 Button，请继续使用 Link CSS：`class="link-danger-weak"`。`class="link-secondary"` 同样不改动。
+
+> **说明：** `ThyButtonGroup` 的 `thyType="outline-default" | outline-primary"` 仍是独立 API，本变更不要求同步改造。
 
