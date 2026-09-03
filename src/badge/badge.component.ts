@@ -64,7 +64,7 @@ export class ThyBadge implements OnInit {
     });
 
     private readonly value: Signal<number | string | undefined> = computed(() => {
-        return this.thyContent() || this.thyContext() || this.thyCount();
+        return this.thyContent() || this.thyCount();
     });
 
     protected readonly textColor: Signal<string | null> = computed(() => {
@@ -98,11 +98,6 @@ export class ThyBadge implements OnInit {
      * @type string
      */
     readonly thyContent = input<string>();
-
-    /**
-     * 已废弃，徽标内容文本，命名错误，请使用 thyContent
-     */
-    readonly thyContext = input<string>();
 
     /**
      * 徽标显示的最大值, 与 thyCount 一起使用,thyCount 超过了 thyMaxCount 设置的值时，徽标内容为 thyMaxCount+

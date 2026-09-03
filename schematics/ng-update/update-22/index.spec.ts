@@ -159,6 +159,62 @@ export class TagDemoComponent {}
         expect(content).not.toContain('thyTheme');
     });
 
+    it('should migrate thyContext to thyContent for thy-badge', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/badge-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+
+@Component({
+    selector: 'app-badge-demo',
+    template: \`
+        <thy-badge [thyContext]="'new'" thySize="sm"></thy-badge>
+    \`,
+    imports: [ThyBadgeModule]
+})
+export class BadgeDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/badge-demo.component.ts');
+        expect(content).toContain(`[thyContent]="'new'"`);
+        expect(content).not.toContain('thyContext');
+    });
+
+    it('should migrate thyContext to thyContent for thyBadge', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/badge-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+
+@Component({
+    selector: 'app-badge-demo',
+    template: \`
+        <span thyBadge [thyContext]="content"></span>
+    \`,
+    imports: [ThyBadgeModule]
+})
+export class BadgeDemoComponent {
+    content = 'new';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/badge-demo.component.ts');
+        expect(content).toContain('[thyContent]="content"');
+        expect(content).not.toContain('thyContext');
+    });
+
     it('should migrate thyTheme weak-fill to thyAppearance subtle for thyTag', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
