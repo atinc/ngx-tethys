@@ -7,6 +7,7 @@
 </thy-button-group>
 <thy-space class="mt-4">
   <button *thySpaceItem thyButton="primary" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton="default" [thySize]="size">Default</button>
   <button *thySpaceItem thyButton="info" [thySize]="size">Info</button>
   <button *thySpaceItem thyButton="warning" [thySize]="size">Warning</button>
   <button *thySpaceItem thyButton="danger" [thySize]="size">Danger</button>
@@ -14,17 +15,17 @@
   <button *thySpaceItem thyButton="primary" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
 </thy-space>
 <thy-space class="mt-2">
-  <button *thySpaceItem thyButton="outline-primary" [thySize]="size">Primary</button>
-  <button *thySpaceItem thyButton="outline-info" [thySize]="size">Info</button>
-  <button *thySpaceItem thyButton="outline-warning" [thySize]="size">Warning</button>
-  <button *thySpaceItem thyButton="outline-danger" [thySize]="size">Danger</button>
-  <button *thySpaceItem thyButton="outline-success" [thySize]="size">Success</button>
-  <button *thySpaceItem thyButton="outline-primary" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
+  <button *thySpaceItem thyButton="primary" thyAppearance="outline" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton="default" thyAppearance="outline" [thySize]="size">Default</button>
+  <button *thySpaceItem thyButton="info" thyAppearance="outline" [thySize]="size">Info</button>
+  <button *thySpaceItem thyButton="warning" thyAppearance="outline" [thySize]="size">Warning</button>
+  <button *thySpaceItem thyButton="danger" thyAppearance="outline" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton="success" thyAppearance="outline" [thySize]="size">Success</button>
+  <button *thySpaceItem thyButton="primary" thyAppearance="outline" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
 </thy-space>
 <thy-space class="mt-2">
-  <button *thySpaceItem thyButton="link" [thySize]="size">Default</button>
-  <button *thySpaceItem thyButton="link-secondary" [thySize]="size">Secondary</button>
-  <button *thySpaceItem thyButton="link-danger-weak" [thySize]="size">Danger Weak</button>
-  <button *thySpaceItem thyButton="link-danger" [thySize]="size">Danger</button>
-  <button *thySpaceItem thyButton="link-success" [thySize]="size">Success</button>
+  <button *thySpaceItem thyButton="primary" thyAppearance="link" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton="default" thyAppearance="link" [thySize]="size">Default</button>
+  <button *thySpaceItem thyButton="danger" thyAppearance="link" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton="success" thyAppearance="link" [thySize]="size">Success</button>
 </thy-space>

@@ -18,13 +18,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
             <thy-step label="第二步" #step2>
                 <div class="demo-stepper-body second-step">
                     <button thyButton="primary">下一步</button>
-                    <a thyButton="link-secondary">上一步</a>
+                    <a thyButton="default" thyAppearance="link">上一步</a>
                     <p>This is second description.</p>
                 </div>
             </thy-step>
             <thy-step label="第三步">
                 <div class="demo-stepper-body third-step">
-                    <a thyButton="link-secondary">上一步</a>
+                    <a thyButton="default" thyAppearance="link">上一步</a>
                     <p>This is third description.</p>
                 </div>
             </thy-step>

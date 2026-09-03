@@ -36,7 +36,7 @@ export class DialogSimpleContentTestComponent {
         </thy-dialog-body>
         <thy-dialog-footer thyDivided="true">
             <button thyButton="primary" (click)="ok()">确定</button>
-            <button thyButton="link-secondary" (click)="close()">取消</button>
+            <button thyButton="default" thyAppearance="link" (click)="close()">取消</button>
         </thy-dialog-footer>
     `,
     imports: [ThyDialogModule, ThyButtonModule]
