@@ -159,6 +159,62 @@ export class TagDemoComponent {}
         expect(content).not.toContain('thyTheme');
     });
 
+    it('should migrate thyContext to thyContent for thy-badge', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/badge-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+
+@Component({
+    selector: 'app-badge-demo',
+    template: \`
+        <thy-badge [thyContext]="'new'" thySize="sm"></thy-badge>
+    \`,
+    imports: [ThyBadgeModule]
+})
+export class BadgeDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/badge-demo.component.ts');
+        expect(content).toContain(`[thyContent]="'new'"`);
+        expect(content).not.toContain('thyContext');
+    });
+
+    it('should migrate thyContext to thyContent for thyBadge', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/badge-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+
+@Component({
+    selector: 'app-badge-demo',
+    template: \`
+        <span thyBadge [thyContext]="content"></span>
+    \`,
+    imports: [ThyBadgeModule]
+})
+export class BadgeDemoComponent {
+    content = 'new';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/badge-demo.component.ts');
+        expect(content).toContain('[thyContent]="content"');
+        expect(content).not.toContain('thyContext');
+    });
+
     it('should migrate thyTheme weak-fill to thyAppearance subtle for thyTag', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
@@ -581,24 +637,24 @@ export class InputDemoComponent {}
         await factory.create();
         await factory.addApplication({ name: 'update-22-test' });
         const testTree = factory.addNewFile(
-            '/projects/update-22-test/src/app/input-search-demo.component.ts',
+            '/projects/update-22-test/src/app/input-search-placeholder-demo.component.ts',
             `
 import { Component } from '@angular/core';
 import { ThyInputModule } from 'ngx-tethys/input';
 
 @Component({
-    selector: 'app-input-search-demo',
+    selector: 'app-input-search-placeholder-demo',
     template: \`
         <thy-input-search placeholder="Search"></thy-input-search>
     \`,
     imports: [ThyInputModule]
 })
-export class InputSearchDemoComponent {}
+export class InputSearchPlaceholderDemoComponent {}
 `
         );
 
         workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
-        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-demo.component.ts');
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-placeholder-demo.component.ts');
         expect(content).toContain('thyPlaceholder="Search"');
         expect(content).not.toMatch(/\splaceholder="/);
     });
@@ -655,5 +711,113 @@ export class DatePickerDemoComponent {}
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/date-picker-demo.component.ts');
         expect(content).toContain('thyPlaceholder="选择日期"');
         expect(content).not.toContain('thyPlaceHolder');
+    });
+
+    it('should migrate thyAutocompleteComponent to thyAutocomplete', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/autocomplete-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
+import { ThyOptionModule } from 'ngx-tethys/shared';
+
+@Component({
+    selector: 'app-autocomplete-demo',
+    template: \`
+        <input thyInput thyAutocompleteTrigger [thyAutocompleteComponent]="auto" />
+        <input thyInput [thyAutocomplete]="auto" />
+        <thy-autocomplete #auto></thy-autocomplete>
+    \`,
+    imports: [FormsModule, ThyInputModule, ThyAutocompleteModule, ThyOptionModule]
+})
+export class AutocompleteDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/autocomplete-demo.component.ts');
+        expect(content).toContain('[thyAutocomplete]="auto"');
+        expect(content).not.toContain('thyAutocompleteComponent');
+    });
+
+    it('should migrate clear to thyClear for thy-input-search', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/input-search-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyInputModule } from 'ngx-tethys/input';
+
+@Component({
+    selector: 'app-input-search-demo',
+    template: \`
+        <thy-input-search (clear)="onClear($event)"></thy-input-search>
+    \`,
+    imports: [ThyInputModule]
+})
+export class InputSearchDemoComponent {
+    onClear(event: Event) {}
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-demo.component.ts');
+        expect(content).toContain('(thyClear)="onClear($event)"');
+        expect(content).not.toContain('(clear)');
+    });
+
+    it('should migrate ThyDialogSizes.supperLg to ThyDialogSizes.superLg', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        factory.addNewFile(
+            '/projects/update-22-test/src/ngx-tethys-dialog.d.ts',
+            `
+declare module 'ngx-tethys/dialog' {
+    export class ThyDialog {
+        open(component: unknown, config?: { size?: ThyDialogSizes }): void;
+    }
+
+    export enum ThyDialogSizes {
+        supperLg = 'supper-lg',
+        superLg = 'super-lg'
+    }
+}
+`
+        );
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/dialog-demo.component.ts',
+            `
+import { Component, inject } from '@angular/core';
+import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
+
+@Component({
+    selector: 'app-dialog-demo',
+    template: \`\`
+})
+export class DialogDemoComponent {
+    private thyDialog = inject(ThyDialog);
+
+    openDialog() {
+        this.thyDialog.open(DialogContentComponent, {
+            size: ThyDialogSizes.supperLg
+        });
+    }
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/dialog-demo.component.ts');
+        expect(content).toContain('ThyDialogSizes.superLg');
+        expect(content).not.toContain('supperLg');
     });
 });

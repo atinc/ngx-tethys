@@ -29,7 +29,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
                 thyAutocompleteTrigger
                 [(ngModel)]="value"
                 [placeholder]="placeholder"
-                [thyAutocompleteComponent]="auto"
+                [thyAutocomplete]="auto"
                 [thyAutocompleteWidth]="500"
                 (ngModelChange)="valueChange($event)" />
             <thy-autocomplete
@@ -208,13 +208,13 @@ describe('ThyAutocomplete', () => {
                 tick(500);
 
                 const autocompleteDirective = fixture.componentInstance.autocompleteDirective();
-                const activeItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
+                const activeItem = autocompleteDirective.thyAutocomplete()?.keyManager?.activeItem;
                 expect(activeItem).toBeFalsy();
 
                 dispatchKeyboardEvent(trigger, 'keydown', keycodes.DOWN_ARROW);
                 fixture.detectChanges();
                 tick(500);
-                const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
+                const newActiveItem = autocompleteDirective.thyAutocomplete()?.keyManager?.activeItem;
                 expect(newActiveItem?.thyLabelText()).toContain('Steak');
 
                 const selectViaInteractionSpy = spyOn<any>(autocompleteDirective.activeOption(), 'selectViaInteraction');
@@ -236,13 +236,13 @@ describe('ThyAutocomplete', () => {
                 tick(500);
 
                 const autocompleteDirective = fixture.componentInstance.autocompleteDirective();
-                const activeItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
+                const activeItem = autocompleteDirective.thyAutocomplete()?.keyManager?.activeItem;
                 expect(activeItem).toBeTruthy();
 
                 dispatchKeyboardEvent(trigger, 'keydown', keycodes.DOWN_ARROW);
                 fixture.detectChanges();
                 tick(500);
-                const newActiveItem = autocompleteDirective.autocompleteComponent()?.keyManager?.activeItem;
+                const newActiveItem = autocompleteDirective.thyAutocomplete()?.keyManager?.activeItem;
                 expect(newActiveItem?.thyLabelText()).toContain('Pizza');
             }));
 

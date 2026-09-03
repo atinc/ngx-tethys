@@ -14,6 +14,10 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'ThyActiveTabInfo',
                         replaceWith: 'ThyActiveTabValue'
+                    },
+                    {
+                        replace: 'ThyStackedValue',
+                        replaceWith: 'ThyProgressStackedValue'
                     }
                 ]
             }
@@ -46,6 +50,20 @@ export const upgradeData: UpgradeData = {
                         limitedTo: {
                             attributes: ['thyTag'],
                             elements: ['thy-tag']
+                        }
+                    },
+                    {
+                        replace: 'thyContext',
+                        replaceWith: 'thyContent',
+                        limitedTo: {
+                            elements: ['thy-badge']
+                        }
+                    },
+                    {
+                        replace: 'thyContext',
+                        replaceWith: 'thyContent',
+                        limitedTo: {
+                            attributes: ['thyBadge']
                         }
                     },
                     {
@@ -93,6 +111,13 @@ export const upgradeData: UpgradeData = {
                             ],
                             attributes: ['thyDatePicker', 'thyRangePicker']
                         }
+                    },
+                    {
+                        replace: 'thyAutocompleteComponent',
+                        replaceWith: 'thyAutocomplete',
+                        limitedTo: {
+                            attributes: ['thyAutocompleteTrigger', 'thyAutocomplete']
+                        }
                     }
                 ]
             }
@@ -108,6 +133,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyRemove',
                         limitedTo: {
                             elements: ['thy-avatar']
+                        }
+                    },
+                    {
+                        replace: 'clear',
+                        replaceWith: 'thyClear',
+                        limitedTo: {
+                            elements: ['thy-input-search']
                         }
                     }
                 ]
@@ -167,8 +199,30 @@ export const upgradeData: UpgradeData = {
         ]
     },
     constructorChecks: {},
-    cssSelectors: {},
+    cssSelectors: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [{ replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' }]
+            }
+        ]
+    },
     methodCallChecks: {},
-    propertyNames: {},
+    propertyNames: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        replace: 'supperLg',
+                        replaceWith: 'superLg',
+                        limitedTo: {
+                            classes: ['ThyDialogSizes']
+                        }
+                    }
+                ]
+            }
+        ]
+    },
     symbolRemoval: {}
 };

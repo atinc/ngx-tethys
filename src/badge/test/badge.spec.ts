@@ -30,24 +30,6 @@ class BadgeBasicComponent implements OnInit {
 }
 
 @Component({
-    selector: 'thy-badge-context',
-    template: `
-        <thy-badge [thyContext]="context">
-            <div>WORKTILE</div>
-        </thy-badge>
-    `,
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyBadgeModule]
-})
-class BadgeBasicContextComponent implements OnInit {
-    constructor() {}
-
-    context = 'Worktile';
-
-    ngOnInit(): void {}
-}
-
-@Component({
     selector: 'thy-badge-content',
     template: `
         <thy-badge [thyContent]="content">
@@ -223,38 +205,11 @@ describe('thy-badge', () => {
             expect(badgeElement).toBeTruthy();
         });
 
-        it('thyContext, should set context success', () => {
+        it('thyContent, should set content success', () => {
             fixture.detectChanges();
             const badgeSpanElement = badgeElement.querySelector('.thy-badge')!;
             expect(badgeSpanElement.textContent).toBe(`Worktile`);
             testComponent.content = 'PingCode';
-            fixture.detectChanges();
-            expect(badgeSpanElement.textContent).toBe(`PingCode`);
-        });
-    });
-
-    describe('context', () => {
-        let fixture!: ComponentFixture<BadgeBasicContextComponent>;
-        let badgeComponent!: DebugElement;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(BadgeBasicContextComponent);
-            testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
-            badgeElement = badgeComponent.nativeElement;
-        });
-
-        it('should create', () => {
-            expect(fixture).toBeTruthy();
-            expect(badgeComponent).toBeTruthy();
-            expect(badgeElement).toBeTruthy();
-        });
-
-        it('thyContext, should set context success', () => {
-            fixture.detectChanges();
-            const badgeSpanElement = badgeElement.querySelector('.thy-badge')!;
-            expect(badgeSpanElement.textContent).toBe(`Worktile`);
-            testComponent.context = 'PingCode';
             fixture.detectChanges();
             expect(badgeSpanElement.textContent).toBe(`PingCode`);
         });
