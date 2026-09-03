@@ -1,9 +1,9 @@
-@for (item of appearances; track item.value) {
+@for (appearance of appearances; track appearance) {
   <div [class.mt-3]="$index > 0">
-    <div class="mb-2 text-muted">{{ item.label }}</div>
+    <div class="mb-2 text-muted">{{ appearance }}</div>
     <thy-space>
       @for (type of types; track type.value) {
-        <button *thySpaceItem [thyButton]="type.value" [thyAppearance]="item.value">{{ type.label }}</button>
+        <button *thySpaceItem [thyButton]="type.value" [thyAppearance]="appearance">{{ type.label }}</button>
       }
     </thy-space>
   </div>

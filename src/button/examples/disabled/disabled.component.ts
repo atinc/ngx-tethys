@@ -9,11 +9,7 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
     imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
 export class ThyButtonDisabledExampleComponent {
-    appearances: { value: ThyButtonAppearance; label: string }[] = [
-        { value: 'fill', label: 'fill' },
-        { value: 'outline', label: 'outline' },
-        { value: 'link', label: 'link' }
-    ];
+    appearances: ThyButtonAppearance[] = ['fill', 'outline', 'link'];
 
     types: { value: ThyButtonType; label: string }[] = [
         { value: 'default', label: 'Default' },
