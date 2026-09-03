@@ -60,7 +60,7 @@ describe('ThyResult', () => {
             </ng-template>
             <ng-template #thyExtra>
                 <button thyButton="primary-square">关闭</button>
-                <button thyButton="outline-primary-square">查看详情</button>
+                <button thyButton="primary-square" thyAppearance="outline">查看详情</button>
             </ng-template>
             <ng-template #thyIcon>
                 <div class="custom-icon"></div>
