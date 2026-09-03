@@ -117,7 +117,7 @@ export class TestFormFullComponent {
                 </thy-form-group>
                 <thy-form-group thyLabelText="CustomerSelect">
                     <thy-select
-                        thyPlaceHolder="请选择"
+                        thyPlaceholder="请选择"
                         formControlName="customersSelect"
                         name="customersSelect"
                         [thyShowSearch]="true"

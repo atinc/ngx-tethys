@@ -1,7 +1,7 @@
 <p>Please use <code>thy-input-group</code> prefix or suffix instead of it.</p>
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
-    <thy-input placeholder="Please type">
+    <thy-input thyPlaceholder="Please type">
       <ng-template #prepend>
         <thy-icon class="text-placeholder" thyIconName="user"></thy-icon>
       </ng-template>
@@ -10,7 +10,7 @@
       </ng-template>
     </thy-input>
     <br />
-    <thy-input placeholder="Please type" thySize="md">
+    <thy-input thyPlaceholder="Please type" thySize="md">
       <ng-template #prepend>
         <thy-icon class="text-placeholder" thyIconName="user"></thy-icon>
       </ng-template>
@@ -20,7 +20,7 @@
     </thy-input>
   </div>
   <div thyCol [thySpan]="12">
-    <thy-input placeholder="Please type">
+    <thy-input thyPlaceholder="Please type">
       <ng-template #prepend>
         <a class="link-muted link-has-icon" href="javascript:;">中国+86 <thy-icon thyIconName="angle-down"></thy-icon></a>
       </ng-template>

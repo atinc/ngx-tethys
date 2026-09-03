@@ -98,8 +98,8 @@ describe('ThyWeekPickerComponent', () => {
             expect(debugElement.query(By.css('.thy-picker .thy-input-disabled'))).toBeNull();
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -167,7 +167,7 @@ describe('ThyWeekPickerComponent', () => {
             (ngModelChange)="modelValueChange($event)"
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
-            [thyPlaceHolder]="thyPlaceHolder"
+            [thyPlaceholder]="thyPlaceholder"
             (thyDateChange)="thyDateChange($event)"></thy-week-picker>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -176,7 +176,7 @@ describe('ThyWeekPickerComponent', () => {
 class TestWeekPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
-    thyPlaceHolder: string = '请选择周';
+    thyPlaceholder: string = '请选择周';
     thyValue!: Date;
     modelValueChange(): void {}
     thyDateChange(): void {}

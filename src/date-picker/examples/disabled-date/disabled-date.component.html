@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center w-50 mb-3">
   <thy-date-picker
     class="d-block w-50 mr-4"
-    thyPlaceHolder="开始时间"
+    thyPlaceholder="开始时间"
     [thyShowShortcut]="true"
     [thyShowTime]="true"
     thyFormat="yyyy-MM-dd HH:mm:ss"
@@ -10,7 +10,7 @@
   </thy-date-picker>
   <thy-date-picker
     class="d-block w-50"
-    thyPlaceHolder="结束时间"
+    thyPlaceholder="结束时间"
     [thyShowShortcut]="true"
     [thyShowTime]="true"
     thyFormat="yyyy-MM-dd HH:mm:ss"
@@ -25,11 +25,11 @@
   thyFormat="yyyy-MM"
   [(ngModel)]="date"
   [thyDisabledDate]="disableDate1"
-  thyPlaceHolder="请选择月份">
+  thyPlaceholder="请选择月份">
 </thy-month-picker>
-<thy-quarter-picker class="d-block w-50 mb-3" [(ngModel)]="quarterDate" [thyDisabledDate]="disableDate1" thyPlaceHolder="请选择季度">
+<thy-quarter-picker class="d-block w-50 mb-3" [(ngModel)]="quarterDate" [thyDisabledDate]="disableDate1" thyPlaceholder="请选择季度">
 </thy-quarter-picker>
-<thy-year-picker class="d-block w-50 mb-3" thyFormat="yyyy" [(ngModel)]="date" [thyDisabledDate]="disableDate1" thyPlaceHolder="请选择年份">
+<thy-year-picker class="d-block w-50 mb-3" thyFormat="yyyy" [(ngModel)]="date" [thyDisabledDate]="disableDate1" thyPlaceholder="请选择年份">
 </thy-year-picker>
 
 <thy-range-picker

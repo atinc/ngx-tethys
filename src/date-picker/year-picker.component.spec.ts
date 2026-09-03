@@ -115,8 +115,8 @@ describe('ThyYearPickerComponent', () => {
             flush();
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -258,7 +258,7 @@ describe('ThyYearPickerComponent', () => {
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
             (thyDateChange)="thyDateChange($event)"
-            [thyPlaceHolder]="thyPlaceHolder">
+            [thyPlaceholder]="thyPlaceholder">
         </thy-year-picker>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -268,7 +268,7 @@ class TestYearPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder: string = '请选择年';
+    thyPlaceholder: string = '请选择年';
     thyPanelClassName!: string;
     thyValue!: Date;
     thyOpen!: boolean;

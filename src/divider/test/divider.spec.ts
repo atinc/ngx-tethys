@@ -16,7 +16,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
                 [thyDeeper]="isDeeper"
                 [thyColor]="color"></thy-divider>
             <ng-template #dividerTemplateSelect>
-                <thy-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择">
+                <thy-select [(ngModel)]="dividerSelectModel" thyPlaceholder="请选择">
                     <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
                     <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
                 </thy-select>

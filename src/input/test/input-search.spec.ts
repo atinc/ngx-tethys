@@ -12,7 +12,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
     template: `
         <thy-input-search
             name="search"
-            placeholder="Please type"
+            thyPlaceholder="Please type"
             [disabled]="disabled"
             [thyTheme]="thyTheme"
             [thySearchFocus]="searchFocus"

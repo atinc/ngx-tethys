@@ -16,7 +16,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
             [readonly]="readonly"
             name="username"
             [(ngModel)]="value"
-            placeholder="请输入您的姓名"
+            thyPlaceholder="请输入您的姓名"
             (focus)="onFocus()"
             (blur)="onBlur()"
             [disabled]="disabled">

@@ -93,6 +93,30 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'placeholder',
+                        replaceWith: 'thyPlaceholder',
+                        limitedTo: {
+                            elements: ['thy-input', 'thy-input-search']
+                        }
+                    },
+                    {
+                        replace: 'thyPlaceHolder',
+                        replaceWith: 'thyPlaceholder',
+                        limitedTo: {
+                            elements: [
+                                'thy-select',
+                                'thy-custom-select',
+                                'thy-date-picker',
+                                'thy-range-picker',
+                                'thy-month-picker',
+                                'thy-quarter-picker',
+                                'thy-year-picker',
+                                'thy-week-picker'
+                            ],
+                            attributes: ['thyDatePicker', 'thyRangePicker']
+                        }
+                    },
+                    {
                         replace: 'thyAutocompleteComponent',
                         replaceWith: 'thyAutocomplete',
                         limitedTo: {
