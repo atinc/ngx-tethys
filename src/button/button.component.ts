@@ -22,6 +22,9 @@ export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
 
 export type ThyButtonType = 'primary' | 'default' | 'info' | 'warning' | 'danger' | 'success';
 
+/** 支持 `primary-square` 等圆角方块后缀；不再接受任意旧复合 type 字符串 */
+export type ThyButtonInputType = ThyButtonType | `${ThyButtonType}-square`;
+
 const iconOnlyClass = 'thy-btn-icon-only';
 
 /**
@@ -62,17 +65,17 @@ export class ThyButton {
     readonly thyAppearance = input<ThyButtonAppearance>('fill');
 
     /**
-     * 按钮类型（颜色）
+     * 按钮类型（颜色）；方块圆角可追加 `-square`（如 `primary-square`）
      * @type primary | default | info | warning | danger | success
      * @default primary
      */
-    readonly thyButton = input<ThyButtonType | string>();
+    readonly thyButton = input<ThyButtonInputType>();
 
     /**
      * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
      * @default primary
      */
-    readonly thyType = input<ThyButtonType | string>();
+    readonly thyType = input<ThyButtonInputType>();
 
     /**
      * 加载状态

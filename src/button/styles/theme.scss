@@ -57,14 +57,6 @@
     @include btn-link-variant($success, $success, underline);
 }
 
-.btn-link.btn-link-primary-weak {
-    @include btn-link-variant($gray-500, $primary, none);
-}
-
-.btn-link.btn-link-danger-weak {
-    @include btn-link-variant($gray-500, $danger, none);
-}
-
 // btn-icon theme
 
 .btn-icon {

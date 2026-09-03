@@ -264,14 +264,6 @@ $btn-link-color-map: (
     }
 }
 
-.btn-link.btn-link-primary-weak {
-    @include mixin.btn-link-variant(variables.$gray-500, variables.$primary, none);
-}
-
-.btn-link.btn-link-danger-weak {
-    @include mixin.btn-link-variant(variables.$gray-500, variables.$danger, none);
-}
-
 // 去除按钮图标和按钮链接的最小宽度
 .btn.btn-icon,
 .btn.btn-link {

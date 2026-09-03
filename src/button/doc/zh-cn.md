@@ -28,6 +28,24 @@ import { ThyButtonModule } from "ngx-tethys/button";
 - `outline` → `btn-outline-{type}`
 - `link` → `btn-link-{type}`
 
+弱危险链接（灰→红）不属于 Button，请继续使用 Link CSS：`class="link-danger-weak"`。`class="link-secondary"` 同样不改动。
+
+### 从旧复合 type 迁移（v22）
+
+`ng update ngx-tethys` 的 `migration-v22` 会自动改写模板；对照表：
+
+| 旧 `thyButton` / `thyType` | 新写法 |
+|---------------------------|--------|
+| `outline-primary` | `thyAppearance="outline" thyButton="primary"` |
+| `outline-default` | `thyAppearance="outline" thyButton="default"` |
+| `link-secondary` | `thyAppearance="link" thyButton="default"` |
+| `link` | `thyAppearance="link" thyButton="primary"` |
+| `link-danger` 等 `link-*` | `thyAppearance="link" thyButton="{color}"` |
+| `secondary` | `thyButton="primary"`（v22 默认 size 已是 `md`） |
+| `link-danger-weak` | `class="link-danger-weak"`（非 Button API） |
+
+> **说明：** `ThyButtonGroup` 的 `thyType="outline-default" | outline-primary"` 仍是独立 API，本变更不要求同步改造。
+
 ## 按钮种类
 在 Worktile Design 中，有四种按钮:
 
@@ -61,8 +79,7 @@ import { ThyButtonModule } from "ngx-tethys/button";
 <example name="thy-button-outline-example"></example>
 
 ## 按钮大小
-- `default: 36px`， 一般用于表单中的保存和确定。
-- `md: 32px`，一般用于页面右上角的新建和编辑
+- `md: 32px`（默认），一般用于表单确定、页面右上角的新建和编辑
 - `sm: 28px`，一般用于即时编辑页面的确定按钮，比如详情页的描述编辑或者看板下的新建确定
 - `xs: 24px`，一般用于按钮图标，比如子工作项的截止时间和负责人设置等操作图标按钮
 - `lg: 44px`，一般用于类似登录注册页面的确定按钮，通常整行展示
