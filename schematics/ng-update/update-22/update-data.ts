@@ -49,6 +49,20 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyContext',
+                        replaceWith: 'thyContent',
+                        limitedTo: {
+                            elements: ['thy-badge']
+                        }
+                    },
+                    {
+                        replace: 'thyContext',
+                        replaceWith: 'thyContent',
+                        limitedTo: {
+                            attributes: ['thyBadge']
+                        }
+                    },
+                    {
                         replace: 'thyHasBorder',
                         replaceWith: 'thyDivided',
                         limitedTo: {
