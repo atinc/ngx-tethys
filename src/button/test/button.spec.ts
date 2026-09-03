@@ -122,7 +122,6 @@ describe('ThyButton', () => {
                 const btnElement: HTMLElement = buttonComponent.nativeElement;
                 expect(btnElement.classList.contains(className)).toBeTruthy();
                 if (appearance === 'link') {
-                    // 与 fill/outline 对齐：只输出单一 btn-link-{type}
                     expect(btnElement.classList.contains('btn-link')).toBeFalsy();
                 }
             });

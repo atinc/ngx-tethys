@@ -7,7 +7,7 @@
     @include button-variant($gray-700, $gray-700, $gray-200, $gray-200, $gray-200, $gray-200, $gray-200, $gray-200);
 
     &:hover {
-        box-shadow: 0px 2px 5px 1px #fafafa;
+        box-shadow: 0px 2px 5px 1px $gray-80;
     }
 }
 
@@ -33,12 +33,12 @@
     }
 }
 
-.btn-link-primary {
-    @include btn-link-variant($link-color, $link-hover-color, $link-hover-decoration);
-}
-
 .btn-link-default {
     @include btn-link-variant($gray-500, $primary, none);
+}
+
+.btn-link-primary {
+    @include btn-link-variant($link-color, $link-hover-color, $link-hover-decoration);
 }
 
 .btn-link-info {
@@ -57,7 +57,6 @@
     @include btn-link-variant($success, $success, underline);
 }
 
-// 旧 weak 双 class（业务 CSS 可能仍直接使用）
 .btn-link.btn-link-primary-weak {
     @include btn-link-variant($gray-500, $primary, none);
 }

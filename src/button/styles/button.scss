@@ -85,7 +85,6 @@ fieldset:disabled a.btn {
     }
 }
 
-// fill default：文字 #666（gray-700），背景 #eee（gray-200），hover 浅阴影
 .btn-default {
     @include mixin.button-variant(
         variables.$gray-700,
@@ -99,7 +98,7 @@ fieldset:disabled a.btn {
     );
 
     &:hover {
-        @include shadow.box-shadow(0px 2px 5px 1px #fafafa);
+        @include shadow.box-shadow(0px 2px 5px 1px variables.$gray-80);
     }
 }
 
@@ -189,19 +188,18 @@ fieldset:disabled a.btn {
 }
 
 //
-// Link buttons — 与 fill/outline 对齐：单一 class btn-link-{type}
-// 共享样式通过 mixin 打进每个 btn-link-*；裸 .btn-link 仅兼容旧用法
+// Link buttons
 //
 $btn-link-color-map: (
-    'primary': (
-        variables.$link-color,
-        variables.$link-hover-color,
-        variables.$link-hover-decoration
-    ),
     'default': (
         variables.$gray-500,
         variables.$primary,
         none
+    ),
+    'primary': (
+        variables.$link-color,
+        variables.$link-hover-color,
+        variables.$link-hover-decoration
     ),
     'info': (
         variables.$info,
@@ -254,7 +252,6 @@ $btn-link-color-map: (
     }
 }
 
-// 旧裸 .btn-link ≡ primary
 .btn-link {
     @include btn-link-shell;
     @include mixin.btn-link-variant(variables.$link-color, variables.$link-hover-color, variables.$link-hover-decoration);
@@ -267,7 +264,6 @@ $btn-link-color-map: (
     }
 }
 
-// 旧 weak 双 class（Button 已不再产出，业务 CSS 可能仍直接使用）
 .btn-link.btn-link-primary-weak {
     @include mixin.btn-link-variant(variables.$gray-500, variables.$primary, none);
 }

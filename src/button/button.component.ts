@@ -172,7 +172,6 @@ export class ThyButton {
         if (appearance === 'fill') {
             return [`btn-${type}`];
         }
-        // fill / outline / link 统一：单一 class
         return [`btn-${appearance}-${type}`];
     }
 
