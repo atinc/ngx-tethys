@@ -65,19 +65,6 @@
         );
     }
 
-    .thy-card-header {
-        &--sm {
-            padding-top: 0;
-        }
-
-        &--lg {
-            padding: {
-                top: 15px;
-                bottom: 15px;
-            }
-        }
-    }
-
     .thy-card-content {
         flex: auto;
 
@@ -93,11 +80,6 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
-
-        &--sm {
-            padding-top: 0px;
-            padding-bottom: 10px;
-        }
     }
 
     // 分割的模式, 头底部出现分割线，标题前面的垂直分割符隐藏，上下间距变大
@@ -110,23 +92,6 @@
                 bottom: 0;
                 height: 1px;
                 background-color: variables.$card-header-divider-color;
-            }
-        }
-    }
-
-    &--clear-left-right-padding {
-        .thy-card-header {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .thy-card-content {
-            padding-left: 0;
-            padding-right: 0;
-            // @deprecated remove in v11
-            &--alignment-title {
-                padding-left: 10px;
-                padding-right: 10px;
             }
         }
     }
