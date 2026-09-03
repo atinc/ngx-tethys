@@ -5,11 +5,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { ThyEmpty } from './empty.component';
-import { ThyEmptyConfig } from './empty.config';
 
 @NgModule({
     imports: [CommonModule, ThySharedModule, ThyIconModule, ThyEmpty],
-    exports: [ThyEmpty],
-    providers: [ThyEmptyConfig]
+    exports: [ThyEmpty]
 })
 export class ThyEmptyModule {}

@@ -1,7 +1,7 @@
 import { Component, DebugElement, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading, ThyEmptyConfig, ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading, ThyEmptyModule } from 'ngx-tethys/empty';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -11,10 +11,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
         <div class="empty-container">
             <thy-empty
                 [thyMessage]="thyMessage"
-                [thyTranslationKey]="thyTranslationKey"
-                [thyTranslationValues]="thyTranslationValues"
-                [thyEntityName]="thyEntityName"
-                [thyEntityNameTranslateKey]="thyEntityNameTranslateKey"
                 [thyIconName]="thyIconName"
                 [thySize]="thySize"
                 [thyMarginTop]="thyMarginTop"
@@ -54,10 +50,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 class EmptyTestComponent {
     @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent!: ThyEmpty;
     thyMessage = '暂无数据';
-    thyTranslationKey = '暂无活动';
-    thyTranslationValues!: any;
-    thyEntityName = '任务';
-    thyEntityNameTranslateKey = '工作项';
     thyIconName = 'copy';
     thySize: string = 'lg';
     thyMarginTop: number = 200;
@@ -74,7 +66,7 @@ describe('EmptyComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            providers: [ThyEmptyConfig, provideHttpClient(withXhr()), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         }).compileComponents();
         fixture = TestBed.createComponent(EmptyTestComponent);
         componentInstance = fixture.componentInstance;
@@ -88,35 +80,14 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement).toBeTruthy();
     });
 
-    it('should support translationKey', () => {
-        componentInstance.thyMessage = '';
+    it('should support message text', () => {
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
-        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无活动');
-    });
-
-    it('should support entity name', () => {
-        componentInstance.thyMessage = '';
-        componentInstance.thyTranslationKey = '';
-        fixture.detectChanges();
-        const empty = fixture.debugElement.query(By.directive(ThyEmpty));
-        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
-    });
-
-    it('should support entity name translateKey', () => {
-        componentInstance.thyMessage = '';
-        componentInstance.thyTranslationKey = '';
-        componentInstance.thyEntityName = '';
-        fixture.detectChanges();
-        const empty = fixture.debugElement.query(By.directive(ThyEmpty));
-        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无数据');
     });
 
     it('should support default text', () => {
         componentInstance.thyMessage = '';
-        componentInstance.thyTranslationKey = '';
-        componentInstance.thyEntityName = '';
-        componentInstance.thyEntityNameTranslateKey = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无数据');
