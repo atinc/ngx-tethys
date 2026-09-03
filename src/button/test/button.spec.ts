@@ -102,25 +102,27 @@ describe('ThyButton', () => {
         });
 
         it('should set appearance and type class success', () => {
-            const cases: Array<{ appearance: 'fill' | 'outline' | 'link'; type: string; className: string }> = [
-                { appearance: 'fill', type: 'primary', className: 'btn-primary' },
-                { appearance: 'fill', type: 'default', className: 'btn-default' },
-                { appearance: 'outline', type: 'primary', className: 'btn-outline-primary' },
-                { appearance: 'outline', type: 'default', className: 'btn-outline-default' },
-                { appearance: 'outline', type: 'danger', className: 'btn-outline-danger' },
-                { appearance: 'link', type: 'primary', className: 'btn-link-primary' },
-                { appearance: 'link', type: 'default', className: 'btn-link-default' },
-                { appearance: 'link', type: 'danger', className: 'btn-link-danger' },
-                { appearance: 'link', type: 'success', className: 'btn-link-success' },
-                { appearance: 'link', type: 'info', className: 'btn-link-info' },
-                { appearance: 'link', type: 'warning', className: 'btn-link-warning' }
+            const cases: Array<{ appearance: 'fill' | 'outline' | 'link'; type: string; classNames: string[] }> = [
+                { appearance: 'fill', type: 'primary', classNames: ['btn-primary'] },
+                { appearance: 'fill', type: 'default', classNames: ['btn-default'] },
+                { appearance: 'outline', type: 'primary', classNames: ['btn-outline-primary'] },
+                { appearance: 'outline', type: 'default', classNames: ['btn-outline-default'] },
+                { appearance: 'outline', type: 'danger', classNames: ['btn-outline-danger'] },
+                { appearance: 'link', type: 'primary', classNames: ['btn-link', 'btn-link-primary'] },
+                { appearance: 'link', type: 'default', classNames: ['btn-link', 'btn-link-default'] },
+                { appearance: 'link', type: 'danger', classNames: ['btn-link', 'btn-link-danger'] },
+                { appearance: 'link', type: 'success', classNames: ['btn-link', 'btn-link-success'] },
+                { appearance: 'link', type: 'info', classNames: ['btn-link', 'btn-link-info'] },
+                { appearance: 'link', type: 'warning', classNames: ['btn-link', 'btn-link-warning'] }
             ];
-            cases.forEach(({ appearance, type, className }) => {
+            cases.forEach(({ appearance, type, classNames }) => {
                 basicTestComponent.appearance = appearance;
                 basicTestComponent.type = type;
                 fixture.detectChanges();
                 const btnElement: HTMLElement = buttonComponent.nativeElement;
-                expect(btnElement.classList.contains(className)).toBeTruthy();
+                classNames.forEach(className => {
+                    expect(btnElement.classList.contains(className)).toBeTruthy();
+                });
             });
         });
 

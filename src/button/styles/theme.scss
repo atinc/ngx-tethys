@@ -19,8 +19,7 @@
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
-.btn-link,
-.btn-link-primary {
+.btn-link {
     color: $link-color;
     @include hover {
         color: $link-hover-color;
@@ -32,6 +31,10 @@
     &.disabled {
         color: $btn-link-disabled-color;
     }
+}
+
+.btn-link-primary {
+    @include btn-link-variant($link-color, $link-hover-color, $link-hover-decoration);
 }
 
 .btn-link-default {
@@ -54,29 +57,13 @@
     @include btn-link-variant($success, $success, underline);
 }
 
-// 兼容旧双 class 写法
-.btn-link.btn-link-info {
-    @include btn-link-variant($info, $primary, none);
-}
-
-.btn-link.btn-link-default {
-    @include btn-link-variant($btn-link-color-default, $primary, none);
-}
-
+// 旧 weak 双 class（业务 CSS 可能仍直接使用）
 .btn-link.btn-link-primary-weak {
     @include btn-link-variant($gray-500, $primary, none);
 }
 
 .btn-link.btn-link-danger-weak {
     @include btn-link-variant($gray-500, $danger, none);
-}
-
-.btn-link.btn-link-danger {
-    @include btn-link-variant($danger, $danger, underline);
-}
-
-.btn-link.btn-link-success {
-    @include btn-link-variant($success, $success, underline);
 }
 
 // btn-icon theme

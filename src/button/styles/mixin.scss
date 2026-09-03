@@ -80,8 +80,7 @@
         }
     }
 
-    &.btn-link,
-    &[class^='btn-link-'] {
+    &.btn-link {
         padding: $padding-y 10px;
     }
 }

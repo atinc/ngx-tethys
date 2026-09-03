@@ -168,11 +168,15 @@ export class ThyButton {
         }
     }
 
-    private buildTypeClass(appearance: ThyButtonAppearance, type: string): string {
+    private buildAppearanceClasses(appearance: ThyButtonAppearance, type: string): string[] {
         if (appearance === 'fill') {
-            return `btn-${type}`;
+            return [`btn-${type}`];
         }
-        return `btn-${appearance}-${type}`;
+        if (appearance === 'link') {
+            // 基类承载共享样式，颜色 class 只表达语义色
+            return ['btn-link', `btn-link-${type}`];
+        }
+        return [`btn-${appearance}-${type}`];
     }
 
     private updateClasses() {
@@ -182,7 +186,7 @@ export class ThyButton {
         }
 
         const appearance = this.thyAppearance() || 'fill';
-        const classNames: string[] = [this.buildTypeClass(appearance, type)];
+        const classNames: string[] = [...this.buildAppearanceClasses(appearance, type)];
 
         const size = this.thySize();
         if (size) {
