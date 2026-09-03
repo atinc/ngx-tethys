@@ -184,7 +184,9 @@ export const upgradeData: UpgradeData = {
                         replace: '$select-control-padding-y-default',
                         replaceWith: '$select-control-padding-y-lg',
                         replaceIn: { stylesheet: true }
-                    }
+                    },
+                    // Divider
+                    { replace: '$divider-deeper-color', replaceWith: '$gray-300', replaceIn: { stylesheet: true } }
                 ]
             }
         ]
