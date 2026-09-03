@@ -76,9 +76,7 @@ export class AvatarSrcPipe implements PipeTransform {
     private thyAvatarService = inject(ThyAvatarService);
 
     transform(src: string, size: number) {
-        return this.thyAvatarService.srcTransform
-            ? this.thyAvatarService.srcTransform(src, size)
-            : this.thyAvatarService.avatarSrcTransform(src, size);
+        return this.thyAvatarService.srcTransform(src, size);
     }
 }
 
