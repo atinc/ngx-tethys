@@ -6,6 +6,7 @@ import { InputControlSizeMigration } from './input-control-size-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
 import { DividerDeeperMigration } from './divider-deeper-migration';
+import { HeaderIconPrefixMigration } from './header-icon-prefix-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { upgradeData } from './update-data';
 
@@ -15,7 +16,8 @@ const migrations: NullableDevkitMigration[] = [
     TableShowHeaderMigration,
     TagAppearanceMigration,
     DividerDeeperMigration,
-    ClassNamesMigration
+    ClassNamesMigration,
+    HeaderIconPrefixMigration
 ];
 
 export default function main(): Rule {

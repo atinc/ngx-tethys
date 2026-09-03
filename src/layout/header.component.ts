@@ -1,5 +1,5 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, Directive, TemplateRef, computed, contentChild, input } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, Directive, TemplateRef, contentChild, input } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -53,7 +53,7 @@ export class ThyHeaderDirective {
             inputs: ['thySize', 'thyShadow', 'thyDivided']
         }
     ],
-    imports: [NgTemplateOutlet, ThyIcon, NgClass]
+    imports: [NgTemplateOutlet, ThyIcon]
 })
 export class ThyHeader {
     /**
@@ -62,35 +62,9 @@ export class ThyHeader {
     readonly thyTitle = input<string>();
 
     /**
-     * 图标前缀，被弃用，图标使用 SVG 图标
-     */
-    readonly thyIconPrefix = input('wtf');
-
-    /**
      * 图标，SVG 图标名称
      */
     readonly thyIcon = input<string>();
-
-    readonly svgIconName = computed(() => {
-        const icon = this.thyIcon();
-        if (icon && !icon.includes('wtf')) {
-            return icon;
-        }
-        return null;
-    });
-
-    readonly iconClass = computed(() => {
-        const icon = this.svgIconName();
-        if (icon) {
-            return null;
-        } else {
-            const icon = this.thyIcon();
-            if (icon && icon.includes('wtf')) {
-                return `${this.thyIconPrefix()} ${icon}`;
-            }
-        }
-        return null;
-    });
 
     /**
      * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
