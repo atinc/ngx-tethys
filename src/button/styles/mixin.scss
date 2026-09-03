@@ -83,6 +83,12 @@
     &.btn-link {
         padding: $padding-y 10px;
     }
+
+    @each $type in default, primary, info, warning, danger, success {
+        &.btn-link-#{$type} {
+            padding: $padding-y 10px;
+        }
+    }
 }
 
 @mixin button-hover-box-shadow($color) {
@@ -132,17 +138,6 @@
 @mixin btn-link-theme-variant($link-hover-color) {
     @include hover.hover {
         color: $link-hover-color;
-    }
-}
-
-@mixin btn-square-radius {
-    // 设置大小也不影响 border-radius
-    border-radius: variables.$border-radius;
-    &.btn-lg,
-    &.btn-md,
-    &.btn-sm,
-    &.btn-xs {
-        border-radius: variables.$border-radius;
     }
 }
 

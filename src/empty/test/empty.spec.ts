@@ -22,7 +22,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
                 class="empty-test-example">
                 <ng-template #extra>
                     <div class="sub-message">确实还没有数据啦啦啦啦</div>
-                    <button thyButton="primary-square" (click)="goHome()" class="empty-button">返回主页</button>
+                    <button thyButton="primary" (click)="goHome()" class="empty-button">返回主页</button>
                 </ng-template>
             </thy-empty>
         </div>

@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use 'sass:meta';
 @use '../../styles/bootstrap/functions-variables';
 @use '../../styles/mixins/hover';
@@ -84,6 +85,23 @@ fieldset:disabled a.btn {
     }
 }
 
+.btn-default {
+    @include mixin.button-variant(
+        variables.$gray-700,
+        variables.$gray-700,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200,
+        variables.$gray-200
+    );
+
+    &:hover {
+        @include shadow.box-shadow(0px 2px 5px 1px variables.$gray-80);
+    }
+}
+
 @each $color, $value in functions-variables.$theme-colors {
     .btn-outline-#{$color} {
         @include mixin.button-outline-variant($value, $value, variables.$white, $value, null, $value, null);
@@ -100,11 +118,6 @@ fieldset:disabled a.btn {
         variables.$gray-100,
         variables.$gray-300
     );
-}
-
-// 圆角方正，回归正常的圆角
-.btn-square {
-    @include mixin.btn-square-radius();
 }
 
 //
@@ -172,22 +185,51 @@ fieldset:disabled a.btn {
 //
 // Link buttons
 //
-// Make a button look and behave like a link
-.btn-link {
+$btn-link-color-map: (
+    'default': (
+        variables.$gray-500,
+        variables.$primary,
+        none
+    ),
+    'primary': (
+        variables.$link-color,
+        variables.$link-hover-color,
+        variables.$link-hover-decoration
+    ),
+    'info': (
+        variables.$info,
+        variables.$primary,
+        none
+    ),
+    'warning': (
+        variables.$warning,
+        variables.$warning,
+        none
+    ),
+    'danger': (
+        variables.$danger,
+        variables.$danger,
+        underline
+    ),
+    'success': (
+        variables.$success,
+        variables.$success,
+        underline
+    )
+);
+
+@mixin btn-link-shell {
     font-weight: bootstrap-variables.$font-weight-normal;
-    color: variables.$link-color;
     background-color: transparent;
+    border-color: transparent;
 
     @include hover.hover {
-        color: variables.$link-hover-color;
-        text-decoration: variables.$link-hover-decoration;
         background-color: transparent;
         border-color: transparent;
     }
 
     &:focus,
     &.focus {
-        text-decoration: variables.$link-hover-decoration;
         border-color: transparent;
         box-shadow: variables.$box-shadow-none;
     }
@@ -195,20 +237,26 @@ fieldset:disabled a.btn {
     &.disabled,
     &:disabled {
         background-color: transparent;
+        border-color: transparent;
+        color: variables.$btn-link-disabled-color;
 
         @include hover.hover-focus {
             color: variables.$btn-link-disabled-color;
             text-decoration: none;
         }
     }
+}
 
-    &:disabled,
-    &.disabled {
-        color: variables.$btn-link-disabled-color;
-        border-color: transparent;
+.btn-link {
+    @include btn-link-shell;
+    @include mixin.btn-link-variant(variables.$link-color, variables.$link-hover-color, variables.$link-hover-decoration);
+}
+
+@each $type, $colors in $btn-link-color-map {
+    .btn-link-#{$type} {
+        @include btn-link-shell;
+        @include mixin.btn-link-variant(list.nth($colors, 1), list.nth($colors, 2), list.nth($colors, 3));
     }
-
-    // No need for an active state here
 }
 
 // 去除按钮图标和按钮链接的最小宽度
@@ -217,32 +265,10 @@ fieldset:disabled a.btn {
     min-width: 0px;
 }
 
-.btn-link.btn-link-info {
-    @include mixin.btn-link-variant(variables.$info, variables.$primary, none);
-}
-
-// 兼容之前的样式
-.btn-link.btn-link-default {
-    @include mixin.btn-link-variant(variables.$btn-link-color-default, variables.$primary, none);
-}
-
-// 默认显示灰色，鼠标移上去显示主色
-.btn-link.btn-link-primary-weak {
-    @include mixin.btn-link-variant(variables.$gray-500, variables.$primary, none);
-}
-
-// 默认显示灰色，鼠标移上去显示红色
-.btn-link.btn-link-danger-weak {
-    @include mixin.btn-link-variant(variables.$gray-500, variables.$danger, none);
-}
-
-// 默认显示灰色，鼠标移上去显示红色
-.btn-link.btn-link-danger {
-    @include mixin.btn-link-variant(variables.$danger, variables.$danger, underline);
-}
-
-.btn-link.btn-link-success {
-    @include mixin.btn-link-variant(variables.$success, variables.$success, underline);
+@each $type, $colors in $btn-link-color-map {
+    .btn.btn-link-#{$type} {
+        min-width: 0px;
+    }
 }
 
 //
@@ -274,9 +300,22 @@ input[type='button'] {
         &.btn-link {
             margin-left: variables.$btn-pair-child-link-margin-left;
         }
+
+        @each $type, $colors in $btn-link-color-map {
+            &.btn-link-#{$type} {
+                margin-left: variables.$btn-pair-child-link-margin-left;
+            }
+        }
     }
+
     .btn-link + .btn {
         margin-left: variables.$btn-pair-child-link-margin-left;
+    }
+
+    @each $type, $colors in $btn-link-color-map {
+        .btn-link-#{$type} + .btn {
+            margin-left: variables.$btn-pair-child-link-margin-left;
+        }
     }
 }
 

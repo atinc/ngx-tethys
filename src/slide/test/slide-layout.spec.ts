@@ -770,7 +770,7 @@ describe('ThySlide', () => {
                 <thy-slide-body-section [thyDividerBorder]="thyDividerBorder">测试body</thy-slide-body-section>
             </thy-slide-body>
             <thy-slide-footer>
-                <button thyButton="primary-square" (click)="save($event)" class="btn-block">确定</button>
+                <button thyButton="primary" (click)="save($event)" class="btn-block">确定</button>
             </thy-slide-footer>
         </thy-slide-layout>
     `,

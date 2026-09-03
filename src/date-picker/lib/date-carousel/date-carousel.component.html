@@ -17,7 +17,7 @@
   <div class="carousel-item carousel-item-{{ type }}">
     <p class="carousel-item-title">{{ title }}</p>
     <div class="carousel-item-content">
-      <button thyButton="outline-default" thySize="sm" class="right-space" (click)="prevClick(type)">
+      <button thyButton="default" thyAppearance="outline" thySize="sm" class="right-space" (click)="prevClick(type)">
         <thy-icon thyIconName="angle-left"></thy-icon>
       </button>
       @for (item of selectableData; track $index) {
@@ -41,7 +41,7 @@
           }
         </div>
       }
-      <button thyButton="outline-default" thySize="sm" (click)="nextClick(type)">
+      <button thyButton="default" thyAppearance="outline" thySize="sm" (click)="nextClick(type)">
         <thy-icon thyIconName="angle-right"></thy-icon>
       </button>
     </div>

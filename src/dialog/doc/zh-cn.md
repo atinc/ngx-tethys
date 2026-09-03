@@ -153,7 +153,7 @@ class YourDialogComponent {
 </thy-dialog-body>
 <thy-dialog-footer>
     <button thyButton="primary" (click)="thyDialog.close()">确定</button>
-    <button thyButton="link-secondary" (click)="thyDialog.close()">关闭</button>
+    <button thyButton="default" thyAppearance="link" (click)="thyDialog.close()">关闭</button>
     <ng-template #description>
       <span class="text-desc">当前打开的是一个对话框</span>
     </ng-template>
