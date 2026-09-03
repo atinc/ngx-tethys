@@ -435,6 +435,60 @@ export class NavDemoComponent {}
         expect(content).not.toContain('thyNavLink');
     });
 
+    it('should migrate thy-link to thy-anchor-link', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/anchor-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAnchorModule } from 'ngx-tethys/anchor';
+
+@Component({
+    selector: 'app-anchor-demo',
+    template: \`
+        <thy-link thyHref="#basic" thyTitle="Basic"></thy-link>
+    \`,
+    imports: [ThyAnchorModule]
+})
+export class AnchorDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/anchor-demo.component.ts');
+        expect(content).toContain('<thy-anchor-link thyHref="#basic" thyTitle="Basic"></thy-anchor-link>');
+        expect(content).not.toContain('<thy-link');
+    });
+
+    it('should migrate thyLink exportAs to thyAnchorLink', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/anchor-link-ref-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAnchorModule } from 'ngx-tethys/anchor';
+
+@Component({
+    selector: 'app-anchor-link-ref-demo',
+    template: \`
+        <thy-anchor-link #link="thyLink" thyHref="#basic" thyTitle="Basic"></thy-anchor-link>
+    \`,
+    imports: [ThyAnchorModule]
+})
+export class AnchorLinkRefDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/anchor-link-ref-demo.component.ts');
+        expect(content).toContain('#link="thyAnchorLink"');
+        expect(content).not.toContain('#link="thyLink"');
+    });
+
     it('should migrate thyShowRemove to thyRemovable for thy-avatar', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
