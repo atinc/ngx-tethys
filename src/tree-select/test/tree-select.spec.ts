@@ -21,7 +21,6 @@ import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '..
 import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect, ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFormModule } from 'ngx-tethys/form';
-import { ThyEmptyConfig } from 'ngx-tethys/empty';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -483,7 +482,6 @@ describe('ThyTreeSelect', () => {
             providers: [
                 provideHttpClient(withXhr()),
                 provideAnimations(),
-                ThyEmptyConfig,
                 {
                     provide: Sanitizer,
                     useValue: {
