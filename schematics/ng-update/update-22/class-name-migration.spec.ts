@@ -104,6 +104,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain("InputSize");
     });
 
+    it('should rename CompatibleDate to ThyCompatibleDate', async () => {
+        const filePath = '/projects/update-22-test/src/app/compatible-date.ts';
+        tree.create(
+            filePath,
+            `
+                import { CompatibleDate } from 'ngx-tethys/date-picker';
+
+                export const dateValue: CompatibleDate = new Date();
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyCompatibleDate } from 'ngx-tethys/date-picker'");
+        expect(content).toContain('export const dateValue: ThyCompatibleDate = new Date()');
+        expect(content).not.toMatch(/\bCompatibleDate\b/);
+    });
+
     it('should not rename local identifiers that are not imported from ngx-tethys', async () => {
         const filePath = '/projects/update-22-test/src/app/local-size.ts';
         tree.create(

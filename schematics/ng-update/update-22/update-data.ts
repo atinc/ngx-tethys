@@ -14,6 +14,10 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'ThyActiveTabInfo',
                         replaceWith: 'ThyActiveTabValue'
+                    },
+                    {
+                        replace: 'CompatibleDate',
+                        replaceWith: 'ThyCompatibleDate'
                     }
                 ]
             }
