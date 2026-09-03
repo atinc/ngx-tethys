@@ -23,8 +23,3 @@ export interface ThyProgressCirclePath {
 }
 
 export type ThyProgressGapPositionType = 'top' | 'bottom' | 'left' | 'right';
-
-/**
- * @deprecated please use ThyProgressStackedValue
- */
-export type ThyStackedValue = ThyProgressStackedValue;
