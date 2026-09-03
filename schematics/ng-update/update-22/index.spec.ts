@@ -493,6 +493,38 @@ export class TabsDemoComponent {
         expect(content).not.toContain('ThyActiveTabInfo');
     });
 
+    it('should migrate thyAutocompleteComponent to thyAutocomplete', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/autocomplete-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
+import { ThyOptionModule } from 'ngx-tethys/shared';
+
+@Component({
+    selector: 'app-autocomplete-demo',
+    template: \`
+        <input thyInput thyAutocompleteTrigger [thyAutocompleteComponent]="auto" />
+        <input thyInput [thyAutocomplete]="auto" />
+        <thy-autocomplete #auto></thy-autocomplete>
+    \`,
+    imports: [FormsModule, ThyInputModule, ThyAutocompleteModule, ThyOptionModule]
+})
+export class AutocompleteDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/autocomplete-demo.component.ts');
+        expect(content).toContain('[thyAutocomplete]="auto"');
+        expect(content).not.toContain('thyAutocompleteComponent');
+    });
+
     it('should migrate clear to thyClear for thy-input-search', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
