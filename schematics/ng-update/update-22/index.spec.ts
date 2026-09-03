@@ -521,4 +521,51 @@ export class InputSearchDemoComponent {
         expect(content).toContain('(thyClear)="onClear($event)"');
         expect(content).not.toContain('(clear)');
     });
+
+    it('should migrate ThyDialogSizes.supperLg to ThyDialogSizes.superLg', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        factory.addNewFile(
+            '/projects/update-22-test/src/ngx-tethys-dialog.d.ts',
+            `
+declare module 'ngx-tethys/dialog' {
+    export class ThyDialog {
+        open(component: unknown, config?: { size?: ThyDialogSizes }): void;
+    }
+
+    export enum ThyDialogSizes {
+        supperLg = 'supper-lg',
+        superLg = 'super-lg'
+    }
+}
+`
+        );
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/dialog-demo.component.ts',
+            `
+import { Component, inject } from '@angular/core';
+import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
+
+@Component({
+    selector: 'app-dialog-demo',
+    template: \`\`
+})
+export class DialogDemoComponent {
+    private thyDialog = inject(ThyDialog);
+
+    openDialog() {
+        this.thyDialog.open(DialogContentComponent, {
+            size: ThyDialogSizes.supperLg
+        });
+    }
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/dialog-demo.component.ts');
+        expect(content).toContain('ThyDialogSizes.superLg');
+        expect(content).not.toContain('supperLg');
+    });
 });
