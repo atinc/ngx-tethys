@@ -63,6 +63,26 @@ describe('ng-update v22 CSS token migration', () => {
         expect(result.readContent(componentPath)).toContain('padding: variables.$input-padding-y-lg variables.$input-padding-x-lg;');
     });
 
+    it('should migrate removed divider deeper color Sass variable', async () => {
+        const stylePath = '/projects/update-22-test/src/styles.scss';
+        tree.create(
+            stylePath,
+            `
+                @use 'ngx-tethys/styles/variables' as variables;
+
+                .custom-divider {
+                    border-color: variables.$divider-deeper-color;
+                }
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(stylePath);
+
+        expect(content).toContain('border-color: variables.$gray-300;');
+        expect(content).not.toContain('$divider-deeper-color');
+    });
+
     it('should not replace partial or already sized token names', async () => {
         const stylePath = '/projects/update-22-test/src/styles.scss';
         tree.create(

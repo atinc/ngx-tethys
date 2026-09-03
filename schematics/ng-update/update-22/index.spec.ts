@@ -821,6 +821,89 @@ export class DialogDemoComponent {
         expect(content).not.toContain('supperLg');
     });
 
+    it('should migrate thyDeeper to thyColor light for thy-divider', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/divider-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+
+@Component({
+    selector: 'app-divider-demo',
+    template: \`
+        <thy-divider thyDeeper="true" [thyStyle]="'solid'"></thy-divider>
+    \`,
+    imports: [ThyDividerModule]
+})
+export class DividerDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/divider-demo.component.ts');
+        expect(content).toContain('thyColor="light"');
+        expect(content).not.toContain('thyDeeper');
+    });
+
+    it('should migrate bound thyDeeper to thyColor for thy-divider', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/divider-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+
+@Component({
+    selector: 'app-divider-demo',
+    template: \`
+        <thy-divider [thyDeeper]="isDeeper"></thy-divider>
+    \`,
+    imports: [ThyDividerModule]
+})
+export class DividerDemoComponent {
+    isDeeper = true;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/divider-demo.component.ts');
+        expect(content).toContain(`[thyColor]="isDeeper ? 'light' : 'default'"`);
+        expect(content).not.toContain('thyDeeper');
+    });
+
+    it('should remove thyDeeper when thyColor already exists on thy-divider', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/divider-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+
+@Component({
+    selector: 'app-divider-demo',
+    template: \`
+        <thy-divider thyDeeper="true" thyColor="primary"></thy-divider>
+    \`,
+    imports: [ThyDividerModule]
+})
+export class DividerDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/divider-demo.component.ts');
+        expect(content).toContain('thyColor="primary"');
+        expect(content).not.toContain('thyDeeper');
+    });
+
     it('should migrate ThyPropertyItem.setKeepEditing to setEditing', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
