@@ -28,7 +28,7 @@ describe('ng-update v22 class name migration', () => {
         const content = result.readContent(filePath);
 
         expect(content).toContain("import { ThyButtonSize } from 'ngx-tethys/button'");
-        expect(content).toContain('export const buttonSize: ThyButtonSize = \'md\'');
+        expect(content).toContain("export const buttonSize: ThyButtonSize = 'md'");
         expect(content).not.toContain('ButtonGroupSize');
     });
 
@@ -101,7 +101,7 @@ describe('ng-update v22 class name migration', () => {
         const content = result.readContent(filePath);
 
         expect(content).toContain('ThyFormControlSize');
-        expect(content).not.toContain("InputSize");
+        expect(content).not.toContain('InputSize');
     });
 
     it('should rename ThyStackedValue to ThyProgressStackedValue', async () => {
@@ -121,6 +121,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).toContain("import { ThyProgressStackedValue } from 'ngx-tethys/progress'");
         expect(content).toContain('export const stackedValues: ThyProgressStackedValue[] = [{ value: 20 }]');
         expect(content).not.toContain('ThyStackedValue');
+    });
+
+    it('should rename CompatibleDate to ThyCompatibleDate', async () => {
+        const filePath = '/projects/update-22-test/src/app/compatible-date.ts';
+        tree.create(
+            filePath,
+            `
+                import { CompatibleDate } from 'ngx-tethys/date-picker';
+
+                export const dateValue: CompatibleDate = new Date();
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyCompatibleDate } from 'ngx-tethys/date-picker'");
+        expect(content).toContain('export const dateValue: ThyCompatibleDate = new Date()');
+        expect(content).not.toMatch(/\bCompatibleDate\b/);
     });
 
     it('should not rename local identifiers that are not imported from ngx-tethys', async () => {

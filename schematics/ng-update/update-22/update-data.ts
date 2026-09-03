@@ -18,6 +18,10 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
+                    },
+                    {
+                        replace: 'CompatibleDate',
+                        replaceWith: 'ThyCompatibleDate'
                     }
                 ]
             }

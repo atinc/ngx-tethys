@@ -196,7 +196,7 @@
   "ThyRangePickerDirective": "date-picker",
   "DisabledDateFn": "date-picker",
   "ThyPanelMode": "date-picker",
-  "CompatibleDate": "date-picker",
+  "ThyCompatibleDate": "date-picker",
   "ThyShortcutPosition": "date-picker",
   "ThyDateGranularity": "date-picker",
   "SupportTimeOptions": "date-picker",
