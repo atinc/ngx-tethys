@@ -26,11 +26,11 @@ export class ThyButtonSizeExampleComponent implements OnInit {
         },
         {
             value: 'lg',
-            height: 36
+            height: 44
         }
     ];
 
-    size = this.sizes[3].value;
+    size = this.sizes[2].value;
 
     constructor() {}
 

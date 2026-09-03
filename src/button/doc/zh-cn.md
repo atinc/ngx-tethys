@@ -16,15 +16,31 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ```
 
 ## 按钮种类
-在 Worktile Design 中，有四种按钮:
 
-- 主按钮（fill）：用于重要操作，一个操作区域只能有一个主按钮，常用于添加，保存
-- 线框按钮（outline）：用于视图，审批状态
-- 按钮链接（link）：用于次要或外链的操作，比如 `取消`（`thyButton="default" thyAppearance="link"`）
-- 按钮图标：用于工具栏操作
+按钮由两个正交维度组合（对齐 Ant Design Color × Variant、Semi type × theme、库内 Tag/Action 的 Appearance 切片）：
+
+- **`thyAppearance`**：外观 — `fill`（默认）/ `outline` / `link`
+- **`thyButton`**：类型（颜色）— `default` / `primary` / `info` / `warning` / `danger` / `success`
+
+使用建议：
+
+- **fill**：重要操作，一个操作区域通常只有一个主按钮（如添加、保存）
+- **outline**：次要操作、视图与审批状态
+- **link**：更次要或外链操作（如取消）；常用 `thyButton="default" thyAppearance="link"`
+- **按钮图标**：用于工具栏操作（见下方图标示例）
+
+### `thyAppearance` × `thyButton` → class
+
+| `thyAppearance` | `thyButton` | 生成 class |
+| --- | --- | --- |
+| `fill`（默认） | `{type}` | `btn-{type}` |
+| `outline` | `{type}` | `btn-outline-{type}` |
+| `link` | `{type}` | `btn-link-{type}` |
+
+示例：`thyButton="primary"` → `btn-primary`；`thyButton="primary" thyAppearance="outline"` → `btn-outline-primary`；`thyButton="danger" thyAppearance="link"` → `btn-link-danger`。
 
 ## 基本使用
-推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
+推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。默认 `thyAppearance` 为 `fill`。
 ```html
 <button thyButton="default">Default</button>
 <button thyButton="primary">Primary</button>
@@ -32,7 +48,17 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ```
 <example name="thy-button-basic-example"></example>
 
+## Appearance
+切换 `thyAppearance`，与各 `thyButton` 类型组合预览矩阵（含禁用态）。
+```html
+<button thyButton="primary" thyAppearance="fill">Primary</button>
+<button thyButton="primary" thyAppearance="outline">Primary</button>
+<button thyButton="primary" thyAppearance="link">Primary</button>
+```
+<example name="thy-button-appearance-example"></example>
+
 ## 按钮链接
+`thyAppearance="link"` 的类型与禁用态。
 ```html
 <button thyButton="default" thyAppearance="link">Cancel</button>
 <button thyButton="primary" thyAppearance="link">Primary</button>
@@ -41,6 +67,7 @@ import { ThyButtonModule } from "ngx-tethys/button";
 <example name="thy-button-link-example"></example>
 
 ## 线框按钮
+`thyAppearance="outline"` 的类型、激活态与禁用态。
 ```html
 <button thyButton="default" thyAppearance="outline">Default</button>
 <button thyButton="primary" thyAppearance="outline">Primary</button>
