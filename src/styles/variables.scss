@@ -1022,7 +1022,6 @@ $divider-orientation-margin: 5% !default;
 $divider-spacing: 16px !default;
 $divider-text-padding: 8px !default;
 $divider-color: $gray-200 !default;
-$divider-deeper-color: $gray-300 !default;
 $divider-width: 1px !default;
 $divider-text-color: $gray-600 !default;
 $divider-colors: () !default;
@@ -1035,8 +1034,7 @@ $divider-colors: map.merge(
         'danger': $danger,
         'default': $gray-200,
         'lighter': $gray-200,
-        'light': $gray-300,
-        'deeper': $gray-300
+        'light': $gray-300
     ),
     $divider-colors
 );

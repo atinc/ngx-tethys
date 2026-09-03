@@ -435,6 +435,60 @@ export class NavDemoComponent {}
         expect(content).not.toContain('thyNavLink');
     });
 
+    it('should migrate thy-link to thy-anchor-link', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/anchor-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAnchorModule } from 'ngx-tethys/anchor';
+
+@Component({
+    selector: 'app-anchor-demo',
+    template: \`
+        <thy-link thyHref="#basic" thyTitle="Basic"></thy-link>
+    \`,
+    imports: [ThyAnchorModule]
+})
+export class AnchorDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/anchor-demo.component.ts');
+        expect(content).toContain('<thy-anchor-link thyHref="#basic" thyTitle="Basic"></thy-anchor-link>');
+        expect(content).not.toContain('<thy-link');
+    });
+
+    it('should migrate thyLink exportAs to thyAnchorLink', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/anchor-link-ref-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAnchorModule } from 'ngx-tethys/anchor';
+
+@Component({
+    selector: 'app-anchor-link-ref-demo',
+    template: \`
+        <thy-anchor-link #link="thyLink" thyHref="#basic" thyTitle="Basic"></thy-anchor-link>
+    \`,
+    imports: [ThyAnchorModule]
+})
+export class AnchorLinkRefDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/anchor-link-ref-demo.component.ts');
+        expect(content).toContain('#link="thyAnchorLink"');
+        expect(content).not.toContain('#link="thyLink"');
+    });
+
     it('should migrate thyShowRemove to thyRemovable for thy-avatar', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
@@ -821,6 +875,89 @@ export class DialogDemoComponent {
         expect(content).not.toContain('supperLg');
     });
 
+    it('should migrate thyDeeper to thyColor light for thy-divider', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/divider-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+
+@Component({
+    selector: 'app-divider-demo',
+    template: \`
+        <thy-divider thyDeeper="true" [thyStyle]="'solid'"></thy-divider>
+    \`,
+    imports: [ThyDividerModule]
+})
+export class DividerDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/divider-demo.component.ts');
+        expect(content).toContain('thyColor="light"');
+        expect(content).not.toContain('thyDeeper');
+    });
+
+    it('should migrate bound thyDeeper to thyColor for thy-divider', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/divider-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+
+@Component({
+    selector: 'app-divider-demo',
+    template: \`
+        <thy-divider [thyDeeper]="isDeeper"></thy-divider>
+    \`,
+    imports: [ThyDividerModule]
+})
+export class DividerDemoComponent {
+    isDeeper = true;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/divider-demo.component.ts');
+        expect(content).toContain(`[thyColor]="isDeeper ? 'light' : 'default'"`);
+        expect(content).not.toContain('thyDeeper');
+    });
+
+    it('should remove thyDeeper when thyColor already exists on thy-divider', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/divider-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+
+@Component({
+    selector: 'app-divider-demo',
+    template: \`
+        <thy-divider thyDeeper="true" thyColor="primary"></thy-divider>
+    \`,
+    imports: [ThyDividerModule]
+})
+export class DividerDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/divider-demo.component.ts');
+        expect(content).toContain('thyColor="primary"');
+        expect(content).not.toContain('thyDeeper');
+    });
+
     it('should migrate ThyPropertyItem.setKeepEditing to setEditing', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
@@ -866,5 +1003,47 @@ export class PropertyDemoComponent {
         expect(content).toContain('.setEditing(true)');
         expect(content).toContain('.setEditing(false)');
         expect(content).not.toContain('setKeepEditing');
+    });
+
+    it('should migrate ThyAvatarService.avatarSrcTransform to srcTransform', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        factory.addNewFile(
+            '/projects/update-22-test/src/ngx-tethys-avatar.d.ts',
+            `
+declare module 'ngx-tethys/avatar' {
+    export class ThyAvatarService {
+        srcTransform(src: string, size: number): string;
+        /** @deprecated */
+        avatarSrcTransform(src: string, size: number): string;
+    }
+}
+`
+        );
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/avatar-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAvatarService } from 'ngx-tethys/avatar';
+
+@Component({
+    selector: 'app-avatar-demo',
+    template: \`<thy-avatar thySrc="avatar.png"></thy-avatar>\`
+})
+export class AvatarDemoComponent {
+    private thyAvatarService!: ThyAvatarService;
+
+    getAvatarSrc(src: string, size: number) {
+        return this.thyAvatarService.avatarSrcTransform(src, size);
+    }
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/avatar-demo.component.ts');
+        expect(content).toContain('.srcTransform(src, size)');
+        expect(content).not.toContain('avatarSrcTransform');
     });
 });

@@ -27,7 +27,14 @@ export const upgradeData: UpgradeData = {
             }
         ]
     },
-    elementSelectors: {},
+    elementSelectors: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [{ replace: 'thy-link', replaceWith: 'thy-anchor-link' }]
+            }
+        ]
+    },
     inputNames: {
         [TargetVersion.V22]: [
             {
@@ -184,7 +191,9 @@ export const upgradeData: UpgradeData = {
                         replace: '$select-control-padding-y-default',
                         replaceWith: '$select-control-padding-y-lg',
                         replaceIn: { stylesheet: true }
-                    }
+                    },
+                    // Divider
+                    { replace: '$divider-deeper-color', replaceWith: '$gray-300', replaceIn: { stylesheet: true } }
                 ]
             }
         ]
@@ -197,6 +206,10 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'thyNavLink',
                         replaceWith: 'thyNavItem'
+                    },
+                    {
+                        replace: 'thyLink',
+                        replaceWith: 'thyAnchorLink'
                     }
                 ]
             }
@@ -229,6 +242,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'setEditing',
                         limitedTo: {
                             classes: ['ThyPropertyItem']
+                        }
+                    },
+                    {
+                        replace: 'avatarSrcTransform',
+                        replaceWith: 'srcTransform',
+                        limitedTo: {
+                            classes: ['ThyAvatarService']
                         }
                     }
                 ]

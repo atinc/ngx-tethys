@@ -5,7 +5,7 @@
       <div class="d-flex align-items-center">
         <div class="color-variable" [style.width.px]="100">{{ variable }}</div>
         @if (variable.startsWith('$gray-')) {
-          <thy-divider class="mr-8" [thyVertical]="true" thyDeeper="true"></thy-divider>
+          <thy-divider class="mr-8" [thyVertical]="true" thyColor="light"></thy-divider>
           <div class="color-variable">var(--{{ variable.slice(1) }})</div>
         }
       </div>

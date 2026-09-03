@@ -13,7 +13,6 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
                 [thyStyle]="styleMode"
                 [thyTextDirection]="directionMode"
                 [thyText]="textContent || dividerTemplateSelect"
-                [thyDeeper]="isDeeper"
                 [thyColor]="color"></thy-divider>
             <ng-template #dividerTemplateSelect>
                 <thy-select [(ngModel)]="dividerSelectModel" thyPlaceholder="请选择">
@@ -28,8 +27,6 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 })
 class ThyTestDividerComponent {
     isVertical = false;
-
-    isDeeper = false;
 
     color = 'default';
 
@@ -127,18 +124,17 @@ describe('ThyDividerComponent', () => {
         });
     });
 
-    describe('deeper', () => {
-        it('should set thy-deeper by thyDeeper', () => {
+    describe('light color', () => {
+        it('should set thy-divider-light by thyColor', () => {
             fixture.detectChanges();
 
             const centerContent: HTMLElement = fixture.nativeElement.querySelector('.thy-divider');
             expect(centerContent).toBeTruthy();
+            expect(centerContent.classList.contains('thy-divider-light')).toBeFalsy();
 
-            expect(centerContent.classList.contains('thy-divider-deeper')).toBeFalsy();
-
-            componentInstance.isDeeper = true;
+            componentInstance.color = 'light';
             fixture.detectChanges();
-            expect(centerContent.classList.contains('thy-divider-deeper')).toBeTruthy();
+            expect(centerContent.classList.contains('thy-divider-light')).toBeTruthy();
         });
     });
 
