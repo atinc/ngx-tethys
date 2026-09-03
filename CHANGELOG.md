@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file. See [commit
 
 * build: upgrade ng to v22 #TINFR-3745 ([#3824](/github.com/atinc/ngx-tethys/issues/3824)) ([7767bf2c](github.com/atinc/ngx-tethys/commits/7767bf2cebd90f468872953c8255542201aa379e)), closes [#TINFR-3745](github.com/atinc/ngx-tethys/issues/TINFR-3745)
 
+
+
+## [21.0.13](github.com/atinc/ngx-tethys/compare/21.0.12...21.0.13) (2026-09-03)
+
+
+### Features
+
+* **style:** add bg-*-subtile token #NEXUS-4936 ([#3885](/github.com/atinc/ngx-tethys/issues/3885)) ([b8b9a4d](github.com/atinc/ngx-tethys/commits/b8b9a4d74e779524c4b1a5177e2aabb0f8278a3a)), closes [#NEXUS-4936](github.com/atinc/ngx-tethys/issues/NEXUS-4936)
+* **style:** add z-index token and overflow-x/y token #NEXUS-4592 ([94660bb](github.com/atinc/ngx-tethys/commits/94660bb6b07a6eb9ad087a85177d5fee243230dc)), closes [#NEXUS-4592](github.com/atinc/ngx-tethys/issues/NEXUS-4592)
+* **styles:** spacing utilities support ms/me and ps/pe #NEXUS-4977 ([#3872](/github.com/atinc/ngx-tethys/issues/3872)) ([701a8ec](github.com/atinc/ngx-tethys/commits/701a8ec472c1e46ee3306ea6110847f900db5172)), closes [#NEXUS-4977](github.com/atinc/ngx-tethys/issues/NEXUS-4977) [#NEXUS-4977](github.com/atinc/ngx-tethys/issues/NEXUS-4977)
+
+
 ## [21.0.12](github.com/atinc/ngx-tethys/compare/21.0.11...21.0.12) (2026-08-26)
 
 
