@@ -36,14 +36,6 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ```
 <example name="thy-button-appearance-example"></example>
 
-## Type
-推荐使用指令写法，写在原生 `button` 上。
-```html
-<button thyButton="default">Default</button>
-<button thyButton="primary">Primary</button>
-```
-<example name="thy-button-type-example"></example>
-
 ## Disabled
 指令写法使用原生 `disabled`；`thy-button` 组件使用 `thyDisabled`。
 ```html
