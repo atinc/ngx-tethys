@@ -230,6 +230,13 @@ export const upgradeData: UpgradeData = {
                         limitedTo: {
                             classes: ['ThyPropertyItem']
                         }
+                    },
+                    {
+                        replace: 'avatarSrcTransform',
+                        replaceWith: 'srcTransform',
+                        limitedTo: {
+                            classes: ['ThyAvatarService']
+                        }
                     }
                 ]
             }

@@ -867,4 +867,46 @@ export class PropertyDemoComponent {
         expect(content).toContain('.setEditing(false)');
         expect(content).not.toContain('setKeepEditing');
     });
+
+    it('should migrate ThyAvatarService.avatarSrcTransform to srcTransform', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        factory.addNewFile(
+            '/projects/update-22-test/src/ngx-tethys-avatar.d.ts',
+            `
+declare module 'ngx-tethys/avatar' {
+    export class ThyAvatarService {
+        srcTransform(src: string, size: number): string;
+        /** @deprecated */
+        avatarSrcTransform(src: string, size: number): string;
+    }
+}
+`
+        );
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/avatar-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAvatarService } from 'ngx-tethys/avatar';
+
+@Component({
+    selector: 'app-avatar-demo',
+    template: \`<thy-avatar thySrc="avatar.png"></thy-avatar>\`
+})
+export class AvatarDemoComponent {
+    private thyAvatarService!: ThyAvatarService;
+
+    getAvatarSrc(src: string, size: number) {
+        return this.thyAvatarService.avatarSrcTransform(src, size);
+    }
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/avatar-demo.component.ts');
+        expect(content).toContain('.srcTransform(src, size)');
+        expect(content).not.toContain('avatarSrcTransform');
+    });
 });
