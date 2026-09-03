@@ -1,5 +1,7 @@
-<thy-space>
-  @for (type of types; track type.value) {
-    <button *thySpaceItem [thyButton]="type.value" disabled>{{ type.label }}</button>
-  }
-</thy-space>
+@for (appearance of appearances; track appearance) {
+  <thy-space [class.mt-2]="$index > 0">
+    @for (type of types; track type.value) {
+      <button *thySpaceItem [thyButton]="type.value" [thyAppearance]="appearance" disabled>{{ type.label }}</button>
+    }
+  </thy-space>
+}
