@@ -69,6 +69,13 @@ export const upgradeData: UpgradeData = {
                         limitedTo: {
                             elements: ['thy-avatar']
                         }
+                    },
+                    {
+                        replace: 'thyAutocompleteComponent',
+                        replaceWith: 'thyAutocomplete',
+                        limitedTo: {
+                            attributes: ['thyAutocompleteTrigger', 'thyAutocomplete']
+                        }
                     }
                 ]
             }
