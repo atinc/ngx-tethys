@@ -1,6 +1,12 @@
 <thy-space>
-  <button *thySpaceItem thyButton="primary">Primary</button>
+  <button *thySpaceItem thyButton>Default</button>
+  <button *thySpaceItem thyButton="primary" thyAppearance="fill">Primary</button>
+</thy-space>
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton thyAppearance="outline">Default</button>
   <button *thySpaceItem thyButton="primary" thyAppearance="outline">Primary</button>
+</thy-space>
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton thyAppearance="link">Default</button>
   <button *thySpaceItem thyButton="primary" thyAppearance="link">Primary</button>
-  <button *thySpaceItem thyButton="primary" thyIcon="plus">New</button>
 </thy-space>

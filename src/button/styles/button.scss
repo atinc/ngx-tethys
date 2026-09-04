@@ -97,7 +97,7 @@ fieldset:disabled a.btn {
         variables.$gray-200
     );
 
-    @include hover.hover-active {
+    &:hover {
         @include shadow.box-shadow(0px 2px 5px 1px variables.$gray-80);
     }
 }

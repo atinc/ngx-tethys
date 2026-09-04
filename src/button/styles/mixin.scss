@@ -22,7 +22,7 @@
     color: $color;
     @include gradients.gradient-bg($background);
     border-color: $border;
-    @include hover.hover-active {
+    @include hover.hover {
         color: $hover-color;
         @include gradients.gradient-bg($hover-background);
         border-color: $hover-border;
@@ -42,7 +42,10 @@
     background-color: transparent;
     background-image: none;
     border-color: $border-color;
-    &:hover {
+    &:hover,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    .show > &.dropdown-toggle {
         color: $hover-color;
         background-color: $hover-background;
         border-color: $hover-border;
@@ -53,13 +56,6 @@
             @include button-disabled(variables.$btn-outline-disabled-border-color);
         }
         @include button-disabled(variables.$btn-outline-disabled-border-color);
-    }
-    &:not(:disabled):not(.disabled):active,
-    &:not(:disabled):not(.disabled).active,
-    .show > &.dropdown-toggle {
-        color: $hover-color;
-        background-color: $active-background;
-        border-color: $active-border;
     }
 }
 
@@ -92,7 +88,7 @@
 }
 
 @mixin button-hover-box-shadow($color) {
-    @include hover.hover-active {
+    &:hover {
         @include shadow.box-shadow(0px 2px 5px 1px rgba($color, 0.6));
     }
 }

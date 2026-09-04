@@ -85,11 +85,11 @@ describe('ThyButton', () => {
             expect(btnElement.textContent).toBe('Basic Button');
         });
 
-        it('should use primary type by default', () => {
+        it('should use default type by default', () => {
             const defaultButton = fixture.debugElement.query(By.css('#btn-default'));
             const btnElement: HTMLElement = defaultButton.nativeElement;
 
-            expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-default')).toBeTruthy();
         });
 
         it('should set size success', () => {

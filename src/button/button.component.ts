@@ -64,13 +64,13 @@ export class ThyButton {
     /**
      * 按钮类型（颜色）
      * @type default | primary | info | warning | danger | success
-     * @default primary
+     * @default default
      */
     readonly thyButton = input<ThyButtonType>();
 
     /**
      * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
-     * @default primary
+     * @default default
      */
     readonly thyType = input<ThyButtonType>();
 
@@ -142,7 +142,7 @@ export class ThyButton {
     });
 
     private readonly type = computed(() => {
-        return this.thyButton() || this.thyType() || 'primary';
+        return this.thyButton() || this.thyType() || 'default';
     });
 
     private setButtonText() {

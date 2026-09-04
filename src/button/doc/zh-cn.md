@@ -26,8 +26,11 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ## 基本使用
 推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
 ```html
-<button thyButton="primary">Primary</button>
+<button thyButton>Default</button>
+<button thyButton="primary" thyAppearance="fill">Primary</button>
+<button thyButton thyAppearance="outline">Default</button>
 <button thyButton="primary" thyAppearance="outline">Primary</button>
+<button thyButton thyAppearance="link">Default</button>
 <button thyButton="primary" thyAppearance="link">Primary</button>
 ```
 <example name="thy-button-basic-example"></example>
