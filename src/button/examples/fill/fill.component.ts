@@ -3,9 +3,9 @@ import { ThyButton } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
-    selector: 'thy-button-basic-example',
-    templateUrl: './basic.component.html',
+    selector: 'thy-button-fill-example',
+    templateUrl: './fill.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
-export class ThyButtonBasicExampleComponent {}
+export class ThyButtonFillExampleComponent {}

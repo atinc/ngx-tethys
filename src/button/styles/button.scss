@@ -198,13 +198,13 @@ $btn-link-color-map: (
     ),
     'info': (
         variables.$info,
-        variables.$primary,
-        none
+        variables.$info,
+        underline
     ),
     'warning': (
         variables.$warning,
         variables.$warning,
-        none
+        underline
     ),
     'danger': (
         variables.$danger,

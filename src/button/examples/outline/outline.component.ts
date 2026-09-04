@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
@@ -8,8 +8,4 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
-export class ThyButtonOutlineExampleComponent implements OnInit {
-    constructor() {}
-
-    ngOnInit() {}
-}
+export class ThyButtonOutlineExampleComponent {}

@@ -21,7 +21,7 @@
 
 .btn-link {
     color: $link-color;
-    @include hover {
+    @include hover-active {
         color: $link-hover-color;
     }
     &:focus,
@@ -42,11 +42,11 @@
 }
 
 .btn-link-info {
-    @include btn-link-variant($info, $primary, none);
+    @include btn-link-variant($info, $info, underline);
 }
 
 .btn-link-warning {
-    @include btn-link-variant($warning, $warning, none);
+    @include btn-link-variant($warning, $warning, underline);
 }
 
 .btn-link-danger {
