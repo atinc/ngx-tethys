@@ -1,4 +1,4 @@
 ---
-title: Disabled
+title: Outline
 order: 30
 ---

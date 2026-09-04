@@ -22,7 +22,7 @@
     color: $color;
     @include gradients.gradient-bg($background);
     border-color: $border;
-    @include hover.hover {
+    @include hover.hover-active {
         color: $hover-color;
         @include gradients.gradient-bg($hover-background);
         border-color: $hover-border;
@@ -92,7 +92,7 @@
 }
 
 @mixin button-hover-box-shadow($color) {
-    &:hover {
+    @include hover.hover-active {
         @include shadow.box-shadow(0px 2px 5px 1px rgba($color, 0.6));
     }
 }
@@ -117,7 +117,7 @@
 @mixin btn-link-variant($link-color, $link-hover-color, $link-hover-decoration) {
     color: $link-color;
     background-color: transparent;
-    @include hover.hover {
+    @include hover.hover-active {
         color: $link-hover-color;
         text-decoration: $link-hover-decoration;
     }
@@ -132,11 +132,11 @@
             color: variables.$btn-link-disabled-color;
             text-decoration: none;
         }
-    } // No need for an active state here
+    }
 }
 
 @mixin btn-link-theme-variant($link-hover-color) {
-    @include hover.hover {
+    @include hover.hover-active {
         color: $link-hover-color;
     }
 }

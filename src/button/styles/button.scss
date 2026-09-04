@@ -97,7 +97,7 @@ fieldset:disabled a.btn {
         variables.$gray-200
     );
 
-    &:hover {
+    @include hover.hover-active {
         @include shadow.box-shadow(0px 2px 5px 1px variables.$gray-80);
     }
 }
@@ -198,13 +198,13 @@ $btn-link-color-map: (
     ),
     'info': (
         variables.$info,
-        variables.$primary,
-        none
+        variables.$info,
+        underline
     ),
     'warning': (
         variables.$warning,
         variables.$warning,
-        none
+        underline
     ),
     'danger': (
         variables.$danger,

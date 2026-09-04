@@ -1,4 +1,4 @@
 ---
-title: Appearance
+title: Basic
 order: 10
 ---

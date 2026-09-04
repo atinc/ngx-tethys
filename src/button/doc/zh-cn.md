@@ -21,27 +21,25 @@ import { ThyButtonModule } from "ngx-tethys/button";
 - 主按钮（fill）：用于重要操作，一个操作区域只能有一个主按钮，常用于添加，保存
 - 线框按钮（outline）：用于视图，审批状态
 - 按钮链接（link）：用于次要或外链的操作，比如 `取消`
+- 按钮图标：用于工具栏操作
 
-| `thyAppearance` | `thyButton` | class |
-| --- | --- | --- |
-| `fill` | `{type}` | `btn-{type}` |
-| `outline` | `{type}` | `btn-outline-{type}` |
-| `link` | `{type}` | `btn-link-{type}` |
-
-## Appearance
+## 基本使用
+推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
 ```html
-<button thyButton="primary" thyAppearance="fill">Primary</button>
+<button thyButton="primary">Primary</button>
 <button thyButton="primary" thyAppearance="outline">Primary</button>
 <button thyButton="primary" thyAppearance="link">Primary</button>
 ```
-<example name="thy-button-appearance-example"></example>
+<example name="thy-button-basic-example"></example>
 
-## Disabled
-指令写法使用原生 `disabled`；`thy-button` 组件使用 `thyDisabled`。
-```html
-<button thyButton="primary" disabled>Primary</button>
-```
-<example name="thy-button-disabled-example"></example>
+## 主按钮
+<example name="thy-button-fill-example"></example>
+
+## 线框按钮
+<example name="thy-button-outline-example"></example>
+
+## 按钮链接
+<example name="thy-button-link-example"></example>
 
 ## 按钮大小
 - `md: 32px`（默认），一般用于表单确定、页面右上角的新建和编辑
