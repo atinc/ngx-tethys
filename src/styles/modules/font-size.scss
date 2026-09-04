@@ -8,9 +8,6 @@ $font-sizes: (
     md: variables.$font-size-md,
     lg: variables.$font-size-lg,
     xlg: variables.$font-size-xlg,
-    2xlg: variables.$font-size-2xlg,
-    3xlg: variables.$font-size-3xlg,
-    4xlg: variables.$font-size-4xlg,
     max-lg: variables.$font-size-max-lg
 );
 @each $name, $size in $font-sizes {

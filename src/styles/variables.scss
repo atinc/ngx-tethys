@@ -119,12 +119,9 @@ $font-size-xs: 0.625rem !default; // 10px
 $font-size-sm: 0.75rem !default; // 12px
 $font-size-base: 0.875rem !default; // 14px
 $font-size-title: 15px; // 标题字体大小，header Title of card、Layout、Sidebar、Slid
-$font-size-md: 1rem !default; // 16px      ——  h6
-$font-size-lg: 1.25rem !default; // 20px      ——  h5
-$font-size-xlg: 1.5rem !default; // 24px      ——  h4
-$font-size-2xlg: 1.75rem !default; // 28px      ——  h3
-$font-size-3xlg: 2rem !default; // 32px      ——  h2
-$font-size-4xlg: 2.25rem !default; // 36px      ——  h1
+$font-size-md: 1rem !default; // 16px
+$font-size-lg: 1.25rem !default; // 20px
+$font-size-xlg: 1.5rem !default; // 24px
 $font-size-max-lg: 3.25rem !default; // 补充字体大小 52px
 
 $text-color: var(--text-color) !default;
