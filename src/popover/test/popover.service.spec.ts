@@ -896,7 +896,6 @@ describe(`thyPopover`, () => {
                 expect(positionStrategy._preferredPositions.length).toEqual(1);
                 expect(positionStrategy._canPush).toEqual(true);
             });
-
         });
 
         describe('has global canPush config', () => {

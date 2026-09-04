@@ -14,16 +14,26 @@ function assertButtonIcon(iconElement: Element, icon: string) {
 @Component({
     selector: 'thy-test-button-basic',
     template: `
-        <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
+        <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">
+            Basic Button
+        </button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance"></thy-button>
         <thy-button id="btn-default">Default Button</thy-button>
-        <thy-button id="btn-thy-disabled" [thyType]="type" [thyAppearance]="appearance" [thyDisabled]="disabled" (click)="onClick()">Thy Disabled</thy-button>
-        <button id="btn-native-disabled" [thyButton]="type" [thyAppearance]="appearance" [disabled]="disabled" (click)="onClick()">Native Disabled</button>
+        <thy-button id="btn-thy-disabled" [thyType]="type" [thyAppearance]="appearance" [thyDisabled]="disabled" (click)="onClick()"
+            >Thy Disabled</thy-button
+        >
+        <button id="btn-native-disabled" [thyButton]="type" [thyAppearance]="appearance" [disabled]="disabled" (click)="onClick()">
+            Native Disabled
+        </button>
         <button id="btn-attr-disabled" thyButton="primary" disabled (click)="onClick()">Attr Disabled</button>
         <button id="btn-attr-disabled-true" thyButton="primary" disabled="true" (click)="onClick()">Attr Disabled True</button>
-        <thy-button id="btn-thy-loading" [thyType]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()">Loading Button</thy-button>
-        <button id="btn-native-loading" [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()">Native Loading</button>
+        <thy-button id="btn-thy-loading" [thyType]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()"
+            >Loading Button</thy-button
+        >
+        <button id="btn-native-loading" [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()">
+            Native Loading
+        </button>
         <a id="btn-anchor" thyButton="primary" [thyDisabled]="disabled" (click)="onClick()">Anchor Button</a>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,

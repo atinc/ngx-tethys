@@ -174,7 +174,8 @@ export class ThyButton {
         if (size) {
             classNames.push(`btn-${size}`);
         }
-        const loading = this.thyLoading();        if (loading) {
+        const loading = this.thyLoading();
+        if (loading) {
             classNames.push('loading');
         }
         this.hostRenderer.updateClass(classNames);

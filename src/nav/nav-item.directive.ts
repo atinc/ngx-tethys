@@ -132,11 +132,7 @@ export class ThyNavItemDirective {
 
     linkIsActive() {
         const links = this.links();
-        return (
-            this.thyNavItemActive() ||
-            this.routerLinkIsActive() ||
-            links.some(item => item.thyNavItemActive())
-        );
+        return this.thyNavItemActive() || this.routerLinkIsActive() || links.some(item => item.thyNavItemActive());
     }
 
     setNavLinkHidden(value: boolean) {
