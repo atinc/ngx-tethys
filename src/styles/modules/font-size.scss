@@ -2,10 +2,10 @@
 
 // font-size-{name}
 $font-sizes: (
-    base: variables.$font-size-base,
-    sm: variables.$font-size-sm,
-    md: variables.$font-size-md,
     xs: variables.$font-size-xs,
+    sm: variables.$font-size-sm,
+    base: variables.$font-size-base,
+    md: variables.$font-size-md,
     lg: variables.$font-size-lg,
     xlg: variables.$font-size-xlg,
     max-lg: variables.$font-size-max-lg

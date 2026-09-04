@@ -114,11 +114,15 @@ $font-family-sans-serif:
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-family-statistics-number: $font-family-base !default;
-$font-size-base: 0.875rem !default; // 14px
-$font-size-lg: 1.25rem !default; // 20px
+
+$font-size-xs: 0.625rem !default; // 10px
 $font-size-sm: 0.75rem !default; // 12px
-// 标题字体大小，header Title of card、Layout、Sidebar、Slid
-$font-size-title: 15px;
+$font-size-base: 0.875rem !default; // 14px
+$font-size-title: 15px; // 标题字体大小，header Title of card、Layout、Sidebar、Slid
+$font-size-md: 1rem !default; // 16px
+$font-size-lg: 1.25rem !default; // 20px
+$font-size-xlg: 1.5rem !default; // 24px
+$font-size-max-lg: 3.25rem !default; // 补充字体大小 52px
 
 $text-color: var(--text-color) !default;
 $text-color-inverse: $white !default;
@@ -157,11 +161,6 @@ $icon-text-horizontal-space: 0.5rem !default;
 $icon-default-height: 24px !default;
 $icon-default-width: 24px !default;
 
-// 扩展
-$font-size-md: 1rem !default; // 16px
-$font-size-max-lg: 3.25rem !default; // 补充字体大小 52px
-$font-size-xs: 0.625rem !default; // 10px
-$font-size-xlg: 1.5rem !default; // 24px
 // code
 $code-color: $danger !default;
 $code-font-size: 0.875rem !default;

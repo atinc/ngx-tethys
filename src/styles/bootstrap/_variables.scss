@@ -115,12 +115,12 @@ $font-weight-bold: 700 !default;
 $font-weight-bolder: bolder !default;
 $font-weight-base: $font-weight-normal !default;
 
-$h1-font-size: variables.$font-size-base * 2.5 !default;
-$h2-font-size: variables.$font-size-base * 2 !default;
-$h3-font-size: variables.$font-size-base * 1.75 !default;
-$h4-font-size: variables.$font-size-base * 1.5 !default;
-$h5-font-size: variables.$font-size-base * 1.25 !default;
-$h6-font-size: variables.$font-size-base !default;
+$h1-font-size: 2.25rem !default; // 36px
+$h2-font-size: 2rem !default; // 32px
+$h3-font-size: variables.$font-size-base * 2 !default; // 28px
+$h4-font-size: variables.$font-size-xlg !default; // 24px
+$h5-font-size: variables.$font-size-lg !default; // 20px
+$h6-font-size: variables.$font-size-md !default; // 16px
 
 $headings-margin-bottom: $spacer * 0.5 !default;
 $headings-font-family: null !default;
@@ -183,7 +183,10 @@ $input-border-radius-sm: variables.$border-radius-sm !default;
 $input-focus-color: variables.$input-color !default;
 $input-focus-width: variables.$input-btn-focus-width !default;
 $input-height-border: $input-border-width * 2 !default;
-$input-height: functions.add($input-line-height * 1em, functions.add(variables.$input-padding-y-md * 2, $input-height-border, false)) !default;
+$input-height: functions.add(
+    $input-line-height * 1em,
+    functions.add(variables.$input-padding-y-md * 2, $input-height-border, false)
+) !default;
 $input-group-addon-border-color: variables.$input-border-color !default;
 $input-transition:
     border-color 0.15s ease-in-out,
