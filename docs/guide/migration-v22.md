@@ -20,6 +20,14 @@ order: 985
 - 升级 `ngx-tethys` 及依赖的 CDK、Angular 库到 `22.x`，并更新 `package.json`
 - 运行 schematic 自动迁移模板、样式与 TypeScript 代码（各组件详情见下文 **自动迁移** 小节）
 
+若已手动升级依赖，或仅需重新执行代码迁移，可单独运行：
+
+```bash
+ng generate ngx-tethys:migrate-22
+```
+
+该命令仅执行 v22 代码迁移，不会修改 `package.json` 中的依赖版本。
+
 ## 破坏性修改
 
 以下按组件分类，分别列出 **破坏性更改** 与 **自动迁移**。
