@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.14](github.com/atinc/ngx-tethys/compare/21.0.13...21.0.14) (2026-09-04)
+
+
+### Bug Fixes
+
+* **style:** 文本颜色以及背景色的调整 #TINFR-3991 ([431b4df](github.com/atinc/ngx-tethys/commits/431b4dff2525fa58706c1e412c81e09924c9aa56)), closes [#TINFR-3991](github.com/atinc/ngx-tethys/issues/TINFR-3991)
+
 ## [21.0.13](github.com/atinc/ngx-tethys/compare/21.0.12...21.0.13) (2026-09-03)
 
 
