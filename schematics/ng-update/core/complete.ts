@@ -1,9 +1,9 @@
 import { SchematicContext } from '@angular-devkit/schematics';
 import { TargetVersion } from '@angular/cdk/schematics';
 
-export function onMigrationComplete(context: SchematicContext, targetVersion: TargetVersion, hasFailures: boolean) {
+function logMigrationComplete(context: SchematicContext, message: string, hasFailures: boolean) {
     context.logger.info('');
-    context.logger.info(`  ✓  Updated NGX-TETHYS to ${targetVersion}`);
+    context.logger.info(`  ✓  ${message}`);
     context.logger.info('');
 
     if (hasFailures) {
@@ -12,4 +12,12 @@ export function onMigrationComplete(context: SchematicContext, targetVersion: Ta
                 'output above and fix these issues manually.'
         );
     }
+}
+
+export function onMigrationComplete(context: SchematicContext, targetVersion: TargetVersion, hasFailures: boolean) {
+    logMigrationComplete(context, `Updated NGX-TETHYS to ${targetVersion}`, hasFailures);
+}
+
+export function onStandaloneMigrationComplete(context: SchematicContext, _targetVersion: TargetVersion, hasFailures: boolean) {
+    logMigrationComplete(context, 'Completed NGX-TETHYS v22 code migration', hasFailures);
 }

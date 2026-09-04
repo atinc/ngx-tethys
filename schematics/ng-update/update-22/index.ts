@@ -28,6 +28,12 @@ const migrations: NullableDevkitMigration[] = [
     HeaderIconPrefixMigration
 ];
 
+export function createMigrate22Rule(
+    onComplete: typeof onMigrationComplete = onMigrationComplete
+): Rule {
+    return createMigrationSchematicRule(TargetVersion.V22, migrations, upgradeData, onComplete);
+}
+
 export default function main(): Rule {
-    return createMigrationSchematicRule(TargetVersion.V22, migrations, upgradeData, onMigrationComplete);
+    return createMigrate22Rule();
 }
