@@ -2,24 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-# [22.0.0-next.1](github.com/atinc/ngx-tethys/compare/21.0.13...22.0.0-next.1) (2026-09-03)
-
-
-### Features
-
-* **button:** support thyAppearance on v22 #TINFR-3855 ([#3909](/github.com/atinc/ngx-tethys/issues/3909)) ([67ac8f8](github.com/atinc/ngx-tethys/commits/67ac8f8169322543f5cfb66cbeb55e3baa0ae849)), closes [#TINFR-3855](github.com/atinc/ngx-tethys/issues/TINFR-3855)
-* **schematics:**  migrate ThyAvatarService.avatarSrcTransform to srcTransform #NEXUS-5084 ([#3901](/github.com/atinc/ngx-tethys/issues/3901)) ([a3b5aca](github.com/atinc/ngx-tethys/commits/a3b5aca40328d21155888711728853cb669ba06e)), closes [#NEXUS-5084](github.com/atinc/ngx-tethys/issues/NEXUS-5084)
-* **schematics:** migrate thy-link/thyLink to thy-anchor-link/thyAnchorLink for anchor #NEXUS-5085 ([#3899](/github.com/atinc/ngx-tethys/issues/3899)) ([03c8626](github.com/atinc/ngx-tethys/commits/03c8626d0494fcaab3de8b330ece4a56827a7381)), closes [#NEXUS-5085](github.com/atinc/ngx-tethys/issues/NEXUS-5085)
-* **schematics:** migrate thyDeeper to thyColor light for thy-divider, including $divider-deeper-color to $gray-300 #NEXUS-5087 ([#3902](/github.com/atinc/ngx-tethys/issues/3902)) ([10025c4](github.com/atinc/ngx-tethys/commits/10025c4a6ec25502cc53a33deb30e8be7234d845)), closes [#NEXUS-5087](github.com/atinc/ngx-tethys/issues/NEXUS-5087)
-* **schematics:** migrate ThyPropertyItem.setKeepEditing to setEditing #NEXUS-5077 ([#3898](/github.com/atinc/ngx-tethys/issues/3898)) ([0c40a5e](github.com/atinc/ngx-tethys/commits/0c40a5e0e80f4cec2a6ae69cc739bc88d8b66abf)), closes [#NEXUS-5077](github.com/atinc/ngx-tethys/issues/NEXUS-5077)
-* **schematics:** migrate thyShowHeader to thyHeadless and remove thyLoadingText for thy-table #NEXUS-5086 ([#3900](/github.com/atinc/ngx-tethys/issues/3900)) ([a4ed5cc](github.com/atinc/ngx-tethys/commits/a4ed5cccc8c88f5cbe6c212d9c860b71fc6d218a)), closes [#NEXUS-5086](github.com/atinc/ngx-tethys/issues/NEXUS-5086)
-* **schematics:** remove thyHasLeftRightPadding and migrate thy-card-header thySize and thy-card-content thySize to thy-card #NEXUS-5089 ([#3905](/github.com/atinc/ngx-tethys/issues/3905)) ([e8ec072](github.com/atinc/ngx-tethys/commits/e8ec0726f4c57e5695454324eb2e169a0003b99e)), closes [#NEXUS-5089](github.com/atinc/ngx-tethys/issues/NEXUS-5089)
-* **schematics:** remove thyIconPrefix and add schematic migration to thyIcon #NEXUS-5098 ([#3911](/github.com/atinc/ngx-tethys/issues/3911)) ([0799dfb](github.com/atinc/ngx-tethys/commits/0799dfb92dac313636433eec3a6c3ce11778bdc7)), closes [#NEXUS-5098](github.com/atinc/ngx-tethys/issues/NEXUS-5098)
-* **schematics:** remove thyInsideClosable and add schematic migration to thyPopoverOptions #NEXUS-5097 ([#3908](/github.com/atinc/ngx-tethys/issues/3908)) ([b1d15b5](github.com/atinc/ngx-tethys/commits/b1d15b578dccd2f5cb490c53a85c32a4f6316caa)), closes [#NEXUS-5097](github.com/atinc/ngx-tethys/issues/NEXUS-5097)
-* **schematics:** remove thyIsDot and thyIsHollow for thy-badge #NEXUS-5092 ([#3906](/github.com/atinc/ngx-tethys/issues/3906)) ([1bd140d](github.com/atinc/ngx-tethys/commits/1bd140dd3129355d9e8ff576c8c5bc4881303af4)), closes [#NEXUS-5092](github.com/atinc/ngx-tethys/issues/NEXUS-5092)
-* **schematics:** remove thyOffset/thyHasBackdrop from PickerDirective and migrate to thyPopoverOptions #NEXUS-5095 ([#3910](/github.com/atinc/ngx-tethys/issues/3910)) ([0199294](github.com/atinc/ngx-tethys/commits/01992947a761db126fc3d9220dcd3d38a15d2c4e)), closes [#NEXUS-5095](github.com/atinc/ngx-tethys/issues/NEXUS-5095)
-
-## [21.0.13](github.com/atinc/ngx-tethys/compare/22.0.0-next.0...21.0.13) (2026-09-03)
+# [22.0.0-next.1](github.com/atinc/ngx-tethys/compare/22.0.0-next.0...22.0.0-next.1) (2026-09-03)
 
 
 ### Bug Fixes
@@ -31,24 +14,33 @@ All notable changes to this project will be documented in this file. See [commit
 
 * add input control size migration for v22 #TINFR-3837 ([#3871](/github.com/atinc/ngx-tethys/issues/3871)) ([5fbcbfb](github.com/atinc/ngx-tethys/commits/5fbcbfbd5455a89aa1e7bab4ccb129be52987bcc)), closes [#TINFR-3837](github.com/atinc/ngx-tethys/issues/TINFR-3837)
 * adjust button and input default size #TINFR-3841 ([#3869](/github.com/atinc/ngx-tethys/issues/3869)) ([a4d8ee0](github.com/atinc/ngx-tethys/commits/a4d8ee09b538597f48ab60def2106f46e814588a)), closes [#TINFR-3841](github.com/atinc/ngx-tethys/issues/TINFR-3841)
+* **button:** support thyAppearance on v22 #TINFR-3855 ([#3909](/github.com/atinc/ngx-tethys/issues/3909)) ([67ac8f8](github.com/atinc/ngx-tethys/commits/67ac8f8169322543f5cfb66cbeb55e3baa0ae849)), closes [#TINFR-3855](github.com/atinc/ngx-tethys/issues/TINFR-3855)
 * **core:** add ThyFormControlSize, remove SelectControlSize #NEXUS-4981 ([#3875](/github.com/atinc/ngx-tethys/issues/3875)) ([67be811](github.com/atinc/ngx-tethys/commits/67be811527acfceec089b372ba65d54974029cbe)), closes [#NEXUS-4981](github.com/atinc/ngx-tethys/issues/NEXUS-4981)
+* **schematics:**  migrate ThyAvatarService.avatarSrcTransform to srcTransform #NEXUS-5084 ([#3901](/github.com/atinc/ngx-tethys/issues/3901)) ([a3b5aca](github.com/atinc/ngx-tethys/commits/a3b5aca40328d21155888711728853cb669ba06e)), closes [#NEXUS-5084](github.com/atinc/ngx-tethys/issues/NEXUS-5084)
 * **schematics:** migrate clear to thyClear for thy-input-search #NEXUS-5046 ([#3891](/github.com/atinc/ngx-tethys/issues/3891)) ([2d1cfb5](github.com/atinc/ngx-tethys/commits/2d1cfb56cda6f2eb62cdd3a6024372f8e809ed0a)), closes [#NEXUS-5046](github.com/atinc/ngx-tethys/issues/NEXUS-5046)
 * **schematics:** migrate CompatibleDate to ThyCompatibleDate for date-picker #NEXUS-5068 ([#3896](/github.com/atinc/ngx-tethys/issues/3896)) ([9d26bc1](github.com/atinc/ngx-tethys/commits/9d26bc1919569d72328bd162546a973fcfaa212b)), closes [#NEXUS-5068](github.com/atinc/ngx-tethys/issues/NEXUS-5068)
 * **schematics:** migrate ThyActiveTabInfo to ThyActiveTabValue for thy-tabs #NEXUS-5023 ([1b336d2](github.com/atinc/ngx-tethys/commits/1b336d27cc9c1c9774ed563937ac3e1d14666307)), closes [#NEXUS-5023](github.com/atinc/ngx-tethys/issues/NEXUS-5023)
 * **schematics:** migrate thyContext to thyContent for thy-badge #NEXUS-5066 ([#3893](/github.com/atinc/ngx-tethys/issues/3893)) ([deb9b7a](github.com/atinc/ngx-tethys/commits/deb9b7a88f35976697b6f6593f2b779028abefe1)), closes [#NEXUS-5066](github.com/atinc/ngx-tethys/issues/NEXUS-5066)
 * **schematics:** migrate ThyDialogSizes.supperLg to superLg #NEXUS-5069 ([#3894](/github.com/atinc/ngx-tethys/issues/3894)) ([4677cdd](github.com/atinc/ngx-tethys/commits/4677cddc11f29e7a0946b9ab9c17cbc69a9204af)), closes [#NEXUS-5069](github.com/atinc/ngx-tethys/issues/NEXUS-5069)
+* **schematics:** migrate thyDeeper to thyColor light for thy-divider, including $divider-deeper-color to $gray-300 #NEXUS-5087 ([#3902](/github.com/atinc/ngx-tethys/issues/3902)) ([10025c4](github.com/atinc/ngx-tethys/commits/10025c4a6ec25502cc53a33deb30e8be7234d845)), closes [#NEXUS-5087](github.com/atinc/ngx-tethys/issues/NEXUS-5087)
 * **schematics:** migrate thyHasBorder to thyDivided for thy-header #NEXUS-5001 ([#3877](/github.com/atinc/ngx-tethys/issues/3877)) ([574a208](github.com/atinc/ngx-tethys/commits/574a20834449de0ae4bd872fb715045f34045885)), closes [#NEXUS-5001](github.com/atinc/ngx-tethys/issues/NEXUS-5001)
+* **schematics:** migrate thy-link/thyLink to thy-anchor-link/thyAnchorLink for anchor #NEXUS-5085 ([#3899](/github.com/atinc/ngx-tethys/issues/3899)) ([03c8626](github.com/atinc/ngx-tethys/commits/03c8626d0494fcaab3de8b330ece4a56827a7381)), closes [#NEXUS-5085](github.com/atinc/ngx-tethys/issues/NEXUS-5085)
 * **schematics:** migrate thyNavLink to thyNavItem  and migrate thyNavLinkActive to thyNavItemActive for thy-nav-item #NEXUS-5002 ([#3878](/github.com/atinc/ngx-tethys/issues/3878)) ([cb6b877](github.com/atinc/ngx-tethys/commits/cb6b877eda44fc4b4d7f3d747bca77ffc5609ac4)), closes [#NEXUS-5002](github.com/atinc/ngx-tethys/issues/NEXUS-5002)
+* **schematics:** migrate ThyPropertyItem.setKeepEditing to setEditing #NEXUS-5077 ([#3898](/github.com/atinc/ngx-tethys/issues/3898)) ([0c40a5e](github.com/atinc/ngx-tethys/commits/0c40a5e0e80f4cec2a6ae69cc739bc88d8b66abf)), closes [#NEXUS-5077](github.com/atinc/ngx-tethys/issues/NEXUS-5077)
+* **schematics:** migrate thyShowHeader to thyHeadless and remove thyLoadingText for thy-table #NEXUS-5086 ([#3900](/github.com/atinc/ngx-tethys/issues/3900)) ([a4ed5cc](github.com/atinc/ngx-tethys/commits/a4ed5cccc8c88f5cbe6c212d9c860b71fc6d218a)), closes [#NEXUS-5086](github.com/atinc/ngx-tethys/issues/NEXUS-5086)
 * **schematics:** migrate thyShowRemove to thyRemovable and thyOnRemove to thyRemove for thy-avatar #NEXUS-5028 ([1e9811c](github.com/atinc/ngx-tethys/commits/1e9811ca261b6ce909bb93f184aa458fd9251f03)), closes [#NEXUS-5028](github.com/atinc/ngx-tethys/issues/NEXUS-5028)
 * **schematics:** migrate ThyStackedValue to ThyProgressStackedValue for progress #NEXUS-5067 ([#3895](/github.com/atinc/ngx-tethys/issues/3895)) ([2de37f7](github.com/atinc/ngx-tethys/commits/2de37f7c11d695dbbf4e8080ed69062e98f25eb5)), closes [#NEXUS-5067](github.com/atinc/ngx-tethys/issues/NEXUS-5067)
 * **schematics:** migrate thyTheme to thyAppearance for thy-action #NEXUS-4996 ([#3873](/github.com/atinc/ngx-tethys/issues/3873)) ([95f0ad8](github.com/atinc/ngx-tethys/commits/95f0ad897249c4dd6f8513ccacb82c0a17d7e8a6)), closes [#NEXUS-4996](github.com/atinc/ngx-tethys/issues/NEXUS-4996)
 * **schematics:** migrate thyTheme to thyAppearance for thy-tag, including weak-fill to subtle conversion #NEXUS-4997 ([#3876](/github.com/atinc/ngx-tethys/issues/3876)) ([ad5a023](github.com/atinc/ngx-tethys/commits/ad5a0230cf87ae94c027aa3688e9fe171e6ce572)), closes [#NEXUS-4997](github.com/atinc/ngx-tethys/issues/NEXUS-4997)
 * **schematics:** migrate type to thyType for thy-input #NEXUS-5014 ([#3879](/github.com/atinc/ngx-tethys/issues/3879)) ([ef1bc2e](github.com/atinc/ngx-tethys/commits/ef1bc2e3a3711dcd3a5c395df33606edc582d473)), closes [#NEXUS-5014](github.com/atinc/ngx-tethys/issues/NEXUS-5014)
+* **schematics:** remove thyHasLeftRightPadding and migrate thy-card-header thySize and thy-card-content thySize to thy-card #NEXUS-5089 ([#3905](/github.com/atinc/ngx-tethys/issues/3905)) ([e8ec072](github.com/atinc/ngx-tethys/commits/e8ec0726f4c57e5695454324eb2e169a0003b99e)), closes [#NEXUS-5089](github.com/atinc/ngx-tethys/issues/NEXUS-5089)
+* **schematics:** remove thyIconPrefix and add schematic migration to thyIcon #NEXUS-5098 ([#3911](/github.com/atinc/ngx-tethys/issues/3911)) ([0799dfb](github.com/atinc/ngx-tethys/commits/0799dfb92dac313636433eec3a6c3ce11778bdc7)), closes [#NEXUS-5098](github.com/atinc/ngx-tethys/issues/NEXUS-5098)
+* **schematics:** remove thyInsideClosable and add schematic migration to thyPopoverOptions #NEXUS-5097 ([#3908](/github.com/atinc/ngx-tethys/issues/3908)) ([b1d15b5](github.com/atinc/ngx-tethys/commits/b1d15b578dccd2f5cb490c53a85c32a4f6316caa)), closes [#NEXUS-5097](github.com/atinc/ngx-tethys/issues/NEXUS-5097)
+* **schematics:** remove thyIsDot and thyIsHollow for thy-badge #NEXUS-5092 ([#3906](/github.com/atinc/ngx-tethys/issues/3906)) ([1bd140d](github.com/atinc/ngx-tethys/commits/1bd140dd3129355d9e8ff576c8c5bc4881303af4)), closes [#NEXUS-5092](github.com/atinc/ngx-tethys/issues/NEXUS-5092)
+* **schematics:** remove thyOffset/thyHasBackdrop from PickerDirective and migrate to thyPopoverOptions #NEXUS-5095 ([#3910](/github.com/atinc/ngx-tethys/issues/3910)) ([0199294](github.com/atinc/ngx-tethys/commits/01992947a761db126fc3d9220dcd3d38a15d2c4e)), closes [#NEXUS-5095](github.com/atinc/ngx-tethys/issues/NEXUS-5095)
 * **schematics:** replace thyAutocompleteComponent with thyAutocomplete for trigger #NEXUS-5065 ([#3892](/github.com/atinc/ngx-tethys/issues/3892)) ([a4b3539](github.com/atinc/ngx-tethys/commits/a4b3539b091d9ed9039045b7acf07671216825ae)), closes [#NEXUS-5065](github.com/atinc/ngx-tethys/issues/NEXUS-5065)
 * **schematics:** unify placeholder input and thyPlaceHolder to thyPlaceholder #NEXUS-5016 ([#3890](/github.com/atinc/ngx-tethys/issues/3890)) ([7a455bd](github.com/atinc/ngx-tethys/commits/7a455bd12bd90fc3bd3d289be6367e133b83ae07)), closes [#NEXUS-5016](github.com/atinc/ngx-tethys/issues/NEXUS-5016)
-* **style:** add bg-*-subtile token #NEXUS-4936 ([#3885](/github.com/atinc/ngx-tethys/issues/3885)) ([b8b9a4d](github.com/atinc/ngx-tethys/commits/b8b9a4d74e779524c4b1a5177e2aabb0f8278a3a)), closes [#NEXUS-4936](github.com/atinc/ngx-tethys/issues/NEXUS-4936)
-* **style:** add z-index token and overflow-x/y token #NEXUS-4592 ([94660bb](github.com/atinc/ngx-tethys/commits/94660bb6b07a6eb9ad087a85177d5fee243230dc)), closes [#NEXUS-4592](github.com/atinc/ngx-tethys/issues/NEXUS-4592)
-* **styles:** spacing utilities support ms/me and ps/pe #NEXUS-4977 ([#3872](/github.com/atinc/ngx-tethys/issues/3872)) ([701a8ec](github.com/atinc/ngx-tethys/commits/701a8ec472c1e46ee3306ea6110847f900db5172)), closes [#NEXUS-4977](github.com/atinc/ngx-tethys/issues/NEXUS-4977) [#NEXUS-4977](github.com/atinc/ngx-tethys/issues/NEXUS-4977)
+
 
 # [22.0.0-next.0](github.com/atinc/ngx-tethys/compare/21.0.12...22.0.0-next.0) (2026-08-26)
 
@@ -56,6 +48,13 @@ All notable changes to this project will be documented in this file. See [commit
 
 * build: upgrade ng to v22 #TINFR-3745 ([#3824](/github.com/atinc/ngx-tethys/issues/3824)) ([7767bf2c](github.com/atinc/ngx-tethys/commits/7767bf2cebd90f468872953c8255542201aa379e)), closes [#TINFR-3745](github.com/atinc/ngx-tethys/issues/TINFR-3745)
 
+
+## [21.0.14](github.com/atinc/ngx-tethys/compare/21.0.13...21.0.14) (2026-09-04)
+
+
+### Bug Fixes
+
+* **style:** 文本颜色以及背景色的调整 #TINFR-3991 ([431b4df](github.com/atinc/ngx-tethys/commits/431b4dff2525fa58706c1e412c81e09924c9aa56)), closes [#TINFR-3991](github.com/atinc/ngx-tethys/issues/TINFR-3991)
 
 
 ## [21.0.13](github.com/atinc/ngx-tethys/compare/21.0.12...21.0.13) (2026-09-03)
