@@ -21,7 +21,8 @@ import {
     Signal,
     TemplateRef,
     viewChild,
-    viewChildren
+    viewChildren,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -31,12 +32,13 @@ import {
     injectPanelEmptyIcon,
     thyAnimationZoom,
     TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher
+    ThyClickDispatcher,
+    ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
-import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
+import { SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
 import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs';
@@ -70,6 +72,7 @@ import { ThyLoading } from 'ngx-tethys/loading';
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,
@@ -117,10 +120,11 @@ export class ThyCascader
     readonly thyPlaceholder = input(this.locale().placeholder);
 
     /**
-     * 控制大小（5种）
-     * @type 'xs' ｜ 'sm' | 'md' | 'lg' | ''
+     * 控制大小
+     * @type 'xs' ｜ 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<SelectControlSize>('');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 数据项

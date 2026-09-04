@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, ViewEncapsulation, input } from '@angular/core';
+import { Component, TemplateRef, ViewEncapsulation, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
@@ -10,7 +10,6 @@ import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
     exportAs: 'thyTabContent',
     preserveWhitespaces: false,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (active()) {
             <ng-template [ngTemplateOutlet]="content()"></ng-template>

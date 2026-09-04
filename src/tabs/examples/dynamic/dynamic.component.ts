@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyTab, ThyTabs } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-dynamic-example',
     templateUrl: './dynamic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabs, ThyTab, ThyButton]
 })
 export class ThyTabsDynamicExampleComponent {

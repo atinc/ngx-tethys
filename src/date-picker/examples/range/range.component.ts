@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDateRangeEntry, ThyRangePicker } from 'ngx-tethys/date-picker';
 import { ThyFormGroup } from 'ngx-tethys/form';
@@ -7,6 +7,7 @@ import { endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-date-picker-range-example',
     templateUrl: './range.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormGroup, ThyRangePicker, FormsModule]
 })
 export class ThyDatePickerRangeExampleComponent {

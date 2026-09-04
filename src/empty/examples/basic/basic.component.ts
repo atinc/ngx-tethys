@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 
@@ -6,6 +6,7 @@ import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
     selector: 'thy-empty-basic-example',
     templateUrl: './basic.component.html',
     styleUrls: ['./basic.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRowDirective, ThyColDirective, ThyEmpty]
 })
 export class ThyEmptyBasicExampleComponent {

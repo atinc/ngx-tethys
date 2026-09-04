@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDialog, ThyDialogConfig } from 'ngx-tethys/dialog';
 import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
@@ -9,6 +9,7 @@ import { ThyButton } from 'ngx-tethys/button';
     selector: 'thy-dialog-backdrop-example',
     templateUrl: './backdrop.component.html',
     styleUrls: ['./backdrop.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCheckbox, FormsModule, ThyButton]
 })
 export class ThyDialogBackdropExampleComponent {

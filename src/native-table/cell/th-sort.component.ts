@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, booleanAttribute, input, output, OnInit, signal, computed } from '@angular/core';
+import { Component, TemplateRef, booleanAttribute, input, output, OnInit, signal, computed } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -7,7 +7,6 @@ import { ThyNativeTableSortOrder } from '../table.interface';
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'th[thyHeaderCellSortable]',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <ng-content></ng-content>
         <span class="thy-native-table-column-sorter" [class.thy-native-table-column-sorter-full]="isDown() && isUp()">

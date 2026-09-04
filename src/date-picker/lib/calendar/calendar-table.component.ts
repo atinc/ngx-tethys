@@ -40,8 +40,6 @@ export abstract class CalendarTable implements OnInit, OnChanges {
 
     readonly cellRender = input<FunctionProp<TemplateRef<Date> | string>>();
 
-    readonly valueChange = output<TinyDate>();
-
     readonly cellHover = output<TinyDate>(); // Emitted when hover on a day by mouse enter
 
     protected render(): void {

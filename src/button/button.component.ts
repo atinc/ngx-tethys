@@ -1,6 +1,5 @@
 import {
     afterNextRender,
-    ChangeDetectionStrategy,
     Component,
     computed,
     DestroyRef,
@@ -17,40 +16,11 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
-export type ThyButtonType =
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'outline-primary'
-    | 'outline-default'
-    | 'danger'
-    | 'link'
-    | 'link-secondary'
-    | 'warning'
-    | 'outline-warning'
-    | 'success'
-    | 'outline-success'
-    | 'outline-info'
-    | 'outline-danger'
-    | 'link-danger-weak'
-    | 'link-danger'
-    | 'link-success';
+export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
-const btnTypeClassesMap: Record<string, string[]> = {
-    primary: ['btn-primary'],
-    secondary: ['btn-primary', 'btn-md'],
-    info: ['btn-info'],
-    warning: ['btn-warning'],
-    danger: ['btn-danger'],
-    'outline-primary': ['btn-outline-primary'],
-    'outline-default': ['btn-outline-default'],
-    link: ['btn-link'], // 链接按钮
-    'link-info': ['btn-link', 'btn-link-info'], // 幽灵链接按钮
-    'link-secondary': ['btn-link', 'btn-link-primary-weak'], // 幽灵链接按钮
-    'link-danger-weak': ['btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
-    'link-danger': ['btn-link', 'btn-link-danger'], // 危险按钮
-    'link-success': ['btn-link', 'btn-link-success'] // 成功按钮
-};
+export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
+
+export type ThyButtonType = 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'success';
 
 const iconOnlyClass = 'thy-btn-icon-only';
 
@@ -63,7 +33,6 @@ const iconOnlyClass = 'thy-btn-icon-only';
     selector: 'thy-button,[thy-button],[thyButton]',
     templateUrl: './button.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-btn btn',
         '[class.btn-block]': 'thyBlock()',
@@ -86,15 +55,22 @@ export class ThyButton {
     private hostRenderer = useHostRenderer();
 
     /**
-     * 按钮类型，支持添加前缀`outline-`实现线框按钮，支持添加前缀`link-`实现按钮链接
-     * @type primary | info | warning | danger | success
-     * @default primary
+     * 按钮外观
+     * @type fill | outline | link
+     * @default fill
+     */
+    readonly thyAppearance = input<ThyButtonAppearance>('fill');
+
+    /**
+     * 按钮类型（颜色）
+     * @type default | primary | info | warning | danger | success
+     * @default default
      */
     readonly thyButton = input<ThyButtonType>();
 
     /**
      * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
-     * @default primary
+     * @default default
      */
     readonly thyType = input<ThyButtonType>();
 
@@ -119,10 +95,10 @@ export class ThyButton {
 
     /**
      * 按钮大小
-     * @type xs | sm | md | default | lg
-     * @default default
+     * @type xs | sm | md | lg
+     * @default md
      */
-    readonly thySize = input<string>();
+    readonly thySize = input<ThyButtonSize>('md');
 
     /**
      * 按钮中显示的图标，支持SVG图标名称，比如`angle-left`，也支持传之前的 wtf 字体，比如: wtf-plus
@@ -165,22 +141,8 @@ export class ThyButton {
         return null;
     });
 
-    private readonly buttonType = computed<ThyButtonType>(() => {
-        return this.thyButton() || this.thyType() || 'primary';
-    });
-
-    protected isRadiusSquare = computed(() => {
-        const type = this.buttonType();
-        return !!type?.includes('-square');
-    });
-
-    protected type = computed(() => {
-        const type = this.buttonType();
-        if (this.isRadiusSquare()) {
-            return type?.replace('-square', '');
-        } else {
-            return type;
-        }
+    private readonly type = computed(() => {
+        return this.thyButton() || this.thyType() || 'default';
     });
 
     private setButtonText() {
@@ -192,27 +154,25 @@ export class ThyButton {
         }
     }
 
+    private buildAppearanceClasses(appearance: ThyButtonAppearance, type: string): string[] {
+        if (appearance === 'fill') {
+            return [`btn-${type}`];
+        }
+        return [`btn-${appearance}-${type}`];
+    }
+
     private updateClasses() {
         const type = this.type();
         if (!type) {
             return;
         }
 
-        let classNames: string[] = [];
-        if (btnTypeClassesMap[type]) {
-            classNames = [...btnTypeClassesMap[type]];
-        } else {
-            if (type) {
-                classNames.push(`btn-${type}`);
-            }
-        }
+        const appearance = this.thyAppearance() || 'fill';
+        const classNames: string[] = [...this.buildAppearanceClasses(appearance, type)];
 
         const size = this.thySize();
         if (size) {
             classNames.push(`btn-${size}`);
-        }
-        if (this.isRadiusSquare()) {
-            classNames.push('btn-square');
         }
         const loading = this.thyLoading();
         if (loading) {

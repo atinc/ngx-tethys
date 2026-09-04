@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * 悬浮层内容组件
@@ -9,7 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     selector: 'thy-popover-body',
     template: '<ng-content></ng-content>',
     exportAs: 'thyPopoverBody',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-popover-body'
     }

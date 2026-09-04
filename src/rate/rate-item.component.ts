@@ -1,4 +1,4 @@
-import { Component, TemplateRef, input, output } from '@angular/core';
+import { Component, TemplateRef, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
@@ -25,6 +25,7 @@ import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
             <thy-icon [thyIconName]="iconValue()"></thy-icon>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStopPropagationDirective, NgTemplateOutlet, ThyIcon]
 })
 export class ThyRateItem {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, input, OnInit } from '@angular/core';
+import { Component, effect, input, OnInit } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**
@@ -11,8 +11,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     templateUrl: './menu-item-icon.component.html',
     host: {
         class: 'thy-menu-item-icon'
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class ThyMenuItemIcon implements OnInit {
     /**

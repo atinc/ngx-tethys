@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit, viewChild } from '@angular/core';
+import { Component, DebugElement, OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -11,7 +11,7 @@ import {
     ThyCarouselItemDirective
 } from 'ngx-tethys/carousel';
 import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -33,6 +33,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-carousel>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCarouselModule]
 })
 class ThyTestCarouselBasicComponent implements OnInit {
@@ -75,6 +76,7 @@ class ThyTestCarouselBasicComponent implements OnInit {
             </thy-carousel>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCarouselModule]
 })
 class ThyTestCarouselTouchableComponent implements OnInit {
@@ -94,7 +96,7 @@ class ThyTestCarouselTouchableComponent implements OnInit {
 describe('carousel', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));

@@ -19,7 +19,8 @@ import {
     effect,
     computed,
     signal,
-    output
+    output,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
@@ -165,6 +166,7 @@ export class ThySidebarDirective implements OnInit {
         }
     ],
     imports: [NgTemplateOutlet, ThyResizeHandle, ThyResizableDirective, ThyIcon, ThyTooltipDirective, NgClass],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[class.sidebar-collapse-show]': 'collapsed()',
         '[class.remove-transition]': 'isRemoveTransition()',

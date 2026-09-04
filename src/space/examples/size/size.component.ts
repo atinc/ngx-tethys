@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ThyButtonGroup, ThyButton } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
@@ -8,6 +8,7 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
     templateUrl: './size.component.html',
     styleUrls: ['./size.component.scss'],
     host: {},
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonGroup, ThyButton, NgClass, ThySpace, ThySpaceItemDirective]
 })
 export class ThySpaceSizeExampleComponent implements OnInit {

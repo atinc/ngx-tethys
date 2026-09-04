@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ElementRef, inject, input, output, computed, effect } from '@angular/core';
+import { Component, TemplateRef, ElementRef, inject, input, output, computed, effect, ChangeDetectionStrategy } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { ENTER, SPACE, coerceBooleanProperty, hasModifierKey } from 'ngx-tethys/util';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -15,6 +15,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     selector: 'thy-option-render',
     templateUrl: './option-render.component.html',
     imports: [ThyIcon, NgTemplateOutlet],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-option-item',
         '[class.disabled]': 'thyDisabled()',

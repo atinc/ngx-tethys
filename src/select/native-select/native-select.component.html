@@ -5,6 +5,7 @@
   [thySize]="thySize()"
   [disabled]="disabled()"
   [(ngModel)]="innerValue"
+  [ngModelOptions]="{ standalone: true }"
   (ngModelChange)="ngModelChange()"
   (blur)="onBlur($event)"
   [class.thy-select-selection-allow-clear]="thyAllowClear()">

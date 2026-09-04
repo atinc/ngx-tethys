@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 @Component({
@@ -15,6 +15,7 @@ import { ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
             </thy-anchor>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAnchor, ThyAnchorLink]
 })
 export class ThyAnchorStaticExampleComponent implements OnInit {

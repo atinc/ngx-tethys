@@ -1,6 +1,6 @@
 import { ThyFormDirective, ThyFormGroupFooterAlign, ThyFormGroupFooter } from 'ngx-tethys/form';
 import { finalize } from 'rxjs/operators';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, Signal, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Signal, inject, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
@@ -16,7 +16,6 @@ import { injectLocale, ThyDialogLocale } from 'ngx-tethys/i18n';
 @Component({
     selector: 'thy-confirm-default',
     templateUrl: './confirm.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyDialogHeader, ThyDialogBody, FormsModule, ThyFormDirective, ThyFormGroupFooter, NgClass, ThyButton]
 })
 export class ThyConfirm implements OnInit, OnDestroy {

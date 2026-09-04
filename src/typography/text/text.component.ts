@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, input } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 /**
@@ -9,7 +9,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-text, [thyText]:not(thy-divider)',
     templateUrl: './text.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-text'
     },

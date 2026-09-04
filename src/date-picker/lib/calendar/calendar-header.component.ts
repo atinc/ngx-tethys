@@ -30,8 +30,6 @@ export abstract class CalendarHeader implements OnInit {
 
     readonly value = model<TinyDate>();
 
-    readonly valueChange = output<TinyDate>();
-
     readonly panelModeChange = output<ThyPanelMode>();
 
     abstract getSelectors(): PanelSelector[];
@@ -94,7 +92,6 @@ export abstract class CalendarHeader implements OnInit {
     public changeValue(value: TinyDate): void {
         if (this.value() !== value) {
             this.value.set(value);
-            this.valueChange.emit(value);
         }
     }
 

@@ -1,9 +1,9 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyNav } from 'ngx-tethys/nav';
-import { ThyActiveTabInfo, ThyTabActiveEvent, ThyTabs, ThyTabsModule, ThyTabsPosition, ThyTabsSize, ThyTabsType } from 'ngx-tethys/tabs';
+import { ThyActiveTabValue, ThyTabActiveEvent, ThyTabs, ThyTabsModule, ThyTabsPosition, ThyTabsSize, ThyTabsType } from 'ngx-tethys/tabs';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -16,6 +16,7 @@ import { SafeAny } from 'ngx-tethys/types';
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsBasicComponent {
@@ -31,6 +32,7 @@ class TestTabsBasicComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsTypeComponent {
@@ -46,6 +48,7 @@ class TestTabsTypeComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsSizeComponent {
@@ -62,6 +65,7 @@ class TestTabsSizeComponent {
             <thy-tab> <ng-template #title>烤乳猪🐷</ng-template>Tab4 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsCustomTitleComponent {}
@@ -76,9 +80,10 @@ class TestTabsCustomTitleComponent {}
         </thy-tabs>
 
         <ng-template #extraTemplate>
-            <button thyButton="outline-default" thySize="md">Extra Action</button>
+            <button thyButton="default" thyAppearance="outline" thySize="md">Extra Action</button>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsExtraComponent {}
@@ -92,6 +97,7 @@ class TestTabsExtraComponent {}
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsPositionComponent {
@@ -107,17 +113,18 @@ class TestTabsPositionComponent {
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsActiveComponent {
-    activeTab: ThyActiveTabInfo = 'tab2';
+    activeTab: ThyActiveTabValue = 'tab2';
     thyAnimated = false;
 }
 
 @Component({
     selector: 'test-tabs-dynamic-add',
     template: `
-        <button class="mb-2" thyButton="outline-default" (click)="addTab()">添加</button>
+        <button class="mb-2" thyButton="default" thyAppearance="outline" (click)="addTab()">添加</button>
 
         <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
             @for (tab of tabs; track trackByFn(i, tab); let i = $index) {
@@ -125,6 +132,7 @@ class TestTabsActiveComponent {
             }
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsDynamicAddComponent {
@@ -156,6 +164,7 @@ class TestTabsDynamicAddComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsDisabledComponent {
@@ -171,6 +180,7 @@ class TestTabsDisabledComponent {
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTabsModule]
 })
 class TestTabsAnimatedComponent {
@@ -200,6 +210,22 @@ describe('tabs', () => {
 
             expect(tabsElement.classList.contains('thy-tabs')).toBeTruthy();
             expect(tabsInstance.tabs().length).toBe(3);
+        });
+
+        it('should activate first tab by default when tabs have id and thyActiveTab is not set', () => {
+            expect(tabsInstance.activeTabIndex()).toBe(0);
+
+            const navItems = fixture.debugElement.queryAll(By.css('.thy-nav-item'));
+            expect(navItems[0].nativeElement.classList.contains('active')).toBe(true);
+            expect(navItems[1].nativeElement.classList.contains('active')).toBe(false);
+            expect(navItems[2].nativeElement.classList.contains('active')).toBe(false);
+
+            const tabContents = fixture.debugElement.queryAll(By.css('.thy-tab-content'));
+            expect(tabContents[0].nativeElement.getAttribute('tabindex')).toEqual('0');
+            expect(tabContents[0].styles.display).not.toBe('none');
+            expect(tabContents[1].styles.display).toBe('none');
+            expect(tabContents[2].styles.display).toBe('none');
+            expect(tabContents[0].nativeElement.textContent).toContain('Tab1 Content');
         });
 
         it('should emit correct data when change active tab', () => {
@@ -335,6 +361,9 @@ describe('tabs', () => {
         });
 
         it('should show right active tab when use activeTabId identifier', () => {
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance as ThyTabs;
+            expect(tabsInstance.activeTabIndex()).toBe(1);
+
             const activeTab = fixture.debugElement.queryAll(By.css('.thy-nav-item.active'));
             const activeTabContents = fixture.debugElement.queryAll(By.css('.thy-tab-content'));
             expect(activeTab.length).toBe(1);
@@ -464,6 +493,16 @@ describe('tabs', () => {
             fixture.detectChanges();
             expect(tabContent.style.marginLeft === '-100%').toBeTruthy();
         }));
+
+        it('should emit index when tab has no id', () => {
+            const tabsInstance: ThyTabs = getDebugElement(fixture, ThyTabs).componentInstance;
+            const spy = jasmine.createSpy('active tab change');
+            tabsInstance.thyActiveTab.subscribe(spy);
+            const tabElement = fixture.debugElement.queryAll(By.css('.thy-nav-item'))[1].nativeElement;
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+            expect(spy).toHaveBeenCalledWith(1);
+        });
 
         it('should remove overflow:hidden when transitioning', fakeAsync(() => {
             const header = fixture.debugElement.nativeNode.querySelector('thy-tabs');

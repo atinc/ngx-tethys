@@ -1,11 +1,11 @@
-import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, inject as coreInject, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { ThyNotifyModule, ThyNotifyService, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from 'ngx-tethys/notify';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 const DEFAULT_DURATION_TIME = 4500;
 
@@ -22,6 +22,7 @@ const DEFAULT_DURATION_TIME = 4500;
             <div class="custom-content-template">Custom Content....</div>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNotifyModule]
 })
 export class ThyNotifyBasicComponent implements OnInit {
@@ -53,7 +54,7 @@ describe('ThyNotify', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNotifyModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {
             overlayContainer = oc;
@@ -492,7 +493,7 @@ describe('ThyNotify with provider', () => {
                     }
                 },
                 provideNoopAnimations(),
-                provideHttpClient()
+                provideHttpClient(withXhr())
             ]
         });
         inject([OverlayContainer], (oc: OverlayContainer) => {

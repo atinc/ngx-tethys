@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, OnInit, TemplateRef, ViewEncapsulation, input, output } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewEncapsulation, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyBreadcrumb, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
@@ -12,7 +12,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @internal
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 
     selector: '[thy-cascader-search-option]',

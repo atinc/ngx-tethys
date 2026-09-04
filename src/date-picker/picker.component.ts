@@ -2,6 +2,7 @@ import {
     getFlexiblePositions,
     getOverlayGlobalConfig,
     THY_GLOBAL_CONFIG,
+    ThyFormControlSize,
     ThyGlobalConfig,
     ThyPlacement,
     thyAnimationZoom
@@ -39,7 +40,6 @@ import { SafeAny } from 'ngx-tethys/types';
     selector: 'thy-picker',
     exportAs: 'thyPicker',
     templateUrl: './picker.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CdkOverlayOrigin, ThyInputDirective, ThyEnterDirective, NgTemplateOutlet, ThyIcon, NgClass, CdkConnectedOverlay]
 })
 export class ThyPicker implements AfterViewInit {
@@ -67,7 +67,7 @@ export class ThyPicker implements AfterViewInit {
 
     readonly className = input<string>();
 
-    readonly size = input<'sm' | 'xs' | 'lg' | 'md' | 'default'>();
+    readonly size = input<ThyFormControlSize>('md');
 
     readonly suffixIcon = input<string>();
 
@@ -334,9 +334,12 @@ export class ThyPicker implements AfterViewInit {
     }
 
     formatDate(value: TinyDate) {
+        if (!this.innerFormat) {
+            return '';
+        }
         // dateHelper.format() 使用的是 angular 的 format，不支持季度，修改的话，改动比较大。
         // 此处通过对 innerFormat 做下判断，如果是季度的 format，使用 date-fns 的 format()
-        if (this.innerFormat && (this.innerFormat.includes('q') || this.innerFormat.includes('Q'))) {
+        if (this.innerFormat.includes('q') || this.innerFormat.includes('Q')) {
             return value.format(this.innerFormat);
         } else {
             return this.dateHelper.format(value?.nativeDate, this.innerFormat!);

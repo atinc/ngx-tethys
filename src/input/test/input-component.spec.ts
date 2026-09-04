@@ -1,9 +1,9 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'test-bed',
@@ -16,7 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
             [readonly]="readonly"
             name="username"
             [(ngModel)]="value"
-            placeholder="请输入您的姓名"
+            thyPlaceholder="请输入您的姓名"
             (focus)="onFocus()"
             (blur)="onBlur()"
             [disabled]="disabled">
@@ -28,10 +28,11 @@ import { provideHttpClient } from '@angular/common/http';
         </thy-input>
         <thy-input class="password" [(ngModel)]="passwordValue" thyType="password"> </thy-input>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInput, FormsModule]
 })
 class TestBedComponent {
-    thySize = ``;
+    thySize = `md`;
     thyType = 'text';
     readonly = false;
     passwordValue = '12345';
@@ -55,7 +56,7 @@ describe('input component', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -68,12 +69,11 @@ describe('input component', () => {
         debugContainerElement = fixture.debugElement.query(By.directive(ThyInput));
     });
 
-    it('thySize empty string', () => {
-        basicTestComponent.thySize = '';
+    it('should use md by default', () => {
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-xs')).toBe(false);
         expect(debugElement.nativeElement.classList.contains('form-control-sm')).toBe(false);
-        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(false);
+        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(true);
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(false);
     });
 

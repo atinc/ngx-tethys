@@ -1,17 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    Signal,
-    WritableSignal,
-    computed,
-    effect,
-    inject,
-    input,
-    model,
-    output,
-    signal
-} from '@angular/core';
+import { Component, ElementRef, Signal, WritableSignal, computed, effect, inject, input, model, output, signal } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { isString, coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -49,18 +36,11 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
     host: {
         class: 'thy-avatar'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgClass, NgStyle, ThyIcon, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
 export class ThyAvatar {
     private thyAvatarService = inject(ThyAvatarService);
     elementRef = inject(ElementRef);
-
-    /**
-     * * 已废弃，请使用 thyRemove
-     * @deprecated
-     */
-    readonly thyOnRemove = output<Event>();
 
     /**
      *  移除按钮的事件，当 thyRemovable 为 true 时起作用
@@ -128,17 +108,9 @@ export class ThyAvatar {
     });
 
     /**
-     * 已废弃，请使用 thyRemovable
-     * @deprecated
-     */
-    readonly thyShowRemove = input(false, { transform: coerceBooleanProperty });
-
-    /**
      * 是否展示移除按钮
      */
     readonly thyRemovable = input(false, { transform: coerceBooleanProperty });
-
-    readonly showRemove: Signal<boolean> = computed(() => this.thyRemovable() || this.thyShowRemove());
 
     /**
      * 图片自定义类
@@ -188,7 +160,6 @@ export class ThyAvatar {
     }
 
     remove($event: Event) {
-        this.thyOnRemove.emit($event);
         this.thyRemove.emit($event);
     }
 

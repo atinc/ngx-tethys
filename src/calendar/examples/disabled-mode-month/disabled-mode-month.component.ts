@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCalendar } from 'ngx-tethys/calendar';
 import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-calendar-disabled-mode-month-example',
     templateUrl: './disabled-mode-month.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCalendar]
 })
 export class ThyCalendarDisabledMonthExampleComponent implements OnInit {

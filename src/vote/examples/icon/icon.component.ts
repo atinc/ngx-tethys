@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyVote } from 'ngx-tethys/vote';
 
 @Component({
     selector: 'thy-vote-icon-example',
     templateUrl: './icon.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyVote]
 })
 export class ThyVoteIconExampleComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, FormsModule]
 })
 export class ThySelectVirtualScrollExampleComponent {

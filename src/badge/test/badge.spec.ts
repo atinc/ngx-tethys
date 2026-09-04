@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyBadge, ThyBadgeModule } from 'ngx-tethys/badge';
@@ -10,6 +10,7 @@ import { ThyBadge, ThyBadgeModule } from 'ngx-tethys/badge';
             <div>WORKTILE</div>
         </thy-badge>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeBasicComponent implements OnInit {
@@ -29,29 +30,13 @@ class BadgeBasicComponent implements OnInit {
 }
 
 @Component({
-    selector: 'thy-badge-context',
-    template: `
-        <thy-badge [thyContext]="context">
-            <div>WORKTILE</div>
-        </thy-badge>
-    `,
-    imports: [ThyBadgeModule]
-})
-class BadgeBasicContextComponent implements OnInit {
-    constructor() {}
-
-    context = 'Worktile';
-
-    ngOnInit(): void {}
-}
-
-@Component({
     selector: 'thy-badge-content',
     template: `
         <thy-badge [thyContent]="content">
             <div>WORKTILE</div>
         </thy-badge>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeContentTestComponent implements OnInit {
@@ -63,38 +48,9 @@ class BadgeContentTestComponent implements OnInit {
 }
 
 @Component({
-    selector: 'thy-badge-hollow',
-    template: `
-        <thy-badge [thyIsHollow]="isHollow">
-            <div>WORKTILE</div>
-        </thy-badge>
-    `,
-    imports: [ThyBadgeModule]
-})
-class BadgeBasicHollowComponent implements OnInit {
-    constructor() {}
-
-    isHollow!: boolean;
-
-    ngOnInit(): void {}
-}
-
-@Component({
-    selector: 'thy-badge-dot',
-    template: ` <thy-badge [thyIsDot]="isDot"></thy-badge> `,
-    imports: [ThyBadgeModule]
-})
-class BadgeBasicDotComponent implements OnInit {
-    constructor() {}
-
-    isDot!: boolean;
-
-    ngOnInit(): void {}
-}
-
-@Component({
     selector: 'thy-badge-custom-color',
     template: ` <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule]
 })
 class BadgeBasicCustomColorComponent implements OnInit {
@@ -217,92 +173,13 @@ describe('thy-badge', () => {
             expect(badgeElement).toBeTruthy();
         });
 
-        it('thyContext, should set context success', () => {
+        it('thyContent, should set content success', () => {
             fixture.detectChanges();
             const badgeSpanElement = badgeElement.querySelector('.thy-badge')!;
             expect(badgeSpanElement.textContent).toBe(`Worktile`);
             testComponent.content = 'PingCode';
             fixture.detectChanges();
             expect(badgeSpanElement.textContent).toBe(`PingCode`);
-        });
-    });
-
-    describe('context', () => {
-        let fixture!: ComponentFixture<BadgeBasicContextComponent>;
-        let badgeComponent!: DebugElement;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(BadgeBasicContextComponent);
-            testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
-            badgeElement = badgeComponent.nativeElement;
-        });
-
-        it('should create', () => {
-            expect(fixture).toBeTruthy();
-            expect(badgeComponent).toBeTruthy();
-            expect(badgeElement).toBeTruthy();
-        });
-
-        it('thyContext, should set context success', () => {
-            fixture.detectChanges();
-            const badgeSpanElement = badgeElement.querySelector('.thy-badge')!;
-            expect(badgeSpanElement.textContent).toBe(`Worktile`);
-            testComponent.context = 'PingCode';
-            fixture.detectChanges();
-            expect(badgeSpanElement.textContent).toBe(`PingCode`);
-        });
-    });
-
-    describe('hollow', () => {
-        let fixture!: ComponentFixture<BadgeBasicHollowComponent>;
-        let badgeComponent!: DebugElement;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(BadgeBasicHollowComponent);
-            testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
-            badgeElement = badgeComponent.nativeElement;
-        });
-
-        it('should create', () => {
-            expect(fixture).toBeTruthy();
-            expect(badgeComponent).toBeTruthy();
-            expect(badgeElement).toBeTruthy();
-        });
-
-        it('thyIsHollow, should set hollow badge success', () => {
-            fixture.detectChanges();
-            expect(badgeElement.querySelector('.thy-badge-hollow')).toBeFalsy();
-            testComponent.isHollow = true;
-            fixture.detectChanges();
-            expect(badgeElement.querySelector('.thy-badge-hollow')).toBeTruthy();
-        });
-    });
-
-    describe('dot', () => {
-        let fixture!: ComponentFixture<BadgeBasicDotComponent>;
-        let badgeComponent!: DebugElement;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(BadgeBasicDotComponent);
-            testComponent = fixture.debugElement.componentInstance;
-            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
-            badgeElement = badgeComponent.nativeElement;
-        });
-
-        it('should create', () => {
-            expect(fixture).toBeTruthy();
-            expect(badgeComponent).toBeTruthy();
-            expect(badgeElement).toBeTruthy();
-        });
-
-        it('thyIsDot, should set dot badge success', () => {
-            fixture.detectChanges();
-            expect(badgeElement.querySelector('.thy-badge-dot')).toBeFalsy();
-            testComponent.isDot = true;
-            fixture.detectChanges();
-            expect(badgeElement.querySelector('.thy-badge-dot')).toBeTruthy();
         });
     });
 

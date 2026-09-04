@@ -5,13 +5,13 @@ import {
     mixinInitialized,
     mixinTabIndex,
     ThyCanDisable,
+    ThyFormControlSize,
     ThyHasTabIndex,
     ThyInitialized,
     useHostFocusControl
 } from 'ngx-tethys/core';
 
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     forwardRef,
@@ -29,7 +29,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputDirective, ThyInputSize } from './input.directive';
+import { ThyInputDirective } from './input.directive';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -60,7 +60,6 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     templateUrl: './input-search.component.html',
     providers: [CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
@@ -94,7 +93,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     /**
      * 搜索框 Placeholder
      */
-    readonly placeholder = input('');
+    readonly thyPlaceholder = input('');
 
     /**
      * 搜索框风格
@@ -120,14 +119,10 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
 
     /**
      * 输入框大小
-     * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
+     * @type 'xs' | 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<ThyInputSize>();
-
-    /**
-     * @deprecated please use thyClear
-     */
-    readonly clear = output<Event>();
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 清除搜索事件
@@ -189,7 +184,6 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
         }
         this.searchText.set('');
         this.onChangeFn(this.searchText());
-        this.clear.emit(event);
         this.thyClear.emit(event);
     }
 

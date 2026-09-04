@@ -2,7 +2,6 @@ import {
     Component,
     TemplateRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy,
     OnInit,
     OnDestroy,
     NgZone,
@@ -14,7 +13,7 @@ import {
     contentChild,
     signal
 } from '@angular/core';
-import { ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
+import { ThyFormControlSize, ThyTranslate, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 import { NgTemplateOutlet } from '@angular/common';
@@ -24,7 +23,7 @@ import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 
-export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
+export type InputGroupSize = Exclude<ThyFormControlSize, 'xs'>;
 
 const inputGroupSizeMap = {
     sm: ['input-group-sm'],
@@ -40,7 +39,6 @@ const inputGroupSizeMap = {
 @Component({
     selector: 'thy-input-group',
     templateUrl: './input-group.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input-group',
@@ -107,10 +105,10 @@ export class ThyInputGroup implements OnInit, OnDestroy {
 
     /**
      * 输入框分组大小
-     * @type 'sm' | 'lg' | 'md' | ''
-     * @default ''
+     * @type 'sm' | 'lg' | 'md'
+     * @default md
      */
-    readonly thySize = input<InputGroupSize>();
+    readonly thySize = input<InputGroupSize>('md');
 
     /**
      * 后置模板

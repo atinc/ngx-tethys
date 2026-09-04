@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     DestroyRef,
@@ -35,7 +34,6 @@ export type ThySegmentMode = 'block' | 'inline';
     exportAs: 'thySegment',
     animations: [thumbMotion],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: THY_SEGMENTED_COMPONENT,

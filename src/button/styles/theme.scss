@@ -3,6 +3,14 @@
     @include button-hover-box-shadow($primary);
 }
 
+.btn-default {
+    @include button-variant($gray-700, $gray-700, $gray-200, $gray-200, $gray-200, $gray-200, $gray-200, $gray-200);
+
+    &:hover {
+        box-shadow: 0px 2px 5px 1px $gray-80;
+    }
+}
+
 .btn-outline-primary {
     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
 }
@@ -13,7 +21,7 @@
 
 .btn-link {
     color: $link-color;
-    @include hover {
+    @include hover-active {
         color: $link-hover-color;
     }
     &:focus,
@@ -25,31 +33,27 @@
     }
 }
 
-.btn-link.btn-link-info {
-    @include btn-link-variant($info, $primary, none);
-}
-
-// 兼容之前的样式
-.btn-link.btn-link-default {
-    @include btn-link-variant($btn-link-color-default, $primary, none);
-}
-
-// 默认显示灰色，鼠标移上去显示主色
-.btn-link.btn-link-primary-weak {
+.btn-link-default {
     @include btn-link-variant($gray-500, $primary, none);
 }
 
-// 默认显示灰色，鼠标移上去显示红色
-.btn-link.btn-link-danger-weak {
-    @include btn-link-variant($gray-500, $danger, none);
+.btn-link-primary {
+    @include btn-link-variant($link-color, $link-hover-color, $link-hover-decoration);
 }
 
-// 默认显示灰色，鼠标移上去显示红色
-.btn-link.btn-link-danger {
+.btn-link-info {
+    @include btn-link-variant($info, $info, underline);
+}
+
+.btn-link-warning {
+    @include btn-link-variant($warning, $warning, underline);
+}
+
+.btn-link-danger {
     @include btn-link-variant($danger, $danger, underline);
 }
 
-.btn-link.btn-link-success {
+.btn-link-success {
     @include btn-link-variant($success, $success, underline);
 }
 

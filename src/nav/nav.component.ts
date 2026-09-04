@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     Component,
     computed,
     contentChild,
@@ -10,7 +9,6 @@ import {
     inject,
     input,
     OnDestroy,
-    OnInit,
     signal,
     Signal,
     TemplateRef,
@@ -75,7 +73,6 @@ const tabItemRight = 20;
         '[class.thy-nav--vertical]': 'thyVertical()',
         '[class.thy-nav--fill]': 'thyFill()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         NgClass,
         NgTemplateOutlet,
@@ -162,12 +159,6 @@ export class ThyNav implements OnDestroy {
      * 支持暂停自适应计算
      */
     readonly thyPauseReCalculate = input<boolean>(false);
-
-    /**
-     * 更多操作的菜单点击内部是否可关闭
-     * @deprecated please use thyPopoverOptions
-     */
-    readonly thyInsideClosable = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 更多菜单弹出框的参数，底层使用 Popover 组件

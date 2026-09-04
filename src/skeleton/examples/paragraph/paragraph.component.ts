@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySkeletonParagraph } from 'ngx-tethys/skeleton';
 
 @Component({
@@ -17,6 +17,7 @@ import { ThySkeletonParagraph } from 'ngx-tethys/skeleton';
             [thyAnimated]="model.thyAnimated">
         </thy-skeleton-paragraph>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySkeletonParagraph]
 })
 export class ThySkeletonExampleParagraphComponent implements OnInit {

@@ -14,6 +14,7 @@
         [showMeridian]="false"
         [timeZone]="timeZone()"
         [ngModel]="value()"
+        [ngModelOptions]="{ standalone: true }"
         (ngModelChange)="onSelectTime($event)"></thy-inner-time-picker>
     }
     <div class="time-picker-btn-wrap">
@@ -22,7 +23,9 @@
           {{ locale().ok }}
         </button>
       }
-      <button class="time-picker-clear-btn" thyButton="link-secondary" thySize="sm" (click)="onClear()">{{ locale().clear }}</button>
+      <button class="time-picker-clear-btn" thyButton="default" thyAppearance="link" thySize="sm" (click)="onClear()">
+        {{ locale().clear }}
+      </button>
     </div>
   </div>
 }

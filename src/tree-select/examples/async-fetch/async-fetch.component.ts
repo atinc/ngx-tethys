@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTreeSelectNode } from '../tree-select.class';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'app-tree-select-async-fetch-example',
     templateUrl: './async-fetch.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect, FormsModule]
 })
 export class ThyTreeSelectAsyncFetchExampleComponent implements OnInit {

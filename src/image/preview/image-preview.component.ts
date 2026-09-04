@@ -1,7 +1,6 @@
 import { CdkDrag } from '@angular/cdk/drag-drop';
 
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     DestroyRef,
@@ -49,7 +48,6 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
     selector: 'thy-image-preview',
     exportAs: 'thyImagePreview',
     templateUrl: './image-preview.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-image-preview-wrap',

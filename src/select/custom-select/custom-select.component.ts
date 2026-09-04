@@ -8,12 +8,12 @@ import {
     ThyClickDispatcher,
     THY_GLOBAL_CONFIG,
     ThyGlobalConfig,
-    ThyPlacement
+    ThyPlacement,
+    ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyLoading } from 'ngx-tethys/loading';
 import {
-    SelectControlSize,
     ThyOption,
     ThyOptionRender,
     ThySelectControl,
@@ -47,7 +47,6 @@ import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Overlay,
 import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -151,7 +150,6 @@ interface ThySelectFlattedItem {
         },
         ScrollDispatcher
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         CdkOverlayOrigin,
         ThySelectControl,
@@ -317,7 +315,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 选择框默认文字
      */
-    readonly thyPlaceHolder = input<string>(this.locale().placeholder);
+    readonly thyPlaceholder = input<string>(this.locale().placeholder);
 
     /**
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
@@ -345,7 +343,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      * @type primary | success | danger | warning
      * @default primary
      */
-    readonly thySize = input<SelectControlSize>();
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 数据为空时显示的提示文字

@@ -1,12 +1,13 @@
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER } from 'ngx-tethys/util';
-import { Component, ElementRef, viewChild } from '@angular/core';
+import { Component, ElementRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyCtrlEnterDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-autofocus-test',
     template: ` <input #enter (thyCtrlEnter)="ok($event)" /> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCtrlEnterDirective]
 })
 class ThyCtrlEnterTestComponent {

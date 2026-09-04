@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
     ThyDropdownDirective,
     ThyDropdownMenuComponent,
@@ -14,6 +14,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-dropdown-submenu-example',
     templateUrl: './submenu.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyDropdownDirective,
         ThyDropdownMenuComponent,

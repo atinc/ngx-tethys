@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyArrowSwitcher, ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-arrow-switcher-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyArrowSwitcher, FormsModule]
 })
 export class ThyArrowSwitcherBasicExampleComponent implements OnInit {

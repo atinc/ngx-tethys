@@ -1,16 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    DestroyRef,
-    ElementRef,
-    inject,
-    input,
-    NgZone,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    AfterViewInit
-} from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, input, NgZone, Renderer2, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 
 import { ThyNativeTableContentComponent } from './table-content.component';
@@ -19,7 +7,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'thy-native-table-inner-scroll',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (scrollY()) {
             <div #tableHeaderElement class="thy-native-table-header" [style.overflow-x]="'hidden'" [style.overflow-y]="'scroll'">

@@ -1,9 +1,9 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonModule } from 'ngx-tethys/button';
-import { provideHttpClient } from '@angular/common/http';
+import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonAppearance, ThyButtonModule } from 'ngx-tethys/button';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
     expect(iconElement).toBeTruthy();
@@ -14,23 +14,35 @@ function assertButtonIcon(iconElement: Element, icon: string) {
 @Component({
     selector: 'thy-test-button-basic',
     template: `
-        <button [thyButton]="type" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
-        <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
-        <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
+        <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">
+            Basic Button
+        </button>
+        <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance">Icon Button</thy-button>
+        <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance"></thy-button>
         <thy-button id="btn-default">Default Button</thy-button>
-        <thy-button id="btn-thy-disabled" [thyType]="type" [thyDisabled]="disabled" (click)="onClick()">Thy Disabled</thy-button>
-        <button id="btn-native-disabled" [thyButton]="type" [disabled]="disabled" (click)="onClick()">Native Disabled</button>
+        <thy-button id="btn-thy-disabled" [thyType]="type" [thyAppearance]="appearance" [thyDisabled]="disabled" (click)="onClick()"
+            >Thy Disabled</thy-button
+        >
+        <button id="btn-native-disabled" [thyButton]="type" [thyAppearance]="appearance" [disabled]="disabled" (click)="onClick()">
+            Native Disabled
+        </button>
         <button id="btn-attr-disabled" thyButton="primary" disabled (click)="onClick()">Attr Disabled</button>
         <button id="btn-attr-disabled-true" thyButton="primary" disabled="true" (click)="onClick()">Attr Disabled True</button>
-        <thy-button id="btn-thy-loading" [thyType]="type" [thyLoading]="loading" (click)="onClick()">Loading Button</thy-button>
-        <button id="btn-native-loading" [thyButton]="type" [thyLoading]="loading" (click)="onClick()">Native Loading</button>
+        <thy-button id="btn-thy-loading" [thyType]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()"
+            >Loading Button</thy-button
+        >
+        <button id="btn-native-loading" [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()">
+            Native Loading
+        </button>
         <a id="btn-anchor" thyButton="primary" [thyDisabled]="disabled" (click)="onClick()">Anchor Button</a>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule]
 })
 class ThyTestButtonBasicComponent {
     type = `primary`;
-    size = '';
+    appearance: ThyButtonAppearance = 'fill';
+    size = 'md';
     loading = false;
     loadingText = 'Loading...';
     icon = 'inbox';
@@ -42,7 +54,7 @@ class ThyTestButtonBasicComponent {
 }
 
 describe('ThyButton', () => {
-    const sizes = ['lg', 'default', 'md', 'sm', 'xs'];
+    const sizes = ['lg', 'md', 'sm', 'xs'];
 
     describe('Basic', () => {
         let fixture!: ComponentFixture<ThyTestButtonBasicComponent>;
@@ -51,7 +63,7 @@ describe('ThyButton', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [bypassSanitizeProvider, provideHttpClient()]
+                providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
             });
 
             TestBed.compileComponents();
@@ -69,14 +81,15 @@ describe('ThyButton', () => {
             const btnElement: HTMLElement = buttonComponent.nativeElement;
             expect(btnElement.classList.contains('btn')).toBeTruthy();
             expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-md')).toBeTruthy();
             expect(btnElement.textContent).toBe('Basic Button');
         });
 
-        it('should use primary type by default', () => {
+        it('should use default type by default', () => {
             const defaultButton = fixture.debugElement.query(By.css('#btn-default'));
             const btnElement: HTMLElement = defaultButton.nativeElement;
 
-            expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
+            expect(btnElement.classList.contains('btn-default')).toBeTruthy();
         });
 
         it('should set size success', () => {
@@ -89,40 +102,38 @@ describe('ThyButton', () => {
         });
 
         it('should set type success', () => {
-            [
-                'primary',
-                'info',
-                'warning',
-                'danger',
-                'warning',
-                'outline-warning',
-                'success',
-                'outline-primary',
-                'outline-default',
-                'outline-info',
-                'outline-success',
-                'outline-danger',
-                'link',
-                'link-info',
-                'link-warning',
-                'link-danger',
-                'link-success',
-                'link-danger-weak'
-            ].forEach(type => {
+            ['primary', 'default', 'info', 'warning', 'danger', 'success'].forEach(type => {
                 basicTestComponent.type = type;
+                basicTestComponent.appearance = 'fill';
                 fixture.detectChanges();
                 const btnElement: HTMLElement = buttonComponent.nativeElement;
                 expect(btnElement.classList.contains(`btn-${type}`)).toBeTruthy();
             });
         });
 
-        it('should set type with square success', () => {
-            ['primary-square', 'info-square', 'warning-square', 'danger-square', 'success-square'].forEach(type => {
+        it('should set appearance and type class success', () => {
+            const cases: Array<{ appearance: 'fill' | 'outline' | 'link'; type: string; className: string }> = [
+                { appearance: 'fill', type: 'primary', className: 'btn-primary' },
+                { appearance: 'fill', type: 'default', className: 'btn-default' },
+                { appearance: 'outline', type: 'primary', className: 'btn-outline-primary' },
+                { appearance: 'outline', type: 'default', className: 'btn-outline-default' },
+                { appearance: 'outline', type: 'danger', className: 'btn-outline-danger' },
+                { appearance: 'link', type: 'primary', className: 'btn-link-primary' },
+                { appearance: 'link', type: 'default', className: 'btn-link-default' },
+                { appearance: 'link', type: 'danger', className: 'btn-link-danger' },
+                { appearance: 'link', type: 'success', className: 'btn-link-success' },
+                { appearance: 'link', type: 'info', className: 'btn-link-info' },
+                { appearance: 'link', type: 'warning', className: 'btn-link-warning' }
+            ];
+            cases.forEach(({ appearance, type, className }) => {
+                basicTestComponent.appearance = appearance;
                 basicTestComponent.type = type;
                 fixture.detectChanges();
                 const btnElement: HTMLElement = buttonComponent.nativeElement;
-                expect(btnElement.classList.contains(`btn-${type.replace('-square', '')}`)).toBeTruthy();
-                expect(btnElement.classList.contains(`btn-square`)).toBeTruthy();
+                expect(btnElement.classList.contains(className)).toBeTruthy();
+                if (appearance === 'link') {
+                    expect(btnElement.classList.contains('btn-link')).toBeFalsy();
+                }
             });
         });
 
@@ -310,11 +321,12 @@ describe('ThyButton', () => {
             [thySize]="size"></button>
         <thy-button-icon id="button-icon-component" thyIcon="inbox"></thy-button-icon>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule]
 })
 class ThyTestButtonIconBasicComponent {
     icon = 'inbox';
-    size = '';
+    size = 'md';
     shape = '';
     theme = '';
     isLight = false;
@@ -330,7 +342,7 @@ describe('ThyIconButton', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -434,6 +446,7 @@ describe('ThyIconButton', () => {
             <button thyButton>Right</button>
         </thy-button-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonGroup, ThyButton]
 })
 class ThyDemoButtonGroupComponent {
@@ -449,7 +462,7 @@ describe('ThyButtonGroup', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();

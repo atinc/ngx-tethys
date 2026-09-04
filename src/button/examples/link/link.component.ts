@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
+import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-button-link-example',
     templateUrl: './link.component.html',
-    imports: [ThyButton]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
-export class ThyButtonLinkExampleComponent implements OnInit {
-    constructor() {}
-
-    ngOnInit(): void {}
-}
+export class ThyButtonLinkExampleComponent {}

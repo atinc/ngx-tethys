@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyFormDirective, ThyFormGroup, ThyFormGroupFooter, ThyFormSubmitDirective } from 'ngx-tethys/form';
@@ -7,6 +7,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 @Component({
     selector: 'thy-form-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyFormDirective, ThyFormGroup, ThyInputDirective, ThyFormGroupFooter, ThyButton, ThyFormSubmitDirective]
 })
 export class ThyFormBasicExampleComponent {

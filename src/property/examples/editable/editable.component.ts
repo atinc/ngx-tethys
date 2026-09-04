@@ -1,7 +1,7 @@
 import { ThyDialog, ThyDialogBody, ThyDialogHeader } from 'ngx-tethys/dialog';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyTreeSelect, ThyTreeSelectNode } from 'ngx-tethys/tree-select';
-import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, inject, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThyProperties, ThyPropertyItem } from 'ngx-tethys/property';
 import { NgClass, NgTemplateOutlet, CommonModule } from '@angular/common';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
@@ -18,6 +18,7 @@ import { ThyTimePicker } from 'ngx-tethys/time-picker';
     selector: 'thy-property-editable-example',
     templateUrl: './editable.component.html',
     styleUrls: ['./editable.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyProperties,
         ThyPropertyItem,

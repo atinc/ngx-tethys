@@ -1,13 +1,14 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, Signal, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, Signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyTimePicker, ThyTimePickerModule, TimePickerSize } from 'ngx-tethys/time-picker';
+import { ThyTimePicker, ThyTimePickerModule } from 'ngx-tethys/time-picker';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 
 describe('ThyTimePickerComponent', () => {
     let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
@@ -18,7 +19,7 @@ describe('ThyTimePickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -439,6 +440,7 @@ describe('ThyTimePickerComponent', () => {
             (ngModelChange)="onValueChange($event)"
             (thyOpenChange)="onOpenChange($event)"></thy-time-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyTimePickerModule]
 })
 class ThyTestTimePickerBaseComponent {
@@ -454,7 +456,7 @@ class ThyTestTimePickerBaseComponent {
 
     allowClear: boolean = true;
 
-    size!: TimePickerSize;
+    size!: ThyFormControlSize;
 
     placeholder!: string;
 

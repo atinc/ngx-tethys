@@ -1,13 +1,14 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ThyFormDirective, ThyFormGroupError, ThyFormModule } from 'ngx-tethys/form';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-form-group-error-basic',
     template: ` <thy-form-group-error [thyErrors]="errors" [thyShowFirst]="showFirst"> </thy-form-group-error> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormModule, FormsModule]
 })
 export class TestFormGroupErrorBasicComponent {
@@ -30,7 +31,7 @@ describe('form-group-error', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 providers: [
-                    provideHttpClient(),
+                    provideHttpClient(withXhr()),
                     {
                         provide: ThyFormDirective,
                         useValue: {
@@ -84,7 +85,7 @@ describe('form-group-error', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 providers: [
-                    provideHttpClient(),
+                    provideHttpClient(withXhr()),
                     {
                         provide: ThyFormDirective,
                         useValue: {

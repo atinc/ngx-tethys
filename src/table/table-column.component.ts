@@ -9,6 +9,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
     inject,
+    ChangeDetectionStrategy,
     contentChild,
     computed
 } from '@angular/core';
@@ -36,6 +37,7 @@ export type FixedDirection = 'left' | 'right';
 @Component({
     selector: 'thy-table-column',
     template: '<ng-content></ng-content>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTableColumnComponent implements OnInit {

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTree, ThyTreeNode, ThyTreeNodeCheckState } from 'ngx-tethys/tree';
 import { treeNodes } from '../mocks';
 
 @Component({
     selector: 'thy-tree-checkable-example',
     templateUrl: './checkable.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTree]
 })
 export class ThyTreeCheckableExampleComponent {

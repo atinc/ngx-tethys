@@ -2,7 +2,18 @@ import { ThySelectionListChange, ThySelectionList } from 'ngx-tethys/list';
 import { ThyPopoverRef } from 'ngx-tethys/popover';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, debounceTime, switchMap } from 'rxjs/operators';
-import { Component, ElementRef, OnDestroy, OnInit, inject, signal, input, afterNextRender, Injector } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    inject,
+    signal,
+    input,
+    afterNextRender,
+    Injector,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { SeekQueryResult } from '../adapter/adapter';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
 import { ThyListOption } from 'ngx-tethys/shared';
@@ -16,6 +27,7 @@ import { NgTemplateOutlet, SlicePipe } from '@angular/common';
     selector: 'thy-mention-suggestions',
     templateUrl: './suggestions.component.html',
     imports: [NgTemplateOutlet, ThyLoading, ThySelectionList, ThyListOption, SlicePipe],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: { class: 'thy-mention-suggestions' }
 })
 export class ThyMentionSuggestions<TItem = MentionDefaultDataItem> implements OnInit, OnDestroy {

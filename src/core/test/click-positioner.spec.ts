@@ -1,5 +1,5 @@
 import { inject, TestBed, fakeAsync, ComponentFixture, flush } from '@angular/core/testing';
-import { NgModule, Component, OnDestroy, inject as coreInject } from '@angular/core';
+import { NgModule, Component, OnDestroy, inject as coreInject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyClickPositioner } from 'ngx-tethys/core';
 import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -54,7 +54,7 @@ describe('ClickDispatcher', () => {
 });
 
 /** Simple component that contains a large div and can be scrolled. */
-@Component({ template: ` <div></div> ` })
+@Component({ changeDetection: ChangeDetectionStrategy.Eager, template: ` <div></div> ` })
 class ClickPositionerComponent implements OnDestroy {
     clickPositioner = coreInject(ThyClickPositioner);
 

@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
     DateEntry,
@@ -15,6 +15,7 @@ import { differenceInDays, endOfDay, startOfDay, subWeeks, TinyDate } from 'ngx-
 @Component({
     selector: 'thy-date-picker-directive-example',
     templateUrl: './directive.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyPropertyOperation,
         ThyDatePickerDirective,

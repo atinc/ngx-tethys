@@ -42,7 +42,7 @@
     @if (templateRef()) {
       <ng-template
         [ngTemplateOutlet]="templateRef()"
-        [ngTemplateOutletContext]="{ $implicit: node(), node: node(), origin: node()?.origin }"></ng-template>
+        [ngTemplateOutletContext]="{ $implicit: node(), node: node(), origin: $safeNavigationMigration(node()?.origin) }"></ng-template>
     }
   </span>
 </div>

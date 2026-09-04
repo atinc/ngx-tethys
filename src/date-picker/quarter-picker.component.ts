@@ -13,7 +13,6 @@ import { QUARTER_FORMAT } from './date-picker.config';
  * @order 60
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-quarter-picker',
     exportAs: 'thyQuarterPicker',
     templateUrl: './base-picker.component.html',

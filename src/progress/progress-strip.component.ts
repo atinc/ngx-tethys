@@ -8,7 +8,8 @@ import {
     inject,
     input,
     effect,
-    Signal
+    Signal,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressType } from './interfaces';
@@ -28,6 +29,7 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
     templateUrl: './progress-strip.component.html',
     encapsulation: ViewEncapsulation.None,
     imports: [NgStyle],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'progress-bar',
         '[style.width.%]': 'percent()'

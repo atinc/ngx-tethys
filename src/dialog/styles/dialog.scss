@@ -171,7 +171,6 @@
     }
 }
 
-// expect supper-lg
 .cdk-overlay-pane {
     &.dialog-md,
     &.dialog-sm,
@@ -180,8 +179,6 @@
         max-height: variables.$dialog-default-max-height;
     }
 
-    // supper lg
-    &.dialog-supper-lg,
     &.dialog-super-lg {
         width: variables.$dialog-super-lg-width;
         height: variables.$dialog-super-lg-height;

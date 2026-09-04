@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTooltipService, ThyTooltipRef } from 'ngx-tethys/tooltip';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-tooltip-manual-example',
     templateUrl: './manual.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyTooltipManualExampleComponent implements OnInit, OnDestroy {

@@ -1,5 +1,5 @@
 import { ThyPopoverBody, ThyPopoverConfig, ThyPopoverHeader, ThyPopover } from 'ngx-tethys/popover';
-import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyPopoverManualContentComponent } from './popover-content.component';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -7,6 +7,7 @@ import { ThyButton } from 'ngx-tethys/button';
     selector: 'thy-popover-manual-example',
     templateUrl: './manual.component.html',
     styleUrls: ['./manual.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverManualExampleComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTableRowEvent, ThyPageChangedEvent, ThyTableColumnSkeletonType, ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { of } from 'rxjs';
 import { delay, finalize } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-table-pagination-example',
     templateUrl: './pagination.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTablePaginationExampleComponent implements OnInit {

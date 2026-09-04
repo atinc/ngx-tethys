@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -8,6 +8,7 @@ import { ThyListOption } from 'ngx-tethys/shared';
 @Component({
     selector: 'app-list-layout-example',
     templateUrl: './layout.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelectionList, ThyIcon, ThyListOption, FormsModule, CommonModule]
 })
 export class ThyListLayoutExampleComponent implements OnInit {

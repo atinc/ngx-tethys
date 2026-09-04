@@ -3,14 +3,14 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyPropertyOperation, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { CompatiblePresets, ThyDatePickerModule, ThyDateRangeEntry, ThyShortcutPosition } from 'ngx-tethys/date-picker';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -23,7 +23,7 @@ describe('ThyRangePickerDirective', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -213,6 +213,7 @@ describe('ThyRangePickerDirective', () => {
             (ngModelChange)="modelValueChange($event)"
             (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPropertyOperationModule, ThyDatePickerModule, FormsModule]
 })
 class ThyTestRangePickerComponent {

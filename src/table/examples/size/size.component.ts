@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyTable, ThyTableColumnComponent, ThyTableSize } from 'ngx-tethys/table';
@@ -8,6 +8,7 @@ import { NgClass } from '@angular/common';
 @Component({
     selector: 'thy-table-size-example',
     templateUrl: './size.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyButtonGroup, FormsModule, ThyButton, ThyIcon, NgClass]
 })
 export class ThyTableSizeExampleComponent implements OnInit {

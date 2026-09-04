@@ -1,7 +1,6 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
@@ -22,6 +21,7 @@ import {
     getOverlayGlobalConfig,
     THY_GLOBAL_CONFIG,
     thyAnimationZoom,
+    ThyFormControlSize,
     ThyGlobalConfig,
     ThyPlacement
 } from 'ngx-tethys/core';
@@ -31,8 +31,6 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
 
-export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
-
 /**
  * 时间选择组件
  * @name thy-time-picker
@@ -40,7 +38,6 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 @Component({
     selector: 'thy-time-picker',
     templateUrl: './time-picker.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -72,9 +69,10 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
 
     /**
      * 输入框大小
-     * @type 'xs' | 'sm' | 'md' | 'lg' | 'default'
+     * @type 'xs' | 'sm' | 'md' | 'lg'
+     * @default md
      */
-    readonly thySize = input<TimePickerSize>('default');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 输入框提示文字

@@ -1,8 +1,8 @@
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading, ThyEmptyConfig, ThyEmptyModule } from 'ngx-tethys/empty';
-import { provideHttpClient } from '@angular/common/http';
+import { ThyEmpty, ThyEmptyImageFetchPriority, ThyEmptyImageLoading, ThyEmptyModule } from 'ngx-tethys/empty';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
@@ -11,10 +11,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
         <div class="empty-container">
             <thy-empty
                 [thyMessage]="thyMessage"
-                [thyTranslationKey]="thyTranslationKey"
-                [thyTranslationValues]="thyTranslationValues"
-                [thyEntityName]="thyEntityName"
-                [thyEntityNameTranslateKey]="thyEntityNameTranslateKey"
                 [thyIconName]="thyIconName"
                 [thySize]="thySize"
                 [thyMarginTop]="thyMarginTop"
@@ -26,7 +22,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
                 class="empty-test-example">
                 <ng-template #extra>
                     <div class="sub-message">确实还没有数据啦啦啦啦</div>
-                    <button thyButton="primary-square" (click)="goHome()" class="empty-button">返回主页</button>
+                    <button thyButton="primary" (click)="goHome()" class="empty-button">返回主页</button>
                 </ng-template>
             </thy-empty>
         </div>
@@ -48,15 +44,12 @@ import { provideAnimations } from '@angular/platform-browser/animations';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyEmptyModule]
 })
 class EmptyTestComponent {
     @ViewChild('ThyEmptyComponent', { static: true }) thyEmptyComponent!: ThyEmpty;
     thyMessage = '暂无数据';
-    thyTranslationKey = '暂无活动';
-    thyTranslationValues!: any;
-    thyEntityName = '任务';
-    thyEntityNameTranslateKey = '工作项';
     thyIconName = 'copy';
     thySize: string = 'lg';
     thyMarginTop: number = 200;
@@ -73,7 +66,7 @@ describe('EmptyComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            providers: [ThyEmptyConfig, provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         }).compileComponents();
         fixture = TestBed.createComponent(EmptyTestComponent);
         componentInstance = fixture.componentInstance;
@@ -87,35 +80,14 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement).toBeTruthy();
     });
 
-    it('should support translationKey', () => {
-        componentInstance.thyMessage = '';
+    it('should support message text', () => {
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
-        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无活动');
-    });
-
-    it('should support entity name', () => {
-        componentInstance.thyMessage = '';
-        componentInstance.thyTranslationKey = '';
-        fixture.detectChanges();
-        const empty = fixture.debugElement.query(By.directive(ThyEmpty));
-        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
-    });
-
-    it('should support entity name translateKey', () => {
-        componentInstance.thyMessage = '';
-        componentInstance.thyTranslationKey = '';
-        componentInstance.thyEntityName = '';
-        fixture.detectChanges();
-        const empty = fixture.debugElement.query(By.directive(ThyEmpty));
-        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无数据');
     });
 
     it('should support default text', () => {
         componentInstance.thyMessage = '';
-        componentInstance.thyTranslationKey = '';
-        componentInstance.thyEntityName = '';
-        componentInstance.thyEntityNameTranslateKey = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmpty));
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无数据');

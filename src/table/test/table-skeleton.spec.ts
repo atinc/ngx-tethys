@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -46,6 +46,7 @@ const defaultColumns = [
         [thyHeadless]="headless"
         [thyMinWidth]="minWidth">
     </thy-table-skeleton>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTableModule]
 })
 class TestTableSkeletonBasicComponent {
@@ -73,7 +74,7 @@ describe('thy-table-skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule],
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestTableSkeletonBasicComponent);

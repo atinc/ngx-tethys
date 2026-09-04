@@ -1,8 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyVote } from 'ngx-tethys/vote';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('ThyVote', () => {
     let fixture!: ComponentFixture<ThyDemoVoteBasicComponent>;
@@ -11,7 +11,7 @@ describe('ThyVote', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -85,6 +85,7 @@ describe('ThyVote', () => {
             [thyRound]="isRound"
             [thyDisabled]="isDisabled"></div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyVote]
 })
 class ThyDemoVoteBasicComponent {

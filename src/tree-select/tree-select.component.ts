@@ -3,7 +3,8 @@ import {
     injectPanelEmptyIcon,
     thyAnimationZoom,
     TabIndexDisabledControlValueAccessorMixin,
-    ThyClickDispatcher
+    ThyClickDispatcher,
+    ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
@@ -36,15 +37,14 @@ import {
     signal,
     DestroyRef,
     contentChild,
-    viewChild
+    viewChild,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { ThyTreeSelectNode } from './tree-select.class';
 import { injectLocale, ThyTreeSelectLocale } from 'ngx-tethys/i18n';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: string, searchKey: string = 'name') {
     const filterNodes = (node: ThyTreeSelectNode, result: ThyTreeSelectNode[]) => {
@@ -88,6 +88,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         forwardRef(() => ThyTreeSelectNodes),
         ThyStopPropagationDirective
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-select-custom thy-select',
         '[class.thy-select-custom--multiple]': 'thyMultiple()',
@@ -216,9 +217,10 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     /**
      * 控制树选择的输入框大小
-     * @type xs | sm | md | default | lg
+     * @type xs | sm | md | lg
+     * @default md
      */
-    readonly thySize = input<InputSize>();
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 改变空选项的情况下的提示文本
@@ -272,12 +274,6 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * @type boolean
      */
     readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
-
-    /**
-     * 图标类型，支持 default | especial，已废弃
-     * @deprecated
-     */
-    readonly thyIconType = input<ThyTreeSelectType>();
 
     /**
      * 设置是否隐藏节点(不可进行任何操作),优先级低于 thyHiddenNodeKey。
@@ -580,6 +576,7 @@ const DEFAULT_ITEM_SIZE = 40;
         ThyIcon,
         ThyFlexibleText
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[attr.tabindex]': '-1',
         class: 'thy-tree-select-dropdown',

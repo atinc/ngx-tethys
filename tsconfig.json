@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "importHelpers": true,
     "esModuleInterop": true,
     "sourceMap": true,
@@ -21,10 +20,10 @@
     "useDefineForClassFields": false,
     "strict": true,
     "paths": {
-      "ngx-tethys": ["src/public-api"],
-      "ngx-tethys/*": ["src/*"],
-      "@tethys/cdk": ["cdk/public-api"],
-      "@tethys/cdk/*": ["cdk/*"]
+      "ngx-tethys": ["./src/public-api"],
+      "ngx-tethys/*": ["./src/*"],
+      "@tethys/cdk": ["./cdk/public-api"],
+      "@tethys/cdk/*": ["./cdk/*"]
     }
   },
   "angularCompilerOptions": {

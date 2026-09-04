@@ -1,8 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyStep, ThyStepper } from 'ngx-tethys/stepper';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
@@ -18,18 +18,19 @@ import { provideAnimations } from '@angular/platform-browser/animations';
             <thy-step label="第二步" #step2>
                 <div class="demo-stepper-body second-step">
                     <button thyButton="primary">下一步</button>
-                    <a thyButton="link-secondary">上一步</a>
+                    <a thyButton="default" thyAppearance="link">上一步</a>
                     <p>This is second description.</p>
                 </div>
             </thy-step>
             <thy-step label="第三步">
                 <div class="demo-stepper-body third-step">
-                    <a thyButton="link-secondary">上一步</a>
+                    <a thyButton="default" thyAppearance="link">上一步</a>
                     <p>This is third description.</p>
                 </div>
             </thy-step>
         </thy-stepper>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStepper, ThyStep]
 })
 class ThyDemoStepperComponent {
@@ -48,7 +49,7 @@ describe('ThyStepper', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
     }));

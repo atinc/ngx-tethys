@@ -3,7 +3,6 @@ import { coerceArray, coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethy
 
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
@@ -37,8 +36,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Observable, of, throttleTime } from 'rxjs';
 import { SelectOptionBase } from '../../option/select-option-base';
-
-export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -46,7 +44,6 @@ export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText],
     host: {
         '[class.select-control-borderless]': 'thyBorderless()'
@@ -92,7 +89,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thyPlaceholder = input('');
 
-    readonly thySize = input<SelectControlSize>();
+    readonly thySize = input<ThyFormControlSize>('md');
 
     readonly tagSize: Signal<ThyTagSize> = computed(() => {
         const value = this.thySize();

@@ -2,9 +2,9 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThySliderModule } from 'ngx-tethys/slider';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { Component, DebugElement, ViewEncapsulation } from '@angular/core';
+import { Component, DebugElement, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     template: `
@@ -32,6 +32,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThySliderModule]
 })
 class ThyTestSliderComponent {
@@ -57,7 +58,7 @@ describe('ThyTestSliderComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();

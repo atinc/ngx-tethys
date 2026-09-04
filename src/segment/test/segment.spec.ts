@@ -1,10 +1,10 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThySegment, ThySegmentEvent, ThySegmentItem, ThySegmentModule, ThySegmentSize, ThySegmentMode } from 'ngx-tethys/segment';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
@@ -16,6 +16,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentBasicComponent {
@@ -30,6 +31,7 @@ class TestSegmentBasicComponent {
             <thy-segment-item thyValue="2">对齐</thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentOnlyTextComponent {}
@@ -42,6 +44,7 @@ class TestSegmentOnlyTextComponent {}
             <thy-segment-item thyValue="2" thyIcon="paperclip"></thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentOnlyIconComponent {}
@@ -54,6 +57,7 @@ class TestSegmentOnlyIconComponent {}
             <thy-segment-item thyValue="2" thyIcon="paperclip">对齐</thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentIconAndTextComponent {}
@@ -67,6 +71,7 @@ class TestSegmentIconAndTextComponent {}
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentSizeComponent {
@@ -82,6 +87,7 @@ class TestSegmentSizeComponent {
             <thy-segment-item thyValue="group" [thyDisabled]="disableItem">用户组</thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentDisabledComponent {
@@ -100,6 +106,7 @@ class TestSegmentDisabledComponent {
             <thy-segment-item thyValue="department">部门</thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentModeComponent {
@@ -121,6 +128,7 @@ const items = [
             }
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule]
 })
 class TestSegmentActiveComponent {
@@ -157,6 +165,7 @@ class TestSegmentActiveComponent {
             </thy-segment-item>
         </thy-segment>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegmentModule, ThyAvatarModule]
 })
 class TestSegmentCustomTemplateComponent {
@@ -176,7 +185,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentBasicComponent);
@@ -218,7 +227,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentOnlyTextComponent);
@@ -240,7 +249,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentOnlyIconComponent);
@@ -262,7 +271,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentIconAndTextComponent);
@@ -286,7 +295,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentSizeComponent);
@@ -314,7 +323,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentDisabledComponent);
@@ -353,7 +362,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentModeComponent);
@@ -382,7 +391,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient(), provideAnimations()]
+                providers: [provideHttpClient(withXhr()), provideAnimations()]
             }).compileComponents();
         });
 
@@ -446,7 +455,7 @@ describe('segment', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentCustomTemplateComponent);

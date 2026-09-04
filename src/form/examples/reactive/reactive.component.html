@@ -19,7 +19,7 @@
 @if (loadingDone()) {
   <form thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup()">
     <thy-form-group thyLabelText="Input" thyLayout="horizontal" thyLabelRequired>
-      <thy-input name="input" formControlName="input" placeholder="Please enter"></thy-input>
+      <thy-input name="input" formControlName="input" thyPlaceholder="Please enter"></thy-input>
     </thy-form-group>
     <thy-form-group thyLabelText="TreeSelect" thyLabelRequired>
       <thy-tree-select
@@ -35,7 +35,7 @@
     </thy-form-group>
     <thy-form-group thyLabelText="CustomerSelect" thyLabelRequired>
       <thy-select
-        thyPlaceHolder="请选择"
+        thyPlaceholder="请选择"
         formControlName="customersSelect"
         name="customersSelect"
         [thyShowSearch]="true"
@@ -46,15 +46,15 @@
       </thy-select>
     </thy-form-group>
     <thy-form-group thyLabelText="Search" thyLayout="horizontal" thyLabelRequired>
-      <thy-input-search name="search" formControlName="search" placeholder="Please enter"></thy-input-search>
+      <thy-input-search name="search" formControlName="search" thyPlaceholder="Please enter"></thy-input-search>
     </thy-form-group>
     <thy-form-group thyLabelText="Number" thyLayout="horizontal" thyLabelRequired>
-      <thy-input-number thyPlaceholder="Please enter" name="number" formControlName="number" placeholder="search"></thy-input-number>
+      <thy-input-number thyPlaceholder="Please enter" name="number" formControlName="number"></thy-input-number>
     </thy-form-group>
     <thy-form-group thyLabelText="customersMultiSelect" thyLabelRequired>
       <thy-select
         [thyMode]="'multiple'"
-        thyPlaceHolder="请选择"
+        thyPlaceholder="请选择"
         formControlName="customersMultiSelect"
         name="customersMultiSelect"
         [thyShowSearch]="true"
@@ -137,7 +137,7 @@
     }
     <thy-form-group-footer>
       <button [thyButton]="'primary'" (thyFormSubmit)="save()">Save</button>
-      <button [thyButton]="'link-secondary'">Cancel</button>
+      <button [thyButton]="'default'" thyAppearance="link">Cancel</button>
     </thy-form-group-footer>
   </form>
 }

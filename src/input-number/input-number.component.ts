@@ -1,4 +1,4 @@
-import { TabIndexDisabledControlValueAccessorMixin, useHostFocusControl } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlSize, useHostFocusControl } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -18,11 +18,10 @@ import {
     effect,
     signal,
     output,
-    viewChild
+    viewChild,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 enum Type {
     up,
@@ -45,6 +44,7 @@ enum Type {
         }
     ],
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-input-number',
         '[attr.tabindex]': 'tabIndex'
@@ -116,7 +116,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      * 输入框大小
      * @type xs | sm | md | lg
      */
-    readonly thySize = input<InputSize>();
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 数值精度

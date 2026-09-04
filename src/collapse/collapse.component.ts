@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { IThyCollapseItemComponent, IThyCollapseComponent, THY_COLLAPSE_COMPONENT } from './collapse.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -26,7 +26,6 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
         '[class.thy-collapse-icon-position-right]': `thyArrowIconPosition() === 'right'`,
         '[class.thy-collapse-icon-position-left]': `thyArrowIconPosition() === 'left'`
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: THY_COLLAPSE_COMPONENT,

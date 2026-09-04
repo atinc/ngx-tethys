@@ -1,16 +1,16 @@
 import { ConnectionPositionPair, Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, TemplateRef, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, ElementRef, OnInit, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideTethys, withGlobalConfig } from 'ngx-tethys';
-import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
+import { POSITION_MAP, ThyFormControlSize, ThyPlacement } from 'ngx-tethys/core';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelect, ThySelectModule } from 'ngx-tethys/select';
-import { SelectControlSize, ThyOption, ThyOptionGroupRender, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
+import { ThyOption, ThyOptionGroupRender, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -36,7 +36,7 @@ interface FoodsInfo {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select
-                thyPlaceHolder="Food"
+                thyPlaceholder="Food"
                 [thyEnableScrollLoad]="enableScrollLoad"
                 (thyOnScrollToBottom)="thyOnScrollToBottom()"
                 [formControl]="control"
@@ -61,6 +61,7 @@ interface FoodsInfo {
         </form>
         <div id="custom-select-origin" #origin style="width: 200px;height: 20px"></div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class BasicSelectComponent {
@@ -87,7 +88,7 @@ class BasicSelectComponent {
     control = new UntypedFormControl();
     isRequired!: boolean;
     enableScrollLoad!: boolean;
-    size: SelectControlSize = '';
+    size: ThyFormControlSize = 'md';
     mode: 'multiple' | '' = '';
     thyAutoActiveFirstItem = true;
     customizeOrigin!: ElementRef | HTMLElement;
@@ -104,17 +105,18 @@ class BasicSelectComponent {
 @Component({
     selector: 'thy-multiple-select',
     template: `
-        <thy-select class="foods" [thyMode]="'multiple'" [(ngModel)]="selectedFoods" #Foods thyPlaceHolder="Food">
+        <thy-select class="foods" [thyMode]="'multiple'" [(ngModel)]="selectedFoods" #Foods thyPlaceholder="Food">
             @for (food of foods; track food.value) {
                 <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
             }
         </thy-select>
-        <thy-select class="vegetables" #Vegetables thyPlaceHolder="Vegetables">
+        <thy-select class="vegetables" #Vegetables thyPlaceholder="Vegetables">
             @for (vegetable of vegetables; track vegetable.value) {
                 <thy-option [thyValue]="vegetable.value" [thyLabelText]="vegetable.viewValue"> </thy-option>
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class MultipleSelectComponent {
@@ -140,13 +142,14 @@ class MultipleSelectComponent {
     selector: 'thy-ng-model-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
+            <thy-select thyPlaceholder="Food" ngModel name="food" [thyDisabled]="isDisabled">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class NgModelSelectComponent {
@@ -164,7 +167,7 @@ class NgModelSelectComponent {
     selector: 'thy-select-with-groups',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select thyPlaceHolder="Pokemon" [formControl]="control">
+            <thy-select thyPlaceholder="Pokemon" [formControl]="control">
                 @for (group of pokemonTypes; track $index) {
                     <thy-option-group [thyGroupLabel]="group.name">
                         @for (pokemon of group.pokemon; track pokemon.value) {
@@ -175,6 +178,7 @@ class NgModelSelectComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithGroupsAndNgContainerComponent {
@@ -190,13 +194,14 @@ class SelectWithGroupsAndNgContainerComponent {
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select placeholder="Food" [(ngModel)]="selectedFoods" name="food">
+            <thy-select thyPlaceholder="Food" [(ngModel)]="selectedFoods" name="food">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
                 }
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SingleSelectWithPreselectedArrayValuesComponent {
@@ -214,13 +219,14 @@ class SingleSelectWithPreselectedArrayValuesComponent {
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select placeholder="Food" [(ngModel)]="selectedValues" name="food">
+            <thy-select thyPlaceholder="Food" [(ngModel)]="selectedValues" name="food">
                 @for (item of values; track item.value) {
                     <thy-option [thyValue]="item.value" [thyLabelText]="item.viewValue"></thy-option>
                 }
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SingleSelectNgModelComponent {
@@ -244,6 +250,7 @@ class SingleSelectNgModelComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class BasicSelectInitiallyHiddenComponent {
@@ -260,6 +267,7 @@ class BasicSelectInitiallyHiddenComponent {
             }
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectEarlyAccessSiblingComponent {}
@@ -268,13 +276,14 @@ class SelectEarlyAccessSiblingComponent {}
     selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
+            <thy-select thyPlaceholder="Food" [thyShowSearch]="thyShowSearch">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchComponent {
@@ -297,7 +306,7 @@ class SelectWithSearchComponent {
     selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
+            <thy-select thyPlaceholder="team-members" [thyShowSearch]="thyShowSearch">
                 @for (member of teamMembers; track member._id) {
                     <thy-option [thyValue]="member._id" [thyLabelText]="member.name" thySearchKey="{{ member.name }},{{ member.pin_yin }}">
                     </thy-option>
@@ -305,6 +314,7 @@ class SelectWithSearchComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchUseSearchKeyComponent {
@@ -340,7 +350,7 @@ class SelectWithSearchUseSearchKeyComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select
-                thyPlaceHolder="Pokemon"
+                thyPlaceholder="Pokemon"
                 [thyShowSearch]="true"
                 [thyEmptySearchMessageText]="emptySearchMessageText"
                 [formControl]="control">
@@ -354,6 +364,7 @@ class SelectWithSearchUseSearchKeyComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchAndGroupComponent {
@@ -383,7 +394,7 @@ class SelectWithSearchAndGroupComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select
-                thyPlaceHolder="Food"
+                thyPlaceholder="Food"
                 name="foods"
                 [thyShowSearch]="thyShowSearch"
                 [thyServerSearch]="true"
@@ -394,6 +405,7 @@ class SelectWithSearchAndGroupComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithSearchAndServerSearchComponent {
@@ -419,7 +431,7 @@ class SelectWithSearchAndServerSearchComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select
-                thyPlaceHolder="Food"
+                thyPlaceholder="Food"
                 [thyMode]="mode"
                 style="width:500px"
                 [thyAllowClear]="thyAllowClear"
@@ -433,6 +445,7 @@ class SelectWithSearchAndServerSearchComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectEimtOptionsChangesComponent {
@@ -465,6 +478,7 @@ class SelectEimtOptionsChangesComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithExpandStatusComponent {
@@ -477,13 +491,14 @@ class SelectWithExpandStatusComponent {
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
+            <thy-select thyPlaceholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
                 }
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyModeComponent {
@@ -504,7 +519,7 @@ class SelectWithThyModeComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select
-                placeholder="Food"
+                thyPlaceholder="Food"
                 [(ngModel)]="selectedFoods"
                 name="food"
                 [thyMode]="selectMode"
@@ -515,6 +530,7 @@ class SelectWithThyModeComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThySortComparatorComponent {
@@ -542,6 +558,7 @@ class SelectWithThySortComparatorComponent {
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyAutoExpendComponent implements OnInit {
@@ -571,6 +588,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithThyPlacementComponent implements OnInit {
@@ -612,7 +630,7 @@ class SelectWithThyFlexiblePositionComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-select
-                thyPlaceHolder="Food"
+                thyPlaceholder="Food"
                 name="foods"
                 [thyShowSearch]="showSearch"
                 [thyServerSearch]="serverSearch"
@@ -624,6 +642,7 @@ class SelectWithThyFlexiblePositionComponent {
             </thy-select>
         </form>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithScrollAndSearchComponent {
@@ -659,6 +678,7 @@ class SelectWithScrollAndSearchComponent {
             }
         </thy-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWithAsyncLoadComponent implements OnInit {
@@ -721,6 +741,7 @@ class SelectWithAsyncLoadComponent implements OnInit {
             </thy-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectDropdownWidthComponent {
@@ -742,6 +763,7 @@ class SelectDropdownWidthComponent {
             <thy-select [thyOptions]="options" class="select1" [(ngModel)]="selectedValue"> </thy-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThySelectOptionGroup, ThyFormModule, FormsModule, ReactiveFormsModule]
 })
 class SelectWidthThyOptionsComponent {
@@ -763,7 +785,7 @@ describe('ThyCustomSelect', () => {
             providers: [
                 bypassSanitizeProvider,
                 ...providers,
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideNoopAnimations(),
                 THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER
             ]
@@ -954,14 +976,14 @@ describe('ThyCustomSelect', () => {
             }));
 
             it('should has correct size', () => {
-                const sizes: SelectControlSize[] = ['xs', 'sm', 'md', 'lg'];
-                fixture.componentInstance.size = '';
+                const sizes: ThyFormControlSize[] = ['xs', 'sm', 'md', 'lg'];
+                fixture.componentInstance.size = 'md';
                 fixture.detectChanges();
                 const formControl = fixture.debugElement.query(By.css('.form-control')).nativeElement;
                 sizes.forEach(size => {
-                    expect(formControl.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+                    expect(formControl.classList.contains(`form-control-${size}`)).toBe(size === 'md');
                 });
-                sizes.forEach((size: SelectControlSize) => {
+                sizes.forEach((size: ThyFormControlSize) => {
                     fixture.componentInstance.size = size;
                     fixture.detectChanges();
                     expect(formControl.classList.contains(`form-control-${size}`)).toBeTruthy();

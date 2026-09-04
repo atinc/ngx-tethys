@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ThyListOption } from 'ngx-tethys/shared';
 import { ThySelectionListChange, ThySelectionList } from 'ngx-tethys/list';
 import { ThyButton } from 'ngx-tethys/button';
@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-list-operate-example',
     templateUrl: './operate.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelectionList, ThyListOption, ThyButton, FormsModule, CommonModule]
 })
 export class ThyListOperateExampleComponent implements OnInit {
-    @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent: ThySelectionList;
+    @ViewChild(ThySelectionList, { static: true }) thySelectionListComponent!: ThySelectionList;
 
     public items = [
         {

@@ -1,6 +1,5 @@
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     Component,
     DestroyRef,
     ElementRef,
@@ -52,7 +51,6 @@ const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions
 @Component({
     selector: 'thy-action, [thyAction]',
     templateUrl: './action.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-action',
         '[class.active]': 'active()',
@@ -74,8 +72,6 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     feedbackOptions: WritableSignal<ThyActionFeedbackOptions | null> = signal(null);
 
     readonly active: Signal<boolean> = computed(() => this.thyActionActive() || this.thyActive());
-
-    protected readonly appearance = computed(() => this.thyAppearance() || this.thyTheme());
 
     private hostRenderer = useHostRenderer();
 
@@ -114,14 +110,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
      * @type fill | lite
      * @default fill
      */
-    readonly thyAppearance = input<ThyActionAppearance>();
-
-    /**
-     * 废弃，操作图标的外观，请使用 thyAppearance 代替
-     * @type fill | lite
-     * @deprecated please use thyAppearance instead
-     */
-    readonly thyTheme = input<ThyActionAppearance>('fill');
+    readonly thyAppearance = input<ThyActionAppearance>('fill');
 
     /**
      * Hover 展示的图标
@@ -201,7 +190,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     private updateClasses() {
         const classNames: string[] = [];
         classNames.push(`action-${this.thyType()}`);
-        if (this.appearance() === 'lite') {
+        if (this.thyAppearance() === 'lite') {
             classNames.push('thy-action-lite');
         }
         this.hostRenderer.updateClass(classNames);

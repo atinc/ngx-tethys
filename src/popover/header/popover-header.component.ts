@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, TemplateRef, inject, input, output, contentChild } from '@angular/core';
+import { Component, computed, TemplateRef, inject, input, output, contentChild } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyPopover } from '../popover.service';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -13,7 +13,6 @@ import { NgTemplateOutlet } from '@angular/common';
     selector: 'thy-popover-header',
     templateUrl: './popover-header.component.html',
     exportAs: 'thyPopoverHeader',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-popover-header'
     },

@@ -1,14 +1,15 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyPopoverBody, ThyPopoverHeader, ThyPopoverModule } from 'ngx-tethys/popover';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-popover-header-basic',
     template: '<thy-popover-header thyTitle="I am popover header" (thyClosed)="close()"></thy-popover-header>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverModule]
 })
 class PopoverHeaderBasicComponent {
@@ -18,6 +19,7 @@ class PopoverHeaderBasicComponent {
 @Component({
     selector: 'thy-popover-header-translation',
     template: '<thy-popover-header thyTitleTranslationKey="Translation Key Title"></thy-popover-header>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverModule]
 })
 class PopoverHeaderTranslationComponent {}
@@ -34,6 +36,7 @@ class PopoverHeaderTranslationComponent {}
             </ng-template>
         </thy-popover-header>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverModule, ThyIconModule]
 })
 class PopoverHeaderTemplateBasicComponent {
@@ -43,6 +46,7 @@ class PopoverHeaderTemplateBasicComponent {
 @Component({
     selector: 'thy-popover-body-basic',
     template: '<thy-popover-body></thy-popover-body>',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPopoverModule]
 })
 class PopoverBodyBasicComponent {}
@@ -51,7 +55,7 @@ describe('popover-layout', () => {
     describe('popover-header', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             });
             TestBed.compileComponents();
         });
@@ -117,7 +121,7 @@ describe('popover-layout', () => {
     describe('popover-header-translation', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             }).compileComponents();
         });
 
@@ -143,7 +147,7 @@ describe('popover-layout', () => {
     describe('popover-body', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             });
             TestBed.compileComponents();
         });
@@ -174,7 +178,7 @@ describe('popover-layout', () => {
     describe('popover-header-template', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             });
             TestBed.compileComponents();
         });

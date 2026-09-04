@@ -1,5 +1,5 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, contentChild, effect, input, TemplateRef } from '@angular/core';
+import { Component, contentChild, effect, input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -23,6 +23,7 @@ export type ThyVoteLayout = 'vertical' | 'horizontal';
         '[class.has-voted]': 'thyHasVoted()',
         '[class.thy-vote-disabled]': `thyDisabled()`
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon, NgTemplateOutlet]
 })
 export class ThyVote {

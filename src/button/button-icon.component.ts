@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
+import { Component, ViewEncapsulation, computed, effect, input } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { ThyButtonSize } from './button.component';
 
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
 
@@ -39,16 +40,15 @@ const themeClassesMap: any = {
         '[class.btn-icon-light]': 'thyLight()',
         '[class.btn-icon-active]': 'thyActive()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyIcon, NgClass]
 })
 export class ThyButtonIcon {
     /**
      * 大小
      * @type xs | sm | md | lg
-     * @default 36px
+     * @default md
      */
-    readonly thySize = input<string>();
+    readonly thySize = input<ThyButtonSize>('md');
 
     /**
      * 图标, 和`thyButtonIcon`相同，当使用`thy-button-icon`时，只能使用 thyIcon 设置图标

@@ -1,7 +1,6 @@
 import {
     Component,
     ViewEncapsulation,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     HostBinding,
     TemplateRef,
@@ -23,7 +22,6 @@ import { NgTemplateOutlet } from '@angular/common';
     selector: 'thy-tooltip',
     templateUrl: './tooltip.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.thy-scale-enter]': 'this.visibility() === "visible"',
         '[class.thy-scale-leave]': 'this.visibility() === "hidden"'

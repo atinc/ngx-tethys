@@ -10,7 +10,7 @@
 </div>
 
 @if (showForm) {
-  <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout()?.value">
+  <form thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="$safeNavigationMigration(currentLayout()?.value)">
     <thy-form-group thyLabelText="Username">
       <input thyInput name="username" placeholder="Please type username" />
     </thy-form-group>
@@ -19,7 +19,7 @@
     </thy-form-group>
     <thy-form-group-footer>
       <button [thyButton]="'primary'" [thyLoading]="saving()" thyLoadingText="Logining" (thyFormSubmit)="login()">Login</button>
-      <button [thyButton]="'link-secondary'">Cancel</button>
+      <button [thyButton]="'default'" thyAppearance="link">Cancel</button>
     </thy-form-group-footer>
   </form>
 }

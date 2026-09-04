@@ -1,10 +1,10 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, By } from '@angular/platform-browser';
 import { Observable, Subscriber } from 'rxjs';
 import { ThyAvatarModule, ThyAvatarService, ThyAvatarFetchPriority, ThyAvatarLoading } from 'ngx-tethys/avatar';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     template: `
@@ -21,9 +21,9 @@ import { provideHttpClient } from '@angular/common/http';
             @case (3) {
                 <thy-avatar [thyName]="name" [thySize]="size"></thy-avatar>
             }
-            <!-- Suite 4 for test thyDisabled and thyShowRemove -->
+            <!-- Suite 4 for test thyDisabled and thyRemovable -->
             @case (4) {
-                <thy-avatar [thyName]="name" thyDisabled="true" thyShowRemove="true"></thy-avatar>
+                <thy-avatar [thyName]="name" thyDisabled="true" thyRemovable="true"></thy-avatar>
             }
             <!-- Suite 5 for test thySrc with thyError -->
             @case (5) {
@@ -39,6 +39,7 @@ import { provideHttpClient } from '@angular/common/http';
             }
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatarModule]
 })
 class ThyTestAvatarComponent {
@@ -89,7 +90,7 @@ describe('ThyAvatarComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });

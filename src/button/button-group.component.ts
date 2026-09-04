@@ -1,8 +1,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, effect, HostBinding, input, Input, OnInit, ViewEncapsulation } from '@angular/core';
-
-export type ButtonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
+import { Component, effect, HostBinding, input, Input, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { ThyButtonSize } from './button.component';
 
 export type ButtonGroupType = 'outline-primary' | 'outline-default';
 
@@ -25,6 +24,7 @@ const buttonGroupSizeMap = {
         class: 'btn-group',
         '[class.btn-group-clear-min-width]': 'thyClearMinWidth()'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class ThyButtonGroup {
@@ -35,7 +35,7 @@ export class ThyButtonGroup {
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<ButtonGroupSize>();
+    readonly thySize = input<ThyButtonSize>('md');
 
     /**
      * 类型

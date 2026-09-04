@@ -1,7 +1,7 @@
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -20,7 +20,7 @@ describe('TestDateCarouselComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();
@@ -286,6 +286,7 @@ describe('TestDateCarouselComponent', () => {
             (ngModelChange)="modelValueChange($event)"
             [(ngModel)]="advancedSelectedValue"></date-carousel>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, LibPackerModule]
 })
 class TestDateCarouselComponent {

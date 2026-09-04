@@ -1,9 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDividerModule, ThyDividerStyle, ThyDividerTextDirection } from 'ngx-tethys/divider';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     template: `
@@ -13,22 +13,20 @@ import { provideHttpClient } from '@angular/common/http';
                 [thyStyle]="styleMode"
                 [thyTextDirection]="directionMode"
                 [thyText]="textContent || dividerTemplateSelect"
-                [thyDeeper]="isDeeper"
                 [thyColor]="color"></thy-divider>
             <ng-template #dividerTemplateSelect>
-                <thy-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择">
+                <thy-select [(ngModel)]="dividerSelectModel" thyPlaceholder="请选择">
                     <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
                     <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
                 </thy-select>
             </ng-template>
         </ng-container>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDividerModule, FormsModule, ThySelectModule]
 })
 class ThyTestDividerComponent {
     isVertical = false;
-
-    isDeeper = false;
 
     color = 'default';
 
@@ -49,7 +47,7 @@ describe('ThyDividerComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents().then(r => r);
     });
@@ -126,18 +124,17 @@ describe('ThyDividerComponent', () => {
         });
     });
 
-    describe('deeper', () => {
-        it('should set thy-deeper by thyDeeper', () => {
+    describe('light color', () => {
+        it('should set thy-divider-light by thyColor', () => {
             fixture.detectChanges();
 
             const centerContent: HTMLElement = fixture.nativeElement.querySelector('.thy-divider');
             expect(centerContent).toBeTruthy();
+            expect(centerContent.classList.contains('thy-divider-light')).toBeFalsy();
 
-            expect(centerContent.classList.contains('thy-divider-deeper')).toBeFalsy();
-
-            componentInstance.isDeeper = true;
+            componentInstance.color = 'light';
             fixture.detectChanges();
-            expect(centerContent.classList.contains('thy-divider-deeper')).toBeTruthy();
+            expect(centerContent.classList.contains('thy-divider-light')).toBeTruthy();
         });
     });
 

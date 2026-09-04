@@ -1,4 +1,4 @@
-import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlSize } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import {
     ChangeDetectorRef,
@@ -102,7 +102,7 @@ export abstract class AbstractPickerComponent
      * 输入框提示文字
      * @type string | string[]
      */
-    readonly thyPlaceHolder = input<string | string[]>();
+    readonly thyPlaceholder = input<string | string[]>();
 
     readonly placeholder = signal<string | string[] | undefined>(undefined);
 
@@ -124,7 +124,7 @@ export abstract class AbstractPickerComponent
     /**
      * 输入框的大小
      */
-    readonly thySize = input<'lg' | 'md' | 'sm' | 'xs' | 'default'>('default');
+    readonly thySize = input<ThyFormControlSize>('md');
 
     /**
      * 设置时间戳精度
@@ -257,7 +257,7 @@ export abstract class AbstractPickerComponent
 
         effect(() => {
             if (this.isCustomPlaceHolder) {
-                this.placeholder.set(this.thyPlaceHolder());
+                this.placeholder.set(this.thyPlaceholder());
             }
         });
 
@@ -279,7 +279,7 @@ export abstract class AbstractPickerComponent
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyPlaceHolder && changes.thyPlaceHolder.firstChange && typeof changes.thyPlaceHolder.currentValue !== 'undefined') {
+        if (changes.thyPlaceholder && changes.thyPlaceholder.firstChange && typeof changes.thyPlaceholder.currentValue !== 'undefined') {
             this.isCustomPlaceHolder = true;
         }
     }

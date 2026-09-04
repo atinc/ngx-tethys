@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject } from '@angular/core';
+import { Component, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyAbstractMessageContainerComponent } from './abstract';
 import { ThyMessageQueue } from './message-queue.service';
 import { THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
@@ -16,6 +16,7 @@ import { AsyncPipe } from '@angular/common';
         }
     `,
     imports: [ThyMessage],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-message-container'
     }

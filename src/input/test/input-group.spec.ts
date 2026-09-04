@@ -1,11 +1,11 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyInputGroup, ThyInputDirective, ThyInputCount } from 'ngx-tethys/input';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { FormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-input-group-basic',
@@ -20,11 +20,12 @@ import { provideHttpClient } from '@angular/common/http';
             <input thyInput />
         </thy-input-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputGroup, ThyInputDirective]
 })
 class TestInputGroupBasicComponent {
     value = '';
-    thySize = '';
+    thySize = 'md';
     disabled = false;
 }
 
@@ -41,11 +42,12 @@ class TestInputGroupBasicComponent {
             <ng-template #suffix>Suffix Content</ng-template>
         </thy-input-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputGroup, ThyInputDirective]
 })
 class TestInputGroupPrefixAndSuffixComponent {
     value = '';
-    thySize = '';
+    thySize = 'md';
     disabled = false;
 }
 
@@ -67,6 +69,7 @@ class TestInputGroupPrefixAndSuffixComponent {
             </ng-template>
         </thy-input-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputGroup, ThyInputDirective, FormsModule, ThyInputCount]
 })
 class TestInputGroupTextareaSuffixComponent {
@@ -92,7 +95,7 @@ describe('input group', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 providers: [
-                    provideHttpClient(),
+                    provideHttpClient(withXhr()),
                     {
                         provide: ThyTranslate,
                         useClass: ThyTranslateSimulate
@@ -171,7 +174,7 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             });
 
             TestBed.compileComponents();
@@ -239,7 +242,7 @@ describe('input group', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             });
             TestBed.compileComponents();
         }));

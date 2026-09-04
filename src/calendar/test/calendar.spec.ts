@@ -1,12 +1,12 @@
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { getUnixTime, TinyDate } from 'ngx-tethys/util';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyCalendarHeader, ThyCalendar, ThyCalendarModule } from 'ngx-tethys/calendar';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
@@ -49,6 +49,7 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
         <thy-calendar> </thy-calendar>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyCalendarModule]
 })
 export class TestCalendarBasicComponent {
@@ -83,6 +84,7 @@ export class TestCalendarBasicComponent {
 
 @Component({
     template: ` <thy-calendar [thyDisabledDate]="thyDisabledDate"> </thy-calendar> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCalendarModule]
 })
 export class TestCalendarDisabledDateComponent {
@@ -108,6 +110,7 @@ export class TestCalendarDisabledDateComponent {
             </ng-template>
         </thy-calendar-header>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCalendarModule]
 })
 export class TestCalendarHeaderComponent {
@@ -126,7 +129,7 @@ describe('calendar', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             }).compileComponents();
         }));
 
@@ -213,7 +216,7 @@ describe('calendar', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             }).compileComponents();
         }));
 
@@ -242,7 +245,7 @@ describe('calendar-header', () => {
 
         beforeEach(waitForAsync(() => {
             TestBed.configureTestingModule({
-                providers: [provideHttpClient()]
+                providers: [provideHttpClient(withXhr())]
             }).compileComponents();
         }));
 

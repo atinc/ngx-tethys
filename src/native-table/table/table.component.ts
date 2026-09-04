@@ -1,19 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    OnInit,
-    TemplateRef,
-    computed,
-    effect,
-    inject,
-    input,
-    output,
-    signal,
-    DestroyRef
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, ElementRef, OnInit, TemplateRef, computed, effect, inject, input, output, signal } from '@angular/core';
 
 import { ThyNativeTableStyleService } from '../services/table-style.service';
 import { ThyNativeTableLayout, ThyNativeTableScroll, ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
@@ -27,7 +12,6 @@ import { ThyPage, ThyTableEmptyOptions } from 'ngx-tethys/table';
     selector: 'thy-native-table',
     exportAs: 'thyNativeTable',
     providers: [ThyNativeTableStyleService, UpdateHostClassService],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './table.component.html',
     host: {
         class: 'thy-native-table'

@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -19,7 +19,7 @@ describe('ThyQuarterPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
 
         TestBed.compileComponents();
@@ -111,8 +111,8 @@ describe('ThyQuarterPickerComponent', () => {
             flush();
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -287,16 +287,17 @@ describe('ThyQuarterPickerComponent', () => {
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
             (thyDateChange)="thyDateChange($event)"
-            [thyPlaceHolder]="thyPlaceHolder">
+            [thyPlaceholder]="thyPlaceholder">
         </thy-quarter-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestQuarterPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder: string = '请选择季度';
+    thyPlaceholder: string = '请选择季度';
     thyPanelClassName!: string;
     thyValue!: Date;
     thyOpen!: boolean;

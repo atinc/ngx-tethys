@@ -1,8 +1,9 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SelectControlSize, SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
+import { SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
 
 @Component({
@@ -21,6 +22,7 @@ import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
             [thyMaxTagCount]="thyMaxTagCount"
             (thyOnSearch)="search($event)"></thy-select-control>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelectControl]
 })
 class BasicSelectControlComponent {
@@ -34,7 +36,7 @@ class BasicSelectControlComponent {
 
     thyAllowClear = true;
 
-    thySize: SelectControlSize = null;
+    thySize: ThyFormControlSize = 'md';
 
     thyIsMultiple = false;
 
@@ -52,7 +54,7 @@ class BasicSelectControlComponent {
 describe('ThySelectControl', () => {
     function configureThySelectControlTestingModule() {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
+            providers: [provideHttpClient(withXhr()), THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
         }).compileComponents();
     }
     describe('core', () => {
@@ -89,12 +91,13 @@ describe('ThySelectControl', () => {
                 expect(selectElement.classList.contains('select-control-show-search')).toBeTruthy();
             });
 
-            it('should get size class when set thySize', () => {
-                const size: SelectControlSize = 'md';
-                expect(selectElement.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+            it('should get default size class and update it when set thySize', () => {
+                expect(selectElement.classList.contains('form-control-md')).toBeTruthy();
+                const size: ThyFormControlSize = 'lg';
                 fixture.componentInstance.thySize = size;
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                expect(selectElement.classList.contains('form-control-md')).not.toBeTruthy();
                 expect(selectElement.classList.contains(`form-control-${size}`)).toBeTruthy();
             });
 

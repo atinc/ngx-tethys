@@ -1,9 +1,9 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
-    <thy-input thyLabelText="Name" name="username" [(ngModel)]="value" placeholder="Please type name"></thy-input>
+    <thy-input thyLabelText="Name" name="username" [(ngModel)]="value" thyPlaceholder="Please type name"></thy-input>
   </div>
   <div thyCol [thySpan]="12">
-    <thy-input thyLabelText="Name" name="username" [(ngModel)]="value" placeholder="Please type name">
+    <thy-input thyLabelText="Name" name="username" [(ngModel)]="value" thyPlaceholder="Please type name">
       <ng-template #prepend>
         <thy-icon class="text-placeholder" thyIconName="user"></thy-icon>
       </ng-template>
