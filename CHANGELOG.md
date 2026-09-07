@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [22.0.0-next.2](github.com/atinc/ngx-tethys/compare/21.0.14...22.0.0-next.2) (2026-09-07)
+
+
+### Bug Fixes
+
+* **style:** add overflow-hidden class to loading ([#3923](/github.com/atinc/ngx-tethys/issues/3923)) ([447cfec](github.com/atinc/ngx-tethys/commits/447cfecb94efcd63a915b80ca47b7c149e05de6a))
+* **style:** 文本对齐支持逻辑方向 start 和 end #TINFR-4006 ([#3920](/github.com/atinc/ngx-tethys/issues/3920)) ([fe09756](github.com/atinc/ngx-tethys/commits/fe097560e7d64b9908a9a1f244baddaff051cab8)), closes [#TINFR-4006](github.com/atinc/ngx-tethys/issues/TINFR-4006)
+
+
+### Features
+
+* **schematics:** add migrate-22 schematic for standalone v22 code migration #NEXUS-5152 ([b75b071](github.com/atinc/ngx-tethys/commits/b75b071bfd67929a7b911237680d3d4e96481d7e)), closes [#NEXUS-5152](github.com/atinc/ngx-tethys/issues/NEXUS-5152)
+* **style:** update $h1-font-size~$h6-font-size #NEXUS-5135 ([#3919](/github.com/atinc/ngx-tethys/issues/3919)) ([516f155](github.com/atinc/ngx-tethys/commits/516f155dac377c77d82e953d5dde1d698e48013e)), closes [#NEXUS-5135](github.com/atinc/ngx-tethys/issues/NEXUS-5135)
+
+## [21.0.14](github.com/atinc/ngx-tethys/compare/22.0.0-next.1...21.0.14) (2026-09-04)
+
+
+### Bug Fixes
+
+* **style:** 文本颜色以及背景色的调整 #TINFR-3991 ([431b4df](github.com/atinc/ngx-tethys/commits/431b4dff2525fa58706c1e412c81e09924c9aa56)), closes [#TINFR-3991](github.com/atinc/ngx-tethys/issues/TINFR-3991)
+
 # [22.0.0-next.1](github.com/atinc/ngx-tethys/compare/22.0.0-next.0...22.0.0-next.1) (2026-09-03)
 
 
