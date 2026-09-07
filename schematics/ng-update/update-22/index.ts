@@ -1,6 +1,7 @@
 import { Rule } from '@angular-devkit/schematics';
-import { createMigrationSchematicRule, NullableDevkitMigration, TargetVersion } from '@angular/cdk/schematics';
+import { NullableDevkitMigration, TargetVersion } from '@angular/cdk/schematics';
 import { onMigrationComplete } from '../core/complete';
+import { createTwoPhaseMigrationSchematicRule } from '../two-phase-migration-rule';
 import { BadgeDotHollowMigration } from './badge-dot-hollow-migration';
 import { ButtonAppearanceMigration } from './button-appearance-migration';
 import { CardDeprecatedPropsMigration } from './card-deprecated-props-migration';
@@ -12,6 +13,8 @@ import { InputControlSizeMigration } from './input-control-size-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
+import { TemplateDuplicateAttributeMigration } from './template-duplicate-attribute-migration';
+import { TreeSelectIconTypeMigration } from './tree-select-icon-type-migration';
 import { upgradeData } from './update-data';
 
 const migrations: NullableDevkitMigration[] = [
@@ -20,18 +23,20 @@ const migrations: NullableDevkitMigration[] = [
     DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,
+    TreeSelectIconTypeMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
     CardDeprecatedPropsMigration,
     BadgeDotHollowMigration,
     ClassNamesMigration,
-    HeaderIconPrefixMigration
+    HeaderIconPrefixMigration,
+    TemplateDuplicateAttributeMigration
 ];
 
 export function createMigrate22Rule(
     onComplete: typeof onMigrationComplete = onMigrationComplete
 ): Rule {
-    return createMigrationSchematicRule(TargetVersion.V22, migrations, upgradeData, onComplete);
+    return createTwoPhaseMigrationSchematicRule(TargetVersion.V22, migrations, upgradeData, onComplete);
 }
 
 export default function main(): Rule {

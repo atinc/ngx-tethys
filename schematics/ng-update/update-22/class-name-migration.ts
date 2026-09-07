@@ -2,7 +2,6 @@ import {
     ClassNameUpgradeData,
     getExportDeclaration,
     getImportDeclaration,
-    getVersionUpgradeData,
     isExportSpecifierNode,
     isImportSpecifierNode,
     isNamespaceImportNode,
@@ -10,9 +9,10 @@ import {
     UpgradeData
 } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
+import { ngxTethysClassNameChanges } from './update-data';
 
 export class ClassNamesMigration extends Migration<UpgradeData> {
-    data: ClassNameUpgradeData[] = getVersionUpgradeData(this, 'classNames');
+    data: ClassNameUpgradeData[] = ngxTethysClassNameChanges;
 
     trustedIdentifiers: Set<string> = new Set();
 

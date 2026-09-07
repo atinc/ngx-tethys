@@ -28,6 +28,7 @@ export class TableShowHeaderMigration extends Migration<UpgradeData> {
             override visitElement(element: TmplAstElement): void {
                 if (element.name === 'thy-table') {
                     migration.migrateShowHeader(element, template);
+                    migration.removeLoadingText(element, template);
                 }
                 super.visitElement(element);
             }
@@ -83,6 +84,23 @@ export class TableShowHeaderMigration extends Migration<UpgradeData> {
             const valueWidth = attribute.valueSpan.end.offset - attribute.valueSpan.start.offset;
             const valueSource = template.content.slice(attribute.valueSpan.start.offset, attribute.valueSpan.end.offset);
             this.fileSystem.edit(template.filePath).remove(valueStart, valueWidth).insertRight(valueStart, `!(${valueSource})`);
+        }
+    }
+
+    private removeLoadingText(element: TmplAstElement, template: ResolvedResource): void {
+        const attributes = [
+            element.attributes.find(attribute => attribute.name === 'thyLoadingText'),
+            element.inputs.find(input => input.name === 'thyLoadingText')
+        ].filter((attribute): attribute is TmplAstTextAttribute | TmplAstBoundAttribute => !!attribute);
+
+        const sorted = [...attributes].sort(
+            (left, right) => right.sourceSpan.start.offset - left.sourceSpan.start.offset
+        );
+
+        for (const attribute of sorted) {
+            const start = template.start + attribute.sourceSpan.start.offset;
+            const width = attribute.sourceSpan.end.offset - attribute.sourceSpan.start.offset;
+            this.fileSystem.edit(template.filePath).remove(start, width);
         }
     }
 }

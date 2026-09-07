@@ -58,6 +58,21 @@ describe('migrateButtonAppearance', () => {
         expect(migrateButtonAppearance(content)).toBe(`<button class="mr-2 link-danger-weak">Remove</button>`);
     });
 
+    it('should migrate bound thyButton link-danger-weak to CSS utility class', () => {
+        const content = `<button [thyButton]="'link-danger-weak'">Remove</button>`;
+        expect(migrateButtonAppearance(content)).toBe(`<button class="link-danger-weak">Remove</button>`);
+    });
+
+    it('should not add link-danger-weak class when another attribute uses that literal', () => {
+        const content = `<button thyButton="primary" [title]="'link-danger-weak'">Ok</button>`;
+        expect(migrateButtonAppearance(content)).toBe(content);
+    });
+
+    it('should not add link-danger-weak class when thy-button is unrelated', () => {
+        const content = `<button thyButton="primary" [thyTooltip]="'link-danger-weak'">Ok</button>`;
+        expect(migrateButtonAppearance(content)).toBe(content);
+    });
+
     it('should migrate primary-square to primary', () => {
         const content = `<button thyButton="primary-square">Ok</button>`;
         expect(migrateButtonAppearance(content)).toBe(`<button thyButton="primary">Ok</button>`);
@@ -85,5 +100,35 @@ describe('migrateButtonAppearance', () => {
     it('should not change modern color types', () => {
         const content = `<button thyButton="primary" thyAppearance="link">Ok</button>`;
         expect(migrateButtonAppearance(content)).toBe(content);
+    });
+
+    it('should keep thySize when migrating compound button type in batch-style edits', () => {
+        const content = `<button thyButton="outline-primary" thySize="lg">Ok</button>`;
+        expect(migrateButtonAppearance(content)).toBe(
+            `<button thyButton="primary" thyAppearance="outline" thySize="lg">Ok</button>`
+        );
+    });
+
+    it('should migrate duplicate compound type attributes in one pass', () => {
+        const content = `<button thyButton="link-secondary" thyType="link-secondary">Cancel</button>`;
+        expect(migrateButtonAppearance(content)).toBe(
+            `<button thyButton="default" thyAppearance="link">Cancel</button>`
+        );
+    });
+
+    it('should not migrate thy-badge compound-looking color types', () => {
+        const content = `<thy-badge thyType="primary" thyType="default"></thy-badge>`;
+        expect(migrateButtonAppearance(content)).toBe(content);
+    });
+
+    it('should stay idempotent when migration runs multiple times', () => {
+        const content = `<button thyButton="link-secondary" thySize="lg">Cancel</button>`;
+        const once = migrateButtonAppearance(content);
+        const twice = migrateButtonAppearance(once);
+        const thrice = migrateButtonAppearance(twice);
+
+        expect(once).toBe(`<button thyButton="default" thyAppearance="link" thySize="lg">Cancel</button>`);
+        expect(twice).toBe(once);
+        expect(thrice).toBe(once);
     });
 });

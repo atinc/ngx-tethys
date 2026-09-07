@@ -7,48 +7,39 @@ import {
     TmplAstTextAttribute,
     tmplAstVisitAll
 } from '@angular/compiler';
-
-interface TemplateEdit {
-    start: number;
-    remove: number;
-    insert: string;
-}
+import {
+    applyEditsInMemory,
+    applyRelativeTemplateEdits,
+    RelativeTemplateEdit
+} from '../template-incremental-edits';
 
 const CARD_CHILD_ELEMENTS = new Set(['thy-card-header', 'thy-card-content']);
 
-export function migrateCardDeprecatedProps(content: string, filePath = 'test.html'): string {
+export function collectCardDeprecatedPropsEdits(content: string, filePath = 'test.html'): RelativeTemplateEdit[] {
     const parsed = parseTemplate(content, filePath, {
         preserveWhitespaces: true,
         preserveLineEndings: true
     });
 
     if (parsed.errors?.length) {
-        return content;
+        return [];
     }
 
-    const edits: TemplateEdit[] = [];
+    const edits: RelativeTemplateEdit[] = [];
     const visitor = new CardDeprecatedPropsVisitor(content, edits);
     tmplAstVisitAll(visitor, parsed.nodes);
 
-    if (!edits.length) {
-        return content;
-    }
-
-    return applyEdits(content, edits);
+    return edits;
 }
 
-function applyEdits(content: string, edits: TemplateEdit[]): string {
-    return edits
-        .sort((left, right) => right.start - left.start)
-        .reduce((result, edit) => {
-            return result.slice(0, edit.start) + edit.insert + result.slice(edit.start + edit.remove);
-        }, content);
+export function migrateCardDeprecatedProps(content: string, filePath = 'test.html'): string {
+    return applyEditsInMemory(content, collectCardDeprecatedPropsEdits(content, filePath));
 }
 
 class CardDeprecatedPropsVisitor extends TmplAstRecursiveVisitor {
     constructor(
         private readonly content: string,
-        private readonly edits: TemplateEdit[]
+        private readonly edits: RelativeTemplateEdit[]
     ) {
         super();
     }
@@ -180,16 +171,10 @@ export class CardDeprecatedPropsMigration extends Migration<UpgradeData> {
     enabled = true;
 
     override visitTemplate(template: ResolvedResource): void {
-        const migratedContent = migrateCardDeprecatedProps(template.content, template.filePath);
-
-        if (migratedContent === template.content) {
-            return;
-        }
-
-        const filePath = this.fileSystem.resolve(template.filePath);
-        this.fileSystem
-            .edit(filePath)
-            .remove(template.start, template.content.length)
-            .insertRight(template.start, migratedContent);
+        applyRelativeTemplateEdits(
+            this,
+            template,
+            collectCardDeprecatedPropsEdits(template.content, template.filePath)
+        );
     }
 }
