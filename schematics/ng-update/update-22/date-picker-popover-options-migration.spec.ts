@@ -69,10 +69,7 @@ describe('ng-update v22 date picker popover options migration', () => {
 
     it('should merge thyOffset and thyHasBackdrop into one thyPopoverOptions', async () => {
         const templatePath = '/projects/update-22-test/src/app/app.html';
-        tree.overwrite(
-            templatePath,
-            `<div thyDatePicker [thyOffset]="0" [thyHasBackdrop]="false"></div>`
-        );
+        tree.overwrite(templatePath, `<div thyDatePicker [thyOffset]="0" [thyHasBackdrop]="false"></div>`);
 
         const result = await migrate(tree);
         const content = result.readContent(templatePath);
@@ -93,7 +90,8 @@ describe('ng-update v22 date picker popover options migration', () => {
         expect(content).toContain('[thyPopoverOptions]="{ hasBackdrop: hasBackdrop }"');
     });
 
-    it('should remove deprecated attrs when thyPopoverOptions already exists', async () => {
+    // 若元素上已存在[thyPopoverOptions]，需要手动删除 thyOffset、thyHasBackdrop，合并到[thyPopoverOptions]中
+    it('should skip migration when thyPopoverOptions already exists', async () => {
         const templatePath = '/projects/update-22-test/src/app/app.html';
         tree.overwrite(
             templatePath,
@@ -103,9 +101,8 @@ describe('ng-update v22 date picker popover options migration', () => {
         const result = await migrate(tree);
         const content = result.readContent(templatePath);
 
-        // 注意：migration 不会把 offset / hasBackdrop 合并进 popoverOptions，只会删掉 thyOffset 和 thyHasBackdrop。需要用户自己手动合并
-        expect(content).not.toContain('thyOffset');
-        expect(content).not.toContain('thyHasBackdrop');
+        expect(content).toContain('[thyOffset]="0"');
+        expect(content).toContain('[thyHasBackdrop]="false"');
         expect(content).toContain('[thyPopoverOptions]="popoverOptions"');
     });
 

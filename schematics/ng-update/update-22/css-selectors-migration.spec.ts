@@ -92,6 +92,24 @@ describe('ng-update v22 CSS selector migration', () => {
         expect(result.readContent(stylePath)).toBe(tree.readText(stylePath));
     });
 
+    it('should migrate thy-divider-deeper to thy-divider-light in stylesheets', async () => {
+        const stylePath = '/projects/update-22-test/src/styles.scss';
+        tree.create(
+            stylePath,
+            `
+                .thy-divider-deeper {
+                    border-color: #ddd;
+                }
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(stylePath);
+
+        expect(content).toContain('.thy-divider-light');
+        expect(content).not.toContain('thy-divider-deeper');
+    });
+
     function migrate(sourceTree: Tree): Promise<UnitTestTree> {
         return schematicRunner.runSchematic('migration-v22', undefined, sourceTree);
     }

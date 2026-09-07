@@ -1078,4 +1078,45 @@ export class AvatarDemoComponent {
         expect(content).toContain('.srcTransform(src, size)');
         expect(content).not.toContain('avatarSrcTransform');
     });
+
+    it('should migrate overlapping CDK and custom template rules in a single run', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        factory.addNewFile(
+            '/projects/update-22-test/src/app/combo-demo.component.html',
+            `
+<thy-select thyPlaceHolder="请选择"></thy-select>
+<thy-tag thyTheme="weak-fill">Tag</thy-tag>
+<button thyButton="outline-primary">Btn</button>
+`
+        );
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/combo-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyTagModule } from 'ngx-tethys/tag';
+
+@Component({
+    selector: 'app-combo-demo',
+    templateUrl: './combo-demo.component.html',
+    imports: [ThySelectModule, ThyTagModule, ThyButtonModule]
+})
+export class ComboDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/combo-demo.component.html');
+        expect(content).toContain('thyPlaceholder="请选择"');
+        expect(content).not.toContain('thyPlaceHolder');
+        expect(content).toContain('thyAppearance="subtle"');
+        expect(content).not.toContain('weak-fill');
+        expect(content).not.toContain('thyTheme');
+        expect(content).toContain('thyButton="primary"');
+        expect(content).toContain('thyAppearance="outline"');
+        expect(content).not.toContain('outline-primary');
+    });
 });

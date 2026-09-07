@@ -59,18 +59,6 @@ export class DatePickerPopoverOptionsMigration extends Migration<UpgradeData> {
             element.inputs.some(input => input.name === 'thyPopoverOptions');
 
         if (hasPopoverOptions) {
-            if (offsetText) {
-                this.removeAttribute(offsetText, template);
-            }
-            if (offsetBound) {
-                this.removeBoundAttribute(offsetBound, template);
-            }
-            if (backdropText) {
-                this.removeAttribute(backdropText, template);
-            }
-            if (backdropBound) {
-                this.removeBoundAttribute(backdropBound, template);
-            }
             return;
         }
 
