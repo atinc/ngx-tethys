@@ -1,4 +1,4 @@
-<div [class.thy-loading-mask]="thyIsMask() && !thyDone()">
+<div [class.thy-loading-mask]="thyIsMask() && !thyDone()" class="overflow-hidden">
   @if (!thyDone()) {
     <div class="thy-loading-indicator">
       <h4>
