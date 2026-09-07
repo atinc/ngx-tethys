@@ -59,6 +59,32 @@ describe('ng-update v22 table show header migration', () => {
         expect(content).toContain('[thyHeadless]="!(isShowHeader)"');
     });
 
+    it('should remove thyLoadingText from thy-table', async () => {
+        const templatePath = '/projects/update-22-test/src/app/app.html';
+        tree.overwrite(
+            templatePath,
+            `
+                <thy-table thyLoadingText="加载中"></thy-table>
+                <thy-table [thyLoadingText]="loadingText"></thy-table>
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(templatePath);
+
+        expect(content).not.toContain('thyLoadingText');
+    });
+
+    it('should not remove thyLoadingText from unrelated elements', async () => {
+        const templatePath = '/projects/update-22-test/src/app/app.html';
+        tree.overwrite(templatePath, `<button thyLoadingText="加载中"></button>`);
+
+        const result = await migrate(tree);
+        const content = result.readContent(templatePath);
+
+        expect(content).toContain('thyLoadingText="加载中"');
+    });
+
     it('should migrate inline templates', async () => {
         const componentPath = '/projects/update-22-test/src/app/inline.component.ts';
         tree.create(

@@ -1,31 +1,20 @@
-import { TargetVersion, UpgradeData } from '@angular/cdk/schematics';
+import { ClassNameUpgradeData, TargetVersion, UpgradeData } from '@angular/cdk/schematics';
+
+/** ngx-tethys 限定类型重命名，仅由 ClassNamesMigration 消费，避免 CDK 全局误改同名标识符。 */
+export const ngxTethysClassNameChanges: ClassNameUpgradeData[] = [
+    { replace: 'ButtonGroupSize', replaceWith: 'ThyButtonSize' },
+    { replace: 'TimePickerSize', replaceWith: 'ThyFormControlSize' },
+    { replace: 'InputSize', replaceWith: 'ThyFormControlSize' },
+    { replace: 'ThyInputSize', replaceWith: 'ThyFormControlSize' },
+    { replace: 'SelectControlSize', replaceWith: 'ThyFormControlSize' },
+    { replace: 'ThyActiveTabInfo', replaceWith: 'ThyActiveTabValue' },
+    { replace: 'ThyStackedValue', replaceWith: 'ThyProgressStackedValue' },
+    { replace: 'CompatibleDate', replaceWith: 'ThyCompatibleDate' }
+];
 
 export const upgradeData: UpgradeData = {
     classNames: {
-        [TargetVersion.V22]: [
-            {
-                pr: 'https://github.com/atinc/ngx-tethys',
-                changes: [
-                    { replace: 'ButtonGroupSize', replaceWith: 'ThyButtonSize' },
-                    { replace: 'TimePickerSize', replaceWith: 'ThyFormControlSize' },
-                    { replace: 'InputSize', replaceWith: 'ThyFormControlSize' },
-                    { replace: 'ThyInputSize', replaceWith: 'ThyFormControlSize' },
-                    { replace: 'SelectControlSize', replaceWith: 'ThyFormControlSize' },
-                    {
-                        replace: 'ThyActiveTabInfo',
-                        replaceWith: 'ThyActiveTabValue'
-                    },
-                    {
-                        replace: 'ThyStackedValue',
-                        replaceWith: 'ThyProgressStackedValue'
-                    },
-                    {
-                        replace: 'CompatibleDate',
-                        replaceWith: 'ThyCompatibleDate'
-                    }
-                ]
-            }
-        ]
+        [TargetVersion.V22]: []
     },
     elementSelectors: {
         [TargetVersion.V22]: [
@@ -220,7 +209,10 @@ export const upgradeData: UpgradeData = {
         [TargetVersion.V22]: [
             {
                 pr: 'https://github.com/atinc/ngx-tethys',
-                changes: [{ replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' }]
+                changes: [
+                    { replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' },
+                    { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' }
+                ]
             }
         ]
     },
@@ -255,5 +247,18 @@ export const upgradeData: UpgradeData = {
             }
         ]
     },
-    symbolRemoval: {}
+    symbolRemoval: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        module: 'ngx-tethys/tree-select',
+                        name: 'ThyTreeSelectType',
+                        message: 'ThyTreeSelectType has been removed along with thy-tree-select thyIconType.'
+                    }
+                ]
+            }
+        ]
+    }
 };

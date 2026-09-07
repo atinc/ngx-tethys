@@ -1,4 +1,10 @@
 import { Migration, UpgradeData } from '@angular/cdk/schematics';
+import {
+    applyEditsInMemory,
+    applyRelativeTemplateEdits,
+    collectPatternReplacementEdits,
+    RelativeTemplateEdit
+} from '../template-incremental-edits';
 
 interface TemplateResource {
     filePath: string;
@@ -8,17 +14,29 @@ interface TemplateResource {
 
 const THY_DIVIDER_TAG_PATTERN = /<thy-divider\b[^>]*>/g;
 
+export function collectDividerDeeperEdits(content: string): RelativeTemplateEdit[] {
+    return collectPatternReplacementEdits(content, THY_DIVIDER_TAG_PATTERN, migrateDividerTag);
+}
+
 export function migrateDividerDeeper(content: string): string {
-    return content.replace(THY_DIVIDER_TAG_PATTERN, tag => migrateDividerTag(tag));
+    return applyEditsInMemory(content, collectDividerDeeperEdits(content));
+}
+
+function migrateDividerColorDeeper(tag: string): string {
+    return tag
+        .replace(/\sthyColor="deeper"/g, ' thyColor="light"')
+        .replace(/\s\[thyColor\]="'deeper'"/g, ` [thyColor]="'light'"`);
 }
 
 function migrateDividerTag(tag: string): string {
-    if (!/\bthyDeeper\b/.test(tag)) {
-        return tag;
+    const tagWithColor = migrateDividerColorDeeper(tag);
+
+    if (!/\bthyDeeper\b/.test(tagWithColor)) {
+        return tagWithColor;
     }
 
-    const hasThyColor = /\b(?:\[thyColor\]|thyColor)\b/.test(tag);
-    let result = tag.replace(/\s*thyDeeper="false"/g, '').replace(/\s*\[thyDeeper\]="false"/g, '');
+    const hasThyColor = /\b(?:\[thyColor\]|thyColor)\b/.test(tagWithColor);
+    let result = tagWithColor.replace(/\s*thyDeeper="false"/g, '').replace(/\s*\[thyDeeper\]="false"/g, '');
 
     if (hasThyColor) {
         return result
@@ -39,16 +57,6 @@ export class DividerDeeperMigration extends Migration<UpgradeData> {
     enabled = true;
 
     override visitTemplate(template: TemplateResource): void {
-        const migratedContent = migrateDividerDeeper(template.content);
-
-        if (migratedContent === template.content) {
-            return;
-        }
-
-        const filePath = this.fileSystem.resolve(template.filePath);
-        this.fileSystem
-            .edit(filePath)
-            .remove(template.start, template.content.length)
-            .insertRight(template.start, migratedContent);
+        applyRelativeTemplateEdits(this, template, collectDividerDeeperEdits(template.content));
     }
 }

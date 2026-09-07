@@ -9,6 +9,7 @@ import {
     TmplAstTextAttribute,
     tmplAstVisitAll
 } from '@angular/compiler';
+import { elementHasAttribute, openingTagHasAttribute } from '../template-attribute-utils';
 
 /**
  * 旧版隐式或默认尺寸为 36px、新版默认尺寸为 md（32px）的组件。
@@ -84,50 +85,89 @@ export class InputControlSizeMigration extends Migration<UpgradeData> {
     }
 
     private migrateSize(element: TmplAstElement, template: ResolvedResource): void {
-        const textSize = element.attributes.find(attribute => attribute.name === 'thySize');
-        const boundSize = element.inputs.find(input => input.name === 'thySize');
+        const openingTag = this.readOpeningTag(element, template);
 
-        if (!textSize && !boundSize) {
-            this.addLargeSize(element, template);
-        } else if (textSize && (textSize.value === '' || textSize.value === 'default')) {
-            this.replaceTextSize(textSize, template);
-        } else if (boundSize) {
-            this.replaceBoundLiteralSize(boundSize, template);
+        if (openingTagHasAttribute(openingTag, 'thySize')) {
+            const textSize = element.attributes.find(attribute => attribute.name === 'thySize');
+            const boundSize = element.inputs.find(input => input.name === 'thySize');
+
+            if (element.name === 'thy-input-group') {
+                if (textSize && textSize.value === 'xs') {
+                    this.replaceTextSize(textSize, template, 'sm');
+                    return;
+                }
+
+                if (boundSize && this.replaceBoundLiteralSize(boundSize, template, 'xs', 'sm')) {
+                    return;
+                }
+            }
+
+            if (textSize && (textSize.value === '' || textSize.value === 'default')) {
+                this.replaceTextSize(textSize, template);
+            } else if (boundSize) {
+                this.replaceBoundLiteralSize(boundSize, template);
+            }
+
+            return;
         }
+
+        if (elementHasAttribute(element, 'thySize')) {
+            return;
+        }
+
+        this.addLargeSize(element, template);
+    }
+
+    private readOpeningTag(element: TmplAstElement, template: ResolvedResource): string {
+        const fileContent = this.fileSystem.read(template.filePath)?.toString() ?? template.content;
+        const start = template.start + element.startSourceSpan.start.offset;
+        const end = template.start + element.startSourceSpan.end.offset;
+        return fileContent.slice(start, end);
     }
 
     private addLargeSize(element: TmplAstElement, template: ResolvedResource): void {
-        const openingTag = template.content.slice(element.startSourceSpan.start.offset, element.startSourceSpan.end.offset);
+        const openingTag = this.readOpeningTag(element, template);
         const closingLength = openingTag.endsWith('/>') ? 2 : 1;
         const insertAt = template.start + element.startSourceSpan.end.offset - closingLength;
         this.fileSystem.edit(template.filePath).insertRight(insertAt, ' thySize="lg"');
     }
 
-    private replaceTextSize(attribute: TmplAstTextAttribute, template: ResolvedResource): void {
+    private replaceTextSize(attribute: TmplAstTextAttribute, template: ResolvedResource, value = 'lg'): void {
         if (attribute.valueSpan) {
             const start = template.start + attribute.valueSpan.start.offset;
             this.fileSystem
                 .edit(template.filePath)
                 .remove(start, attribute.valueSpan.end.offset - attribute.valueSpan.start.offset)
-                .insertRight(start, 'lg');
+                .insertRight(start, value);
         } else {
             const insertAt = template.start + attribute.keySpan!.end.offset;
-            this.fileSystem.edit(template.filePath).insertRight(insertAt, '="lg"');
+            this.fileSystem.edit(template.filePath).insertRight(insertAt, `="${value}"`);
         }
     }
 
-    private replaceBoundLiteralSize(attribute: TmplAstBoundAttribute, template: ResolvedResource): void {
+    private replaceBoundLiteralSize(
+        attribute: TmplAstBoundAttribute,
+        template: ResolvedResource,
+        fromValue: '' | 'default' | 'xs' = 'default',
+        toValue = 'lg'
+    ): boolean {
         const expression = attribute.value instanceof ASTWithSource ? attribute.value.ast : attribute.value;
-        if (!(expression instanceof LiteralPrimitive) || (expression.value !== '' && expression.value !== 'default')) {
-            return;
+        const matchesFrom =
+            fromValue === 'default'
+                ? expression instanceof LiteralPrimitive && (expression.value === '' || expression.value === 'default')
+                : expression instanceof LiteralPrimitive && expression.value === fromValue;
+
+        if (!matchesFrom) {
+            return false;
         }
 
         if (!attribute.valueSpan) {
-            return;
+            return false;
         }
 
         const start = template.start + attribute.valueSpan.start.offset;
         const width = attribute.valueSpan.end.offset - attribute.valueSpan.start.offset;
-        this.fileSystem.edit(template.filePath).remove(start, width).insertRight(start, "'lg'");
+        this.fileSystem.edit(template.filePath).remove(start, width).insertRight(start, `'${toValue}'`);
+        return true;
     }
 }

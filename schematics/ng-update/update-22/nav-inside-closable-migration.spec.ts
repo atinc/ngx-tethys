@@ -59,15 +59,21 @@ describe('ng-update v22 nav inside closable migration', () => {
         expect(content).toContain('[thyPopoverOptions]="{ insideClosable: insideClosable }"');
     });
 
-    it('should remove thyInsideClosable when thyPopoverOptions already exists', async () => {
+    it('should skip migration when thyPopoverOptions already exists', async () => {
         const templatePath = '/projects/update-22-test/src/app/app.html';
-        tree.overwrite(templatePath, `<thy-nav [thyInsideClosable]="insideClosable" [thyPopoverOptions]="popoverOptions"></thy-nav>`);
+        tree.overwrite(
+            templatePath,
+            `
+                <thy-nav thyInsideClosable="false" [thyPopoverOptions]="popoverOptions"></thy-nav>
+                <thy-nav [thyInsideClosable]="insideClosable" [thyPopoverOptions]="popoverOptions"></thy-nav>
+            `
+        );
 
         const result = await migrate(tree);
         const content = result.readContent(templatePath);
 
-        // 注意：migration 不会把 insideClosable: false 合并进 popoverOptions，只会删掉 thyInsideClosable。需要用户自己手动合并
-        expect(content).not.toContain('thyInsideClosable');
+        expect(content).toContain('thyInsideClosable="false"');
+        expect(content).toContain('[thyInsideClosable]="insideClosable"');
         expect(content).toContain('[thyPopoverOptions]="popoverOptions"');
     });
 
