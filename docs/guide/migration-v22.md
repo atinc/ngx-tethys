@@ -359,7 +359,6 @@ ng generate ngx-tethys:migrate-22
 **自动迁移**
 
 - `thyDeeper` 迁移为 `thyColor="light"`；已有 `thyColor` 时仅移除 `thyDeeper`
-- `thyColor="deeper"` / `[thyColor]="'deeper'"` 替换为 `thyColor="light"`
 - CSS 类名 `thy-divider-deeper` 替换为 `thy-divider-light`
 
 ---
@@ -447,7 +446,27 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 29. 样式（Sass / CSS）
+### 29. thy-empty
+
+**破坏性更改**
+
+- 移除 `thyTranslationKey`、`thyTranslationValues`、`thyEntityName`、`thyEntityNameTranslateKey`
+- 移除 `ThyEmptyConfig` 及 `ThyTranslate` 集成
+- 未传入 `thyMessage` 时使用内置 locale 默认文案（中文为「暂无数据」）
+
+**迁移方式**
+
+- 直接传入 `thyMessage`：`<thy-empty thyMessage="没有任何数据"></thy-empty>`
+- 多语言场景在调用方自行翻译后传入：`<thy-empty [thyMessage]="'common.tips.NO_RESULT' | translate"></thy-empty>`
+- 若通过 `ThyTableEmptyOptions` 配置空状态，改用 `message` 字段
+
+**自动迁移**
+
+- 无
+
+---
+
+### 30. 样式（Sass / CSS）
 
 **破坏性更改**
 
@@ -484,25 +503,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 30. thy-empty
 
-**破坏性更改**
-
-- 移除 `thyTranslationKey`、`thyTranslationValues`、`thyEntityName`、`thyEntityNameTranslateKey`
-- 移除 `ThyEmptyConfig` 及 `ThyTranslate` 集成
-- 未传入 `thyMessage` 时使用内置 locale 默认文案（中文为「暂无数据」）
-
-**迁移方式**
-
-- 直接传入 `thyMessage`：`<thy-empty thyMessage="没有任何数据"></thy-empty>`
-- 多语言场景在调用方自行翻译后传入：`<thy-empty [thyMessage]="'common.tips.NO_RESULT' | translate"></thy-empty>`
-- 若通过 `ThyTableEmptyOptions` 配置空状态，改用 `message` 字段
-
-**自动迁移**
-
-- 无
-
----
 
 ## 手动检查
 
@@ -533,10 +534,6 @@ ng generate ngx-tethys:migrate-22
   - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
   - i18n / TS 字符串内嵌旧 CSS 类名：形如 `thy-tag-weak-fill-primary` **不会自动替换**，需改为 `thy-tag-subtle-primary`（其它颜色后缀同理，如 `thy-tag-weak-fill-default` → `thy-tag-subtle-default`）
 - **`ThyAvatarService` 子类中的 `avatarSrcTransform` 方法定义**：自动迁移仅改写 `ThyAvatarService` 类型变量上的**调用**（如 `this.thyAvatarService.avatarSrcTransform(...)` → `srcTransform(...)`），**不会**删除或重命名子类里的方法声明；若子类仍保留仅为兼容的 `avatarSrcTransform()` 包装方法，需手动删除，只保留 `srcTransform()` 实现
-- **`thy-divider` 较深分割线**：
-  - 模板字面量 `thyColor="deeper"` / `[thyColor]="'deeper'"` 及 CSS 类 `thy-divider-deeper` **会自动迁移**为 `light` / `thy-divider-light`
-  - TypeScript 中颜色常量/变量若仍为 `'deeper'`，需手动改为 `'light'`
-  - 动态绑定 `[thyColor]="colorVar"` 且 `colorVar` 可能为 `'deeper'` 时，**不会自动迁移**
 - **移除的 CSS 类**（自定义样式若依赖这些 class 会失效，请改用新写法或移除选择器）：
   - `thy-divider-deeper` → `thy-divider-light`（`thyColor="light"`）
   - `thy-card--clear-left-right-padding`（移除 `thyHasLeftRightPadding` 后不再生成）
