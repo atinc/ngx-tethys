@@ -45,4 +45,9 @@ describe('migrateDividerDeeper', () => {
         const content = `<thy-divider [thyColor]="color"></thy-divider>`;
         expect(migrateDividerDeeper(content)).toBe(content);
     });
+
+    it('should not change plain thy-divider without thyDeeper', () => {
+        const content = `<thy-divider [thyStyle]="'solid'" [thyVertical]="true"></thy-divider>`;
+        expect(migrateDividerDeeper(content)).toBe(content);
+    });
 });

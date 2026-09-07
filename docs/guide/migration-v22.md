@@ -158,8 +158,9 @@ ng generate ngx-tethys:migrate-22
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
-- `thyPlaceHolder` → `thyPlaceholder`
+- `thyPlaceHolder` → `thyPlaceholder` (thy-select / thy-custom-select)
 - TypeScript 中 `SelectControlSize` → `ThyFormControlSize`
+- 移除 `thy-tree-select` 上的 `thyIconType` 和 `ThyTreeSelectType`
 
 ---
 
@@ -195,14 +196,12 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - `thyPlaceHolder` 重命名为 `thyPlaceholder`
-- 移除 `thyOffset`、`thyHasBackdrop`，合并到 `[thyPopoverOptions]`，例如：`[thyPopoverOptions]="{ offset: 8, hasBackdrop: false }"`
 - 类型 `CompatibleDate` 重命名为 `ThyCompatibleDate`
 
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
 - `thyPlaceHolder` → `thyPlaceholder`
-- `thyOffset` / `thyHasBackdrop` 合并进 `[thyPopoverOptions]`；默认值（`offset: 4`、`hasBackdrop: true`）时直接移除
 - TypeScript 中 `CompatibleDate` → `ThyCompatibleDate`
 
 ---
@@ -213,13 +212,14 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - `thyPlaceHolder` 重命名为 `thyPlaceholder`
-- 移除 `thyOffset`、`thyHasBackdrop`，合并到 `[thyPopoverOptions]`
+- 移除 `thyOffset`、`thyHasBackdrop`，合并到 `[thyPopoverOptions]`，例如：`[thyPopoverOptions]="{ offset: 8, hasBackdrop: false }"`
 
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
 - `thyPlaceHolder` → `thyPlaceholder`
-- `thyOffset` / `thyHasBackdrop` 合并进 `[thyPopoverOptions]`；默认值时直接移除
+- `thyOffset` / `thyHasBackdrop` 合并进 `[thyPopoverOptions]`；默认值（`offset: 4`、`hasBackdrop: true`）时直接移除
+- 若元素上**已存在** `[thyPopoverOptions]`，**不会**自动迁移，需完全手动合并（详见 **手动检查**）
 
 ---
 
@@ -272,6 +272,7 @@ ng generate ngx-tethys:migrate-22
 
 - `thyTheme` → `thyAppearance`
 - `thyAppearance="weak-fill"` / `thyTheme="weak-fill"` 替换为 `thyAppearance="subtle"`
+- TypeScript 运行时赋值（如 `theme.set('weak-fill')`）及字符串内嵌旧 CSS 类名（如 `thy-tag-weak-fill-*`）无自动迁移，需手动处理（详见 **手动检查**）
 
 ---
 
@@ -315,6 +316,7 @@ ng generate ngx-tethys:migrate-22
 
 - `thyNavLink` → `thyNavItem`；`thyNavLinkActive` → `thyNavItemActive`
 - `thyInsideClosable` 默认 `true` 时移除属性，`false` 时写入 `[thyPopoverOptions]="{ insideClosable: false }"`
+- 若元素上**已存在** `[thyPopoverOptions]`，**不会**自动迁移，需完全手动合并（详见 **手动检查**）
 
 ---
 
@@ -329,6 +331,7 @@ ng generate ngx-tethys:migrate-22
 **自动迁移**
 
 - `thyShowHeader="true"` 时移除属性；`false` 时改为 `thyHeadless`；动态绑定时取反
+
 
 ---
 
@@ -356,6 +359,8 @@ ng generate ngx-tethys:migrate-22
 **自动迁移**
 
 - `thyDeeper` 迁移为 `thyColor="light"`；已有 `thyColor` 时仅移除 `thyDeeper`
+- `thyColor="deeper"` / `[thyColor]="'deeper'"` 替换为 `thyColor="light"`
+- CSS 类名 `thy-divider-deeper` 替换为 `thy-divider-light`
 
 ---
 
@@ -371,6 +376,11 @@ ng generate ngx-tethys:migrate-22
 
 - `thyShowRemove` → `thyRemovable`；`(thyOnRemove)` → `(thyRemove)`
 - `avatarSrcTransform()` → `srcTransform()`
+
+**手动检查**
+
+- **`ThyAvatarService` 子类中的 `avatarSrcTransform` 方法定义**：自动迁移仅改写 `ThyAvatarService` 类型变量上的**调用**（如 `this.thyAvatarService.avatarSrcTransform(...)` → `srcTransform(...)`），**不会**删除或重命名子类里的方法声明；若子类仍保留仅为兼容的 `avatarSrcTransform()` 包装方法，需手动删除，只保留 `srcTransform()` 实现
+
 
 ---
 
@@ -461,7 +471,7 @@ ng generate ngx-tethys:migrate-22
 | `$select-control-height-default` | `$select-control-height-lg` |
 | `$select-control-padding-y-default` | `$select-control-padding-y-lg` |
 | `$divider-deeper-color` | `$gray-300` |
-| `$btn-base-min-width` | 已删除，需自行定义或移除引用 |
+| `$btn-base-min-width` | 按按钮尺寸选用 `$btn-xs-min-width` / `$btn-sm-min-width` / `$btn-md-min-width` / `$btn-lg-min-width`（旧默认 36px 视觉对应 `$btn-lg-min-width`） |
 
 此外：
 
@@ -498,12 +508,38 @@ ng generate ngx-tethys:migrate-22
 
 以下场景自动迁移无法完全覆盖，升级后请重点检查：
 
-- 本文档所列旧 API 均已**直接移除**（非 deprecated 并存）；未执行 `ng update` 或未手动改动的代码将编译失败
-- 若同一元素上已存在 `thyPopoverOptions`，迁移只会删除 `thyInsideClosable`、`thyOffset`、`thyHasBackdrop`，**不会**自动合并进现有 `popoverOptions`，需手动补全
+- 本文档所列旧 API 均已**直接移除**；未执行 `ng update` 或未手动改动的代码将编译失败
+- **`thyPopoverOptions` 合并迁移**（涉及 `thy-nav` 与 `thyDatePicker` / `thyRangePicker` 指令）：
+  - **`thy-nav`**：`thyInsideClosable` 已移除，改用 `thyPopoverOptions.insideClosable`
+    - **会自动迁移**（元素上**尚未**绑定 `[thyPopoverOptions]` 时）：
+      - `thyInsideClosable="true"`、`thyInsideClosable` 或 `[thyInsideClosable]="true"` → 直接删除（默认值 `true`）
+      - `thyInsideClosable="false"` 或 `[thyInsideClosable]="false"` → `[thyPopoverOptions]="{ insideClosable: false }"`
+      - `[thyInsideClosable]="insideClosable"` → `[thyPopoverOptions]="{ insideClosable: insideClosable }"`
+    - 元素上**已存在** `[thyPopoverOptions]` 时，形如`<thy-nav thyInsideClosable="false" [thyPopoverOptions]="popoverOptions"></thy-nav>`，**不会自动迁移**，需自行删除 `thyInsideClosable`，并将 `insideClosable` 合并进 `popoverOptions`
+
+  - **`thyDatePicker` / `thyRangePicker` 指令**：`thyOffset`、`thyHasBackdrop` 已移除，合并到 `[thyPopoverOptions]`
+    - **会自动迁移**（元素上**尚未**绑定 `[thyPopoverOptions]` 时）：
+      - 默认值 `thyOffset="4"`、`[thyOffset]="4"`、`thyHasBackdrop="true"`、`thyHasBackdrop`、`[thyHasBackdrop]="true"` → 直接删除
+      - `thyHasBackdrop="false"` 或 `[thyHasBackdrop]="false"` → `[thyPopoverOptions]="{ hasBackdrop: false }"`
+    - 元素上**已存在** `[thyPopoverOptions]` 时，形如`<div thyDatePicker [thyOffset]="0" [thyHasBackdrop]="false" [thyPopoverOptions]="popoverOptions"></div>`，**不会自动迁移**，需自行删除 `thyOffset` / `thyHasBackdrop`，并将 `offset` / `hasBackdrop` 合并进 `popoverOptions`
 - `thy-badge` 不再支持 `thyIsDot` / `thyIsHollow`
-- `thy-header` 使用 `wtf` 字体图标的场景，需手动替换为 SVG 图标名
-- `thy-empty` / `ThyTableEmptyOptions` 的翻译相关字段需改为 `thyMessage` / `message`
-- `thy-table` 的 `thyLoadingText`、`thy-tree-select` 的 `thyIconType` 需手动移除或替换
-- `thy-input-group` 若使用了 `thySize="xs"`，需改为 `sm` 或其他有效尺寸
-- 动态绑定的 Button 复合 type、非字面量的 `thySize` 等复杂表达式，需根据编译错误手动调整
-- `class="link-danger-weak"`、`class="link-secondary"` 等 Link CSS 类不受 Button 迁移影响，无需改动
+- `thy-header` 不再支持 `thyIconPrefix` 及字体图标，`thyIcon` 仅接受 SVG 图标名；使用 `wtf` 字体图标的场景，需手动替换为 SVG 图标名
+- `thy-empty` 不再支持 `thyTranslationKey`、`thyTranslationValues`、`thyEntityName`、`thyEntityNameTranslateKey` 及 `ThyEmptyConfig` 翻译集成，需改为 `thyMessage`；`ThyTableEmptyOptions` 不再支持 `translationKey`、`translationValues`、`entityName`、`entityNameTranslateKey` 翻译集成，需改为 `message`
+- **Button / 尺寸动态绑定**（自动迁移仅支持字面量）：
+  - Button 变量：形如 `[thyButton]="buttonType"` 且 `buttonType` 可能为 `'outline-primary'` 等旧复合值时，**不会自动迁移**；需手动改为 `[thyButton]="'primary'" thyAppearance="outline"`，或在组件中拆分 `buttonColor` / `buttonAppearance` 两个变量
+  - Button 三元表达式：形如 `[thyButton]="shouldDisplayReview ? 'outline-default' : 'danger'"`，需要手动拆分
+  - 尺寸：形如 `[thySize]="size"` **不会自动补** `lg`，需要手动检查
+- **`thy-tag` 运行时赋值 / 字符串中的旧值**（Schematics 仅处理模板字面量）：
+  - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
+  - i18n / TS 字符串内嵌旧 CSS 类名：形如 `thy-tag-weak-fill-primary` **不会自动替换**，需改为 `thy-tag-subtle-primary`（其它颜色后缀同理，如 `thy-tag-weak-fill-default` → `thy-tag-subtle-default`）
+- **`ThyAvatarService` 子类中的 `avatarSrcTransform` 方法定义**：自动迁移仅改写 `ThyAvatarService` 类型变量上的**调用**（如 `this.thyAvatarService.avatarSrcTransform(...)` → `srcTransform(...)`），**不会**删除或重命名子类里的方法声明；若子类仍保留仅为兼容的 `avatarSrcTransform()` 包装方法，需手动删除，只保留 `srcTransform()` 实现
+- **`thy-divider` 较深分割线**：
+  - 模板字面量 `thyColor="deeper"` / `[thyColor]="'deeper'"` 及 CSS 类 `thy-divider-deeper` **会自动迁移**为 `light` / `thy-divider-light`
+  - TypeScript 中颜色常量/变量若仍为 `'deeper'`，需手动改为 `'light'`
+  - 动态绑定 `[thyColor]="colorVar"` 且 `colorVar` 可能为 `'deeper'` 时，**不会自动迁移**
+- **移除的 CSS 类**（自定义样式若依赖这些 class 会失效，请改用新写法或移除选择器）：
+  - `thy-divider-deeper` → `thy-divider-light`（`thyColor="light"`）
+  - `thy-card--clear-left-right-padding`（移除 `thyHasLeftRightPadding` 后不再生成）
+  - `thy-card-header--{sm,md,lg}`、`thy-card-content--sm`（`thySize` 仅保留在 `thy-card` 上）
+  - `thy-badge-dot` / `thy-badge-hollow`（改用 `thy-dot` 组件）
+

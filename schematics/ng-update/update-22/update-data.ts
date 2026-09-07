@@ -220,7 +220,10 @@ export const upgradeData: UpgradeData = {
         [TargetVersion.V22]: [
             {
                 pr: 'https://github.com/atinc/ngx-tethys',
-                changes: [{ replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' }]
+                changes: [
+                    { replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' },
+                    { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' }
+                ]
             }
         ]
     },
@@ -255,5 +258,18 @@ export const upgradeData: UpgradeData = {
             }
         ]
     },
-    symbolRemoval: {}
+    symbolRemoval: {
+        [TargetVersion.V22]: [
+            {
+                pr: 'https://github.com/atinc/ngx-tethys',
+                changes: [
+                    {
+                        module: 'ngx-tethys/tree-select',
+                        name: 'ThyTreeSelectType',
+                        message: 'ThyTreeSelectType has been removed along with thy-tree-select thyIconType.'
+                    }
+                ]
+            }
+        ]
+    }
 };

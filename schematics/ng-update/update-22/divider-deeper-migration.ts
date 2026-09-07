@@ -1,4 +1,10 @@
 import { Migration, UpgradeData } from '@angular/cdk/schematics';
+import {
+    applyEditsInMemory,
+    applyRelativeTemplateEdits,
+    collectPatternReplacementEdits,
+    RelativeTemplateEdit
+} from '../template-incremental-edits';
 
 interface TemplateResource {
     filePath: string;
@@ -9,7 +15,11 @@ interface TemplateResource {
 const THY_DIVIDER_TAG_PATTERN = /<thy-divider\b[^>]*>/g;
 
 export function migrateDividerDeeper(content: string): string {
-    return content.replace(THY_DIVIDER_TAG_PATTERN, tag => migrateDividerTag(tag));
+    return applyEditsInMemory(content, collectDividerDeeperEdits(content));
+}
+
+function collectDividerDeeperEdits(content: string): RelativeTemplateEdit[] {
+    return collectPatternReplacementEdits(content, THY_DIVIDER_TAG_PATTERN, migrateDividerTag);
 }
 
 function migrateDividerTag(tag: string): string {
@@ -39,16 +49,6 @@ export class DividerDeeperMigration extends Migration<UpgradeData> {
     enabled = true;
 
     override visitTemplate(template: TemplateResource): void {
-        const migratedContent = migrateDividerDeeper(template.content);
-
-        if (migratedContent === template.content) {
-            return;
-        }
-
-        const filePath = this.fileSystem.resolve(template.filePath);
-        this.fileSystem
-            .edit(filePath)
-            .remove(template.start, template.content.length)
-            .insertRight(template.start, migratedContent);
+        applyRelativeTemplateEdits(this, template, collectDividerDeeperEdits(template.content));
     }
 }

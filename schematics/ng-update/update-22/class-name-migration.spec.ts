@@ -165,6 +165,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).toContain("type SelectControlSize = 'md'");
     });
 
+    it('should not rename InputSize imported from a non-ngx-tethys module', async () => {
+        const filePath = '/projects/update-22-test/src/app/external-size.ts';
+        tree.create(
+            filePath,
+            `
+                import { InputSize } from '@other/input';
+
+                export const inputSize: InputSize = 'sm';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { InputSize } from '@other/input'");
+        expect(content).toContain('export const inputSize: InputSize = \'sm\'');
+        expect(content).not.toContain('ThyFormControlSize');
+    });
+
     function migrate(sourceTree: Tree): Promise<UnitTestTree> {
         return schematicRunner.runSchematic('migration-v22', undefined, sourceTree);
     }

@@ -1,4 +1,9 @@
 import { Migration, UpgradeData } from '@angular/cdk/schematics';
+import {
+    applyEditsInMemory,
+    applyRelativeTemplateEdits,
+    RelativeTemplateEdit
+} from '../template-incremental-edits';
 
 interface TemplateResource {
     filePath: string;
@@ -38,48 +43,266 @@ const TYPE_ATTR_NAMES = ['thyButton', 'thy-button', 'thyType'];
 
 const OPEN_TAG_PATTERN = /<[A-Za-z][\w.-]*\b[^>]*?>/g;
 
-export function migrateButtonAppearance(content: string): string {
-    return content.replace(OPEN_TAG_PATTERN, tag => migrateButtonTag(tag));
+const LINK_DANGER_WEAK_TEXT_PATTERNS = [
+    /\s*thyButton="link-danger-weak"/g,
+    /\s*thyType="link-danger-weak"/g,
+    /\s*thy-button="link-danger-weak"/g
+];
+
+const LINK_DANGER_WEAK_BOUND_PATTERNS = [
+    /\s*\[thyButton\]="'link-danger-weak'"/g,
+    /\s*\[thyType\]="'link-danger-weak'"/g,
+    /\s*\[thy-button\]="'link-danger-weak'"/g
+];
+
+const BUTTON_APPEARANCE_EXCLUDED_ELEMENTS = new Set([
+    'thy-badge',
+    'thy-tag',
+    'thy-action',
+    'thy-alert',
+    'thy-dot',
+    'thy-progress',
+    'thy-table-column',
+    'thy-dropdown-menu-item',
+    'thy-icon-nav',
+    'thy-nav',
+    'thy-table',
+    'thy-menu-item',
+    'thy-switch',
+    'thy-pagination',
+    'thy-empty',
+    'thy-collapse',
+    'thy-sidebar',
+    'thy-menu',
+    'thy-divider',
+    'thy-icon'
+]);
+
+interface TypeAttributeMatch {
+    attrIndex: number;
+    attrSource: string;
+    attrName: string;
+    rawType: string;
+    bound: boolean;
 }
 
-function migrateButtonTag(tag: string): string {
+function getOpenTagName(tag: string): string | null {
+    const match = tag.match(/^<([^\s/>]+)/);
+    return match?.[1] ?? null;
+}
+
+function openingTagHasAttribute(openingTag: string, attributeName: string): boolean {
+    const escaped = attributeName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\s(?:\\[${escaped}\\]|${escaped})(?:=|\\]|\\s|>)`).test(openingTag);
+}
+
+export function isButtonAppearanceTarget(tag: string): boolean {
     if (/\bthy-button-group\b|\bthyButtonGroup\b|\bthy-button-icon\b|\bthyButtonIcon\b/.test(tag)) {
-        return tag;
+        return false;
     }
 
-    if (!TYPE_ATTR_NAMES.some(name => new RegExp(`\\b(?:\\[?${name}\\]?)\\b`).test(tag))) {
-        return tag;
+    const tagName = getOpenTagName(tag);
+    if (tagName && BUTTON_APPEARANCE_EXCLUDED_ELEMENTS.has(tagName)) {
+        return false;
     }
 
-    // link-danger-weak → CSS utility（非 Button 色板）
+    if (/\bthyAction\b/.test(tag) && !/\b(?:\[?thyButton\]?|\[?thy-button\]?)\b/.test(tag)) {
+        return false;
+    }
+
+    if (/\b(?:\[?thyButton\]?|\[?thy-button\]?)\b/.test(tag)) {
+        return true;
+    }
+
+    if ((tagName === 'button' || tagName === 'thy-button') && /\b(?:\[?thyType\]?)\b/.test(tag)) {
+        return true;
+    }
+
+    return false;
+}
+
+export function collectButtonAppearanceEdits(content: string): RelativeTemplateEdit[] {
+    const edits: RelativeTemplateEdit[] = [];
+    const regex = new RegExp(OPEN_TAG_PATTERN.source, OPEN_TAG_PATTERN.flags);
+    let match: RegExpExecArray | null;
+
+    while ((match = regex.exec(content)) !== null) {
+        edits.push(...collectOpenTagEdits(match[0], match.index));
+    }
+
+    return edits;
+}
+
+export function migrateButtonAppearance(content: string): string {
+    return applyEditsInMemory(content, collectButtonAppearanceEdits(content));
+}
+
+function collectOpenTagEdits(tag: string, tagOffset: number): RelativeTemplateEdit[] {
+    if (!isButtonAppearanceTarget(tag)) {
+        return [];
+    }
+
     if (/\bthyButton="link-danger-weak"/.test(tag) || /\bthyType="link-danger-weak"/.test(tag)) {
-        return migrateLinkDangerWeak(tag);
+        return collectLinkDangerWeakTextEdits(tag, tagOffset);
     }
+
     if (/\[[\w-]*\]="'link-danger-weak'"/.test(tag)) {
-        return migrateLinkDangerWeakBound(tag);
+        return collectLinkDangerWeakBoundEdits(tag, tagOffset);
     }
+
+    const typeAttributes = collectTypeAttributes(tag);
+    const compoundAttributes = typeAttributes.filter(attribute => resolveButtonType(attribute.rawType));
+
+    if (!compoundAttributes.length) {
+        return [];
+    }
+
+    const [primaryAttribute, ...redundantAttributes] = compoundAttributes;
+    const mapped = resolveButtonType(primaryAttribute.rawType)!;
+    const edits: RelativeTemplateEdit[] = [];
+
+    edits.push(...createCompoundAttributeReplacement(tagOffset, primaryAttribute, mapped));
+
+    for (const redundantAttribute of redundantAttributes) {
+        edits.push({
+            start: tagOffset + redundantAttribute.attrIndex,
+            remove: redundantAttribute.attrSource.length,
+            insert: ''
+        });
+    }
+
+    if (mapped.appearance !== 'fill' && !openingTagHasAttribute(tag, 'thyAppearance')) {
+        edits.push({
+            start: tagOffset + primaryAttribute.attrIndex + primaryAttribute.attrSource.length,
+            remove: 0,
+            insert: ` thyAppearance="${mapped.appearance}"`
+        });
+    }
+
+    return edits;
+}
+
+function collectTypeAttributes(tag: string): TypeAttributeMatch[] {
+    const matches: TypeAttributeMatch[] = [];
 
     for (const attrName of TYPE_ATTR_NAMES) {
-        const textMatch = tag.match(new RegExp(`\\b${attrName}="([^"]+)"`));
-        if (textMatch) {
-            const mapped = resolveButtonType(textMatch[1]);
-            if (!mapped) {
-                continue;
+        const textPattern = new RegExp(`\\s${attrName}="([^"]+)"`, 'g');
+        let textMatch: RegExpExecArray | null;
+
+        while ((textMatch = textPattern.exec(tag)) !== null) {
+            if (textMatch.index !== undefined) {
+                matches.push({
+                    attrIndex: textMatch.index,
+                    attrSource: textMatch[0],
+                    attrName,
+                    rawType: textMatch[1],
+                    bound: false
+                });
             }
-            return applyCompoundMigration(tag, attrName, textMatch[0], mapped, false);
         }
 
-        const boundMatch = tag.match(new RegExp(`\\[${attrName}\\]="'([^']+)'"`));
-        if (boundMatch) {
-            const mapped = resolveButtonType(boundMatch[1]);
-            if (!mapped) {
-                continue;
+        const boundPattern = new RegExp(`\\s\\[${attrName}\\]="'([^']+)'"`, 'g');
+        let boundMatch: RegExpExecArray | null;
+
+        while ((boundMatch = boundPattern.exec(tag)) !== null) {
+            if (boundMatch.index !== undefined) {
+                matches.push({
+                    attrIndex: boundMatch.index,
+                    attrSource: boundMatch[0],
+                    attrName,
+                    rawType: boundMatch[1],
+                    bound: true
+                });
             }
-            return applyCompoundMigration(tag, attrName, boundMatch[0], mapped, true);
         }
     }
 
-    return tag;
+    return matches.sort((left, right) => left.attrIndex - right.attrIndex);
+}
+
+function createCompoundAttributeReplacement(
+    tagOffset: number,
+    attribute: TypeAttributeMatch,
+    mapped: CompoundButtonType
+): RelativeTemplateEdit[] {
+    const typeAttr = attribute.bound
+        ? `[${attribute.attrName}]="'${mapped.type}'"`
+        : `${attribute.attrName}="${mapped.type}"`;
+    const leadingSpace = attribute.attrSource.startsWith(' ') ? ' ' : '';
+
+    return [
+        {
+            start: tagOffset + attribute.attrIndex,
+            remove: attribute.attrSource.length,
+            insert: `${leadingSpace}${typeAttr}`
+        }
+    ];
+}
+
+function collectLinkDangerWeakTextEdits(tag: string, tagOffset: number): RelativeTemplateEdit[] {
+    const edits: RelativeTemplateEdit[] = [];
+
+    for (const pattern of LINK_DANGER_WEAK_TEXT_PATTERNS) {
+        const regex = new RegExp(pattern.source, pattern.flags);
+        const match = regex.exec(tag);
+
+        if (match && match.index !== undefined) {
+            edits.push({ start: tagOffset + match.index, remove: match[0].length, insert: '' });
+        }
+    }
+
+    return [...edits, ...collectLinkDangerWeakClassEdits(tag, tagOffset)];
+}
+
+function collectLinkDangerWeakBoundEdits(tag: string, tagOffset: number): RelativeTemplateEdit[] {
+    const edits: RelativeTemplateEdit[] = [];
+
+    for (const pattern of LINK_DANGER_WEAK_BOUND_PATTERNS) {
+        const regex = new RegExp(pattern.source, pattern.flags);
+        const match = regex.exec(tag);
+
+        if (match && match.index !== undefined) {
+            edits.push({ start: tagOffset + match.index, remove: match[0].length, insert: '' });
+        }
+    }
+
+    return [...edits, ...collectLinkDangerWeakClassEdits(tag, tagOffset)];
+}
+
+function collectLinkDangerWeakClassEdits(tag: string, tagOffset: number): RelativeTemplateEdit[] {
+    const classMatch = tag.match(/\bclass="([^"]*)"/);
+
+    if (classMatch && classMatch.index !== undefined) {
+        const classes = classMatch[1];
+
+        if (classes.includes('link-danger-weak')) {
+            return [];
+        }
+
+        const valueStart = classMatch.index + 'class="'.length;
+
+        return [
+            {
+                start: tagOffset + valueStart,
+                remove: classes.length,
+                insert: `${classes} link-danger-weak`.trim()
+            }
+        ];
+    }
+
+    const tagNameMatch = tag.match(/^(<[^\s/>]+)/);
+
+    if (!tagNameMatch) {
+        return [];
+    }
+
+    return [
+        {
+            start: tagOffset + tagNameMatch[1].length,
+            remove: 0,
+            insert: ' class="link-danger-weak"'
+        }
+    ];
 }
 
 /** 去掉无视觉差异的 `-square`，再解析 outline/link 复合 type */
@@ -97,66 +320,10 @@ export function resolveButtonType(rawType: string): CompoundButtonType | null {
     return null;
 }
 
-function applyCompoundMigration(
-    tag: string,
-    attrName: string,
-    attrSource: string,
-    mapped: CompoundButtonType,
-    bound: boolean
-): string {
-    const typeAttr = bound ? `[${attrName}]="'${mapped.type}'"` : `${attrName}="${mapped.type}"`;
-    let result = tag.replace(attrSource, typeAttr);
-
-    if (mapped.appearance !== 'fill' && !/\bthyAppearance\b/.test(result) && !/\[thyAppearance\]/.test(result)) {
-        result = result.replace(typeAttr, `${typeAttr} thyAppearance="${mapped.appearance}"`);
-    }
-
-    return result;
-}
-
-function migrateLinkDangerWeak(tag: string): string {
-    const result = tag
-        .replace(/\s*thyButton="link-danger-weak"/g, '')
-        .replace(/\s*thyType="link-danger-weak"/g, '')
-        .replace(/\s*thy-button="link-danger-weak"/g, '');
-
-    return ensureLinkDangerWeakClass(result);
-}
-
-function migrateLinkDangerWeakBound(tag: string): string {
-    const result = tag
-        .replace(/\s*\[thyButton\]="'link-danger-weak'"/g, '')
-        .replace(/\s*\[thyType\]="'link-danger-weak'"/g, '')
-        .replace(/\s*\[thy-button\]="'link-danger-weak'"/g, '');
-
-    return ensureLinkDangerWeakClass(result);
-}
-
-function ensureLinkDangerWeakClass(tag: string): string {
-    if (/\bclass="/.test(tag)) {
-        return tag.replace(/\bclass="([^"]*)"/, (_m, classes: string) => {
-            const next = classes.includes('link-danger-weak') ? classes : `${classes} link-danger-weak`.trim();
-            return `class="${next}"`;
-        });
-    }
-
-    return tag.replace(/^(<[^\s/>]+)/, `$1 class="link-danger-weak"`);
-}
-
 export class ButtonAppearanceMigration extends Migration<UpgradeData> {
     enabled = true;
 
     override visitTemplate(template: TemplateResource): void {
-        const migratedContent = migrateButtonAppearance(template.content);
-
-        if (migratedContent === template.content) {
-            return;
-        }
-
-        const filePath = this.fileSystem.resolve(template.filePath);
-        this.fileSystem
-            .edit(filePath)
-            .remove(template.start, template.content.length)
-            .insertRight(template.start, migratedContent);
+        applyRelativeTemplateEdits(this, template, collectButtonAppearanceEdits(template.content));
     }
 }

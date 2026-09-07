@@ -49,12 +49,6 @@ export class NavInsideClosableMigration extends Migration<UpgradeData> {
             element.inputs.some(input => input.name === 'thyPopoverOptions');
 
         if (hasPopoverOptions) {
-            if (textAttr) {
-                this.removeAttribute(textAttr, template);
-            }
-            if (boundAttr) {
-                this.removeBoundAttribute(boundAttr, template);
-            }
             return;
         }
 

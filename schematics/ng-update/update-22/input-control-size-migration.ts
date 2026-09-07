@@ -49,6 +49,12 @@ const SIZE_AFFECTED_DIRECTIVES = new Set([
     'thy-cascader'
 ]);
 
+function elementHasAttribute(element: TmplAstElement, attributeName: string): boolean {
+    return (
+        element.attributes.some(attribute => attribute.name === attributeName) || element.inputs.some(input => input.name === attributeName)
+    );
+}
+
 export class InputControlSizeMigration extends Migration<UpgradeData> {
     enabled = true;
 
@@ -84,12 +90,15 @@ export class InputControlSizeMigration extends Migration<UpgradeData> {
     }
 
     private migrateSize(element: TmplAstElement, template: ResolvedResource): void {
+        if (!elementHasAttribute(element, 'thySize')) {
+            this.addLargeSize(element, template);
+            return;
+        }
+
         const textSize = element.attributes.find(attribute => attribute.name === 'thySize');
         const boundSize = element.inputs.find(input => input.name === 'thySize');
 
-        if (!textSize && !boundSize) {
-            this.addLargeSize(element, template);
-        } else if (textSize && (textSize.value === '' || textSize.value === 'default')) {
+        if (textSize && (textSize.value === '' || textSize.value === 'default')) {
             this.replaceTextSize(textSize, template);
         } else if (boundSize) {
             this.replaceBoundLiteralSize(boundSize, template);
@@ -97,37 +106,39 @@ export class InputControlSizeMigration extends Migration<UpgradeData> {
     }
 
     private addLargeSize(element: TmplAstElement, template: ResolvedResource): void {
-        const openingTag = template.content.slice(element.startSourceSpan.start.offset, element.startSourceSpan.end.offset);
-        const closingLength = openingTag.endsWith('/>') ? 2 : 1;
+        const openingTagSource = template.content.slice(element.startSourceSpan.start.offset, element.startSourceSpan.end.offset);
+        const closingLength = openingTagSource.endsWith('/>') ? 2 : 1;
         const insertAt = template.start + element.startSourceSpan.end.offset - closingLength;
         this.fileSystem.edit(template.filePath).insertRight(insertAt, ' thySize="lg"');
     }
 
-    private replaceTextSize(attribute: TmplAstTextAttribute, template: ResolvedResource): void {
+    private replaceTextSize(attribute: TmplAstTextAttribute, template: ResolvedResource, value = 'lg'): void {
         if (attribute.valueSpan) {
             const start = template.start + attribute.valueSpan.start.offset;
             this.fileSystem
                 .edit(template.filePath)
                 .remove(start, attribute.valueSpan.end.offset - attribute.valueSpan.start.offset)
-                .insertRight(start, 'lg');
+                .insertRight(start, value);
         } else {
             const insertAt = template.start + attribute.keySpan!.end.offset;
-            this.fileSystem.edit(template.filePath).insertRight(insertAt, '="lg"');
+            this.fileSystem.edit(template.filePath).insertRight(insertAt, `="${value}"`);
         }
     }
 
-    private replaceBoundLiteralSize(attribute: TmplAstBoundAttribute, template: ResolvedResource): void {
+    private replaceBoundLiteralSize(attribute: TmplAstBoundAttribute, template: ResolvedResource): boolean {
         const expression = attribute.value instanceof ASTWithSource ? attribute.value.ast : attribute.value;
+
         if (!(expression instanceof LiteralPrimitive) || (expression.value !== '' && expression.value !== 'default')) {
-            return;
+            return false;
         }
 
         if (!attribute.valueSpan) {
-            return;
+            return false;
         }
 
         const start = template.start + attribute.valueSpan.start.offset;
         const width = attribute.valueSpan.end.offset - attribute.valueSpan.start.offset;
-        this.fileSystem.edit(template.filePath).remove(start, width).insertRight(start, "'lg'");
+        this.fileSystem.edit(template.filePath).remove(start, width).insertRight(start, `'lg'`);
+        return true;
     }
 }
