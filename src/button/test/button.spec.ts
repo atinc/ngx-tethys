@@ -14,9 +14,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
 @Component({
     selector: 'thy-test-button-basic',
     template: `
-        <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">
-            Basic Button
-        </button>
+        <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance"></thy-button>
         <thy-button id="btn-default">Default Button</thy-button>
