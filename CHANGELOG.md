@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [22.0.0-next.4](github.com/atinc/ngx-tethys/compare/22.0.0-next.3...22.0.0-next.4) (2026-09-08)
+
+
+### Bug Fixes
+
+* handle button/formControl thySize null and undefined #NEXUS-5198 ([#3930](/github.com/atinc/ngx-tethys/issues/3930)) ([1791ae4](github.com/atinc/ngx-tethys/commits/1791ae40d05516f31a9d012750278983ba998466)), closes [#NEXUS-5198](github.com/atinc/ngx-tethys/issues/NEXUS-5198)
+
+
+### Features
+
+* **schematics:** rename InputGroupSize to ThyInputGroupSize #NEXUS-5206 ([#3931](/github.com/atinc/ngx-tethys/issues/3931)) ([6fdbba8](github.com/atinc/ngx-tethys/commits/6fdbba8f2e25fba27332f7bb137f9efe2bd2172b)), closes [#NEXUS-5206](github.com/atinc/ngx-tethys/issues/NEXUS-5206)
+
 # [22.0.0-next.3](github.com/atinc/ngx-tethys/compare/22.0.0-next.2...22.0.0-next.3) (2026-09-08)
 
 
