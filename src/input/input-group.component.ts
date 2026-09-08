@@ -23,7 +23,7 @@ import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 
-export type InputGroupSize = Exclude<ThyFormControlSize, 'xs'>;
+export type ThyInputGroupSize = Exclude<ThyFormControlSize, 'xs'>;
 
 const inputGroupSizeMap = {
     sm: ['input-group-sm'],
@@ -108,7 +108,7 @@ export class ThyInputGroup implements OnInit, OnDestroy {
      * @type 'sm' | 'lg' | 'md'
      * @default md
      */
-    readonly thySize = input<InputGroupSize, InputGroupSize | null | undefined>('md', {
+    readonly thySize = input<ThyInputGroupSize, ThyInputGroupSize | null | undefined>('md', {
         transform: (value) => value ?? 'md'
     });
 

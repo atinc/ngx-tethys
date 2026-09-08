@@ -126,10 +126,12 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - `thy-input-group` 不再支持 `xs` 尺寸（可选值：`sm` / `md` / `lg`）
+- 尺寸类型 `InputGroupSize` 重命名为 `ThyInputGroupSize`
 
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- TypeScript 中 `InputGroupSize` → `ThyInputGroupSize`
 
 ---
 
