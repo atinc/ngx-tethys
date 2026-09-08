@@ -7,10 +7,6 @@ export const upgradeData: UpgradeData = {
                 pr: 'https://github.com/atinc/ngx-tethys',
                 changes: [
                     { replace: 'ButtonGroupSize', replaceWith: 'ThyButtonSize' },
-                    { replace: 'TimePickerSize', replaceWith: 'ThyFormControlSize' },
-                    { replace: 'InputSize', replaceWith: 'ThyFormControlSize' },
-                    { replace: 'ThyInputSize', replaceWith: 'ThyFormControlSize' },
-                    { replace: 'SelectControlSize', replaceWith: 'ThyFormControlSize' },
                     {
                         replace: 'ThyActiveTabInfo',
                         replaceWith: 'ThyActiveTabValue'
