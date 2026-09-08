@@ -35,7 +35,9 @@ export class ThyButtonGroup {
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<ThyButtonSize>('md');
+    readonly thySize = input<ThyButtonSize, ThyButtonSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     /**
      * 类型

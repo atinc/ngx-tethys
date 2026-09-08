@@ -1,7 +1,7 @@
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyInputGroup, ThyInputDirective, ThyInputCount } from 'ngx-tethys/input';
+import { ThyInputGroup, ThyInputDirective, ThyInputCount, InputGroupSize } from 'ngx-tethys/input';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 })
 class TestInputGroupBasicComponent {
     value = '';
-    thySize = 'md';
+    thySize: InputGroupSize | undefined = 'md';
     disabled = false;
 }
 
@@ -142,6 +142,10 @@ describe('input group', () => {
             expect(debugElement.nativeElement.classList.contains('input-group-lg')).toBe(true);
 
             basicTestComponent.thySize = 'md';
+            fixture.detectChanges();
+            expect(debugElement.nativeElement.classList.contains('input-group-md')).toBe(true);
+
+            basicTestComponent.thySize = undefined;
             fixture.detectChanges();
             expect(debugElement.nativeElement.classList.contains('input-group-md')).toBe(true);
         });

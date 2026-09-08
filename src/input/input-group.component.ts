@@ -108,7 +108,9 @@ export class ThyInputGroup implements OnInit, OnDestroy {
      * @type 'sm' | 'lg' | 'md'
      * @default md
      */
-    readonly thySize = input<InputGroupSize>('md');
+    readonly thySize = input<InputGroupSize, InputGroupSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     /**
      * 后置模板

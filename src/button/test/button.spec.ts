@@ -2,7 +2,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonAppearance, ThyButtonModule } from 'ngx-tethys/button';
+import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonAppearance, ThyButtonModule, ThyButtonSize } from 'ngx-tethys/button';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
@@ -40,7 +40,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
 class ThyTestButtonBasicComponent {
     type = `primary`;
     appearance: ThyButtonAppearance = 'fill';
-    size = 'md';
+    size: ThyButtonSize | undefined = 'md';
     loading = false;
     loadingText = 'Loading...';
     icon = 'inbox';
@@ -52,7 +52,7 @@ class ThyTestButtonBasicComponent {
 }
 
 describe('ThyButton', () => {
-    const sizes = ['lg', 'md', 'sm', 'xs'];
+    const sizes: ThyButtonSize[] = ['lg', 'md', 'sm', 'xs'];
 
     describe('Basic', () => {
         let fixture!: ComponentFixture<ThyTestButtonBasicComponent>;
@@ -97,6 +97,13 @@ describe('ThyButton', () => {
                 const btnElement: HTMLElement = buttonComponent.nativeElement;
                 expect(btnElement.classList.contains(`btn-${size}`)).toBeTruthy();
             });
+        });
+
+        it('should use md size when thySize is undefined', () => {
+            basicTestComponent.size = undefined;
+            fixture.detectChanges();
+            const btnElement: HTMLElement = buttonComponent.nativeElement;
+            expect(btnElement.classList.contains('btn-md')).toBeTruthy();
         });
 
         it('should set type success', () => {
@@ -324,7 +331,7 @@ describe('ThyButton', () => {
 })
 class ThyTestButtonIconBasicComponent {
     icon = 'inbox';
-    size = 'md';
+    size: ThyButtonSize | undefined = 'md';
     shape = '';
     theme = '';
     isLight = false;
@@ -336,7 +343,7 @@ describe('ThyIconButton', () => {
     let basicTestComponent!: ThyTestButtonIconBasicComponent;
     let buttonIconComponent!: DebugElement;
 
-    const sizes = ['lg', 'md', 'sm', 'xs'];
+    const sizes: ThyButtonSize[] = ['lg', 'md', 'sm', 'xs'];
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -389,6 +396,13 @@ describe('ThyIconButton', () => {
             const btnIconElement: HTMLElement = buttonIconComponent.nativeElement;
             expect(btnIconElement.classList.contains(`btn-icon-${size}`)).toBeTruthy();
         });
+    });
+
+    it('should use md size when thySize is undefined', () => {
+        basicTestComponent.size = undefined;
+        fixture.detectChanges();
+        const btnIconElement: HTMLElement = buttonIconComponent.nativeElement;
+        expect(btnIconElement.classList.contains('btn-icon-md')).toBeTruthy();
     });
 
     it('should set shape classes', () => {
@@ -448,7 +462,7 @@ describe('ThyIconButton', () => {
     imports: [ThyButtonGroup, ThyButton]
 })
 class ThyDemoButtonGroupComponent {
-    size = ``;
+    size: ThyButtonSize | '' | undefined = ``;
     type = `outline-primary`;
     clearMinWidth = false;
 }
@@ -500,6 +514,12 @@ describe('ThyButtonGroup', () => {
         basicTestComponent.size = `xs`;
         fixture.detectChanges();
         expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-xs')).toBe(true);
+    });
+
+    it('should use md size when thySize is undefined', () => {
+        basicTestComponent.size = undefined;
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-md')).toBe(true);
     });
 
     it('should have correct class when clearMinWidth is true', () => {

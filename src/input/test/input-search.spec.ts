@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { ThyInputSearch, ThyInputSearchIconPosition } from '../input-search.component';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { provideHttpClient, withXhr } from '@angular/common/http';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-input-search-basic-test',
@@ -30,7 +31,7 @@ class TestInputSearchBasicComponent {
 
     searchFocus = true;
     searchText = '';
-    thySize = 'sm';
+    thySize: ThyFormControlSize | undefined = 'sm';
     thyTheme = ``;
     disabled = false;
     iconPosition!: ThyInputSearchIconPosition;
@@ -190,6 +191,9 @@ describe('input search', () => {
         basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugSearchElement.nativeElement.children[1].classList.contains('form-control-lg')).toBe(true);
+        basicTestComponent.thySize = undefined;
+        fixture.detectChanges();
+        expect(debugSearchElement.nativeElement.children[1].classList.contains('form-control-md')).toBe(true);
     });
 
     it('should call blur methods when blur', fakeAsync(() => {

@@ -2,6 +2,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 
 @Component({
     selector: 'test-bed-input-directive',
@@ -10,7 +11,7 @@ import { By } from '@angular/platform-browser';
     imports: [ThyInputDirective]
 })
 class TestBedInputDirectiveComponent {
-    thySize = `md`;
+    thySize: ThyFormControlSize | undefined = 'md';
 }
 
 describe('input directive', () => {
@@ -59,5 +60,11 @@ describe('input directive', () => {
         basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(true);
+    });
+
+    it('should use md size when thySize is undefined', () => {
+        basicTestComponent.thySize = undefined;
+        fixture.detectChanges();
+        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(true);
     });
 });

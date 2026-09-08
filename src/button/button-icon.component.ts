@@ -48,7 +48,9 @@ export class ThyButtonIcon {
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<ThyButtonSize>('md');
+    readonly thySize = input<ThyButtonSize, ThyButtonSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     /**
      * 图标, 和`thyButtonIcon`相同，当使用`thy-button-icon`时，只能使用 thyIcon 设置图标

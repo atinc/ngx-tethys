@@ -124,7 +124,9 @@ export abstract class AbstractPickerComponent
     /**
      * 输入框的大小
      */
-    readonly thySize = input<ThyFormControlSize>('md');
+    readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     /**
      * 设置时间戳精度
