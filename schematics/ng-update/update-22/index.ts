@@ -6,6 +6,7 @@ import { BadgeDotHollowMigration } from './badge-dot-hollow-migration';
 import { ButtonAppearanceMigration } from './button-appearance-migration';
 import { CardDeprecatedPropsMigration } from './card-deprecated-props-migration';
 import { ClassNamesMigration } from './class-name-migration';
+import { FormControlSizeTypeMigration } from './form-control-size-type-migration';
 import { DatePickerPopoverOptionsMigration } from './date-picker-popover-options-migration';
 import { DividerDeeperMigration } from './divider-deeper-migration';
 import { HeaderIconPrefixMigration } from './header-icon-prefix-migration';
@@ -27,6 +28,7 @@ const migrations: NullableDevkitMigration[] = [
     CardDeprecatedPropsMigration,
     BadgeDotHollowMigration,
     ClassNamesMigration,
+    FormControlSizeTypeMigration,
     HeaderIconPrefixMigration,
     TreeSelectIconTypeMigration
 ];
