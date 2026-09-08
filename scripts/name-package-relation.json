@@ -344,7 +344,7 @@
   "ThyImageModule": "image",
   "ThyImagePreviewRef": "image",
   "ThyImagePreview": "image",
-  "InputGroupSize": "input",
+  "ThyInputGroupSize": "input",
   "ThyInputGroup": "input",
   "ThyInputSearchTheme": "input",
   "ThyInputSearchIconPosition": "input",

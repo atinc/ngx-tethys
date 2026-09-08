@@ -13,6 +13,25 @@ describe('ng-update v22 class name migration', () => {
         tree = factory.getTree();
     });
 
+    it('should rename InputGroupSize to ThyInputGroupSize', async () => {
+        const filePath = '/projects/update-22-test/src/app/input-group-size.ts';
+        tree.create(
+            filePath,
+            `
+                import { InputGroupSize } from 'ngx-tethys/input';
+
+                export const inputGroupSize: InputGroupSize = 'md';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyInputGroupSize } from 'ngx-tethys/input'");
+        expect(content).toContain("export const inputGroupSize: ThyInputGroupSize = 'md'");
+        expect(content).not.toMatch(/\bInputGroupSize\b/);
+    });
+
     it('should rename ButtonGroupSize to ThyButtonSize', async () => {
         const filePath = '/projects/update-22-test/src/app/button-size.ts';
         tree.create(

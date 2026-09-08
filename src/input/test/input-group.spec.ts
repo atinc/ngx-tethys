@@ -1,7 +1,7 @@
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyInputGroup, ThyInputDirective, ThyInputCount, InputGroupSize } from 'ngx-tethys/input';
+import { ThyInputGroup, ThyInputDirective, ThyInputCount, ThyInputGroupSize } from 'ngx-tethys/input';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 })
 class TestInputGroupBasicComponent {
     value = '';
-    thySize: InputGroupSize | undefined = 'md';
+    thySize: ThyInputGroupSize | undefined = 'md';
     disabled = false;
 }
 
