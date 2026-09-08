@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [22.0.0-next.3](github.com/atinc/ngx-tethys/compare/22.0.0-next.2...22.0.0-next.3) (2026-09-08)
+
+
+### Bug Fixes
+
+* **schematics:** after migration, ThyFormControlSize must be imported from ngx-tethys/core #NEXUS-5185 ([#3928](/github.com/atinc/ngx-tethys/issues/3928)) ([5db7051](github.com/atinc/ngx-tethys/commits/5db70515940f83e0391376be1b2da8c3933ae2fa)), closes [#NEXUS-5185](github.com/atinc/ngx-tethys/issues/NEXUS-5185)
+
 # [22.0.0-next.2](github.com/atinc/ngx-tethys/compare/21.0.14...22.0.0-next.2) (2026-09-07)
 
 
