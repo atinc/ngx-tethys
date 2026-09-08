@@ -122,7 +122,9 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      * @type 'xs' | 'sm' | 'md' | 'lg'
      * @default md
      */
-    readonly thySize = input<ThyFormControlSize>('md');
+    readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     /**
      * 清除搜索事件

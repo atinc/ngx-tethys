@@ -343,7 +343,9 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      * @type primary | success | danger | warning
      * @default primary
      */
-    readonly thySize = input<ThyFormControlSize>('md');
+    readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     /**
      * 数据为空时显示的提示文字

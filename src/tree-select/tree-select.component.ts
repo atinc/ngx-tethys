@@ -220,7 +220,9 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * @type xs | sm | md | lg
      * @default md
      */
-    readonly thySize = input<ThyFormControlSize>('md');
+    readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     /**
      * 改变空选项的情况下的提示文本

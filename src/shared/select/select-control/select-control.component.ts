@@ -89,7 +89,9 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thyPlaceholder = input('');
 
-    readonly thySize = input<ThyFormControlSize>('md');
+    readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
+        transform: (value) => value ?? 'md'
+    });
 
     readonly tagSize: Signal<ThyTagSize> = computed(() => {
         const value = this.thySize();

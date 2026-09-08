@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
 import { provideHttpClient, withXhr } from '@angular/common/http';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 
 @Component({
     selector: 'test-bed',
@@ -32,7 +33,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
     imports: [ThyInput, FormsModule]
 })
 class TestBedComponent {
-    thySize = `md`;
+    thySize: ThyFormControlSize | undefined = 'md';
     thyType = 'text';
     readonly = false;
     passwordValue = '12345';
@@ -99,6 +100,12 @@ describe('input component', () => {
         basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(true);
+    });
+
+    it('should use md size when thySize is undefined', () => {
+        basicTestComponent.thySize = undefined;
+        fixture.detectChanges();
+        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(true);
     });
 
     it('placeholder', () => {
