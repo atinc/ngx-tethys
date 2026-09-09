@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [22.0.0](github.com/atinc/ngx-tethys/compare/22.0.0-next.4...22.0.0) (2026-09-09)
+
+
+### Features
+* feat: upgrade ng to v22 #TINFR-3745 (#3824)
+
+
 # [22.0.0-next.4](github.com/atinc/ngx-tethys/compare/22.0.0-next.3...22.0.0-next.4) (2026-09-08)
 
 
