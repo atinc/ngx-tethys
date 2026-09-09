@@ -1,10 +1,10 @@
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ThyBackTopModule, ThyBackTop } from 'ngx-tethys/back-top';
 import { ThyScrollService } from 'ngx-tethys/core';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('Component:thy-back-top', () => {
     let scrollService!: MockThyScrollService;
@@ -33,7 +33,7 @@ describe('Component:thy-back-top', () => {
         TestBed.configureTestingModule({
             providers: [
                 MockThyScrollService,
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideAnimations(),
                 {
                     provide: ThyScrollService,
@@ -220,6 +220,7 @@ describe('Component:thy-back-top', () => {
         <thy-back-top [thyContainer]="container" [thyVisibilityHeight]="visibilityHeight"></thy-back-top>
         <div id="fakeTarget"></div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBackTopModule]
 })
 class TestBackTopComponent {
@@ -240,6 +241,7 @@ class TestBackTopComponent {
             </ng-template>
         </thy-back-top>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBackTopModule]
 })
 class TestBackTopTemplateComponent {

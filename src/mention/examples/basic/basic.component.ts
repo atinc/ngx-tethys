@@ -1,6 +1,6 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { Component, viewChild } from '@angular/core';
+import { Component, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 const mockUsers = [
@@ -29,6 +29,7 @@ const mockUsers = [
 @Component({
     selector: 'thy-mention-basic-example',
     templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMentionDirective, FormsModule, ThyInputDirective]
 })
 export class ThyMentionBasicExampleComponent {

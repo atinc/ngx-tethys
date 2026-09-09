@@ -1,4 +1,15 @@
-import { Component, ElementRef, HostBinding, Renderer2, effect, inject, input, output, viewChild } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    HostBinding,
+    Renderer2,
+    effect,
+    inject,
+    input,
+    output,
+    viewChild,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
 
@@ -8,6 +19,7 @@ import { ThyColor } from '../../helpers/color.class';
 @Component({
     selector: 'thy-saturation',
     templateUrl: './saturation.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCoordinatesDirective]
 })
 export class ThySaturation {

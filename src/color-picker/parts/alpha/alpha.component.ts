@@ -1,15 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    HostBinding,
-    Renderer2,
-    effect,
-    inject,
-    input,
-    output,
-    viewChild
-} from '@angular/core';
+import { Component, ElementRef, HostBinding, Renderer2, effect, inject, input, output, viewChild } from '@angular/core';
 import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import { ThyColor } from '../../helpers/color.class';
 
@@ -19,7 +8,6 @@ import { ThyColor } from '../../helpers/color.class';
 @Component({
     selector: 'thy-alpha',
     templateUrl: './alpha.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyCoordinatesDirective]
 })
 export class ThyAlpha {

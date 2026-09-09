@@ -1,10 +1,10 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { isBgColor, isThemeColor, ThyBgColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyBackgroundColorDirective, ThyTypographyModule } from 'ngx-tethys/typography';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-text-basic-test',
@@ -13,6 +13,7 @@ import { provideHttpClient } from '@angular/common/http';
         <thy-text id="customColor" thyTextColor="#c9584e">This is a text</thy-text>
         <span id="icon" thyText thyIcon="version">This is a Text</span>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTypographyModule, ThyIconModule]
 })
 export class ThyTextBasicTestComponent {
@@ -24,6 +25,7 @@ export class ThyTextBasicTestComponent {
 @Component({
     selector: 'thy-text-background-test',
     template: ` <span id="themeWithCustomBg" [thyBgColor]="bgColor" thyTextColor="white">This is a text</span> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTypographyModule, ThyIconModule]
 })
 export class ThyTextBackgroundTestComponent {
@@ -35,7 +37,7 @@ export class ThyTextBackgroundTestComponent {
 describe('thy-text', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         }).compileComponents();
     }));
 

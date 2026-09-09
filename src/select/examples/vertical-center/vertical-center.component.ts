@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { listOfOption } from '../mock-data';
 import { ThySelect } from 'ngx-tethys/select';
 import { ThyOption } from 'ngx-tethys/shared';
@@ -21,6 +21,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, ThyButtonGroup, FormsModule, ThyDot, NgClass, ThyTag, ThyAvatar, ThyIcon, ThyButton]
 })
 export class ThySelectVerticalCenterExampleComponent implements OnInit {

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySkeleton, ThySkeletonCircle, ThySkeletonList, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 
 @Component({
     selector: 'thy-skeleton-custom-example',
     templateUrl: './custom.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySkeleton, ThySkeletonCircle, ThySkeletonRectangle, ThySkeletonList]
 })
 export class ThySkeletonExampleCustomComponent implements OnInit {

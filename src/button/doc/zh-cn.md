@@ -16,37 +16,36 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ```
 
 ## 按钮种类
-在 Worktile Design 中，有四种按钮:
+在 Worktile Design 中，按钮由 `thyAppearance` 与 `thyButton` 组合：
 
-- 主按钮：用于重要操作，一个操作区域只能有一个主按钮，常用于添加，保存
-- 线框按钮：用于视图，审批状态
-- 按钮链接：用于次要或外链的操作，比如 `取消`
+- 填充按钮（fill）：有背景色的按钮，默认外观；主操作常用 `primary`，一个操作区域建议只有一个
+- 线框按钮（outline）：用于视图，审批状态
+- 链接按钮（link）：用于次要或外链的操作，比如 `取消`
 - 按钮图标：用于工具栏操作
-
-## 按钮状态
-
-- 主要按钮：主色
-- 信息按钮：用于展示信息
-- 危险按钮：删除/归档等危险操作，一般需要二次确认
-- 禁用：操作不可用的时候
 
 ## 基本使用
 推荐使用指令写法，写在原生 `button` 上。禁用时使用原生 `disabled`。
 ```html
-<button thyButton="primary">Primary</button>
-<button thyButton="primary" disabled>Primary</button>
+<button thyButton>Default</button>
+<button thyButton="primary" thyAppearance="fill">Primary</button>
+<button thyButton thyAppearance="outline">Default</button>
+<button thyButton="primary" thyAppearance="outline">Primary</button>
+<button thyButton thyAppearance="link">Default</button>
+<button thyButton="primary" thyAppearance="link">Primary</button>
 ```
 <example name="thy-button-basic-example"></example>
 
-## 按钮链接
-<example name="thy-button-link-example"></example>
+## 填充按钮
+<example name="thy-button-fill-example"></example>
 
 ## 线框按钮
 <example name="thy-button-outline-example"></example>
 
+## 链接按钮
+<example name="thy-button-link-example"></example>
+
 ## 按钮大小
-- `default: 36px`， 一般用于表单中的保存和确定。
-- `md: 32px`，一般用于页面右上角的新建和编辑
+- `md: 32px`（默认），一般用于表单确定、页面右上角的新建和编辑
 - `sm: 28px`，一般用于即时编辑页面的确定按钮，比如详情页的描述编辑或者看板下的新建确定
 - `xs: 24px`，一般用于按钮图标，比如子工作项的截止时间和负责人设置等操作图标按钮
 - `lg: 44px`，一般用于类似登录注册页面的确定按钮，通常整行展示

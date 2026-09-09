@@ -1,14 +1,15 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyButtonModule, ThyButtonIcon } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { By } from '@angular/platform-browser';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'app-basic-button-icon',
     template: ` <button [thyButtonIcon]="icon" [thyColor]="color"></button> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonModule]
 })
 class BasicButtonIconComponent {
@@ -19,7 +20,7 @@ class BasicButtonIconComponent {
 describe(`button-icon`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         }).compileComponents();
 
         injectDefaultSvgIconSet();

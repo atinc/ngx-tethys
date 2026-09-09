@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select/custom-select/custom-select.component';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'thy-options-example',
     templateUrl: './thy-options.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, FormsModule]
 })
 export class ThyOptionsExampleComponent implements OnInit {

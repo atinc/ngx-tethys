@@ -1,9 +1,9 @@
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyTable, ThyTableModule, ThyTableColumnComponent } from 'ngx-tethys/table';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-table-tree',
@@ -27,6 +27,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-table-column>
         </thy-table>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent]
 })
 class ThyDemoTableTreeComponent {
@@ -120,7 +121,7 @@ describe('ThyTable: tree', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             // imports: [ThyTableModule],
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));

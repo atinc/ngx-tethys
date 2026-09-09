@@ -11,7 +11,6 @@ import { ThyPicker } from './picker.component';
  * @order 30
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-week-picker',
     exportAs: 'thyWeekPicker',
     templateUrl: './base-picker.component.html',

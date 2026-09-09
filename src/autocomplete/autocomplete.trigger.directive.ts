@@ -61,21 +61,10 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
     /**
-     * 下拉菜单组件实例。已废弃，请使用 thyAutocomplete
-     * @type thyAutocompleteComponent
-     * @deprecated
-     */
-    readonly thyAutocompleteComponent = input<ThyAutocomplete>();
-
-    /**
      * 下拉菜单组件实例
-     * @type thyAutocompleteComponent
+     * @type ThyAutocomplete
      */
     readonly thyAutocomplete = input<ThyAutocomplete>();
-
-    readonly autocompleteComponent: Signal<ThyAutocomplete> = computed(() => {
-        return this.thyAutocomplete() || this.thyAutocompleteComponent()!;
-    });
 
     /**
      * 弹出框默认 offset
@@ -98,16 +87,16 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
 
     readonly activeOption: Signal<ThyOptionRender | null> = computed(() => {
-        if (this.autocompleteComponent() && this.autocompleteComponent().keyManager) {
-            return this.autocompleteComponent().keyManager!.activeItem;
+        if (this.thyAutocomplete()! && this.thyAutocomplete()!.keyManager) {
+            return this.thyAutocomplete()!.keyManager!.activeItem;
         }
         return null;
     });
 
     get panelClosingActions(): Observable<ThyOptionSelectionChangeEvent | null> {
         return merge(
-            outputToObservable(this.autocompleteComponent().thyOptionSelected),
-            this.autocompleteComponent().keyManager!.tabOut.pipe(filter(() => this.panelOpened)),
+            outputToObservable(this.thyAutocomplete()!.thyOptionSelected),
+            this.thyAutocomplete()!.keyManager!.tabOut.pipe(filter(() => this.panelOpened)),
             this.closeKeyEventStream,
             this.getOutsideClickStream(),
             this.overlayRef ? this.overlayRef.detachments().pipe(filter(() => this.panelOpened)) : of()
@@ -134,7 +123,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         if (keyCode === ESCAPE) {
             event.preventDefault();
         }
-        const autocompleteComponent = this.autocompleteComponent();
+        const autocompleteComponent = this.thyAutocomplete()!;
         if (this.activeOption() && keyCode === ENTER && this.panelOpened) {
             this.activeOption()!.selectViaInteraction();
             this.resetActiveItem();
@@ -184,7 +173,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             }
         });
         this.panelOpened = true;
-        this.autocompleteComponent().open();
+        this.thyAutocomplete()!.open();
     }
 
     closePanel() {
@@ -204,7 +193,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             width: this.thyAutocompleteWidth() || this.elementRef.nativeElement.clientWidth
         });
-        const autocompleteComponent = this.autocompleteComponent();
+        const autocompleteComponent = this.thyAutocomplete()!;
         this.autocompleteRef = this.autocompleteService.open(autocompleteComponent.contentTemplateRef()!, config);
         this.autocompleteRef.afterClosed().subscribe(() => {
             this.panelOpened = false;
@@ -226,7 +215,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      */
     private subscribeToClosingActions(): Subscription {
         const firstStable = from(Promise.resolve());
-        const optionChanges = toObservable(this.autocompleteComponent().options, { injector: this.injector }).pipe(
+        const optionChanges = toObservable(this.thyAutocomplete()!.options, { injector: this.injector }).pipe(
             // Skip the initial emission to match QueryList.changes behavior.
             skip(1),
             // Defer emitting to the stream until the next tick, because changing
@@ -299,7 +288,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private resetActiveItem(): void {
-        const autocompleteComponent = this.autocompleteComponent();
+        const autocompleteComponent = this.thyAutocomplete()!;
         const index = autocompleteComponent.thyAutoActiveFirstOption() ? 0 : -1;
         autocompleteComponent.keyManager!.setActiveItem(index);
     }

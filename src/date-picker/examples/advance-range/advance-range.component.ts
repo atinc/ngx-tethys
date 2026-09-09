@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDateRangeEntry, ThyRangePicker } from 'ngx-tethys/date-picker';
 
 @Component({
     selector: 'thy-date-picker-advance-range-example',
     templateUrl: './advance-range.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyRangePicker]
 })
 export class ThyDatePickerAdvanceRangeExampleComponent {

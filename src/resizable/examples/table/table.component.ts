@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandle } from 'ngx-tethys/resizable';
 import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 
@@ -6,6 +6,7 @@ import { ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
     selector: 'thy-resizable-table-example',
     templateUrl: './table.component.html',
     styleUrls: ['./table.style.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyResizableDirective, ThyTable, ThyTableColumnComponent, ThyResizeHandle]
 })
 export class ThyResizableTableExampleComponent {

@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -19,6 +19,7 @@ import { dispatchFakeEvent } from 'ngx-tethys/testing';
             <div thyGridItem>Content 2</div>
         </thy-grid>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyGridModule]
 })
 export class TestGridDefaultComponent {}
@@ -36,6 +37,7 @@ export class TestGridDefaultComponent {}
             }
         </thy-grid>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyGridModule]
 })
 export class TestGridBasicComponent {

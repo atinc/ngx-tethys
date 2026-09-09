@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, inject, signal } from '@angular/core';
+import { Component, OnInit, WritableSignal, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyMultiSelectEvent, ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { of } from 'rxjs';
@@ -9,6 +9,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-table-selection-example',
     templateUrl: './selection.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyButton]
 })
 export class ThyTableSelectionExampleComponent implements OnInit {

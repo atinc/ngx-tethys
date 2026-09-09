@@ -1,8 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyListModule, ThyList } from 'ngx-tethys/list';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('list', () => {
     let fixture!: ComponentFixture<TestListComponent>;
@@ -11,7 +11,7 @@ describe('list', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         }).compileComponents();
         fixture = TestBed.createComponent(TestListComponent);
         listDebugElement = fixture.debugElement.query(By.directive(ThyList));
@@ -62,6 +62,7 @@ describe('list', () => {
             </thy-list-item>
         </thy-list>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyListModule]
 })
 class TestListComponent {

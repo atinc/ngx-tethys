@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -9,6 +9,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-menu-item-name,[thy-menu-item-name],[thyMenuItemName]',
     templateUrl: './menu-item-name.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         class: 'thy-menu-item-name',
         '[class.thy-menu-item-name-ellipsis]': 'thyOverflowEllipsis()'

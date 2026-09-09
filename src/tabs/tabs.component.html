@@ -12,7 +12,7 @@
       thyNavItem
       [id]="tab.id()"
       [thyNavItemDisabled]="tab.thyDisabled()"
-      [thyNavItemActive]="(tab.id() && activeTabId() && tab.id() === activeTabId()) ?? i === activeTabIndex()"
+      [thyNavItemActive]="i === activeTabIndex()"
       (click)="activeTab(tab, i)">
       @if (tab.titleTemplateRef()) {
         <ng-template [ngTemplateOutlet]="tab.titleTemplateRef()"></ng-template>
@@ -25,10 +25,6 @@
 <!-- tabs content -->
 <div class="thy-tabs-content" [class.thy-tabs-content-animated]="tabPaneAnimated" [style.margin-left]="getTabContentMarginLeft()">
   @for (tab of tabs(); track $index; let i = $index) {
-    <div
-      thyTabContent
-      [active]="(tab.id() && activeTabId() && tab.id() === activeTabId()) ?? i === activeTabIndex()"
-      [content]="tab.content"
-      [tabPaneAnimated]="tabPaneAnimated"></div>
+    <div thyTabContent [active]="i === activeTabIndex()" [content]="tab.content" [tabPaneAnimated]="tabPaneAnimated"></div>
   }
 </div>

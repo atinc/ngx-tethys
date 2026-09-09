@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -8,7 +8,7 @@ import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { ThyBadgeModule } from 'ngx-tethys/badge';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyNavSize, ThyNavType, ThyNavModule } from 'ngx-tethys/nav';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
 
 @Component({
@@ -27,6 +27,7 @@ import { ThyNavInkBarDirective } from '../nav-ink-bar.directive';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNavModule, ThyIconModule]
 })
 export class NavInkBarComponent implements OnInit {
@@ -43,24 +44,28 @@ export class NavInkBarComponent implements OnInit {
 
 @Component({
     selector: 'test-link1',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ``
 })
 export class Link1Component {}
 
 @Component({
     selector: 'test-link2',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ``
 })
 export class Link2Component {}
 
 @Component({
     selector: 'test-link3',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ``
 })
 export class Link3Component {}
 
 @Component({
     selector: 'test-link-none',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ``
 })
 export class LinkNoneComponent {}
@@ -100,6 +105,7 @@ const routes: Routes = [
             </thy-nav>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule, ThyNavModule, RouterModule]
 })
 export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
@@ -134,6 +140,7 @@ export class NavInkBarRouterLinkActiveModeComponent implements OnInit {
             </thy-nav>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBadgeModule, ThyNavModule]
 })
 export class NavInkBarHaveBadgeModeComponent implements OnInit {
@@ -157,7 +164,7 @@ export class NavInkBarHaveBadgeModeComponent implements OnInit {
 describe(`thy-nav-ink-bar`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -239,7 +246,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [RouterModule.forRoot(routes)],
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -305,7 +312,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
 describe(`thy-nav-ink-bar-have-badge-mode`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();

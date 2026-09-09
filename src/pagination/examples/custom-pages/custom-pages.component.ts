@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyPagination } from 'ngx-tethys/pagination';
 
 @Component({
     selector: 'thy-pagination-custom-pages-example',
     templateUrl: './custom-pages.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyPagination]
 })
 export class ThyPaginationCustomPagesExampleComponent {

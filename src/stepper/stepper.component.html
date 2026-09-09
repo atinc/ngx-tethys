@@ -17,5 +17,5 @@
 }
 
 <div class="thy-stepper-content-container">
-  <ng-container [ngTemplateOutlet]="selected()?.content()"></ng-container>
+  <ng-container [ngTemplateOutlet]="$safeNavigationMigration(selected()?.content())"></ng-container>
 </div>

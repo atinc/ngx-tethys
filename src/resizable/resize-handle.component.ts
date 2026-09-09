@@ -1,4 +1,4 @@
-import { OnInit, Component, ChangeDetectionStrategy, NgZone, ElementRef, inject, DestroyRef, input, output } from '@angular/core';
+import { OnInit, Component, NgZone, ElementRef, inject, DestroyRef, input, output } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection, ThyResizeHandleMouseDownEvent } from './interface';
 import { ThyResizableService } from './resizable.service';
@@ -22,7 +22,6 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
             <div class="thy-resizable-handle-line"></div>
         }
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-resizable-handle',
         '[class.thy-resizable-handle-top]': `thyDirection() === 'top'`,

@@ -1,9 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent, ThyTableSortDirection, ThyTableSortEvent } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-sortable-example',
     templateUrl: './sortable.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent]
 })
 export class ThyTableSortableExampleComponent implements OnInit {

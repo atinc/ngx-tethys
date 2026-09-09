@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, input, computed } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, input, computed, ChangeDetectionStrategy } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { IThyOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -14,6 +14,7 @@ let _uniqueIdCounter = 0;
     selector: 'thy-list-option,[thy-list-option]',
     templateUrl: './list-option.component.html',
     imports: [ThyIcon],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[class.disabled]': 'thyDisabled()',
         '[class.thy-list-option]': 'isListOption()',

@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HostRenderer, useHostRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-dom-host-renderer-test',
     template: 'Content',
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [HostRenderer]
 })
 export class ThyDomHostRendererTestComponent implements OnInit {
@@ -20,6 +21,7 @@ export class ThyDomHostRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-host-renderer-test',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: 'Content'
 })
 export class ThyDomUseHostRendererTestComponent implements OnInit {

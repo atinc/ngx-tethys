@@ -4,6 +4,7 @@
     thyCheckbox
     [disabled]="option().thyRowValue[option().thyRowValue.length - 1].disabled"
     [ngModel]="active()"
+    [ngModelOptions]="{ standalone: true }"
     (click)="clickCheckbox($event)"
     (ngModelChange)="toggleOption($event)"
     [thyLabelText]="''"></label>

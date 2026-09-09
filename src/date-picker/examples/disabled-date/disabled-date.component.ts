@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYearPicker } from 'ngx-tethys/date-picker';
 import { addDays, differenceInDays, endOfDay, startOfDay, TinyDate } from 'ngx-tethys/util';
@@ -6,6 +6,7 @@ import { addDays, differenceInDays, endOfDay, startOfDay, TinyDate } from 'ngx-t
 @Component({
     selector: 'thy-date-picker-disabled-date-example',
     templateUrl: './disabled-date.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePicker, FormsModule, ThyMonthPicker, ThyYearPicker, ThyQuarterPicker, ThyRangePicker]
 })
 export class ThyDatePickerDisabledDateExampleComponent {

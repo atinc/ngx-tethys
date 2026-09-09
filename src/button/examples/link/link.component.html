@@ -1,15 +1,26 @@
-<div class="demo-buttons">
-  <button thyButton="link">Default</button>
-  <button thyButton="link-secondary">Secondary</button>
-  <button thyButton="link-danger-weak">Danger Weak</button>
-  <button thyButton="link-danger">Danger</button>
-  <button thyButton="link-success">Success</button>
-</div>
+<thy-space>
+  <button *thySpaceItem thyButton="default" thyAppearance="link">Default</button>
+  <button *thySpaceItem thyButton="primary" thyAppearance="link">Primary</button>
+  <button *thySpaceItem thyButton="info" thyAppearance="link">Info</button>
+  <button *thySpaceItem thyButton="warning" thyAppearance="link">Warning</button>
+  <button *thySpaceItem thyButton="danger" thyAppearance="link">Danger</button>
+  <button *thySpaceItem thyButton="success" thyAppearance="link">Success</button>
+</thy-space>
 
-<div class="demo-buttons mt-2">
-  <button thyButton="link" class="disabled">Default</button>
-  <button thyButton="link-secondary" disabled="disabled">Secondary</button>
-  <button thyButton="link-danger-weak" disabled="disabled">Danger Weak</button>
-  <button thyButton="link-danger" disabled="disabled">Danger</button>
-  <button thyButton="link-success" disabled="disabled">Success</button>
-</div>
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton="default" thyAppearance="link" class="active">Default</button>
+  <button *thySpaceItem thyButton="primary" thyAppearance="link" class="active">Primary</button>
+  <button *thySpaceItem thyButton="info" thyAppearance="link" class="active">Info</button>
+  <button *thySpaceItem thyButton="warning" thyAppearance="link" class="active">Warning</button>
+  <button *thySpaceItem thyButton="danger" thyAppearance="link" class="active">Danger</button>
+  <button *thySpaceItem thyButton="success" thyAppearance="link" class="active">Success</button>
+</thy-space>
+
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton="default" thyAppearance="link" disabled>Default</button>
+  <button *thySpaceItem thyButton="primary" thyAppearance="link" disabled>Primary</button>
+  <button *thySpaceItem thyButton="info" thyAppearance="link" disabled>Info</button>
+  <button *thySpaceItem thyButton="warning" thyAppearance="link" disabled>Warning</button>
+  <button *thySpaceItem thyButton="danger" thyAppearance="link" disabled>Danger</button>
+  <button *thySpaceItem thyButton="success" thyAppearance="link" disabled>Success</button>
+</thy-space>

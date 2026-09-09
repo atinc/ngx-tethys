@@ -1,11 +1,11 @@
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyNotifyModule, ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyCopyDirective, ThyCopyModule } from 'ngx-tethys/copy';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('thy-copy', () => {
     let fixture!: ComponentFixture<ThyCopyTestComponent>;
@@ -14,7 +14,7 @@ describe('thy-copy', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyCopyModule, ThyTooltipModule],
-            providers: [ThyNotifyService, provideHttpClient(), provideNoopAnimations()]
+            providers: [ThyNotifyService, provideHttpClient(withXhr()), provideNoopAnimations()]
         }).compileComponents();
     }));
 
@@ -85,6 +85,7 @@ describe('thy-copy', () => {
             点击
         </p>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTooltipModule, ThyNotifyModule, ThyCopyDirective]
 })
 class ThyCopyTestComponent implements OnInit {

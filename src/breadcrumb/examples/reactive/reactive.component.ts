@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyBreadcrumb } from 'ngx-tethys/breadcrumb';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-breadcrumb-reactive-example',
     templateUrl: './reactive.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBreadcrumb, ThyIcon]
 })
 export class ThyBreadcrumbReactiveExampleComponent {

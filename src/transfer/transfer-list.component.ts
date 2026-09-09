@@ -12,7 +12,8 @@ import {
     inject,
     input,
     numberAttribute,
-    output
+    output,
+    ChangeDetectionStrategy
 } from '@angular/core';
 
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -32,6 +33,7 @@ import { coerceBooleanProperty, isUndefinedOrNull, ThyBooleanInput } from 'ngx-t
         class: 'thy-transfer-list'
     },
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CdkDropListGroup, ThyList, CdkDropList, ThyDragDropDirective, ThyListItem, CdkDrag, NgClass, NgTemplateOutlet]
 })
 export class ThyTransferList implements OnInit, DoCheck {

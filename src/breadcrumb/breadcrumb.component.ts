@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, TemplateRef, numberAttribute, input, contentChild, Signal, computed } from '@angular/core';
+import { Component, TemplateRef, numberAttribute, input, contentChild, Signal, computed } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyBreadcrumbItem } from './breadcrumb-item.component';
@@ -20,7 +20,6 @@ const ELLIPSIS_ITEM = { _id: THY_BREADCRUMB_ITEM_ELLIPSIS_ID };
     selector: 'thy-breadcrumb',
     templateUrl: './breadcrumb.component.html',
     exportAs: 'ThyBreadcrumb',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-breadcrumb',
         '[class.thy-breadcrumb-separator]': '!!thySeparator()',

@@ -8,6 +8,7 @@
       [class.thy-input-readonly]="thyReadonly()"
       [class.thy-time-picker-panel-opened]="openState"
       [(ngModel)]="showText"
+      [ngModelOptions]="{ standalone: true }"
       [thySize]="thySize()"
       [disabled]="thyDisabled()"
       [readonly]="thyReadonly()"
@@ -58,6 +59,7 @@
     <thy-time-picker-panel
       [ngClass]="thyPopupClass()"
       [(ngModel)]="value"
+      [ngModelOptions]="{ standalone: true }"
       [thyFormat]="thyFormat()"
       [thyHourStep]="thyHourStep()"
       [thyMinuteStep]="thyMinuteStep()"

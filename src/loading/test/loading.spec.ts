@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
@@ -11,6 +11,7 @@ import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
         }
         <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTip]="tip"></thy-loading>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLoadingModule]
 })
 export class TestLoadingComponent {

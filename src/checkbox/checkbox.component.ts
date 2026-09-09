@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, ChangeDetectionStrategy } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { NgClass } from '@angular/common';
@@ -24,6 +24,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         class: 'thy-checkbox',
         '[class.disabled]': '_disabled'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgClass]
 })
 export class ThyCheckbox extends ThyFormCheckBaseComponent {

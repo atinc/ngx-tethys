@@ -35,6 +35,7 @@
   (keydown)="onKeyDown($event)"
   (keyup)="stop()"
   [(ngModel)]="displayValue"
+  [ngModelOptions]="{ standalone: true }"
   (ngModelChange)="onModelChange($event)"
   (focus)="onInputFocus($event)"
   tabindex="-1" />

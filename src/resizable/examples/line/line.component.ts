@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles, ThyResizeDirection } from 'ngx-tethys/resizable';
 
 @Component({
     selector: 'thy-resizable-line-example',
     templateUrl: './line.component.html',
     styleUrls: ['./line.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyResizableDirective, ThyResizeHandles]
 })
 export class ThyResizableLineExampleComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDropdownAbstractMenu, ThyDropdownMenuItemDirective } from 'ngx-tethys/dropdown';
 
 @Component({
@@ -11,6 +11,7 @@ import { ThyDropdownAbstractMenu, ThyDropdownMenuItemDirective } from 'ngx-tethy
             <span>Menu Item2</span>
         </a>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownMenuItemDirective]
 })
 export class CustomMenuComponent extends ThyDropdownAbstractMenu {}

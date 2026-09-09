@@ -35,7 +35,12 @@
   <div class="thy-pagination-content">
     @if (config.showSizeChanger) {
       <div class="thy-pagination-size">
-        <thy-select [(ngModel)]="selectedPageSize" [thySize]="size" [thyDisabled]="disabled" (ngModelChange)="onPageSizeChange($event)">
+        <thy-select
+          [(ngModel)]="selectedPageSize"
+          [ngModelOptions]="{ standalone: true }"
+          [thySize]="size"
+          [thyDisabled]="disabled"
+          (ngModelChange)="onPageSizeChange($event)">
           @for (option of config.pageSizeOptions; track option) {
             <thy-option
               class="page-size-option"

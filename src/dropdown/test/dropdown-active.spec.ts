@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyButtonModule } from 'ngx-tethys/button';
@@ -17,6 +17,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
             </a>
         </thy-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownActiveBasicTestComponent {

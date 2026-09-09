@@ -1,7 +1,7 @@
 import { ThyIcon } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { Component, HostBinding, Input, numberAttribute, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, numberAttribute, input } from '@angular/core';
 
 /**
  * 步骤条头部组件
@@ -12,7 +12,6 @@ import { Component, HostBinding, Input, numberAttribute, input, ChangeDetectionS
     selector: 'thy-step-header',
     templateUrl: './step-header.component.html',
     imports: [ThyIcon],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: { class: 'thy-stepper-header' }
 })
 export class ThyStepHeader {

@@ -1,12 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyNav, ThyNavHorizontal, ThyNavItemDirective, ThyNavModule, ThyNavSize, ThyNavType } from 'ngx-tethys/nav';
+import { ThyPopoverConfig } from 'ngx-tethys/popover';
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
 
@@ -24,14 +25,15 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             [thyHorizontal]="horizontal"
             class="custom-nav"
             [thyExtra]="extra">
-            <a thyNavLink thyNavLinkActive="true">Link1</a>
-            <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
-            <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
+            <a thyNavItem thyNavItemActive="true">Link1</a>
+            <a thyNavItem><thy-icon thyIconName="filter"></thy-icon>Link2</a>
+            <a thyNavItem thyNavItemDisabled="true" id="disabled">Link3</a>
         </thy-nav>
         <ng-template #extra>
             <a href="javascript:;">Extra</a>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNavModule, ThyIconModule]
 })
 export class NavBasicComponent implements OnInit {
@@ -60,11 +62,11 @@ export class NavBasicComponent implements OnInit {
             [thyVertical]="isVertical"
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
-            [thyInsideClosable]="insideClosable"
+            [thyPopoverOptions]="popoverOptions"
             class="custom-nav"
             style="width: 100px;height: 50px;display:block">
             @for (item of navLinks; track $index; let i = $index) {
-                <a class="test-link" thyNavLink [thyNavItemActive]="item.isActive" [routerLink]="[item.name]" routerLinkActive="active">{{
+                <a class="test-link" thyNavItem [thyNavItemActive]="item.isActive" [routerLink]="[item.name]" routerLinkActive="active">{{
                     item.name
                 }}</a>
             }
@@ -77,6 +79,7 @@ export class NavBasicComponent implements OnInit {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNavModule, ThyIconModule, RouterModule]
 })
 export class NavResponsiveComponent implements OnInit {
@@ -94,7 +97,7 @@ export class NavResponsiveComponent implements OnInit {
 
     navLinks = [{ name: 'nav' }, { name: 'link2' }, { name: 'link3' }];
 
-    insideClosable!: boolean;
+    popoverOptions: ThyPopoverConfig | null = null;
 
     @ViewChildren(ThyNavItemDirective) links!: ThyNavItemDirective[];
 
@@ -109,6 +112,7 @@ export class NavResponsiveComponent implements OnInit {
 
 @Component({
     selector: 'app-nav-basic',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ``
 })
 export class NavRouteComponent {}
@@ -129,7 +133,7 @@ describe(`thy-nav`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [RouterModule.forRoot(routes)],
-            providers: [bypassSanitizeProvider, provideHttpClient(), provideAnimations()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr()), provideAnimations()]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -232,8 +236,8 @@ describe(`thy-nav`, () => {
             });
         });
 
-        it('should get correct default value for thyInsideClosable', () => {
-            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(true);
+        it('should get correct default value for thyPopoverOptions', () => {
+            expect(navDebugElement.componentInstance.thyPopoverOptions()).toBe(null);
         });
     });
 
@@ -357,11 +361,11 @@ describe(`thy-nav`, () => {
             expect(popover?.querySelectorAll('.dropdown-menu-item').length).toEqual(2);
         }));
 
-        it('should support set thyInsideClosable', fakeAsync(() => {
-            fixture.debugElement.componentInstance.insideClosable = false;
+        it('should support set thyPopoverOptions insideClosable', fakeAsync(() => {
+            fixture.debugElement.componentInstance.popoverOptions = { insideClosable: false };
             fixture.detectChanges();
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNav));
-            expect(navDebugElement.componentInstance.thyInsideClosable()).toBe(false);
+            expect(navDebugElement.componentInstance.thyPopoverOptions()).toEqual({ insideClosable: false });
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {

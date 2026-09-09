@@ -11,7 +11,6 @@ import { DateBodyRow, DateCell } from './types';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-table',
     exportAs: 'dateTable',
@@ -46,7 +45,7 @@ export class DateTable extends CalendarTable {
             timeZone
         );
         this.activeDate.set(date.clone());
-        this.valueChange.emit(date);
+        this.value.set(date);
     }
 
     makeHeadRow(): DateCell[] {

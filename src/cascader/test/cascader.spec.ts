@@ -7,14 +7,14 @@ import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, DebugElement, ViewChild, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyCascaderModule, ThyCascaderExpandTrigger, ThyCascaderTriggerType, ThyCascader } from 'ngx-tethys/cascader';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
@@ -354,6 +354,7 @@ const customLabelPropertyOptions = [
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderBasicComponent {
@@ -424,6 +425,7 @@ class CascaderBasicComponent {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderLoadComponent {
@@ -493,6 +495,7 @@ class CascaderLoadComponent {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderTemplateComponent {
@@ -535,6 +538,7 @@ class CascaderTemplateComponent {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderMultipleComponent {
@@ -599,6 +603,7 @@ class CascaderMultipleComponent {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, OverlayModule, ThyCascaderModule, ThyFlexibleTextModule, ThyIconModule]
 })
 class CascaderCustomLabelPropertyComponent {
@@ -626,7 +631,7 @@ describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyCascaderModule],
-            providers: [provideHttpClient(), provideAnimations(), { provide: ComponentFixtureAutoDetect, useValue: true }]
+            providers: [provideHttpClient(withXhr()), provideAnimations(), { provide: ComponentFixtureAutoDetect, useValue: true }]
         });
         TestBed.compileComponents();
     }));

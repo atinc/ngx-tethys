@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyShowDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-show-test',
     template: ` <div class="thy-show-test" [thyShow]="isShow">测试 ThyShow 指令</div> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyShowDirective]
 })
 class ThyShowTestComponent {

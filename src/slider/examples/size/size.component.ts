@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySlider } from 'ngx-tethys/slider';
 import { FormsModule } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
         <thy-slider class="mb-2" [ngModel]="value" thySize="md" [thyType]="'warning'"></thy-slider>
         <thy-slider [ngModel]="value" thySize="lg"></thy-slider>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider, FormsModule]
 })
 export class ThySliderSizeExampleComponent implements OnInit {

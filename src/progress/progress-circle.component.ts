@@ -1,5 +1,14 @@
 import { isNumber, isString } from 'ngx-tethys/util';
-import { Component, TemplateRef, ViewEncapsulation, numberAttribute, input, effect, computed } from '@angular/core';
+import {
+    Component,
+    TemplateRef,
+    ViewEncapsulation,
+    numberAttribute,
+    input,
+    effect,
+    computed,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { NgClass, NgStyle } from '@angular/common';
@@ -15,6 +24,7 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
     host: {
         class: 'progress-circle'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTooltipDirective, NgClass, NgStyle]
 })
 export class ThyProgressCircle {

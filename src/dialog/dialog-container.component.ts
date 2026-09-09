@@ -34,13 +34,15 @@ import { ThyDialogHeader } from './header/dialog-header.component';
     selector: 'thy-dialog-container',
     template: `
         @if (config.header?.title) {
-            <thy-dialog-header [thyTitle]="config.header?.title" [thyIcon]="config.header?.icon"></thy-dialog-header>
+            <thy-dialog-header
+                [thyTitle]="$safeNavigationMigration(config.header?.title)"
+                [thyIcon]="$safeNavigationMigration(config.header?.icon)"></thy-dialog-header>
         }
         <ng-template thyPortalOutlet></ng-template>
     `,
     // Using OnPush for dialogs caused some sync issues, e.g. custom ngModel can't to detect changes
     // Disabled until we can track them down.
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     animations: [thyDialogAnimations.dialogContainer],
     host: {
         class: 'thy-dialog-container',

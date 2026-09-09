@@ -1,11 +1,12 @@
 import { ThyPopover, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
-import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-popover-can-push-example',
     templateUrl: './can-push.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverCanPushExampleComponent implements OnInit {

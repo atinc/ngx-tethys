@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCarousel, ThyCarouselItemDirective } from 'ngx-tethys/carousel';
 
 @Component({
@@ -18,6 +18,7 @@ import { ThyCarousel, ThyCarouselItemDirective } from 'ngx-tethys/carousel';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCarousel, ThyCarouselItemDirective]
 })
 export class ThyCarouselAutoPlayExampleComponent implements OnInit {

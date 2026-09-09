@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { XhrFactory } from '@angular/common';
-import { Component, DebugElement, OnInit, ɵglobal, inject as coreInject } from '@angular/core';
+import { Component, DebugElement, OnInit, ɵglobal, inject as coreInject, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -10,13 +10,14 @@ import { keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
 import { InternalImageInfo, ThyImagePreviewOptions, ThyImageService, ThyImageModule, ThyImagePreviewRef } from 'ngx-tethys/image';
 import { fetchImageBlob } from '../utils';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 let imageOnload: () => void;
 
 @Component({
     selector: 'thy-image-preview-test',
     template: ` <button thyButton="primary" (click)="onClick()">Preview</button> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyImageModule, ThyDialogModule]
 })
 class ImagePreviewTestComponent implements OnInit {
@@ -71,7 +72,7 @@ describe('image-preview', () => {
         TestBed.configureTestingModule({
             imports: [ThyImageModule],
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideNoopAnimations(),
                 {
                     provide: XhrFactory,

@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -45,6 +45,7 @@ describe('DecadeTableComponent', () => {
             <decade-table [value]="modelValue"></decade-table>
         </ng-container>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, LibPackerModule]
 })
 class ThyTestDecadeTableComponent {

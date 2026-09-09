@@ -11,7 +11,6 @@ import { ThyPicker } from './picker.component';
  * @order 10
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-date-picker',
     exportAs: 'thyDatePicker',
     templateUrl: './base-picker.component.html',

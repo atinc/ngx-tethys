@@ -5,7 +5,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -55,8 +54,7 @@ const listSizesMap = {
         class: 'thy-list thy-selection-list',
         '[class.thy-multiple-selection-list]': 'multiple()',
         '[class.thy-grid-list]': 'isLayoutGrid()'
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class ThySelectionList implements OnInit, OnDestroy, IThyListOptionParentComponent, ControlValueAccessor {
     private renderer = inject(Renderer2);

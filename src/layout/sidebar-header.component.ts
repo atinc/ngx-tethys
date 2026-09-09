@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Directive, TemplateRef, contentChild, input } from '@angular/core';
+import { Component, Directive, TemplateRef, contentChild, input } from '@angular/core';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 
 /**
@@ -32,7 +32,6 @@ export class ThySidebarHeaderDirective {
 @Component({
     selector: 'thy-sidebar-header',
     templateUrl: `./sidebar-header.component.html`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives: [
         {
             directive: ThySidebarHeaderDirective,

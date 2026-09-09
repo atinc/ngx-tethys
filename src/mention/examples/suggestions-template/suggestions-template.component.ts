@@ -1,7 +1,7 @@
 import { Mention, ThyMentionDirective } from 'ngx-tethys/mention';
 import { ThySelectionList } from 'ngx-tethys/list';
 import { ThyAvatar } from 'ngx-tethys/avatar';
-import { Component, ElementRef, OnInit, TemplateRef, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyListOption } from 'ngx-tethys/shared';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -32,6 +32,7 @@ const mockUsers = [
 @Component({
     selector: 'thy-mention-suggestion-template-example',
     templateUrl: './suggestions-template.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMentionDirective, FormsModule, ThySelectionList, ThyListOption, ThyAvatar, ThyInputDirective]
 })
 export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {

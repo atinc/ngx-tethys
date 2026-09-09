@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyAvatar, ThyAvatarList } from 'ngx-tethys/avatar';
 import { ThyButtonIcon } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-avatar-list-example',
     templateUrl: './list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatarList, ThyAvatar, ThyButtonIcon]
 })
 export class ThyAvatarListExampleComponent {

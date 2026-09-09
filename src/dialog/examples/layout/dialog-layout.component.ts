@@ -1,10 +1,11 @@
-import { Component, HostBinding, inject, input } from '@angular/core';
+import { Component, HostBinding, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDialogFooter, ThyDialogLayoutConfig, ThyDialogRef, ThyDialogHeader, ThyDialogBody } from 'ngx-tethys/dialog';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-dialog-footer-layout-example',
     templateUrl: './dialog-layout.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 export class ThyDialogFooterLayoutExampleComponent {

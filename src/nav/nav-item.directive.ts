@@ -24,10 +24,10 @@ export type ThyNavLink = '' | 'active';
  * @order 20
  */
 @Directive({
-    selector: '[thyNavLink],[thyNavItem]',
+    selector: '[thyNavItem]',
     host: {
         class: 'thy-nav-item',
-        '[class.active]': 'thyNavItemActive() || thyNavLinkActive()',
+        '[class.active]': 'thyNavItemActive()',
         '[class.disabled]': 'thyNavItemDisabled()'
     }
 })
@@ -50,13 +50,6 @@ export class ThyNavItemDirective {
      * @default false
      */
     readonly thyNavItemActive = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 已经废弃，请使用 thyNavItemActive
-     * @deprecated please use thyNavItemActive
-     * @default false
-     */
-    readonly thyNavLinkActive = input(false, { transform: coerceBooleanProperty });
 
     /**
      * 是否禁用
@@ -139,13 +132,7 @@ export class ThyNavItemDirective {
 
     linkIsActive() {
         const links = this.links();
-        return (
-            this.thyNavItemActive() ||
-            this.thyNavLinkActive() ||
-            this.routerLinkIsActive() ||
-            links.some(item => item.thyNavItemActive()) ||
-            links.some(item => item.thyNavLinkActive())
-        );
+        return this.thyNavItemActive() || this.routerLinkIsActive() || links.some(item => item.thyNavItemActive());
     }
 
     setNavLinkHidden(value: boolean) {

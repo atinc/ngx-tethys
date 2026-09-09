@@ -6,7 +6,7 @@
     [thyBindKeyEventContainer]="body"
     (thySelectionChange)="selectionChange($event)">
     @for (item of items; track item.id) {
-      <thy-list-option [thyDisabled]="item.id === 3" [thyValue]="item?.id">
+      <thy-list-option [thyDisabled]="item.id === 3" [thyValue]="$safeNavigationMigration(item?.id)">
         {{ item.name }}
       </thy-list-option>
     }

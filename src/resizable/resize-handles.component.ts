@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { ThyResizeDirection } from './interface';
 import { ThyResizeHandle } from './resize-handle.component';
 
@@ -27,7 +27,6 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
             <thy-resize-handle [thyLine]="thyLine()" [thyDirection]="dir"></thy-resize-handle>
         }
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyResizeHandle]
 })
 export class ThyResizeHandles {

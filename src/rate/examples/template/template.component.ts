@@ -1,11 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, TemplateRef, viewChild } from '@angular/core';
+import { AfterViewInit, Component, TemplateRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyRate } from 'ngx-tethys/rate';
 
 @Component({
     selector: 'thy-rate-template-example',
     templateUrl: './template.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyRate, FormsModule]
 })
 export class ThyRateTemplateExampleComponent implements AfterViewInit {

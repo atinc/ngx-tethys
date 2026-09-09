@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -101,6 +101,7 @@ describe('ThyDot', () => {
 @Component({
     selector: 'thy-demo-dot-basic',
     template: ` <span thy-dot [thyColor]="thyColor" [thySize]="thySize" [thyTheme]="thyTheme" [thyShape]="thyShape"></span> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDot]
 })
 class ThyDemoDotComponent {

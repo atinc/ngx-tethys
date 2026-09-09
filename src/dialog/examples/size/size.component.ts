@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialog, ThyDialogConfig, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
@@ -6,6 +6,7 @@ import { ThyDialogBasicContentComponent } from '../basic/dialog-content.componen
 @Component({
     selector: 'thy-dialog-size-example',
     templateUrl: './size.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyDialogSizeExampleComponent implements OnInit {

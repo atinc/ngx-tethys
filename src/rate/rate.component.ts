@@ -3,7 +3,6 @@ import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util
 
 import { NgClass } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     forwardRef,
@@ -44,7 +43,6 @@ const noop = () => {};
         '[attr.tabindex]': `tabIndex`,
         class: 'thy-rate'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyStopPropagationDirective, ThyRateItem, NgClass, ThyTooltipDirective]
 })
 export class ThyRate extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {

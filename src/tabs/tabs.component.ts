@@ -1,16 +1,15 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     DestroyRef,
     ElementRef,
     inject,
     input,
-    linkedSignal,
     model,
     OnInit,
     TemplateRef,
+    computed,
     contentChildren,
     effect,
     untracked
@@ -21,7 +20,7 @@ import { coerceBooleanProperty, isNumber, ThyBooleanInput } from 'ngx-tethys/uti
 import { fromEvent } from 'rxjs';
 import { ThyTabContent } from './tab-content.component';
 import { ThyTab } from './tab.component';
-import { ThyActiveTabInfo } from './types';
+import { ThyActiveTabValue } from './types';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -36,7 +35,6 @@ export type ThyTabsPosition = 'top' | 'left';
 @Component({
     selector: 'thy-tabs',
     templateUrl: './tabs.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-tabs',
         '[class.thy-tabs-top]': `thyPosition() === 'top'`,
@@ -65,9 +63,9 @@ export class ThyTabs implements OnInit {
     readonly thySize = input<ThyTabsSize>('md');
 
     /**
-     * 激活的项
+     * 激活的项，支持传入 tab id 或索引
      */
-    readonly thyActiveTab = model<ThyActiveTabInfo>(0);
+    readonly thyActiveTab = model<ThyActiveTabValue>(0);
 
     /**
      * 附加操作
@@ -90,13 +88,13 @@ export class ThyTabs implements OnInit {
      */
     readonly thyResponsive = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
-    readonly activeTabIndex = linkedSignal(() => {
+    readonly activeTabIndex = computed(() => {
         const activeTab = this.thyActiveTab();
-        return isNumber(activeTab) ? activeTab : undefined;
-    });
-
-    readonly activeTabId = linkedSignal(() => {
-        return this.thyActiveTab() ?? undefined;
+        const matchedIndex = this.tabs().findIndex(tab => tab.id() === activeTab);
+        if (matchedIndex >= 0) {
+            return matchedIndex;
+        }
+        return isNumber(activeTab) ? activeTab : 0;
     });
 
     transitionStarted: boolean = false;
@@ -112,7 +110,11 @@ export class ThyTabs implements OnInit {
             }
             untracked(() => {
                 this.thyAnimated() && (this.transitionStarted = true);
-                this.activeTabIndex.set(tabs.length - 1);
+                const lastIndex = tabs.length - 1;
+                const lastTab = tabs[lastIndex];
+                if (lastTab) {
+                    this.thyActiveTab.set(this.getTabActiveValue(lastTab, lastIndex));
+                }
                 this.cd.markForCheck();
             });
         });
@@ -144,7 +146,10 @@ export class ThyTabs implements OnInit {
             return;
         }
         this.thyAnimated() && (this.transitionStarted = this.activeTabIndex() !== index);
-        const id = tab.id();
-        this.thyActiveTab.set(id ? id : index);
+        this.thyActiveTab.set(this.getTabActiveValue(tab, index));
+    }
+
+    private getTabActiveValue(tab: ThyTab, index: number): ThyActiveTabValue {
+        return tab.id() ?? index;
     }
 }

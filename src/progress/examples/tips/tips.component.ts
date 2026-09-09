@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyProgress } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-tips',
     templateUrl: './tips.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
 })
 export class ThyProgressTipsExampleComponent implements OnInit {

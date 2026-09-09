@@ -2,7 +2,6 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { take } from 'rxjs/operators';
 
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     Renderer2,
@@ -59,7 +58,6 @@ function setElementAttributes(render: Renderer2, element: Element, attributes: R
 @Component({
     selector: 'thy-icon, [thy-icon]',
     template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-icon',

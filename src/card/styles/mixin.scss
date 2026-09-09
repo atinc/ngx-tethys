@@ -31,10 +31,6 @@
                 top: $divided-content-padding-y;
                 bottom: $divided-content-padding-y;
             }
-            // 兼容 content 的 sm 大小，新的 card 大小完全由 thy-card 的 thySize 决定
-            &--sm {
-                padding-top: 12px;
-            }
         }
     }
 }

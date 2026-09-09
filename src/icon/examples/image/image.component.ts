@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-icon-image-example',
     templateUrl: './image.component.html',
     styleUrls: ['./image.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon]
 })
 export class ThyIconImageExampleComponent {

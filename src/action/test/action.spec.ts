@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyActionModule } from 'ngx-tethys/action';
@@ -12,14 +12,13 @@ import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
         <a id="with-text" thyAction thyIcon="inbox">Inbox</a>
         <a id="with-active" thyAction thyActive="true" thyIcon="inbox"></a>
         <a id="with-type" thyAction thyType="danger" thyIcon="inbox"></a>
-        <a id="with-theme-lite" thyTheme="lite" thyAction thyType="danger" thyIcon="inbox"></a>
         <a id="with-appearance-lite" thyAppearance="lite" thyAction thyType="danger" thyIcon="inbox"></a>
-        <a id="with-appearance-priority" thyAppearance="lite" thyTheme="fill" thyAction thyType="danger" thyIcon="inbox"></a>
         <a id="with-hover-icon" thyAction thyIcon="inbox" thyHoverIcon="search"></a>
         <a id="with-text-disabled" thyAction thyIcon="inbox" thyHoverIcon="search" [thyDisabled]="true"></a>
         <a #feedbackAction1 id="with-feedback" thyAction thyIcon="inbox"></a>
         <a #feedbackAction2 id="with-feedback-disabled" thyAction thyIcon="inbox" [thyDisabled]="true"></a>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyActionModule]
 })
 class ThyActionTestBasicComponent {}
@@ -30,7 +29,7 @@ describe('thy-action', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });
@@ -90,26 +89,12 @@ describe('thy-action', () => {
         expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
     });
 
-    it('should create with lite theme', () => {
-        actionDebugElement = fixture.debugElement.query(By.css('#with-theme-lite'));
-        expect(fixture.componentInstance).toBeTruthy();
-        expect(actionDebugElement.componentInstance).toBeTruthy();
-        assertActionExpected(actionDebugElement.nativeElement, 'inbox');
-        expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
-        expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
-    });
-
     it('should create with lite appearance', () => {
         actionDebugElement = fixture.debugElement.query(By.css('#with-appearance-lite'));
         expect(fixture.componentInstance).toBeTruthy();
         expect(actionDebugElement.componentInstance).toBeTruthy();
         assertActionExpected(actionDebugElement.nativeElement, 'inbox');
         expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
-        expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
-    });
-
-    it('should prefer thyAppearance over deprecated thyTheme', () => {
-        actionDebugElement = fixture.debugElement.query(By.css('#with-appearance-priority'));
         expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
     });
 

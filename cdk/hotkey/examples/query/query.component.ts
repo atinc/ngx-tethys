@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { hotkey } from '@tethys/cdk/hotkey';
 import { ThyAlert } from 'ngx-tethys/alert';
 import { ThyCopyDirective } from 'ngx-tethys/copy';
@@ -7,6 +7,7 @@ import { ThyCopyDirective } from 'ngx-tethys/copy';
     selector: 'thy-hotkey-query-example',
     templateUrl: './query.component.html',
     styleUrls: ['./query.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAlert, ThyCopyDirective]
 })
 export class ThyHotkeyQueryExampleComponent {

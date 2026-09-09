@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySlider } from 'ngx-tethys/slider';
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
         <thy-slider class="mb-2" [(ngModel)]="value"></thy-slider>
         <p>当前值为： {{ value }}</p>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider, FormsModule]
 })
 export class ThySliderBasicExampleComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import {
     addDays,
@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'app-date-range-optional-date-ranges',
     templateUrl: './optional-date-ranges.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDateRange, FormsModule]
 })
 export class ThyDateRangeOptionalDateRangesExampleComponent implements OnInit {

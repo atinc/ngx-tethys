@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyProgress } from 'ngx-tethys/progress';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
@@ -6,6 +6,7 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
     selector: 'thy-progress-circle-example',
     templateUrl: './circle.component.html',
     styleUrls: ['./circle.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress, ThySpace, ThySpaceItemDirective]
 })
 export class ThyProgressCircleExampleComponent {

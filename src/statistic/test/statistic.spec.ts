@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyStatistic, ThyStatisticShape, ThyStatisticTitlePosition } from 'ngx-tethys/statistic';
 
@@ -175,6 +175,7 @@ describe('thy-statistic', () => {
             [thyValueStyle]="thyValueStyle"
             [thyTitlePosition]="thyTitlePosition"></thy-statistic>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStatistic]
 })
 class ThyDemoStatisticBasicComponent {
@@ -198,6 +199,7 @@ class ThyDemoStatisticBasicComponent {
             <ng-template #title>标题</ng-template>
         </thy-statistic>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStatistic]
 })
 class ThyDemoStatisticTemplateComponent {
@@ -214,6 +216,7 @@ class ThyDemoStatisticTemplateComponent {
         <ng-template #suffix>后缀</ng-template>
         <ng-template #title>标题</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStatistic]
 })
 class ThyDemoStatisticTemplateOutsideComponent {}

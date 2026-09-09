@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyStep, ThyStepper, ThyStepperNextDirective, ThyStepperPreviousDirective } from 'ngx-tethys/stepper';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -6,6 +6,7 @@ import { ThyButton } from 'ngx-tethys/button';
     selector: 'thy-stepper-icon-example',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyStepper, ThyStep, ThyButton, ThyStepperNextDirective, ThyStepperPreviousDirective]
 })
 export class ThyStepperIconExampleComponent {

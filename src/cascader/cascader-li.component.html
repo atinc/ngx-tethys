@@ -8,6 +8,7 @@
         [name]="option().value || option()._id"
         [thyIndeterminate]="halfSelected()"
         [ngModel]="selected()"
+        [ngModelOptions]="{ standalone: true }"
         (ngModelChange)="toggleOption($event)"></label>
     }
     @if (!multiple() && !isOnlySelectLeaf()) {
@@ -17,6 +18,7 @@
         [disabled]="option().disabled"
         [name]="option().value || option()._id"
         [ngModel]="selected()"
+        [ngModelOptions]="{ standalone: true }"
         (ngModelChange)="toggleOption($event)"></label>
     }
   </div>

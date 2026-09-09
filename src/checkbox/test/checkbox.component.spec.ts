@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import { ThyCheckboxModule, ThyCheckbox } from 'ngx-tethys/checkbox';
         <label thyCheckbox [thyLabelText]="labelText" [(ngModel)]="model.checked2"></label>
         <label thyCheckbox thyLabelText="多选选项3" [thyDisabled]="isDisabled" [(ngModel)]="model.checked3"></label>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCheckboxModule, FormsModule]
 })
 class CheckboxTestComponent {

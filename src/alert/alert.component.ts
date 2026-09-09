@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ChangeDetectionStrategy, input, contentChild, effect, computed } from '@angular/core';
+import { Component, TemplateRef, input, contentChild, effect, computed } from '@angular/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -39,7 +39,6 @@ const typeIconsMap: Record<string, string> = {
 @Component({
     selector: 'thy-alert',
     templateUrl: './alert.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-alert',
         '[class.thy-alert-hidden]': 'hidden'

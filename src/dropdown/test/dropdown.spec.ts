@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { provideHttpClient } from '@angular/common/http';
-import { Component, viewChild } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -31,6 +31,7 @@ import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
             </a>
         </thy-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownBasicTestComponent {
@@ -300,6 +301,7 @@ describe('for touch usage', () => {
             </a>
         </thy-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownMenuInputTestComponent {
@@ -394,6 +396,7 @@ describe('invalid dropdown', () => {
             </a>
         </thy-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule, ThyIconModule]
 })
 class DropdownMenuTestComponent {
@@ -416,7 +419,7 @@ describe('dropdown menu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownMenuTestComponent);
@@ -579,6 +582,7 @@ describe('dropdown menu', () => {
             </a>
         </thy-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule, ThyIconModule]
 })
 class DropdownSubmenuTestComponent {
@@ -593,7 +597,7 @@ describe('dropdown submenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
         fixture = TestBed.createComponent(DropdownSubmenuTestComponent);
@@ -844,6 +848,7 @@ describe('dropdown submenu', () => {
             <span>Custom Menu Item2</span>
         </a>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownCustomMenuComponent extends ThyDropdownAbstractMenu {}
@@ -851,6 +856,7 @@ class DropdownCustomMenuComponent extends ThyDropdownAbstractMenu {}
 @Component({
     selector: 'thy-dropdown-component-test',
     template: ` <button [thyDropdown]="menu" thyButton="primary">Dropdown</button> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownComponentTestComponent {
@@ -927,6 +933,7 @@ describe('dropdown-component', () => {
             </a>
         </thy-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule]
 })
 class DropdownOptionsTestComponent {
@@ -1144,6 +1151,7 @@ describe('dropdown options', () => {
             </a>
         </thy-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDropdownModule, ThyButtonModule, ThyDropdownMenuComponent]
 })
 class DropdownImmediateRenderTestComponent {

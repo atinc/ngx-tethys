@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { Component, DebugElement, signal } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { Component, DebugElement, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyActionModule, ThyActions } from 'ngx-tethys/action';
@@ -16,6 +16,7 @@ import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
             }
         </thy-actions>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyActionModule]
 })
 class ThyActionsTestBasicComponent {
@@ -29,7 +30,7 @@ describe('thy-actions', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });

@@ -1,8 +1,8 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -37,7 +37,7 @@ describe('ThyTestDateRangeComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -491,6 +491,7 @@ describe('ThyTestDateRangeComponent', () => {
             }
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyDateRangeModule]
 })
 class ThyTestDateRangeComponent {

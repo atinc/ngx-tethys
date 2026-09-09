@@ -2,7 +2,19 @@ import { DateRangeItemInfo, ThyDateRange } from 'ngx-tethys/date-range';
 import { endOfMonth, FunctionProp, getMonth, getUnixTime, getYear, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
 import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, HostBinding, inject, input, OnInit, output, Signal, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    effect,
+    HostBinding,
+    inject,
+    input,
+    OnInit,
+    output,
+    Signal,
+    TemplateRef,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { DateHelperService } from 'ngx-tethys/date-picker';
@@ -16,6 +28,7 @@ import { injectLocale, ThyCalendarLocale } from 'ngx-tethys/i18n';
 @Component({
     selector: 'thy-calendar-header',
     templateUrl: './calendar-header.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDateRange, FormsModule, ThyButton, NgTemplateOutlet, JsonPipe]
 })
 export class ThyCalendarHeader implements OnInit {

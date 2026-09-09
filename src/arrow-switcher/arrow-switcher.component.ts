@@ -1,6 +1,5 @@
 import {
     Component,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     forwardRef,
     numberAttribute,
@@ -37,7 +36,6 @@ export interface ThyArrowSwitcherEvent {
         class: 'thy-arrow-switcher',
         '[class.thy-arrow-switcher-small]': 'isSmallSize()'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,

@@ -1,13 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 registerLocaleData(zh);
 
@@ -20,7 +20,7 @@ describe('ThyMonthPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
 
         TestBed.compileComponents();
@@ -115,8 +115,8 @@ describe('ThyMonthPickerComponent', () => {
             expect(allDisabledCells.textContent).toContain('3月');
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -267,16 +267,17 @@ describe('ThyMonthPickerComponent', () => {
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
-            [thyPlaceHolder]="thyPlaceHolder">
+            [thyPlaceholder]="thyPlaceholder">
         </thy-month-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestMonthPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder: string = '请选择月份';
+    thyPlaceholder: string = '请选择月份';
     thyPanelClassName!: string;
     thyValue!: Date;
     thyOpen!: boolean;

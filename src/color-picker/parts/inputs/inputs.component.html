@@ -7,6 +7,7 @@
       class="px-0 form-control-xs"
       thyInput
       [(ngModel)]="hex"
+      [ngModelOptions]="{ standalone: true }"
       maxlength="6"
       (blur)="onInputChange($event, 'hex')"
       (thyEnter)="onInputChange($event, 'hex')" />
@@ -20,6 +21,7 @@
     [thyMax]="255"
     class="px-0 text-center"
     [(ngModel)]="color().rgba.red"
+    [ngModelOptions]="{ standalone: true }"
     (thyBlur)="onInputChange($event, 'R')"
     (thyEnter)="onInputChange($event, 'R')"></thy-input-number>
   <span>R</span>
@@ -31,6 +33,7 @@
     [thyMax]="255"
     class="px-0 text-center"
     [(ngModel)]="color().rgba.green"
+    [ngModelOptions]="{ standalone: true }"
     (thyBlur)="onInputChange($event, 'G')"
     (thyEnter)="onInputChange($event, 'G')"></thy-input-number>
   <span>G</span>
@@ -42,6 +45,7 @@
     [thyMax]="255"
     class="px-0 text-center"
     [(ngModel)]="color().rgba.blue"
+    [ngModelOptions]="{ standalone: true }"
     (thyBlur)="onInputChange($event, 'B')"
     (thyEnter)="onInputChange($event, 'B')"></thy-input-number>
   <span>B</span>
@@ -53,6 +57,7 @@
     thySize="xs"
     class="px-0 text-center"
     [(ngModel)]="alpha"
+    [ngModelOptions]="{ standalone: true }"
     (thyBlur)="onInputChange($event, 'A')"
     (thyEnter)="onInputChange($event, 'A')"></thy-input-number>
   <span>A</span>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { moveItemInArray, CdkDragDrop, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { ThyList, ThyListItem } from 'ngx-tethys/list';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -6,6 +6,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'app-list-sort',
     templateUrl: './sort.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyList, ThyIcon, ThyListItem, CdkDrag, CdkDropList]
 })
 export class ThyListSortExampleComponent implements OnInit {

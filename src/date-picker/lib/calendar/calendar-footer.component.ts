@@ -10,7 +10,6 @@ import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
  * @private
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'calendar-footer',
     exportAs: 'calendarFooter',

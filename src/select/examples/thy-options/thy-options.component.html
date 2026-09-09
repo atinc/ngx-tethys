@@ -3,7 +3,7 @@
   (thyOnScrollToBottom)="onScrollToBottom()"
   thyEnableScrollLoad="true"
   style="width: 500px"
-  thyPlaceHolder="滚动加载"
+  thyPlaceholder="滚动加载"
   [thyOptions]="loadMoreOptions()">
   @if (loading()) {
     <div class="loading-more font-size-xs text-desc">加载中...</div>
@@ -11,7 +11,7 @@
 </thy-select>
 <br />
 <thy-select
-  thyPlaceHolder="多选可搜索"
+  thyPlaceholder="多选可搜索"
   [thyShowSearch]="true"
   [ngModel]="multipleValue"
   style="width: 500px"
@@ -19,14 +19,14 @@
   [thyOptions]="options()">
 </thy-select>
 <br />
-<thy-select thyPlaceHolder="无边框样式" thyBorderless style="width: 500px" [thyOptions]="options()" [(ngModel)]="value"></thy-select>
+<thy-select thyPlaceholder="无边框样式" thyBorderless style="width: 500px" [thyOptions]="options()" [(ngModel)]="value"></thy-select>
 <br />
-<thy-select thyPlaceHolder="禁用" [thyDisabled]="true" style="width: 500px" [thyOptions]="options()" [(ngModel)]="value"></thy-select>
+<thy-select thyPlaceholder="禁用" [thyDisabled]="true" style="width: 500px" [thyOptions]="options()" [(ngModel)]="value"></thy-select>
 <br />
 
 <thy-select
   [thyOptions]="options()"
-  thyPlaceHolder="自定义 Footer"
+  thyPlaceholder="自定义 Footer"
   [thyShowSearch]="true"
   style="width: 500px"
   [thyFooterTemplate]="footer">

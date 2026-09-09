@@ -1,11 +1,12 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyRangePicker, ThyYearPicker } from 'ngx-tethys/date-picker';
 
 @Component({
     selector: 'thy-date-picker-size-example',
     templateUrl: './size.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButtonGroup, ThyButton, NgClass, ThyDatePicker, ThyMonthPicker, ThyQuarterPicker, ThyYearPicker, ThyRangePicker]
 })
 export class ThyDatePickerSizeExampleComponent {

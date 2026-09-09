@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, effect, input } from '@angular/core';
+import { Component, OnInit, ViewChild, effect, input, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyDatePicker } from 'ngx-tethys/date-picker';
 
@@ -8,11 +8,12 @@ import { ThyDatePicker } from 'ngx-tethys/date-picker';
         <thy-date-picker
             thyShowTime
             [thyFormat]="'yyyy-MM-dd HH:mm'"
-            thyPlaceHolder="选择时间"
+            thyPlaceholder="选择时间"
             [(ngModel)]="user().birth_date"
             [thyHasBackdrop]="false"
             thySize="md"></thy-date-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePicker, FormsModule]
 })
 export class ThyPropertyEditableDateInnerComponent implements OnInit {

@@ -1,14 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Directive,
-    HostBinding,
-    TemplateRef,
-    ViewEncapsulation,
-    input,
-    viewChild
-} from '@angular/core';
+import { Component, Directive, HostBinding, TemplateRef, ViewEncapsulation, input, viewChild } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, coerceCssPixelValue } from 'ngx-tethys/util';
 
@@ -45,7 +36,6 @@ export class ThyDropdownAbstractMenu {
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.thy-dropdown-menu]': 'thyImmediateRender()',
         '[style.width]': "thyImmediateRender() ? thyWidth() : ''"
@@ -79,7 +69,6 @@ export class ThyDropdownMenuComponent {
         <div class="dropdown-menu-group-title">{{ thyTitle() }}</div>
         <ng-content></ng-content>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'dropdown-menu-group'
     }
@@ -102,8 +91,7 @@ export class ThyDropdownMenuGroup {
     template: ` <!-- <div class="dropdown-menu-divider-title">{{ title }}</div> --> `,
     host: {
         class: 'dropdown-menu-divider'
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class ThyDropdownMenuDivider {
     constructor() {}

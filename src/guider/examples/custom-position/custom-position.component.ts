@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyGuider, ThyGuiderConfig, ThyGuiderRef } from 'ngx-tethys/guider';
 import { ThyButton } from 'ngx-tethys/button';
@@ -12,6 +12,7 @@ import { ThyOption } from 'ngx-tethys/shared';
 @Component({
     selector: 'thy-guider-custom-position-example',
     templateUrl: 'custom-position.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyFormGroup, ThyFormDirective, ThySelect, ThyOption, ThySlider, FormsModule, ThyColDirective, ThyRowDirective]
 })
 export class ThyGuiderCustomPositionExampleComponent implements OnInit {

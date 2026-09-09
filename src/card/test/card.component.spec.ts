@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, OnInit, DebugElement } from '@angular/core';
+import { Component, OnInit, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyCardModule, ThyCard, ThyCardContent, ThyCardHeader } from 'ngx-tethys/card';
 
@@ -11,27 +11,12 @@ import { ThyCardModule, ThyCard, ThyCardContent, ThyCardHeader } from 'ngx-tethy
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardBasicComponent implements OnInit {
     size: 'md' | 'sm' | 'lg' = 'md';
 
-    constructor() {}
-
-    ngOnInit(): void {}
-}
-
-@Component({
-    selector: 'thy-card-test-clear-padding',
-    template: `
-        <thy-card thyHasLeftRightPadding="false">
-            <thy-card-header thyTitle="This is basic test"></thy-card-header>
-            <thy-card-content>This is content</thy-card-content>
-        </thy-card>
-    `,
-    imports: [ThyCardModule]
-})
-class CardClearPaddingComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
@@ -45,6 +30,7 @@ class CardClearPaddingComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardDividedComponent implements OnInit {
@@ -61,6 +47,7 @@ class CardDividedComponent implements OnInit {
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
 class CardBorderedComponent implements OnInit {
@@ -70,31 +57,17 @@ class CardBorderedComponent implements OnInit {
 }
 
 @Component({
-    selector: 'thy-test-card-header-basic',
-    template: `
-        <thy-card>
-            <thy-card-header thyTitle="This is card header test" [thySize]="size"></thy-card-header>
-            <thy-card-content [thySize]="size">This is content</thy-card-content>
-        </thy-card>
-    `,
-    imports: [ThyCardModule]
-})
-class CardHeaderSizeComponent {
-    size!: string;
-}
-
-@Component({
     selector: 'thy-test-card-content-scroll',
     template: `
         <thy-card>
             <thy-card-header thyTitle="This is card content test"></thy-card-header>
-            <thy-card-content [thySize]="size" [thyScroll]="isScroll">This is content</thy-card-content>
+            <thy-card-content [thyScroll]="isScroll">This is content</thy-card-content>
         </thy-card>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCardModule]
 })
-class CardContentSizeAndScrollComponent {
-    size!: string;
+class CardContentScrollComponent {
     isScroll!: boolean;
 }
 
@@ -177,68 +150,29 @@ describe('thy-card', () => {
         });
     });
 
-    describe('clear-padding', () => {
-        let fixture!: ComponentFixture<CardClearPaddingComponent>;
-        let cardDebugElement!: DebugElement;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(CardClearPaddingComponent);
-            fixture.detectChanges();
-            cardDebugElement = fixture.debugElement.query(By.directive(ThyCard));
-        });
-
-        it('should get correct thy-card--clear-left-right-padding class when thyHasLeftRightPadding is false', () => {
-            expect(fixture).toBeTruthy();
-            expect(cardDebugElement).toBeTruthy();
-            const cardElement: HTMLElement = cardDebugElement.nativeElement;
-            expect(cardElement.classList.contains('thy-card--clear-left-right-padding')).toBe(true);
-        });
-    });
-
     describe('card header', () => {
-        let fixture!: ComponentFixture<CardHeaderSizeComponent>;
-        let cardHeaderComponent!: DebugElement;
+        let fixture!: ComponentFixture<CardBasicComponent>;
         let cardHeaderElement!: HTMLElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(CardHeaderSizeComponent);
+            fixture = TestBed.createComponent(CardBasicComponent);
             fixture.detectChanges();
-            cardHeaderComponent = fixture.debugElement.query(By.directive(ThyCardHeader));
-            cardHeaderElement = cardHeaderComponent.nativeElement;
+            cardHeaderElement = fixture.debugElement.query(By.directive(ThyCardHeader)).nativeElement;
         });
 
-        it('should set card header size success', () => {
-            fixture.detectChanges();
-            expect(cardHeaderElement).toBeTruthy();
+        it('should render card header', () => {
             expect(cardHeaderElement.classList.contains('thy-card-header')).toBeTruthy();
-
-            ['lg', 'sm'].forEach(size => {
-                fixture.debugElement.componentInstance.size = size;
-                fixture.detectChanges();
-                expect(cardHeaderElement.classList.contains(`thy-card-header-${size}`));
-            });
         });
     });
 
     describe('card content', () => {
-        let fixture!: ComponentFixture<CardContentSizeAndScrollComponent>;
-        let cardContentComponent!: DebugElement;
+        let fixture!: ComponentFixture<CardContentScrollComponent>;
         let cardContentElement!: HTMLElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(CardContentSizeAndScrollComponent);
+            fixture = TestBed.createComponent(CardContentScrollComponent);
             fixture.detectChanges();
-            cardContentComponent = fixture.debugElement.query(By.directive(ThyCardContent));
-            cardContentElement = cardContentComponent.nativeElement;
-        });
-
-        it('should set card content size success', () => {
-            fixture.detectChanges();
-            expect(cardContentElement).toBeTruthy();
-            expect(cardContentElement.classList.contains('thy-card-content')).toBeTruthy();
-            fixture.debugElement.componentInstance.size = `sm`;
-            fixture.detectChanges();
-            expect(cardContentElement.classList.contains(`thy-card-content--sm`)).toBeTruthy();
+            cardContentElement = fixture.debugElement.query(By.directive(ThyCardContent)).nativeElement;
         });
 
         it('should set card content scroll success', () => {

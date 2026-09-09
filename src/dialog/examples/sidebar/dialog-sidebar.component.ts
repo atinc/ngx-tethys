@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject } from '@angular/core';
+import { Component, HostBinding, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyDialogRef } from 'ngx-tethys/dialog';
 import { ThyLayout, ThySidebar, ThySidebarHeader, ThySidebarContent } from 'ngx-tethys/layout';
 import { ThyMenu } from 'ngx-tethys/menu';
@@ -7,6 +7,7 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-dialog-sidebar-content-example',
     templateUrl: './dialog-sidebar.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyLayout,
         ThySidebar,

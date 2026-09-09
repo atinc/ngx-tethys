@@ -5,11 +5,6 @@ export type DisabledDateFn = (d: Date) => boolean;
 
 export type ThyPanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flexible' | 'quarter';
 
-/**
- * @deprecated use ThyCompatibleDate instead
- */
-export type CompatibleDate = Date | Date[];
-
 export type ThyCompatibleDate = Date | Date[];
 
 export type ThyCompatibleTinyDate = TinyDate | TinyDate[];

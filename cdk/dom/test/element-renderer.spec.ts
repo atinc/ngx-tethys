@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, DebugElement } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { useElementRenderer } from '@tethys/cdk/dom';
 
 @Component({
     selector: 'thy-dom-use-element-renderer-test',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '<div #container></div>'
 })
 export class ThyDomUseElementRendererTestComponent implements OnInit {
@@ -24,6 +25,7 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
 
 @Component({
     selector: 'thy-dom-use-element-renderer-without-element-test',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '<div #container></div>'
 })
 export class ThyDomElementRendererWithoutElementTestComponent implements OnInit {

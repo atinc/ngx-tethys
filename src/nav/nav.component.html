@@ -7,7 +7,7 @@
       [class.d-none]="!showMore()"
       [class.invisible]="!initialized()"
       #moreOperationContainer
-      thyNavLink
+      thyNavItem
       [thyNavItemActive]="moreActive()"
       (click)="openMoreMenu($event, navListPopover)">
       @if (moreOperation()) {

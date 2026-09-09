@@ -1,15 +1,17 @@
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 
 @Component({
     selector: 'test-bed-input-directive',
     template: ` <input name="username" thyInput [thySize]="thySize" /> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputDirective]
 })
 class TestBedInputDirectiveComponent {
-    thySize = ``;
+    thySize: ThyFormControlSize | undefined = 'md';
 }
 
 describe('input directive', () => {
@@ -28,12 +30,11 @@ describe('input directive', () => {
         debugElement = fixture.debugElement.query(By.directive(ThyInputDirective));
     });
 
-    it('thySize empty string', () => {
-        basicTestComponent.thySize = '';
+    it('should use md by default', () => {
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-xs')).toBe(false);
         expect(debugElement.nativeElement.classList.contains('form-control-sm')).toBe(false);
-        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(false);
+        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(true);
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(false);
     });
 
@@ -59,5 +60,11 @@ describe('input directive', () => {
         basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(true);
+    });
+
+    it('should use md size when thySize is undefined', () => {
+        basicTestComponent.thySize = undefined;
+        fixture.detectChanges();
+        expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(true);
     });
 });

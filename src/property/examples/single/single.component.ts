@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
@@ -8,6 +8,7 @@ import { ThyPropertyItem } from 'ngx-tethys/property';
     selector: 'thy-property-single-example',
     templateUrl: './single.component.html',
     styleUrl: './single.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyPropertyItem, ThyInputDirective, ThyInputNumber]
 })
 export class ThyPropertySingleExampleComponent implements OnInit {

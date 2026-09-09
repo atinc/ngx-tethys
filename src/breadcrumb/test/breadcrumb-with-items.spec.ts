@@ -1,9 +1,9 @@
 import { fakeAsync, TestBed, ComponentFixture, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { ThyBreadcrumbModule, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
@@ -12,6 +12,7 @@ import { provideHttpClient } from '@angular/common/http';
             <ng-template #item let-value>{{ value }}</ng-template>
         </thy-breadcrumb>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBreadcrumbModule]
 })
 class ThyDemoBreadcrumbWithItemsComponent {
@@ -27,7 +28,7 @@ describe('ThyBreadcrumb With Items', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideAnimations()]
+            providers: [provideHttpClient(withXhr()), provideAnimations()]
         });
 
         TestBed.compileComponents();

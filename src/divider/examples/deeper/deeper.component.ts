@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { mockArticle } from '../mock-article';
 import { ThyDivider } from 'ngx-tethys/divider';
 
@@ -6,6 +6,7 @@ import { ThyDivider } from 'ngx-tethys/divider';
     encapsulation: ViewEncapsulation.None,
     selector: 'thy-divider-deeper-example',
     templateUrl: './deeper.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDivider]
 })
 export class ThyDividerDeeperExampleComponent {

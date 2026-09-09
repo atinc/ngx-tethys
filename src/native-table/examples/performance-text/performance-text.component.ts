@@ -1,4 +1,4 @@
-import { afterEveryRender, afterNextRender, Component, ElementRef, inject, OnInit, signal } from '@angular/core';
+import { afterEveryRender, afterNextRender, Component, ElementRef, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNativeTableModule } from 'ngx-tethys/native-table';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -19,6 +19,7 @@ function perfTracker() {
 @Component({
     selector: 'thy-native-table-performance-text-example',
     templateUrl: './performance-text.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNativeTableModule, ThyButton]
 })
 export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {

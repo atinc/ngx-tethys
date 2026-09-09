@@ -23,12 +23,6 @@
         @include mixin.btn-icon-active(variables.$primary);
     }
 
-    @include mixin.btn-icon-size-variant(
-        variables.$font-size-md,
-        variables.$btn-icon-circle-padding-base,
-        variables.$font-size-md,
-        variables.$input-btn-height
-    );
 }
 
 .btn-icon.btn-icon-danger-weak {
@@ -137,7 +131,7 @@
 
     &.active,
     &.btn-icon-active {
-        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-base);
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-md);
     }
 }
 
@@ -180,7 +174,7 @@
     );
     &.btn-icon-circle.active,
     &.btn-icon-circle.btn-icon-active {
-        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-base);
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-md);
     }
 }
 
@@ -204,17 +198,17 @@
             i,
             .wtf {
                 border: 2px solid variables.$primary;
-                padding: variables.$btn-icon-circle-padding-base - variables.$btn-icon-circle-padding-difference;
+                padding: variables.$btn-icon-circle-padding-md - variables.$btn-icon-circle-padding-difference;
                 color: variables.$primary;
             }
             &.border-thick {
                 i,
                 .wtf {
-                    padding: variables.$btn-icon-circle-padding-base - variables.$btn-icon-circle-padding-difference;
+                    padding: variables.$btn-icon-circle-padding-md - variables.$btn-icon-circle-padding-difference;
                 }
                 i,
                 .wtf {
-                    padding: variables.$btn-icon-circle-padding-base - variables.$btn-icon-circle-padding-difference;
+                    padding: variables.$btn-icon-circle-padding-md - variables.$btn-icon-circle-padding-difference;
                 }
             }
         }

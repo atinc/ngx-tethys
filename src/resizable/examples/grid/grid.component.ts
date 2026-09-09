@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tethys/resizable';
 
@@ -6,6 +6,7 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandles } from 'ngx-tet
     selector: 'thy-resizable-grid-example',
     templateUrl: './grid.component.html',
     styleUrls: ['../style.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyResizableDirective, ThyResizeHandles, ThyColDirective, ThyRowDirective]
 })
 export class ThyResizableGridExampleComponent {

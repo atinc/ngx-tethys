@@ -1,9 +1,9 @@
-import { Component, DebugElement, signal, ViewChild } from '@angular/core';
+import { Component, DebugElement, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyPage } from 'ngx-tethys/table';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyNativeTableModule } from '../native-table.module';
 import { FormsModule } from '@angular/forms';
 import { ThyNativeTableComponent } from '../table/table.component';
@@ -40,6 +40,7 @@ import { SelectionModel } from '@angular/cdk/collections';
             </tbody>
         </thy-native-table>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNativeTableModule, FormsModule]
 })
 class ThyNativeTableTestComponent {
@@ -86,7 +87,7 @@ describe('ThyNativeTable: basic', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNativeTableModule, ThyEmptyModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     }));
@@ -198,6 +199,7 @@ describe('ThyNativeTable: basic', () => {
             </tbody>
         </thy-native-table>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNativeTableModule, FormsModule]
 })
 class ThyNativeTableCheckboxTestComponent {
@@ -226,7 +228,7 @@ describe('ThyNativeTable: checkbox', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNativeTableModule, ThyEmptyModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     }));
@@ -306,6 +308,7 @@ describe('ThyNativeTable: checkbox', () => {
             }
         </tbody>
     </thy-native-table> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNativeTableModule, FormsModule]
 })
 class ThyNativeTableFixedTestComponent {
@@ -325,7 +328,7 @@ describe('ThyNativeTable: fixed', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNativeTableModule, ThyEmptyModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     }));

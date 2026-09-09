@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThyDivider } from 'ngx-tethys/divider';
@@ -8,6 +8,7 @@ import { ThyMenu, ThyMenuItemName, ThyMenuGroup, ThyMenuItem, ThyMenuItemAction 
     selector: 'thy-menu-group-example',
     templateUrl: './group.component.html',
     styleUrls: ['./group.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMenu, ThyColDirective, ThyRowDirective, ThyDivider, ThyMenuGroup, ThyMenuItem, ThyMenuItemAction, ThyMenuItemName]
 })
 export class ThyMenuGroupExampleComponent implements OnInit {

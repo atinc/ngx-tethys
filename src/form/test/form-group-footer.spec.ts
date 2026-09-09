@@ -1,5 +1,5 @@
 import { ThyFormModule, ThyFormGroupFooter, ThyFormDirective, THY_FORM_CONFIG } from 'ngx-tethys/form';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -10,6 +10,7 @@ import { By } from '@angular/platform-browser';
             <button></button>
         </thy-form-group-footer>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFormGroupFooter]
 })
 export class FormGroupFooterComponent {

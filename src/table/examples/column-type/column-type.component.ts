@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, model, signal } from '@angular/core';
+import { Component, OnInit, WritableSignal, model, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTable, ThyTableColumnComponent, ThyMultiSelectEvent, ThyRadioSelectEvent, ThySwitchEvent } from 'ngx-tethys/table';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyRadioGroup, ThyRadio } from 'ngx-tethys/radio';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'thy-table-column-type-example',
     templateUrl: './column-type.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, ThyRadio, FormsModule]
 })
 export class ThyTableColumnTypeExampleComponent implements OnInit {

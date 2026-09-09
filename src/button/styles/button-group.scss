@@ -18,10 +18,6 @@
     > .btn {
         position: relative;
         flex: 0 1 auto;
-        padding: variables.$btn-padding-y variables.$btn-group-btn-padding-x-md;
-        &.thy-btn-icon-only {
-            @include mixin.btn-icon-only-variant(variables.$btn-padding-y, 0.625rem);
-        }
         // Bring the hover, focused, and "active" buttons to the front to overlay
         // the borders properly
         @include hover.hover {
@@ -107,7 +103,7 @@
     @extend .btn-md;
     padding: variables.$btn-group-btn-padding-y-md variables.$btn-group-btn-padding-x-md;
     &.thy-btn-icon-only {
-        @include mixin.btn-icon-only-variant(variables.$btn-group-btn-padding-y-md, 0.5rem);
+        @include mixin.btn-icon-only-variant(variables.$btn-group-btn-padding-y-md, variables.$btn-icon-only-padding-x-md);
     }
 }
 .btn-group-lg > .btn {

@@ -1,4 +1,14 @@
-import { Component, InjectionToken, TemplateRef, ViewChild, inject, input, WritableSignal, viewChild } from '@angular/core';
+import {
+    Component,
+    InjectionToken,
+    TemplateRef,
+    ViewChild,
+    inject,
+    input,
+    WritableSignal,
+    viewChild,
+    ChangeDetectionStrategy
+} from '@angular/core';
 
 export interface IThyStepperComponent {
     updateSelected(step: ThyStep): void;
@@ -11,7 +21,7 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
  * @name thy-step
  * @order 20
  */
-@Component({ selector: 'thy-step', templateUrl: './step.component.html' })
+@Component({ selector: 'thy-step', changeDetection: ChangeDetectionStrategy.Eager, templateUrl: './step.component.html' })
 export class ThyStep {
     stepper = inject(THY_STEPPER_COMPONENT, { optional: true })!;
 

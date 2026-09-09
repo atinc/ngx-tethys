@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { basicTreeSelectData } from '../mock-data';
 import { ThyTreeSelect } from 'ngx-tethys/tree-select';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-tree-select-multiple-example',
     templateUrl: './multiple.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect, FormsModule, ThySwitch, ThyIcon, CommonModule]
 })
 export class ThyTreeSelectMultipleExampleComponent implements OnInit {

@@ -1,14 +1,14 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { createFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -21,7 +21,7 @@ describe('ThyYearPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -115,8 +115,8 @@ describe('ThyYearPickerComponent', () => {
             flush();
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -258,16 +258,17 @@ describe('ThyYearPickerComponent', () => {
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
             (thyDateChange)="thyDateChange($event)"
-            [thyPlaceHolder]="thyPlaceHolder">
+            [thyPlaceholder]="thyPlaceholder">
         </thy-year-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestYearPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder: string = '请选择年';
+    thyPlaceholder: string = '请选择年';
     thyPanelClassName!: string;
     thyValue!: Date;
     thyOpen!: boolean;

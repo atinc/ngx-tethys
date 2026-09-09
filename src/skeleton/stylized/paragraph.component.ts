@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
+import { Component, computed, input, ViewEncapsulation } from '@angular/core';
 import { coerceBooleanProperty, coerceCssPixelValue, ThyBooleanInput } from 'ngx-tethys/util';
 import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
 
@@ -23,7 +23,6 @@ import { ThySkeletonRectangle } from '../skeleton-rectangle.component';
         }
     `,
     host: { '[class.thy-skeleton-paragraph]': 'true' },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     imports: [ThySkeletonRectangle]
 })

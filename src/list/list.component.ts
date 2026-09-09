@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -12,6 +12,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         class: 'thy-list',
         '[class.thy-list-divided]': 'thyDivided()'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '<ng-content></ng-content>'
 })
 export class ThyList {

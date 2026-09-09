@@ -1,11 +1,11 @@
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-input-number-test',
@@ -44,6 +44,7 @@ import { provideHttpClient } from '@angular/common/http';
             (thyFocus)="onSecondFocus($event)"
             (thyBlur)="onSecondBlur($event)"></thy-input-number>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputNumber, FormsModule]
 })
 class TestInputNumberComponent {
@@ -96,7 +97,7 @@ describe('input-number component', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();

@@ -1,14 +1,14 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 registerLocaleData(zh);
 
@@ -21,7 +21,7 @@ describe('ThyWeekPickerComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
 
         TestBed.compileComponents();
@@ -98,8 +98,8 @@ describe('ThyWeekPickerComponent', () => {
             expect(debugElement.query(By.css('.thy-picker .thy-input-disabled'))).toBeNull();
         }));
 
-        it('should support thyPlaceHolder', () => {
-            const featureKey = (fixtureInstance.thyPlaceHolder = 'TEST_PLACEHOLDER');
+        it('should support thyPlaceholder', () => {
+            const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
@@ -167,15 +167,16 @@ describe('ThyWeekPickerComponent', () => {
             (ngModelChange)="modelValueChange($event)"
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
-            [thyPlaceHolder]="thyPlaceHolder"
+            [thyPlaceholder]="thyPlaceholder"
             (thyDateChange)="thyDateChange($event)"></thy-week-picker>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDatePickerModule, FormsModule]
 })
 class TestWeekPickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
-    thyPlaceHolder: string = '请选择周';
+    thyPlaceholder: string = '请选择周';
     thyValue!: Date;
     modelValueChange(): void {}
     thyDateChange(): void {}

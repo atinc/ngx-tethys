@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyList, ThyListItem, ThyListItemMeta } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-item-meat-example',
     templateUrl: './item-meta.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyList, ThyListItem, ThyListItemMeta]
 })
 export class ThyListItemMetaExampleComponent implements OnInit {

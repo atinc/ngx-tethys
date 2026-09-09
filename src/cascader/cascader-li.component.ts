@@ -5,7 +5,6 @@ import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     OnInit,
@@ -26,7 +25,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
  * @internal
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',

@@ -1,6 +1,6 @@
 import { ThySwitch } from 'ngx-tethys/switch';
 import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ApplicationRef, Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -12,7 +12,7 @@ import {
     ThyTableColumnComponent
 } from 'ngx-tethys/table';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
@@ -35,7 +35,6 @@ import { SafeAny } from 'ngx-tethys/types';
             [thyClassName]="tableClassName"
             [thyRowClassName]="tableRowClassName"
             [thyLoadingDone]="isLoadingDone"
-            [thyLoadingText]="loadingText"
             [thyHeadless]="headless"
             (thyOnRowClick)="onRowClick($event)"
             (thyOnMultiSelectChange)="onMultiSelectChange($event)"
@@ -80,6 +79,7 @@ import { SafeAny } from 'ngx-tethys/types';
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent]
 })
 class ThyDemoDefaultTableComponent {
@@ -162,7 +162,6 @@ class ThyDemoDefaultTableComponent {
     selections: any[] = [];
     theme = 'default';
     isLoadingDone = true;
-    loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
     showSizeChanger = true;
@@ -214,7 +213,7 @@ describe('ThyTable: basic', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTableModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         });
         TestBed.compileComponents();
     }));
@@ -712,6 +711,7 @@ describe('ThyTable: basic', () => {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTableModule]
 })
 class ThyDemoGroupTableComponent {
@@ -812,7 +812,7 @@ describe('ThyTable: group', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));
@@ -984,8 +984,7 @@ describe('ThyTable: group', () => {
             [thyClassName]="tableClassName"
             [thyRowClassName]="tableRowClassName"
             [thyLoadingDone]="isLoadingDone"
-            [thyLoadingText]="loadingText"
-            [thyShowHeader]="isShowHeader"
+            [thyHeadless]="!isShowHeader"
             (thyOnRowClick)="onRowClick($event, row)"
             (thyOnMultiSelectChange)="onMultiSelectChange($event, row)"
             [thyPageIndex]="pagination.index"
@@ -1020,6 +1019,7 @@ describe('ThyTable: group', () => {
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTableModule]
 })
 class ThyDemoEmptyTableComponent {
@@ -1038,7 +1038,6 @@ class ThyDemoEmptyTableComponent {
     selections: SafeAny[] = [];
     theme = 'default';
     isLoadingDone = true;
-    loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
 
@@ -1069,7 +1068,7 @@ describe('ThyTable: empty', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));
@@ -1105,6 +1104,7 @@ describe('ThyTable: empty', () => {
             <thy-table-column thyTitle="Job" thyModelKey="job" [thyWidth]="'300px'" [thyFixed]="fixedRight"></thy-table-column>
         </thy-table>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTableModule]
 })
 class ThyDemoFixedTableComponent {
@@ -1119,7 +1119,7 @@ describe('ThyTable: fixed', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));
@@ -1167,6 +1167,7 @@ describe('ThyTable: fixed', () => {
             <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
         </thy-table>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTableModule]
 })
 class ThyDemoSortTableComponent {
@@ -1188,7 +1189,7 @@ describe('ThyTable: sort', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     }));

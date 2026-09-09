@@ -1,6 +1,6 @@
 import { ThyFullscreen, ThyFullscreenModule, ThyFullscreenComponent, ThyFullscreenLaunchDirective } from 'ngx-tethys/fullscreen';
 import { fakeAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, DebugElement, ApplicationRef } from '@angular/core';
+import { Component, DebugElement, ApplicationRef, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE, SHIFT, SPACE } from 'ngx-tethys/util';
@@ -92,6 +92,7 @@ describe('ThyFullscreen', () => {
             </div>
         </thy-fullscreen>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFullscreenComponent, ThyFullscreenLaunchDirective]
 })
 class ThyDemoFullscreenComponent {
@@ -211,6 +212,7 @@ describe('`thy-fulscreen` with dynamic launch button', () => {
             </div>
         </thy-fullscreen>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFullscreenModule]
 })
 class ThyContainerFullscreenTestComponent {
@@ -230,6 +232,7 @@ class ThyContainerFullscreenTestComponent {
             </div>
         </thy-fullscreen>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFullscreenModule]
 })
 class ThyContainerFullscreenDynamicLaunchComponent {

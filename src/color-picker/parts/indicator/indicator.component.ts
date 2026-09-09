@@ -1,4 +1,4 @@
-import { Component, computed, HostBinding, input, Signal } from '@angular/core';
+import { Component, computed, HostBinding, input, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyColor } from '../../helpers/color.class';
 
 /**
@@ -6,6 +6,7 @@ import { ThyColor } from '../../helpers/color.class';
  */
 @Component({
     selector: 'thy-indicator',
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './indicator.component.html'
 })
 export class ThyIndicator {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, booleanAttribute, inject, input, output, OnInit, computed } from '@angular/core';
+import { Component, booleanAttribute, input, output, OnInit, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
@@ -7,11 +7,11 @@ import { ThyNativeTableHeaderCellCheckState } from '../table.interface';
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'th[thyHeaderCell="checkbox"]',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <label
             thyCheckbox
             [ngModel]="checked()"
+            [ngModelOptions]="{ standalone: true }"
             [thyDisabled]="thyDisabled()"
             [thyIndeterminate]="indeterminate()"
             (ngModelChange)="onCheckedChange($event)"></label>

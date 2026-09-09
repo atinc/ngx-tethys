@@ -1,7 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     OnInit,
@@ -20,7 +19,6 @@ import { ThyNativeTableTrDirective } from '../row/tr.directive';
 /* eslint-disable @angular-eslint/component-selector */
 @Component({
     selector: 'thead:not(.thy-native-table-thead)',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <ng-template #contentTemplate>
             <ng-content></ng-content>

@@ -1,5 +1,5 @@
 import { ThySlideService } from 'ngx-tethys/slide';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThySlideDemoContentComponent } from '../slide-content.component';
 
@@ -7,6 +7,7 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
     selector: 'thy-slide-drawer-container-example',
     templateUrl: './drawer-container.component.html',
     styleUrls: ['./drawer-container.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThySlideDrawerContainerExampleComponent {

@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewEncapsulation, OnInit, ChangeDetectionStrategy, input, effect, Signal, computed } from '@angular/core';
+import { Component, TemplateRef, ViewEncapsulation, OnInit, input, effect, Signal, computed } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -37,10 +37,8 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
         '[class.thy-divider-with-content-right]': `(textContent() || templateContent()) && thyTextDirection() === 'right'`,
         '[class.thy-divider-with-content-center]': `(textContent() || templateContent()) && thyTextDirection() === 'center'`,
         '[class.thy-divider-solid]': `thyStyle() === 'solid'`,
-        '[class.thy-divider-dashed]': `thyStyle() === 'dashed'`,
-        '[class.thy-divider-deeper]': `!!thyDeeper()`
+        '[class.thy-divider-dashed]': `thyStyle() === 'dashed'`
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgTemplateOutlet]
 })
 export class ThyDivider implements OnInit {
@@ -87,12 +85,6 @@ export class ThyDivider implements OnInit {
      * @type left | right | center
      */
     readonly thyTextDirection = input<ThyDividerTextDirection>('center');
-
-    /**
-     * 颜色加深，已经废弃，请使用 thyColor="light" 代替
-     * @deprecated
-     */
-    readonly thyDeeper = input(false, { transform: coerceBooleanProperty });
 
     constructor() {
         effect(() => {

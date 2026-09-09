@@ -1,4 +1,4 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, model, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyContent, ThyLayout, ThySidebarHeader, ThySidebarContent, ThySidebarFooter, ThySidebar } from 'ngx-tethys/layout';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAction } from 'ngx-tethys/action';
@@ -8,6 +8,7 @@ import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
     selector: 'thy-layout-sidebar-example',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyLayout,
         ThyContent,

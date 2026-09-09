@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    ChangeDetectionStrategy,
     ViewEncapsulation,
     TemplateRef,
     HostBinding,
@@ -33,7 +32,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-back-top,[thyBackTop]',
     templateUrl: './back-top.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     imports: [ThyIcon, NgTemplateOutlet]
 })

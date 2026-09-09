@@ -1,18 +1,19 @@
 import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Component, DebugElement, viewChild } from '@angular/core';
+import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInputSearch, ThyInputSearchIconPosition } from '../input-search.component';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-input-search-basic-test',
     template: `
         <thy-input-search
             name="search"
-            placeholder="Please type"
+            thyPlaceholder="Please type"
             [disabled]="disabled"
             [thyTheme]="thyTheme"
             [thySearchFocus]="searchFocus"
@@ -22,6 +23,7 @@ import { provideHttpClient } from '@angular/common/http';
             [thySize]="thySize"
             [thyIconPosition]="iconPosition"></thy-input-search>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputSearch, FormsModule]
 })
 class TestInputSearchBasicComponent {
@@ -29,7 +31,7 @@ class TestInputSearchBasicComponent {
 
     searchFocus = true;
     searchText = '';
-    thySize = 'sm';
+    thySize: ThyFormControlSize | undefined = 'sm';
     thyTheme = ``;
     disabled = false;
     iconPosition!: ThyInputSearchIconPosition;
@@ -47,7 +49,7 @@ describe('input search', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
     });
@@ -189,6 +191,9 @@ describe('input search', () => {
         basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugSearchElement.nativeElement.children[1].classList.contains('form-control-lg')).toBe(true);
+        basicTestComponent.thySize = undefined;
+        fixture.detectChanges();
+        expect(debugSearchElement.nativeElement.children[1].classList.contains('form-control-md')).toBe(true);
     });
 
     it('should call blur methods when blur', fakeAsync(() => {

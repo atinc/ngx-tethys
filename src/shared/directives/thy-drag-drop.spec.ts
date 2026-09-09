@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -15,6 +15,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
             }
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule, DragDropModule]
 })
 class ThyDragDropTestComponent {

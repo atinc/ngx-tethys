@@ -1,6 +1,6 @@
 import { isTextColor } from 'ngx-tethys/core';
 
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, Signal, computed, inject, input, numberAttribute } from '@angular/core';
+import { Component, ElementRef, OnInit, Signal, computed, inject, input, numberAttribute } from '@angular/core';
 
 import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
 
@@ -13,7 +13,6 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 @Component({
     selector: 'thy-badge,[thyBadge]',
     templateUrl: './badge.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-badge-container',
         '[class.thy-badge-wrapper]': 'isWrapper'
@@ -39,13 +38,7 @@ export class ThyBadge implements OnInit {
         if (this.thySize()) {
             classes.push(`thy-badge-${this.thySize()}`);
         }
-        if (this.thyIsDot()) {
-            classes.push(`thy-badge-dot`);
-        } else if (this.thyIsHollow()) {
-            classes.push(`thy-badge-hollow`);
-        } else {
-            classes.push(`thy-badge-count`);
-        }
+        classes.push(`thy-badge-count`);
         const builtInTextColorClass = isTextColor(this.thyTextColor()) ? `text-${this.thyTextColor()}` : null;
         if (builtInTextColorClass) {
             classes.push(builtInTextColorClass);
@@ -61,11 +54,11 @@ export class ThyBadge implements OnInit {
     protected isWrapper = false;
 
     public readonly isShowBadge: Signal<boolean> = computed(() => {
-        return !(!this.value() && !this.thyKeepShow() && !this.thyIsDot() && !this.thyIsHollow());
+        return !(!this.value() && !this.thyKeepShow());
     });
 
     private readonly value: Signal<number | string | undefined> = computed(() => {
-        return this.thyContent() || this.thyContext() || this.thyCount();
+        return this.thyContent() || this.thyCount();
     });
 
     protected readonly textColor: Signal<string | null> = computed(() => {
@@ -101,11 +94,6 @@ export class ThyBadge implements OnInit {
     readonly thyContent = input<string>();
 
     /**
-     * 已废弃，徽标内容文本，命名错误，请使用 thyContent
-     */
-    readonly thyContext = input<string>();
-
-    /**
      * 徽标显示的最大值, 与 thyCount 一起使用,thyCount 超过了 thyMaxCount 设置的值时，徽标内容为 thyMaxCount+
      * @type number
      */
@@ -116,18 +104,6 @@ export class ThyBadge implements OnInit {
      * @type md | sm | lg
      */
     readonly thySize = input<ThyBadgeSize, ThyBadgeSize>('md', { transform: (value: ThyBadgeSize) => value || 'md' });
-
-    /**
-     * 已废弃，徽标是一个实心点，已经被废弃
-     * @deprecated
-     */
-    readonly thyIsDot = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 已废弃，徽标是一个空心点
-     * @deprecated
-     */
-    readonly thyIsHollow = input(false, { transform: coerceBooleanProperty });
 
     /**
      * thyCount 为 0 时，强制显示数字 0，默认不显示

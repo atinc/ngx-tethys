@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed, flush, fakeAsync } from '@angular/core/testing';
 import { ThySharedModule, ThyScrollDirective } from 'ngx-tethys/shared';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
@@ -80,6 +80,7 @@ describe('thy-scroll', () => {
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyScrollViewportComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader, ThyCascaderOption } from 'ngx-tethys/cascader';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,7 @@ const areas = areasAll.default;
 @Component({
     selector: 'thy-cascader-load-data-example',
     templateUrl: './load-data.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderLoadDataExampleComponent implements OnInit {

@@ -17,22 +17,10 @@
 .form-control {
     display: block;
     width: 100%;
-    padding: variables.$input-padding-y variables.$input-padding-x;
-    font-size: variables.$input-font-size;
-    line-height: bootstrap-variables.$input-line-height;
     color: variables.$input-color;
     background-color: bootstrap-variables.$input-bg;
     background-clip: padding-box;
     border: bootstrap-variables.$input-border-width solid variables.$input-border-color;
-
-    // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
-    @if bootstrap-variables.$enable-rounded {
-        // Manually use the if/else instead of the mixin to account for iOS override
-        border-radius: bootstrap-variables.$input-border-radius;
-    } @else {
-        // Otherwise undo the iOS default
-        border-radius: 0;
-    }
 
     @include transition.transition(bootstrap-variables.$input-transition);
 
@@ -115,8 +103,8 @@
 // For use with horizontal and inline forms, when you need the label (or legend)
 // text to align with the form controls.
 .col-form-label {
-    padding-top: calc(#{variables.$input-padding-y} + #{bootstrap-variables.$input-border-width});
-    padding-bottom: calc(#{variables.$input-padding-y} + #{bootstrap-variables.$input-border-width});
+    padding-top: calc(#{variables.$input-padding-y-md} + #{bootstrap-variables.$input-border-width});
+    padding-bottom: calc(#{variables.$input-padding-y-md} + #{bootstrap-variables.$input-border-width});
     margin-bottom: 0; // Override the `<label>/<legend>` default
     font-size: inherit; // Override the `<legend>` default
     line-height: bootstrap-variables.$input-line-height;
@@ -164,8 +152,8 @@
 .form-control-plaintext {
     display: block;
     width: 100%;
-    padding-top: variables.$input-padding-y;
-    padding-bottom: variables.$input-padding-y;
+    padding-top: variables.$input-padding-y-md;
+    padding-bottom: variables.$input-padding-y-md;
     margin-bottom: 0; // match inputs if this class comes on inputs with default margins
     line-height: bootstrap-variables.$input-line-height;
     background-color: transparent;

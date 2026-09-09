@@ -4,11 +4,11 @@ import { QUARTER_FORMAT } from './date-picker.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TinyDate } from 'ngx-tethys/util';
 import {
@@ -65,7 +65,7 @@ describe('ThyRangePickerComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideAnimations(),
                 {
                     provide: THY_DATE_PICKER_CONFIG,
@@ -324,15 +324,15 @@ describe('ThyRangePickerComponent', () => {
             expect(disabledCell.textContent.trim()).toBe('15');
         }));
 
-        it('should support thyPlaceHolder as string array', () => {
+        it('should support thyPlaceholder as string array', () => {
             const featureKey = 'RIGHT_PLACEHOLDER';
-            fixtureInstance.thyPlaceHolder = ['Start', featureKey];
+            fixtureInstance.thyPlaceholder = ['Start', featureKey];
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(`Start${fixture.componentInstance.thySeparator}RIGHT_PLACEHOLDER`);
         });
 
-        it('should support thyPlaceHolder as string', () => {
-            fixtureInstance.thyPlaceHolder = 'Range Date Picker PlaceHolder';
+        it('should support thyPlaceholder as string', () => {
+            fixtureInstance.thyPlaceholder = 'Range Date Picker PlaceHolder';
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe('Range Date Picker PlaceHolder');
         });
@@ -1053,7 +1053,7 @@ describe('ThyRangePickerComponent', () => {
                     [thyAllowClear]="thyAllowClear"
                     [thyDisabled]="thyDisabled"
                     [thyDisabledDate]="thyDisabledDate"
-                    [thyPlaceHolder]="thyPlaceHolder"
+                    [thyPlaceholder]="thyPlaceholder"
                     [thyPanelClassName]="thyPanelClassName"
                     [thySize]="thySize"
                     [thySuffixIcon]="thySuffixIcon"
@@ -1096,6 +1096,7 @@ describe('ThyRangePickerComponent', () => {
             <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ThyDatePickerModule]
 })
 class ThyTestRangePickerComponent {
@@ -1105,7 +1106,7 @@ class ThyTestRangePickerComponent {
     thyAllowClear!: boolean;
     thyDisabled!: boolean;
     thyDisabledDate!: (d: Date) => boolean;
-    thyPlaceHolder!: string | string[];
+    thyPlaceholder!: string | string[];
     thyPanelClassName!: string;
     thySize!: string;
     thySuffixIcon!: string;

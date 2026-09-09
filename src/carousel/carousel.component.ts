@@ -3,7 +3,6 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -41,7 +40,6 @@ import { IThyCarouselComponent, THY_CAROUSEL_COMPONENT } from './carousel.token'
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     preserveWhitespaces: false,
     host: {

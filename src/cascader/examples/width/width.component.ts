@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { clone, options } from '../cascader-address-options';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'thy-cascader-width-example',
     templateUrl: './width.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCascader, FormsModule]
 })
 export class ThyCascaderWidthExampleComponent implements OnInit {

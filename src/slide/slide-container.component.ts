@@ -7,7 +7,18 @@ import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 
-import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, Renderer2, ViewChild, inject, DOCUMENT } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    NgZone,
+    OnDestroy,
+    Renderer2,
+    ViewChild,
+    inject,
+    DOCUMENT,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { thySlideAnimations } from './slide-animations';
@@ -34,6 +45,7 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
         '[style.height.px]': 'slideContainerStyles.height',
         '[style.max-height.px]': 'slideContainerStyles.height'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThySlideContainer extends ThyAbstractOverlayContainer implements OnDestroy {

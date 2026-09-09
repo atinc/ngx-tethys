@@ -1,14 +1,14 @@
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyAlert, ThyAlertActionItemDirective } from 'ngx-tethys/alert';
-import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
+import { Component, ViewChild, TemplateRef, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('ThyAlert', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [bypassSanitizeProvider, provideHttpClient()]
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
         });
         TestBed.compileComponents();
         injectDefaultSvgIconSet();
@@ -185,6 +185,7 @@ describe('ThyAlert', () => {
             <div class="message">hello world</div>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAlert, ThyAlertActionItemDirective]
 })
 class ThyDemoAlertComponent {

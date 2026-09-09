@@ -1,11 +1,12 @@
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive-content.component';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-popover-auto-adaptive-example',
     templateUrl: './auto-adaptive.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyPopoverAutoAdaptiveExampleComponent implements OnInit {

@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyFullscreenLaunchDirective, ThyFullscreenComponent } from 'ngx-tethys/fullscreen';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-fullscreen-normal-example',
     templateUrl: './normal.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFullscreenLaunchDirective, ThyFullscreenComponent, ThyButton]
 })
 export class ThyFullscreenNormalExampleComponent {

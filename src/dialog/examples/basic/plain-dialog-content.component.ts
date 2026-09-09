@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialogRef } from 'ngx-tethys/dialog';
 
@@ -6,6 +6,7 @@ import { ThyDialogRef } from 'ngx-tethys/dialog';
     selector: 'thy-dialog-basic-plain-content',
     templateUrl: './plain-dialog-content.component.html',
     imports: [ThyButton],
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: [
         `
             :host {

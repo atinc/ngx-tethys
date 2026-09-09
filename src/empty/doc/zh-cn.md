@@ -18,55 +18,16 @@ import { ThyEmptyModule } from "ngx-tethys/empty";
 
 <examples />
 
-## 全局配置
-需要导入多语言模块，并配置默认显示的文本提示信息。
-```ts
-import { ThyTranslate } from 'ngx-tethys';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+## 默认文案
 
-@NgModule({
-    imports: [
-        ...
-        TranslateModule.forRoot()
-        ...
-    ],
-    providers: [
-        ...
-         {
-            provide: ThyTranslate,
-            useFactory: (translate: TranslateService) => {
-                return {
-                    instant(key: string | Array<string>, interpolateParams?: Object): string | any {
-                        return translate.instant(key, interpolateParams);
-                    },
-                    get(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
-                        return translate.get(key, interpolateParams);
-                    }
-                };
-            },
-            deps: [TranslateService]
-        }
-        ...
-    ]
-})
-export class AppModule { 
-    constructor(private translate: TranslateService) {
-        translate.use('zh-cn');
-        translate.setTranslation('zh-cn', {
-            common: {
-                tips: {
-                    NO_RESULT: '没有数据', // 配置默认文本提示信息
-                    NO_RESULT_TARGET: '没有{{target}}' // 配置传入 thyEntityName 或  thyEntityNameTranslateKey 时的提示信息，例：暂无 {{target}}，其中 {{target}} 为传入的 thyEntityName 或 thyEntityNameTranslateKey 值
-                }
-            },
-            mission: { // 配置传入thyEntityNameTranslateKey时的提示信息
-                PROJECT: '项目',
-                TASK: '任务'
-            }
-        });
-    }
-}
+未传入 `thyMessage` 时，组件会使用内置 locale 的默认文案，中文为「暂无数据」。如需自定义提示，直接传入 `thyMessage` 即可：
+
+```html
+<thy-empty thyMessage="没有任何数据"></thy-empty>
 ```
 
+如需多语言，在调用方自行翻译后传入：
 
-
+```html
+<thy-empty [thyMessage]="'common.tips.NO_RESULT' | translate"></thy-empty>
+```

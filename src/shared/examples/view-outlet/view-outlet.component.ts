@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ChangeDetectionStrategy, SimpleChanges, input } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, input } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyTag } from 'ngx-tethys/tag';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
@@ -7,7 +7,6 @@ import { ThyViewOutletDirective } from 'ngx-tethys/shared';
     selector: 'thy-shared-view-outlet-example',
     templateUrl: './view-outlet.component.html',
     styleUrls: ['./view-outlet.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyTag, ThyButton, ThyViewOutletDirective]
 })
 export class ThySharedViewOutletExampleComponent implements OnInit {
@@ -28,7 +27,6 @@ export class ThySharedViewOutletExampleComponent implements OnInit {
             ><span class="ml-4">From: {{ from() }}</span>
         </p>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ThyTag]
 })
 export class ThyViewOutletCounterComponent implements OnInit, OnChanges {

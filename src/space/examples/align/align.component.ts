@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -9,6 +9,7 @@ import { ThyButton } from 'ngx-tethys/button';
     host: {
         class: 'space-align-container'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySpace, ThySpaceItemDirective, ThyButton]
 })
 export class ThySpaceAlignExampleComponent implements OnInit {

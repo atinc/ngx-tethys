@@ -5,7 +5,7 @@
     }
   </thy-select>
 
-  <thy-select [(ngModel)]="selectedUser" thyPlaceHolder="选择成员" style="width: 240px" thyShowSearch="true">
+  <thy-select [(ngModel)]="selectedUser" thyPlaceholder="选择成员" style="width: 240px" thyShowSearch="true">
     @for (option of users; track option.uid) {
       <thy-option [thyRawValue]="option" [thyValue]="option.uid" [thyShowOptionCustom]="true" [thySearchKey]="option.name">
         <thy-avatar [thyName]="option.name" [thyShowName]="true" thySize="xs"></thy-avatar>

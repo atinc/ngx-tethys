@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 @Component({
     selector: 'thy-time-picker-disabled-example',
     templateUrl: './disabled.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimePicker, FormsModule, ThySpace, ThySpaceItemDirective]
 })
 export class ThyTimePickerDisabledExampleComponent implements OnInit {

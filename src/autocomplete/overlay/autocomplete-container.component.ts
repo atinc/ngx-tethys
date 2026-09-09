@@ -5,7 +5,18 @@ import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { PortalModule } from '@angular/cdk/portal';
 
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, NgZone, ViewChild, inject, DOCUMENT } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    NgZone,
+    ViewChild,
+    inject,
+    DOCUMENT,
+    ChangeDetectionStrategy
+} from '@angular/core';
 
 import { thyAutocompleteAnimations } from './autocomplete-animations';
 import { ThyAutocompleteConfig } from './autocomplete.config';
@@ -26,6 +37,7 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
         '(@autocompleteContainer.start)': 'onAnimationStart($event)',
         '(@autocompleteContainer.done)': 'onAnimationDone($event)'
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyAutocompleteContainer extends ThyAbstractOverlayContainer implements AfterViewInit {

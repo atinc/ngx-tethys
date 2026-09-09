@@ -1,9 +1,9 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyBreadcrumbItem, ThyBreadcrumb } from 'ngx-tethys/breadcrumb';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyIcon } from 'ngx-tethys/icon';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
@@ -21,6 +21,7 @@ import { provideHttpClient } from '@angular/common/http';
             </thy-breadcrumb-item>
         </thy-breadcrumb>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon]
 })
 class ThyDemoBreadcrumbBasicComponent {
@@ -36,7 +37,7 @@ describe('ThyBreadcrumb', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient()]
+            providers: [provideHttpClient(withXhr())]
         });
 
         TestBed.compileComponents();

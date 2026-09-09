@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef, inject } from '@angular/core';
+import { Component, OnInit, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCanvasConfigType, ThyWatermarkDirective } from 'ngx-tethys/watermark';
 
 @Component({
     selector: 'thy-watermark-custom-example',
     templateUrl: './custom.component.html',
     styleUrls: ['./custom.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyWatermarkDirective]
 })
 export class ThyWatermarkCanvasCustomExampleComponent implements OnInit {

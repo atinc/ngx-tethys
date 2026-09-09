@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyDot } from 'ngx-tethys/dot';
@@ -8,6 +8,7 @@ import { ThyOption, ThySelectOptionGroup } from 'ngx-tethys/shared';
 @Component({
     selector: 'thy-select-group-example',
     templateUrl: './group.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelect, ThyOption, FormsModule, ThyDot, ThyAvatar, ThySelectOptionGroup]
 })
 export class ThySelectGroupExampleComponent {

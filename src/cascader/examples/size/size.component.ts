@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { clone, options } from '../cascader-address-options';
 import { ThyCascader } from 'ngx-tethys/cascader';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { NgClass } from '@angular/common';
 @Component({
     selector: 'thy-cascader-size-example',
     templateUrl: './size.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCascader, FormsModule, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyCascaderSizeExampleComponent implements OnInit {

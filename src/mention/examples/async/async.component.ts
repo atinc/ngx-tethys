@@ -2,7 +2,7 @@ import { Mention, ThyMentionDirective } from 'ngx-tethys/mention';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
-import { Component, OnInit, TemplateRef, viewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective } from 'ngx-tethys/input';
 
@@ -32,6 +32,7 @@ const mockUsers = [
 @Component({
     selector: 'thy-mention-async-example',
     templateUrl: './async.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMentionDirective, ThyAvatar, FormsModule, ThyInputDirective]
 })
 export class ThyMentionAsyncExampleComponent implements OnInit {

@@ -2,7 +2,16 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ApplicationRef, Component, DebugElement, OnInit, Sanitizer, SecurityContext, viewChild } from '@angular/core';
+import {
+    ApplicationRef,
+    Component,
+    DebugElement,
+    OnInit,
+    Sanitizer,
+    SecurityContext,
+    viewChild,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
@@ -10,9 +19,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
 import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '../examples/mock-data';
 import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect, ThyTreeSelectModule } from 'ngx-tethys/tree-select';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFormModule } from 'ngx-tethys/form';
-import { ThyEmptyConfig } from 'ngx-tethys/empty';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -48,6 +56,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 (thyExpandStatusChange)="expandChange($event)"></thy-tree-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect]
 })
 class BasicTreeSelectComponent {
@@ -186,6 +195,7 @@ class BasicTreeSelectComponent {
                 thyShowKey="title"></thy-tree-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect]
 })
 class PlaceHolderTreeSelectComponent {
@@ -283,6 +293,7 @@ class PlaceHolderTreeSelectComponent {
                 [thyMultiple]="multiple"></thy-tree-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect, FormsModule]
 })
 class NgModelTreeSelectComponent {
@@ -381,6 +392,7 @@ class NgModelTreeSelectComponent {
                 [thyShowSearch]="treeShowSearch"></thy-tree-select>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect, FormsModule]
 })
 class SearchTreeSelectComponent {
@@ -447,6 +459,7 @@ class LoadStateTreeSelectComponent {
     template: `
         <thy-tree-select #treeSelect [thyTreeNodes]="mockData" [(ngModel)]="selectedValue" [thyVirtualScroll]="true"> </thy-tree-select>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTreeSelect, FormsModule]
 })
 export class VirtualScrollingTreeSelectComponent implements OnInit {
@@ -467,9 +480,8 @@ describe('ThyTreeSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule],
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideAnimations(),
-                ThyEmptyConfig,
                 {
                     provide: Sanitizer,
                     useValue: {
@@ -701,7 +713,7 @@ describe('ThyTreeSelect', () => {
             }));
         });
 
-        describe('with thyPlaceHolder', () => {
+        describe('with thyPlaceholder', () => {
             beforeEach(waitForAsync(() => {
                 configureThyCustomSelectTestingModule([PlaceHolderTreeSelectComponent]);
             }));

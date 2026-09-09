@@ -1,5 +1,5 @@
 import { inject, TestBed, fakeAsync, ComponentFixture, tick } from '@angular/core/testing';
-import { NgModule, Component, OnDestroy, inject as coreInject } from '@angular/core';
+import { NgModule, Component, OnDestroy, inject as coreInject, ChangeDetectionStrategy } from '@angular/core';
 import { dispatchFakeEvent } from '@tethys/cdk/testing';
 import { ThyClickDispatcher } from '@tethys/cdk';
 import { Observable, Subscription } from 'rxjs';
@@ -127,7 +127,7 @@ describe('ClickDispatcher', () => {
 });
 
 /** Simple component that contains a large div and can be scrolled. */
-@Component({ template: ` <div></div> ` })
+@Component({ changeDetection: ChangeDetectionStrategy.Eager, template: ` <div></div> ` })
 class ClickComponent implements OnDestroy {
     clickDispatcher = coreInject(ThyClickDispatcher);
 

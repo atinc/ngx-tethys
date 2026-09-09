@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySkeletonList } from 'ngx-tethys/skeleton';
 
 @Component({
@@ -15,6 +15,7 @@ import { ThySkeletonList } from 'ngx-tethys/skeleton';
             [thyRowCount]="model.thyRowCount">
         </thy-skeleton-list>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySkeletonList]
 })
 export class ThySkeletonExampleListComponent implements OnInit {

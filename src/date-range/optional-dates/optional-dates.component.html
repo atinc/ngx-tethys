@@ -15,6 +15,7 @@
       href="javascript:;"
       thyRangePicker
       [(ngModel)]="selectedDate"
+      [ngModelOptions]="{ standalone: true }"
       [thyMinDate]="minDate"
       [thyMaxDate]="maxDate"
       [thyDisabledDate]="disabledDate"

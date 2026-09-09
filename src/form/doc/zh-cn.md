@@ -50,7 +50,7 @@ import { ThyFormModule } from "ngx-tethys/form";
     <button [thyButton]="'primary'" [thyLoading]="saving" thyLoadingText="登录中" (thyFormSubmit)="login(demoForm)">
       登录
     </button>
-    <button [thyButton]="'link-secondary'" (click)="cancel()">取消</button>
+    <button [thyButton]="'default'" thyAppearance="link" (click)="cancel()">取消</button>
   </thy-form-group-footer>
 </form>
 ```

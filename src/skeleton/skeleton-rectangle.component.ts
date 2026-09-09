@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { coerceBooleanProperty, coerceCssPixelValue, helpers, isUndefinedOrNull, ThyBooleanInput } from 'ngx-tethys/util';
 import { ThySkeleton } from './skeleton.component';
 import { THY_SKELETON_CONFIG } from './skeleton.config';
@@ -20,7 +20,6 @@ import { THY_SKELETON_CONFIG } from './skeleton.config';
         '[style.borderRadius]': 'thyBorderRadius()'
     },
     template: ` <div class="thy-skeleton-after" [ngStyle]="afterStyles()"></div> `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     imports: [NgStyle]
 })

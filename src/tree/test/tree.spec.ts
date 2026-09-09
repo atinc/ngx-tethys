@@ -1,5 +1,5 @@
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { Component, OnInit, viewChild, DOCUMENT } from '@angular/core';
+import { Component, OnInit, viewChild, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -18,7 +18,7 @@ import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
 
 import { scrollToViewport, scrollToViewportOffset } from './utils';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 
 const expandSelector = '.thy-tree-expand';
@@ -39,7 +39,7 @@ describe('ThyTreeComponent', () => {
                         pointerDirectionChangeThreshold: 5
                     } as DragDropConfig
                 },
-                provideHttpClient()
+                provideHttpClient(withXhr())
             ]
         }).compileComponents();
     }
@@ -817,12 +817,13 @@ describe('ThyTreeComponent', () => {
                 @if (data.type !== 'member') {
                     <thy-icon class="thy-tree-node-icon" [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
                 }
-                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
+                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="$safeNavigationMigration(data?.title)">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>
             </ng-template>
         </thy-tree>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTree, ThyFlexibleText, ThyIcon]
 })
 class TestBasicTreeComponent {
@@ -877,13 +878,17 @@ class TestBasicTreeComponent {
             <thy-tree #tree [thyCheckable]="true" [thyMultiple]="true" [thyShowExpand]="true" [thyCheckable]="true" [(ngModel)]="mockData">
                 <ng-template #treeNodeTemplate let-node="node" let-data="origin">
                     <thy-icon [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
-                    <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
+                    <div
+                        class="thy-tree-node-title text-truncate"
+                        thyFlexibleText
+                        [thyTooltipContent]="$safeNavigationMigration(data?.title)">
                         {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                     </div>
                 </ng-template>
             </thy-tree>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTree, ThyIcon, ThyFlexibleText, FormsModule]
 })
 class TestMultipleTreeComponent {
@@ -905,6 +910,7 @@ class TestMultipleTreeComponent {
             (thyOnExpandChange)="onExpandChange($event)">
         </thy-tree>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTree, FormsModule]
 })
 class TestAsyncTreeComponent {
@@ -950,6 +956,7 @@ class TestAsyncTreeComponent {
             </thy-tree>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTree, FormsModule]
 })
 class TestVirtualScrollingTreeComponent implements OnInit {
@@ -1055,12 +1062,13 @@ class TestVirtualScrollingTreeComponent implements OnInit {
                 @if (data.type !== 'member') {
                     <thy-icon class="thy-tree-node-icon" [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
                 }
-                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
+                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="$safeNavigationMigration(data?.title)">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>
             </ng-template>
         </thy-tree>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTree, ThyIcon, ThyFlexibleText, FormsModule]
 })
 class TestHasCheckedTreeComponent {

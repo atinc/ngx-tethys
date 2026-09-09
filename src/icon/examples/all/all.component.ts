@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -19,6 +19,7 @@ interface GlyphCategory {
     selector: 'thy-icon-all-example',
     templateUrl: './all.component.html',
     styleUrls: ['./all.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon]
 })
 export class ThyIconAllExampleComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyMenu, ThyMenuGroup, ThyMenuItem, ThyMenuItemIcon, ThyMenuItemName } from 'ngx-tethys/menu';
 import { ThyIcon } from 'ngx-tethys/icon';
 
@@ -6,6 +6,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     selector: 'thy-menu-collapsed-example',
     templateUrl: './collapsed.component.html',
     styleUrls: ['./collapsed.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMenu, ThyMenuItem, ThyMenuItemIcon, ThyMenuItemName, ThyIcon, ThyMenuGroup]
 })
 export class ThyMenuCollapsedExampleComponent implements OnInit {

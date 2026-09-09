@@ -1,10 +1,11 @@
 import { ThyPopover, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody } from 'ngx-tethys/popover';
-import { Component, TemplateRef, inject } from '@angular/core';
+import { Component, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-popover-disabled-animation-example',
     templateUrl: './disabled-animation.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyPopoverDirective, ThyPopoverHeader, ThyPopoverBody]
 })
 export class ThyPopoverDisabledAnimationExampleComponent {

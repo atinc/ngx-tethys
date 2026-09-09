@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyRowDirective, ThyColDirective } from 'ngx-tethys/grid';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -8,6 +8,7 @@ import { ThyTable, ThyTableColumnComponent, ThyTableEmptyOptions } from 'ngx-tet
     selector: 'thy-table-empty-example',
     templateUrl: './empty.component.html',
     styles: ':host > div { height: 400px }',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyEmpty, ThyRowDirective, ThyColDirective]
 })
 export class ThyTableEmptyExampleComponent implements OnInit {

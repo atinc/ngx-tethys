@@ -1,5 +1,17 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, contentChild, ElementRef, inject, input, OnInit, output, Signal, TemplateRef } from '@angular/core';
+import {
+    Component,
+    computed,
+    contentChild,
+    ElementRef,
+    inject,
+    input,
+    OnInit,
+    output,
+    Signal,
+    TemplateRef,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ThyAction } from 'ngx-tethys/action';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -23,6 +35,7 @@ import { ThyDialog } from '../dialog.service';
         '[class.thy-dialog-header-lg]': `thySize() === 'lg'`,
         '[class.thy-dialog-header-divided]': `thyDivided()`
     },
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgTemplateOutlet, ThyIcon, ThyAction]
 })
 export class ThyDialogHeader implements OnInit {

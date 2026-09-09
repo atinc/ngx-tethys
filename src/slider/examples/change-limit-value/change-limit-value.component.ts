@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThySlider } from 'ngx-tethys/slider';
 
 @Component({
     selector: 'thy-slider-change-limit-value',
     template: ` <thy-slider [thyMax]="max" [thyMin]="min" [thyStep]="step"></thy-slider> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider]
 })
 export class ThySliderChangeLimitValueExampleComponent implements OnInit {

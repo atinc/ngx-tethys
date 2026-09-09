@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownDirective } from 'ngx-tethys/dropdown';
@@ -15,6 +15,7 @@ import { ThyOption } from 'ngx-tethys/shared';
 @Component({
     selector: 'thy-dropdown-options-example',
     templateUrl: './options.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyDropdownMenuComponent,
         FormsModule,

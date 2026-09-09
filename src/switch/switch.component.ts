@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -29,7 +28,6 @@ const supportedSizes: string[] = ['', 'sm', 'xs'];
 @Component({
     selector: 'thy-switch',
     templateUrl: './switch.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThySwitch), multi: true }],
     imports: [NgClass],
     host: { class: 'thy-switch', '[class.thy-switch-xs]': 'size() === "xs"', '[class.thy-switch-sm]': 'size() === "sm"' }

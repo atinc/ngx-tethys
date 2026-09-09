@@ -7,7 +7,7 @@
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
       (thyClear)="change()"
-      placeholder="Disabled, can't type (thy-input)"></thy-input-search>
+      thyPlaceholder="Disabled, can't type (thy-input)"></thy-input-search>
     <br />
     <thy-input-search
       (keydown.enter)="change()"
@@ -15,7 +15,7 @@
       (ngModelChange)="change()"
       (thyClear)="change()"
       thyIconPosition="after"
-      placeholder="Search"></thy-input-search>
+      thyPlaceholder="Search"></thy-input-search>
     <br />
     <thy-input-search
       (keydown.enter)="change()"
@@ -23,10 +23,10 @@
       (ngModelChange)="change()"
       (thyClear)="change()"
       thyTheme="transparent"
-      placeholder="Search"></thy-input-search>
+      thyPlaceholder="Search"></thy-input-search>
     <br />
     <thy-input-group>
-      <thy-input placeholder="Search" [(ngModel)]="searchText" [disabled]="true" placeholder="Disabled, can't type (thy-input)"></thy-input>
+      <thy-input thyPlaceholder="Disabled, can't type (thy-input)" [(ngModel)]="searchText" [disabled]="true"></thy-input>
       <ng-template #append>
         <button thyButton="primary"><thy-icon thyIconName="search"></thy-icon></button>
       </ng-template>
@@ -34,11 +34,11 @@
     <br />
   </div>
   <div thyCol [thySpan]="12">
-    <thy-input-search thyTheme="ellipse" placeholder="Search" [(ngModel)]="searchText"></thy-input-search>
+    <thy-input-search thyTheme="ellipse" thyPlaceholder="Search" [(ngModel)]="searchText"></thy-input-search>
     <br />
-    <thy-input-search thyTheme="ellipse" [(ngModel)]="searchText" thyIconPosition="after" placeholder="Search"></thy-input-search>
+    <thy-input-search thyTheme="ellipse" [(ngModel)]="searchText" thyIconPosition="after" thyPlaceholder="Search"></thy-input-search>
     <br />
-    <thy-input placeholder="Search">
+    <thy-input thyPlaceholder="Search">
       <ng-template #append>
         <thy-icon class="text-placeholder" thyIconName="search"></thy-icon>
       </ng-template>

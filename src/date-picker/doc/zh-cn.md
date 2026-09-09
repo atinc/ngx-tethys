@@ -37,7 +37,7 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 <thy-date-picker
   thyShowTime
   [thyFormat]="dateShowTime | thyDatePickerFormatString"
-  thyPlaceHolder="选择时间"
+  thyPlaceholder="选择时间"
   [(ngModel)]="dateTime"
   (ngModelChange)="onChange($event)"
 ></thy-date-picker>

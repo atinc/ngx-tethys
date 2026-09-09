@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, DebugElement } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
@@ -10,6 +10,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
             <div class="child-container" thyStopPropagation></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveTrueViewComponent {
@@ -22,6 +23,7 @@ class ThyStopPropagationDirectiveTrueViewComponent {
             <div class="child-container" [thyStopPropagation]></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveTrueComponent {
@@ -34,6 +36,7 @@ class ThyStopPropagationDirectiveTrueComponent {
             <div class="child-container" [thyStopPropagation]="true"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveBooleanTrueComponent {
@@ -46,6 +49,7 @@ class ThyStopPropagationDirectiveBooleanTrueComponent {
             <div class="child-container" [thyStopPropagation]="'true'"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveStringTrueComponent {
@@ -58,6 +62,7 @@ class ThyStopPropagationDirectiveStringTrueComponent {
             <div class="child-container" [thyStopPropagation]="false"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveFalseComponent {
@@ -70,6 +75,7 @@ class ThyStopPropagationDirectiveFalseComponent {
             <div class="child-container" thyStopPropagation="false"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveFalseViewComponent {
@@ -82,6 +88,7 @@ class ThyStopPropagationDirectiveFalseViewComponent {
             <div class="child-container" [thyStopPropagation]="'hover'"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveEventComponent {
@@ -94,6 +101,7 @@ class ThyStopPropagationDirectiveEventComponent {
             <div class="child-container" [thyStopPropagation]="'mouseover'"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveValueIsEventNameComponent {
@@ -107,6 +115,7 @@ class ThyStopPropagationDirectiveValueIsEventNameComponent {
             <div class="child-container" [thyStopPropagation]="isStopPropagation"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveValueIsUndefinedComponent {
@@ -120,6 +129,7 @@ class ThyStopPropagationDirectiveValueIsUndefinedComponent {
             <div class="child-container" [thyStopPropagation]="stopPropagation"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySharedModule]
 })
 class ThyStopPropagationDirectiveWithDynamicBindingComponent {

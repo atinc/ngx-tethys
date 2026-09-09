@@ -1,14 +1,4 @@
-import {
-    Component,
-    OnInit,
-    TemplateRef,
-    ChangeDetectorRef,
-    ChangeDetectionStrategy,
-    inject,
-    input,
-    viewChild,
-    contentChild
-} from '@angular/core';
+import { Component, OnInit, TemplateRef, ChangeDetectorRef, inject, input, viewChild, contentChild } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.type';
 import { NgTemplateOutlet } from '@angular/common';
@@ -21,7 +11,6 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
  * @order 20
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-timeline-item',
     templateUrl: './timeline-item.component.html',
     exportAs: 'ThyTimelineItem',

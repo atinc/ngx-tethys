@@ -1,5 +1,5 @@
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { Component, viewChild } from '@angular/core';
+import { Component, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
@@ -45,6 +45,7 @@ import { ThyFlexibleText, ThyFlexibleTextModule } from 'ngx-tethys/flexible-text
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTooltipModule, ThyFlexibleTextModule]
 })
 class FlexibleTextTestComponent {

@@ -6,10 +6,11 @@
   #input
   thyInput
   [name]="name()"
-  [placeholder]="placeholder()"
+  [placeholder]="thyPlaceholder()"
   [disabled]="disabled()"
   [thyAutofocus]="autoFocus()"
   [(ngModel)]="searchText"
+  [ngModelOptions]="{ standalone: true }"
   (ngModelChange)="searchModelChange()"
   (focus)="!focused() ? focused.set(true) : null"
   [thySize]="thySize()"

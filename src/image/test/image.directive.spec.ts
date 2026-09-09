@@ -1,15 +1,16 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule, ThyImageDirective } from 'ngx-tethys/image';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-image-directive-test',
     template: ` <img thyImage [thySrc]="src" [thyImageMeta]="imageMeta" [thyDisablePreview]="disablePreview" /> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyImageModule, ThyDialogModule]
 })
 class ImageDirectiveTestComponent {
@@ -28,7 +29,7 @@ describe('image-directive', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyImageModule],
-            providers: [provideHttpClient(), provideNoopAnimations()]
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
         }).compileComponents();
         fixture = TestBed.createComponent(ImageDirectiveTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;

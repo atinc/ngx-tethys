@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyCarousel, ThyCarouselItemDirective } from 'ngx-tethys/carousel';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -20,6 +20,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
             }
         `
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCarousel, ThyCarouselItemDirective, ThyButton, ThyIcon, ThyButtonGroup]
 })
 export class ThyCarouselControlsExampleComponent implements OnInit {
