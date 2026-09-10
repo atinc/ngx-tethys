@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.1](github.com/atinc/ngx-tethys/compare/22.0.0...22.0.1) (2026-09-10)
+
+
+### Bug Fixes
+
+* **style:** fix input style #TINFR-4053 ([#3934](/github.com/atinc/ngx-tethys/issues/3934)) ([cf5c4ab](github.com/atinc/ngx-tethys/commits/cf5c4ab951c5c7a89caaf940d7fef4d443f635a5)), closes [#TINFR-4053](github.com/atinc/ngx-tethys/issues/TINFR-4053)
+
 # [22.0.0](github.com/atinc/ngx-tethys/compare/22.0.0-next.4...22.0.0) (2026-09-09)
 
 
