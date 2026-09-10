@@ -17,9 +17,6 @@
 .form-control {
     display: block;
     width: 100%;
-    padding: variables.$input-padding-y-md variables.$input-padding-x-md;
-    font-size: variables.$input-font-size-md;
-    line-height: bootstrap-variables.$input-line-height;
     color: variables.$input-color;
     background-color: bootstrap-variables.$input-bg;
     background-clip: padding-box;
