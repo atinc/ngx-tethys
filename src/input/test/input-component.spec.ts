@@ -34,7 +34,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 })
 class TestBedComponent {
     thySize: ThyFormControlSize | undefined = 'md';
-    thyType = 'text';
+    thyType: string | null | undefined = 'text';
     readonly = false;
     passwordValue = '12345';
     checkFocus = false;
@@ -123,12 +123,31 @@ describe('input component', () => {
         expect(fixture.debugElement.query(By.css('.input2')).nativeElement.innerText.includes('后置模板')).toBe(true);
     });
 
+    it('should not set type by default', () => {
+        fixture.detectChanges();
+        const defaultInput = fixture.debugElement.query(By.css('.input2 input'));
+        expect(defaultInput.nativeElement.getAttribute('type')).toBeNull();
+    });
+
+    it('should not set type when thyType is undefined', () => {
+        basicTestComponent.thyType = undefined;
+        fixture.detectChanges();
+        expect(debugElement.nativeElement.getAttribute('type')).toBeNull();
+    });
+
+    it('should not set type when thyType is null', () => {
+        basicTestComponent.thyType = null;
+        fixture.detectChanges();
+        expect(debugElement.nativeElement.getAttribute('type')).toBeNull();
+    });
+
     it('thyType', () => {
         basicTestComponent.thyType = 'number';
         fixture.detectChanges();
         expect(debugElement.nativeElement.type).toBe('number');
         basicTestComponent.thyType = 'text';
         fixture.detectChanges();
+        expect(debugElement.nativeElement.type).toBe('text');
     });
 
     it('thyLabelText', () => {
