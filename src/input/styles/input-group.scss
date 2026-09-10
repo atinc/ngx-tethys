@@ -139,13 +139,17 @@
 .input-group-text {
     display: flex;
     align-items: center;
+    padding: variables.$input-padding-y-md variables.$input-padding-x-md;
     margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
+    font-size: variables.$font-size-base;
     font-weight: bootstrap-variables.$font-weight-normal;
+    line-height: bootstrap-variables.$input-line-height;
     color: variables.$input-group-addon-color;
     text-align: center;
     white-space: nowrap;
     background-color: variables.$input-group-addon-bg;
     border: bootstrap-variables.$input-border-width solid bootstrap-variables.$input-group-addon-border-color;
+    @include border-radius.border-radius(variables.$input-border-radius-md);
 
     // Nuke default margins from checkboxes and radios to vertically center within.
     input[type='radio'],

@@ -22,6 +22,15 @@
     background-clip: padding-box;
     border: bootstrap-variables.$input-border-width solid variables.$input-border-color;
 
+    // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+    @if bootstrap-variables.$enable-rounded {
+        // Manually use the if/else instead of the mixin to account for iOS override
+        border-radius: variables.$input-border-radius-md;
+    } @else {
+        // Otherwise undo the iOS default
+        border-radius: 0;
+    }
+
     @include transition.transition(bootstrap-variables.$input-transition);
 
     // Unstyle the caret on `<select>`s in IE10+.
