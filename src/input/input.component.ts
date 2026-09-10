@@ -71,10 +71,10 @@ export class ThyInput implements ControlValueAccessor {
     readonly thyAutofocus = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 输入框类型，对应原生 input 的 type 属性
-     * @type 'text' | 'password' | 'number' | string
+     * 输入框类型，对应原生 input 的 type 属性。未设置、null 或 undefined 时不输出 type，浏览器默认为 text
+     * @type 'text' | 'password' | 'number'
      */
-    readonly thyType = input<string>();
+    readonly thyType = input<string | null | undefined>();
 
     /**
      * 输入 Label 文本
@@ -114,7 +114,7 @@ export class ThyInput implements ControlValueAccessor {
         if (this.isPasswordType()) {
             return this.passwordVisible() ? 'text' : password;
         }
-        return this.thyType();
+        return this.thyType() ?? null;
     });
 
     public value = signal('');
