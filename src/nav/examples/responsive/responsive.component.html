@@ -1,5 +1,5 @@
 <div class="p-3">
-  <thy-nav thyType="pulled" [thyResponsive]="true" class="responsive-nav">
+  <thy-nav thyVariant="pulled" [thyResponsive]="true" class="responsive-nav">
     @for (item of navList; track $index) {
       <a
         class="nav-tab"
@@ -15,7 +15,7 @@
   </thy-nav>
   <br />
 
-  <thy-nav thyType="tabs" [thyResponsive]="true" class="responsive-nav">
+  <thy-nav thyVariant="tabs" [thyResponsive]="true" class="responsive-nav">
     @for (item of navList; track $index) {
       <a
         class="nav-tab"
@@ -43,7 +43,7 @@
   <br />
 
   <div class="py-2 bg-default">
-    <thy-nav thyType="pills" [thyResponsive]="true" class="responsive-nav">
+    <thy-nav thyVariant="pills" [thyResponsive]="true" class="responsive-nav">
       @for (item of navList; track $index) {
         <a
           class="nav-tab"

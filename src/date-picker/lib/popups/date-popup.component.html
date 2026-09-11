@@ -16,7 +16,7 @@
         @if (flexible()) {
           <div class="{{ prefixCls }}-date-panel-flexible">
             <div class="{{ prefixCls }}-date-panel-flexible-tab">
-              <thy-nav thyType="pulled" thySize="sm">
+              <thy-nav thyVariant="pulled" thySize="sm">
                 <a href="javascript:;" thyNavItem [thyNavItemActive]="flexibleActiveTab === 'advanced'" (click)="selectTab('advanced')">{{
                   locale().advance
                 }}</a>

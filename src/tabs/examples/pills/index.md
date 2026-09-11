@@ -1,4 +1,4 @@
 ---
-title: Pills 模式
+title: Pills
 order: 12
 ---

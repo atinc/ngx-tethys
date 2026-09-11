@@ -1,4 +1,4 @@
 ---
-title: 卡片模式
+title: Card
 order: 13
 ---
