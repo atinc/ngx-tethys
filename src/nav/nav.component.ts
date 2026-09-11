@@ -35,17 +35,18 @@ import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 
-export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavVariant = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavType = ThyNavVariant;
 export type ThyNavSize = 'lg' | 'md' | 'sm';
 export type ThyNavHorizontal = '' | 'start' | 'center' | 'end';
 
-const navTypeClassesMap = {
+const navVariantClassesMap: Record<ThyNavVariant, string[]> = {
     pulled: ['thy-nav-pulled'],
     tabs: ['thy-nav-tabs'],
     pills: ['thy-nav-pills'],
     lite: ['thy-nav-lite'],
     card: ['thy-nav-card'],
-    //如下类型已经废弃
+    // 如下类型已经废弃
     primary: ['thy-nav-primary'],
     secondary: ['thy-nav-secondary'],
     thirdly: ['thy-nav-thirdly'],
@@ -118,8 +119,16 @@ export class ThyNav implements OnDestroy {
     private readonly moreBtnOffset: WritableSignal<{ height: number; width: number }> = signal({ height: 0, width: 0 });
 
     /**
-     * 导航类型
-     * @type pulled | tabs | pills | lite | primary | secondary | thirdly | secondary-divider
+     * 导航形态
+     * @type pulled | tabs | pills | lite | card
+     * @default pulled
+     */
+    readonly thyVariant = input<ThyNavVariant>();
+
+    /**
+     * 导航类型（已废弃），请使用 thyVariant
+     * @deprecated please use thyVariant
+     * @type ThyNavVariant
      * @default pulled
      */
     readonly thyType = input<ThyNavType>();
@@ -210,17 +219,17 @@ export class ThyNav implements OnDestroy {
         return horizontalValue === 'right' ? 'end' : horizontalValue;
     });
 
-    readonly type = computed(() => this.thyType() || 'pulled');
+    readonly variant = computed(() => this.thyVariant() || this.thyType() || 'pulled');
 
     readonly showInkBar = computed(() => {
-        const showTypes: ThyNavType[] = ['pulled', 'tabs'];
-        return showTypes.includes(this.type());
+        const showVariants: ThyNavVariant[] = ['pulled', 'tabs'];
+        return showVariants.includes(this.variant());
     });
 
     private updateClasses() {
         let classNames: string[] = [];
-        if (navTypeClassesMap[this.type()]) {
-            classNames = [...navTypeClassesMap[this.type()]];
+        if (navVariantClassesMap[this.variant()]) {
+            classNames = [...navVariantClassesMap[this.variant()]];
         }
         if (navSizeClassesMap[this.thySize()]) {
             classNames.push(navSizeClassesMap[this.thySize()]);
@@ -246,8 +255,8 @@ export class ThyNav implements OnDestroy {
         });
 
         effect(() => {
-            const thyVertical = this.thyVertical();
-            const thyType = this.thyType();
+            this.thyVertical();
+            this.variant();
 
             untracked(() => {
                 this.alignInkBarToSelectedTab();
@@ -288,7 +297,7 @@ export class ThyNav implements OnDestroy {
                                 this.setHiddenItems();
                             }
 
-                            if (this.type() === 'card') {
+                            if (this.variant() === 'card') {
                                 this.setNavItemDivider();
                             }
                         })

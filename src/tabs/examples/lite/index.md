@@ -1,4 +1,4 @@
 ---
-title: 精简模式
+title: Lite
 order: 11
 ---

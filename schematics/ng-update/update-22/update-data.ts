@@ -90,6 +90,13 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyType',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-nav']
+                        }
+                    },
+                    {
                         replace: 'thyShowRemove',
                         replaceWith: 'thyRemovable',
                         limitedTo: {

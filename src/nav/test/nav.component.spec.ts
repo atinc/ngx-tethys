@@ -18,7 +18,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
     selector: 'app-nav-basic',
     template: `
         <thy-nav
-            [thyType]="type"
+            [thyVariant]="type"
             [thySize]="size"
             [thyFill]="isFill"
             [thyVertical]="isVertical"
@@ -53,10 +53,20 @@ export class NavBasicComponent implements OnInit {
 }
 
 @Component({
+    selector: 'app-nav-legacy-type',
+    template: ` <thy-nav [thyType]="type"></thy-nav> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyNavModule]
+})
+export class NavLegacyTypeComponent {
+    type: ThyNavType = 'tabs';
+}
+
+@Component({
     selector: 'app-nav-basic',
     template: `
         <thy-nav
-            [thyType]="type"
+            [thyVariant]="type"
             [thySize]="size"
             [thyFill]="isFill"
             [thyVertical]="isVertical"
@@ -188,12 +198,25 @@ describe(`thy-nav`, () => {
             expect(disabledLink.classList.contains('disabled')).toEqual(true);
         });
 
-        it(`should get correct class when input type`, () => {
+        it(`should get correct class when input thyVariant`, () => {
             ['pulled', 'pills', 'tabs', 'card', 'lite', 'primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
                 fixture.debugElement.componentInstance.type = type;
                 fixture.detectChanges();
                 expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
                 expect(navElement.classList.contains(`thy-nav-${type}`)).toEqual(true);
+            });
+        });
+
+        it(`should get correct class when input deprecated thyType`, () => {
+            const legacyFixture = TestBed.createComponent(NavLegacyTypeComponent);
+            legacyFixture.detectChanges();
+            const element: HTMLElement = legacyFixture.debugElement.query(By.directive(ThyNav)).nativeElement;
+            expect(element.classList.contains('thy-nav-tabs')).toEqual(true);
+
+            ['pulled', 'pills', 'lite', 'primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
+                legacyFixture.componentInstance.type = type as ThyNavType;
+                legacyFixture.detectChanges();
+                expect(element.classList.contains(`thy-nav-${type}`)).toEqual(true);
             });
         });
 

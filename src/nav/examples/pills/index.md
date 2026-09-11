@@ -1,5 +1,5 @@
 ---
 order: 22
-title: Pills 模式
+title: Pills
 className: bg-example
 ---

@@ -409,6 +409,7 @@
   "ThyNavLink": "nav",
   "ThyNavLinkDirective": "nav",
   "ThyNavType": "nav",
+  "ThyNavVariant": "nav",
   "ThyNavSize": "nav",
   "ThyNavHorizontal": "nav",
   "ThyNav": "nav",

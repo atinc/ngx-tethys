@@ -1,4 +1,4 @@
-<thy-nav thyType="pulled" thyVertical="true">
+<thy-nav thyVariant="pulled" thyVertical="true">
   @for (item of navList; track $index) {
     <a href="javascript:;" thyNavItem [thyNavItemActive]="item.index === activeIndex" (click)="activeIndex = item.index">{{ item.name }}</a>
   }

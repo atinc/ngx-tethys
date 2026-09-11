@@ -1,5 +1,5 @@
 ---
 order: 21
-title: 精简模式
+title: Lite
 className: bg-example
 ---

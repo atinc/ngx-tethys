@@ -313,12 +313,14 @@ ng generate ngx-tethys:migrate-22
 - `thyNavLink` 重命名为 `thyNavItem`
 - `thyNavLinkActive` 重命名为 `thyNavItemActive`
 - 移除 `thyInsideClosable`，改用 `thyPopoverOptions.insideClosable`
+- `thyType` 重命名为 `thyVariant`，推荐值 `pulled | tabs | pills | lite`；`primary | secondary | thirdly | secondary-divider` 已废弃
 
 **自动迁移**
 
 - `thyNavLink` → `thyNavItem`；`thyNavLinkActive` → `thyNavItemActive`
 - `thyInsideClosable` 默认 `true` 时移除属性，`false` 时写入 `[thyPopoverOptions]="{ insideClosable: false }"`
 - 若元素上**已存在** `[thyPopoverOptions]`，**不会**自动迁移，需完全手动合并（详见 **手动检查**）
+- `thyType` → `thyVariant`（仅 `thy-nav`）
 
 ---
 

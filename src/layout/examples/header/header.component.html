@@ -43,13 +43,13 @@
       <a href="javascript:;" class="title-name">Custom header<thy-icon thyIconName="angle-down"></thy-icon></a>
     </ng-template>
     <ng-template #headerContent>
-      <thy-nav thyType="pulled" thyHorizontal="center">
+      <thy-nav thyVariant="pulled" thyHorizontal="center">
         <a href="javascript:;" thyNavItem [thyNavItemActive]="'true'">Link1</a>
         <a href="javascript:;" thyNavItem>Link2</a>
       </thy-nav>
     </ng-template>
     <ng-template #headerOperation>
-      <thy-nav thyType="pulled" thyHorizontal="right">
+      <thy-nav thyVariant="pulled" thyHorizontal="right">
         <a thyNavItem href="javascript:;">
           <thy-icon [thyIconName]="'settings'"></thy-icon>
           Settings
@@ -76,7 +76,7 @@
       <thy-divider class="ml-2" thyColor="light" thyVertical="true"></thy-divider>
     </ng-template>
     <ng-template #headerContent>
-      <thy-nav thyType="pulled">
+      <thy-nav thyVariant="pulled">
         <a href="javascript:;" thyNavItem [thyNavItemActive]="'true'">Link1</a>
         <a href="javascript:;" thyNavItem>Link2</a>
       </thy-nav>
