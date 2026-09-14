@@ -159,6 +159,87 @@ export class TagDemoComponent {}
         expect(content).not.toContain('thyTheme');
     });
 
+    it('should migrate thyTheme to thyAppearance for thy-dot', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/dot-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDotModule } from 'ngx-tethys/dot';
+
+@Component({
+    selector: 'app-dot-demo',
+    template: \`
+        <thy-dot thyTheme="outline"></thy-dot>
+    \`,
+    imports: [ThyDotModule]
+})
+export class DotDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/dot-demo.component.ts');
+        expect(content).toContain('thyAppearance="outline"');
+        expect(content).not.toContain('thyTheme');
+    });
+
+    it('should migrate thyTheme to thyAppearance for thyDot attribute', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/dot-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDotModule } from 'ngx-tethys/dot';
+
+@Component({
+    selector: 'app-dot-demo',
+    template: \`
+        <span thyDot thyTheme="fill"></span>
+    \`,
+    imports: [ThyDotModule]
+})
+export class DotDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/dot-demo.component.ts');
+        expect(content).toContain('thyAppearance="fill"');
+        expect(content).not.toContain('thyTheme');
+    });
+
+    it('should migrate bound thyTheme to thyAppearance for thy-dot attribute', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/dot-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDotModule } from 'ngx-tethys/dot';
+
+@Component({
+    selector: 'app-dot-demo',
+    template: \`
+        <span thy-dot [thyTheme]="'outline'"></span>
+    \`,
+    imports: [ThyDotModule]
+})
+export class DotDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/dot-demo.component.ts');
+        expect(content).toContain(`[thyAppearance]="'outline'"`);
+        expect(content).not.toContain('thyTheme');
+    });
+
     it('should migrate thyTheme to thyAppearance and thyType to thyColor for thy-alert', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

@@ -470,7 +470,19 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 30. 样式（Sass / CSS）
+### 30. thy-dot
+
+**标记为废弃**
+- `thyTheme`和`ThyThemeType`已废弃，请使用`thyAppearance`和`ThyDotAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`
+- `ThyThemeType` → `ThyDotAppearance`
+
+---
+
+### 31. 样式（Sass / CSS）
 
 **破坏性更改**
 
