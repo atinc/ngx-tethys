@@ -49,6 +49,13 @@ export const upgradeData: UpgradeData = {
                         replace: 'thyTheme',
                         replaceWith: 'thyAppearance',
                         limitedTo: {
+                            elements: ['thy-collapse']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
                             attributes: ['thyAction'],
                             elements: ['thy-action']
                         }

@@ -488,7 +488,34 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 31. 样式（Sass / CSS）
+### 31. thy-alert
+
+**标记为废弃**
+- `thyType`和`ThyAlertType`已废弃，请使用`thyColor`和`ThyAlertColor`
+- `thyTheme`和`ThyAlertTheme`已废弃，请使用`thyAppearance`和`ThyAlertAppearance`
+
+**自动迁移**
+
+- `thyType` → `thyColor`
+- `thyTheme` → `thyAppearance`
+- `ThyAlertType` → `ThyAlertColor`
+- `ThyAlertTheme` → `ThyAlertAppearance`
+
+---
+
+### 32. thy-collapse
+
+**标记为废弃**
+- `thyTheme`和`ThyCollapseTheme`已废弃，请使用`thyAppearance`和`ThyCollapseAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`
+- `ThyCollapseTheme` → `ThyCollapseAppearance`
+
+---
+
+### 样式（Sass / CSS）
 
 **破坏性更改**
 
