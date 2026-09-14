@@ -24,7 +24,10 @@ import { ThyActiveTabValue } from './types';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
-export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
+export type ThyTabsVariant = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card';
+
+/** @deprecated use ThyTabsVariant */
+export type ThyTabsType = ThyTabsVariant;
 
 export type ThyTabsPosition = 'top' | 'left';
 
@@ -51,10 +54,21 @@ export class ThyTabs implements OnInit {
     readonly tabs = contentChildren(ThyTab, { descendants: true });
 
     /**
-     * 标签类型
-     * @type 'pulled' | 'tabs' | 'pills' | 'lite'
+     * 标签形态
+     * @type pulled | tabs | pills | lite | card
+     * @default tabs
+     */
+    readonly thyVariant = input<ThyTabsVariant>();
+
+    /**
+     * 标签类型（已废弃），请使用 thyVariant
+     * @deprecated please use thyVariant
+     * @type pulled | tabs | pills | lite | card
+     * @default tabs
      */
     readonly thyType = input<ThyTabsType>('tabs');
+
+    readonly variant = computed(() => this.thyVariant() || this.thyType() || 'tabs');
 
     /**
      * 选项卡的大小
