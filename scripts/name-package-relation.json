@@ -403,6 +403,8 @@
   "ThyMenuItemIcon": "menu",
   "ThyMenuItem": "menu",
   "ThyMenuItemName": "menu",
+  "ThyMenuVariant": "menu",
+  "ThyMenuTheme": "menu",
   "ThyMenu": "menu",
   "ThyMenuModule": "menu",
   "ThyIconNavLink": "nav",

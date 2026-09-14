@@ -523,6 +523,26 @@ ng generate ngx-tethys:migrate-22
 - `thyTheme` → `thyAppearance`
 - `ThyCollapseTheme` → `ThyCollapseAppearance`
 
+### 33. thy-menu
+
+**标记为废弃**
+
+- 旧版 `thyTheme="compact" | loose | dark"` 同时表示形态与配色，已拆分为：
+  - `thyVariant`：`compact | loose`（形态，默认 `compact`）
+  - `thyTheme`：`light | dark`（主题，默认 `light`）
+- 旧值 `compact | loose` 作为 `thyTheme` 传入仍兼容，请改用 `thyVariant`
+
+**自动迁移**
+
+- `thyTheme="compact"` → 移除（等价于默认形态）
+- `thyTheme="loose"` → `thyVariant="loose"`
+- `thyTheme="dark"` 保持不变（新 API 下表示深色主题）
+- `[thyTheme]="'loose'"` → `[thyVariant]="'loose'"`
+
+**手动检查**
+
+- 动态绑定 `[thyTheme]="theme"` 且变量可能为 `compact | loose | dark` 时，需手动拆分为 `thyVariant` 与 `thyTheme`
+
 ---
 
 ### 样式（Sass / CSS）
