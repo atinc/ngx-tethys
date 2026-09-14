@@ -109,7 +109,7 @@ export class ThyInputGroup implements OnInit, OnDestroy {
      * @default md
      */
     readonly thySize = input<ThyInputGroupSize, ThyInputGroupSize | null | undefined>('md', {
-        transform: (value) => value ?? 'md'
+        transform: value => value ?? 'md'
     });
 
     /**

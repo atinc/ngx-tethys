@@ -43,7 +43,7 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
     private hostRenderer = useHostRenderer();
 
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
-        transform: (value) => value ?? 'md'
+        transform: value => value ?? 'md'
     });
 
     readonly name = input<string>();
