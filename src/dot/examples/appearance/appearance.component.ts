@@ -3,11 +3,11 @@ import { ThyDot } from 'ngx-tethys/dot';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
-    selector: 'thy-dot-theme-example',
-    templateUrl: './theme.component.html',
+    selector: 'thy-dot-appearance-example',
+    templateUrl: './appearance.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDot, ThySpace, ThySpaceItemDirective]
 })
-export class ThyDotThemeExampleComponent implements OnInit {
+export class ThyDotAppearanceExampleComponent implements OnInit {
     ngOnInit() {}
 }
