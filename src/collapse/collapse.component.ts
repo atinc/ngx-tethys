@@ -1,8 +1,13 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { IThyCollapseItemComponent, IThyCollapseComponent, THY_COLLAPSE_COMPONENT } from './collapse.token';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type ThyCollapseTheme = 'divided' | 'bordered' | 'ghost';
+export type ThyCollapseAppearance = 'divided' | 'bordered' | 'ghost';
+
+/**
+ * @deprecated please use ThyCollapseAppearance
+ */
+export type ThyCollapseTheme = ThyCollapseAppearance;
 
 export type ThyCollapsedIconPosition = 'left' | 'right';
 
@@ -20,9 +25,9 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
     `,
     host: {
         class: 'thy-collapse',
-        '[class.thy-collapse-divided]': `thyTheme() === 'divided'`,
-        '[class.thy-collapse-bordered]': `thyTheme() === 'bordered'`,
-        '[class.thy-collapse-ghost]': `thyTheme() === 'ghost'`,
+        '[class.thy-collapse-divided]': `appearance() === 'divided'`,
+        '[class.thy-collapse-bordered]': `appearance() === 'bordered'`,
+        '[class.thy-collapse-ghost]': `appearance() === 'ghost'`,
         '[class.thy-collapse-icon-position-right]': `thyArrowIconPosition() === 'right'`,
         '[class.thy-collapse-icon-position-left]': `thyArrowIconPosition() === 'left'`
     },
@@ -35,9 +40,20 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
 })
 export class ThyCollapse implements IThyCollapseComponent {
     /**
-     * 折叠面板主题，支持 `divided` | `bordered` | `ghost`
+     * 折叠面板外观，支持 `divided` | `bordered` | `ghost`
+     * @type divided | bordered | ghost
+     * @default divided
      */
-    readonly thyTheme = input<ThyCollapseTheme>('divided');
+    readonly thyAppearance = input<ThyCollapseAppearance>();
+
+    /**
+     * 折叠面板主题（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
+     * @type divided | bordered | ghost
+     */
+    readonly thyTheme = input<ThyCollapseAppearance>();
+
+    readonly appearance = computed(() => this.thyAppearance() || this.thyTheme() || 'divided');
 
     /**
      * 是否为手风琴模式，手风琴模式下，只能展开一个面板
