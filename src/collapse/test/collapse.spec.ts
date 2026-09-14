@@ -1,4 +1,4 @@
-import { ThyCollapse, ThyCollapseItem, ThyCollapseModule } from 'ngx-tethys/collapse';
+import { ThyCollapse, ThyCollapseItem, ThyCollapseModule, ThyCollapseAppearance, ThyCollapseTheme } from 'ngx-tethys/collapse';
 import { ThyIcon, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
@@ -10,7 +10,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     template: `
-        <thy-collapse [thyAccordion]="accordion" [thyTheme]="theme" [thyArrowIconPosition]="position">
+        <thy-collapse [thyAccordion]="accordion" [thyAppearance]="appearance" [thyTheme]="theme" [thyArrowIconPosition]="position">
             <thy-collapse-panel thyTitle="这是一个头部标题">isAccording</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
@@ -22,7 +22,9 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 export class TestCollapseBasicComponent {
     accordion = false;
 
-    theme = 'divided';
+    appearance: ThyCollapseAppearance | undefined = undefined;
+
+    theme: ThyCollapseTheme | undefined = undefined;
 
     position = 'left';
 
@@ -143,7 +145,18 @@ describe('collapse', () => {
             expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-bordered');
         });
 
-        it('should collapse have thy-collapse-bordered class when theme is bordered', () => {
+        it('should collapse have thy-collapse-bordered class when appearance is bordered', () => {
+            fixture.detectChanges();
+            component.appearance = 'bordered';
+
+            fixture.detectChanges();
+
+            const borderedClass = fixture.debugElement.query(By.css('.thy-collapse-bordered'));
+            expect(borderedClass).toBeTruthy();
+            expect(debugElement.nativeElement.classList).toContain('thy-collapse-bordered');
+        });
+
+        it('should collapse have thy-collapse-bordered class when deprecated thyTheme is bordered', () => {
             fixture.detectChanges();
             component.theme = 'bordered';
 
@@ -177,7 +190,17 @@ describe('collapse', () => {
             expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-ghost');
         });
 
-        it('should collapse have thy-collapse-ghost class when theme is ghost', () => {
+        it('should collapse have thy-collapse-ghost class when appearance is ghost', () => {
+            fixture.detectChanges();
+            component.appearance = 'ghost';
+            fixture.detectChanges();
+
+            const positionLeft = fixture.debugElement.query(By.css('.thy-collapse-ghost'));
+            expect(positionLeft).toBeTruthy();
+            expect(debugElement.nativeElement.classList).toContain('thy-collapse-ghost');
+        });
+
+        it('should collapse have thy-collapse-ghost class when deprecated thyTheme is ghost', () => {
             fixture.detectChanges();
             component.theme = 'ghost';
             fixture.detectChanges();
@@ -185,6 +208,15 @@ describe('collapse', () => {
             const positionLeft = fixture.debugElement.query(By.css('.thy-collapse-ghost'));
             expect(positionLeft).toBeTruthy();
             expect(debugElement.nativeElement.classList).toContain('thy-collapse-ghost');
+        });
+
+        it('should prefer thyAppearance over deprecated thyTheme', () => {
+            component.appearance = 'ghost';
+            component.theme = 'bordered';
+            fixture.detectChanges();
+
+            expect(debugElement.nativeElement.classList).toContain('thy-collapse-ghost');
+            expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-bordered');
         });
     });
 });

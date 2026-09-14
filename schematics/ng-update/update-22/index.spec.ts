@@ -159,6 +159,64 @@ export class TagDemoComponent {}
         expect(content).not.toContain('thyTheme');
     });
 
+    it('should migrate thyTheme to thyAppearance for thy-collapse', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/collapse-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyCollapseModule } from 'ngx-tethys/collapse';
+
+@Component({
+    selector: 'app-collapse-demo',
+    template: \`
+        <thy-collapse thyTheme="bordered">
+            <thy-collapse-item thyTitle="Title">Content</thy-collapse-item>
+        </thy-collapse>
+    \`,
+    imports: [ThyCollapseModule]
+})
+export class CollapseDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/collapse-demo.component.ts');
+        expect(content).toContain('thyAppearance="bordered"');
+        expect(content).not.toContain('thyTheme');
+    });
+
+    it('should migrate bound thyTheme to thyAppearance for thy-collapse', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/collapse-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyCollapseModule } from 'ngx-tethys/collapse';
+
+@Component({
+    selector: 'app-collapse-demo',
+    template: \`
+        <thy-collapse [thyTheme]="'ghost'">
+            <thy-collapse-item thyTitle="Title">Content</thy-collapse-item>
+        </thy-collapse>
+    \`,
+    imports: [ThyCollapseModule]
+})
+export class CollapseDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/collapse-demo.component.ts');
+        expect(content).toContain(`[thyAppearance]="'ghost'"`);
+        expect(content).not.toContain('thyTheme');
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
