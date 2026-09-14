@@ -73,7 +73,7 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
      * @default md
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
-        transform: (value) => value ?? 'md'
+        transform: value => value ?? 'md'
     });
 
     /**

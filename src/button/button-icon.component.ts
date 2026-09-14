@@ -49,7 +49,7 @@ export class ThyButtonIcon {
      * @default md
      */
     readonly thySize = input<ThyButtonSize, ThyButtonSize | null | undefined>('md', {
-        transform: (value) => value ?? 'md'
+        transform: value => value ?? 'md'
     });
 
     /**
