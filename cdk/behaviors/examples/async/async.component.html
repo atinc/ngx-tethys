@@ -1,7 +1,5 @@
 <button thyButton="primary" [thyLoading]="todosFetcher.loading()" (click)="refresh()">Refresh</button>
-<button thyButton="danger" [thyLoading]="todosFetcherWithError.loading()" (click)="refreshWithError()" class="ml-2">
-  Refresh Error
-</button>
+<button thyButton="danger" [thyLoading]="todosFetcherWithError.loading()" (click)="refreshWithError()" class="ml-2">Refresh Error</button>
 <thy-loading [thyDone]="todosFetcher.loadingDone()"></thy-loading>
 
 @if (todosFetcher.loadingDone()) {
