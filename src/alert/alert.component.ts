@@ -91,9 +91,9 @@ export class ThyAlert {
      */
     readonly thyTheme = input<ThyAlertTheme>('fill');
 
-    readonly color = computed(() => this.thyColor() ?? this.thyType() ?? 'info');
+    readonly color = computed(() => this.thyColor() || this.thyType() || 'info');
 
-    readonly appearance = computed(() => this.thyAppearance() ?? this.thyTheme() ?? 'fill');
+    readonly appearance = computed(() => this.thyAppearance() || this.thyTheme() || 'fill');
 
     /**
      * 显示警告提示的内容
