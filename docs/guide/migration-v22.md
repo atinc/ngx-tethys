@@ -55,11 +55,17 @@ ng generate ngx-tethys:migrate-22
 
 - 尺寸类型 `ButtonGroupSize` 重命名为 `ThyButtonSize`
 
+
+**标记为废弃**
+- `thy-button` 组件上 `thyType` 已废弃，请使用 `thyColor`；`ThyButtonType` 已废弃，请使用 `ThyButtonColor`
+
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
 - 旧复合 `thyButton` / `thyType` 改写为 `thyAppearance` + 颜色 type；`*-square` 去掉后缀；`link-danger-weak` 改为 CSS class
 - TypeScript 中 `ButtonGroupSize` → `ThyButtonSize`
+- `thy-button` 上 `thyType` → `thyColor`；
+- TypeScript 中 `ThyButtonType` → `ThyButtonColor`
 
 ---
 

@@ -47,6 +47,7 @@
   "ThyButtonIconShape": "button",
   "ThyButtonIcon": "button",
   "ThyButtonSize": "button",
+  "ThyButtonColor": "button",
   "ThyButtonType": "button",
   "ThyButton": "button",
   "ThyButtonModule": "button",

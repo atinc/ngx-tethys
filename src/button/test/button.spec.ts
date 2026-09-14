@@ -90,6 +90,7 @@ describe('ThyButton', () => {
             expect(btnElement.classList.contains('btn-default')).toBeTruthy();
         });
 
+
         it('should set size success', () => {
             sizes.forEach(size => {
                 basicTestComponent.size = size;
@@ -312,7 +313,61 @@ describe('ThyButton', () => {
             expect(basicTestComponent.clickCount).toBe(1);
         });
     });
+
+    describe('thyColor', () => {
+        let fixture!: ComponentFixture<ThyTestButtonColorComponent>;
+        let btnElement!: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyTestButtonColorComponent);
+            btnElement = fixture.debugElement.query(By.directive(ThyButton)).nativeElement;
+        });
+
+        it('should set color with thyColor', () => {
+            fixture.componentInstance.color = 'danger';
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('btn-danger')).toBeTruthy();
+        });
+    });
+
+    describe('deprecated thyType', () => {
+        let fixture!: ComponentFixture<ThyTestButtonDeprecatedComponent>;
+        let btnElement!: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyTestButtonDeprecatedComponent);
+            btnElement = fixture.debugElement.query(By.directive(ThyButton)).nativeElement;
+        });
+
+        it('should still work with thyType', () => {
+            fixture.componentInstance.type = 'success';
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('btn-success')).toBeTruthy();
+        });
+    });
 });
+
+@Component({
+    selector: 'thy-test-button-color',
+    template: `<thy-button [thyColor]="color" [thyAppearance]="appearance">Button</thy-button>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyButtonModule]
+})
+class ThyTestButtonColorComponent {
+    color = 'primary';
+    appearance: ThyButtonAppearance = 'fill';
+}
+
+@Component({
+    selector: 'thy-test-button-deprecated',
+    template: `<thy-button [thyType]="type" [thyAppearance]="appearance">Button</thy-button>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyButtonModule]
+})
+class ThyTestButtonDeprecatedComponent {
+    type = 'primary';
+    appearance: ThyButtonAppearance = 'fill';
+}
 
 @Component({
     selector: 'thy-test-button-icon-basic',

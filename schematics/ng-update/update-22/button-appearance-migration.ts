@@ -39,7 +39,7 @@ const COMPOUND_BUTTON_TYPES: Record<string, CompoundButtonType> = {
 
 const PLAIN_BUTTON_TYPES = new Set(['primary', 'default', 'info', 'warning', 'danger', 'success']);
 
-const TYPE_ATTR_NAMES = ['thyButton', 'thy-button', 'thyType'];
+const TYPE_ATTR_NAMES = ['thyButton', 'thy-button', 'thyType', 'thyColor'];
 
 const OPEN_TAG_PATTERN = /<[A-Za-z][\w.-]*\b[^>]*?>/g;
 
@@ -114,7 +114,7 @@ export function isButtonAppearanceTarget(tag: string): boolean {
         return true;
     }
 
-    if ((tagName === 'button' || tagName === 'thy-button') && /\b(?:\[?thyType\]?)\b/.test(tag)) {
+    if ((tagName === 'button' || tagName === 'thy-button') && /\b(?:\[?thyType\]?|\[?thyColor\]?)\b/.test(tag)) {
         return true;
     }
 
@@ -161,7 +161,7 @@ function collectOpenTagEdits(tag: string, tagOffset: number): RelativeTemplateEd
     const mapped = resolveButtonType(primaryAttribute.rawType)!;
     const edits: RelativeTemplateEdit[] = [];
 
-    edits.push(...createCompoundAttributeReplacement(tagOffset, primaryAttribute, mapped));
+    edits.push(...createCompoundAttributeReplacement(tag, tagOffset, primaryAttribute, mapped));
 
     for (const redundantAttribute of redundantAttributes) {
         edits.push({
@@ -220,14 +220,26 @@ function collectTypeAttributes(tag: string): TypeAttributeMatch[] {
     return matches.sort((left, right) => left.attrIndex - right.attrIndex);
 }
 
+function getColorAttributeName(tag: string, attributeName: string): string {
+    const tagName = getOpenTagName(tag);
+
+    if (tagName === 'thy-button' && (attributeName === 'thyType' || attributeName === 'thyColor')) {
+        return 'thyColor';
+    }
+
+    return attributeName;
+}
+
 function createCompoundAttributeReplacement(
+    tag: string,
     tagOffset: number,
     attribute: TypeAttributeMatch,
     mapped: CompoundButtonType
 ): RelativeTemplateEdit[] {
+    const colorAttributeName = getColorAttributeName(tag, attribute.attrName);
     const typeAttr = attribute.bound
-        ? `[${attribute.attrName}]="'${mapped.type}'"`
-        : `${attribute.attrName}="${mapped.type}"`;
+        ? `[${colorAttributeName}]="'${mapped.type}'"`
+        : `${colorAttributeName}="${mapped.type}"`;
     const leadingSpace = attribute.attrSource.startsWith(' ') ? ' ' : '';
 
     return [

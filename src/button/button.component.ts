@@ -20,7 +20,10 @@ export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
 
-export type ThyButtonType = 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'success';
+export type ThyButtonColor = 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'success';
+
+/** @deprecated use ThyButtonColor */
+export type ThyButtonType = ThyButtonColor;
 
 const iconOnlyClass = 'thy-btn-icon-only';
 
@@ -62,14 +65,23 @@ export class ThyButton {
     readonly thyAppearance = input<ThyButtonAppearance>('fill');
 
     /**
-     * 按钮类型（颜色）
+     * 按钮颜色
      * @type default | primary | info | warning | danger | success
      * @default default
      */
-    readonly thyButton = input<ThyButtonType>();
+    readonly thyButton = input<ThyButtonColor>();
 
     /**
-     * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
+     * 按钮颜色，一般使用`thyButton`指令写法；通过`thy-button`组件使用时，使用该参数控制颜色
+     * @type default | primary | info | warning | danger | success
+     * @default default
+     */
+    readonly thyColor = input<ThyButtonColor>();
+
+    /**
+     * 按钮颜色（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     * @type default | primary | info | warning | danger | success
      * @default default
      */
     readonly thyType = input<ThyButtonType>();
@@ -144,7 +156,7 @@ export class ThyButton {
     });
 
     private readonly type = computed(() => {
-        return this.thyButton() || this.thyType() || 'default';
+        return this.thyButton() || this.thyColor() || this.thyType() || 'default';
     });
 
     private setButtonText() {
