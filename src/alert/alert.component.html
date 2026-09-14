@@ -2,7 +2,7 @@
   @if (icon()) {
     <thy-icon class="thy-alert-icon" [thyIconName]="icon()"></thy-icon>
   }
-  @if (thyTheme() === 'naked') {
+  @if (appearance() === 'naked') {
     <span class="thy-alert-tips">Tips： </span>
   }
   @if (messageIsTemplate()) {

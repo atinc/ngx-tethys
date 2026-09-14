@@ -90,7 +90,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     readonly thyPlaceholder = input('');
 
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
-        transform: (value) => value ?? 'md'
+        transform: value => value ?? 'md'
     });
 
     readonly tagSize: Signal<ThyTagSize> = computed(() => {

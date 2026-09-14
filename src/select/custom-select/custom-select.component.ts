@@ -344,7 +344,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      * @default primary
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
-        transform: (value) => value ?? 'md'
+        transform: value => value ?? 'md'
     });
 
     /**
