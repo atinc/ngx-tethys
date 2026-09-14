@@ -10,9 +10,7 @@ import {
     OnInit,
     TemplateRef,
     computed,
-    contentChildren,
-    effect,
-    untracked
+    contentChildren
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
@@ -98,27 +96,6 @@ export class ThyTabs implements OnInit {
     });
 
     transitionStarted: boolean = false;
-
-    private isFirstTabsChange = true;
-
-    constructor() {
-        effect(() => {
-            const tabs = this.tabs();
-            if (this.isFirstTabsChange) {
-                this.isFirstTabsChange = false;
-                return;
-            }
-            untracked(() => {
-                this.thyAnimated() && (this.transitionStarted = true);
-                const lastIndex = tabs.length - 1;
-                const lastTab = tabs[lastIndex];
-                if (lastTab) {
-                    this.thyActiveTab.set(this.getTabActiveValue(lastTab, lastIndex));
-                }
-                this.cd.markForCheck();
-            });
-        });
-    }
 
     ngOnInit(): void {
         const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');

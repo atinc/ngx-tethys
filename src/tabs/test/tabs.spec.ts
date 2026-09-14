@@ -145,9 +145,11 @@ class TestTabsDynamicAddComponent {
     activeTab = 'tab1';
     thyAnimated = false;
 
-    addTab() {
+    addTab(activateLast = false) {
         this.tabs.push({ id: `tab${this.tabs.length + 1}`, title: `Tab${this.tabs.length + 1}` });
-        this.activeTab = this.tabs[this.tabs.length - 1].id;
+        if (activateLast) {
+            this.activeTab = this.tabs[this.tabs.length - 1].id;
+        }
     }
 
     trackByFn(index: number, item: string) {
@@ -416,11 +418,29 @@ describe('tabs', () => {
             expect(tabsInstance.tabs().length).toBe(4);
         }));
 
+        it('should keep current thyActiveTab when add tab without setting active tab', fakeAsync(() => {
+            const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance as ThyTabs;
+            expect(tabsInstance.tabs().length).toBe(3);
+            expect(tabsInstance.activeTabIndex()).toBe(0);
+
+            fixture.debugElement.componentInstance.addTab();
+            fixture.detectChanges();
+            tick();
+            expect(tabsInstance.tabs().length).toBe(4);
+            expect(tabsInstance.thyActiveTab()).toBe('tab1');
+            expect(tabsInstance.activeTabIndex()).toBe(0);
+
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            const tabElements = tabContent.querySelectorAll('.thy-tab-content');
+            expect(tabElements[0].getAttribute('tabindex')).toEqual('0');
+            expect(tabElements[3].getAttribute('tabindex')).not.toEqual('0');
+        }));
+
         it('should set thyActiveTab successfully when add tab', fakeAsync(() => {
             const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
             expect(tabsInstance.tabs().length).toBe(3);
 
-            fixture.debugElement.componentInstance.addTab();
+            fixture.debugElement.componentInstance.addTab(true);
             fixture.detectChanges();
             tick();
             expect(tabsInstance.tabs().length).toBe(4);
@@ -436,7 +456,7 @@ describe('tabs', () => {
             const tabsInstance = getDebugElement(fixture, ThyTabs).componentInstance;
             expect(tabsInstance.tabs().length).toBe(3);
 
-            fixture.debugElement.componentInstance.addTab();
+            fixture.debugElement.componentInstance.addTab(true);
             fixture.debugElement.componentInstance.thyAnimated = true;
             fixture.detectChanges();
             tick();
