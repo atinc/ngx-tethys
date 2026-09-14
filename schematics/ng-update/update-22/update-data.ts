@@ -13,6 +13,8 @@ export const upgradeData: UpgradeData = {
                         replace: 'ThyActiveTabInfo',
                         replaceWith: 'ThyActiveTabValue'
                     },
+                    { replace: 'ThyNavType', replaceWith: 'ThyNavVariant' },
+                    { replace: 'ThyTabsType', replaceWith: 'ThyTabsVariant' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
@@ -131,6 +133,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyVariant',
                         limitedTo: {
                             elements: ['thy-nav']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-tabs']
                         }
                     },
                     {

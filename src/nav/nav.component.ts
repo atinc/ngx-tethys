@@ -36,7 +36,10 @@ import { ThyNavItemDirective } from './nav-item.directive';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 
 export type ThyNavVariant = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+
+/** @deprecated use ThyNavVariant */
 export type ThyNavType = ThyNavVariant;
+
 export type ThyNavSize = 'lg' | 'md' | 'sm';
 export type ThyNavHorizontal = '' | 'start' | 'center' | 'end';
 
