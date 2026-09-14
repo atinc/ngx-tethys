@@ -635,6 +635,37 @@ export class NavDemoComponent {}
         expect(content).not.toContain('thyNavLink');
     });
 
+    it('should migrate ThyNavType to ThyNavVariant', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/nav-type-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyNav, ThyNavType } from 'ngx-tethys/nav';
+
+@Component({
+    selector: 'app-nav-type-demo',
+    template: \`
+        <thy-nav [thyVariant]="variant">
+            <a thyNavItem>Link</a>
+        </thy-nav>
+    \`,
+    imports: [ThyNav]
+})
+export class NavTypeDemoComponent {
+    variant: ThyNavType = 'tabs';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/nav-type-demo.component.ts');
+        expect(content).toContain('ThyNavVariant');
+        expect(content).not.toContain('ThyNavType');
+    });
+
     it('should migrate thyType to thyVariant for thy-nav', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
@@ -669,10 +700,51 @@ export class NavDemoComponent {
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/nav-demo.component.ts');
         expect(content).toContain('thyVariant="pulled"');
         expect(content).toContain('[thyVariant]="type"');
-        expect(content).toContain('thyType="pills"');
+        expect(content).toContain('thyVariant="pills"');
         expect(content).toContain('thyType="primary"');
         expect(content).not.toMatch(/<thy-nav[^>]*thyType/);
         expect(content).not.toMatch(/<thy-nav[^>]*\[thyType\]/);
+        expect(content).not.toMatch(/<thy-tabs[^>]*thyType/);
+    });
+
+    it('should migrate thyType to thyVariant for thy-tabs', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/tabs-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTabsModule } from 'ngx-tethys/tabs';
+
+@Component({
+    selector: 'app-tabs-demo',
+    template: \`
+        <thy-tabs thyType="pills">
+            <thy-tab thyTitle="Tab1">Tab1</thy-tab>
+        </thy-tabs>
+        <thy-tabs [thyType]="variant">
+            <thy-tab thyTitle="Tab2">Tab2</thy-tab>
+        </thy-tabs>
+        <thy-nav thyType="tabs">
+            <a thyNavItem>Link</a>
+        </thy-nav>
+    \`,
+    imports: [ThyTabsModule]
+})
+export class TabsDemoComponent {
+    variant = 'lite';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/tabs-demo.component.ts');
+        expect(content).toContain('thyVariant="pills"');
+        expect(content).toContain('[thyVariant]="variant"');
+        expect(content).toContain('thyVariant="tabs"');
+        expect(content).not.toMatch(/<thy-tabs[^>]*thyType/);
+        expect(content).not.toMatch(/<thy-tabs[^>]*\[thyType\]/);
     });
 
     it('should migrate thy-link to thy-anchor-link', async () => {

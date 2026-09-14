@@ -3,7 +3,16 @@ import { Component, DebugElement, ElementRef, ViewChild, ChangeDetectionStrategy
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyNav } from 'ngx-tethys/nav';
-import { ThyActiveTabValue, ThyTabActiveEvent, ThyTabs, ThyTabsModule, ThyTabsPosition, ThyTabsSize, ThyTabsType } from 'ngx-tethys/tabs';
+import {
+    ThyActiveTabValue,
+    ThyTabActiveEvent,
+    ThyTabs,
+    ThyTabsModule,
+    ThyTabsPosition,
+    ThyTabsSize,
+    ThyTabsType,
+    ThyTabsVariant
+} from 'ngx-tethys/tabs';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 
@@ -21,6 +30,22 @@ import { SafeAny } from 'ngx-tethys/types';
 })
 class TestTabsBasicComponent {
     activeTabChange(event: ThyTabActiveEvent) {}
+}
+
+@Component({
+    selector: 'test-tabs-variant',
+    template: `
+        <thy-tabs [thyVariant]="variant">
+            <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyTabsModule]
+})
+class TestTabsVariantComponent {
+    variant!: ThyTabsVariant;
 }
 
 @Component({
@@ -237,24 +262,47 @@ describe('tabs', () => {
         });
     });
 
-    describe('thyType', () => {
+    describe('thyVariant', () => {
+        let fixture!: ComponentFixture<TestTabsVariantComponent>;
+        let navElement!: HTMLElement;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({});
+            TestBed.compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsVariantComponent);
+            navElement = getDebugElement(fixture, ThyNav).nativeElement;
+        });
+
+        it('should set thyVariant successfully', fakeAsync(() => {
+            (['pulled', 'tabs', 'pills', 'lite', 'card'] as ThyTabsVariant[]).forEach(variant => {
+                fixture.componentInstance.variant = variant;
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                expect(navElement.classList.contains(`thy-nav-${variant}`)).toBeTruthy();
+            });
+        }));
+    });
+
+    describe('deprecated thyType', () => {
         let fixture!: ComponentFixture<TestTabsTypeComponent>;
+        let navElement!: HTMLElement;
 
         beforeEach(() => {
             TestBed.configureTestingModule({});
             TestBed.compileComponents();
 
             fixture = TestBed.createComponent(TestTabsTypeComponent);
-            fixture.detectChanges();
+            navElement = getDebugElement(fixture, ThyNav).nativeElement;
         });
 
-        it('should set thyType successfully', fakeAsync(() => {
-            ['pulled', 'tabs', 'pills', 'lite', 'card'].forEach(type => {
-                fixture.debugElement.componentInstance.type = type;
+        it('should still work with thyType', fakeAsync(() => {
+            (['pulled', 'tabs', 'pills', 'lite', 'card'] as ThyTabsType[]).forEach(type => {
+                fixture.componentInstance.type = type;
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
-                const navElement = getDebugElement(fixture, ThyNav).nativeElement;
                 expect(navElement.classList.contains(`thy-nav-${type}`)).toBeTruthy();
             });
         }));
