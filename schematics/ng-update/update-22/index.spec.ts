@@ -298,6 +298,39 @@ export class DotDemoComponent {}
         expect(content).not.toContain('thyTheme');
     });
 
+    it('should migrate thyType to thyColor for thy-button', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/button-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyButtonModule } from 'ngx-tethys/button';
+
+@Component({
+    selector: 'app-button-demo',
+    template: \`
+        <thy-button thyType="primary">Ok</thy-button>
+        <thy-button [thyType]="type">Dynamic</thy-button>
+        <thy-button thyType="default">Outline</thy-button>
+    \`,
+    imports: [ThyButtonModule]
+})
+export class ButtonDemoComponent {
+    type = 'danger';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/button-demo.component.ts');
+        expect(content).toContain('thyColor="primary"');
+        expect(content).toContain('[thyColor]="type"');
+        expect(content).toContain('thyColor="default"');
+        expect(content).not.toMatch(/<thy-button[^>]*thyType/);
+    });
+
     it('should migrate thyTheme to thyAppearance and thyType to thyColor for thy-alert', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
@@ -701,7 +734,7 @@ export class NavDemoComponent {
         expect(content).toContain('thyVariant="pulled"');
         expect(content).toContain('[thyVariant]="type"');
         expect(content).toContain('thyVariant="pills"');
-        expect(content).toContain('thyType="primary"');
+        expect(content).toContain('thyColor="primary"');
         expect(content).not.toMatch(/<thy-nav[^>]*thyType/);
         expect(content).not.toMatch(/<thy-nav[^>]*\[thyType\]/);
         expect(content).not.toMatch(/<thy-tabs[^>]*thyType/);

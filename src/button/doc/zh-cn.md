@@ -16,8 +16,7 @@ import { ThyButtonModule } from "ngx-tethys/button";
 ```
 
 ## 按钮种类
-在 Worktile Design 中，按钮由 `thyAppearance` 与 `thyButton` 组合：
-
+在 Worktile Design 中，按钮由 `thyAppearance` 与颜色参数组合：
 - 填充按钮（fill）：有背景色的按钮，默认外观；主操作常用 `primary`，一个操作区域建议只有一个
 - 线框按钮（outline）：用于视图，审批状态
 - 链接按钮（link）：用于次要或外链的操作，比如 `取消`
@@ -32,6 +31,9 @@ import { ThyButtonModule } from "ngx-tethys/button";
 <button thyButton="primary" thyAppearance="outline">Primary</button>
 <button thyButton thyAppearance="link">Default</button>
 <button thyButton="primary" thyAppearance="link">Primary</button>
+
+<!-- thy-button 组件写法 -->
+<thy-button thyColor="primary">Primary</thy-button>
 ```
 <example name="thy-button-basic-example"></example>
 

@@ -15,10 +15,10 @@ function assertButtonIcon(iconElement: Element, icon: string) {
     selector: 'thy-test-button-basic',
     template: `
         <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
-        <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance">Icon Button</thy-button>
-        <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type" [thyAppearance]="appearance"></thy-button>
+        <thy-button id="btn-with-icon" [thyIcon]="icon" [thyColor]="type" [thyAppearance]="appearance">Icon Button</thy-button>
+        <thy-button id="btn-only-icon" [thyIcon]="icon" [thyColor]="type" [thyAppearance]="appearance"></thy-button>
         <thy-button id="btn-default">Default Button</thy-button>
-        <thy-button id="btn-thy-disabled" [thyType]="type" [thyAppearance]="appearance" [thyDisabled]="disabled" (click)="onClick()"
+        <thy-button id="btn-thy-disabled" [thyColor]="type" [thyAppearance]="appearance" [thyDisabled]="disabled" (click)="onClick()"
             >Thy Disabled</thy-button
         >
         <button id="btn-native-disabled" [thyButton]="type" [thyAppearance]="appearance" [disabled]="disabled" (click)="onClick()">
@@ -26,7 +26,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         </button>
         <button id="btn-attr-disabled" thyButton="primary" disabled (click)="onClick()">Attr Disabled</button>
         <button id="btn-attr-disabled-true" thyButton="primary" disabled="true" (click)="onClick()">Attr Disabled True</button>
-        <thy-button id="btn-thy-loading" [thyType]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()"
+        <thy-button id="btn-thy-loading" [thyColor]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()"
             >Loading Button</thy-button
         >
         <button id="btn-native-loading" [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" (click)="onClick()">
@@ -89,6 +89,7 @@ describe('ThyButton', () => {
 
             expect(btnElement.classList.contains('btn-default')).toBeTruthy();
         });
+
 
         it('should set size success', () => {
             sizes.forEach(size => {
@@ -312,7 +313,61 @@ describe('ThyButton', () => {
             expect(basicTestComponent.clickCount).toBe(1);
         });
     });
+
+    describe('thyColor', () => {
+        let fixture!: ComponentFixture<ThyTestButtonColorComponent>;
+        let btnElement!: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyTestButtonColorComponent);
+            btnElement = fixture.debugElement.query(By.directive(ThyButton)).nativeElement;
+        });
+
+        it('should set color with thyColor', () => {
+            fixture.componentInstance.color = 'danger';
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('btn-danger')).toBeTruthy();
+        });
+    });
+
+    describe('deprecated thyType', () => {
+        let fixture!: ComponentFixture<ThyTestButtonDeprecatedComponent>;
+        let btnElement!: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyTestButtonDeprecatedComponent);
+            btnElement = fixture.debugElement.query(By.directive(ThyButton)).nativeElement;
+        });
+
+        it('should still work with thyType', () => {
+            fixture.componentInstance.type = 'success';
+            fixture.detectChanges();
+            expect(btnElement.classList.contains('btn-success')).toBeTruthy();
+        });
+    });
 });
+
+@Component({
+    selector: 'thy-test-button-color',
+    template: `<thy-button [thyColor]="color" [thyAppearance]="appearance">Button</thy-button>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyButtonModule]
+})
+class ThyTestButtonColorComponent {
+    color = 'primary';
+    appearance: ThyButtonAppearance = 'fill';
+}
+
+@Component({
+    selector: 'thy-test-button-deprecated',
+    template: `<thy-button [thyType]="type" [thyAppearance]="appearance">Button</thy-button>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyButtonModule]
+})
+class ThyTestButtonDeprecatedComponent {
+    type = 'primary';
+    appearance: ThyButtonAppearance = 'fill';
+}
 
 @Component({
     selector: 'thy-test-button-icon-basic',

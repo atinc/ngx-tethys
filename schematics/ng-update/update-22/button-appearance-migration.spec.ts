@@ -20,7 +20,7 @@ describe('migrateButtonAppearance', () => {
 
     it('should migrate thyType compound values', () => {
         const content = `<thy-button thyType="outline-default">Default</thy-button>`;
-        expect(migrateButtonAppearance(content)).toBe(`<thy-button thyType="default" thyAppearance="outline">Default</thy-button>`);
+        expect(migrateButtonAppearance(content)).toBe(`<thy-button thyColor="default" thyAppearance="outline">Default</thy-button>`);
     });
 
     it('should migrate bound literal compound values', () => {
@@ -76,6 +76,12 @@ describe('migrateButtonAppearance', () => {
     it('should not change modern color types', () => {
         const content = `<button thyButton="primary" thyAppearance="link">Ok</button>`;
         expect(migrateButtonAppearance(content)).toBe(content);
+    });
+
+    it('should migrate thyColor compound values on thy-button', () => {
+        // CDK 重命名后的中间态
+        const content = `<thy-button thyColor="outline-default">Default</thy-button>`;
+        expect(migrateButtonAppearance(content)).toBe(`<thy-button thyColor="default" thyAppearance="outline">Default</thy-button>`);
     });
 
     it('should keep thySize when migrating compound button type in batch-style edits', () => {

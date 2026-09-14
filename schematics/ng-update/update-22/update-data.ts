@@ -7,6 +7,7 @@ export const upgradeData: UpgradeData = {
                 pr: 'https://github.com/atinc/ngx-tethys',
                 changes: [
                     { replace: 'ButtonGroupSize', replaceWith: 'ThyButtonSize' },
+                    { replace: 'ThyButtonType', replaceWith: 'ThyButtonColor' },
                     { replace: 'InputGroupSize', replaceWith: 'ThyInputGroupSize' },
                     {
                         replace: 'ThyActiveTabInfo',
@@ -89,6 +90,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyColor',
                         limitedTo: {
                             elements: ['thy-alert']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-button']
                         }
                     },
                     {

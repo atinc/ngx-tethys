@@ -6,7 +6,7 @@ import { ThyButton } from 'ngx-tethys/button';
     selector: 'thy-affix-on-change-example',
     template: `
         <thy-affix [thyOffsetTop]="120" (thyChange)="onChange($event)">
-            <button thyButton thyType="primary">
+            <button thyButton="primary">
                 <span>120px to affix top</span>
             </button>
         </thy-affix>
