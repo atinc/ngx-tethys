@@ -11,6 +11,7 @@ import {
     ThyDot,
     ThyShapeType,
     ThySizeType,
+    ThyDotAppearance,
     ThyThemeType
 } from 'ngx-tethys/dot';
 
@@ -63,17 +64,31 @@ describe('ThyDot', () => {
         const randomColor = getRandomAttributes<ThyColorType>(colors);
         const randomSize = getRandomAttributes<ThySizeType>(sizes);
         const randomShape = getRandomAttributes<ThyShapeType>(shapes);
-        const randomTheme = getRandomAttributes<ThyThemeType>(themes);
+        const randomAppearance = getRandomAttributes<ThyDotAppearance>(themes);
         basicTestComponent.thyColor = randomColor;
         basicTestComponent.thyShape = randomShape;
         basicTestComponent.thySize = randomSize;
-        basicTestComponent.thyTheme = randomTheme;
+        basicTestComponent.thyAppearance = randomAppearance;
         fixture.detectChanges();
         expect(dotComponent.nativeElement.classList.contains(COMPONENT_CLASS_NAME)).toBe(true);
         expect(dotComponent.nativeElement.classList.contains(`dot-color-${randomColor}`)).toBe(true);
         expect(dotComponent.nativeElement.classList.contains(`dot-size-${randomSize}`)).toBe(true);
         expect(dotComponent.nativeElement.classList.contains(`dot-shape-${randomShape}`)).toBe(true);
-        expect(dotComponent.nativeElement.classList.contains(`dot-theme-${randomTheme}`)).toBe(true);
+        expect(dotComponent.nativeElement.classList.contains(`dot-theme-${randomAppearance}`)).toBe(true);
+    });
+
+    it('should have correct class when deprecated thyTheme is set', () => {
+        basicTestComponent.thyTheme = 'outline';
+        fixture.detectChanges();
+        expect(dotComponent.nativeElement.classList.contains('dot-theme-outline')).toBe(true);
+    });
+
+    it('should prefer thyAppearance over deprecated thyTheme', () => {
+        basicTestComponent.thyAppearance = 'fill';
+        basicTestComponent.thyTheme = 'outline';
+        fixture.detectChanges();
+        expect(dotComponent.nativeElement.classList.contains('dot-theme-fill')).toBe(true);
+        expect(dotComponent.nativeElement.classList.contains('dot-theme-outline')).toBe(false);
     });
     it('should have color style when use custom color', () => {
         const randomColor = getRandomColor();
@@ -100,13 +115,15 @@ describe('ThyDot', () => {
 
 @Component({
     selector: 'thy-demo-dot-basic',
-    template: ` <span thy-dot [thyColor]="thyColor" [thySize]="thySize" [thyTheme]="thyTheme" [thyShape]="thyShape"></span> `,
+    template: ` <span thy-dot [thyColor]="thyColor" [thySize]="thySize" [thyAppearance]="thyAppearance" [thyTheme]="thyTheme" [thyShape]="thyShape"></span> `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDot]
 })
 class ThyDemoDotComponent {
     thyColor!: ThyColorType;
     thySize!: ThySizeType;
+    thyAppearance!: ThyDotAppearance;
+
     thyTheme!: ThyThemeType;
     thyShape!: ThyShapeType;
     remove() {

@@ -1,10 +1,15 @@
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 
-import { Component, effect, ElementRef, inject, input, Renderer2, ViewEncapsulation } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, input, Renderer2, ViewEncapsulation } from '@angular/core';
 
 export type ThyColorType = ThyThemeColor | string;
 export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
-export type ThyThemeType = 'outline' | 'fill';
+export type ThyDotAppearance = 'outline' | 'fill';
+
+/**
+ * @deprecated please use ThyDotAppearance
+ */
+export type ThyThemeType = ThyDotAppearance;
 export type ThyShapeType = 'square' | 'circle';
 
 export const COMPONENT_CLASS_NAME = 'thy-dot';
@@ -25,8 +30,8 @@ export const DEFAULT_SHAPE_NAME = 'circle';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-dot',
-        '[class.dot-theme-fill]': 'thyTheme() === "fill"',
-        '[class.dot-theme-outline]': 'thyTheme() === "outline"',
+        '[class.dot-theme-fill]': 'appearance() === "fill"',
+        '[class.dot-theme-outline]': 'appearance() === "outline"',
         '[class.dot-shape-square]': 'thyShape() === "square"',
         '[class.dot-shape-circle]': 'thyShape() === "circle"',
         '[class.dot-size-md]': 'thySize() === "md"',
@@ -66,12 +71,20 @@ export class ThyDot {
     });
 
     /**
-     * 主题
+     * 主题（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
      * @type outline(线框) | fill(填充)
      */
-    readonly thyTheme = input<ThyThemeType, ThyThemeType>(DEFAULT_THEME_NAME, {
-        transform: (value: ThyThemeType) => value || DEFAULT_THEME_NAME
-    });
+    readonly thyTheme = input<ThyThemeType>();
+
+    /**
+     * 外观
+     * @type outline(线框) | fill(填充)
+     * @default fill
+     */
+    readonly thyAppearance = input<ThyDotAppearance>();
+
+    readonly appearance = computed(() => this.thyAppearance() || this.thyTheme() || DEFAULT_THEME_NAME);
 
     /**
      * 形状
