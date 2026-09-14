@@ -117,7 +117,7 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      * @type xs | sm | md | lg
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
-        transform: (value) => value ?? 'md'
+        transform: value => value ?? 'md'
     });
 
     /**

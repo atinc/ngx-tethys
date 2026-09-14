@@ -63,8 +63,30 @@ export const upgradeData: UpgradeData = {
                         replace: 'thyTheme',
                         replaceWith: 'thyAppearance',
                         limitedTo: {
+                            attributes: ['thyDot', 'thy-dot'],
+                            elements: ['thy-dot']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
                             attributes: ['thyTag'],
                             elements: ['thy-tag']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-alert']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-alert']
                         }
                     },
                     {
