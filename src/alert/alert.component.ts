@@ -6,7 +6,7 @@ import { NgTemplateOutlet } from '@angular/common';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
-type ThyAlertType =
+export type ThyAlertColor =
     | 'success'
     | 'warning'
     | 'danger'
@@ -17,7 +17,13 @@ type ThyAlertType =
     | 'warning-weak'
     | 'danger-weak';
 
-export type ThyAlertTheme = 'fill' | 'bordered' | 'naked';
+export type ThyAlertAppearance = 'fill' | 'bordered' | 'naked';
+
+/** @deprecated use ThyAlertAppearance */
+export type ThyAlertTheme = ThyAlertAppearance;
+
+/** @deprecated use ThyAlertColor */
+export type ThyAlertType = ThyAlertColor;
 
 const typeIconsMap: Record<string, string> = {
     success: 'check-circle-fill',
@@ -56,18 +62,38 @@ export class ThyAlert {
     });
 
     /**
-     * 指定警告提示的类型
+     * 指定警告提示的颜色
      * @type success | warning | danger | info | primary | primary-weak | success-weak | warning-weak | danger-weak
      * @default info
      */
-    thyType = input<ThyAlertType>('info');
+    readonly thyColor = input<ThyAlertColor>();
 
     /**
-     * 指定警告提示的主题
+     * 指定警告提示的外观
      * @type fill | bordered | naked
      * @default fill
      */
-    thyTheme = input<ThyAlertTheme>('fill');
+    readonly thyAppearance = input<ThyAlertAppearance>();
+
+    /**
+     * 指定警告提示的类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     * @type success | warning | danger | info | primary | primary-weak | success-weak | warning-weak | danger-weak
+     * @default info
+     */
+    readonly thyType = input<ThyAlertType>('info');
+
+    /**
+     * 指定警告提示的主题（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
+     * @type fill | bordered | naked
+     * @default fill
+     */
+    readonly thyTheme = input<ThyAlertTheme>('fill');
+
+    readonly color = computed(() => this.thyColor() ?? this.thyType() ?? 'info');
+
+    readonly appearance = computed(() => this.thyAppearance() ?? this.thyTheme() ?? 'fill');
 
     /**
      * 显示警告提示的内容
@@ -81,10 +107,11 @@ export class ThyAlert {
 
     icon = computed(() => {
         const icon = this.thyIcon();
+        const color = this.color();
         if (icon) {
-            return isString(icon) ? icon : typeIconsMap[this.thyType()];
+            return isString(icon) ? icon : typeIconsMap[color];
         } else {
-            return icon === 'false' || icon === false ? '' : typeIconsMap[this.thyType()];
+            return icon === 'false' || icon === false ? '' : typeIconsMap[color];
         }
     });
 
@@ -112,12 +139,12 @@ export class ThyAlert {
 
     private updateClass() {
         // 兼容 'primary-weak', 'success-weak', 'warning-weak', 'danger-weak' types
-        let theme = this.thyTheme();
-        let type = this.thyType();
-        if (weakTypes.includes(type)) {
-            theme = 'bordered';
-            type = type.split('-')[0] as ThyAlertType;
+        let appearance = this.appearance();
+        let color = this.color();
+        if (weakTypes.includes(color)) {
+            appearance = 'bordered';
+            color = color.split('-')[0] as ThyAlertColor;
         }
-        this.hostRenderer.updateClass([`thy-alert-${theme}`, `thy-alert-${theme}-${type}`]);
+        this.hostRenderer.updateClass([`thy-alert-${appearance}`, `thy-alert-${appearance}-${color}`]);
     }
 }

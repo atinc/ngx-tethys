@@ -159,6 +159,35 @@ export class TagDemoComponent {}
         expect(content).not.toContain('thyTheme');
     });
 
+    it('should migrate thyTheme to thyAppearance and thyType to thyColor for thy-alert', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/alert-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAlertModule } from 'ngx-tethys/alert';
+
+@Component({
+    selector: 'app-alert-demo',
+    template: \`
+        <thy-alert thyTheme="naked" thyType="success" thyMessage="message"></thy-alert>
+    \`,
+    imports: [ThyAlertModule]
+})
+export class AlertDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/alert-demo.component.ts');
+        expect(content).toContain('thyAppearance="naked"');
+        expect(content).toContain('thyColor="success"');
+        expect(content).not.toContain('thyTheme');
+        expect(content).not.toMatch(/<thy-alert[^>]*thyType/);
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

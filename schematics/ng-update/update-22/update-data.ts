@@ -61,6 +61,20 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-alert']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-alert']
+                        }
+                    },
+                    {
                         replace: 'thyContext',
                         replaceWith: 'thyContent',
                         limitedTo: {
