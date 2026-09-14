@@ -8,7 +8,7 @@ import { ThyButton } from 'ngx-tethys/button';
         <div class="scrollable-container" #container>
             <div class="background">
                 <thy-affix [thyContainer]="container" id="affix-container-target">
-                    <button thyButton [thyType]="'primary'">
+                    <button thyButton="primary">
                         <span>Fixed at the top of container</span>
                     </button>
                 </thy-affix>

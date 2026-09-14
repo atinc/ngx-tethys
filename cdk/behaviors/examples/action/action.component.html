@@ -1,9 +1,8 @@
-<button thyButton thyType="primary" [thyLoading]="addBehavior.saving()" [thyLoadingText]="'Adding...'" (click)="add()">Add</button>
+<button thyButton="primary" [thyLoading]="addBehavior.saving()" [thyLoadingText]="'Adding...'" (click)="add()">Add</button>
 
 <button
-  thyButton
+  thyButton="danger"
   class="ml-2"
-  thyType="danger"
   [thyLoading]="addBehaviorWithError.saving()"
   [thyLoadingText]="'Add with Error...'"
   (click)="addWithError()">
