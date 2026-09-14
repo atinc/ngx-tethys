@@ -17,9 +17,9 @@ export class ThyTabsDynamicExampleComponent {
 
     public activeTab = 'tab1';
 
-    add() {
+    add(activeLastTab: boolean = false) {
         this.tabs.push({ id: `tab${this.tabs.length + 1}`, title: `Tab${this.tabs.length + 1}` });
-        this.activeTab = this.tabs[this.tabs.length - 1].id;
+        activeLastTab && (this.activeTab = this.tabs[this.tabs.length - 1].id);
     }
 
     trackByFn(index: number, item: string) {
