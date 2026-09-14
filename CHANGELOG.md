@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.2](github.com/atinc/ngx-tethys/compare/22.0.0...22.0.2) (2026-09-14)
+
+
+### Bug Fixes
+
+* **input:** omit native type when thyType is null or undefined #TINFR-3994 ([cba2115](github.com/atinc/ngx-tethys/commits/cba21156a006fa9fd86094a3705570580ed538e2)), closes [#TINFR-3994](github.com/atinc/ngx-tethys/issues/TINFR-3994)
+* **tabs:** keep current active tab when tabs change dynamically #NEXUS-5367 ([#3943](/github.com/atinc/ngx-tethys/issues/3943)) ([de469c2](github.com/atinc/ngx-tethys/commits/de469c20fe7797b9b1ea44a8ca11989a1e90d7e9)), closes [#NEXUS-5367](github.com/atinc/ngx-tethys/issues/NEXUS-5367)
+
+
+### Features
+
+* **alert:** support thyColor, thyAppearance, ThyAlertColor, ThyAlertAppearance and mark thyType, thyTheme, ThyAlertTheme, ThyAlertType as deprecated #TINFR-3829 ([#3938](/github.com/atinc/ngx-tethys/issues/3938)) ([07b3eb0](github.com/atinc/ngx-tethys/commits/07b3eb0b30f2353b1f29cfcaa85fdb1725c05ef8)), closes [#TINFR-3829](github.com/atinc/ngx-tethys/issues/TINFR-3829)
+* **button:** add thyColor, ThyButtonColor and mark thyType,ThyButtonType as deprecated #TINFR-4066 ([#3941](/github.com/atinc/ngx-tethys/issues/3941)) ([41e4cb2](github.com/atinc/ngx-tethys/commits/41e4cb254e134a87b0eee31e008dae26713d9397)), closes [#TINFR-4066](github.com/atinc/ngx-tethys/issues/TINFR-4066)
+* **collapse:** support ThyCollapseAppearance, thyAppearance and mark thyTheme, ThyCollapseTheme as deprecated #TINFR-4068 ([#3939](/github.com/atinc/ngx-tethys/issues/3939)) ([734429b](github.com/atinc/ngx-tethys/commits/734429b4aece8bf50b1532ac62fb0c2ea920d2f6)), closes [#TINFR-4068](github.com/atinc/ngx-tethys/issues/TINFR-4068) [#TINFR-4068](github.com/atinc/ngx-tethys/issues/TINFR-4068)
+* **dot:** support thyAppearance,ThyDotAppearance and mark thyTheme,ThyThemeType as deprecated #TINFR-4067 ([#3940](/github.com/atinc/ngx-tethys/issues/3940)) ([ecfe1c0](github.com/atinc/ngx-tethys/commits/ecfe1c057d7824ec91e20ab54ee2c8a2ca2db58b)), closes [#TINFR-4067](github.com/atinc/ngx-tethys/issues/TINFR-4067) [#TINFR-4067](github.com/atinc/ngx-tethys/issues/TINFR-4067)
+* **nav:** add thyVariant instead of thyType #TINFR-3839 ([8745cf9](github.com/atinc/ngx-tethys/commits/8745cf9acd5c61e0dd1446c29129280a50ce5c04)), closes [#TINFR-3839](github.com/atinc/ngx-tethys/issues/TINFR-3839)
+* **tabs:** add thyVariant,ThyTabsVariant and mark thyType,ThyTabsType as deprecated #TINFR-3840 ([#3942](/github.com/atinc/ngx-tethys/issues/3942)) ([2ed0ef9](github.com/atinc/ngx-tethys/commits/2ed0ef91146e3598a2c8643713b31138ad86d97a)), closes [#TINFR-3840](github.com/atinc/ngx-tethys/issues/TINFR-3840)
+
 ## [22.0.1](github.com/atinc/ngx-tethys/compare/22.0.0...22.0.1) (2026-09-10)
 
 
