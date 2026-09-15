@@ -90,7 +90,7 @@ describe('ThyButton', () => {
             expect(btnElement.classList.contains('btn')).toBeTruthy();
             expect(btnElement.classList.contains('btn-primary')).toBeTruthy();
             expect(btnElement.classList.contains('btn-md')).toBeTruthy();
-            expect(btnElement.textContent).toBe('Basic Button');
+            expect(btnElement.textContent).toBe(' Basic Button ');
         });
 
         it('should use default type by default', () => {
