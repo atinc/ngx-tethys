@@ -8,7 +8,6 @@ import {
     inject,
     input,
     Renderer2,
-    signal,
     ViewEncapsulation
 } from '@angular/core';
 
@@ -16,6 +15,7 @@ import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { THY_BUTTON_GROUP } from './button.token';
 
 export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
@@ -160,21 +160,11 @@ export class ThyButton {
         return this.thyButton() || this.thyColor() || this.thyType() || 'default';
     });
 
-    private readonly groupAppearance = signal<ThyButtonAppearance | null>(null);
+    private parent = inject(THY_BUTTON_GROUP, { optional: true });
 
-    private readonly groupSize = signal<ThyButtonSize | null>(null);
+    private readonly appearance = computed(() => this.parent?.thyAppearance() || this.thyAppearance() || 'fill');
 
-    private readonly appearance = computed(() => this.groupAppearance() ?? this.thyAppearance() ?? 'fill');
-
-    private readonly size = computed(() => this.groupSize() ?? this.thySize() ?? 'md');
-
-    setGroupAppearance(appearance: ThyButtonAppearance | null): void {
-        this.groupAppearance.set(appearance);
-    }
-
-    setGroupSize(size: ThyButtonSize | null): void {
-        this.groupSize.set(size);
-    }
+    private readonly size = computed(() => this.parent?.thySize() || this.thySize() || 'md');
 
     private setButtonText() {
         const text = this.thyLoading() ? this.thyLoadingText() : this._originalText;

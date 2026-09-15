@@ -1,12 +1,13 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, contentChildren, effect, input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { ThyButton, ThyButtonSize } from './button.component';
+import { Component, effect, input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { ThyButtonSize } from './button.component';
+import { THY_BUTTON_GROUP } from './button.token';
 
 /** @deprecated use ThyButtonGroupAppearance */
 export type ButtonGroupType = 'outline-primary' | 'outline-default';
 
-export type ButtonGroupAppearance = 'outline' | 'fill';
+export type ThyButtonGroupAppearance = 'outline' | 'fill';
 
 /**
  * 按钮分组组件
@@ -20,6 +21,12 @@ export type ButtonGroupAppearance = 'outline' | 'fill';
         class: 'btn-group',
         '[class.btn-group-clear-min-width]': 'thyClearMinWidth()'
     },
+    providers: [
+        {
+            provide: THY_BUTTON_GROUP,
+            useExisting: ThyButtonGroup
+        }
+    ],
     changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
@@ -48,7 +55,7 @@ export class ThyButtonGroup {
      * @type outline | fill
      * @default outline
      */
-    readonly thyAppearance = input<ButtonGroupAppearance>('outline');
+    readonly thyAppearance = input<ThyButtonGroupAppearance>('outline');
 
     /**
      * 是否需要最小宽度，默认按钮最小宽度
@@ -56,21 +63,9 @@ export class ThyButtonGroup {
      */
     readonly thyClearMinWidth = input(false, { transform: coerceBooleanProperty });
 
-    private readonly buttons = contentChildren(ThyButton);
-
     constructor() {
         effect(() => {
             this.setClasses();
-        });
-
-        effect(() => {
-            const appearance = this.thyAppearance();
-            this.buttons().forEach(button => button.setGroupAppearance(appearance));
-        });
-
-        effect(() => {
-            const size = this.thySize();
-            this.buttons().forEach(button => button.setGroupSize(size));
         });
     }
 
