@@ -80,9 +80,7 @@
     }
 }
 
-// Sizing
-//
-// Remix the default button sizing classes into new ones for easier manipulation.
+// Sizing（保留给 radio-group 等仍使用 btn-group-{size} 的场景；thy-button-group 已改为同步子按钮 size）
 
 .btn-group-xs > .btn {
     @extend .btn-xs;
@@ -114,7 +112,17 @@
     }
 }
 
-// type
+// type（thyType 兼容，勿删）
+
+@mixin btn-group-divider {
+    position: absolute;
+    content: '';
+    width: bootstrap-variables.$btn-border-width;
+    height: 100%;
+    top: 0;
+    left: 0px;
+    background: rgba(variables.$white, 0.3);
+}
 
 @each $color, $value in functions-variables.$theme-colors {
     .btn-group-#{$color} > .btn {
@@ -122,13 +130,7 @@
         // 按钮中间的分割线
         &:not(:first-child) {
             &::before {
-                position: absolute;
-                content: '';
-                width: bootstrap-variables.$btn-border-width;
-                height: 100%;
-                top: 0;
-                left: 0px;
-                background: rgba(variables.$white, 0.3);
+                @include btn-group-divider;
             }
         }
     }
@@ -136,13 +138,7 @@
     .btn-group-#{$color} {
         .btn:not(:first-child) {
             &::before {
-                position: absolute;
-                content: '';
-                width: bootstrap-variables.$btn-border-width;
-                height: 100%;
-                top: 0;
-                left: 0px;
-                background: rgba(variables.$white, 0.3);
+                @include btn-group-divider;
             }
         }
     }
@@ -158,6 +154,17 @@
     @extend .btn-outline-default;
     &:hover {
         @include shadow.box-shadow(none);
+    }
+}
+
+// thyAppearance="fill"：实心色按钮组中间分割线
+.btn-group-fill {
+    @each $color, $value in functions-variables.$theme-colors {
+        > .btn-#{$color}:not(:first-child) {
+            &::before {
+                @include btn-group-divider;
+            }
+        }
     }
 }
 

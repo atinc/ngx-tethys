@@ -2,7 +2,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonAppearance, ThyButtonModule, ThyButtonSize } from 'ngx-tethys/button';
+import { ButtonGroupAppearance, ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonAppearance, ThyButtonModule, ThyButtonSize } from 'ngx-tethys/button';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
@@ -507,9 +507,9 @@ describe('ThyIconButton', () => {
 @Component({
     selector: 'thy-demo-button-group',
     template: `
-        <thy-button-group [thySize]="size" [thyType]="type" [thyClearMinWidth]="clearMinWidth">
+        <thy-button-group [thySize]="size" [thyAppearance]="appearance" [thyClearMinWidth]="clearMinWidth">
             <button thyButton>Left</button>
-            <button thyButton>Middle</button>
+            <button thyButton="primary">Middle</button>
             <button thyButton>Right</button>
         </thy-button-group>
     `,
@@ -518,7 +518,7 @@ describe('ThyIconButton', () => {
 })
 class ThyDemoButtonGroupComponent {
     size: ThyButtonSize | '' | undefined = ``;
-    type = `outline-primary`;
+    appearance: ButtonGroupAppearance = 'outline';
     clearMinWidth = false;
 }
 
@@ -543,43 +543,96 @@ describe('ThyButtonGroup', () => {
         fixture.detectChanges();
     });
 
-    it('should have correct class', () => {
-        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-outline-primary')).toBe(true);
+    it('should have btn-group class by default', () => {
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group')).toBe(true);
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-fill')).toBe(false);
     });
 
-    it('should have correct class when type is outline-default', () => {
-        basicTestComponent.type = `outline-default`;
-        fixture.detectChanges();
-        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-outline-default')).toBe(true);
-    });
-
-    it('should have correct class when size is lg', () => {
+    it('should sync size to child buttons when thySize is lg', () => {
         basicTestComponent.size = `lg`;
         fixture.detectChanges();
-        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-lg')).toBe(true);
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-lg')).toBe(false);
+        const buttons = buttonGroupComponent.queryAll(By.directive(ThyButton));
+        buttons.forEach(button => {
+            expect(button.nativeElement.classList.contains('btn-lg')).toBe(true);
+        });
     });
 
-    it('should have correct class when size is sm', () => {
+    it('should sync size to child buttons when thySize is sm', () => {
         basicTestComponent.size = `sm`;
         fixture.detectChanges();
-        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-sm')).toBe(true);
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-sm')).toBe(false);
+        const buttons = buttonGroupComponent.queryAll(By.directive(ThyButton));
+        buttons.forEach(button => {
+            expect(button.nativeElement.classList.contains('btn-sm')).toBe(true);
+        });
     });
 
-    it('should have correct class when size is xs', () => {
+    it('should sync size to child buttons when thySize is xs', () => {
         basicTestComponent.size = `xs`;
         fixture.detectChanges();
-        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-xs')).toBe(true);
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-xs')).toBe(false);
+        const buttons = buttonGroupComponent.queryAll(By.directive(ThyButton));
+        buttons.forEach(button => {
+            expect(button.nativeElement.classList.contains('btn-xs')).toBe(true);
+        });
     });
 
-    it('should use md size when thySize is undefined', () => {
+    it('should sync md size to child buttons when thySize is undefined', () => {
         basicTestComponent.size = undefined;
         fixture.detectChanges();
-        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-md')).toBe(true);
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-md')).toBe(false);
+        const buttons = buttonGroupComponent.queryAll(By.directive(ThyButton));
+        buttons.forEach(button => {
+            expect(button.nativeElement.classList.contains('btn-md')).toBe(true);
+        });
+    });
+
+    it('should override child button size with group thySize', () => {
+        basicTestComponent.size = 'sm';
+        fixture.detectChanges();
+        const buttons = buttonGroupComponent.queryAll(By.directive(ThyButton));
+        expect(buttons[0].nativeElement.classList.contains('btn-sm')).toBe(true);
+        expect(buttons[0].nativeElement.classList.contains('btn-md')).toBe(false);
     });
 
     it('should have correct class when clearMinWidth is true', () => {
         basicTestComponent.clearMinWidth = true;
         fixture.detectChanges();
         expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-clear-min-width')).toBe(true);
+    });
+
+    it('should add btn-group-fill class when thyAppearance is fill', () => {
+        basicTestComponent.appearance = 'fill';
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-fill')).toBe(true);
+    });
+
+    it('should remove btn-group-fill class when thyAppearance is outline', () => {
+        basicTestComponent.appearance = 'fill';
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-fill')).toBe(true);
+
+        basicTestComponent.appearance = 'outline';
+        fixture.detectChanges();
+        expect(buttonGroupComponent.nativeElement.classList.contains('btn-group-fill')).toBe(false);
+    });
+
+    it('should sync outline appearance to child buttons', () => {
+        const buttons = buttonGroupComponent.queryAll(By.directive(ThyButton));
+        expect(buttons[0].nativeElement.classList.contains('btn-outline-default')).toBe(true);
+        expect(buttons[1].nativeElement.classList.contains('btn-outline-primary')).toBe(true);
+        expect(buttons[2].nativeElement.classList.contains('btn-outline-default')).toBe(true);
+    });
+
+    it('should sync fill appearance to child buttons', () => {
+        basicTestComponent.appearance = 'fill';
+        fixture.detectChanges();
+        const buttons = buttonGroupComponent.queryAll(By.directive(ThyButton));
+        expect(buttons[0].nativeElement.classList.contains('btn-default')).toBe(true);
+        expect(buttons[1].nativeElement.classList.contains('btn-primary')).toBe(true);
+        expect(buttons[2].nativeElement.classList.contains('btn-default')).toBe(true);
+        expect(buttons[0].nativeElement.classList.contains('btn-outline-default')).toBe(false);
+        expect(buttons[1].nativeElement.classList.contains('btn-outline-primary')).toBe(false);
     });
 });

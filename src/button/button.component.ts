@@ -8,6 +8,7 @@ import {
     inject,
     input,
     Renderer2,
+    signal,
     ViewEncapsulation
 } from '@angular/core';
 
@@ -159,6 +160,22 @@ export class ThyButton {
         return this.thyButton() || this.thyColor() || this.thyType() || 'default';
     });
 
+    private readonly groupAppearance = signal<ThyButtonAppearance | null>(null);
+
+    private readonly groupSize = signal<ThyButtonSize | null>(null);
+
+    private readonly appearance = computed(() => this.groupAppearance() ?? this.thyAppearance() ?? 'fill');
+
+    private readonly size = computed(() => this.groupSize() ?? this.thySize() ?? 'md');
+
+    setGroupAppearance(appearance: ThyButtonAppearance | null): void {
+        this.groupAppearance.set(appearance);
+    }
+
+    setGroupSize(size: ThyButtonSize | null): void {
+        this.groupSize.set(size);
+    }
+
     private setButtonText() {
         const text = this.thyLoading() ? this.thyLoadingText() : this._originalText;
         const spanElement = this.nativeElement.querySelector('span');
@@ -181,10 +198,9 @@ export class ThyButton {
             return;
         }
 
-        const appearance = this.thyAppearance() || 'fill';
-        const classNames: string[] = [...this.buildAppearanceClasses(appearance, type)];
+        const classNames: string[] = [...this.buildAppearanceClasses(this.appearance(), type)];
 
-        const size = this.thySize();
+        const size = this.size();
         if (size) {
             classNames.push(`btn-${size}`);
         }
