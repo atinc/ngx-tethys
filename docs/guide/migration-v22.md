@@ -74,11 +74,22 @@ ng generate ngx-tethys:migrate-22
 **破坏性更改**
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
-- `thyType="outline-default" | outline-primary"` 仍是独立 API，不要求同步改造为 `thyAppearance`
+- 新增 `thyAppearance`（`outline` / `fill`），用于控制按钮组外观并同步到子按钮
+
+**标记为废弃**
+
+- `thyType` 已废弃，请使用 `thyAppearance`；对照如下：
+
+| 旧 `thyType` | 新写法 |
+|--------------|--------|
+| `outline-default` | `thyAppearance="outline"` |
+| `outline-primary` | `thyAppearance="outline"`，子按钮补 `thyButton="primary"` / `thyColor="primary"` |
+| `primary` | `thyAppearance="fill"`，子按钮补 `thyButton="primary"`（保持原先 `btn-group-primary` 视觉） |
 
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- `thyType` → `thyAppearance`（按上表映射值；`outline-primary` / `primary` 会为子按钮补 `thyButton="primary"`）
 
 ---
 
@@ -589,6 +600,7 @@ ng generate ngx-tethys:migrate-22
   - Button 变量：形如 `[thyButton]="buttonType"` 且 `buttonType` 可能为 `'outline-primary'` 等旧复合值时，**不会自动迁移**；需手动改为 `[thyButton]="'primary'" thyAppearance="outline"`，或在组件中拆分 `buttonColor` / `buttonAppearance` 两个变量
   - Button 三元表达式：形如 `[thyButton]="shouldDisplayReview ? 'outline-default' : 'danger'"`，需要手动拆分
   - 尺寸：形如 `[thySize]="size"` **不会自动补** `lg`，需要手动检查
+  - `thy-button-group`：形如 `[thyType]="type"` 的动态绑定 **不会自动迁移**；需手动改为 `[thyAppearance]`，并将旧值（`outline-default` / `outline-primary` / `primary`）映射为 `outline` / `fill`
 - **`thy-tag` 运行时赋值 / 字符串中的旧值**（Schematics 仅处理模板字面量）：
   - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
   - i18n / TS 字符串内嵌旧 CSS 类名：形如 `thy-tag-weak-fill-primary` **不会自动替换**，需改为 `thy-tag-subtle-primary`（其它颜色后缀同理，如 `thy-tag-weak-fill-default` → `thy-tag-subtle-default`）

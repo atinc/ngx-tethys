@@ -15,6 +15,7 @@ import { NgClass } from '@angular/common';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { assertIconOnly, coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
+import { THY_BUTTON_GROUP } from './button.token';
 
 export type ThyButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
@@ -159,6 +160,12 @@ export class ThyButton {
         return this.thyButton() || this.thyColor() || this.thyType() || 'default';
     });
 
+    private parent = inject(THY_BUTTON_GROUP, { optional: true });
+
+    private readonly appearance = computed(() => this.parent?.thyAppearance() || this.thyAppearance() || 'fill');
+
+    private readonly size = computed(() => this.parent?.thySize() || this.thySize() || 'md');
+
     private setButtonText() {
         const text = this.thyLoading() ? this.thyLoadingText() : this._originalText;
         const spanElement = this.nativeElement.querySelector('span');
@@ -181,10 +188,9 @@ export class ThyButton {
             return;
         }
 
-        const appearance = this.thyAppearance() || 'fill';
-        const classNames: string[] = [...this.buildAppearanceClasses(appearance, type)];
+        const classNames: string[] = [...this.buildAppearanceClasses(this.appearance(), type)];
 
-        const size = this.thySize();
+        const size = this.size();
         if (size) {
             classNames.push(`btn-${size}`);
         }
