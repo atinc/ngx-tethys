@@ -76,7 +76,7 @@ export class ThyButtonGroup {
 
     private setClasses() {
         const type = this.thyType();
-        let classNames: string[] = [];
+        const classNames: string[] = [];
         if (type) {
             classNames.push(`btn-group-${type}`);
         }
