@@ -2,7 +2,15 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ButtonGroupAppearance, ThyButtonGroup, ThyButtonIcon, ThyButton, ThyButtonAppearance, ThyButtonModule, ThyButtonSize } from 'ngx-tethys/button';
+import {
+    ThyButtonGroupAppearance,
+    ThyButtonGroup,
+    ThyButtonIcon,
+    ThyButton,
+    ThyButtonAppearance,
+    ThyButtonModule,
+    ThyButtonSize
+} from 'ngx-tethys/button';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
 function assertButtonIcon(iconElement: Element, icon: string) {
@@ -14,7 +22,9 @@ function assertButtonIcon(iconElement: Element, icon: string) {
 @Component({
     selector: 'thy-test-button-basic',
     template: `
-        <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
+        <button [thyButton]="type" [thyAppearance]="appearance" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">
+            Basic Button
+        </button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyColor]="type" [thyAppearance]="appearance">Icon Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyColor]="type" [thyAppearance]="appearance"></thy-button>
         <thy-button id="btn-default">Default Button</thy-button>
@@ -89,7 +99,6 @@ describe('ThyButton', () => {
 
             expect(btnElement.classList.contains('btn-default')).toBeTruthy();
         });
-
 
         it('should set size success', () => {
             sizes.forEach(size => {
@@ -518,7 +527,7 @@ describe('ThyIconButton', () => {
 })
 class ThyDemoButtonGroupComponent {
     size: ThyButtonSize | '' | undefined = ``;
-    appearance: ButtonGroupAppearance = 'outline';
+    appearance: ThyButtonGroupAppearance = 'outline';
     clearMinWidth = false;
 }
 

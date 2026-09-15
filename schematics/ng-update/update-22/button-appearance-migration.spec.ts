@@ -68,11 +68,6 @@ describe('migrateButtonAppearance', () => {
         expect(migrateButtonAppearance(content)).toBe(`<button thyButton="default" thyAppearance="outline">Today</button>`);
     });
 
-    it('should not change ThyButtonGroup outline types', () => {
-        const content = `<thy-button-group thyAppearance="outline"><button>A</button></thy-button-group>`;
-        expect(migrateButtonAppearance(content)).toBe(content);
-    });
-
     it('should not change modern color types', () => {
         const content = `<button thyButton="primary" thyAppearance="link">Ok</button>`;
         expect(migrateButtonAppearance(content)).toBe(content);

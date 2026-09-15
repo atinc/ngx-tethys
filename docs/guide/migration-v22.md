@@ -89,7 +89,7 @@ ng generate ngx-tethys:migrate-22
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
-- `thyType` → `thyAppearance`（按上表映射值；`outline-primary` / `primary` 会尽量为子按钮补 `thyButton="primary"`）
+- `thyType` → `thyAppearance`（按上表映射值；`outline-primary` / `primary` 会为子按钮补 `thyButton="primary"`）
 
 ---
 
