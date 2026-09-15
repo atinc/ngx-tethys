@@ -6,7 +6,7 @@ import { ThyButton, ThyButtonSize } from './button.component';
 /** @deprecated use ThyButtonGroupAppearance */
 export type ButtonGroupType = 'outline-primary' | 'outline-default';
 
-export type ButtonGroupAppearance = 'outline' | 'fill';
+type ButtonGroupAppearance = 'outline' | 'fill';
 
 /**
  * 按钮分组组件

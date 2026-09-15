@@ -69,7 +69,7 @@ describe('migrateButtonAppearance', () => {
     });
 
     it('should not change ThyButtonGroup outline types', () => {
-        const content = `<thy-button-group thyType="outline-default"><button>A</button></thy-button-group>`;
+        const content = `<thy-button-group thyAppearance="outline"><button>A</button></thy-button-group>`;
         expect(migrateButtonAppearance(content)).toBe(content);
     });
 

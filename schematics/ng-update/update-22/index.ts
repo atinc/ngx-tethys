@@ -4,6 +4,7 @@ import { onMigrationComplete } from '../core/complete';
 import { createTwoPhaseMigrationSchematicRule } from '../two-phase-migration-rule';
 import { BadgeDotHollowMigration } from './badge-dot-hollow-migration';
 import { ButtonAppearanceMigration } from './button-appearance-migration';
+import { ButtonGroupAppearanceMigration } from './button-group-appearance-migration';
 import { CardDeprecatedPropsMigration } from './card-deprecated-props-migration';
 import { ClassNamesMigration } from './class-name-migration';
 import { FormControlSizeTypeMigration } from './form-control-size-type-migration';
@@ -25,6 +26,7 @@ const migrations: NullableDevkitMigration[] = [
     TagAppearanceMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
+    ButtonGroupAppearanceMigration,
     CardDeprecatedPropsMigration,
     BadgeDotHollowMigration,
     ClassNamesMigration,
