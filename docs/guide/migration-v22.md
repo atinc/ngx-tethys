@@ -599,7 +599,7 @@ ng generate ngx-tethys:migrate-22
   - Button 变量：形如 `[thyButton]="buttonType"` 且 `buttonType` 可能为 `'outline-primary'` 等旧复合值时，**不会自动迁移**；需手动改为 `[thyButton]="'primary'" thyAppearance="outline"`，或在组件中拆分 `buttonColor` / `buttonAppearance` 两个变量
   - Button 三元表达式：形如 `[thyButton]="shouldDisplayReview ? 'outline-default' : 'danger'"`，需要手动拆分
   - 尺寸：形如 `[thySize]="size"` **不会自动补** `lg`，需要手动检查
-  - `thy-button-group`：形如 `[thyType]="type"` 的动态绑定 **不会自动迁移**；需手动改为 `[thyAppearance]`，并将旧值（`outline-default` / `outline-primary` / `primary`）映射为 `outline` / `fill`
+  - `thy-button-group`：形如 `[thyType]="type"` 的动态绑定 **不会自动迁移**；需手动改为 `[thyAppearance]`，并将旧值（`outline-default` / `outline-primary` / `primary`）映射为 `outline` / `fill`，并在子按钮上通过 `thyColor` 设置 `default`、`primary`
 - **`thy-tag` 运行时赋值 / 字符串中的旧值**（Schematics 仅处理模板字面量）：
   - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
   - i18n / TS 字符串内嵌旧 CSS 类名：形如 `thy-tag-weak-fill-primary` **不会自动替换**，需改为 `thy-tag-subtle-primary`（其它颜色后缀同理，如 `thy-tag-weak-fill-default` → `thy-tag-subtle-default`）
