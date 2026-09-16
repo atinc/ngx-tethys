@@ -6,7 +6,7 @@
     <label thyRadio thyLabelText="Boxed" thyInline thyValue="boxed"></label>
   </thy-radio-group>
 </div>
-<thy-button-group thySize="sm" thyType="outline-default" class="mb-2">
+<thy-button-group thySize="sm" thyAppearance="outline" class="mb-2">
   @for (item of sizes; track item.value) {
     <button thyButton (click)="size = item.value" [ngClass]="{ active: item.value === size }">{{ item.value }}({{ item.height }})</button>
   }

@@ -331,6 +331,49 @@ export class ButtonDemoComponent {
         expect(content).not.toMatch(/<thy-button[^>]*thyType/);
     });
 
+    it('should migrate thyType to thyAppearance for thy-button-group', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/button-group-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyButtonModule } from 'ngx-tethys/button';
+
+@Component({
+    selector: 'app-button-group-demo',
+    template: \`
+        <thy-button-group thyType="outline-default">
+            <button thyButton>Left</button>
+            <button thyButton>Right</button>
+        </thy-button-group>
+        <thy-button-group thyType="primary">
+            <button thyButton>New</button>
+            <button thyButton>More</button>
+        </thy-button-group>
+        <thy-button-group [thyType]="type">
+            <button thyButton>Dynamic</button>
+        </thy-button-group>
+    \`,
+    imports: [ThyButtonModule]
+})
+export class ButtonGroupDemoComponent {
+    type = 'outline-default';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/button-group-demo.component.ts');
+        expect(content).toContain('thyAppearance="outline"');
+        expect(content).toContain('thyAppearance="fill"');
+        expect(content).toContain('thyButton="primary"');
+        expect(content).toContain('[thyType]="type"');
+        expect(content).not.toMatch(/thy-button-group[^>]*thyType="outline-default"/);
+        expect(content).not.toMatch(/thy-button-group[^>]*thyType="primary"/);
+    });
+
     it('should migrate thyTheme to thyAppearance and thyType to thyColor for thy-alert', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
