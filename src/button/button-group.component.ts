@@ -2,7 +2,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { Component, effect, input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { ThyButtonSize } from './button.component';
-import { THY_BUTTON_GROUP } from './button.token';
+import { IThyButtonGroup, THY_BUTTON_GROUP } from './button.token';
 
 /** @deprecated use ThyButtonGroupAppearance */
 export type ButtonGroupType = 'outline-primary' | 'outline-default';
@@ -30,7 +30,7 @@ export type ThyButtonGroupAppearance = 'outline' | 'fill';
     changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
-export class ThyButtonGroup {
+export class ThyButtonGroup implements IThyButtonGroup {
     private hostRenderer = useHostRenderer();
 
     /**

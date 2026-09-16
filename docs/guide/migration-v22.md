@@ -74,10 +74,9 @@ ng generate ngx-tethys:migrate-22
 **破坏性更改**
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
-- 新增 `thyAppearance`（`outline` / `fill`），用于控制按钮组外观并同步到子按钮
 
 **标记为废弃**
-
+- `ButtonGroupType` 已废弃，请使用 `ThyButtonGroupAppearance`
 - `thyType` 已废弃，请使用 `thyAppearance`；对照如下：
 
 | 旧 `thyType` | 新写法 |
