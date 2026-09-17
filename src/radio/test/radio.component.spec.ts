@@ -134,20 +134,17 @@ describe('thy-radio-group component', () => {
     }));
 
     it('should set thySize success', fakeAsync(() => {
-        const buttonGroupSizeMap = {
-            sm: ['btn-group-sm'],
-            lg: ['btn-group-lg']
+        const buttonGroupSizeMap: Record<string, string> = {
+            sm: 'btn-group-sm',
+            md: 'btn-group-md',
+            lg: 'btn-group-lg'
         };
         const radioGroupElement = radioGroupDebugComponent.nativeElement as HTMLElement;
 
         ['sm', 'md', 'lg'].forEach(size => {
             groupComponent.size = size;
             groupFixture.detectChanges();
-            if (size === 'md') {
-                expect(radioGroupElement.classList.contains(`${buttonGroupSizeMap[size]}`)).toBeFalsy();
-            } else {
-                expect(radioGroupElement.classList.contains(`${buttonGroupSizeMap[size]}`)).toBeTruthy();
-            }
+            expect(radioGroupElement.classList.contains(buttonGroupSizeMap[size])).toBeTruthy();
         });
     }));
 
