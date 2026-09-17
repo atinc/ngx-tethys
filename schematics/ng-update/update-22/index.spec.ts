@@ -403,6 +403,38 @@ export class AlertDemoComponent {}
         expect(content).not.toMatch(/<thy-alert[^>]*thyType/);
     });
 
+    it('should migrate thyType to thyColor for thy-slider', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/slider-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThySliderModule } from 'ngx-tethys/slider';
+
+@Component({
+    selector: 'app-slider-demo',
+    template: \`
+        <thy-slider thyType="warning" [(ngModel)]="value"></thy-slider>
+        <thy-slider [thyType]="typeValue"></thy-slider>
+    \`,
+    imports: [ThySliderModule]
+})
+export class SliderDemoComponent {
+    value = 0;
+    typeValue = 'success';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/slider-demo.component.ts');
+        expect(content).toContain('<thy-slider thyColor="warning" [(ngModel)]="value"></thy-slider>');
+        expect(content).toContain('<thy-slider [thyColor]="typeValue"></thy-slider>');
+        expect(content).not.toMatch(/thy-slider[^>]*thyType/);
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
