@@ -1376,7 +1376,7 @@ export class DividerDemoComponent {
 
         workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/divider-demo.component.ts');
-        expect(content).toContain(`[thyColor]="isDeeper ? 'light' : 'default'"`);
+        expect(content).toContain(`[thyColor]="isDeeper ? 'light' : 'lighter'"`);
         expect(content).not.toContain('thyDeeper');
     });
 
