@@ -1,4 +1,5 @@
 <button class="mb-2" thyButton="default" thyAppearance="outline" (click)="add()">添加</button>
+<button class="mb-2 ml-2" thyButton="default" thyAppearance="outline" (click)="add(true)">添加并激活</button>
 
 <thy-tabs [thyActiveTab]="activeTab">
   @for (tab of tabs; track trackByFn($index, tab.id); let i = $index) {
