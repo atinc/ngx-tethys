@@ -3,11 +3,14 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type ThyDividerStyle = 'solid' | 'dashed';
+export type ThyDividerAppearance = 'solid' | 'dashed';
+
+/** @deprecated use ThyDividerAppearance */
+export type ThyDividerStyle = ThyDividerAppearance;
 
 export type ThyDividerTextDirection = 'left' | 'right' | 'center';
 
-export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'success' | 'warning' | string;
+export type ThyDividerColor = 'light' | 'lighter' | 'danger' | 'primary' | 'success' | 'warning';
 
 /**
  * 分割线
@@ -36,8 +39,8 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
         '[class.thy-divider-with-content-left]': `(textContent() || templateContent()) && thyTextDirection() === 'left'`,
         '[class.thy-divider-with-content-right]': `(textContent() || templateContent()) && thyTextDirection() === 'right'`,
         '[class.thy-divider-with-content-center]': `(textContent() || templateContent()) && thyTextDirection() === 'center'`,
-        '[class.thy-divider-solid]': `thyStyle() === 'solid'`,
-        '[class.thy-divider-dashed]': `thyStyle() === 'dashed'`
+        '[class.thy-divider-solid]': `appearance() === 'solid'`,
+        '[class.thy-divider-dashed]': `appearance() === 'dashed'`
     },
     imports: [NgTemplateOutlet]
 })
@@ -50,16 +53,27 @@ export class ThyDivider implements OnInit {
     readonly thyVertical = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 分割线的风格
+     * 分割线的外观
      * @type solid(实线) | dashed(虚线)
+     * @default solid
+     */
+    readonly thyAppearance = input<ThyDividerAppearance>();
+
+    /**
+     * 分割线的风格（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
+     * @type solid(实线) | dashed(虚线)
+     * @default solid
      */
     readonly thyStyle = input<ThyDividerStyle>('solid');
 
+    readonly appearance = computed(() => this.thyAppearance() || this.thyStyle() || 'solid');
+
     /**
      * 分割线的颜色，默认 #eee，light 为 #ddd，primary 主色，success 成功色，warning 警告色，danger 危险色
-     * @type 'lighter' | 'light' | 'danger' | 'primary' | 'success' | 'warning' | string
+     * @type 'lighter' | 'light' | 'danger' | 'primary' | 'success' | 'warning'
      */
-    readonly thyColor = input<ThyDividerColor>('default');
+    readonly thyColor = input<ThyDividerColor>('lighter');
 
     /**
      * 中间文本内容，支持文字和模板

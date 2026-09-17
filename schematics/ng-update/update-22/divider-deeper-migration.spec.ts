@@ -28,7 +28,17 @@ describe('migrateDividerDeeper', () => {
 
     it('should migrate bound thyDeeper to thyColor ternary', () => {
         const content = `<thy-divider [thyDeeper]="isDeeper"></thy-divider>`;
-        expect(migrateDividerDeeper(content)).toBe(`<thy-divider [thyColor]="isDeeper ? 'light' : 'default'"></thy-divider>`);
+        expect(migrateDividerDeeper(content)).toBe(`<thy-divider [thyColor]="isDeeper ? 'light' : 'lighter'"></thy-divider>`);
+    });
+
+    it('should migrate thyColor="default" to thyColor="lighter"', () => {
+        const content = `<thy-divider thyColor="default"></thy-divider>`;
+        expect(migrateDividerDeeper(content)).toBe(`<thy-divider thyColor="lighter"></thy-divider>`);
+    });
+
+    it('should migrate [thyColor]="\'default\'" to [thyColor]="\'lighter\'"', () => {
+        const content = `<thy-divider [thyColor]="'default'"></thy-divider>`;
+        expect(migrateDividerDeeper(content)).toBe(`<thy-divider [thyColor]="'lighter'"></thy-divider>`);
     });
 
     it('should remove thyDeeper when thyColor already exists', () => {

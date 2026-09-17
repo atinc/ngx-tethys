@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ThyDividerModule, ThyDividerStyle, ThyDividerTextDirection } from 'ngx-tethys/divider';
+import { ThyDividerModule, ThyDividerAppearance, ThyDividerStyle, ThyDividerTextDirection } from 'ngx-tethys/divider';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
@@ -10,6 +10,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
         <ng-container>
             <thy-divider
                 [thyVertical]="isVertical"
+                [thyAppearance]="appearance"
                 [thyStyle]="styleMode"
                 [thyTextDirection]="directionMode"
                 [thyText]="textContent || dividerTemplateSelect"
@@ -29,6 +30,8 @@ class ThyTestDividerComponent {
     isVertical = false;
 
     color = 'default';
+
+    appearance?: ThyDividerAppearance;
 
     styleMode: ThyDividerStyle = 'solid';
 
@@ -82,6 +85,25 @@ describe('ThyDividerComponent', () => {
             fixture.detectChanges();
 
             const dividerContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-dashed');
+            expect(dividerContainer).toBeTruthy();
+        });
+    });
+
+    describe("test thyAppearance as 'dashed'", () => {
+        it('should exist .thy-divider.thy-divider-dashed', () => {
+            componentInstance.appearance = 'dashed';
+            fixture.detectChanges();
+
+            const dividerContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-dashed');
+            expect(dividerContainer).toBeTruthy();
+        });
+
+        it('should prefer thyAppearance over deprecated thyStyle', () => {
+            componentInstance.appearance = 'solid';
+            componentInstance.styleMode = 'dashed';
+            fixture.detectChanges();
+
+            const dividerContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-solid');
             expect(dividerContainer).toBeTruthy();
         });
     });

@@ -379,10 +379,18 @@ ng generate ngx-tethys:migrate-22
 - 移除 `thyDeeper`，改用 `thyColor="light"` 表示较深分割线
 - `thyColor="deeper"` 不再有效（`$divider-colors` 中已移除 `deeper`），请统一改用 `thyColor="light"`
 
+**标记为废弃**
+
+- `thyStyle` 和 `ThyDividerStyle` 已废弃，请使用 `thyAppearance` 和 `ThyDividerAppearance`
+- `ThyDividerColor` 支持传 `'light' | 'lighter' | 'danger' | 'primary' | 'success' | 'warning'`，去掉了 string 类型（因为组件库原本就没支持任意颜色值字符串）。原来传了 `'default'` 的请使用等价的 `'lighter'` 值。
+
 **自动迁移**
 
 - `thyDeeper` 迁移为 `thyColor="light"`；已有 `thyColor` 时仅移除 `thyDeeper`
 - CSS 类名 `thy-divider-deeper` 替换为 `thy-divider-light`
+- `thyColor="default"` / `[thyColor]="'default'"` → `thyColor="lighter"` / `[thyColor]="'lighter'"`
+- `thyStyle` → `thyAppearance`
+- TypeScript 中 `ThyDividerStyle` → `ThyDividerAppearance`
 
 ---
 

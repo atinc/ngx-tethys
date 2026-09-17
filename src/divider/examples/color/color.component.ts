@@ -11,7 +11,7 @@ import { NgClass } from '@angular/common';
     imports: [ThyDivider, ThyButtonGroup, ThyButton, NgClass]
 })
 export class ThyDividerColorExampleComponent {
-    color: ThyDividerColor = 'default';
-    colors = ['default', 'light', 'danger', 'primary', 'success', 'warning'];
-    constructor() {}
+    color: ThyDividerColor = 'lighter';
+
+    colors = ['light', 'lighter', 'danger', 'primary', 'success', 'warning'];
 }
