@@ -22,7 +22,8 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'CompatibleDate',
                         replaceWith: 'ThyCompatibleDate'
-                    }
+                    },
+                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' }
                 ]
             }
         ]
@@ -178,6 +179,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAutocomplete',
                         limitedTo: {
                             attributes: ['thyAutocompleteTrigger', 'thyAutocomplete']
+                        }
+                    },
+                    {
+                        replace: 'thyStyle',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-divider']
                         }
                     }
                 ]
