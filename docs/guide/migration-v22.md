@@ -537,17 +537,16 @@ ng generate ngx-tethys:migrate-22
 
 **标记为废弃**
 
-- 旧版 `thyTheme="compact" | loose | dark"` 同时表示形态与配色，已拆分为：
+- 旧版 `thyTheme="compact" | loose | dark"` 同时表示形态与配色。现已拆分为：
   - `thyVariant`：`compact | loose`（形态，默认 `compact`）
   - `thyTheme`：`light | dark`（主题，默认 `light`）
-- 旧值 `compact | loose` 作为 `thyTheme` 传入仍兼容，请改用 `thyVariant`
+- 旧值 `compact | loose` 作为 `thyTheme` 传入仍兼容，将在下一个大版本策底删除，请改用 `thyVariant`
 
 **自动迁移**
 
-- `thyTheme="compact"` → 移除（等价于默认形态）
-- `thyTheme="loose"` → `thyVariant="loose"`
-- `thyTheme="dark"` 保持不变（新 API 下表示深色主题）
-- `[thyTheme]="'loose'"` → `[thyVariant]="'loose'"`
+- `thyTheme="compact"` → 移除（等价于默认形态`thyVariant="compact"`）
+- `thyTheme="loose"` → `thyVariant="loose"`，`[thyTheme]="'loose'"` → `[thyVariant]="'loose'"`
+
 
 **手动检查**
 
