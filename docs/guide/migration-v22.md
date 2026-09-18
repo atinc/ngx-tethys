@@ -466,9 +466,15 @@ ng generate ngx-tethys:migrate-22
 
 - 类型 `ThyStackedValue` 重命名为 `ThyProgressStackedValue`
 
+**标记为废弃**
+
+- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`（`thy-progress` 与 `thy-progress-circle`）
+
 **自动迁移**
 
 - `ThyStackedValue` → `ThyProgressStackedValue`
+- `thyType` → `thyColor`（`thy-progress` 与 `thy-progress-circle`，不含 `thy-progress-bar`）
+- TypeScript 中 `ThyProgressType` → `ThyProgressColor`
 
 ---
 

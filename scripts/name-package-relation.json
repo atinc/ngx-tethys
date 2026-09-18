@@ -459,6 +459,7 @@
   "THY_PROGRESS_": "progress",
   "ThyProgressStrip": "progress",
   "ThyProgressType": "progress",
+  "ThyProgressColor": "progress",
   "ThyProgressStackedValue": "progress",
   "ThyProgress": "progress",
   "ThyProgressModule": "progress",

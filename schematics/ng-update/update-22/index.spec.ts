@@ -504,6 +504,45 @@ export class BadgeColorDemoComponent {
         expect(content).not.toMatch(/thyBadge[^>]*thyType/);
     });
 
+    it('should migrate thyType to thyColor for thy-progress and thy-progress-circle', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/progress-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyProgressModule } from 'ngx-tethys/progress';
+
+@Component({
+    selector: 'app-progress-demo',
+    template: \`
+        <thy-progress thyType="success" [thyValue]="20"></thy-progress>
+        <thy-progress [thyType]="type" [thyValue]="20"></thy-progress>
+        <thy-progress-circle thyType="warning" [thyValue]="20"></thy-progress-circle>
+        <thy-progress-bar thyType="info" [thyValue]="20"></thy-progress-bar>
+        <thy-button thyType="primary">Ok</thy-button>
+    \`,
+    imports: [ThyProgressModule]
+})
+export class ProgressDemoComponent {
+    type = 'danger';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/progress-demo.component.ts');
+        expect(content).toContain('<thy-progress thyColor="success" [thyValue]="20"></thy-progress>');
+        expect(content).toContain('<thy-progress [thyColor]="type" [thyValue]="20"></thy-progress>');
+        expect(content).toContain('<thy-progress-circle thyColor="warning" [thyValue]="20"></thy-progress-circle>');
+        expect(content).toContain('<thy-progress-bar thyType="info" [thyValue]="20"></thy-progress-bar>');
+        expect(content).toContain('thyColor="primary"');
+        expect(content).not.toMatch(/<thy-progress(?!-)[^>]*\bthyType\b/);
+        expect(content).not.toMatch(/<thy-progress(?!-)[^>]*\[thyType\]/);
+        expect(content).not.toMatch(/<thy-progress-circle[^>]*thyType/);
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

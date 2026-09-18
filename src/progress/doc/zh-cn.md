@@ -19,7 +19,7 @@ Stacked 模式会展示多个进度条，thyValue 传入数组，数组中每一
 ```ts
 export interface ThyProgressStackedValue {
     value: number;
-    type?: ThyProgressType; // 'primary' | 'success' | 'info' | 'warning' | 'danger';
+    type?: ThyProgressColor; // 'primary' | 'success' | 'info' | 'warning' | 'danger';
     color?: string;
     label?: string;
     tips?: string | TemplateRef<unknown>;

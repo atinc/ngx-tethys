@@ -12,7 +12,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressType } from './interfaces';
+import { ThyProgressColor } from './interfaces';
 import { NgStyle } from '@angular/common';
 
 export interface ThyParentProgress {
@@ -42,7 +42,7 @@ export class ThyProgressStrip {
 
     readonly thyTips = input<string | TemplateRef<HTMLElement> | undefined>(undefined);
 
-    readonly thyType = input<ThyProgressType>();
+    readonly thyType = input<ThyProgressColor>();
 
     readonly thyValue = input(0, {
         transform: numberAttribute

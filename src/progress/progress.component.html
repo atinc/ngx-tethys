@@ -18,7 +18,7 @@
         @let value = thyValue();
         @if (value) {
           <thy-progress-bar
-            [thyType]="thyType()"
+            [thyType]="color()"
             [ngClass]="{ 'cursor-pointer': thyTips() }"
             [thyTooltip]="thyTips()"
             [thyTooltipTemplateContext]="value"
@@ -36,7 +36,7 @@
   } @else {
     @let value = thyValue();
     <thy-progress-circle
-      [thyType]="thyType()"
+      [thyColor]="color()"
       [thyTooltip]="thyTips()"
       [thyTooltipDisabled]="!thyTips()"
       [thyTooltipTemplateContext]="value"
