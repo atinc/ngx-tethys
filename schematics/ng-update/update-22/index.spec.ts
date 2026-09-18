@@ -536,41 +536,11 @@ export class ProgressDemoComponent {
         expect(content).toContain('<thy-progress thyColor="success" [thyValue]="20"></thy-progress>');
         expect(content).toContain('<thy-progress [thyColor]="type" [thyValue]="20"></thy-progress>');
         expect(content).toContain('<thy-progress-circle thyColor="warning" [thyValue]="20"></thy-progress-circle>');
-        expect(content).toContain('<thy-progress-bar thyColor="info" [thyValue]="20"></thy-progress-bar>');
+        expect(content).toContain('<thy-progress-bar thyType="info" [thyValue]="20"></thy-progress-bar>');
         expect(content).toContain('thyColor="primary"');
         expect(content).not.toMatch(/<thy-progress(?!-)[^>]*\bthyType\b/);
         expect(content).not.toMatch(/<thy-progress(?!-)[^>]*\[thyType\]/);
         expect(content).not.toMatch(/<thy-progress-circle[^>]*thyType/);
-        expect(content).not.toMatch(/<thy-progress-bar[^>]*thyType/);
-    });
-
-    it('should keep thyColor and remove thyType when both exist on thy-progress-bar', async () => {
-        const factory = createTestWorkspaceFactory(schematicRunner);
-        await factory.create();
-        await factory.addApplication({ name: 'update-22-test' });
-        const testTree = factory.addNewFile(
-            '/projects/update-22-test/src/app/progress-bar-demo.component.ts',
-            `
-import { Component } from '@angular/core';
-import { ThyProgressStrip } from 'ngx-tethys/progress';
-
-@Component({
-    selector: 'app-progress-bar-demo',
-    template: \`
-        <thy-progress-bar [thyType]="item.type" [thyColor]="item.color" [thyValue]="item.value"></thy-progress-bar>
-    \`,
-    imports: [ThyProgressStrip]
-})
-export class ProgressBarDemoComponent {
-    item = { type: 'success', color: '#ccc', value: 20 };
-}
-`
-        );
-
-        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
-        const content = workspaceTree.readContent('/projects/update-22-test/src/app/progress-bar-demo.component.ts');
-        expect(content).toContain('<thy-progress-bar [thyColor]="item.color" [thyValue]="item.value"></thy-progress-bar>');
-        expect(content).not.toMatch(/thy-progress-bar[^>]*thyType/);
     });
 
     it('should migrate thyContext to thyContent for thy-badge', async () => {

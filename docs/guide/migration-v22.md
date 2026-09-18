@@ -468,14 +468,12 @@ ng generate ngx-tethys:migrate-22
 
 **标记为废弃**
 
-- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`（`thy-progress`、`thy-progress-circle`、`thy-progress-bar`）
-- `thy-progress-bar` 的 `thyColor` 同时支持主题色 `primary | success | info | warning | danger` 和任意合法 CSS 颜色值
+- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`（`thy-progress` 与 `thy-progress-circle`）
 
 **自动迁移**
 
 - `ThyStackedValue` → `ThyProgressStackedValue`
-- `thyType` → `thyColor`（`thy-progress`、`thy-progress-circle`、`thy-progress-bar`）
-- `thy-progress-bar` 上若已同时绑定 `thyType` 与 `thyColor`，删除 `thyType`，保留 `thyColor`
+- `thyType` → `thyColor`（`thy-progress` 与 `thy-progress-circle`）
 - TypeScript 中 `ThyProgressType` → `ThyProgressColor`
 
 ---
