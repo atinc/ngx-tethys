@@ -9,16 +9,18 @@ import { SafeAny } from 'ngx-tethys/types';
     selector: 'thy-switch-test',
     template: `<thy-switch
             [thySize]="size"
-            [thyType]="type"
+            [thyColor]="color"
             [thyDisabled]="isDisabled"
             [(ngModel)]="isChecked"
             [thyLoading]="isLoading"></thy-switch>
-        <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`,
+        <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>
+        <thy-switch [thyType]="type" [(ngModel)]="isChecked"></thy-switch>`,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySwitchModule, FormsModule]
 })
 class SwitchTestComponent {
     size = ``;
+    color = ``;
     type = ``;
     isDisabled!: boolean;
     isChecked!: boolean;
@@ -88,12 +90,29 @@ describe('switch component', () => {
         });
     });
 
-    it('should have correct class when it has type', () => {
+    it('should have correct class when it has color', () => {
+        const colors: string[] = ['primary', 'info', 'warning', 'danger'];
+        colors.forEach((color: string) => {
+            testComponent.color = color;
+            fixture.detectChanges();
+            expect(labelNode.classList.contains(`thy-switch-${color}`)).toBe(true);
+        });
+    });
+
+    it('should fallback to primary when color is unsupported', () => {
+        testComponent.color = 'unknown';
+        fixture.detectChanges();
+        expect(labelNode.classList.contains('thy-switch-primary')).toBe(true);
+    });
+
+    it('should still work with deprecated thyType', () => {
         const types: string[] = ['primary', 'info', 'warning', 'danger'];
+        const deprecatedSwitch = fixture.debugElement.queryAll(By.directive(ThySwitch))[2];
+        const deprecatedLabel = deprecatedSwitch.nativeElement.children[0];
         types.forEach((type: string) => {
             testComponent.type = type;
             fixture.detectChanges();
-            expect(labelNode.classList.contains(`thy-switch-${type}`)).toBe(true);
+            expect(deprecatedLabel.classList.contains(`thy-switch-${type}`)).toBe(true);
         });
     });
 

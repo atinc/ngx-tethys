@@ -435,6 +435,40 @@ export class SliderDemoComponent {
         expect(content).not.toMatch(/thy-slider[^>]*thyType/);
     });
 
+    it('should migrate thyType to thyColor for thy-switch', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/switch-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThySwitchModule } from 'ngx-tethys/switch';
+
+@Component({
+    selector: 'app-switch-demo',
+    template: \`
+        <thy-switch thyType="info"></thy-switch>
+        <thy-switch [thyType]="type"></thy-switch>
+        <thy-button thyType="primary">Ok</thy-button>
+    \`,
+    imports: [ThySwitchModule]
+})
+export class SwitchDemoComponent {
+    type = 'danger';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/switch-demo.component.ts');
+        expect(content).toContain('thyColor="info"');
+        expect(content).toContain('[thyColor]="type"');
+        expect(content).toContain('thyColor="primary"');
+        expect(content).not.toMatch(/<thy-switch[^>]*thyType/);
+        expect(content).not.toMatch(/<thy-switch[^>]*\[thyType\]/);
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
