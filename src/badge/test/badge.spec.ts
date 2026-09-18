@@ -150,7 +150,7 @@ describe('thy-badge', () => {
         });
 
         it('thyColor, should set color success', () => {
-            ['primary', 'warning', 'default', 'secondary', 'danger', 'success'].forEach(color => {
+            ['primary', 'warning', 'default', 'danger', 'success'].forEach(color => {
                 testComponent.color = color;
                 fixture.detectChanges();
                 const badgeSpanElement = badgeComponent.nativeElement.querySelector('.thy-badge');
@@ -254,7 +254,7 @@ describe('thy-badge', () => {
         });
 
         it('should still work with thyType', () => {
-            ['primary', 'warning', 'default', 'secondary', 'danger', 'success'].forEach(type => {
+            ['primary', 'warning', 'default', 'danger', 'success'].forEach(type => {
                 fixture.componentInstance.type = type;
                 fixture.detectChanges();
                 const badgeSpanElement = badgeComponent.nativeElement.querySelector('.thy-badge');

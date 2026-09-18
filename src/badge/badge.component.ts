@@ -6,7 +6,7 @@ import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
 
 export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 
-export type ThyBadgeColor = 'default' | 'primary' | 'danger' | 'warning' | 'success' | 'secondary';
+export type ThyBadgeColor = 'default' | 'primary' | 'danger' | 'warning' | 'success';
 
 /**
  * 徽标组件，支持组件`thy-badge`和`thyBadge`指令两种使用方式
@@ -77,7 +77,7 @@ export class ThyBadge implements OnInit {
 
     /**
      * 徽标颜色
-     * @type default | primary | danger | warning | success | secondary
+     * @type default | primary | danger | warning | success
      * @default danger
      */
     readonly thyColor = input<ThyBadgeColor>();
@@ -85,7 +85,7 @@ export class ThyBadge implements OnInit {
     /**
      * 徽标类型（已废弃），请使用 thyColor
      * @deprecated please use thyColor
-     * @type default | primary | danger | warning | success | secondary
+     * @type default | primary | danger | warning | success
      * @default danger
      */
     readonly thyType = input<ThyBadgeColor>('danger');
