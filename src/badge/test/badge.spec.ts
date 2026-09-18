@@ -6,7 +6,7 @@ import { ThyBadge, ThyBadgeModule } from 'ngx-tethys/badge';
 @Component({
     selector: 'thy-badge-basic',
     template: `
-        <thy-badge [thyCount]="count" [thyKeepShow]="isValueKeepShow" [thyType]="type" [thyMaxCount]="maxCount" [thySize]="size">
+        <thy-badge [thyCount]="count" [thyKeepShow]="isValueKeepShow" [thyColor]="color" [thyMaxCount]="maxCount" [thySize]="size">
             <div>WORKTILE</div>
         </thy-badge>
     `,
@@ -20,7 +20,7 @@ class BadgeBasicComponent implements OnInit {
 
     maxCount!: number;
 
-    type!: string;
+    color!: string;
 
     size!: string;
 
@@ -61,6 +61,20 @@ class BadgeBasicCustomColorComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
+}
+
+@Component({
+    selector: 'thy-badge-deprecated-type',
+    template: `
+        <thy-badge [thyCount]="5" [thyType]="type">
+            <div>WORKTILE</div>
+        </thy-badge>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyBadgeModule]
+})
+class BadgeDeprecatedTypeComponent {
+    type = 'danger';
 }
 
 describe('thy-badge', () => {
@@ -135,13 +149,13 @@ describe('thy-badge', () => {
             expect(badgeComponent.nativeElement.querySelector('.thy-badge')).toBeTruthy();
         });
 
-        it('thyType, should set type success', () => {
-            ['primary', 'warning', 'default', 'secondary', 'danger', 'success'].forEach(type => {
-                testComponent.type = type;
+        it('thyColor, should set color success', () => {
+            ['primary', 'warning', 'default', 'secondary', 'danger', 'success'].forEach(color => {
+                testComponent.color = color;
                 fixture.detectChanges();
                 const badgeSpanElement = badgeComponent.nativeElement.querySelector('.thy-badge');
                 expect(badgeSpanElement).toBeTruthy();
-                expect(badgeSpanElement.classList.contains(`thy-badge-${type}`)).toBe(true);
+                expect(badgeSpanElement.classList.contains(`thy-badge-${color}`)).toBe(true);
             });
         });
 
@@ -226,6 +240,26 @@ describe('thy-badge', () => {
                 fixture.detectChanges();
                 expect(badgeSpanElement.style.backgroundColor).toBe('');
                 expect(badgeSpanElement.classList.contains(`bg-${color}`)).toBeTruthy();
+            });
+        });
+    });
+
+    describe('deprecated api', () => {
+        let fixture!: ComponentFixture<BadgeDeprecatedTypeComponent>;
+        let badgeComponent!: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(BadgeDeprecatedTypeComponent);
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadge));
+        });
+
+        it('should still work with thyType', () => {
+            ['primary', 'warning', 'default', 'secondary', 'danger', 'success'].forEach(type => {
+                fixture.componentInstance.type = type;
+                fixture.detectChanges();
+                const badgeSpanElement = badgeComponent.nativeElement.querySelector('.thy-badge');
+                expect(badgeSpanElement).toBeTruthy();
+                expect(badgeSpanElement.classList.contains(`thy-badge-${type}`)).toBe(true);
             });
         });
     });

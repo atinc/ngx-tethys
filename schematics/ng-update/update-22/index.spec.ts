@@ -469,6 +469,41 @@ export class SwitchDemoComponent {
         expect(content).not.toMatch(/<thy-switch[^>]*\[thyType\]/);
     });
 
+    it('should migrate thyType to thyColor for thy-badge and thyBadge', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/badge-color-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyBadgeModule } from 'ngx-tethys/badge';
+
+@Component({
+    selector: 'app-badge-color-demo',
+    template: \`
+        <thy-badge thyType="primary" [thyCount]="5"></thy-badge>
+        <thy-badge [thyType]="type" [thyCount]="5"></thy-badge>
+        <span thyBadge thyType="success" [thyCount]="5"></span>
+    \`,
+    imports: [ThyBadgeModule]
+})
+export class BadgeColorDemoComponent {
+    type = 'danger';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/badge-color-demo.component.ts');
+        expect(content).toContain('thyColor="primary"');
+        expect(content).toContain('[thyColor]="type"');
+        expect(content).toContain('thyColor="success"');
+        expect(content).not.toMatch(/<thy-badge[^>]*thyType/);
+        expect(content).not.toMatch(/<thy-badge[^>]*\[thyType\]/);
+        expect(content).not.toMatch(/thyBadge[^>]*thyType/);
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

@@ -573,6 +573,17 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 35. thy-badge（`thyBadge` 指令）
+
+**标记为废弃**
+- `thyType` 已废弃，请使用 `thyColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（`thy-badge` 与 `thyBadge`）
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

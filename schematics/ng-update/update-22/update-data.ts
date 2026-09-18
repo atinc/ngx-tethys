@@ -116,6 +116,20 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-badge']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            attributes: ['thyBadge']
+                        }
+                    },
+                    {
                         replace: 'thyContext',
                         replaceWith: 'thyContent',
                         limitedTo: {
