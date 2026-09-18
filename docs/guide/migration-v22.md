@@ -562,6 +562,17 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 34. thy-switch
+
+**标记为废弃**
+- `thyType` 已废弃，请使用 `thyColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

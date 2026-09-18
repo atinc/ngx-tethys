@@ -109,6 +109,13 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-switch']
+                        }
+                    },
+                    {
                         replace: 'thyContext',
                         replaceWith: 'thyContent',
                         limitedTo: {
