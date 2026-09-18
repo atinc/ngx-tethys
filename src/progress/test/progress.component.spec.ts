@@ -34,7 +34,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
-    color!: ThyProgressColor;
+    color!: ThyProgressColor | string;
     size!: string;
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     message = TOOLTIP_TEMPLATE_MESSAGE;
@@ -63,7 +63,7 @@ class ThyDemoProgressBasicComponent {
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
-    color!: ThyProgressColor;
+    color!: ThyProgressColor | string;
     size: string = 'md';
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     gapDegree = 0;
@@ -249,6 +249,17 @@ describe(`ThyProgressComponent`, () => {
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
             expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.color}`)).toBe(true);
+        });
+
+        it('should apply custom css color when thyColor is hex', () => {
+            basicTestComponent.color = '#4e8af9';
+            fixture.detectChanges();
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
+            progressBarElement = progressBarComponent.nativeElement;
+            progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
+            assertProgressAndBarComponentClass();
+            expect(progressBarElement.classList.contains('progress-bar-#4e8af9')).toBe(false);
+            expect(progressBarInnerElement.style.backgroundColor).toEqual(hexToRgb('#4e8af9'));
         });
 
         it('should be correct class when input size is sm', () => {
@@ -450,6 +461,16 @@ describe(`ThyProgressComponent`, () => {
             progressCircleElement = progressCircleComponent.nativeElement;
             progressCircleInnerElement = fixture.debugElement.query(By.css('.progress-circle-inner')).nativeElement;
             expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.color}`)).toBe(true);
+        });
+
+        it('should apply custom css color when thyColor is hex', () => {
+            circleTestComponent.color = '#4e8af9';
+            fixture.detectChanges();
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircle));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            expect(progressCircleElement.classList.contains('progress-circle-#4e8af9')).toBe(false);
+            const progressCirclePath = progressCircleElement.querySelector('.progress-circle-path') as SVGPathElement;
+            expect(progressCirclePath.style.stroke).toBe(hexToRgb('#4e8af9'));
         });
 
         it('should show correct size when input size is sm', fakeAsync(() => {

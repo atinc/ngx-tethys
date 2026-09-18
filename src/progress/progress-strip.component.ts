@@ -12,14 +12,8 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressColor } from './interfaces';
+import { ThyProgressColor, isProgressPresetColor } from './interfaces';
 import { NgStyle } from '@angular/common';
-
-const PROGRESS_PRESET_COLORS: ThyProgressColor[] = ['primary', 'success', 'info', 'warning', 'danger'];
-
-function isProgressPresetColor(color: string | undefined): color is ThyProgressColor {
-    return !!color && PROGRESS_PRESET_COLORS.includes(color as ThyProgressColor);
-}
 
 export interface ThyParentProgress {
     readonly max: Signal<number>;

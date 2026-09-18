@@ -65,11 +65,11 @@ export class ThyProgress implements ThyParentProgress {
     readonly bars = viewChildren(ThyProgressStrip);
 
     /**
-     * 进度条颜色
-     * @type primary | success | info | warning | danger
+     * 进度条颜色，支持主题色或任意合法 CSS 颜色值
+     * @type primary | success | info | warning | danger | string
      * @default primary
      */
-    readonly thyColor = input<ThyProgressColor>();
+    readonly thyColor = input<ThyProgressColor | string>();
 
     /**
      * 进度条类型（已废弃），请使用 thyColor
