@@ -16,6 +16,7 @@ import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
 import { TreeSelectIconTypeMigration } from './tree-select-icon-type-migration';
+import { ProgressBarColorMigration } from './progress-bar-color-migration';
 import { upgradeData } from './update-data';
 
 const migrations: NullableDevkitMigration[] = [
@@ -29,6 +30,7 @@ const migrations: NullableDevkitMigration[] = [
     ButtonGroupAppearanceMigration,
     CardDeprecatedPropsMigration,
     BadgeDotHollowMigration,
+    ProgressBarColorMigration,
     ClassNamesMigration,
     FormControlSizeTypeMigration,
     HeaderIconPrefixMigration,
