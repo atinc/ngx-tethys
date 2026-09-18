@@ -12,6 +12,7 @@ import { DatePickerPopoverOptionsMigration } from './date-picker-popover-options
 import { DividerDeeperMigration } from './divider-deeper-migration';
 import { HeaderIconPrefixMigration } from './header-icon-prefix-migration';
 import { InputControlSizeMigration } from './input-control-size-migration';
+import { MenuThemeMigration } from './menu-theme-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
@@ -26,6 +27,7 @@ const migrations: NullableDevkitMigration[] = [
     TagAppearanceMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
+    MenuThemeMigration,
     ButtonGroupAppearanceMigration,
     CardDeprecatedPropsMigration,
     BadgeDotHollowMigration,
