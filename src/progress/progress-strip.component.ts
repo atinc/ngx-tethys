@@ -12,7 +12,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressType } from './interfaces';
+import { ThyProgressColor, isProgressPresetColor } from './interfaces';
 import { NgStyle } from '@angular/common';
 
 export interface ThyParentProgress {
@@ -42,13 +42,28 @@ export class ThyProgressStrip {
 
     readonly thyTips = input<string | TemplateRef<HTMLElement> | undefined>(undefined);
 
-    readonly thyType = input<ThyProgressType>();
+    /**
+     * 进度条颜色，支持主题色或任意合法 CSS 颜色值
+     * @type primary | success | info | warning | danger | string
+     */
+    readonly thyColor = input<ThyProgressColor | string>();
+
+    /**
+     * 进度条类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     */
+    readonly thyType = input<ThyProgressColor>();
+
+    readonly color = computed(() => this.thyColor() || this.thyType());
 
     readonly thyValue = input(0, {
         transform: numberAttribute
     });
 
-    readonly thyColor = input<string>();
+    protected readonly customColorStyle = computed(() => {
+        const color = this.color();
+        return isProgressPresetColor(color) || !color ? null : { 'background-color': color };
+    });
 
     protected readonly percent = computed(() => {
         const value = this.thyValue();
@@ -60,8 +75,8 @@ export class ThyProgressStrip {
 
     constructor() {
         effect(() => {
-            const type = this.thyType();
-            this.hostRenderer.updateClass(type ? [`progress-bar-${type}`] : []);
+            const color = this.color();
+            this.hostRenderer.updateClass(isProgressPresetColor(color) ? [`progress-bar-${color}`] : []);
         });
     }
 }

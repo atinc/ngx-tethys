@@ -2,12 +2,21 @@ import { TemplateRef } from '@angular/core';
 
 import { SafeAny } from 'ngx-tethys/types';
 
-export type ThyProgressType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export const THY_PROGRESS_PRESET_COLORS = ['primary', 'success', 'info', 'warning', 'danger'] as const;
+
+export type ThyProgressColor = (typeof THY_PROGRESS_PRESET_COLORS)[number];
+
+/** @deprecated use ThyProgressColor */
+export type ThyProgressType = ThyProgressColor;
+
+export function isProgressPresetColor(color: string | undefined): color is ThyProgressColor {
+    return !!color && (THY_PROGRESS_PRESET_COLORS as readonly string[]).includes(color);
+}
 
 export type ThyProgressShapeType = 'strip' | 'circle';
 export interface ThyProgressStackedValue {
     value: number;
-    type?: ThyProgressType;
+    type?: ThyProgressColor;
     color?: string;
     label?: string;
     tips?: string | TemplateRef<unknown>;

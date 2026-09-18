@@ -10,7 +10,7 @@ import {
     ThyProgressModule,
     ThyProgressStackedValue,
     ThyProgressStrip,
-    ThyProgressType
+    ThyProgressColor
 } from 'ngx-tethys/progress';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -26,7 +26,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
     selector: 'thy-demo-progress-basic',
     template: `
         <button (click)="changeTemplate(demo)">Basic Usage</button>
-        <thy-progress [thyValue]="value" [thyTips]="tips" [thyType]="type" [thySize]="size"> 20% </thy-progress>
+        <thy-progress [thyValue]="value" [thyTips]="tips" [thyColor]="color" [thySize]="size"> 20% </thy-progress>
         <ng-template #demo>{{ message }}</ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -34,7 +34,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
-    type!: ThyProgressType;
+    color!: ThyProgressColor | string;
     size!: string;
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     message = TOOLTIP_TEMPLATE_MESSAGE;
@@ -50,7 +50,7 @@ class ThyDemoProgressBasicComponent {
             [thyShape]="'circle'"
             [thyTips]="tips"
             [thyValue]="value"
-            [thyType]="type"
+            [thyColor]="color"
             [thySize]="size"
             [thyGapDegree]="gapDegree"
             [thyGapPosition]="gapPosition"
@@ -63,7 +63,7 @@ class ThyDemoProgressBasicComponent {
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
-    type!: ThyProgressType;
+    color!: ThyProgressColor | string;
     size: string = 'md';
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     gapDegree = 0;
@@ -233,22 +233,33 @@ describe(`ThyProgressComponent`, () => {
             assertProgressAndBarComponentClass();
         });
 
-        it('should be correct class when input type is success or warning', () => {
-            basicTestComponent.type = 'success';
+        it('should be correct class when input color is success or warning', () => {
+            basicTestComponent.color = 'success';
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
-            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
+            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.color}`)).toBe(true);
 
-            basicTestComponent.type = 'warning';
+            basicTestComponent.color = 'warning';
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
-            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
+            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.color}`)).toBe(true);
+        });
+
+        it('should apply custom css color when thyColor is hex', () => {
+            basicTestComponent.color = '#4e8af9';
+            fixture.detectChanges();
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
+            progressBarElement = progressBarComponent.nativeElement;
+            progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
+            assertProgressAndBarComponentClass();
+            expect(progressBarElement.classList.contains('progress-bar-#4e8af9')).toBe(false);
+            expect(progressBarInnerElement.style.backgroundColor).toEqual(hexToRgb('#4e8af9'));
         });
 
         it('should be correct class when input size is sm', () => {
@@ -436,20 +447,30 @@ describe(`ThyProgressComponent`, () => {
             expect(progressElement.classList.contains('thy-progress-circle')).toBe(true);
         });
 
-        it('should show correct color when input type is success or warning', () => {
-            circleTestComponent.type = 'success';
+        it('should show correct color when input color is success or warning', () => {
+            circleTestComponent.color = 'success';
             fixture.detectChanges();
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircle));
             progressCircleElement = progressCircleComponent.nativeElement;
             progressCircleInnerElement = fixture.debugElement.query(By.css('.progress-circle-inner')).nativeElement;
-            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.type}`)).toBe(true);
+            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.color}`)).toBe(true);
 
-            circleTestComponent.type = 'warning';
+            circleTestComponent.color = 'warning';
             fixture.detectChanges();
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircle));
             progressCircleElement = progressCircleComponent.nativeElement;
             progressCircleInnerElement = fixture.debugElement.query(By.css('.progress-circle-inner')).nativeElement;
-            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.type}`)).toBe(true);
+            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.color}`)).toBe(true);
+        });
+
+        it('should apply custom css color when thyColor is hex', () => {
+            circleTestComponent.color = '#4e8af9';
+            fixture.detectChanges();
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircle));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            expect(progressCircleElement.classList.contains('progress-circle-#4e8af9')).toBe(false);
+            const progressCirclePath = progressCircleElement.querySelector('.progress-circle-path') as SVGPathElement;
+            expect(progressCirclePath.style.stroke).toBe(hexToRgb('#4e8af9'));
         });
 
         it('should show correct size when input size is sm', fakeAsync(() => {
@@ -1025,5 +1046,46 @@ describe(`ThyProgressComponent`, () => {
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);
         }));
+    });
+
+    describe('deprecated API', () => {
+        @Component({
+            selector: 'thy-progress-deprecated-test',
+            template: `
+                <thy-progress [thyValue]="20" [thyType]="type"></thy-progress>
+                <thy-progress-circle [thyValue]="20" [thyType]="type"></thy-progress-circle>
+            `,
+            changeDetection: ChangeDetectionStrategy.Eager,
+            imports: [ThyProgress, ThyProgressCircle]
+        })
+        class ThyProgressDeprecatedComponent {
+            type: ThyProgressColor = 'success';
+        }
+
+        let fixture!: ComponentFixture<ThyProgressDeprecatedComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyProgressModule],
+                providers: [provideNoopAnimations()]
+            });
+            fixture = TestBed.createComponent(ThyProgressDeprecatedComponent);
+        });
+
+        it('should still work with deprecated thyType', () => {
+            fixture.detectChanges();
+
+            const progressBarElement = fixture.debugElement.query(By.directive(ThyProgressStrip)).nativeElement as HTMLElement;
+            expect(progressBarElement.classList.contains('progress-bar-success')).toBe(true);
+
+            const progressCircleElement = fixture.debugElement.query(By.directive(ThyProgressCircle)).nativeElement as HTMLElement;
+            expect(progressCircleElement.classList.contains('progress-circle-success')).toBe(true);
+
+            fixture.componentInstance.type = 'warning';
+            fixture.detectChanges();
+
+            expect(progressBarElement.classList.contains('progress-bar-warning')).toBe(true);
+            expect(progressCircleElement.classList.contains('progress-circle-warning')).toBe(true);
+        });
     });
 });

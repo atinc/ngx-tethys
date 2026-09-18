@@ -466,9 +466,21 @@ ng generate ngx-tethys:migrate-22
 
 - 类型 `ThyStackedValue` 重命名为 `ThyProgressStackedValue`
 
+**标记为废弃**
+
+- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`。`thyColor` 支持传 `primary | success | info | warning | danger`，也支持任意合法 CSS 颜色值，比如 `#ccc`。
+
 **自动迁移**
 
 - `ThyStackedValue` → `ThyProgressStackedValue`
+- `thyType` → `thyColor`（`thy-progress` 与 `thy-progress-circle`）
+- TypeScript 中 `ThyProgressType` → `ThyProgressColor`
+
+| 旧写法 | 新写法 |
+|--------|--------|
+| `thyType="warning"` | `thyColor="warning"` |
+| `[thyType]="typeValue"` | `[thyColor]="typeValue"` |
+| `thyColor="#ccc"` | 不变 |
 
 ---
 

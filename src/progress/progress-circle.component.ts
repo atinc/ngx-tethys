@@ -10,7 +10,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
+import { ThyProgressColor, ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, isProgressPresetColor } from './interfaces';
 import { NgClass, NgStyle } from '@angular/common';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
@@ -30,7 +30,19 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 export class ThyProgressCircle {
     private hostRenderer = useHostRenderer();
 
-    readonly thyType = input<ThyProgressType | undefined>(undefined);
+    /**
+     * 进度条颜色，支持主题色或任意合法 CSS 颜色值
+     * @type primary | success | info | warning | danger | string
+     */
+    readonly thyColor = input<ThyProgressColor | string | undefined>(undefined);
+
+    /**
+     * 进度条类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     */
+    readonly thyType = input<ThyProgressColor | undefined>(undefined);
+
+    readonly color = computed(() => this.thyColor() || this.thyType());
 
     readonly thySize = input<string | number | undefined>(undefined);
 
@@ -80,7 +92,8 @@ export class ThyProgressCircle {
                 return { ...item, value: currentValue };
             });
         } else {
-            values = [{ value: thyValue! }];
+            const color = this.color();
+            values = isProgressPresetColor(color) || !color ? [{ value: thyValue! }] : [{ value: thyValue!, color }];
         }
 
         const radius = 50 - this.strokeWidth() / 2;
@@ -141,8 +154,8 @@ export class ThyProgressCircle {
 
     constructor() {
         effect(() => {
-            const type = this.thyType();
-            this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
+            const color = this.color();
+            this.hostRenderer.updateClass(isProgressPresetColor(color) ? [`progress-circle-${color}`] : []);
         });
     }
 }
