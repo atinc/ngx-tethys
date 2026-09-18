@@ -574,7 +574,7 @@ import { ThyBadgeModule } from 'ngx-tethys/badge';
     selector: 'app-badge-demo',
     template: \`
         <thy-badge thyIsDot="true" thySize="sm"></thy-badge>
-        <thy-badge thyIsHollow="true" thyType="primary"></thy-badge>
+        <thy-badge thyIsHollow="true" thyColor="primary"></thy-badge>
         <span thyBadge thyIsDot="true"></span>
     \`,
     imports: [ThyBadgeModule]
@@ -588,7 +588,7 @@ export class BadgeDemoComponent {}
         expect(content).not.toContain('thyIsDot');
         expect(content).not.toContain('thyIsHollow');
         expect(content).toContain('<thy-badge thySize="sm"></thy-badge>');
-        expect(content).toContain('<thy-badge thyType="primary"></thy-badge>');
+        expect(content).toContain('<thy-badge thyColor="primary"></thy-badge>');
         expect(content).toContain('<span thyBadge></span>');
     });
 
