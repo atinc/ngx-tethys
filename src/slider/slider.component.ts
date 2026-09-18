@@ -11,6 +11,7 @@ import {
     OnInit,
     SimpleChanges,
     WritableSignal,
+    computed,
     effect,
     forwardRef,
     inject,
@@ -29,9 +30,18 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
 import { distinctUntilChanged, map, pluck, takeUntil, tap } from 'rxjs/operators';
 import { SafeAny } from 'ngx-tethys/types';
 
-export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+const SLIDER_PRESET_COLORS = ['primary', 'success', 'info', 'warning', 'danger'];
+
+export type ThySliderColor = (typeof SLIDER_PRESET_COLORS)[number];
+
+/** @deprecated use ThySliderColor */
+export type ThySliderType = ThySliderColor;
 
 export type ThySliderSize = 'sm' | 'md' | 'lg';
+
+function isSliderPresetColor(color: string | undefined) {
+    return !!color && SLIDER_PRESET_COLORS.includes(color);
+}
 
 /**
  * 滑动输入条组件
@@ -111,15 +121,31 @@ export class ThySlider
     readonly thyStep = input<number, unknown>(1, { transform: numberAttribute });
 
     /**
-     * 切换主题类型
+     * 滑动条颜色，支持主题色或任意合法 CSS 颜色值
+     * @type primary | success | info | warning | danger | string
+     * @default success
+     */
+    readonly thyColor = input<ThySliderColor | string>();
+
+    /**
+     * 切换主题类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
      * @type primary | success | info | warning | danger
+     * @default success
      */
     readonly thyType = input<ThySliderType>('success');
 
-    /**
-     * 通过变量设置颜色
-     */
-    readonly thyColor = input<string>();
+    readonly color = computed(() => this.thyColor() || this.thyType() || 'success');
+
+    protected readonly trackStyle = computed(() => {
+        const color = this.color();
+        return isSliderPresetColor(color) ? null : { 'background-color': color };
+    });
+
+    protected readonly pointerStyle = computed(() => {
+        const color = this.color();
+        return isSliderPresetColor(color) ? null : { 'border-color': color };
+    });
 
     /**
      * 滑动输入条大小
@@ -155,11 +181,15 @@ export class ThySlider
     constructor() {
         super();
         effect(() => {
-            if (this.thyType()) {
-                const typeName = `thy-slider-${this.thyType() || 'success'}`;
+            const color = this.color();
+            if (isSliderPresetColor(color)) {
+                const typeName = `thy-slider-${color}`;
                 this.typeClassName() && this.hostRenderer.removeClass(this.typeClassName());
                 this.hostRenderer.addClass(typeName);
                 this.typeClassName.set(typeName);
+            } else if (this.typeClassName()) {
+                this.hostRenderer.removeClass(this.typeClassName());
+                this.typeClassName.set('');
             }
         });
 

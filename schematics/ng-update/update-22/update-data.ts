@@ -15,6 +15,7 @@ export const upgradeData: UpgradeData = {
                     },
                     { replace: 'ThyNavType', replaceWith: 'ThyNavVariant' },
                     { replace: 'ThyTabsType', replaceWith: 'ThyTabsVariant' },
+                    { replace: 'ThySliderType', replaceWith: 'ThySliderColor' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
@@ -98,6 +99,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyColor',
                         limitedTo: {
                             elements: ['thy-button']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-slider']
                         }
                     },
                     {

@@ -1,4 +1,4 @@
 ---
-title: 修改最大/最小值
+title: Max/Min
 order: 6
 ---

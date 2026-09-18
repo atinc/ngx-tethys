@@ -14,13 +14,13 @@ subtitle: 滑动输入条
 import { ThySliderModule } from "ngx-tethys/slider";
 ```
 
-## 主题类型
+## 滑动条颜色
 - primary
 - success
 - info
 - warning
 - danger
-- 自定义主题类型
+- 自定义颜色，比如 #ccc
 
 ## 滑动条大小
 - sm：滑动条高度6px，默认

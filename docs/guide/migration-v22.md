@@ -543,6 +543,25 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 33. thy-slider
+
+**标记为废弃**
+
+- `thyType` 和 `ThySliderType` 已废弃，请使用 `thyColor` 和 `ThySliderColor`。`thyColor` 支持传 `primary | success | info | warning | danger`，也支持任意合法 CSS 颜色值，比如 `#ccc`。
+
+**自动迁移**
+
+- `thyType` → `thyColor`（仅 `thy-slider`）
+- TypeScript 中 `ThySliderType` → `ThySliderColor`
+
+| 旧写法 | 新写法 |
+|--------|--------|
+| `thyType="warning"` | `thyColor="warning"` |
+| `[thyType]="typeValue"` | `[thyColor]="typeValue"` |
+| `thyColor="#ccc"` | 不变 |
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**
