@@ -86,7 +86,7 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
      * @type default | lite
      * @default default
      */
-    readonly thyTheme = input<ThyArrowSwitcherVariant>('default');
+    readonly thyTheme = input<ThyArrowSwitcherTheme>('default');
 
     readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
 
