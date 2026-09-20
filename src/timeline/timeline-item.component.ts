@@ -1,9 +1,12 @@
 import { Component, OnInit, TemplateRef, ChangeDetectorRef, inject, input, viewChild, contentChild } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTimeMode } from './timeline.type';
+import { ThyTimelineMode } from './timeline.type';
 import { NgTemplateOutlet } from '@angular/common';
 
-export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
+export type ThyTimelineColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
+
+/** @deprecated use ThyTimelineColor */
+export type thyColor = ThyTimelineColor;
 
 /**
  * 时间轴节点组件
@@ -25,7 +28,7 @@ export class ThyTimelineItem implements OnInit {
 
     public isFirst = false;
 
-    public position?: ThyTimeMode;
+    public position?: ThyTimelineMode;
 
     public reverse: boolean = false;
 
@@ -34,13 +37,13 @@ export class ThyTimelineItem implements OnInit {
      * @type primary | success | warning | danger | info
      * @default primary
      */
-    readonly thyColor = input<thyColor>('primary');
+    readonly thyColor = input<ThyTimelineColor>('primary');
 
     /**
      * 自定义节点位置
      * @type left | right | center
      */
-    readonly thyPosition = input<ThyTimeMode>();
+    readonly thyPosition = input<ThyTimelineMode>();
 
     /**
      * 自定义时间轴点模板
