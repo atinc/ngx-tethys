@@ -584,6 +584,23 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 36. thy-statistic
+
+**标记为废弃**
+
+- `thyShape` 和 `ThyStatisticShape` 已废弃，请使用 `thyAppearance` 和 `ThyStatisticAppearance`
+- `ThyStatisticColorType` 已废弃，请使用 `ThyStatisticColor`
+- `ThyStatisticSizes` 已废弃，请使用 `ThyStatisticSize`
+
+**自动迁移**
+
+- `thyShape` → `thyAppearance`（仅 `thy-statistic`）
+- TypeScript 中 `ThyStatisticShape` → `ThyStatisticAppearance`
+- TypeScript 中 `ThyStatisticColorType` → `ThyStatisticColor`
+- TypeScript 中 `ThyStatisticSizes` → `ThyStatisticSize`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

@@ -70,6 +70,63 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ThyStackedValue');
     });
 
+    it('should rename ThyStatisticColorType to ThyStatisticColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/statistic-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyStatisticColorType } from 'ngx-tethys/statistic';
+
+                export const color: ThyStatisticColorType = 'success';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyStatisticColor } from 'ngx-tethys/statistic'");
+        expect(content).toContain("export const color: ThyStatisticColor = 'success'");
+        expect(content).not.toContain('ThyStatisticColorType');
+    });
+
+    it('should rename ThyStatisticSizes to ThyStatisticSize', async () => {
+        const filePath = '/projects/update-22-test/src/app/statistic-size.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyStatisticSizes } from 'ngx-tethys/statistic';
+
+                export const size: ThyStatisticSizes = 'default';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyStatisticSize } from 'ngx-tethys/statistic'");
+        expect(content).toContain("export const size: ThyStatisticSize = 'default'");
+        expect(content).not.toContain('ThyStatisticSizes');
+    });
+
+    it('should rename ThyStatisticShape to ThyStatisticAppearance', async () => {
+        const filePath = '/projects/update-22-test/src/app/statistic-appearance.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyStatisticShape } from 'ngx-tethys/statistic';
+
+                export const appearance: ThyStatisticShape = 'card';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyStatisticAppearance } from 'ngx-tethys/statistic'");
+        expect(content).toContain("export const appearance: ThyStatisticAppearance = 'card'");
+        expect(content).not.toContain('ThyStatisticShape');
+    });
+
     it('should rename CompatibleDate to ThyCompatibleDate', async () => {
         const filePath = '/projects/update-22-test/src/app/compatible-date.ts';
         tree.create(

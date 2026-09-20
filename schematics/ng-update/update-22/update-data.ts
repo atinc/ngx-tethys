@@ -24,7 +24,10 @@ export const upgradeData: UpgradeData = {
                         replace: 'CompatibleDate',
                         replaceWith: 'ThyCompatibleDate'
                     },
-                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' }
+                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
+                    { replace: 'ThyStatisticColorType', replaceWith: 'ThyStatisticColor' },
+                    { replace: 'ThyStatisticSizes', replaceWith: 'ThyStatisticSize' },
+                    { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' }
                 ]
             }
         ]
@@ -215,6 +218,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAppearance',
                         limitedTo: {
                             elements: ['thy-divider']
+                        }
+                    },
+                    {
+                        replace: 'thyShape',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-statistic']
                         }
                     }
                 ]

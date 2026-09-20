@@ -1637,4 +1637,38 @@ export class ComboDemoComponent {}
         expect(content).toContain('thyAppearance="outline"');
         expect(content).not.toContain('outline-primary');
     });
+
+    it('should migrate thyShape to thyAppearance for thy-statistic', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/statistic-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyStatisticModule } from 'ngx-tethys/statistic';
+
+@Component({
+    selector: 'app-statistic-demo',
+    template: \`
+        <thy-statistic thyShape="card" [thyValue]="20"></thy-statistic>
+        <thy-statistic [thyShape]="shape" [thyValue]="20"></thy-statistic>
+        <thy-tag thyShape="pill">Tag</thy-tag>
+    \`,
+    imports: [ThyStatisticModule]
+})
+export class StatisticDemoComponent {
+    shape = 'card';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/statistic-demo.component.ts');
+        expect(content).toContain('<thy-statistic thyAppearance="card" [thyValue]="20"></thy-statistic>');
+        expect(content).toContain('<thy-statistic [thyAppearance]="shape" [thyValue]="20"></thy-statistic>');
+        expect(content).toContain('<thy-tag thyShape="pill">Tag</thy-tag>');
+        expect(content).not.toMatch(/<thy-statistic[^>]*thyShape/);
+        expect(content).not.toMatch(/<thy-statistic[^>]*\[thyShape\]/);
+    });
 });
