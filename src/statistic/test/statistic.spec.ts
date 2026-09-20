@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyStatistic, ThyStatisticShape, ThyStatisticTitlePosition } from 'ngx-tethys/statistic';
+import { ThyStatistic, ThyStatisticAppearance, ThyStatisticTitlePosition } from 'ngx-tethys/statistic';
 
 describe('thy-statistic', () => {
     beforeEach(() => {
@@ -64,13 +64,19 @@ describe('thy-statistic', () => {
             expect(statisticComponent.nativeElement.style.backgroundColor === '').toBe(true);
         });
 
-        it('should set color #fa8b7c and thyShape is card  when thyColor is #fa8b7c', () => {
+        it('should set color #fa8b7c and thyAppearance is card  when thyColor is #fa8b7c', () => {
             basicTestComponent.thyColor = '#fa8b7c';
-            basicTestComponent.thyShape = 'card';
+            basicTestComponent.thyAppearance = 'card';
             fixture.detectChanges();
             expect(statisticComponent.nativeElement.style.color === 'rgb(250, 139, 124)').toBe(true);
             expect(statisticComponent.nativeElement.style.borderColor === 'rgb(250, 139, 124)').toBe(true);
             expect(statisticComponent.nativeElement.style.backgroundColor === 'rgba(250, 139, 124, 0.05)').toBe(true);
+        });
+
+        it('should still work with deprecated thyShape', () => {
+            basicTestComponent.thyShape = 'card';
+            fixture.detectChanges();
+            expect(statisticComponent.nativeElement.classList.contains('thy-statistic-card')).toBe(true);
         });
 
         it('should have style when thyValueStyle set', () => {
@@ -170,6 +176,7 @@ describe('thy-statistic', () => {
             [thyTitle]="thyTitle"
             [thyPrefix]="thyPrefix"
             [thyColor]="thyColor"
+            [thyAppearance]="thyAppearance"
             [thyShape]="thyShape"
             [thySuffix]="thySuffix"
             [thyValueStyle]="thyValueStyle"
@@ -183,7 +190,8 @@ class ThyDemoStatisticBasicComponent {
     thyTitle = '价值';
     thyPrefix = '$';
     thyColor = 'primary';
-    thyShape: ThyStatisticShape = undefined;
+    thyAppearance: ThyStatisticAppearance = undefined;
+    thyShape: ThyStatisticAppearance = undefined;
     thySuffix: string = undefined;
     thyValueStyle: { [key: string]: string } = undefined;
     thyTitlePosition: ThyStatisticTitlePosition = 'bottom';

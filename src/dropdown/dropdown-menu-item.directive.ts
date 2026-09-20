@@ -4,7 +4,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
 
-export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
+export type ThyDropdownMenuItemColor = 'default' | 'danger' | 'success' | '';
+
+/** @deprecated use ThyDropdownMenuItemColor */
+export type ThyDropdownMenuItemType = ThyDropdownMenuItemColor;
 
 /**
  * 菜单项
@@ -23,15 +26,26 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 export class ThyDropdownMenuItemDirective implements OnInit {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    readonly danger = computed(() => this.thyType() === 'danger' || false);
+    readonly danger = computed(() => this.color() === 'danger' || false);
 
-    readonly success = computed(() => this.thyType() === 'success' || false);
+    readonly success = computed(() => this.color() === 'success' || false);
 
     /**
-     * 菜单项类型
+     * 菜单项颜色
      * @type 'default' | 'danger' | 'success' | ''
+     * @default default
      */
-    readonly thyType = input<ThyDropdownMenuItemType>('default');
+    readonly thyColor = input<ThyDropdownMenuItemColor>();
+
+    /**
+     * 菜单项类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     * @type 'default' | 'danger' | 'success' | ''
+     * @default default
+     */
+    readonly thyType = input<ThyDropdownMenuItemColor>('default');
+
+    readonly color = computed(() => this.thyColor() || this.thyType() || 'default');
 
     /**
      * 菜单项是否处于禁用状态

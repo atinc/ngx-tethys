@@ -597,7 +597,55 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 37. thy-arrow-switcher
+### 37. thyDropdownMenuItem
+
+**标记为废弃**
+
+- `thyType` 和 `ThyDropdownMenuItemType` 已废弃，请使用 `thyColor` 和 `ThyDropdownMenuItemColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（仅 `thyDropdownMenuItem`）
+- TypeScript 中 `ThyDropdownMenuItemType` → `ThyDropdownMenuItemColor`
+
+---
+
+### 38. thy-timeline / thy-timeline-item
+
+**破坏性更改**
+
+- 移除 `ThyTimeModes` 枚举，请直接使用 `'left' | 'right' | 'center'` 字符串
+
+**标记为废弃**
+
+- `thyColor` 类型已废弃，请使用 `ThyTimelineColor`（`thy-timeline-item` 的 `thyColor` 入参不变）
+- `ThyTimeMode` 已废弃，请使用 `ThyTimelineMode`
+
+**自动迁移**
+
+- TypeScript 中 `thyColor` → `ThyTimelineColor`
+- TypeScript 中 `ThyTimeMode` → `ThyTimelineMode`
+
+---
+
+### 39. thy-statistic
+
+**标记为废弃**
+
+- `thyShape` 和 `ThyStatisticShape` 已废弃，请使用 `thyAppearance` 和 `ThyStatisticAppearance`
+- `ThyStatisticColorType` 已废弃，请使用 `ThyStatisticColor`
+- `ThyStatisticSizes` 已废弃，请使用 `ThyStatisticSize`
+
+**自动迁移**
+
+- `thyShape` → `thyAppearance`
+- TypeScript 中 `ThyStatisticShape` → `ThyStatisticAppearance`
+- TypeScript 中 `ThyStatisticColorType` → `ThyStatisticColor`
+- TypeScript 中 `ThyStatisticSizes` → `ThyStatisticSize`
+
+---
+
+### 40. thy-arrow-switcher
 
 **标记为废弃**
 
