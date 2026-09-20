@@ -10,8 +10,8 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
-    selector: 'thy-dropdown-type-example',
-    templateUrl: './type.component.html',
+    selector: 'thy-dropdown-color-example',
+    templateUrl: './color.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyDropdownDirective,
@@ -23,4 +23,4 @@ import { ThyButton } from 'ngx-tethys/button';
         ThyDropdownMenuItemIconDirective
     ]
 })
-export class ThyDropdownTypeExampleComponent {}
+export class ThyDropdownColorExampleComponent {}

@@ -54,9 +54,9 @@ import { ThyDropdownModule } from "ngx-tethys/dropdown";
 
 <example name="thy-dropdown-trigger-example" />
 
-## 菜单类型
+## 菜单颜色
 
-<example name="thy-dropdown-type-example" />
+<example name="thy-dropdown-color-example" />
 
 ## 组件菜单
 业务中通常需要在多个地方弹出同一个菜单，那么定义个可以复用的菜单组件，然后通过`[thyDropdown]="menuComponent"`在多个地方使用就变得十分必要，自定义的菜单组件需要在外层加`thy-dropdown-menu`样式类，我们可以直接继承`ThyDropdownAbstractMenu`组件实现样式的自动添加。

@@ -565,6 +565,40 @@ export class InputSearchThemeDemoComponent {
         expect(content).not.toContain('ThyInputSearchTheme');
     });
 
+    it('should migrate thyType to thyColor for thyDropdownMenuItem', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/dropdown-menu-item-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
+
+@Component({
+    selector: 'app-dropdown-menu-item-demo',
+    template: \`
+        <a thyDropdownMenuItem thyType="danger">Delete</a>
+        <a thyDropdownMenuItem [thyType]="type">New</a>
+        <thy-table-column thyType="checkbox"></thy-table-column>
+    \`,
+    imports: [ThyDropdownModule]
+})
+export class DropdownMenuItemDemoComponent {
+    type = 'success';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/dropdown-menu-item-demo.component.ts');
+        expect(content).toContain('<a thyDropdownMenuItem thyColor="danger">Delete</a>');
+        expect(content).toContain('<a thyDropdownMenuItem [thyColor]="type">New</a>');
+        expect(content).toContain('<thy-table-column thyType="checkbox"></thy-table-column>');
+        expect(content).not.toMatch(/thyDropdownMenuItem[^>]*\bthyType\b/);
+        expect(content).not.toMatch(/thyDropdownMenuItem[^>]*\[thyType\]/);
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

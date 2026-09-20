@@ -70,6 +70,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ThyStackedValue');
     });
 
+    it('should rename ThyDropdownMenuItemType to ThyDropdownMenuItemColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/dropdown-menu-item-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyDropdownMenuItemType } from 'ngx-tethys/dropdown';
+
+                export const color: ThyDropdownMenuItemType = 'danger';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDropdownMenuItemColor } from 'ngx-tethys/dropdown'");
+        expect(content).toContain("export const color: ThyDropdownMenuItemColor = 'danger'");
+        expect(content).not.toContain('ThyDropdownMenuItemType');
+    });
+
     it('should rename CompatibleDate to ThyCompatibleDate', async () => {
         const filePath = '/projects/update-22-test/src/app/compatible-date.ts';
         tree.create(
