@@ -88,6 +88,13 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-arrow-switcher']
+                        }
+                    },
+                    {
                         replace: 'thyType',
                         replaceWith: 'thyColor',
                         limitedTo: {

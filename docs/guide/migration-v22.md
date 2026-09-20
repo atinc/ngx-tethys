@@ -584,6 +584,18 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 36. thy-arrow-switcher
+
+**标记为废弃**
+
+- `thyTheme` 已废弃，请使用 `thyVariant`
+
+**自动迁移**
+
+- `thyTheme` → `thyVariant`（仅 `thy-arrow-switcher`）
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

@@ -71,10 +71,21 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
     readonly thyNextTooltip = input<string>();
 
     /**
-     * 展示主题
+     * 展示风格
      * @type default | lite
+     * @default default
+     */
+    readonly thyVariant = input<ThyArrowSwitcherTheme>();
+
+    /**
+     * 展示主题（已废弃），请使用 thyVariant
+     * @deprecated please use thyVariant
+     * @type default | lite
+     * @default default
      */
     readonly thyTheme = input<ThyArrowSwitcherTheme>('default');
+
+    readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
 
     /**
      * 总条数
