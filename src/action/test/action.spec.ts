@@ -11,8 +11,9 @@ import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
         <a id="default" thyAction thyIcon="inbox"></a>
         <a id="with-text" thyAction thyIcon="inbox">Inbox</a>
         <a id="with-active" thyAction thyActive="true" thyIcon="inbox"></a>
+        <a id="with-color" thyAction thyColor="danger" thyIcon="inbox"></a>
         <a id="with-type" thyAction thyType="danger" thyIcon="inbox"></a>
-        <a id="with-appearance-lite" thyAppearance="lite" thyAction thyType="danger" thyIcon="inbox"></a>
+        <a id="with-appearance-lite" thyAppearance="lite" thyAction thyColor="danger" thyIcon="inbox"></a>
         <a id="with-hover-icon" thyAction thyIcon="inbox" thyHoverIcon="search"></a>
         <a id="with-text-disabled" thyAction thyIcon="inbox" thyHoverIcon="search" [thyDisabled]="true"></a>
         <a #feedbackAction1 id="with-feedback" thyAction thyIcon="inbox"></a>
@@ -81,7 +82,15 @@ describe('thy-action', () => {
         expect(actionDebugElement.nativeElement.classList.contains('disabled')).toBeTruthy();
     });
 
-    it('should create with type', () => {
+    it('should create with color', () => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-color'));
+        expect(fixture.componentInstance).toBeTruthy();
+        expect(actionDebugElement.componentInstance).toBeTruthy();
+        assertActionExpected(actionDebugElement.nativeElement, 'inbox');
+        expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
+    });
+
+    it('should create with deprecated thyType', () => {
         actionDebugElement = fixture.debugElement.query(By.css('#with-type'));
         expect(fixture.componentInstance).toBeTruthy();
         expect(actionDebugElement.componentInstance).toBeTruthy();

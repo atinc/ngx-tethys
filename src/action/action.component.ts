@@ -20,7 +20,10 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subscription, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
+export type ThyActionColor = 'primary' | 'success' | 'danger' | 'warning';
+
+/** @deprecated use ThyActionColor */
+export type ThyActionType = ThyActionColor;
 
 export type ThyActionAppearance = 'fill' | 'lite';
 
@@ -78,12 +81,21 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     private feedbackTimer: Subscription | null = null;
 
     /**
-     * 操作图标的类型
+     * 操作图标的颜色
      * @type primary | success | danger | warning
      */
-    readonly thyType = input<ThyActionType, ThyActionType>('primary', {
-        transform: (value: ThyActionType) => value || 'primary'
+    readonly thyColor = input<ThyActionColor>();
+
+    /**
+     * 操作图标的类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     * @type primary | success | danger | warning
+     */
+    readonly thyType = input<ThyActionColor, ThyActionColor>('primary', {
+        transform: (value: ThyActionColor) => value || 'primary'
     });
+
+    readonly color = computed(() => this.thyColor() || this.thyType() || 'primary');
 
     /**
      * 操作图标，支持传参同时也支持在投影中写 thy-icon 组件
@@ -189,7 +201,7 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
 
     private updateClasses() {
         const classNames: string[] = [];
-        classNames.push(`action-${this.thyType()}`);
+        classNames.push(`action-${this.color()}`);
         if (this.thyAppearance() === 'lite') {
             classNames.push('thy-action-lite');
         }

@@ -504,6 +504,70 @@ export class BadgeColorDemoComponent {
         expect(content).not.toMatch(/thyBadge[^>]*thyType/);
     });
 
+    it('should migrate thyType to thyColor for thyAction and thy-action', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/action-color-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyActionModule } from 'ngx-tethys/action';
+
+@Component({
+    selector: 'app-action-color-demo',
+    template: \`
+        <a thyAction thyType="danger" thyIcon="inbox"></a>
+        <a thyAction [thyType]="type" thyIcon="inbox"></a>
+        <thy-action thyType="success" thyIcon="inbox"></thy-action>
+        <thy-table-column thyType="checkbox"></thy-table-column>
+    \`,
+    imports: [ThyActionModule]
+})
+export class ActionColorDemoComponent {
+    type = 'warning';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/action-color-demo.component.ts');
+        expect(content).toContain('<a thyAction thyColor="danger" thyIcon="inbox"></a>');
+        expect(content).toContain('<a thyAction [thyColor]="type" thyIcon="inbox"></a>');
+        expect(content).toContain('<thy-action thyColor="success" thyIcon="inbox"></thy-action>');
+        expect(content).toContain('<thy-table-column thyType="checkbox"></thy-table-column>');
+        expect(content).not.toMatch(/thyAction[^>]*\bthyType\b/);
+        expect(content).not.toMatch(/thyAction[^>]*\[thyType\]/);
+        expect(content).not.toMatch(/<thy-action[^>]*thyType/);
+    });
+
+    it('should migrate ThyActionType to ThyActionColor', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/action-type-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyActionType } from 'ngx-tethys/action';
+
+@Component({
+    selector: 'app-action-type-demo',
+    template: ''
+})
+export class ActionTypeDemoComponent {
+    color: ThyActionType = 'danger';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/action-type-demo.component.ts');
+        expect(content).toContain("import { ThyActionColor } from 'ngx-tethys/action';");
+        expect(content).toContain("color: ThyActionColor = 'danger';");
+        expect(content).not.toContain('ThyActionType');
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
