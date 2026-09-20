@@ -349,6 +349,7 @@
   "ThyImagePreview": "image",
   "ThyInputGroupSize": "input",
   "ThyInputGroup": "input",
+  "ThyInputSearchAppearance": "input",
   "ThyInputSearchTheme": "input",
   "ThyInputSearchIconPosition": "input",
   "CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR": "input",
