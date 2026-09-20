@@ -584,6 +584,19 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 36. thyDropdownMenuItem
+
+**标记为废弃**
+
+- `thyType` 和 `ThyDropdownMenuItemType` 已废弃，请使用 `thyColor` 和 `ThyDropdownMenuItemColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（仅 `thyDropdownMenuItem`）
+- TypeScript 中 `ThyDropdownMenuItemType` → `ThyDropdownMenuItemColor`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

@@ -254,6 +254,7 @@
   "IThyDropContainerDirective": "drag-drop",
   "THY_DROP_CONTAINER_DIRECTIVE": "drag-drop",
   "ThyDropContainerDirective": "drag-drop",
+  "ThyDropdownMenuItemColor": "dropdown",
   "ThyDropdownMenuItemType": "dropdown",
   "ThyDropdownMenuItemDirective": "dropdown",
   "ThyDropdownMenuItemIconDirective": "dropdown",
