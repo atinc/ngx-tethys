@@ -24,7 +24,8 @@ export const upgradeData: UpgradeData = {
                         replace: 'CompatibleDate',
                         replaceWith: 'ThyCompatibleDate'
                     },
-                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' }
+                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
+                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' }
                 ]
             }
         ]
@@ -85,6 +86,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAppearance',
                         limitedTo: {
                             elements: ['thy-alert']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-input-search']
                         }
                     },
                     {
