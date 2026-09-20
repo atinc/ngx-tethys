@@ -584,7 +584,20 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 36. thyDropdownMenuItem
+### 36. thy-input-search
+
+**标记为废弃**
+
+- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyAppearance` 和 `ThyInputSearchAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`（仅 `thy-input-search`）
+- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchAppearance`
+
+---
+
+### 37. thyDropdownMenuItem
 
 **标记为废弃**
 
