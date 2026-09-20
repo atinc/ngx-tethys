@@ -31,7 +31,8 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' },
                     { replace: 'ThyStatisticColorType', replaceWith: 'ThyStatisticColor' },
                     { replace: 'ThyStatisticSizes', replaceWith: 'ThyStatisticSize' },
-                    { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' }
+                    { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' },
+                    { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' }
                 ]
             }
         ]
@@ -99,6 +100,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAppearance',
                         limitedTo: {
                             elements: ['thy-input-search']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-arrow-switcher']
                         }
                     },
                     {

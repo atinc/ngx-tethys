@@ -9,6 +9,8 @@
   "ThyAnchor": "anchor",
   "ThyAnchorModule": "anchor",
   "ThyArrowSwitcherEvent": "arrow-switcher",
+  "ThyArrowSwitcherVariant": "arrow-switcher",
+  "ThyArrowSwitcherTheme": "arrow-switcher",
   "ThyArrowSwitcher": "arrow-switcher",
   "ThyArrowSwitcherModule": "arrow-switcher",
   "ThyAutocompleteActivatedEvent": "autocomplete",
