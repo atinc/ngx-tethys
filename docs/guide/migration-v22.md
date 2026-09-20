@@ -594,7 +594,7 @@ ng generate ngx-tethys:migrate-22
 
 **自动迁移**
 
-- `thyShape` → `thyAppearance`（仅 `thy-statistic`）
+- `thyShape` → `thyAppearance`
 - TypeScript 中 `ThyStatisticShape` → `ThyStatisticAppearance`
 - TypeScript 中 `ThyStatisticColorType` → `ThyStatisticColor`
 - TypeScript 中 `ThyStatisticSizes` → `ThyStatisticSize`
