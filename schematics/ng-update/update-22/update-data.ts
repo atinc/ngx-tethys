@@ -28,7 +28,10 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
                     { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' },
                     { replace: 'thyColor', replaceWith: 'ThyTimelineColor' },
-                    { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' }
+                    { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' },
+                    { replace: 'ThyStatisticColorType', replaceWith: 'ThyStatisticColor' },
+                    { replace: 'ThyStatisticSizes', replaceWith: 'ThyStatisticSize' },
+                    { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' }
                 ]
             }
         ]
@@ -233,6 +236,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAppearance',
                         limitedTo: {
                             elements: ['thy-divider']
+                        }
+                    },
+                    {
+                        replace: 'thyShape',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-statistic']
                         }
                     }
                 ]
