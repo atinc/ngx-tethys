@@ -1,4 +1,6 @@
 {
+  "ThyActionColor": "action",
+  "ThyActionType": "action",
   "ThyAffix": "affix",
   "ThyAffixModule": "affix",
   "AffixRespondEvents": "affix",

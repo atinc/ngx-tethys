@@ -659,6 +659,19 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 41. thy-action（`thyAction` 指令）
+
+**标记为废弃**
+
+- `thyType` 和 `ThyActionType` 已废弃，请使用 `thyColor` 和 `ThyActionColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（`thy-action` 与 `thyAction`）
+- TypeScript 中 `ThyActionType` → `ThyActionColor`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**
