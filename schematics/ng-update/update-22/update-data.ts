@@ -24,7 +24,9 @@ export const upgradeData: UpgradeData = {
                         replace: 'CompatibleDate',
                         replaceWith: 'ThyCompatibleDate'
                     },
-                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' }
+                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
+                    { replace: 'thyColor', replaceWith: 'ThyTimelineColor' },
+                    { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' }
                 ]
             }
         ]
