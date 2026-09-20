@@ -25,7 +25,8 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'ThyCompatibleDate'
                     },
                     { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
-                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' }
+                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' },
+                    { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' }
                 ]
             }
         ]

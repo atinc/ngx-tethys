@@ -599,6 +599,33 @@ export class ArrowSwitcherDemoComponent {
         expect(content).not.toMatch(/<thy-arrow-switcher[^>]*\[thyTheme\]/);
     });
 
+    it('should migrate ThyArrowSwitcherTheme to ThyArrowSwitcherVariant', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/arrow-switcher-theme-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyArrowSwitcherTheme } from 'ngx-tethys/arrow-switcher';
+
+@Component({
+    selector: 'app-arrow-switcher-theme-demo',
+    template: ''
+})
+export class ArrowSwitcherThemeDemoComponent {
+    variant: ThyArrowSwitcherTheme = 'lite';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/arrow-switcher-theme-demo.component.ts');
+        expect(content).toContain("import { ThyArrowSwitcherVariant } from 'ngx-tethys/arrow-switcher';");
+        expect(content).toContain("variant: ThyArrowSwitcherVariant = 'lite';");
+        expect(content).not.toContain('ThyArrowSwitcherTheme');
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

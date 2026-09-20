@@ -18,7 +18,10 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyAction } from 'ngx-tethys/action';
 
-export type ThyArrowSwitcherTheme = 'default' | 'lite';
+export type ThyArrowSwitcherVariant = 'default' | 'lite';
+
+/** @deprecated use ThyArrowSwitcherVariant */
+export type ThyArrowSwitcherTheme = ThyArrowSwitcherVariant;
 export interface ThyArrowSwitcherEvent {
     index: number;
     event: Event;
@@ -71,11 +74,11 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
     readonly thyNextTooltip = input<string>();
 
     /**
-     * 展示风格
+     * 展示形态
      * @type default | lite
      * @default default
      */
-    readonly thyVariant = input<ThyArrowSwitcherTheme>();
+    readonly thyVariant = input<ThyArrowSwitcherVariant>();
 
     /**
      * 展示主题（已废弃），请使用 thyVariant
@@ -83,7 +86,7 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
      * @type default | lite
      * @default default
      */
-    readonly thyTheme = input<ThyArrowSwitcherTheme>('default');
+    readonly thyTheme = input<ThyArrowSwitcherVariant>('default');
 
     readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
 

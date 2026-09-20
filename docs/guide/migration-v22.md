@@ -602,10 +602,12 @@ ng generate ngx-tethys:migrate-22
 **标记为废弃**
 
 - `thyTheme` 已废弃，请使用 `thyVariant`
+- `ThyArrowSwitcherTheme` 已废弃，请使用 `ThyArrowSwitcherVariant`
 
 **自动迁移**
 
-- `thyTheme` → `thyVariant`（仅 `thy-arrow-switcher`）
+- `thyTheme` → `thyVariant`
+- TypeScript 中 `ThyArrowSwitcherTheme` → `ThyArrowSwitcherVariant`
 
 ---
 
