@@ -588,7 +588,7 @@ ng generate ngx-tethys:migrate-22
 
 **破坏性更改**
 
-- 移除 `ThyTimeModes` 枚举，请改用 `ThyTimelineMode`（`'left' | 'right' | 'center'`）
+- 移除 `ThyTimeModes` 枚举，请直接使用 `'left' | 'right' | 'center'` 字符串
 
 **标记为废弃**
 
