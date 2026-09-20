@@ -91,8 +91,8 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
      * @deprecated please use thyColor
      * @type primary | success | danger | warning
      */
-    readonly thyType = input<ThyActionColor, ThyActionColor>('primary', {
-        transform: (value: ThyActionColor) => value || 'primary'
+    readonly thyType = input<ThyActionType, ThyActionType>('primary', {
+        transform: (value: ThyActionType) => value || 'primary'
     });
 
     readonly color = computed(() => this.thyColor() || this.thyType() || 'primary');
