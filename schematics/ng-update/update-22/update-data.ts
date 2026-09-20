@@ -16,6 +16,7 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyNavType', replaceWith: 'ThyNavVariant' },
                     { replace: 'ThyTabsType', replaceWith: 'ThyTabsVariant' },
                     { replace: 'ThySliderType', replaceWith: 'ThySliderColor' },
+                    { replace: 'ThyDropdownMenuItemType', replaceWith: 'ThyDropdownMenuItemColor' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
@@ -25,6 +26,9 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'ThyCompatibleDate'
                     },
                     { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
+                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' },
+                    { replace: 'thyColor', replaceWith: 'ThyTimelineColor' },
+                    { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' },
                     { replace: 'ThyStatisticColorType', replaceWith: 'ThyStatisticColor' },
                     { replace: 'ThyStatisticSizes', replaceWith: 'ThyStatisticSize' },
                     { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' }
@@ -91,6 +95,13 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-input-search']
+                        }
+                    },
+                    {
                         replace: 'thyType',
                         replaceWith: 'thyColor',
                         limitedTo: {
@@ -130,6 +141,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyColor',
                         limitedTo: {
                             attributes: ['thyBadge']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            attributes: ['thyDropdownMenuItem']
                         }
                     },
                     {

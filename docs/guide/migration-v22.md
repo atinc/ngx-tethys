@@ -584,7 +584,51 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 36. thy-statistic
+### 36. thy-input-search
+
+**标记为废弃**
+
+- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyAppearance` 和 `ThyInputSearchAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`（仅 `thy-input-search`）
+- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchAppearance`
+
+---
+
+### 37. thyDropdownMenuItem
+
+**标记为废弃**
+
+- `thyType` 和 `ThyDropdownMenuItemType` 已废弃，请使用 `thyColor` 和 `ThyDropdownMenuItemColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（仅 `thyDropdownMenuItem`）
+- TypeScript 中 `ThyDropdownMenuItemType` → `ThyDropdownMenuItemColor`
+
+---
+
+### 38. thy-timeline / thy-timeline-item
+
+**破坏性更改**
+
+- 移除 `ThyTimeModes` 枚举，请直接使用 `'left' | 'right' | 'center'` 字符串
+
+**标记为废弃**
+
+- `thyColor` 类型已废弃，请使用 `ThyTimelineColor`（`thy-timeline-item` 的 `thyColor` 入参不变）
+- `ThyTimeMode` 已废弃，请使用 `ThyTimelineMode`
+
+**自动迁移**
+
+- TypeScript 中 `thyColor` → `ThyTimelineColor`
+- TypeScript 中 `ThyTimeMode` → `ThyTimelineMode`
+
+---
+
+### 39. thy-statistic
 
 **标记为废弃**
 

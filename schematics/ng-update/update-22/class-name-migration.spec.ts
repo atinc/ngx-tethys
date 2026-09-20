@@ -70,6 +70,87 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ThyStackedValue');
     });
 
+    it('should rename ThyDropdownMenuItemType to ThyDropdownMenuItemColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/dropdown-menu-item-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyDropdownMenuItemType } from 'ngx-tethys/dropdown';
+
+                export const color: ThyDropdownMenuItemType = 'danger';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDropdownMenuItemColor } from 'ngx-tethys/dropdown'");
+        expect(content).toContain("export const color: ThyDropdownMenuItemColor = 'danger'");
+        expect(content).not.toContain('ThyDropdownMenuItemType');
+    });
+
+    it('should rename timeline thyColor type to ThyTimelineColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/timeline-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { thyColor } from 'ngx-tethys/timeline';
+
+                export const color: thyColor = 'success';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyTimelineColor } from 'ngx-tethys/timeline'");
+        expect(content).toContain("export const color: ThyTimelineColor = 'success'");
+        expect(content).not.toMatch(/\bthyColor\b/);
+    });
+
+    it('should not rename thyColor input on thy-timeline-item', async () => {
+        const filePath = '/projects/update-22-test/src/app/timeline-item-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { Component } from '@angular/core';
+                import { ThyTimelineItem } from 'ngx-tethys/timeline';
+
+                @Component({
+                    selector: 'app-timeline-item-color',
+                    template: '<thy-timeline-item thyColor="success"></thy-timeline-item>',
+                    imports: [ThyTimelineItem]
+                })
+                export class TimelineItemColorComponent {}
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain('thyColor="success"');
+        expect(content).not.toContain('ThyTimelineColor="success"');
+    });
+
+    it('should rename ThyTimeMode to ThyTimelineMode', async () => {
+        const filePath = '/projects/update-22-test/src/app/timeline-mode.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyTimeMode } from 'ngx-tethys/timeline';
+
+                export const mode: ThyTimeMode = 'left';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyTimelineMode } from 'ngx-tethys/timeline'");
+        expect(content).toContain("export const mode: ThyTimelineMode = 'left'");
+        expect(content).not.toMatch(/\bThyTimeMode\b/);
+    });
+
     it('should rename ThyStatisticColorType to ThyStatisticColor', async () => {
         const filePath = '/projects/update-22-test/src/app/statistic-color.ts';
         tree.create(
