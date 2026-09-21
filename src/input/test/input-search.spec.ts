@@ -3,7 +3,7 @@ import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@an
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputSearch, ThyInputSearchIconPosition } from '../input-search.component';
+import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchTheme, ThyInputSearchVariant } from '../input-search.component';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFormControlSize } from 'ngx-tethys/core';
@@ -15,7 +15,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
             name="search"
             thyPlaceholder="Please type"
             [disabled]="disabled"
-            [thyAppearance]="thyAppearance"
+            [thyVariant]="thyVariant"
             [thyTheme]="thyTheme"
             [thySearchFocus]="searchFocus"
             [(ngModel)]="searchText"
@@ -33,8 +33,8 @@ class TestInputSearchBasicComponent {
     searchFocus = true;
     searchText = '';
     thySize: ThyFormControlSize | undefined = 'sm';
-    thyAppearance = ``;
-    thyTheme = ``;
+    thyVariant: ThyInputSearchVariant | '' = '';
+    thyTheme: ThyInputSearchTheme | '' = '';
     disabled = false;
     iconPosition!: ThyInputSearchIconPosition;
     onClear() {}
@@ -109,24 +109,23 @@ describe('input search', () => {
         expect(modelChangeSpy).toHaveBeenCalled();
     }));
 
-    it('should set appearance', () => {
+    it('should set variant', () => {
         basicTestComponent.thyTheme = '';
-        basicTestComponent.thyAppearance = 'default';
+        basicTestComponent.thyVariant = 'default';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
 
-        basicTestComponent.thyAppearance = 'ellipse';
+        basicTestComponent.thyVariant = 'ellipse';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
 
-        basicTestComponent.thyAppearance = 'transparent';
+        basicTestComponent.thyVariant = 'transparent';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(true);
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
     });
 
     it('should set deprecated thyTheme', () => {
-        basicTestComponent.thyAppearance = '';
         basicTestComponent.thyTheme = 'default';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
