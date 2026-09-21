@@ -201,7 +201,7 @@
         border-color: transparent;
         background-color: transparent;
 
-        &:not(.is-invalid) {
+        &:not([disabled]):not(.disabled):not(.is-invalid) {
             &:hover,
             &:focus,
             &.form-control-active {
