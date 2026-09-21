@@ -10,6 +10,8 @@ const inputGroupSizeMap = {
     lg: ['form-control-lg']
 };
 
+export type ThyInputAppearance = 'outline' | 'subtle' | 'ghost';
+
 /**
  * 输入框指令
  * @name thyInput
@@ -17,7 +19,11 @@ const inputGroupSizeMap = {
  */
 @Directive({
     selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
-    exportAs: 'thyInput'
+    exportAs: 'thyInput',
+    host: {
+        '[class.form-control-subtle]': 'thyAppearance() === "subtle"',
+        '[class.form-control-ghost]': 'thyAppearance() === "ghost"'
+    }
 })
 export class ThyInputDirective {
     private elementRef = inject(ElementRef);
@@ -35,6 +41,15 @@ export class ThyInputDirective {
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 输入框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyInputAppearance, ThyInputAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     get ngControl() {

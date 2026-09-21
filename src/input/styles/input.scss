@@ -58,12 +58,39 @@
             }
         }
     }
-    &[disabled]:not([disabled='false']) {
+    &[disabled]:not([disabled='false']),
+    &.disabled {
         background-color: variables.$input-disabled-bg;
         .input-append,
         .input-prepend {
             background-color: variables.$input-disabled-bg;
             pointer-events: none;
+        }
+    }
+
+    &.form-control-subtle {
+        &[disabled]:not([disabled='false']),
+        &.disabled {
+            .input-append,
+            .input-prepend {
+                background-color: transparent;
+            }
+            &:hover {
+                .input-append,
+                .input-prepend {
+                    background-color: variables.$input-disabled-bg;
+                }
+            }
+        }
+    }
+
+    &.form-control-ghost {
+        &[disabled]:not([disabled='false']),
+        &.disabled {
+            .input-append,
+            .input-prepend {
+                background-color: transparent;
+            }
         }
     }
 
@@ -159,15 +186,6 @@
         .input-search-control {
             border: 0px;
             background-color: transparent;
-        }
-    }
-
-    &[disabled]:not([disabled='false']) {
-        &:hover {
-            border-color: variables.$input-disabled-border-color;
-        }
-        &:focus {
-            border-color: variables.$input-disabled-border-color;
         }
     }
 }

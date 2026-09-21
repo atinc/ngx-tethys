@@ -13,23 +13,24 @@ import {
 
 import {
     Component,
+    computed,
+    effect,
     ElementRef,
     forwardRef,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation,
     inject,
     input,
-    effect,
-    signal,
+    OnDestroy,
+    OnInit,
     output,
-    viewChild
+    signal,
+    viewChild,
+    ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputDirective } from './input.directive';
+import { ThyInputAppearance, ThyInputDirective } from './input.directive';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -63,9 +64,12 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     host: {
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
-        '[class.thy-input-search-transparent]': 'thyTheme() === "transparent"',
-        '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before"',
+        '[class.thy-input-search-transparent]': 'appearance() === "ghost"',
+        '[class.form-control-subtle]': 'appearance() === "subtle"',
+        '[class.form-control-ghost]': 'appearance() === "ghost"',
+        '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before" && !disabled()',
         '[class.form-control-active]': 'focused()',
+        '[class.disabled]': 'disabled()',
         '[attr.tabindex]': 'tabIndex'
     },
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
@@ -96,11 +100,23 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thyPlaceholder = input('');
 
     /**
-     * 搜索框风格
+     * 搜索框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyInputAppearance>();
+
+    /**
+     * 搜索框风格。`ellipse` 为圆角搜索框；`transparent` 已废弃，请使用 `thyAppearance="ghost"`
+     * @deprecated please use thyAppearance
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
     readonly thyTheme = input<ThyInputSearchTheme>();
+
+    protected readonly appearance = computed<ThyInputAppearance>(
+        () => this.thyAppearance() || (this.thyTheme() === 'transparent' ? 'ghost' : 'outline')
+    );
 
     /**
      * 是否自动聚焦

@@ -2,7 +2,7 @@ import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core'
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
+import { ThyInput, ThyInputAppearance, ThyInputDirective } from 'ngx-tethys/input';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFormControlSize } from 'ngx-tethys/core';
 
@@ -13,6 +13,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
             [thyType]="thyType"
             thyLabelText="姓名"
             [thySize]="thySize"
+            [thyAppearance]="thyAppearance"
             [thyAutofocus]="true"
             [readonly]="readonly"
             name="username"
@@ -34,6 +35,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 })
 class TestBedComponent {
     thySize: ThyFormControlSize | undefined = 'md';
+    thyAppearance: ThyInputAppearance | undefined = 'outline';
     thyType: string | null | undefined = 'text';
     readonly = false;
     passwordValue = '12345';
@@ -106,6 +108,37 @@ describe('input component', () => {
         basicTestComponent.thySize = undefined;
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-md')).toBe(true);
+    });
+
+    it('should use outline appearance by default', () => {
+        fixture.detectChanges();
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-ghost')).toBe(false);
+        expect(debugElement.nativeElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(debugElement.nativeElement.classList.contains('form-control-ghost')).toBe(false);
+    });
+
+    it('should add form-control-subtle when thyAppearance is subtle', () => {
+        basicTestComponent.thyAppearance = 'subtle';
+        fixture.detectChanges();
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-subtle')).toBe(true);
+        expect(debugElement.nativeElement.classList.contains('form-control-subtle')).toBe(true);
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-ghost')).toBe(false);
+    });
+
+    it('should add form-control-ghost when thyAppearance is ghost', () => {
+        basicTestComponent.thyAppearance = 'ghost';
+        fixture.detectChanges();
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-ghost')).toBe(true);
+        expect(debugElement.nativeElement.classList.contains('form-control-ghost')).toBe(true);
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-subtle')).toBe(false);
+    });
+
+    it('should use outline appearance when thyAppearance is undefined', () => {
+        basicTestComponent.thyAppearance = undefined;
+        fixture.detectChanges();
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-ghost')).toBe(false);
     });
 
     it('placeholder', () => {
