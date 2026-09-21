@@ -623,12 +623,13 @@ ng generate ngx-tethys:migrate-22
 
 **标记为废弃**
 
-- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyAppearance` 和 `ThyInputSearchAppearance`
+- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyVariant` 和 `ThyInputSearchVariant`
+- `thyTheme="transparent"` 已废弃，请使用 `thyAppearance="ghost"`
 
 **自动迁移**
 
-- `thyTheme` → `thyAppearance`（仅 `thy-input-search`）
-- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchAppearance`
+- `thyTheme` → `thyVariant`（仅 `thy-input-search`）
+- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchVariant`
 
 ---
 

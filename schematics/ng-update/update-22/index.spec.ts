@@ -537,7 +537,7 @@ export class BadgeColorDemoComponent {
         expect(content).not.toMatch(/thyBadge[^>]*thyType/);
     });
 
-    it('should migrate thyTheme to thyAppearance for thy-input-search', async () => {
+    it('should migrate thyTheme to thyVariant for thy-input-search', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
         await factory.addApplication({ name: 'update-22-test' });
@@ -551,27 +551,29 @@ import { ThyInputModule } from 'ngx-tethys/input';
     selector: 'app-input-search-demo',
     template: \`
         <thy-input-search thyTheme="ellipse"></thy-input-search>
+        <thy-input-search thyTheme="transparent"></thy-input-search>
         <thy-input-search [thyTheme]="theme"></thy-input-search>
         <thy-table thyTheme="bordered"></thy-table>
     \`,
     imports: [ThyInputModule]
 })
 export class InputSearchDemoComponent {
-    theme = 'transparent';
+    theme = 'ellipse';
 }
 `
         );
 
         workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-demo.component.ts');
-        expect(content).toContain('thyAppearance="ellipse"');
-        expect(content).toContain('[thyAppearance]="theme"');
+        expect(content).toContain('thyVariant="ellipse"');
+        expect(content).toContain('thyVariant="transparent"');
+        expect(content).toContain('[thyVariant]="theme"');
         expect(content).toContain('<thy-table thyAppearance="bordered"></thy-table>');
         expect(content).not.toMatch(/<thy-input-search[^>]*thyTheme/);
         expect(content).not.toMatch(/<thy-input-search[^>]*\[thyTheme\]/);
     });
 
-    it('should migrate ThyInputSearchTheme to ThyInputSearchAppearance', async () => {
+    it('should migrate ThyInputSearchTheme to ThyInputSearchVariant', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
         await factory.addApplication({ name: 'update-22-test' });
@@ -586,15 +588,15 @@ import { ThyInputSearchTheme } from 'ngx-tethys/input';
     template: ''
 })
 export class InputSearchThemeDemoComponent {
-    appearance: ThyInputSearchTheme = 'ellipse';
+    variant: ThyInputSearchTheme = 'ellipse';
 }
 `
         );
 
         workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-theme-demo.component.ts');
-        expect(content).toContain("import { ThyInputSearchAppearance } from 'ngx-tethys/input';");
-        expect(content).toContain("appearance: ThyInputSearchAppearance = 'ellipse';");
+        expect(content).toContain("import { ThyInputSearchVariant } from 'ngx-tethys/input';");
+        expect(content).toContain("variant: ThyInputSearchVariant = 'ellipse';");
         expect(content).not.toContain('ThyInputSearchTheme');
     });
 

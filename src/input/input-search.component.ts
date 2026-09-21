@@ -35,10 +35,10 @@ import { ThyInputDirective } from './input.directive';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type ThyInputSearchAppearance = 'default' | 'ellipse' | 'transparent' | '';
+export type ThyInputSearchVariant = 'default' | 'ellipse' | 'transparent' | '';
 
-/** @deprecated use ThyInputSearchAppearance */
-export type ThyInputSearchTheme = ThyInputSearchAppearance;
+/** @deprecated use ThyInputSearchVariant */
+export type ThyInputSearchTheme = ThyInputSearchVariant;
 export type ThyInputSearchIconPosition = 'before' | 'after';
 
 export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
@@ -66,8 +66,8 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control thy-input-search',
-        '[class.thy-input-search-ellipse]': 'appearance() === "ellipse"',
-        '[class.thy-input-search-transparent]': 'appearance() === "transparent"',
+        '[class.thy-input-search-ellipse]': 'variant() === "ellipse"',
+        '[class.thy-input-search-transparent]': 'variant() === "transparent"',
         '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before"',
         '[class.form-control-active]': 'focused()',
         '[attr.tabindex]': 'tabIndex'
@@ -100,21 +100,21 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thyPlaceholder = input('');
 
     /**
-     * 搜索框外观
+     * 搜索框形态。`transparent` 已废弃，请使用 thyAppearance="ghost"
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
-    readonly thyAppearance = input<ThyInputSearchAppearance>();
+    readonly thyVariant = input<ThyInputSearchVariant>();
 
     /**
-     * 搜索框风格（已废弃），请使用 thyAppearance
-     * @deprecated please use thyAppearance
+     * 搜索框风格（已废弃），请使用 thyVariant；`transparent` 已废弃，请使用 thyAppearance="ghost"
+     * @deprecated please use thyVariant; transparent is deprecated, use thyAppearance="ghost"
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
-    readonly thyTheme = input<ThyInputSearchAppearance>();
+    readonly thyTheme = input<ThyInputSearchTheme>();
 
-    readonly appearance = computed(() => this.thyAppearance() || this.thyTheme() || 'default');
+    readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
 
     /**
      * 是否自动聚焦

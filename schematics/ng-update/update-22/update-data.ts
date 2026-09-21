@@ -30,7 +30,7 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'ThyCompatibleDate'
                     },
                     { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
-                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' },
+                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchVariant' },
                     { replace: 'thyColor', replaceWith: 'ThyTimelineColor' },
                     { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' },
                     { replace: 'ThyStatisticColorType', replaceWith: 'ThyStatisticColor' },
@@ -103,7 +103,7 @@ export const upgradeData: UpgradeData = {
                     },
                     {
                         replace: 'thyTheme',
-                        replaceWith: 'thyAppearance',
+                        replaceWith: 'thyVariant',
                         limitedTo: {
                             elements: ['thy-input-search']
                         }
