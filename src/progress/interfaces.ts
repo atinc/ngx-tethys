@@ -2,13 +2,21 @@ import { TemplateRef } from '@angular/core';
 
 import { SafeAny } from 'ngx-tethys/types';
 
-export type ThyProgressType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export type ThyProgressColor = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
-export type ThyProgressShapeType = 'strip' | 'circle';
+/** @deprecated use ThyProgressColor */
+export type ThyProgressType = ThyProgressColor;
+
+export type ThyProgressShape = 'strip' | 'circle';
+
+/** @deprecated use ThyProgressShape */
+export type ThyProgressShapeType = ThyProgressShape;
+
 export interface ThyProgressStackedValue {
     value: number;
-    type?: ThyProgressType;
-    color?: string;
+    color?: ThyProgressColor | string;
+    /** @deprecated use color */
+    type?: ThyProgressColor;
     label?: string;
     tips?: string | TemplateRef<unknown>;
 }
@@ -22,4 +30,7 @@ export interface ThyProgressCirclePath {
     strokePathStyle: ThyProgressPathStyle;
 }
 
-export type ThyProgressGapPositionType = 'top' | 'bottom' | 'left' | 'right';
+export type ThyProgressGapPosition = 'top' | 'bottom' | 'left' | 'right';
+
+/** @deprecated use ThyProgressGapPosition */
+export type ThyProgressGapPositionType = ThyProgressGapPosition;
