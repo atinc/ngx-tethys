@@ -8,6 +8,9 @@ import { NgModule } from '@angular/core';
 import { ThyPropertyOperationGroup } from './group/property-operation-group.component';
 import { ThyPropertyOperation } from './property-operation.component';
 
+/**
+ * @deprecated ThyPropertyOperationModule will be removed in v23
+ */
 @NgModule({
     imports: [CommonModule, ThyButtonModule, ThyIconModule, ThyFlexibleTextModule, ThyPropertyOperation, ThyPropertyOperationGroup],
     exports: [ThyPropertyOperation, ThyPropertyOperationGroup]
