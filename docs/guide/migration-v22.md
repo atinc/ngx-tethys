@@ -720,6 +720,14 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 45. thy-strength
+
+**标记为废弃**
+
+- `thy-strength` / `ThyStrengthModule` 已废弃，将在 v23 彻底删除
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**
