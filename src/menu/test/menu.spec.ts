@@ -14,7 +14,8 @@ import {
     ThyMenuItemIcon,
     ThyMenuItemName,
     ThyMenuModule,
-    ThyMenuTheme
+    ThyMenuTheme,
+    ThyMenuVariant
 } from 'ngx-tethys/menu';
 import { ThyPopover, ThyPopoverModule } from 'ngx-tethys/popover';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
@@ -106,6 +107,17 @@ class ThyMenuTestBasicComponent {
     collapsed = false;
 }
 
+@Component({
+    selector: 'thy-menu-test-variant-theme',
+    template: ` <thy-menu [thyVariant]="variant" [thyTheme]="theme"></thy-menu> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyMenuModule]
+})
+class ThyMenuVariantThemeComponent {
+    variant: ThyMenuVariant = 'compact';
+    theme: ThyMenuTheme = 'light';
+}
+
 describe('ThyMenu', () => {
     let fixture!: ComponentFixture<ThyDemoMenuComponent>;
     let component!: ThyDemoMenuComponent;
@@ -143,13 +155,6 @@ describe('ThyMenu', () => {
             expect(menuElement.classList.contains('thy-menu')).toBeTruthy();
         });
 
-        it('should set theme loose', () => {
-            fixture.debugElement.componentInstance.theme = 'loose';
-            fixture.detectChanges();
-            const menu = fixture.debugElement.query(By.directive(ThyMenu));
-            expect(menu.nativeElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
-        });
-
         it('should set theme dark', () => {
             fixture.debugElement.componentInstance.theme = 'dark';
             fixture.detectChanges();
@@ -180,6 +185,49 @@ describe('ThyMenu', () => {
             expect(iconItemElement.children[0].classList.contains('thy-icon'));
             expect(iconItemElement.children[0].classList.contains('thy-menu-item-icon'));
             expect(iconItemElement.children[0].classList.contains('thy-icon-calendar'));
+        });
+    });
+
+    describe('thy-menu variant and theme', () => {
+        let fixture!: ComponentFixture<ThyMenuVariantThemeComponent>;
+        let menuElement!: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyMenuVariantThemeComponent);
+            fixture.detectChanges();
+            menuElement = fixture.debugElement.query(By.directive(ThyMenu)).nativeElement;
+        });
+
+        it('should use compact and light by default', () => {
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeFalsy();
+            expect(menuElement.classList.contains('thy-menu-theme-dark')).toBeFalsy();
+        });
+
+        it('should set variant loose via thyVariant', () => {
+            fixture.componentInstance.variant = 'loose';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
+        });
+
+        it('should set theme dark via thyTheme', () => {
+            fixture.componentInstance.theme = 'dark';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-dark')).toBeTruthy();
+        });
+
+        it('should support loose variant and dark theme together', () => {
+            fixture.componentInstance.variant = 'loose';
+            fixture.componentInstance.theme = 'dark';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
+            expect(menuElement.classList.contains('thy-menu-theme-dark')).toBeTruthy();
+        });
+
+        it('should prefer thyVariant over legacy thyTheme compact or loose', () => {
+            fixture.componentInstance.variant = 'compact';
+            fixture.componentInstance.theme = 'loose';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeFalsy();
         });
     });
 

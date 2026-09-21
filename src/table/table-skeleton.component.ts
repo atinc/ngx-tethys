@@ -93,8 +93,8 @@ export class ThyTableSkeleton implements AfterViewInit {
     @Input() thyAppearance?: ThyTableAppearance;
 
     /**
-     * 骨架屏的风格（已废弃），请使用 thyAppearance
-     * @deprecated please use thyAppearance
+     * 骨架屏的风格（已废弃，将在 v23 彻底删除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
      * @type default | bordered | boxed
      */
     @Input() thyTheme: ThyTableTheme = 'default';

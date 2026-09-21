@@ -20,7 +20,7 @@ import { ThyAction } from 'ngx-tethys/action';
 
 export type ThyArrowSwitcherVariant = 'default' | 'lite';
 
-/** @deprecated use ThyArrowSwitcherVariant */
+/** @deprecated use ThyArrowSwitcherVariant, will be removed in v23 */
 export type ThyArrowSwitcherTheme = ThyArrowSwitcherVariant;
 export interface ThyArrowSwitcherEvent {
     index: number;
@@ -81,8 +81,8 @@ export class ThyArrowSwitcher implements ControlValueAccessor {
     readonly thyVariant = input<ThyArrowSwitcherVariant>();
 
     /**
-     * 展示主题（已废弃），请使用 thyVariant
-     * @deprecated please use thyVariant
+     * 展示主题（已废弃，将在 v23 彻底删除），请使用 thyVariant
+     * @deprecated please use thyVariant, will be removed in v23
      * @type default | lite
      * @default default
      */

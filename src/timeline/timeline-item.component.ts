@@ -5,7 +5,7 @@ import { NgTemplateOutlet } from '@angular/common';
 
 export type ThyTimelineColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
-/** @deprecated use ThyTimelineColor */
+/** @deprecated use ThyTimelineColor, will be removed in v23 */
 export type thyColor = ThyTimelineColor;
 
 /**

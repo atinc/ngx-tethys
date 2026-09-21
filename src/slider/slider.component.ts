@@ -34,7 +34,7 @@ const SLIDER_PRESET_COLORS = ['primary', 'success', 'info', 'warning', 'danger']
 
 export type ThySliderColor = (typeof SLIDER_PRESET_COLORS)[number];
 
-/** @deprecated use ThySliderColor */
+/** @deprecated use ThySliderColor, will be removed in v23 */
 export type ThySliderType = ThySliderColor;
 
 export type ThySliderSize = 'sm' | 'md' | 'lg';
@@ -128,8 +128,8 @@ export class ThySlider
     readonly thyColor = input<ThySliderColor | string>();
 
     /**
-     * 切换主题类型（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
+     * 切换主题类型（已废弃，将在 v23 彻底删除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
      * @type primary | success | info | warning | danger
      * @default success
      */
