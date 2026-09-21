@@ -3,7 +3,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyMenuVariant = 'compact' | 'loose';
 
-/** @deprecated 注意：ThyMenuTheme 后续只支持 'light' | 'dark'。'compact' | 'loose' 将废弃，请使用 ThyMenuVariant */
+/** @deprecated 注意：ThyMenuTheme 后续只支持传 'light' | 'dark'。 如果要传 'compact' | 'loose'，请使用 thyVariant: ThyMenuVariant */
 export type ThyMenuTheme = 'compact' | 'loose' | 'light' | 'dark';
 
 /**
@@ -28,9 +28,7 @@ export class ThyMenu implements OnInit {
      * @type compact | loose
      * @default compact
      */
-    readonly thyVariant = input<ThyMenuVariant, ThyMenuVariant>('compact', {
-        transform: (value: ThyMenuVariant) => value || 'compact'
-    });
+    readonly thyVariant = input<ThyMenuVariant>();
 
     /**
      * 菜单主题
@@ -38,13 +36,8 @@ export class ThyMenu implements OnInit {
      * @default light
      * @deprecated 注意：thyTheme 后续只支持传 'light' | 'dark'。'compact' | 'loose' 将废弃，请使用 ThyMenuVariant
      */
-    readonly thyTheme = input<ThyMenuTheme, ThyMenuTheme>('light', {
-        transform: (value: ThyMenuTheme) => {
-            if (value === 'compact' || value === 'loose') {
-                return 'light';
-            }
-            return value || 'light';
-        }
+    readonly thyTheme = input<ThyMenuTheme, ThyMenuTheme>('compact', {
+        transform: (value: ThyMenuTheme) => value || 'compact'
     });
 
     /**
@@ -66,7 +59,7 @@ export class ThyMenu implements OnInit {
         return 'compact';
     });
 
-    protected theme = computed(() => {
+    protected theme = computed<ThyMenuTheme>(() => {
         // 兼容旧参数值
         const legacyTheme = this.thyTheme();
         if (legacyTheme === 'dark' || legacyTheme === 'light') {
