@@ -1,4 +1,4 @@
 ---
-title: Type
+title: Color
 order: 3
 ---

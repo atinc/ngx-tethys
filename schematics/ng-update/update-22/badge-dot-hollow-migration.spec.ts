@@ -19,7 +19,7 @@ describe('ng-update v22 badge dot hollow migration', () => {
             templatePath,
             `
                 <thy-badge thyIsDot="true" thySize="sm"></thy-badge>
-                <thy-badge thyIsDot thyType="primary"></thy-badge>
+                <thy-badge thyIsDot thyColor="primary"></thy-badge>
                 <thy-badge [thyIsDot]="true"></thy-badge>
                 <thy-badge [thyIsDot]="isDot"></thy-badge>
             `
@@ -30,7 +30,7 @@ describe('ng-update v22 badge dot hollow migration', () => {
 
         expect(content).not.toContain('thyIsDot');
         expect(content).toContain('<thy-badge thySize="sm"></thy-badge>');
-        expect(content).toContain('<thy-badge thyType="primary"></thy-badge>');
+        expect(content).toContain('<thy-badge thyColor="primary"></thy-badge>');
         expect(content).toContain('<thy-badge></thy-badge>');
     });
 
@@ -40,7 +40,7 @@ describe('ng-update v22 badge dot hollow migration', () => {
             templatePath,
             `
                 <thy-badge thyIsHollow="true" thySize="sm"></thy-badge>
-                <thy-badge thyIsHollow thyType="primary"></thy-badge>
+                <thy-badge thyIsHollow thyColor="primary"></thy-badge>
                 <thy-badge [thyIsHollow]="true"></thy-badge>
                 <thy-badge [thyIsHollow]="isHollow"></thy-badge>
             `
@@ -51,7 +51,7 @@ describe('ng-update v22 badge dot hollow migration', () => {
 
         expect(content).not.toContain('thyIsHollow');
         expect(content).toContain('<thy-badge thySize="sm"></thy-badge>');
-        expect(content).toContain('<thy-badge thyType="primary"></thy-badge>');
+        expect(content).toContain('<thy-badge thyColor="primary"></thy-badge>');
         expect(content).toContain('<thy-badge></thy-badge>');
     });
 

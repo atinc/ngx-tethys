@@ -6,6 +6,8 @@ import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
 
 export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 
+export type ThyBadgeColor = 'default' | 'primary' | 'danger' | 'warning' | 'success';
+
 /**
  * 徽标组件，支持组件`thy-badge`和`thyBadge`指令两种使用方式
  * @name thy-badge,[thyBadge]
@@ -34,7 +36,7 @@ export class ThyBadge implements OnInit {
 
     readonly badgeClassName: Signal<string> = computed(() => {
         const classes: string[] = [];
-        classes.push(`thy-badge-${this.thyType()}`);
+        classes.push(`thy-badge-${this.color()}`);
         if (this.thySize()) {
             classes.push(`thy-badge-${this.thySize()}`);
         }
@@ -74,12 +76,21 @@ export class ThyBadge implements OnInit {
     }
 
     /**
-     * 徽标类型
+     * 徽标颜色
      * @type default | primary | danger | warning | success
+     * @default danger
      */
-    readonly thyType = input<string, string>('danger', {
-        transform: (value: string) => value || 'danger'
-    });
+    readonly thyColor = input<ThyBadgeColor>();
+
+    /**
+     * 徽标类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     * @type default | primary | danger | warning | success
+     * @default danger
+     */
+    readonly thyType = input<ThyBadgeColor>('danger');
+
+    readonly color = computed(() => this.thyColor() || this.thyType() || 'danger');
 
     /**
      * 徽标内容数字

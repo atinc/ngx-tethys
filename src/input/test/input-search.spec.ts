@@ -15,6 +15,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
             name="search"
             thyPlaceholder="Please type"
             [disabled]="disabled"
+            [thyAppearance]="thyAppearance"
             [thyTheme]="thyTheme"
             [thySearchFocus]="searchFocus"
             [(ngModel)]="searchText"
@@ -32,6 +33,7 @@ class TestInputSearchBasicComponent {
     searchFocus = true;
     searchText = '';
     thySize: ThyFormControlSize | undefined = 'sm';
+    thyAppearance = ``;
     thyTheme = ``;
     disabled = false;
     iconPosition!: ThyInputSearchIconPosition;
@@ -107,7 +109,24 @@ describe('input search', () => {
         expect(modelChangeSpy).toHaveBeenCalled();
     }));
 
-    it('should set theme', () => {
+    it('should set appearance', () => {
+        basicTestComponent.thyTheme = '';
+        basicTestComponent.thyAppearance = 'default';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
+
+        basicTestComponent.thyAppearance = 'ellipse';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
+
+        basicTestComponent.thyAppearance = 'transparent';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(true);
+        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
+    });
+
+    it('should set deprecated thyTheme', () => {
+        basicTestComponent.thyAppearance = '';
         basicTestComponent.thyTheme = 'default';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);

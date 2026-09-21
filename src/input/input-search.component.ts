@@ -20,6 +20,7 @@ import {
     ViewEncapsulation,
     inject,
     input,
+    computed,
     effect,
     signal,
     output,
@@ -34,7 +35,10 @@ import { ThyInputDirective } from './input.directive';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
+export type ThyInputSearchAppearance = 'default' | 'ellipse' | 'transparent' | '';
+
+/** @deprecated use ThyInputSearchAppearance */
+export type ThyInputSearchTheme = ThyInputSearchAppearance;
 export type ThyInputSearchIconPosition = 'before' | 'after';
 
 export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
@@ -62,8 +66,8 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control thy-input-search',
-        '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
-        '[class.thy-input-search-transparent]': 'thyTheme() === "transparent"',
+        '[class.thy-input-search-ellipse]': 'appearance() === "ellipse"',
+        '[class.thy-input-search-transparent]': 'appearance() === "transparent"',
         '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before"',
         '[class.form-control-active]': 'focused()',
         '[attr.tabindex]': 'tabIndex'
@@ -96,11 +100,21 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thyPlaceholder = input('');
 
     /**
-     * 搜索框风格
+     * 搜索框外观
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
-    readonly thyTheme = input<ThyInputSearchTheme>();
+    readonly thyAppearance = input<ThyInputSearchAppearance>();
+
+    /**
+     * 搜索框风格（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
+     * @type 'default' | 'ellipse' | 'transparent'
+     * @default default
+     */
+    readonly thyTheme = input<ThyInputSearchAppearance>();
+
+    readonly appearance = computed(() => this.thyAppearance() || this.thyTheme() || 'default');
 
     /**
      * 是否自动聚焦

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableSkeleton, ThyTableSkeletonColumn, ThyTableTheme } from 'ngx-tethys/table';
+import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableSkeleton, ThyTableSkeletonColumn, ThyTableAppearance } from 'ngx-tethys/table';
 import { ThyRadioGroup, ThyRadio } from 'ngx-tethys/radio';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ export class ThyTableSkeletonExampleComponent {
         { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
     ];
 
-    theme: ThyTableTheme = 'default';
+    appearance: ThyTableAppearance = 'default';
 
     sizes: { value: ThyTableSize; height: number }[] = [
         {

@@ -211,13 +211,32 @@ describe('ThyTestSliderComponent', () => {
             expect(classList).not.toContain(`thy-slider-${type}`);
         });
 
+        it('slider should be warning color when thyColor is warning', () => {
+            fixtureInstance.color = 'warning';
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).toContain('thy-slider-warning');
+        });
+
+        it('slider should prefer thyColor over deprecated thyType', () => {
+            fixtureInstance.type = 'warning';
+            fixtureInstance.color = 'info';
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).toContain('thy-slider-info');
+            expect(classList).not.toContain('thy-slider-warning');
+        });
+
         it('slider track should show custom color when thyColor is custom color', () => {
             const customColor = 'red';
             fixtureInstance.color = customColor;
             fixture.detectChanges();
-            const color = debugElement.query(By.css('.thy-slider-track')).nativeElement.style.backgroundColor;
+            const trackElement = debugElement.query(By.css('.thy-slider-track')).nativeElement;
+            const pointerElement = debugElement.query(By.css('.thy-slider-pointer')).nativeElement;
 
-            expect(color).toEqual(customColor);
+            expect(trackElement.style.backgroundColor).toEqual(customColor);
+            expect(pointerElement.style.borderColor).toEqual(customColor);
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement.classList).not.toContain('thy-slider-success');
         });
 
         it('slider should be setting size when thySize', () => {

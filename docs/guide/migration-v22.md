@@ -379,10 +379,18 @@ ng generate ngx-tethys:migrate-22
 - 移除 `thyDeeper`，改用 `thyColor="light"` 表示较深分割线
 - `thyColor="deeper"` 不再有效（`$divider-colors` 中已移除 `deeper`），请统一改用 `thyColor="light"`
 
+**标记为废弃**
+
+- `thyStyle` 和 `ThyDividerStyle` 已废弃，请使用 `thyAppearance` 和 `ThyDividerAppearance`
+- `ThyDividerColor` 支持传 `'light' | 'lighter' | 'danger' | 'primary' | 'success' | 'warning'`，去掉了 string 类型（因为组件库原本就没支持任意颜色值字符串）。原来传了 `'default'` 的请使用等价的 `'lighter'` 值。
+
 **自动迁移**
 
 - `thyDeeper` 迁移为 `thyColor="light"`；已有 `thyColor` 时仅移除 `thyDeeper`
 - CSS 类名 `thy-divider-deeper` 替换为 `thy-divider-light`
+- `thyColor="default"` / `[thyColor]="'default'"` → `thyColor="lighter"` / `[thyColor]="'lighter'"`
+- `thyStyle` → `thyAppearance`
+- TypeScript 中 `ThyDividerStyle` → `ThyDividerAppearance`
 
 ---
 
@@ -457,10 +465,26 @@ ng generate ngx-tethys:migrate-22
 **破坏性更改**
 
 - 类型 `ThyStackedValue` 重命名为 `ThyProgressStackedValue`
+- 内部私有组件 `thy-progress-bar`、`thy-progress-circle` 的 `thyType` 改成了 `thyColor`
+
+**标记为废弃**
+
+- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`
+- `ThyProgressShapeType` 已废弃，请使用 `ThyProgressShape`
+- `ThyProgressGapPositionType` 已废弃，请使用 `ThyProgressGapPosition`
+- `ThyProgressStackedValue.type` 已废弃，请使用 `ThyProgressStackedValue.color`
 
 **自动迁移**
 
 - `ThyStackedValue` → `ThyProgressStackedValue`
+- `thyType` → `thyColor`
+- TypeScript 中 `ThyProgressType` → `ThyProgressColor`
+- TypeScript 中 `ThyProgressShapeType` → `ThyProgressShape`
+- TypeScript 中 `ThyProgressGapPositionType` → `ThyProgressGapPosition`
+
+**手动检查**
+
+- stacked 数据中的 `type` 需手动改为 `color`
 
 ---
 
@@ -551,6 +575,175 @@ ng generate ngx-tethys:migrate-22
 **手动检查**
 
 - 动态绑定 `[thyTheme]="theme"` 且变量可能为 `compact | loose | dark` 时，需手动拆分为 `thyVariant` 与 `thyTheme`
+
+---
+
+### 33. thy-slider
+
+**标记为废弃**
+
+- `thyType` 和 `ThySliderType` 已废弃，请使用 `thyColor` 和 `ThySliderColor`。`thyColor` 支持传 `primary | success | info | warning | danger`，也支持任意合法 CSS 颜色值，比如 `#ccc`。
+
+**自动迁移**
+
+- `thyType` → `thyColor`（仅 `thy-slider`）
+- TypeScript 中 `ThySliderType` → `ThySliderColor`
+
+| 旧写法 | 新写法 |
+|--------|--------|
+| `thyType="warning"` | `thyColor="warning"` |
+| `[thyType]="typeValue"` | `[thyColor]="typeValue"` |
+| `thyColor="#ccc"` | 不变 |
+
+---
+
+### 34. thy-switch
+
+**标记为废弃**
+- `thyType` 已废弃，请使用 `thyColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`
+
+---
+
+### 35. thy-badge（`thyBadge` 指令）
+
+**标记为废弃**
+- `thyType` 已废弃，请使用 `thyColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（`thy-badge` 与 `thyBadge`）
+
+---
+
+### 36. thy-input-search
+
+**标记为废弃**
+
+- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyAppearance` 和 `ThyInputSearchAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`（仅 `thy-input-search`）
+- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchAppearance`
+
+---
+
+### 37. thyDropdownMenuItem
+
+**标记为废弃**
+
+- `thyType` 和 `ThyDropdownMenuItemType` 已废弃，请使用 `thyColor` 和 `ThyDropdownMenuItemColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（仅 `thyDropdownMenuItem`）
+- TypeScript 中 `ThyDropdownMenuItemType` → `ThyDropdownMenuItemColor`
+
+---
+
+### 38. thy-timeline / thy-timeline-item
+
+**破坏性更改**
+
+- 移除 `ThyTimeModes` 枚举，请直接使用 `'left' | 'right' | 'center'` 字符串
+
+**标记为废弃**
+
+- `thyColor` 类型已废弃，请使用 `ThyTimelineColor`（`thy-timeline-item` 的 `thyColor` 入参不变）
+- `ThyTimeMode` 已废弃，请使用 `ThyTimelineMode`
+
+**自动迁移**
+
+- TypeScript 中 `thyColor` → `ThyTimelineColor`
+- TypeScript 中 `ThyTimeMode` → `ThyTimelineMode`
+
+---
+
+### 39. thy-statistic
+
+**标记为废弃**
+
+- `thyShape` 和 `ThyStatisticShape` 已废弃，请使用 `thyAppearance` 和 `ThyStatisticAppearance`
+- `ThyStatisticColorType` 已废弃，请使用 `ThyStatisticColor`
+- `ThyStatisticSizes` 已废弃，请使用 `ThyStatisticSize`
+
+**自动迁移**
+
+- `thyShape` → `thyAppearance`
+- TypeScript 中 `ThyStatisticShape` → `ThyStatisticAppearance`
+- TypeScript 中 `ThyStatisticColorType` → `ThyStatisticColor`
+- TypeScript 中 `ThyStatisticSizes` → `ThyStatisticSize`
+
+---
+
+### 40. thy-arrow-switcher
+
+**标记为废弃**
+
+- `thyTheme` 已废弃，请使用 `thyVariant`
+- `ThyArrowSwitcherTheme` 已废弃，请使用 `ThyArrowSwitcherVariant`
+
+**自动迁移**
+
+- `thyTheme` → `thyVariant`
+- TypeScript 中 `ThyArrowSwitcherTheme` → `ThyArrowSwitcherVariant`
+
+---
+
+### 41. thy-action（`thyAction` 指令）
+
+**标记为废弃**
+
+- `thyType` 和 `ThyActionType` 已废弃，请使用 `thyColor` 和 `ThyActionColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（`thy-action` 与 `thyAction`）
+- TypeScript 中 `ThyActionType` → `ThyActionColor`
+
+---
+
+### 42. thy-icon-nav
+
+**标记为废弃**
+
+- `thy-icon-nav` 及 `thyIconNavLink` 已废弃，将在 v23 彻底删除，请使用 `thy-action`
+
+---
+
+### 43. thy-property-operation
+
+**标记为废弃**
+
+- `thy-property-operation` / `thy-property-operation-group` / `ThyPropertyOperationModule` 已废弃，将在 v23 彻底删除
+
+---
+
+### 44. thy-table / thy-native-table / thy-table-skeleton
+
+**标记为废弃**
+
+- `thyTheme` 已废弃，请使用 `thyAppearance`
+- `ThyNativeTableTheme` 已废弃，请使用 `ThyNativeTableAppearance`（仅 `thy-native-table`）
+- `ThyTableTheme` 已废弃，请使用 `ThyTableAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`（`thy-table`、`thy-native-table` 与 `thy-table-skeleton`）
+- TypeScript 中 `ThyNativeTableTheme` → `ThyNativeTableAppearance`
+- TypeScript 中 `ThyTableTheme` → `ThyTableAppearance`
+
+---
+
+### 45. thy-strength
+
+**标记为废弃**
+
+- `thy-strength` / `ThyStrengthModule` 已废弃，将在 v23 彻底删除
 
 ---
 

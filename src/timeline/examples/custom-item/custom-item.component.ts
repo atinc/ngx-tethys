@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ThyTimeline, ThyTimelineItem, ThyTimeMode } from 'ngx-tethys/timeline';
+import { ThyTimeline, ThyTimelineItem, ThyTimelineMode } from 'ngx-tethys/timeline';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -11,7 +11,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
     imports: [ThyTimeline, ThyTimelineItem, ThyAvatar, ThyButton, ThyIcon]
 })
 export class ThyTimelineCustomItemExampleComponent {
-    public mode: ThyTimeMode = 'left';
+    public mode: ThyTimelineMode = 'left';
 
     constructor() {}
 }

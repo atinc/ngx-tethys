@@ -15,6 +15,12 @@ export const upgradeData: UpgradeData = {
                     },
                     { replace: 'ThyNavType', replaceWith: 'ThyNavVariant' },
                     { replace: 'ThyTabsType', replaceWith: 'ThyTabsVariant' },
+                    { replace: 'ThySliderType', replaceWith: 'ThySliderColor' },
+                    { replace: 'ThyDropdownMenuItemType', replaceWith: 'ThyDropdownMenuItemColor' },
+                    { replace: 'ThyActionType', replaceWith: 'ThyActionColor' },
+                    { replace: 'ThyProgressType', replaceWith: 'ThyProgressColor' },
+                    { replace: 'ThyProgressShapeType', replaceWith: 'ThyProgressShape' },
+                    { replace: 'ThyProgressGapPositionType', replaceWith: 'ThyProgressGapPosition' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
@@ -22,7 +28,17 @@ export const upgradeData: UpgradeData = {
                     {
                         replace: 'CompatibleDate',
                         replaceWith: 'ThyCompatibleDate'
-                    }
+                    },
+                    { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
+                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' },
+                    { replace: 'thyColor', replaceWith: 'ThyTimelineColor' },
+                    { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' },
+                    { replace: 'ThyStatisticColorType', replaceWith: 'ThyStatisticColor' },
+                    { replace: 'ThyStatisticSizes', replaceWith: 'ThyStatisticSize' },
+                    { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' },
+                    { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' },
+                    { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
+                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' }
                 ]
             }
         ]
@@ -86,6 +102,27 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-input-search']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-arrow-switcher']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-native-table', 'thy-table-skeleton', 'thy-table']
+                        }
+                    },
+                    {
                         replace: 'thyType',
                         replaceWith: 'thyColor',
                         limitedTo: {
@@ -97,6 +134,56 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyColor',
                         limitedTo: {
                             elements: ['thy-button']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-slider']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-switch']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-badge']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            attributes: ['thyBadge']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            attributes: ['thyDropdownMenuItem']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            attributes: ['thyAction'],
+                            elements: ['thy-action']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-progress']
                         }
                     },
                     {
@@ -178,6 +265,20 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAutocomplete',
                         limitedTo: {
                             attributes: ['thyAutocompleteTrigger', 'thyAutocomplete']
+                        }
+                    },
+                    {
+                        replace: 'thyStyle',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-divider']
+                        }
+                    },
+                    {
+                        replace: 'thyShape',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-statistic']
                         }
                     }
                 ]

@@ -16,7 +16,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-const supportedTypes: string[] = ['primary', 'info', 'warning', 'danger'];
+export type ThySwitchColor = 'primary' | 'info' | 'warning' | 'danger';
+
+const supportedColors: ThySwitchColor[] = ['primary', 'info', 'warning', 'danger'];
 
 const supportedSizes: string[] = ['', 'sm', 'xs'];
 
@@ -34,9 +36,19 @@ const supportedSizes: string[] = ['', 'sm', 'xs'];
 })
 export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     /**
-     * 类型，目前分为: 'primary' |'info' | 'warning' | 'danger'
+     * 颜色
+     * @type primary | info | warning | danger
+     * @default primary
      */
-    readonly thyType = input<string>('primary');
+    readonly thyColor = input<ThySwitchColor>();
+
+    /**
+     * 类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     * @type primary | info | warning | danger
+     * @default primary
+     */
+    readonly thyType = input<ThySwitchColor>('primary');
 
     /**
      * 大小
@@ -69,12 +81,12 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
         return this.disabled() as boolean;
     }
 
-    readonly type = computed(() => {
-        if (!supportedTypes.includes(this.thyType())) {
+    readonly color = computed(() => {
+        const value = this.thyColor() || this.thyType() || 'primary';
+        if (!supportedColors.includes(value)) {
             return 'primary';
-        } else {
-            return this.thyType();
         }
+        return value;
     });
 
     readonly size = computed(() => {
@@ -86,7 +98,7 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
     });
 
     readonly classNames = computed(() => {
-        const classList = [`thy-switch-${this.type()}`];
+        const classList = [`thy-switch-${this.color()}`];
         if (this.size()) {
             classList.push(`thy-switch-${this.size()}`);
         }

@@ -24,7 +24,8 @@ import { SafeAny } from 'ngx-tethys/types';
             thyGroupBy="group_id"
             [thyMode]="mode"
             [thyGroups]="groups"
-            [thyTheme]="theme"
+            [thyAppearance]="theme"
+            [thyTheme]="deprecatedTheme"
             [thySize]="size"
             [thyMinWidth]="tableMinWidth"
             [thyLayoutFixed]="tableLayoutFixed"
@@ -161,6 +162,7 @@ class ThyDemoDefaultTableComponent {
     columnHeaderClassName = 'header-class-name';
     selections: any[] = [];
     theme = 'default';
+    deprecatedTheme = '';
     isLoadingDone = true;
     size = 'sm';
     showTotal = false;
@@ -328,20 +330,28 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-draggable')).toBe(true);
     });
 
-    it('should have correct class when thyTheme is bordered', () => {
+    it('should have correct class when thyAppearance is bordered', () => {
         testComponent.theme = 'bordered';
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
-    it('should have correct class when thyTheme is boxed', () => {
+    it('should have correct class when thyAppearance is boxed', () => {
         testComponent.theme = 'boxed';
         fixture.detectChanges();
         expect(tableComponent.nativeElement.classList.contains('thy-table')).toBe(true);
         expect(tableComponent.nativeElement.classList.contains('thy-table-boxed')).toBe(true);
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-boxed')).toBe(true);
+    });
+
+    it('should have correct class when deprecated thyTheme is bordered', () => {
+        testComponent.theme = '';
+        testComponent.deprecatedTheme = 'bordered';
+        fixture.detectChanges();
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
     it('should have correct class when thySize is md', () => {
@@ -977,7 +987,8 @@ describe('ThyTable: group', () => {
             thyGroupBy="group_id"
             [thyMode]="mode"
             [thyGroups]="groups"
-            [thyTheme]="theme"
+            [thyAppearance]="theme"
+            [thyTheme]="deprecatedTheme"
             [thySize]="size"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
@@ -1037,6 +1048,7 @@ class ThyDemoEmptyTableComponent {
     tableRowClassName = 'row-class-name';
     selections: SafeAny[] = [];
     theme = 'default';
+    deprecatedTheme = '';
     isLoadingDone = true;
     size = 'sm';
     showTotal = false;

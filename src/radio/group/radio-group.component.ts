@@ -8,6 +8,7 @@ import { IThyRadioGroupComponent, THY_RADIO_GROUP_COMPONENT } from '../radio.tok
 
 const buttonGroupSizeMap: Record<string, string> = {
     sm: 'btn-group-sm',
+    md: 'btn-group-md',
     lg: 'btn-group-lg'
 };
 

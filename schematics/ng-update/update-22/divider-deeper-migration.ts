@@ -22,13 +22,22 @@ function collectDividerDeeperEdits(content: string): RelativeTemplateEdit[] {
     return collectPatternReplacementEdits(content, THY_DIVIDER_TAG_PATTERN, migrateDividerTag);
 }
 
+function migrateDividerColorDefault(tag: string): string {
+    return tag
+        .replace(/\bthyColor="default"/g, 'thyColor="lighter"')
+        .replace(/\[thyColor\]="'default'"/g, `[thyColor]="'lighter'"`)
+        .replace(/\[thyColor\]=""default""/g, `[thyColor]="'lighter'"`);
+}
+
 function migrateDividerTag(tag: string): string {
-    if (!/\bthyDeeper\b/.test(tag)) {
-        return tag;
+    let result = migrateDividerColorDefault(tag);
+
+    if (!/\bthyDeeper\b/.test(result)) {
+        return result;
     }
 
-    const hasThyColor = /\b(?:\[thyColor\]|thyColor)\b/.test(tag);
-    let result = tag.replace(/\s*thyDeeper="false"/g, '').replace(/\s*\[thyDeeper\]="false"/g, '');
+    const hasThyColor = /\b(?:\[thyColor\]|thyColor)\b/.test(result);
+    result = result.replace(/\s*thyDeeper="false"/g, '').replace(/\s*\[thyDeeper\]="false"/g, '');
 
     if (hasThyColor) {
         return result
@@ -42,7 +51,7 @@ function migrateDividerTag(tag: string): string {
         .replace(/\s*thyDeeper(?=[\s/>])/g, ' thyColor="light"')
         .replace(/\s*\[thyDeeper\]="true"/g, ' thyColor="light"')
         .replace(/\s*\[thyDeeper\]="'true'"/g, ` thyColor="light"`)
-        .replace(/\s*\[thyDeeper\]="([^"]+)"/g, ` [thyColor]="$1 ? 'light' : 'default'"`);
+        .replace(/\s*\[thyDeeper\]="([^"]+)"/g, ` [thyColor]="$1 ? 'light' : 'lighter'"`);
 }
 
 export class DividerDeeperMigration extends Migration<UpgradeData> {
