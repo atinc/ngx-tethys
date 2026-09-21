@@ -2,9 +2,9 @@ import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core'
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInput, ThyInputAppearance, ThyInputDirective } from 'ngx-tethys/input';
+import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
 import { provideHttpClient, withXhr } from '@angular/common/http';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 
 @Component({
     selector: 'test-bed',
@@ -35,7 +35,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 })
 class TestBedComponent {
     thySize: ThyFormControlSize | undefined = 'md';
-    thyAppearance: ThyInputAppearance | undefined = 'outline';
+    thyAppearance: ThyFormControlAppearance | undefined = 'outline';
     thyType: string | null | undefined = 'text';
     readonly = false;
     passwordValue = '12345';

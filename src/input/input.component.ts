@@ -16,8 +16,8 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputAppearance, ThyInputDirective } from './input.directive';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyInputDirective } from './input.directive';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -72,7 +72,7 @@ export class ThyInput implements ControlValueAccessor {
      * @type outline | subtle | ghost
      * @default outline
      */
-    readonly thyAppearance = input<ThyInputAppearance, ThyInputAppearance | null | undefined>('outline', {
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
         transform: value => value ?? 'outline'
     });
 

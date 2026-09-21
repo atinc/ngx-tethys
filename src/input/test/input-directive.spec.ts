@@ -1,8 +1,8 @@
-import { ThyInputDirective, ThyInputAppearance } from 'ngx-tethys/input';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 
 @Component({
     selector: 'test-bed-input-directive',
@@ -12,7 +12,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 })
 class TestBedInputDirectiveComponent {
     thySize: ThyFormControlSize | undefined = 'md';
-    thyAppearance: ThyInputAppearance | undefined = 'outline';
+    thyAppearance: ThyFormControlAppearance | undefined = 'outline';
 }
 
 describe('input directive', () => {

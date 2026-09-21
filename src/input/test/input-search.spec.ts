@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, DebugElement, viewChild } from '@an
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyFormControlSize } from 'ngx-tethys/core';
-import { ThyInputAppearance, ThyInputDirective } from 'ngx-tethys/input';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchTheme, ThyInputSearchVariant } from '../input-search.component';
 
@@ -36,7 +36,7 @@ class TestInputSearchBasicComponent {
     thySize: ThyFormControlSize | undefined = 'sm';
     thyVariant: ThyInputSearchVariant | '' = '';
     thyTheme: ThyInputSearchTheme | '' = '';
-    thyAppearance!: ThyInputAppearance;
+    thyAppearance!: ThyFormControlAppearance;
     disabled = false;
     iconPosition!: ThyInputSearchIconPosition;
     onClear() {}

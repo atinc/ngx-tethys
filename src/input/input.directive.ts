@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, effect, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 
 const inputGroupSizeMap = {
     xs: ['form-control-xs'],
@@ -9,8 +9,6 @@ const inputGroupSizeMap = {
     md: ['form-control-md'],
     lg: ['form-control-lg']
 };
-
-export type ThyInputAppearance = 'outline' | 'subtle' | 'ghost';
 
 /**
  * 输入框指令
@@ -48,7 +46,7 @@ export class ThyInputDirective {
      * @type outline | subtle | ghost
      * @default outline
      */
-    readonly thyAppearance = input<ThyInputAppearance, ThyInputAppearance | null | undefined>('outline', {
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
         transform: value => value ?? 'outline'
     });
 

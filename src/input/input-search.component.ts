@@ -5,6 +5,7 @@ import {
     mixinInitialized,
     mixinTabIndex,
     ThyCanDisable,
+    ThyFormControlAppearance,
     ThyFormControlSize,
     ThyHasTabIndex,
     ThyInitialized,
@@ -30,7 +31,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { ThyInputAppearance, ThyInputDirective } from './input.directive';
+import { ThyInputDirective } from './input.directive';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -109,7 +110,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      * @type outline | subtle | ghost
      * @default outline
      */
-    readonly thyAppearance = input<ThyInputAppearance>();
+    readonly thyAppearance = input<ThyFormControlAppearance>();
 
     /**
      * 搜索框风格。`ellipse` 为圆角搜索框；`transparent` 已废弃，请使用 `thyAppearance="ghost"`
@@ -127,8 +128,8 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      */
     readonly thyTheme = input<ThyInputSearchTheme>();
 
-    protected readonly appearance = computed<ThyInputAppearance>(
-        () => this.thyAppearance() || (this.thyTheme() === 'transparent' ? 'ghost' : 'outline')
+    protected readonly appearance = computed<ThyFormControlAppearance>(
+        () => this.thyAppearance() || (this.variant() === 'transparent' ? 'ghost' : 'outline')
     );
     readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
 
