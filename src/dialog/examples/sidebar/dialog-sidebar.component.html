@@ -2,7 +2,7 @@
   <thy-sidebar thyTheme="light">
     <thy-sidebar-header thyTitle="每日必备"></thy-sidebar-header>
     <thy-sidebar-content>
-      <thy-menu thyTheme="loose" class="pt-0">
+      <thy-menu thyVariant="loose" class="pt-0">
         @for (config of configs; track config.type) {
           <a href="javascript:;" thyMenuItem [class.active]="currentConfig.type === config.type" (click)="configChange(config)">
             <span thyMenuItemName>{{ config.name }}</span>

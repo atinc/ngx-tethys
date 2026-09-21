@@ -331,6 +331,39 @@ export class ButtonDemoComponent {
         expect(content).not.toMatch(/<thy-button[^>]*thyType/);
     });
 
+    it('should migrate legacy thyTheme to thyVariant for thy-menu', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/menu-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyMenuModule } from 'ngx-tethys/menu';
+
+@Component({
+    selector: 'app-menu-demo',
+    template: \`
+        <thy-menu thyTheme="compact"></thy-menu>
+        <thy-menu thyTheme="loose"></thy-menu>
+        <thy-menu thyTheme="dark"></thy-menu>
+        <thy-alert thyTheme="naked" thyMessage="message"></thy-alert>
+    \`,
+    imports: [ThyMenuModule]
+})
+export class MenuDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/menu-demo.component.ts');
+        expect(content).toContain('<thy-menu></thy-menu>');
+        expect(content).toContain('thyVariant="loose"');
+        expect(content).toContain('thyTheme="dark"');
+        expect(content).toContain('thyAppearance="naked"');
+        expect(content).not.toMatch(/<thy-menu[^>]*thyTheme="(?:compact|loose)"/);
+    });
+
     it('should migrate thyType to thyAppearance for thy-button-group', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
@@ -797,7 +830,8 @@ export class TableAppearanceDemoComponent {
         expect(content).toContain('<thy-table-skeleton thyAppearance="boxed"></thy-table-skeleton>');
         expect(content).toContain('<thy-table-skeleton [thyAppearance]="theme"></thy-table-skeleton>');
         expect(content).toContain('<thy-table thyAppearance="bordered"></thy-table>');
-        expect(content).toContain('<thy-menu thyTheme="loose"></thy-menu>');
+        expect(content).toContain('<thy-menu thyVariant="loose"></thy-menu>');
+        expect(content).not.toMatch(/<thy-menu[^>]*thyTheme="loose"/);
         expect(content).not.toMatch(/<thy-native-table[^>]*thyTheme/);
         expect(content).not.toMatch(/<thy-native-table[^>]*\[thyTheme\]/);
         expect(content).not.toMatch(/<thy-table-skeleton[^>]*thyTheme/);

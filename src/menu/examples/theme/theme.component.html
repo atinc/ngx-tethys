@@ -1,11 +1,10 @@
 <thy-radio-group [(ngModel)]="theme">
-  <label thyRadio thyLabelText="compact" [thyValue]="'compact'" [thyInline]="true"></label>
-  <label thyRadio thyLabelText="loose" [thyValue]="'loose'" [thyInline]="true"></label>
+  <label thyRadio thyLabelText="light" [thyValue]="'light'" [thyInline]="true"></label>
   <label thyRadio thyLabelText="dark" [thyValue]="'dark'" [thyInline]="true"></label>
 </thy-radio-group>
 <div class="demo-menu-theme-body">
   <div class="demo-menu-container">
-    <thy-menu [thyTheme]="theme">
+    <thy-menu thyVariant="compact" [thyTheme]="theme">
       <a thyMenuItem href="javascript:;" class="active">
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>
@@ -55,7 +54,96 @@
     </thy-menu>
   </div>
   <div class="demo-menu-container">
-    <thy-menu [thyTheme]="theme">
+    <thy-menu thyVariant="compact" [thyTheme]="theme">
+      <thy-menu-group thyTitle="计划" [thyCollapsible]="false">
+        <a thyMenuItem href="javascript:;">
+          <span thyMenuItemIcon>
+            <thy-icon thyIconName="view-tile"></thy-icon>
+          </span>
+          <span thyMenuItemName> 我负责的 </span>
+          <span thyMenuItemAction>
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+          </span>
+        </a>
+        <a thyMenuItem href="javascript:;">
+          <span thyMenuItemIcon>
+            <thy-icon thyIconName="view-tile"></thy-icon>
+          </span>
+          <span thyMenuItemName> 我参与的 </span>
+          <span thyMenuItemAction>
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+          </span>
+        </a>
+      </thy-menu-group>
+      <thy-divider></thy-divider>
+      <thy-menu-group>
+        <a thyMenuItem href="javascript:;">
+          <span thyMenuItemIcon>
+            <thy-icon thyIconName="view-tile"></thy-icon>
+          </span>
+          <span thyMenuItemName> wt-Testhub </span>
+        </a>
+        <ng-template #headerContent>
+          <span>星表</span>
+          <thy-icon class="ml-2" thyIconName="star-fill"></thy-icon>
+        </ng-template>
+      </thy-menu-group>
+    </thy-menu>
+  </div>
+</div>
+<div class="demo-menu-theme-body">
+  <div class="demo-menu-container">
+    <thy-menu thyVariant="loose" [thyTheme]="theme">
+      <a thyMenuItem href="javascript:;" class="active">
+        <span thyMenuItemIcon>
+          <thy-icon thyIconName="view-tile"></thy-icon>
+        </span>
+        <span thyMenuItemName> 我的工作 </span>
+        <span thyMenuItemAction [thyActionMenu]="menuTpl">
+          <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+        </span>
+      </a>
+      <a thyMenuItem href="javascript:;">
+        <span thyMenuItemIcon>
+          <thy-icon thyIconName="view-tile"></thy-icon>
+        </span>
+        <span thyMenuItemName class="d-flex">
+          <span class="text-truncate">是我的工作呀呀呀呀呀呀呀呀呀呀呀呀</span>
+          <span>
+            <span class="mx-1">·</span>
+            6
+          </span>
+        </span>
+        <span thyMenuItemAction [thyActionMenu]="menuTpl">
+          <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+        </span>
+      </a>
+      <thy-divider></thy-divider>
+      <thy-menu-group thyTitle="工作" [thyCollapsible]="true" [thyCollapsed]="true">
+        <a thyMenuItem href="javascript:;">
+          <span thyMenuItemIcon>
+            <thy-icon thyIconName="view-tile"></thy-icon>
+          </span>
+          <span thyMenuItemName> 我的工作 </span>
+          <span thyMenuItemAction [thyActionMenu]="menuTpl">
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+          </span>
+        </a>
+        <a thyMenuItem href="javascript:;">
+          <span thyMenuItemIcon>
+            <thy-icon thyIconName="view-tile"></thy-icon>
+          </span>
+          <span thyMenuItemName> 我的工作 </span>
+          <span thyMenuItemAction [thyActionMenu]="menuTpl">
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
+          </span>
+        </a>
+      </thy-menu-group>
+      <thy-divider></thy-divider>
+    </thy-menu>
+  </div>
+  <div class="demo-menu-container">
+    <thy-menu thyVariant="loose" [thyTheme]="theme">
       <thy-menu-group thyTitle="计划" [thyCollapsible]="false">
         <a thyMenuItem href="javascript:;">
           <span thyMenuItemIcon>

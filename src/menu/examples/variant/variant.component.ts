@@ -7,9 +7,9 @@ import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemIconDirective, ThyDropdownMenuItemNameDirective } from 'ngx-tethys/dropdown';
 
 @Component({
-    selector: 'thy-menu-theme-example',
-    templateUrl: './theme.component.html',
-    styleUrls: ['./theme.component.scss'],
+    selector: 'thy-menu-variant-example',
+    templateUrl: './variant.component.html',
+    styleUrls: ['./variant.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyMenu,
@@ -28,6 +28,6 @@ import { ThyDropdownMenuComponent, ThyDropdownMenuItemIconDirective, ThyDropdown
         ThyMenuItemIcon
     ]
 })
-export class ThyMenuThemeExampleComponent {
-    theme: string = 'light';
+export class ThyMenuVariantExampleComponent {
+    variant: string = 'loose';
 }
