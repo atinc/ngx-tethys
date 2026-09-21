@@ -108,7 +108,6 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
 
     /**
      * 搜索框风格。`ellipse` 为圆角搜索框；`transparent` 已废弃，请使用 `thyAppearance="ghost"`
-     * @deprecated please use thyAppearance
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
