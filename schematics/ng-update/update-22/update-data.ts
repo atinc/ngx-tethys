@@ -18,6 +18,9 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThySliderType', replaceWith: 'ThySliderColor' },
                     { replace: 'ThyDropdownMenuItemType', replaceWith: 'ThyDropdownMenuItemColor' },
                     { replace: 'ThyActionType', replaceWith: 'ThyActionColor' },
+                    { replace: 'ThyProgressType', replaceWith: 'ThyProgressColor' },
+                    { replace: 'ThyProgressShapeType', replaceWith: 'ThyProgressShape' },
+                    { replace: 'ThyProgressGapPositionType', replaceWith: 'ThyProgressGapPosition' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
@@ -27,13 +30,15 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'ThyCompatibleDate'
                     },
                     { replace: 'ThyDividerStyle', replaceWith: 'ThyDividerAppearance' },
-                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchAppearance' },
+                    { replace: 'ThyInputSearchTheme', replaceWith: 'ThyInputSearchVariant' },
                     { replace: 'thyColor', replaceWith: 'ThyTimelineColor' },
                     { replace: 'ThyTimeMode', replaceWith: 'ThyTimelineMode' },
                     { replace: 'ThyStatisticColorType', replaceWith: 'ThyStatisticColor' },
                     { replace: 'ThyStatisticSizes', replaceWith: 'ThyStatisticSize' },
                     { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' },
-                    { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' }
+                    { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' },
+                    { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
+                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' }
                 ]
             }
         ]
@@ -98,7 +103,7 @@ export const upgradeData: UpgradeData = {
                     },
                     {
                         replace: 'thyTheme',
-                        replaceWith: 'thyAppearance',
+                        replaceWith: 'thyVariant',
                         limitedTo: {
                             elements: ['thy-input-search']
                         }
@@ -108,6 +113,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyVariant',
                         limitedTo: {
                             elements: ['thy-arrow-switcher']
+                        }
+                    },
+                    {
+                        replace: 'thyTheme',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            elements: ['thy-native-table', 'thy-table-skeleton', 'thy-table']
                         }
                     },
                     {
@@ -165,6 +177,13 @@ export const upgradeData: UpgradeData = {
                         limitedTo: {
                             attributes: ['thyAction'],
                             elements: ['thy-action']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-progress']
                         }
                     },
                     {

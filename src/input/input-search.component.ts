@@ -35,8 +35,12 @@ import { ThyInputAppearance, ThyInputDirective } from './input.directive';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-// transparent 已废弃，请使用 thyAppearance="ghost"
-export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
+/** transparent 已废弃，请使用 thyAppearance="ghost"*/
+export type ThyInputSearchVariant = 'default' | 'ellipse' | 'transparent' | '';
+
+/** @deprecated use ThyInputSearchVariant */
+export type ThyInputSearchTheme = ThyInputSearchVariant;
+
 export type ThyInputSearchIconPosition = 'before' | 'after';
 
 export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
@@ -64,10 +68,11 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control thy-input-search',
-        '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
         '[class.form-control-subtle]': 'appearance() === "subtle"',
         '[class.form-control-ghost]': 'appearance() === "ghost"',
         '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before" && !disabled()',
+        '[class.thy-input-search-ellipse]': 'variant() === "ellipse"',
+        '[class.thy-input-search-transparent]': 'variant() === "transparent"',
         '[class.form-control-active]': 'focused()',
         '[class.disabled]': 'disabled()',
         '[attr.tabindex]': 'tabIndex'
@@ -108,6 +113,15 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
 
     /**
      * 搜索框风格。`ellipse` 为圆角搜索框；`transparent` 已废弃，请使用 `thyAppearance="ghost"`
+     * 搜索框形态。`transparent` 已废弃，请使用 thyAppearance="ghost"
+     * @type 'default' | 'ellipse' | 'transparent'
+     * @default default
+     */
+    readonly thyVariant = input<ThyInputSearchVariant>();
+
+    /**
+     * 搜索框风格（已废弃），请使用 thyVariant；`transparent` 已废弃，请使用 thyAppearance="ghost"
+     * @deprecated please use thyVariant; transparent is deprecated, use thyAppearance="ghost"
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
@@ -116,6 +130,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     protected readonly appearance = computed<ThyInputAppearance>(
         () => this.thyAppearance() || (this.thyTheme() === 'transparent' ? 'ghost' : 'outline')
     );
+    readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
 
     /**
      * 是否自动聚焦

@@ -4,6 +4,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * @private
+ * @deprecated thyIconNavLink will be removed in v23, please use thy-action
  */
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector

@@ -1,12 +1,12 @@
-import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputSearch, ThyInputSearchIconPosition } from '../input-search.component';
-import { ThyInputAppearance, ThyInputDirective } from 'ngx-tethys/input';
-import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyInputAppearance, ThyInputDirective } from 'ngx-tethys/input';
+import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchTheme, ThyInputSearchVariant } from '../input-search.component';
 
 @Component({
     selector: 'thy-input-search-basic-test',
@@ -15,6 +15,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
             name="search"
             thyPlaceholder="Please type"
             [disabled]="disabled"
+            [thyVariant]="thyVariant"
             [thyTheme]="thyTheme"
             [thyAppearance]="thyAppearance"
             [thySearchFocus]="searchFocus"
@@ -33,7 +34,8 @@ class TestInputSearchBasicComponent {
     searchFocus = true;
     searchText = '';
     thySize: ThyFormControlSize | undefined = 'sm';
-    thyTheme = ``;
+    thyVariant: ThyInputSearchVariant | '' = '';
+    thyTheme: ThyInputSearchTheme | '' = '';
     thyAppearance!: ThyInputAppearance;
     disabled = false;
     iconPosition!: ThyInputSearchIconPosition;
@@ -109,16 +111,17 @@ describe('input search', () => {
         expect(modelChangeSpy).toHaveBeenCalled();
     }));
 
-    it('should set theme', () => {
-        basicTestComponent.thyTheme = 'default';
+    it('should set variant', () => {
+        basicTestComponent.thyTheme = '';
+        basicTestComponent.thyVariant = 'default';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
 
-        basicTestComponent.thyTheme = 'ellipse';
+        basicTestComponent.thyVariant = 'ellipse';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
 
-        basicTestComponent.thyTheme = 'transparent';
+        basicTestComponent.thyVariant = 'transparent';
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-ghost')).toBe(true);
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);

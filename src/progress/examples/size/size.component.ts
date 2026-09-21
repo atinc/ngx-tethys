@@ -15,19 +15,19 @@ export class ThyProgressSizeExampleComponent {
 
     stackedValues = [
         {
-            type: 'success',
+            color: 'success',
             value: 20
         },
         {
-            type: 'warning',
+            color: 'warning',
             value: 20
         },
         {
-            type: 'danger',
+            color: 'danger',
             value: 20
         },
         {
-            type: 'info',
+            color: 'info',
             value: 30
         }
     ];

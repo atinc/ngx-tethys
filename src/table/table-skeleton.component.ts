@@ -5,7 +5,7 @@ import { ThySkeletonCircle, ThySkeletonRectangle } from 'ngx-tethys/skeleton';
 import { ThyTableSkeletonColumn } from './table.interface';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyTableColumnSkeletonType } from './enums';
-import { ThyTableSize, ThyTableTheme } from './table.type';
+import { ThyTableSize, ThyTableAppearance, ThyTableTheme } from './table.type';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const COLUMN_COUNT = 5;
@@ -87,10 +87,21 @@ export class ThyTableSkeleton implements AfterViewInit {
     @Input({ transform: coerceBooleanProperty }) thyHeadless = false;
 
     /**
-     * 骨架屏的风格
+     * 骨架屏的外观
+     * @type default | bordered | boxed
+     */
+    @Input() thyAppearance?: ThyTableAppearance;
+
+    /**
+     * 骨架屏的风格（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
      * @type default | bordered | boxed
      */
     @Input() thyTheme: ThyTableTheme = 'default';
+
+    get appearance(): ThyTableAppearance {
+        return this.thyAppearance || this.thyTheme || 'default';
+    }
 
     /**
      * 骨架屏的大小
@@ -135,8 +146,8 @@ export class ThyTableSkeleton implements AfterViewInit {
     get tableClassMap() {
         return {
             table: true,
-            'table-bordered': this.thyTheme === 'bordered',
-            'table-boxed': this.thyTheme === 'boxed',
+            'table-bordered': this.appearance === 'bordered',
+            'table-boxed': this.appearance === 'boxed',
             [`table-${this.thySize}`]: !!this.thySize
         };
     }

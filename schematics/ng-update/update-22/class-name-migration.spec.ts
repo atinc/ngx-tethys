@@ -51,6 +51,44 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ButtonGroupSize');
     });
 
+    it('should rename ThyProgressShapeType to ThyProgressShape', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-shape.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressShapeType } from 'ngx-tethys/progress';
+
+                export const progressShape: ThyProgressShapeType = 'circle';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressShape } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const progressShape: ThyProgressShape = 'circle'");
+        expect(content).not.toContain('ThyProgressShapeType');
+    });
+
+    it('should rename ThyProgressGapPositionType to ThyProgressGapPosition', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-gap-position.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressGapPositionType } from 'ngx-tethys/progress';
+
+                export const gapPosition: ThyProgressGapPositionType = 'top';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressGapPosition } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const gapPosition: ThyProgressGapPosition = 'top'");
+        expect(content).not.toContain('ThyProgressGapPositionType');
+    });
+
     it('should rename ThyStackedValue to ThyProgressStackedValue', async () => {
         const filePath = '/projects/update-22-test/src/app/progress-stacked-value.ts';
         tree.create(
@@ -206,6 +244,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).toContain("import { ThyStatisticAppearance } from 'ngx-tethys/statistic'");
         expect(content).toContain("export const appearance: ThyStatisticAppearance = 'card'");
         expect(content).not.toContain('ThyStatisticShape');
+    });
+
+    it('should rename ThyProgressType to ThyProgressColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressType } from 'ngx-tethys/progress';
+
+                export const color: ThyProgressType = 'success';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressColor } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const color: ThyProgressColor = 'success'");
+        expect(content).not.toContain('ThyProgressType');
     });
 
     it('should rename CompatibleDate to ThyCompatibleDate', async () => {

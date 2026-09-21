@@ -465,10 +465,26 @@ ng generate ngx-tethys:migrate-22
 **破坏性更改**
 
 - 类型 `ThyStackedValue` 重命名为 `ThyProgressStackedValue`
+- 内部私有组件 `thy-progress-bar`、`thy-progress-circle` 的 `thyType` 改成了 `thyColor`
+
+**标记为废弃**
+
+- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`
+- `ThyProgressShapeType` 已废弃，请使用 `ThyProgressShape`
+- `ThyProgressGapPositionType` 已废弃，请使用 `ThyProgressGapPosition`
+- `ThyProgressStackedValue.type` 已废弃，请使用 `ThyProgressStackedValue.color`
 
 **自动迁移**
 
 - `ThyStackedValue` → `ThyProgressStackedValue`
+- `thyType` → `thyColor`
+- TypeScript 中 `ThyProgressType` → `ThyProgressColor`
+- TypeScript 中 `ThyProgressShapeType` → `ThyProgressShape`
+- TypeScript 中 `ThyProgressGapPositionType` → `ThyProgressGapPosition`
+
+**手动检查**
+
+- stacked 数据中的 `type` 需手动改为 `color`
 
 ---
 
@@ -588,12 +604,13 @@ ng generate ngx-tethys:migrate-22
 
 **标记为废弃**
 
-- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyAppearance` 和 `ThyInputSearchAppearance`
+- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyVariant` 和 `ThyInputSearchVariant`
+- `thyTheme="transparent"` 已废弃，请使用 `thyAppearance="ghost"`
 
 **自动迁移**
 
-- `thyTheme` → `thyAppearance`（仅 `thy-input-search`）
-- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchAppearance`
+- `thyTheme` → `thyVariant`（仅 `thy-input-search`）
+- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchVariant`
 
 ---
 
@@ -669,6 +686,46 @@ ng generate ngx-tethys:migrate-22
 
 - `thyType` → `thyColor`（`thy-action` 与 `thyAction`）
 - TypeScript 中 `ThyActionType` → `ThyActionColor`
+
+---
+
+### 42. thy-icon-nav
+
+**标记为废弃**
+
+- `thy-icon-nav` 及 `thyIconNavLink` 已废弃，将在 v23 彻底删除，请使用 `thy-action`
+
+---
+
+### 43. thy-property-operation
+
+**标记为废弃**
+
+- `thy-property-operation` / `thy-property-operation-group` / `ThyPropertyOperationModule` 已废弃，将在 v23 彻底删除
+
+---
+
+### 44. thy-table / thy-native-table / thy-table-skeleton
+
+**标记为废弃**
+
+- `thyTheme` 已废弃，请使用 `thyAppearance`
+- `ThyNativeTableTheme` 已废弃，请使用 `ThyNativeTableAppearance`（仅 `thy-native-table`）
+- `ThyTableTheme` 已废弃，请使用 `ThyTableAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`（`thy-table`、`thy-native-table` 与 `thy-table-skeleton`）
+- TypeScript 中 `ThyNativeTableTheme` → `ThyNativeTableAppearance`
+- TypeScript 中 `ThyTableTheme` → `ThyTableAppearance`
+
+---
+
+### 45. thy-strength
+
+**标记为废弃**
+
+- `thy-strength` / `ThyStrengthModule` 已废弃，将在 v23 彻底删除
 
 ---
 
