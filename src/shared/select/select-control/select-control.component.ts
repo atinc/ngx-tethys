@@ -36,7 +36,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Observable, of, throttleTime } from 'rxjs';
 import { SelectOptionBase } from '../../option/select-option-base';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -91,6 +91,15 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     readonly tagSize: Signal<ThyTagSize> = computed(() => {
@@ -378,10 +387,13 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     setSelectControlClass() {
         const modeType = this.thyIsMultiple() ? 'multiple' : 'single';
+        const appearance = this.thyAppearance();
         const selectControlClass = {
             [`form-control`]: true,
             [`form-control-${this.thySize()}`]: !!this.thySize(),
             [`form-control-custom`]: true,
+            [`form-control-subtle`]: appearance === 'subtle',
+            [`form-control-ghost`]: appearance === 'ghost',
             [`select-control`]: true,
             [`select-control-${modeType}`]: true,
             [`select-control-show-search`]: this.thyShowSearch(),

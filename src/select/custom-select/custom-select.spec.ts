@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/f
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideTethys, withGlobalConfig } from 'ngx-tethys';
-import { POSITION_MAP, ThyFormControlSize, ThyPlacement } from 'ngx-tethys/core';
+import { POSITION_MAP, ThyFormControlAppearance, ThyFormControlSize, ThyPlacement } from 'ngx-tethys/core';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelect, ThySelectModule } from 'ngx-tethys/select';
 import { ThyOption, ThyOptionGroupRender, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
@@ -46,6 +46,7 @@ interface FoodsInfo {
                 [thyDisabled]="selectDisabled"
                 [thyMode]="mode"
                 [thyBorderless]="borderless"
+                [thyAppearance]="appearance"
                 [thyOrigin]="customizeOrigin"
                 [thyFooterTemplate]="footerTmp"
                 [thyFooterClass]="footerClass"
@@ -93,6 +94,7 @@ class BasicSelectComponent {
     thyAutoActiveFirstItem = true;
     customizeOrigin!: ElementRef | HTMLElement;
     borderless = false;
+    appearance: ThyFormControlAppearance = 'outline';
     footerTmp!: TemplateRef<any>;
     footerClass!: string;
     emptyStateText!: string;
@@ -964,6 +966,35 @@ describe('ThyCustomSelect', () => {
                 tick();
                 fixture.detectChanges();
                 expect(selectElement.querySelector('.select-control-borderless')).toBeTruthy();
+            }));
+
+            it('should use outline appearance by default', fakeAsync(() => {
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const formControl = selectElement.querySelector('.form-control');
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            }));
+
+            it('should add form-control-subtle when thyAppearance is subtle', fakeAsync(() => {
+                fixture.componentInstance.appearance = 'subtle';
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const formControl = selectElement.querySelector('.form-control');
+                expect(formControl.classList.contains('form-control-subtle')).toBe(true);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            }));
+
+            it('should add form-control-ghost when thyAppearance is ghost', fakeAsync(() => {
+                fixture.componentInstance.appearance = 'ghost';
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const formControl = selectElement.querySelector('.form-control');
+                expect(formControl.classList.contains('form-control-ghost')).toBe(true);
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
             }));
         });
 
