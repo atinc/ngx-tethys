@@ -3,11 +3,20 @@ import { hexToRgb } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgTemplateOutlet, NgStyle } from '@angular/common';
 
-export type ThyStatisticColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
+export type ThyStatisticColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
-export type ThyStatisticShape = 'card';
+/** @deprecated use ThyStatisticColor */
+export type ThyStatisticColorType = ThyStatisticColor;
 
-export type ThyStatisticSizes = 'default';
+export type ThyStatisticAppearance = 'card';
+
+/** @deprecated use ThyStatisticAppearance */
+export type ThyStatisticShape = ThyStatisticAppearance;
+
+export type ThyStatisticSize = 'default';
+
+/** @deprecated use ThyStatisticSize */
+export type ThyStatisticSizes = ThyStatisticSize;
 
 export type ThyStatisticTitlePosition = 'top' | 'bottom';
 
@@ -59,24 +68,34 @@ export class ThyStatistic {
     readonly thyTitlePosition = input<ThyStatisticTitlePosition>('bottom');
 
     /**
-     * @description 展示形状
+     * @description 展示外观
+     * @type ThyStatisticAppearance
+     * @default card
+     */
+    readonly thyAppearance = input<ThyStatisticAppearance>();
+
+    /**
+     * @description 展示形状（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
      * @type ThyStatisticShape
      * @default card
      */
     readonly thyShape = input<ThyStatisticShape>();
 
+    readonly appearance = computed(() => this.thyAppearance() || this.thyShape());
+
     /**
-     * @description 主题颜色，可以使用提供的主题色，也可以自定义颜色。 `ThyStatisticColorType` 中包含 `primary` | `success` | `warning` | `danger` | `info`
-     * @type ThyStatisticColorType ｜ string
+     * @description 主题颜色，可以使用提供的主题色，也可以自定义颜色。 `ThyStatisticColor` 中包含 `primary` | `success` | `warning` | `danger` | `info`
+     * @type ThyStatisticColor ｜ string
      */
-    readonly thyColor = input<string | ThyStatisticColorType>();
+    readonly thyColor = input<string | ThyStatisticColor>();
 
     /**
      * @description 前缀和展示数据字体大小
-     * @type ThyStatisticSizes
+     * @type ThyStatisticSize
      * @default default
      */
-    readonly thySize = input<ThyStatisticSizes>('default');
+    readonly thySize = input<ThyStatisticSize>('default');
 
     /**
      * @description 自定义展示数据模板
@@ -159,8 +178,8 @@ export class ThyStatistic {
                 classNames.push(`thy-statistic-${this.thyColor()}`);
             }
         }
-        if (this.thyShape()) {
-            classNames.push(`thy-statistic-${this.thyShape()}`);
+        if (this.appearance()) {
+            classNames.push(`thy-statistic-${this.appearance()}`);
         }
         classNames.push(`thy-statistic-${this.thySize()}`);
 
@@ -170,7 +189,7 @@ export class ThyStatistic {
 
     private setColor(color: string) {
         this.hostRenderer.setStyle('color', color);
-        if (this.thyShape() === 'card') {
+        if (this.appearance() === 'card') {
             this.hostRenderer.setStyle('border-color', color);
             this.hostRenderer.setStyle('background-color', hexToRgb(color, 0.05));
         }
