@@ -1,7 +1,7 @@
 import { isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
 import { Component, computed, TemplateRef, ViewEncapsulation, numberAttribute, input, viewChildren, effect } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressColor, ThyProgressGapPositionType, ThyProgressShape, ThyProgressStackedValue, ThyProgressType } from './interfaces';
+import { ThyProgressColor, ThyProgressGapPosition, ThyProgressShape, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './progress-strip.component';
 import { ThyProgressCircle } from './progress-circle.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -127,7 +127,7 @@ export class ThyProgress implements ThyParentProgress {
      * 圆形进度条缺口位置
      * @type top | bottom | left | right
      */
-    readonly thyGapPosition = input<ThyProgressGapPositionType>('top');
+    readonly thyGapPosition = input<ThyProgressGapPosition>('top');
 
     /**
      * 	圆形进度条线的宽度

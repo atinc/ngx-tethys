@@ -20,6 +20,7 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyActionType', replaceWith: 'ThyActionColor' },
                     { replace: 'ThyProgressType', replaceWith: 'ThyProgressColor' },
                     { replace: 'ThyProgressShapeType', replaceWith: 'ThyProgressShape' },
+                    { replace: 'ThyProgressGapPositionType', replaceWith: 'ThyProgressGapPosition' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'

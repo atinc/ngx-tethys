@@ -70,6 +70,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ThyProgressShapeType');
     });
 
+    it('should rename ThyProgressGapPositionType to ThyProgressGapPosition', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-gap-position.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressGapPositionType } from 'ngx-tethys/progress';
+
+                export const gapPosition: ThyProgressGapPositionType = 'top';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressGapPosition } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const gapPosition: ThyProgressGapPosition = 'top'");
+        expect(content).not.toContain('ThyProgressGapPositionType');
+    });
+
     it('should rename ThyStackedValue to ThyProgressStackedValue', async () => {
         const filePath = '/projects/update-22-test/src/app/progress-stacked-value.ts';
         tree.create(

@@ -30,4 +30,7 @@ export interface ThyProgressCirclePath {
     strokePathStyle: ThyProgressPathStyle;
 }
 
-export type ThyProgressGapPositionType = 'top' | 'bottom' | 'left' | 'right';
+export type ThyProgressGapPosition = 'top' | 'bottom' | 'left' | 'right';
+
+/** @deprecated use ThyProgressGapPosition */
+export type ThyProgressGapPositionType = ThyProgressGapPosition;

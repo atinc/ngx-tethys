@@ -10,7 +10,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressColor, ThyProgressGapPositionType, ThyProgressShape, ThyProgressStackedValue } from './interfaces';
+import { ThyProgressColor, ThyProgressGapPosition, ThyProgressShape, ThyProgressStackedValue } from './interfaces';
 import { isProgressPresetColor } from './progress-strip.component';
 import { NgClass, NgStyle } from '@angular/common';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -49,7 +49,7 @@ export class ThyProgressCircle {
 
     readonly thyGapDegree = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    readonly thyGapPosition = input<ThyProgressGapPositionType>('top');
+    readonly thyGapPosition = input<ThyProgressGapPosition>('top');
 
     readonly thyStrokeWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 

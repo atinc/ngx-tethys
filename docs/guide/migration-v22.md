@@ -471,6 +471,7 @@ ng generate ngx-tethys:migrate-22
 
 - `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`
 - `ThyProgressShapeType` 已废弃，请使用 `ThyProgressShape`
+- `ThyProgressGapPositionType` 已废弃，请使用 `ThyProgressGapPosition`
 - `ThyProgressStackedValue.type` 已废弃，请使用 `ThyProgressStackedValue.color`
 
 **自动迁移**
@@ -479,6 +480,7 @@ ng generate ngx-tethys:migrate-22
 - `thyType` → `thyColor`
 - TypeScript 中 `ThyProgressType` → `ThyProgressColor`
 - TypeScript 中 `ThyProgressShapeType` → `ThyProgressShape`
+- TypeScript 中 `ThyProgressGapPositionType` → `ThyProgressGapPosition`
 
 **手动检查**
 
