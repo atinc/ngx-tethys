@@ -37,7 +37,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyInputSearchVariant = 'default' | 'ellipse' | 'transparent' | '';
 
-/** @deprecated use ThyInputSearchVariant */
+/** @deprecated use ThyInputSearchVariant, will be removed in v23 */
 export type ThyInputSearchTheme = ThyInputSearchVariant;
 export type ThyInputSearchIconPosition = 'before' | 'after';
 
@@ -100,15 +100,15 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thyPlaceholder = input('');
 
     /**
-     * 搜索框形态。`transparent` 已废弃，请使用 thyAppearance="ghost"
+     * 搜索框形态。`transparent` 已废弃，将在 v23 彻底删除，请使用 thyAppearance="ghost"
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
     readonly thyVariant = input<ThyInputSearchVariant>();
 
     /**
-     * 搜索框风格（已废弃），请使用 thyVariant；`transparent` 已废弃，请使用 thyAppearance="ghost"
-     * @deprecated please use thyVariant; transparent is deprecated, use thyAppearance="ghost"
+     * 搜索框风格（已废弃，将在 v23 彻底删除），请使用 thyVariant；`transparent` 已废弃，请使用 thyAppearance="ghost"
+     * @deprecated please use thyVariant; transparent is deprecated, use thyAppearance="ghost", will be removed in v23
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */

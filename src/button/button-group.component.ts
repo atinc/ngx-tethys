@@ -4,7 +4,7 @@ import { Component, effect, input, ViewEncapsulation, ChangeDetectionStrategy } 
 import { ThyButtonSize } from './button.component';
 import { IThyButtonGroup, THY_BUTTON_GROUP } from './button.token';
 
-/** @deprecated use ThyButtonGroupAppearance */
+/** @deprecated use ThyButtonGroupAppearance, will be removed in v23 */
 export type ButtonGroupType = 'outline-primary' | 'outline-default';
 
 export type ThyButtonGroupAppearance = 'outline' | 'fill';
@@ -43,8 +43,8 @@ export class ThyButtonGroup implements IThyButtonGroup {
     });
 
     /**
-     * 类型
-     * @deprecated use thyAppearance
+     * 类型（已废弃，将在 v23 彻底删除），请使用 thyAppearance
+     * @deprecated use thyAppearance, will be removed in v23
      * @type outline-default | outline-primary
      * @default outline-default
      */

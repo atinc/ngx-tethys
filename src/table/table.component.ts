@@ -284,8 +284,8 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     @Input() thyAppearance?: ThyTableAppearance;
 
     /**
-     * 表格的显示风格（已废弃），请使用 thyAppearance
-     * @deprecated please use thyAppearance
+     * 表格的显示风格（已废弃，将在 v23 彻底删除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
      * @type default | bordered | boxed
      * @default default
      */

@@ -56,7 +56,7 @@ ng generate ngx-tethys:migrate-22
 - 尺寸类型 `ButtonGroupSize` 重命名为 `ThyButtonSize`
 
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thy-button` 组件上 `thyType` 已废弃，请使用 `thyColor`；`ThyButtonType` 已废弃，请使用 `ThyButtonColor`
 
 **自动迁移**
@@ -75,7 +75,7 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `ButtonGroupType` 已废弃，请使用 `ThyButtonGroupAppearance`
 - `thyType` 已废弃，请使用 `thyAppearance`；对照如下：
 
@@ -330,7 +330,7 @@ ng generate ngx-tethys:migrate-22
 - `thyNavLinkActive` 重命名为 `thyNavItemActive`
 - 移除 `thyInsideClosable`，改用 `thyPopoverOptions.insideClosable`
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyType` 和 `ThyNavType` 已废弃，请使用 `thyVariant` 和 `ThyNavVariant`；推荐值 `pulled | tabs | pills | lite`；`primary | secondary | thirdly | secondary-divider` 已废弃
 
 **自动迁移**
@@ -379,7 +379,7 @@ ng generate ngx-tethys:migrate-22
 - 移除 `thyDeeper`，改用 `thyColor="light"` 表示较深分割线
 - `thyColor="deeper"` 不再有效（`$divider-colors` 中已移除 `deeper`），请统一改用 `thyColor="light"`
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyStyle` 和 `ThyDividerStyle` 已废弃，请使用 `thyAppearance` 和 `ThyDividerAppearance`
 - `ThyDividerColor` 支持传 `'light' | 'lighter' | 'danger' | 'primary' | 'success' | 'warning'`，去掉了 string 类型（因为组件库原本就没支持任意颜色值字符串）。原来传了 `'default'` 的请使用等价的 `'lighter'` 值。
@@ -448,7 +448,7 @@ ng generate ngx-tethys:migrate-22
 - 类型 `ThyActiveTabInfo` 重命名为 `ThyActiveTabValue`
 
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyType` 和 `ThyTabsType` 已废弃，请使用 `thyVariant` 和 `ThyTabsVariant`
 
@@ -467,7 +467,7 @@ ng generate ngx-tethys:migrate-22
 - 类型 `ThyStackedValue` 重命名为 `ThyProgressStackedValue`
 - 内部私有组件 `thy-progress-bar`、`thy-progress-circle` 的 `thyType` 改成了 `thyColor`
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`
 - `ThyProgressShapeType` 已废弃，请使用 `ThyProgressShape`
@@ -522,7 +522,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 30. thy-dot
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyTheme`和`ThyThemeType`已废弃，请使用`thyAppearance`和`ThyDotAppearance`
 
 **自动迁移**
@@ -534,7 +534,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 31. thy-alert
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyType`和`ThyAlertType`已废弃，请使用`thyColor`和`ThyAlertColor`
 - `thyTheme`和`ThyAlertTheme`已废弃，请使用`thyAppearance`和`ThyAlertAppearance`
 
@@ -549,7 +549,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 32. thy-collapse
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyTheme`和`ThyCollapseTheme`已废弃，请使用`thyAppearance`和`ThyCollapseAppearance`
 
 **自动迁移**
@@ -561,7 +561,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 33. thy-slider
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyType` 和 `ThySliderType` 已废弃，请使用 `thyColor` 和 `ThySliderColor`。`thyColor` 支持传 `primary | success | info | warning | danger`，也支持任意合法 CSS 颜色值，比如 `#ccc`。
 
@@ -580,7 +580,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 34. thy-switch
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyType` 已废弃，请使用 `thyColor`
 
 **自动迁移**
@@ -591,7 +591,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 35. thy-badge（`thyBadge` 指令）
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyType` 已废弃，请使用 `thyColor`
 
 **自动迁移**
@@ -602,7 +602,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 36. thy-input-search
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyVariant` 和 `ThyInputSearchVariant`
 - `thyTheme="transparent"` 已废弃，请使用 `thyAppearance="ghost"`
@@ -616,7 +616,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 37. thyDropdownMenuItem
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyType` 和 `ThyDropdownMenuItemType` 已废弃，请使用 `thyColor` 和 `ThyDropdownMenuItemColor`
 
@@ -633,7 +633,7 @@ ng generate ngx-tethys:migrate-22
 
 - 移除 `ThyTimeModes` 枚举，请直接使用 `'left' | 'right' | 'center'` 字符串
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyColor` 类型已废弃，请使用 `ThyTimelineColor`（`thy-timeline-item` 的 `thyColor` 入参不变）
 - `ThyTimeMode` 已废弃，请使用 `ThyTimelineMode`
@@ -647,7 +647,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 39. thy-statistic
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyShape` 和 `ThyStatisticShape` 已废弃，请使用 `thyAppearance` 和 `ThyStatisticAppearance`
 - `ThyStatisticColorType` 已废弃，请使用 `ThyStatisticColor`
@@ -664,7 +664,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 40. thy-arrow-switcher
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyTheme` 已废弃，请使用 `thyVariant`
 - `ThyArrowSwitcherTheme` 已废弃，请使用 `ThyArrowSwitcherVariant`
@@ -678,7 +678,7 @@ ng generate ngx-tethys:migrate-22
 
 ### 41. thy-action（`thyAction` 指令）
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyType` 和 `ThyActionType` 已废弃，请使用 `thyColor` 和 `ThyActionColor`
 
@@ -691,23 +691,23 @@ ng generate ngx-tethys:migrate-22
 
 ### 42. thy-icon-nav
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
-- `thy-icon-nav` 及 `thyIconNavLink` 已废弃，将在 v23 彻底删除，请使用 `thy-action`
+- `thy-icon-nav` 及 `thyIconNavLink` 已废弃，请使用 `thy-action`
 
 ---
 
 ### 43. thy-property-operation
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
-- `thy-property-operation` / `thy-property-operation-group` / `ThyPropertyOperationModule` 已废弃，将在 v23 彻底删除
+- `thy-property-operation` / `thy-property-operation-group` / `ThyPropertyOperationModule` 已废弃
 
 ---
 
 ### 44. thy-table / thy-native-table / thy-table-skeleton
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyTheme` 已废弃，请使用 `thyAppearance`
 - `ThyNativeTableTheme` 已废弃，请使用 `ThyNativeTableAppearance`（仅 `thy-native-table`）
@@ -723,9 +723,9 @@ ng generate ngx-tethys:migrate-22
 
 ### 45. thy-strength
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
-- `thy-strength` / `ThyStrengthModule` 已废弃，将在 v23 彻底删除
+- `thy-strength` / `ThyStrengthModule` 已废弃
 
 ---
 

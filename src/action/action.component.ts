@@ -22,7 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ThyActionColor = 'primary' | 'success' | 'danger' | 'warning';
 
-/** @deprecated use ThyActionColor */
+/** @deprecated use ThyActionColor, will be removed in v23 */
 export type ThyActionType = ThyActionColor;
 
 export type ThyActionAppearance = 'fill' | 'lite';
@@ -87,8 +87,8 @@ export class ThyAction implements OnInit, AfterViewInit, OnDestroy {
     readonly thyColor = input<ThyActionColor>();
 
     /**
-     * 操作图标的类型（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
+     * 操作图标的类型（已废弃，将在 v23 彻底删除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
      * @type primary | success | danger | warning
      */
     readonly thyType = input<ThyActionType, ThyActionType>('primary', {

@@ -72,8 +72,8 @@ export class ThyProgress implements ThyParentProgress {
     readonly thyColor = input<ThyProgressColor>();
 
     /**
-     * 进度条类型（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
+     * 进度条类型（已废弃，将在 v23 彻底删除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
      * @type primary | success | info | warning | danger
      * @default primary
      */

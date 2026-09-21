@@ -43,8 +43,8 @@ export class ThySwitch extends TabIndexDisabledControlValueAccessorMixin impleme
     readonly thyColor = input<ThySwitchColor>();
 
     /**
-     * 类型（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
+     * 类型（已废弃，将在 v23 彻底删除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
      * @type primary | info | warning | danger
      * @default primary
      */

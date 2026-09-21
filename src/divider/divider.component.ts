@@ -5,7 +5,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyDividerAppearance = 'solid' | 'dashed';
 
-/** @deprecated use ThyDividerAppearance */
+/** @deprecated use ThyDividerAppearance, will be removed in v23 */
 export type ThyDividerStyle = ThyDividerAppearance;
 
 export type ThyDividerTextDirection = 'left' | 'right' | 'center';
@@ -60,8 +60,8 @@ export class ThyDivider implements OnInit {
     readonly thyAppearance = input<ThyDividerAppearance>();
 
     /**
-     * 分割线的风格（已废弃），请使用 thyAppearance
-     * @deprecated please use thyAppearance
+     * 分割线的风格（已废弃，将在 v23 彻底删除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
      * @type solid(实线) | dashed(虚线)
      * @default solid
      */
