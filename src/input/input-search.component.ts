@@ -35,6 +35,7 @@ import { ThyInputAppearance, ThyInputDirective } from './input.directive';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
+// transparent 已废弃，请使用 thyAppearance="ghost"
 export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
 export type ThyInputSearchIconPosition = 'before' | 'after';
 
@@ -64,7 +65,6 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     host: {
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
-        '[class.thy-input-search-transparent]': 'appearance() === "ghost"',
         '[class.form-control-subtle]': 'appearance() === "subtle"',
         '[class.form-control-ghost]': 'appearance() === "ghost"',
         '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before" && !disabled()',

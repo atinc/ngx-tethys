@@ -120,7 +120,6 @@ describe('input search', () => {
 
         basicTestComponent.thyTheme = 'transparent';
         fixture.detectChanges();
-        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(true);
         expect(searchElement.classList.contains('form-control-ghost')).toBe(true);
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
     });
@@ -129,7 +128,6 @@ describe('input search', () => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-subtle')).toBe(false);
         expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
-        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(false);
     });
 
     it('should add form-control-subtle when thyAppearance is subtle', () => {
@@ -144,7 +142,6 @@ describe('input search', () => {
         basicTestComponent.thyAppearance = 'ghost';
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-ghost')).toBe(true);
-        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(true);
         expect(searchElement.classList.contains('form-control-subtle')).toBe(false);
         expect(debugInputElement.nativeElement.classList.contains('form-control-ghost')).toBe(true);
     });
@@ -155,7 +152,6 @@ describe('input search', () => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-subtle')).toBe(true);
         expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
-        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(false);
     });
 
     it('thyClear EventEmitter', fakeAsync(() => {
