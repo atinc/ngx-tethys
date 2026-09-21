@@ -533,7 +533,7 @@ export class InputSearchDemoComponent {
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/input-search-demo.component.ts');
         expect(content).toContain('thyAppearance="ellipse"');
         expect(content).toContain('[thyAppearance]="theme"');
-        expect(content).toContain('<thy-table thyTheme="bordered"></thy-table>');
+        expect(content).toContain('<thy-table thyAppearance="bordered"></thy-table>');
         expect(content).not.toMatch(/<thy-input-search[^>]*thyTheme/);
         expect(content).not.toMatch(/<thy-input-search[^>]*\[thyTheme\]/);
     });
@@ -722,6 +722,101 @@ export class ActionTypeDemoComponent {
         expect(content).toContain("import { ThyActionColor } from 'ngx-tethys/action';");
         expect(content).toContain("color: ThyActionColor = 'danger';");
         expect(content).not.toContain('ThyActionType');
+    });
+
+    it('should migrate thyTheme to thyAppearance for thy-table, thy-native-table and thy-table-skeleton', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/table-appearance-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-table-appearance-demo',
+    template: \`
+        <thy-native-table thyTheme="bordered"></thy-native-table>
+        <thy-native-table [thyTheme]="theme"></thy-native-table>
+        <thy-table-skeleton thyTheme="boxed"></thy-table-skeleton>
+        <thy-table-skeleton [thyTheme]="theme"></thy-table-skeleton>
+        <thy-table thyTheme="bordered"></thy-table>
+        <thy-menu thyTheme="loose"></thy-menu>
+    \`
+})
+export class TableAppearanceDemoComponent {
+    theme = 'default';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/table-appearance-demo.component.ts');
+        expect(content).toContain('thyAppearance="bordered"');
+        expect(content).toContain('<thy-native-table [thyAppearance]="theme"></thy-native-table>');
+        expect(content).toContain('<thy-table-skeleton thyAppearance="boxed"></thy-table-skeleton>');
+        expect(content).toContain('<thy-table-skeleton [thyAppearance]="theme"></thy-table-skeleton>');
+        expect(content).toContain('<thy-table thyAppearance="bordered"></thy-table>');
+        expect(content).toContain('<thy-menu thyTheme="loose"></thy-menu>');
+        expect(content).not.toMatch(/<thy-native-table[^>]*thyTheme/);
+        expect(content).not.toMatch(/<thy-native-table[^>]*\[thyTheme\]/);
+        expect(content).not.toMatch(/<thy-table-skeleton[^>]*thyTheme/);
+        expect(content).not.toMatch(/<thy-table-skeleton[^>]*\[thyTheme\]/);
+        expect(content).not.toMatch(/<thy-table[^>]*thyTheme/);
+    });
+
+    it('should migrate ThyNativeTableTheme to ThyNativeTableAppearance', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/native-table-theme-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyNativeTableTheme } from 'ngx-tethys/native-table';
+
+@Component({
+    selector: 'app-native-table-theme-demo',
+    template: ''
+})
+export class NativeTableThemeDemoComponent {
+    appearance: ThyNativeTableTheme = 'bordered';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/native-table-theme-demo.component.ts');
+        expect(content).toContain("import { ThyNativeTableAppearance } from 'ngx-tethys/native-table';");
+        expect(content).toContain("appearance: ThyNativeTableAppearance = 'bordered';");
+        expect(content).not.toContain('ThyNativeTableTheme');
+    });
+
+    it('should migrate ThyTableTheme to ThyTableAppearance', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/table-theme-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTableTheme } from 'ngx-tethys/table';
+
+@Component({
+    selector: 'app-table-theme-demo',
+    template: ''
+})
+export class TableThemeDemoComponent {
+    appearance: ThyTableTheme = 'bordered';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/table-theme-demo.component.ts');
+        expect(content).toContain("import { ThyTableAppearance } from 'ngx-tethys/table';");
+        expect(content).toContain("appearance: ThyTableAppearance = 'bordered';");
+        expect(content).not.toContain('ThyTableTheme');
     });
 
     it('should migrate thyContext to thyContent for thy-badge', async () => {

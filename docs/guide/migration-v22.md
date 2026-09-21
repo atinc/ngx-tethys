@@ -672,6 +672,22 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 42. thy-table / thy-native-table / thy-table-skeleton
+
+**标记为废弃**
+
+- `thyTheme` 已废弃，请使用 `thyAppearance`
+- `ThyNativeTableTheme` 已废弃，请使用 `ThyNativeTableAppearance`（仅 `thy-native-table`）
+- `ThyTableTheme` 已废弃，请使用 `ThyTableAppearance`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`（`thy-table`、`thy-native-table` 与 `thy-table-skeleton`）
+- TypeScript 中 `ThyNativeTableTheme` → `ThyNativeTableAppearance`
+- TypeScript 中 `ThyTableTheme` → `ThyTableAppearance`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef, signal, computed, InputSignal, QueryList } from '@angular/core';
 
-import { ThyNativeTableFixedInfo, ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
+import { ThyNativeTableFixedInfo, ThyNativeTableSize, ThyNativeTableAppearance } from '../table.interface';
 import { ThyTableEmptyOptions } from 'ngx-tethys/table';
 import { ThyNativeTableThDirective } from '../cell/th.directive';
 import { ThyNativeTableThFixedDirective } from '../cell/th-fixed.directive';
@@ -16,7 +16,7 @@ export class ThyNativeTableStyleService {
     theadTemplate = signal<TemplateRef<any> | null>(null);
     columnCount = signal<number>(0);
     tableSize = signal<ThyNativeTableSize>('default');
-    tableTheme = signal<ThyNativeTableTheme>('default');
+    tableAppearance = signal<ThyNativeTableAppearance>('default');
     showEmpty = signal<boolean>(false);
     emptyOptions = signal<ThyTableEmptyOptions | null>(null);
 
@@ -54,8 +54,8 @@ export class ThyNativeTableStyleService {
         this.tableSize.set(size);
     }
 
-    setTableTheme(theme: ThyNativeTableTheme): void {
-        this.tableTheme.set(theme);
+    setTableAppearance(appearance: ThyNativeTableAppearance): void {
+        this.tableAppearance.set(appearance);
     }
 
     setShowEmpty(showEmpty: boolean): void {
