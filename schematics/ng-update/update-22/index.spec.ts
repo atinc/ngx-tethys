@@ -830,7 +830,8 @@ export class TableAppearanceDemoComponent {
         expect(content).toContain('<thy-table-skeleton thyAppearance="boxed"></thy-table-skeleton>');
         expect(content).toContain('<thy-table-skeleton [thyAppearance]="theme"></thy-table-skeleton>');
         expect(content).toContain('<thy-table thyAppearance="bordered"></thy-table>');
-        expect(content).toContain('<thy-menu thyTheme="loose"></thy-menu>');
+        expect(content).toContain('<thy-menu thyVariant="loose"></thy-menu>');
+        expect(content).not.toMatch(/<thy-menu[^>]*thyTheme="loose"/);
         expect(content).not.toMatch(/<thy-native-table[^>]*thyTheme/);
         expect(content).not.toMatch(/<thy-native-table[^>]*\[thyTheme\]/);
         expect(content).not.toMatch(/<thy-table-skeleton[^>]*thyTheme/);
