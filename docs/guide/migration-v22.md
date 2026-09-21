@@ -465,10 +465,21 @@ ng generate ngx-tethys:migrate-22
 **破坏性更改**
 
 - 类型 `ThyStackedValue` 重命名为 `ThyProgressStackedValue`
+- `ThyProgressStackedValue.type` 已移除，请使用 `color?: ThyProgressColor | string`
+
+**标记为废弃**
+
+- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`
 
 **自动迁移**
 
 - `ThyStackedValue` → `ThyProgressStackedValue`
+- `thyType` → `thyColor`
+- TypeScript 中 `ThyProgressType` → `ThyProgressColor`
+
+**手动检查**
+
+- stacked 数据中的 `type` 需改为 `color`
 
 ---
 

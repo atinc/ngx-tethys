@@ -18,6 +18,7 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThySliderType', replaceWith: 'ThySliderColor' },
                     { replace: 'ThyDropdownMenuItemType', replaceWith: 'ThyDropdownMenuItemColor' },
                     { replace: 'ThyActionType', replaceWith: 'ThyActionColor' },
+                    { replace: 'ThyProgressType', replaceWith: 'ThyProgressColor' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
@@ -165,6 +166,13 @@ export const upgradeData: UpgradeData = {
                         limitedTo: {
                             attributes: ['thyAction'],
                             elements: ['thy-action']
+                        }
+                    },
+                    {
+                        replace: 'thyType',
+                        replaceWith: 'thyColor',
+                        limitedTo: {
+                            elements: ['thy-progress']
                         }
                     },
                     {

@@ -208,6 +208,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ThyStatisticShape');
     });
 
+    it('should rename ThyProgressType to ThyProgressColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressType } from 'ngx-tethys/progress';
+
+                export const color: ThyProgressType = 'success';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressColor } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const color: ThyProgressColor = 'success'");
+        expect(content).not.toContain('ThyProgressType');
+    });
+
     it('should rename CompatibleDate to ThyCompatibleDate', async () => {
         const filePath = '/projects/update-22-test/src/app/compatible-date.ts';
         tree.create(

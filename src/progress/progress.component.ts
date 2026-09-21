@@ -1,7 +1,7 @@
 import { isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
 import { Component, computed, TemplateRef, ViewEncapsulation, numberAttribute, input, viewChildren, effect } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
+import { ThyProgressColor, ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStrip } from './progress-strip.component';
 import { ThyProgressCircle } from './progress-circle.component';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -65,9 +65,21 @@ export class ThyProgress implements ThyParentProgress {
     readonly bars = viewChildren(ThyProgressStrip);
 
     /**
-     * 进度条类型: `primary` | `success` | `info` | `warning` | `danger`
+     * 进度条颜色
+     * @type primary | success | info | warning | danger
+     * @default primary
+     */
+    readonly thyColor = input<ThyProgressColor>();
+
+    /**
+     * 进度条类型（已废弃），请使用 thyColor
+     * @deprecated please use thyColor
+     * @type primary | success | info | warning | danger
+     * @default primary
      */
     readonly thyType = input<ThyProgressType>('primary');
+
+    readonly color = computed(() => this.thyColor() || this.thyType() || 'primary');
 
     /**
      * 进度条大小

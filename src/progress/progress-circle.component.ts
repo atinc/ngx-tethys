@@ -10,7 +10,8 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
+import { ThyProgressColor, ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue } from './interfaces';
+import { isProgressThemeColor } from './progress-strip.component';
 import { NgClass, NgStyle } from '@angular/common';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
@@ -30,7 +31,11 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 export class ThyProgressCircle {
     private hostRenderer = useHostRenderer();
 
-    readonly thyType = input<ThyProgressType | undefined>(undefined);
+    /**
+     * 进度条颜色
+     * @type primary | success | info | warning | danger
+     */
+    readonly thyColor = input<ThyProgressColor | undefined>(undefined);
 
     readonly thySize = input<string | number | undefined>(undefined);
 
@@ -126,9 +131,9 @@ export class ThyProgressCircle {
                 return {
                     stroke: '',
                     value: +item.value,
-                    className: item.type ? `progress-circle-path-${item.type}` : null,
+                    className: isProgressThemeColor(item.color) ? `progress-circle-path-${item.color}` : null,
                     strokePathStyle: {
-                        stroke: item?.color ? item?.color : null,
+                        stroke: item.color && !isProgressThemeColor(item.color) ? item.color : null,
                         transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s',
                         strokeDasharray: `${((item.value || 0) / 100) * (len - gapDegree)}px ${len}px`,
                         strokeDashoffset: `-${gapDegree / 2}px`
@@ -141,8 +146,8 @@ export class ThyProgressCircle {
 
     constructor() {
         effect(() => {
-            const type = this.thyType();
-            this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
+            const color = this.thyColor();
+            this.hostRenderer.updateClass(color ? [`progress-circle-${color}`] : []);
         });
     }
 }
