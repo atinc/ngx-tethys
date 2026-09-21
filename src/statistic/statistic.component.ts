@@ -5,17 +5,17 @@ import { NgTemplateOutlet, NgStyle } from '@angular/common';
 
 export type ThyStatisticColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
-/** @deprecated use ThyStatisticColor */
+/** @deprecated use ThyStatisticColor, will be removed in v23 */
 export type ThyStatisticColorType = ThyStatisticColor;
 
 export type ThyStatisticAppearance = 'card';
 
-/** @deprecated use ThyStatisticAppearance */
+/** @deprecated use ThyStatisticAppearance, will be removed in v23 */
 export type ThyStatisticShape = ThyStatisticAppearance;
 
 export type ThyStatisticSize = 'default';
 
-/** @deprecated use ThyStatisticSize */
+/** @deprecated use ThyStatisticSize, will be removed in v23 */
 export type ThyStatisticSizes = ThyStatisticSize;
 
 export type ThyStatisticTitlePosition = 'top' | 'bottom';
@@ -75,8 +75,8 @@ export class ThyStatistic {
     readonly thyAppearance = input<ThyStatisticAppearance>();
 
     /**
-     * @description 展示形状（已废弃），请使用 thyAppearance
-     * @deprecated please use thyAppearance
+     * @description 展示形状（已废弃，将在 v23 彻底删除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
      * @type ThyStatisticShape
      * @default card
      */

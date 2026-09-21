@@ -83,8 +83,8 @@ export class ThyBadge implements OnInit {
     readonly thyColor = input<ThyBadgeColor>();
 
     /**
-     * 徽标类型（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
+     * 徽标类型（已废弃，将在 v23 彻底删除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
      * @type default | primary | danger | warning | success
      * @default danger
      */

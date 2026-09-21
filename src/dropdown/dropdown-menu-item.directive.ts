@@ -6,7 +6,7 @@ import { debounceTime, shareReplay } from 'rxjs/operators';
 
 export type ThyDropdownMenuItemColor = 'default' | 'danger' | 'success' | '';
 
-/** @deprecated use ThyDropdownMenuItemColor */
+/** @deprecated use ThyDropdownMenuItemColor, will be removed in v23 */
 export type ThyDropdownMenuItemType = ThyDropdownMenuItemColor;
 
 /**
@@ -38,8 +38,8 @@ export class ThyDropdownMenuItemDirective implements OnInit {
     readonly thyColor = input<ThyDropdownMenuItemColor>();
 
     /**
-     * 菜单项类型（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
+     * 菜单项类型（已废弃，将在 v23 彻底删除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
      * @type 'default' | 'danger' | 'success' | ''
      * @default default
      */
