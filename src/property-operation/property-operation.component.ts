@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { coerceBooleanProperty, htmlElementIsEmpty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, htmlElementIsEmpty, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -30,6 +30,7 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 /**
  * 属性操作组件
  * @name thy-property-operation
+ * @deprecated will be removed in v23
  * @order 10
  */
 @Component({
@@ -162,6 +163,12 @@ export class ThyPropertyOperation implements OnInit, AfterContentInit, OnDestroy
     disabled!: boolean;
 
     private destroy$ = new Subject<void>();
+
+    constructor() {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation('thy-property-operation has been deprecated and will be removed in v23');
+        }
+    }
 
     private setHostClass(first = false) {
         if (!this.initialized && !first) {
