@@ -51,6 +51,25 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ButtonGroupSize');
     });
 
+    it('should rename ThyProgressShapeType to ThyProgressShape', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-shape.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressShapeType } from 'ngx-tethys/progress';
+
+                export const progressShape: ThyProgressShapeType = 'circle';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressShape } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const progressShape: ThyProgressShape = 'circle'");
+        expect(content).not.toContain('ThyProgressShapeType');
+    });
+
     it('should rename ThyStackedValue to ThyProgressStackedValue', async () => {
         const filePath = '/projects/update-22-test/src/app/progress-stacked-value.ts';
         tree.create(

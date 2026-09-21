@@ -10,8 +10,8 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressColor, ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue } from './interfaces';
-import { isProgressThemeColor } from './progress-strip.component';
+import { ThyProgressColor, ThyProgressGapPositionType, ThyProgressShape, ThyProgressStackedValue } from './interfaces';
+import { isProgressPresetColor } from './progress-strip.component';
 import { NgClass, NgStyle } from '@angular/common';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
@@ -45,7 +45,7 @@ export class ThyProgressCircle {
 
     readonly thyTips = input<string | TemplateRef<unknown> | undefined>(undefined);
 
-    readonly thyShape = input<ThyProgressShapeType>('strip');
+    readonly thyShape = input<ThyProgressShape>('strip');
 
     readonly thyGapDegree = input<number, unknown>(undefined, { transform: numberAttribute });
 
@@ -128,12 +128,13 @@ export class ThyProgressCircle {
 
         const progressCirclePath = values
             .map((item, index) => {
+                const color = item.color ?? item.type;
                 return {
                     stroke: '',
                     value: +item.value,
-                    className: isProgressThemeColor(item.color) ? `progress-circle-path-${item.color}` : null,
+                    className: isProgressPresetColor(color) ? `progress-circle-path-${color}` : null,
                     strokePathStyle: {
-                        stroke: item.color && !isProgressThemeColor(item.color) ? item.color : null,
+                        stroke: color && !isProgressPresetColor(color) ? color : null,
                         transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s',
                         strokeDasharray: `${((item.value || 0) / 100) * (len - gapDegree)}px ${len}px`,
                         strokeDashoffset: `-${gapDegree / 2}px`

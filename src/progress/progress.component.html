@@ -3,12 +3,13 @@
     <div class="thy-progress-strip-outer">
       @if (isStacked()) {
         @for (item of thyValue(); track $index) {
+          <!-- 于 v23 彻底移除 item.type  -->
           <thy-progress-bar
             [ngClass]="{ 'cursor-pointer': item.tips || thyTips() }"
             [thyTooltip]="item.tips || thyTips()"
             [thyTooltipTemplateContext]="item"
             [thyTooltipDisabled]="!thyTips() && !item.tips"
-            [thyColor]="item.color"
+            [thyColor]="item.color || item.type"
             [thyValue]="item.value"
             >{{ item.label }}
           </thy-progress-bar>

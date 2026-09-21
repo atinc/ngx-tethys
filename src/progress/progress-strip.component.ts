@@ -21,7 +21,7 @@ export interface ThyParentProgress {
 }
 export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY_PROGRESS_COMPONENT');
 
-export function isProgressThemeColor(color?: string): color is ThyProgressColor {
+export function isProgressPresetColor(color?: string) {
     return color === 'primary' || color === 'success' || color === 'info' || color === 'warning' || color === 'danger';
 }
 
@@ -62,7 +62,7 @@ export class ThyProgressStrip {
 
     protected readonly barInnerStyle = computed(() => {
         const color = this.thyColor();
-        if (color && !isProgressThemeColor(color)) {
+        if (color && !isProgressPresetColor(color)) {
             return { 'background-color': color };
         }
         return null;
@@ -71,7 +71,7 @@ export class ThyProgressStrip {
     constructor() {
         effect(() => {
             const color = this.thyColor();
-            this.hostRenderer.updateClass(isProgressThemeColor(color) ? [`progress-bar-${color}`] : []);
+            this.hostRenderer.updateClass(isProgressPresetColor(color) ? [`progress-bar-${color}`] : []);
         });
     }
 }

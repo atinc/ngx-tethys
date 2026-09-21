@@ -19,6 +19,7 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyDropdownMenuItemType', replaceWith: 'ThyDropdownMenuItemColor' },
                     { replace: 'ThyActionType', replaceWith: 'ThyActionColor' },
                     { replace: 'ThyProgressType', replaceWith: 'ThyProgressColor' },
+                    { replace: 'ThyProgressShapeType', replaceWith: 'ThyProgressShape' },
                     {
                         replace: 'ThyStackedValue',
                         replaceWith: 'ThyProgressStackedValue'
