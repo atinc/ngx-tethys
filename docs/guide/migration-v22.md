@@ -672,7 +672,23 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 42. thy-table / thy-native-table / thy-table-skeleton
+### 42. thy-icon-nav
+
+**标记为废弃**
+
+- `thy-icon-nav` 及 `thyIconNavLink` 已废弃，将在 v23 彻底删除，请使用 `thy-action`
+
+---
+
+### 43. thy-property-operation
+
+**标记为废弃**
+
+- `thy-property-operation` / `thy-property-operation-group` / `ThyPropertyOperationModule` 已废弃，将在 v23 彻底删除
+
+---
+
+### 44. thy-table / thy-native-table / thy-table-skeleton
 
 **标记为废弃**
 
