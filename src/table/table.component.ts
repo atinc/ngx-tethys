@@ -70,7 +70,7 @@ import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared
 import { ThyIcon } from 'ngx-tethys/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { ThyTableColumnSkeletonType } from './enums';
-import { ThyTableTheme, ThyTableMode, ThyTableSize } from './table.type';
+import { ThyTableAppearance, ThyTableMode, ThyTableSize, ThyTableTheme } from './table.type';
 
 export enum ThyFixedDirection {
     left = 'left',
@@ -172,8 +172,6 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     public groupBy!: string;
 
     public mode: ThyTableMode = 'list';
-
-    public theme: ThyTableTheme = 'default';
 
     public className = '';
 
@@ -279,14 +277,22 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     /**
-     * 表格的显示风格，`bordered` 时头部有背景色且分割线区别明显
+     * 表格的外观，`bordered` 时头部有背景色且分割线区别明显
      * @type default | bordered | boxed
      * @default default
      */
-    @Input()
-    set thyTheme(value: ThyTableTheme) {
-        this.theme = value || this.theme;
-        this._setClass();
+    @Input() thyAppearance?: ThyTableAppearance;
+
+    /**
+     * 表格的显示风格（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
+     * @type default | bordered | boxed
+     * @default default
+     */
+    @Input() thyTheme: ThyTableTheme = 'default';
+
+    get theme(): ThyTableAppearance {
+        return this.thyAppearance || this.thyTheme || 'default';
     }
 
     /**
@@ -1069,6 +1075,10 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
+        if (simpleChanges.thyAppearance || simpleChanges.thyTheme) {
+            this._setClass();
+        }
+
         const modeChange = simpleChanges.thyMode;
         const thyGroupsChange = simpleChanges.thyGroups;
         const isGroupMode = modeChange && modeChange.currentValue === 'group';
