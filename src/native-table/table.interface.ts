@@ -2,7 +2,10 @@ export type ThyNativeTableLayout = 'fixed' | 'auto';
 
 export type ThyNativeTableSortOrder = 'default' | 'asc' | 'desc';
 
-export type ThyNativeTableTheme = 'default' | 'bordered' | 'boxed';
+export type ThyNativeTableAppearance = 'default' | 'bordered' | 'boxed';
+
+/** @deprecated use ThyNativeTableAppearance */
+export type ThyNativeTableTheme = ThyNativeTableAppearance;
 
 export type ThyNativeTableSize = 'md' | 'sm' | 'xs' | 'lg' | 'xlg' | 'default';
 

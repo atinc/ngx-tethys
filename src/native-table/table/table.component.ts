@@ -1,7 +1,13 @@
 import { Component, ElementRef, OnInit, TemplateRef, computed, effect, inject, input, output, signal } from '@angular/core';
 
 import { ThyNativeTableStyleService } from '../services/table-style.service';
-import { ThyNativeTableLayout, ThyNativeTableScroll, ThyNativeTableSize, ThyNativeTableTheme } from '../table.interface';
+import {
+    ThyNativeTableLayout,
+    ThyNativeTableScroll,
+    ThyNativeTableSize,
+    ThyNativeTableAppearance,
+    ThyNativeTableTheme
+} from '../table.interface';
 import { ThyNativeTableInnerDefaultComponent } from './table-inner-default.component';
 import { ThyNativeTableInnerScrollComponent } from './table-inner-scroll.component';
 import { UpdateHostClassService } from 'ngx-tethys/core';
@@ -25,7 +31,23 @@ export class ThyNativeTableComponent<T = any> implements OnInit {
 
     readonly thyTableLayout = input<ThyNativeTableLayout>('auto');
     readonly thySize = input<ThyNativeTableSize>('md');
+
+    /**
+     * 表格外观
+     * @type default | bordered | boxed
+     * @default default
+     */
+    readonly thyAppearance = input<ThyNativeTableAppearance>();
+
+    /**
+     * 表格的显示风格（已废弃），请使用 thyAppearance
+     * @deprecated please use thyAppearance
+     * @type default | bordered | boxed
+     * @default default
+     */
     readonly thyTheme = input<ThyNativeTableTheme>('default');
+
+    readonly appearance = computed(() => this.thyAppearance() || this.thyTheme() || 'default');
 
     readonly thyData = input<readonly T[]>([]);
 
@@ -97,8 +119,8 @@ export class ThyNativeTableComponent<T = any> implements OnInit {
         } else {
             classNames.push(`native-table-md`);
         }
-        if (this.thyTheme()) {
-            classNames.push(`native-table-${this.thyTheme()}`);
+        if (this.appearance()) {
+            classNames.push(`native-table-${this.appearance()}`);
         } else {
             classNames.push(`native-table-default`);
         }
@@ -117,10 +139,10 @@ export class ThyNativeTableComponent<T = any> implements OnInit {
 
     private updateTableClass(): void {
         const size = this.thySize();
-        const theme = this.thyTheme();
-        if (size || theme) {
+        const appearance = this.appearance();
+        if (size || appearance) {
             this.styleService.setTableSize(size);
-            this.styleService.setTableTheme(theme);
+            this.styleService.setTableAppearance(appearance);
             this.setNativeTableClass();
         }
     }
