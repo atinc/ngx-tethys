@@ -61,6 +61,10 @@
     }
     &.panel-is-opened {
         border-color: variables.$primary;
+        &.form-control-ghost:not(.is-invalid) {
+            border-color: transparent;
+            background-color: transparent;
+        }
         .select-control-arrow {
             svg {
                 transform: rotate(180deg);
@@ -155,7 +159,4 @@
             position: absolute;
         }
     }
-}
-.select-control-borderless {
-    border-color: transparent !important;
 }

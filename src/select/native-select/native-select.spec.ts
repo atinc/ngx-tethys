@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { provideHttpClient, withXhr } from '@angular/common/http';
+import { ThyFormControlAppearance } from 'ngx-tethys/core';
 
 @Component({
     selector: 'app-basic-select-demo',
     template: `
         <thy-native-select
             [thySize]="size"
+            [thyAppearance]="appearance"
             [disabled]="disabled"
             [(ngModel)]="value"
             (ngModelChange)="change($event)"
@@ -29,6 +31,7 @@ class BasicNativeSelectComponent {
     value = '';
     allowClear = false;
     size = 'md';
+    appearance: ThyFormControlAppearance = 'outline';
     disabled = true;
     change(): void {}
 }
@@ -92,6 +95,29 @@ describe(`select`, () => {
             fixture.detectChanges();
             expect(selectElementChildren[1].classList.value.includes('thy-icon-angle-down')).toBe(true);
         }));
+
+        it('should use outline appearance by default', () => {
+            fixture.detectChanges();
+            const select = selectElementChildren[0] as HTMLElement;
+            expect(select.classList.contains('form-control-subtle')).toBe(false);
+            expect(select.classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-subtle when thyAppearance is subtle', () => {
+            testComponent.appearance = 'subtle';
+            fixture.detectChanges();
+            const select = selectElementChildren[0] as HTMLElement;
+            expect(select.classList.contains('form-control-subtle')).toBe(true);
+            expect(select.classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-ghost when thyAppearance is ghost', () => {
+            testComponent.appearance = 'ghost';
+            fixture.detectChanges();
+            const select = selectElementChildren[0] as HTMLElement;
+            expect(select.classList.contains('form-control-ghost')).toBe(true);
+            expect(select.classList.contains('form-control-subtle')).toBe(false);
+        });
 
         it('should has correct size', () => {
             const sizes = ['xs', 'sm', 'md', 'lg'];

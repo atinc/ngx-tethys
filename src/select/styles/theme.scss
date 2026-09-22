@@ -2,11 +2,21 @@
     &.menu-is-opened {
         .form-control-custom {
             border-color: $input-hover-border-color;
+
+            &.form-control-ghost {
+                border-color: transparent;
+                background-color: transparent;
+            }
         }
     }
     &:focus {
         .form-control {
             border-color: $input-focus-border-color;
+
+            &.form-control-ghost {
+                border-color: transparent;
+                background-color: transparent;
+            }
         }
     }
 }

@@ -36,7 +36,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { Observable, of, throttleTime } from 'rxjs';
 import { SelectOptionBase } from '../../option/select-option-base';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -44,10 +44,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
-    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText],
-    host: {
-        '[class.select-control-borderless]': 'thyBorderless()'
-    }
+    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText]
 })
 export class ThySelectControl implements OnInit, AfterViewInit {
     private renderer = inject(Renderer2);
@@ -93,6 +90,15 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         transform: value => value ?? 'md'
     });
 
+    /**
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
+    });
+
     readonly tagSize: Signal<ThyTagSize> = computed(() => {
         const value = this.thySize();
         if (value === 'xs' || value === 'sm') {
@@ -109,6 +115,10 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         }
     });
 
+    /**
+     * 是否隐藏选择框边框（已废弃，将在 v23 彻底删除），请使用 `thyAppearance="ghost"`
+     * @deprecated please use thyAppearance="ghost", will be removed in v23
+     */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
     readonly thyPreset = input<string>('');
@@ -378,10 +388,13 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     setSelectControlClass() {
         const modeType = this.thyIsMultiple() ? 'multiple' : 'single';
+        const appearance = this.thyBorderless() ? 'ghost' : this.thyAppearance();
         const selectControlClass = {
             [`form-control`]: true,
             [`form-control-${this.thySize()}`]: !!this.thySize(),
             [`form-control-custom`]: true,
+            [`form-control-subtle`]: appearance === 'subtle',
+            [`form-control-ghost`]: appearance === 'ghost',
             [`select-control`]: true,
             [`select-control-${modeType}`]: true,
             [`select-control-show-search`]: this.thyShowSearch(),
