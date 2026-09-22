@@ -1,0 +1,66 @@
+<form novalidate [formGroup]="controls()">
+  <div thyRow [thyGutter]="30">
+    @for (field of thyFields(); track field.key) {
+      <thy-form-group
+        thyCol
+        [thySpan]="field.col | thyDynamicFormSpan"
+        [thyLabelText]="field.props?.label"
+        [thyLabelRequired]="!!field.props?.required">
+        @switch (field.kind) {
+          @case ('input') {
+            <input
+              thyInput
+              [formControlName]="field.key"
+              [name]="field.key"
+              [class.is-invalid]="showError(field)"
+              [attr.placeholder]="field.props?.placeholder || null"
+              [attr.type]="field.props?.type || 'text'"
+              [attr.readonly]="field.props?.readonly ? '' : null"
+              [attr.required]="field.props?.required ? '' : null"
+              [attr.minlength]="field.props?.minlength ?? null"
+              [attr.maxlength]="field.props?.maxlength ?? null"
+              [attr.min]="field.props?.min ?? null"
+              [attr.max]="field.props?.max ?? null"
+              [attr.step]="field.props?.step ?? null"
+              [thySize]="fieldSize()" />
+          }
+          @case ('textarea') {
+            <textarea
+              thyInput
+              [formControlName]="field.key"
+              [name]="field.key"
+              [class.is-invalid]="showError(field)"
+              [attr.placeholder]="field.props?.placeholder || null"
+              [attr.readonly]="field.props?.readonly ? '' : null"
+              [attr.required]="field.props?.required ? '' : null"
+              [attr.minlength]="field.props?.minlength ?? null"
+              [attr.maxlength]="field.props?.maxlength ?? null"
+              [attr.rows]="field.props?.rows ?? 3"
+              [style.resize]="field.props?.resize ?? 'none'"
+              [thySize]="fieldSize()"></textarea>
+          }
+          @case ('select') {
+            <thy-select
+              [formControlName]="field.key"
+              [attr.name]="field.key"
+              [class.is-invalid]="showError(field)"
+              [thyOptions]="field.props?.options ?? []"
+              [thyPlaceholder]="field.props?.placeholder ?? ''"
+              [thyShowSearch]="field.props?.searchable"
+              [thyAllowClear]="field.props?.clearable"
+              [thyMode]="field.props?.multiple ? 'multiple' : ''"
+              [thyEmptyStateText]="field.props?.emptyText ?? ''"
+              [thyEmptySearchMessageText]="field.props?.searchEmptyText ?? ''"
+              [thySize]="fieldSize()" />
+          }
+        }
+        @if (showError(field)) {
+          <div class="invalid-feedback">{{ errorMessage(field) }}</div>
+        }
+      </thy-form-group>
+    }
+  </div>
+  <thy-form-group-footer>
+    <ng-content></ng-content>
+  </thy-form-group-footer>
+</form>

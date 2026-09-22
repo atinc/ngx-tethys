@@ -55,6 +55,17 @@ import { ThyFormModule } from "ngx-tethys/form";
 </form>
 ```
 
+## 动态表单
+当字段由 schema 驱动时，使用`thy-dynamic-form`。它会根据`thyFields`生成 `FormGroup`，字段用`thy-form-group`和`thyRow` / `thyCol`排布，不依赖`thyForm`指令。布局由动态表单作为父级提供（当前为垂直）。
+
+字段 `col` 按 12 列栅格计算，默认 12（整行）。校验文案优先使用字段上的`errorMessages`，否则走`ThyFormValidatorLoader`的全局/多语言配置。操作按钮投影到内部的`thy-form-group-footer`，使用`type="submit"`提交，并通过`(thySubmit)`拿到 `{ value, valid }`。
+
+<example name="thy-form-dynamic-example" />
+
+字段联动时，在`(thyFieldValueChange)`里更新`thyFields`或`thyValue`即可。深度相等的 fields 不会重建控件。
+
+<example name="thy-form-dynamic-linkage-example" />
+
 ## 多列展示
 表单要在同一行展示多个表单控件，需要和布局组件配合使用，使用`thyRow`、`thyCol`设置布局规则。
 ```html
