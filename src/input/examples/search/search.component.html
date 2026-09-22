@@ -2,7 +2,6 @@
   <div thyCol [thySpan]="12">
     <thy-input-search
       [disabled]="true"
-      [attr.disabled]="true"
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
@@ -15,15 +14,6 @@
       (ngModelChange)="change()"
       (thyClear)="change()"
       thyIconPosition="after"
-      thyPlaceholder="Search"></thy-input-search>
-    <br />
-    <!-- TODO: transparent is deprecated, use thyAppearance="ghost" -->
-    <thy-input-search
-      (keydown.enter)="change()"
-      [(ngModel)]="searchText"
-      (ngModelChange)="change()"
-      (thyClear)="change()"
-      thyVariant="transparent"
       thyPlaceholder="Search"></thy-input-search>
     <br />
     <thy-input-group>

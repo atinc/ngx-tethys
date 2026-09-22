@@ -1,0 +1,25 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    @for (item of appearances; track item.value) {
+      <div class="mb-3">
+        <div class="mb-2 text-secondary">{{ item.label }}</div>
+        <thy-input-search
+          [(ngModel)]="value"
+          [thyAppearance]="item.value"
+          [thyPlaceholder]="item.value + ' (thy-input-search)'"></thy-input-search>
+      </div>
+    }
+  </div>
+  <div thyCol [thySpan]="12">
+    @for (item of appearances; track item.value) {
+      <div class="mb-3">
+        <div class="mb-2 text-secondary">{{ item.label }} (disabled)</div>
+        <thy-input-search
+          [(ngModel)]="value"
+          [thyAppearance]="item.value"
+          [thyPlaceholder]="item.value + ' (thy-input-search)'"
+          [disabled]="true"></thy-input-search>
+      </div>
+    }
+  </div>
+</div>

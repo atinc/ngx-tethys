@@ -7,11 +7,12 @@ import { ButtonAppearanceMigration } from './button-appearance-migration';
 import { ButtonGroupAppearanceMigration } from './button-group-appearance-migration';
 import { CardDeprecatedPropsMigration } from './card-deprecated-props-migration';
 import { ClassNamesMigration } from './class-name-migration';
-import { FormControlSizeTypeMigration } from './form-control-size-type-migration';
 import { DatePickerPopoverOptionsMigration } from './date-picker-popover-options-migration';
 import { DividerDeeperMigration } from './divider-deeper-migration';
+import { FormControlSizeTypeMigration } from './form-control-size-type-migration';
 import { HeaderIconPrefixMigration } from './header-icon-prefix-migration';
 import { InputControlSizeMigration } from './input-control-size-migration';
+import { InputSearchAppearanceMigration } from './input-search-appearance-migration';
 import { MenuThemeMigration } from './menu-theme-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
@@ -25,6 +26,7 @@ const migrations: NullableDevkitMigration[] = [
     DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,
+    InputSearchAppearanceMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
     MenuThemeMigration,

@@ -1,0 +1,22 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    @for (item of appearances; track item.value) {
+      <div class="mb-3">
+        <div class="mb-2 text-secondary">{{ item.label }}</div>
+        <input thyInput [(ngModel)]="value" [thyAppearance]="item.value" [placeholder]="item.value + ' (thyInput)'" />
+      </div>
+    }
+  </div>
+  <div thyCol [thySpan]="12">
+    @for (item of appearances; track item.value) {
+      <div class="mb-3">
+        <div class="mb-2 text-secondary">{{ item.label }}</div>
+        <thy-input
+          [(ngModel)]="value"
+          [thyAppearance]="item.value"
+          [thyPlaceholder]="item.value + ' (thy-input)'"
+          [disabled]="true"></thy-input>
+      </div>
+    }
+  </div>
+</div>

@@ -181,6 +181,43 @@
     }
 }
 
+@mixin form-control-appearance() {
+    &.form-control-subtle {
+        border-color: transparent;
+
+        &:disabled,
+        &.disabled {
+            border-color: transparent;
+            background-color: transparent;
+
+            &:hover {
+                border-color: transparent;
+                background-color: variables.$input-disabled-bg;
+            }
+        }
+    }
+
+    &.form-control-ghost {
+        border-color: transparent;
+        background-color: transparent;
+
+        &:not([disabled]):not(.disabled):not(.is-invalid) {
+            &:hover,
+            &:focus,
+            &.form-control-active {
+                border-color: transparent;
+                background-color: transparent;
+            }
+        }
+
+        &:disabled,
+        &.disabled {
+            border-color: transparent;
+            background-color: transparent;
+        }
+    }
+}
+
 @mixin set-select-arrow() {
     content: '\e6b8';
     font: normal normal normal 14px/1 wtf;

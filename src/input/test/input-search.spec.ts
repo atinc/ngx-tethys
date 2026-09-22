@@ -1,12 +1,12 @@
-import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, DebugElement, viewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchTheme, ThyInputSearchVariant } from '../input-search.component';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { provideHttpClient, withXhr } from '@angular/common/http';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchTheme, ThyInputSearchVariant } from '../input-search.component';
 
 @Component({
     selector: 'thy-input-search-basic-test',
@@ -17,6 +17,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
             [disabled]="disabled"
             [thyVariant]="thyVariant"
             [thyTheme]="thyTheme"
+            [thyAppearance]="thyAppearance"
             [thySearchFocus]="searchFocus"
             [(ngModel)]="searchText"
             (ngModelChange)="modelChange($event)"
@@ -35,6 +36,7 @@ class TestInputSearchBasicComponent {
     thySize: ThyFormControlSize | undefined = 'sm';
     thyVariant: ThyInputSearchVariant | '' = '';
     thyTheme: ThyInputSearchTheme | '' = '';
+    thyAppearance!: ThyFormControlAppearance;
     disabled = false;
     iconPosition!: ThyInputSearchIconPosition;
     onClear() {}
@@ -121,23 +123,38 @@ describe('input search', () => {
 
         basicTestComponent.thyVariant = 'transparent';
         fixture.detectChanges();
-        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(true);
+        expect(searchElement.classList.contains('form-control-ghost')).toBe(true);
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
     });
 
-    it('should set deprecated thyTheme', () => {
-        basicTestComponent.thyTheme = 'default';
+    it('should use outline appearance by default', () => {
         fixture.detectChanges();
-        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
+        expect(searchElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
+    });
 
-        basicTestComponent.thyTheme = 'ellipse';
+    it('should add form-control-subtle when thyAppearance is subtle', () => {
+        basicTestComponent.thyAppearance = 'subtle';
         fixture.detectChanges();
-        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
+        expect(searchElement.classList.contains('form-control-subtle')).toBe(true);
+        expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
+        expect(debugInputElement.nativeElement.classList.contains('form-control-subtle')).toBe(true);
+    });
 
+    it('should add ghost classes when thyAppearance is ghost', () => {
+        basicTestComponent.thyAppearance = 'ghost';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('form-control-ghost')).toBe(true);
+        expect(searchElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(debugInputElement.nativeElement.classList.contains('form-control-ghost')).toBe(true);
+    });
+
+    it('should prefer thyAppearance over deprecated thyTheme transparent', () => {
         basicTestComponent.thyTheme = 'transparent';
+        basicTestComponent.thyAppearance = 'subtle';
         fixture.detectChanges();
-        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(true);
-        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
+        expect(searchElement.classList.contains('form-control-subtle')).toBe(true);
+        expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
     });
 
     it('thyClear EventEmitter', fakeAsync(() => {
@@ -185,13 +202,16 @@ describe('input search', () => {
         basicTestComponent.disabled = true;
         fixture.detectChanges();
         tick();
-        fixture.detectChanges;
+        fixture.detectChanges();
         expect(debugSearchElement.componentInstance.disabled()).toBe(true);
+        expect(searchElement.classList.contains('disabled')).toBe(true);
 
         basicTestComponent.searchText = 'New Text';
         fixture.detectChanges();
         tick();
         fixture.detectChanges();
+        expect(searchElement.querySelector('.close')).toBeFalsy();
+        expect(searchElement.classList.contains('thy-input-search-before-with-clear')).toBe(false);
 
         const afterClearSpy = jasmine.createSpy('after clear spy');
         debugSearchElement.componentInstance.thyClear.subscribe(() => {
