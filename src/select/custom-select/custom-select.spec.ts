@@ -966,6 +966,7 @@ describe('ThyCustomSelect', () => {
                 tick();
                 fixture.detectChanges();
                 expect(selectElement.querySelector('.select-control-borderless')).toBeTruthy();
+                expect(selectElement.querySelector('.form-control-ghost')).toBeTruthy();
             }));
 
             it('should use outline appearance by default', fakeAsync(() => {

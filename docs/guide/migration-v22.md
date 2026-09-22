@@ -172,6 +172,11 @@ ng generate ngx-tethys:migrate-22
 - `thyPlaceHolder` 重命名为 `thyPlaceholder`
 - 尺寸类型 `SelectControlSize` 重命名为 `ThyFormControlSize`
 - `thy-tree-select` 移除 `thyIconType` 及类型 `ThyTreeSelectType`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyBorderless` 已废弃，请使用 `thyAppearance="ghost"`
 
 **自动迁移**
 
@@ -179,6 +184,7 @@ ng generate ngx-tethys:migrate-22
 - `thyPlaceHolder` → `thyPlaceholder` (thy-select / thy-custom-select)
 - TypeScript 中 `SelectControlSize` → `ThyFormControlSize`
 - 移除 `thy-tree-select` 上的 `thyIconType` 和 `ThyTreeSelectType`
+- `thyBorderless` / `thyBorderless="true"` / `[thyBorderless]="true"` → `thyAppearance="ghost"`；`thyBorderless="false"` / `[thyBorderless]="false"` 直接删除；若已设置 `thyAppearance`，则仅删除 `thyBorderless`
 
 ---
 
@@ -200,11 +206,17 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - 尺寸类型 `SelectControlSize` 重命名为 `ThyFormControlSize`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyBorderless` 已废弃，请使用 `thyAppearance="ghost"`
 
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
 - TypeScript 中 `SelectControlSize` → `ThyFormControlSize`
+- `thyBorderless` / `thyBorderless="true"` / `[thyBorderless]="true"` → `thyAppearance="ghost"`；`thyBorderless="false"` / `[thyBorderless]="false"` 直接删除；若已设置 `thyAppearance`，则仅删除 `thyBorderless`
 
 ---
 
@@ -818,6 +830,8 @@ ng generate ngx-tethys:migrate-22
   - `thy-button-group`：形如 `[thyType]="type"` 的动态绑定 **不会自动迁移**；需手动改为 `[thyAppearance]`，并将旧值（`outline-default` / `outline-primary` / `primary`）映射为 `outline` / `fill`，并在子按钮上通过 `thyButton` 或 `thyColor` 设置 `default`、`primary`
 - **`thy-tag` 运行时赋值 / 字符串中的旧值**（Schematics 仅处理模板字面量）：
   - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
+- **`thy-select` / `thySelectControl` 的 `thyBorderless` 动态绑定**（Schematics 仅处理字面量）：
+  - 形如 `[thyBorderless]="borderless"` **不会自动迁移**；需手动改为 `[thyAppearance]="borderless ? 'ghost' : 'outline'"`，或直接使用 `thyAppearance="ghost"`
   - i18n / TS 字符串内嵌旧 CSS 类名：形如 `thy-tag-weak-fill-primary` **不会自动替换**，需改为 `thy-tag-subtle-primary`（其它颜色后缀同理，如 `thy-tag-weak-fill-default` → `thy-tag-subtle-default`）
 - **`ThyAvatarService` 子类中的 `avatarSrcTransform` 方法定义**：自动迁移仅改写 `ThyAvatarService` 类型变量上的**调用**（如 `this.thyAvatarService.avatarSrcTransform(...)` → `srcTransform(...)`），**不会**删除或重命名子类里的方法声明；若子类仍保留仅为兼容的 `avatarSrcTransform()` 包装方法，需手动删除，只保留 `srcTransform()` 实现
 - **移除的 CSS 类**（自定义样式若依赖这些 class 会失效，请改用新写法或移除选择器）：

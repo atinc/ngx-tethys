@@ -107,6 +107,7 @@ describe('ThySelectControl', () => {
                 tick();
                 fixture.detectChanges();
                 expect(selectElement.classList.contains('select-control-borderless')).toBeTruthy();
+                expect(selectElement.classList.contains('form-control-ghost')).toBeTruthy();
             }));
         });
 

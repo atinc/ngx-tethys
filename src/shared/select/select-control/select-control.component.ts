@@ -118,6 +118,10 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         }
     });
 
+    /**
+     * 是否隐藏选择框边框（已废弃，将在 v23 彻底删除），请使用 `thyAppearance="ghost"`
+     * @deprecated please use thyAppearance="ghost", will be removed in v23
+     */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
 
     readonly thyPreset = input<string>('');
@@ -387,7 +391,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     setSelectControlClass() {
         const modeType = this.thyIsMultiple() ? 'multiple' : 'single';
-        const appearance = this.thyAppearance();
+        const appearance = this.thyBorderless() ? 'ghost' : this.thyAppearance();
         const selectControlClass = {
             [`form-control`]: true,
             [`form-control-${this.thySize()}`]: !!this.thySize(),

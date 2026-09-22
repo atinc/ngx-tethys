@@ -15,5 +15,4 @@ export * from './spacing';
 export * from './debounce-time';
 export * from './global-config';
 export * from './provide';
-export * from './form-control-size';
-export * from './form-control-appearance';
+export * from './form-control';

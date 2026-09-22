@@ -578,6 +578,51 @@ export class InputSearchDemoComponent {
         expect(content).not.toMatch(/<thy-input-search[^>]*\[(thyTheme|thyVariant)\]="'transparent'"/);
     });
 
+    it('should migrate thyBorderless to thyAppearance ghost for thy-select', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/select-borderless-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThySelectModule } from 'ngx-tethys/select';
+
+@Component({
+    selector: 'app-select-borderless-demo',
+    template: \`
+        <thy-select thyBorderless></thy-select>
+        <thy-select thyBorderless="true"></thy-select>
+        <thy-select [thyBorderless]="true"></thy-select>
+        <thy-select thyBorderless="false"></thy-select>
+        <thy-select [thyBorderless]="false"></thy-select>
+        <thy-select thyAppearance="subtle" thyBorderless></thy-select>
+        <thy-select [thyBorderless]="borderless"></thy-select>
+        <thy-custom-select thyBorderless></thy-custom-select>
+        <div thySelectControl thyBorderless></div>
+    \`,
+    imports: [ThySelectModule]
+})
+export class SelectBorderlessDemoComponent {
+    borderless = true;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/select-borderless-demo.component.ts');
+        expect(content).toContain('thyAppearance="ghost"');
+        expect(content).toContain('thyAppearance="subtle"');
+        expect(content).toContain('[thyBorderless]="borderless"');
+        expect(content.match(/thyBorderless/g)?.length).toBe(1);
+        expect(content).not.toMatch(/thyBorderless="true"/);
+        expect(content).not.toMatch(/thyBorderless="false"/);
+        expect(content).not.toMatch(/\[thyBorderless\]="true"/);
+        expect(content).not.toMatch(/\[thyBorderless\]="false"/);
+        expect(content).toContain('<thy-custom-select thyAppearance="ghost"></thy-custom-select>');
+        expect(content).toContain('<div thySelectControl thyAppearance="ghost"></div>');
+    });
+
     it('should migrate ThyInputSearchTheme to ThyInputSearchVariant', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
