@@ -1,4 +1,4 @@
-import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
+import { EXPANDED_DROPDOWN_POSITIONS, ThyFormControlAppearance } from 'ngx-tethys/core';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 import { Subject, of } from 'rxjs';
@@ -332,6 +332,7 @@ const customLabelPropertyOptions = [
             [thyLoadData]="loadData"
             [thyShowSearch]="isShowSearch"
             [thyDisabled]="disabled"
+            [thyAppearance]="appearance"
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [thyEmptyStateText]="emptyStateText"
             [thyMultiple]="isMultiple"
@@ -372,6 +373,7 @@ class CascaderBasicComponent {
     public isShowSearch: boolean = false;
     public emptyStateText = '无选项';
     public disabled = false;
+    public appearance: ThyFormControlAppearance = 'outline';
     public isOnlySelectLeaf = true;
     public isMultiple = false;
     public thyAutoExpand = true;
@@ -747,6 +749,37 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeFalsy();
         }));
+
+        it('should use outline appearance by default', () => {
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+            expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-subtle when thyAppearance is subtle', () => {
+            component.appearance = 'subtle';
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('form-control-subtle')).toBe(true);
+            expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-ghost when thyAppearance is ghost', () => {
+            component.appearance = 'ghost';
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('form-control-ghost')).toBe(true);
+            expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+        });
+
+        it('should apply disabled class when thyDisabled is true', () => {
+            component.disabled = true;
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('disabled')).toBe(true);
+            expect(debugElement.query(By.css('.thy-cascader-picker-disabled'))).toBeTruthy();
+        });
 
         it('should select', fakeAsync(() => {
             const selectedVal = ['zhejiang', 'hangzhou', 'xihu'];

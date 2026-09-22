@@ -1,0 +1,39 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <thy-cascader [thyOptions]="areaCode" [(ngModel)]="values" [thyAppearance]="'outline'" [thyPlaceholder]="'outline'"></thy-cascader>
+    <thy-cascader
+      [thyOptions]="areaCode"
+      [(ngModel)]="values"
+      [thyAppearance]="'subtle'"
+      [thyPlaceholder]="'subtle'"
+      class="mt-3"></thy-cascader>
+    <thy-cascader
+      [thyOptions]="areaCode"
+      [(ngModel)]="values"
+      [thyAppearance]="'ghost'"
+      [thyPlaceholder]="'ghost'"
+      class="mt-3"></thy-cascader>
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-cascader
+      [thyOptions]="areaCode"
+      [(ngModel)]="values"
+      [thyAppearance]="'outline'"
+      [thyPlaceholder]="'outline'"
+      [disabled]="true"></thy-cascader>
+    <thy-cascader
+      [thyOptions]="areaCode"
+      [(ngModel)]="values"
+      [thyAppearance]="'subtle'"
+      [thyPlaceholder]="'subtle'"
+      [disabled]="true"
+      class="mt-3"></thy-cascader>
+    <thy-cascader
+      [thyOptions]="areaCode"
+      [(ngModel)]="values"
+      [thyAppearance]="'ghost'"
+      [thyPlaceholder]="'ghost'"
+      [disabled]="true"
+      class="mt-3"></thy-cascader>
+  </div>
+</div>
