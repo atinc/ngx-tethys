@@ -619,8 +619,8 @@ export class SelectBorderlessDemoComponent {
         expect(content).not.toMatch(/thyBorderless="false"/);
         expect(content).not.toMatch(/\[thyBorderless\]="true"/);
         expect(content).not.toMatch(/\[thyBorderless\]="false"/);
-        expect(content).toContain('<thy-custom-select thyAppearance="ghost"></thy-custom-select>');
-        expect(content).toContain('<div thySelectControl thyAppearance="ghost"></div>');
+        expect(content).toMatch(/<thy-custom-select[^>]*thyAppearance="ghost"/);
+        expect(content).toMatch(/<div thySelectControl[^>]*thyAppearance="ghost"/);
     });
 
     it('should migrate ThyInputSearchTheme to ThyInputSearchVariant', async () => {

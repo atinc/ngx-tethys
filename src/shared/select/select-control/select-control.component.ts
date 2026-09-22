@@ -44,10 +44,7 @@ import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
-    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText],
-    host: {
-        '[class.select-control-borderless]': 'thyBorderless()'
-    }
+    imports: [FormsModule, NgClass, NgStyle, ThyTag, NgTemplateOutlet, ThyIcon, ThyGridModule, ThyTooltipDirective, ThyFlexibleText]
 })
 export class ThySelectControl implements OnInit, AfterViewInit {
     private renderer = inject(Renderer2);
