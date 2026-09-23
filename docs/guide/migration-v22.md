@@ -274,6 +274,7 @@ ng generate ngx-tethys:migrate-22
 **破坏性更改**
 
 - `thyAutocompleteComponent` 重命名为 `thyAutocomplete`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
 
 **自动迁移**
 
