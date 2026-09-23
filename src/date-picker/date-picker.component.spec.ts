@@ -378,6 +378,26 @@ describe('ThyDatePickerComponent', () => {
             expect(getPickerTrigger().classList.contains('form-control-lg')).toBeTruthy();
         });
 
+        it('should use outline appearance by default', () => {
+            fixture.detectChanges();
+            expect(getPickerTrigger().classList.contains('form-control-subtle')).toBe(false);
+            expect(getPickerTrigger().classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-subtle when thyAppearance is subtle', () => {
+            fixtureInstance.thyAppearance = 'subtle';
+            fixture.detectChanges();
+            expect(getPickerTrigger().classList.contains('form-control-subtle')).toBe(true);
+            expect(getPickerTrigger().classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-ghost when thyAppearance is ghost', () => {
+            fixtureInstance.thyAppearance = 'ghost';
+            fixture.detectChanges();
+            expect(getPickerTrigger().classList.contains('form-control-ghost')).toBe(true);
+            expect(getPickerTrigger().classList.contains('form-control-subtle')).toBe(false);
+        });
+
         it('should support thySuffixIcon', () => {
             fixture.detectChanges();
             expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeNull();
@@ -1377,6 +1397,7 @@ describe('ThyDatePickerComponent', () => {
                     [thyPanelClassName]="thyPanelClassName"
                     [thyDefaultPickerValue]="thyDefaultPickerValue"
                     [thySize]="thySize"
+                    [thyAppearance]="thyAppearance"
                     [thyFormat]="thyFormat"
                     [thySuffixIcon]="thySuffixIcon"
                     [thyReadonly]="thyReadonly"
@@ -1432,6 +1453,7 @@ class ThyTestDatePickerComponent {
     thyPlaceholder!: string;
     thyPanelClassName!: string;
     thySize!: string;
+    thyAppearance!: string;
     thySuffixIcon!: string;
     thyFormat!: string;
     thyReadonly!: boolean;

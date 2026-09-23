@@ -227,6 +227,7 @@ ng generate ngx-tethys:migrate-22
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - `thyPlaceHolder` 重命名为 `thyPlaceholder`
 - 类型 `CompatibleDate` 重命名为 `ThyCompatibleDate`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
 
 **自动迁移**
 
@@ -243,6 +244,7 @@ ng generate ngx-tethys:migrate-22
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - `thyPlaceHolder` 重命名为 `thyPlaceholder`
 - 移除 `thyOffset`、`thyHasBackdrop`，合并到 `[thyPopoverOptions]`，例如：`[thyPopoverOptions]="{ offset: 8, hasBackdrop: false }"`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
 
 **自动迁移**
 

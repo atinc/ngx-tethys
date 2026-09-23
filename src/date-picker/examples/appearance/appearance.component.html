@@ -1,0 +1,24 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <thy-date-picker [(ngModel)]="date" [thyAppearance]="'outline'" [thyPlaceholder]="'outline'"></thy-date-picker>
+    <thy-date-picker class="mt-3" [(ngModel)]="date" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'"></thy-date-picker>
+    <thy-date-picker class="mt-3" [(ngModel)]="date" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'"></thy-date-picker>
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-date-picker [thyAppearance]="'outline'" [thyPlaceholder]="'outline'" thyDisabled></thy-date-picker>
+    <thy-date-picker class="mt-3" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'" thyDisabled></thy-date-picker>
+    <thy-date-picker class="mt-3" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'" thyDisabled></thy-date-picker>
+  </div>
+</div>
+<div thyRow [thyGutter]="30" class="mt-4">
+  <div thyCol [thySpan]="12">
+    <thy-range-picker [(ngModel)]="dateRange" [thyAppearance]="'outline'"></thy-range-picker>
+    <thy-range-picker class="mt-3" [(ngModel)]="dateRange" [thyAppearance]="'subtle'"></thy-range-picker>
+    <thy-range-picker class="mt-3" [(ngModel)]="dateRange" [thyAppearance]="'ghost'"></thy-range-picker>
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-range-picker [thyAppearance]="'outline'" thyDisabled></thy-range-picker>
+    <thy-range-picker class="mt-3" [thyAppearance]="'subtle'" thyDisabled></thy-range-picker>
+    <thy-range-picker class="mt-3" [thyAppearance]="'ghost'" thyDisabled></thy-range-picker>
+  </div>
+</div>
