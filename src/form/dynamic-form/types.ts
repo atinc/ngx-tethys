@@ -1,72 +1,63 @@
-export type ThyDynamicFormFieldKind = 'input' | 'textarea' | 'select';
+import { ThySelectOptionModel } from 'ngx-tethys/select';
 
-export type ThyDynamicFormErrorMessages = Partial<Record<string, string>>;
+export type ThyFormFieldKind = 'input' | 'textarea' | 'select';
 
 export type ThyDynamicFormUpdateOn = 'change' | 'blur' | 'submit';
 
 export type ThyDynamicFormValue = Record<string, unknown>;
 
-export type ThyDynamicFormTextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
+export type ThyFormTextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
 
-export interface ThyDynamicFormValidatorContext {
+export type ThyFormFieldValidator = (ctx: {
     value: unknown;
     form: ThyDynamicFormValue;
-}
+}) => Record<string, unknown> | null | Promise<Record<string, unknown> | null>;
 
-export type ThyDynamicFormValidatorFn = (
-    ctx: ThyDynamicFormValidatorContext
-) => Record<string, unknown> | null | Promise<Record<string, unknown> | null>;
-
-export interface ThyDynamicFormFieldValueChange {
+export interface ThyFormFieldValueChange {
     key: string;
     value: unknown;
 }
 
-export interface ThyDynamicFormSubmitEvent {
-    value: ThyDynamicFormValue;
-    valid: boolean;
-}
-
-interface ThyDynamicFormFieldBase {
+interface ThyFormFieldBase {
     key: string;
-    kind: ThyDynamicFormFieldKind;
+    kind: ThyFormFieldKind;
     /**
      * 栅格占位列数，按 12 列计算。默认 12（整行），6 为半行。
      */
     col?: number;
-    disabled?: boolean;
     defaultValue?: unknown;
-    errorMessages?: ThyDynamicFormErrorMessages;
+    errorMessages?: Partial<Record<string, string>>;
     /**
      * 控件值更新时机。未设置时值为 `change`，错误展示默认跟随提交。
      */
     updateOn?: ThyDynamicFormUpdateOn;
-    validators?: ThyDynamicFormValidatorFn[];
+    validators?: ThyFormFieldValidator[];
 }
 
-export interface ThyDynamicFormInputField extends ThyDynamicFormFieldBase {
+export interface ThyFormInputFieldConfig extends ThyFormFieldBase {
     kind: 'input';
-    props?: ThyDynamicFormInputFieldProps;
+    props?: ThyFormInputFieldProps;
 }
 
-export interface ThyDynamicFormTextareaField extends ThyDynamicFormFieldBase {
+export interface ThyFormTextareaFieldConfig extends ThyFormFieldBase {
     kind: 'textarea';
-    props?: ThyDynamicFormTextareaFieldProps;
+    props?: ThyFormTextareaFieldProps;
 }
 
-export interface ThyDynamicFormSelectField extends ThyDynamicFormFieldBase {
+export interface ThyFormSelectFieldConfig extends ThyFormFieldBase {
     kind: 'select';
-    props?: ThyDynamicFormSelectFieldProps;
+    props?: ThyFormSelectFieldProps;
 }
 
-export interface ThyDynamicFormFieldBaseProps {
+export interface ThyFormFieldBaseProps {
     label?: string;
     placeholder?: string;
     required?: boolean;
     readonly?: boolean;
+    disabled?: boolean;
 }
 
-export interface ThyDynamicFormInputFieldProps extends ThyDynamicFormFieldBaseProps {
+export interface ThyFormInputFieldProps extends ThyFormFieldBaseProps {
     type?: string;
     minlength?: number;
     maxlength?: number;
@@ -76,25 +67,16 @@ export interface ThyDynamicFormInputFieldProps extends ThyDynamicFormFieldBasePr
     pattern?: string;
 }
 
-export interface ThyDynamicFormTextareaFieldProps extends ThyDynamicFormFieldBaseProps {
+export interface ThyFormTextareaFieldProps extends ThyFormFieldBaseProps {
     minlength?: number;
     maxlength?: number;
     rows?: number;
-    resize?: ThyDynamicFormTextareaResize;
+    resize?: ThyFormTextareaResize;
     pattern?: string;
 }
 
-export interface ThyDynamicFormSelectOption {
-    value?: string | number;
-    label?: string;
-    disabled?: boolean;
-    icon?: string;
-}
-
-export type ThyDynamicFormSelectOptions = ThyDynamicFormSelectOption[];
-
-export interface ThyDynamicFormSelectFieldProps extends ThyDynamicFormFieldBaseProps {
-    options?: ThyDynamicFormSelectOptions;
+export interface ThyFormSelectFieldProps extends ThyFormFieldBaseProps {
+    options?: ThySelectOptionModel[];
     multiple?: boolean;
     searchable?: boolean;
     clearable?: boolean;
@@ -102,4 +84,4 @@ export interface ThyDynamicFormSelectFieldProps extends ThyDynamicFormFieldBaseP
     searchEmptyText?: string;
 }
 
-export type ThyDynamicFormFieldConfig = ThyDynamicFormInputField | ThyDynamicFormTextareaField | ThyDynamicFormSelectField;
+export type ThyFormFieldConfig = ThyFormInputFieldConfig | ThyFormTextareaFieldConfig | ThyFormSelectFieldConfig;

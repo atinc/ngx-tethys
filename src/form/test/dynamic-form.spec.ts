@@ -6,8 +6,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyButton } from 'ngx-tethys/button';
 import {
     ThyDynamicForm,
-    ThyDynamicFormFieldConfig,
-    ThyDynamicFormSubmitEvent,
+    ThyFormFieldConfig,
     ThyDynamicFormValue,
     ThyFormModule,
     ThyFormValidatorLoader
@@ -33,7 +32,7 @@ import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } fr
 class TestDynamicFormComponent {
     readonly dynamicForm = viewChild.required(ThyDynamicForm);
 
-    fields: ThyDynamicFormFieldConfig[] = [];
+    fields: ThyFormFieldConfig[] = [];
 
     value: ThyDynamicFormValue | undefined;
 
@@ -43,7 +42,7 @@ class TestDynamicFormComponent {
 
     fieldValueChanges: { key: string; value: unknown }[] = [];
 
-    submits: ThyDynamicFormSubmitEvent[] = [];
+    submits: ThyDynamicFormValue[] = [];
 
     onValueChange(value: ThyDynamicFormValue) {
         this.valueChanges.push(value);
@@ -53,8 +52,8 @@ class TestDynamicFormComponent {
         this.fieldValueChanges.push(event);
     }
 
-    onSubmit(event: ThyDynamicFormSubmitEvent) {
-        this.submits.push(event);
+    onSubmit(value: ThyDynamicFormValue) {
+        this.submits.push(value);
     }
 }
 
@@ -76,7 +75,7 @@ describe('dynamic-form', () => {
         tick();
     }));
 
-    function setFields(fields: ThyDynamicFormFieldConfig[]) {
+    function setFields(fields: ThyFormFieldConfig[]) {
         testComponent.fields = fields;
         fixture.detectChanges();
     }
@@ -98,7 +97,7 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('input')?.value).toBe('Lin');
     });
 
-    it('should show required error after submit and still emit thySubmit', () => {
+    it('should show required error after submit and not emit thySubmit', () => {
         setFields([
             {
                 key: 'name',
@@ -112,10 +111,20 @@ describe('dynamic-form', () => {
         fixture.debugElement.query(By.css('#submit')).nativeElement.click();
         fixture.detectChanges();
 
-        expect(testComponent.submits).toEqual([{ value: { name: '' }, valid: false }]);
+        expect(testComponent.submits).toEqual([]);
         expect(formElement.textContent).toContain('请填写名称');
         expect(formElement.querySelector('input')?.classList.contains('is-invalid')).toBe(true);
         expect(formElement.querySelector('.invalid-feedback')?.textContent).toBe('请填写名称');
+    });
+
+    it('should emit form value from thySubmit when valid', () => {
+        setFields([{ key: 'name', kind: 'input', props: { required: true } }]);
+        setValue({ name: 'Ada' });
+
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testComponent.submits).toEqual([{ name: 'Ada' }]);
     });
 
     it('should use ThyFormValidatorLoader message when errorMessages is absent', () => {
@@ -140,7 +149,7 @@ describe('dynamic-form', () => {
         expect(message).toBe(loader.getErrorMessage('name', 'minlength').replace('{minlength}', '2'));
     });
 
-    it('should not use validator payload when loader has a message', () => {
+    it('should not use validator payload when loader has a message', fakeAsync(() => {
         setFields([
             {
                 key: 'name',
@@ -155,9 +164,9 @@ describe('dynamic-form', () => {
         fixture.detectChanges();
         const loader = TestBed.inject(ThyFormValidatorLoader);
         expect(formElement.querySelector('.invalid-feedback')?.textContent?.trim()).toBe(loader.getErrorMessage('name', 'required'));
-    });
+    }));
 
-    it('should apply a custom function validator', () => {
+    it('should apply a custom function validator', fakeAsync(() => {
         setFields([
             {
                 key: 'code',
@@ -184,9 +193,9 @@ describe('dynamic-form', () => {
         fixture.detectChanges();
         expect(formElement.textContent).toContain('必须输入 ok');
         expect(formElement.querySelector('input')?.classList.contains('is-invalid')).toBe(true);
-    });
+    }));
 
-    it('should show custom validator payload when the validator returns a Promise', () => {
+    it('should show custom validator payload when the validator returns a Promise', fakeAsync(() => {
         setFields([
             {
                 key: 'code',
@@ -211,30 +220,55 @@ describe('dynamic-form', () => {
         fixture.detectChanges();
         expect(formElement.textContent).toContain('必须输入 ok');
         expect(formElement.querySelector('input')?.classList.contains('is-invalid')).toBe(true);
+    }));
+
+    it('should disable a select when disabled changes to true', () => {
+        setFields([
+            {
+                key: 'organization',
+                kind: 'select',
+                props: { options: [{ value: 'organization-a', label: 'Organization A' }] }
+            }
+        ]);
+        const select = formElement.querySelector('thy-select')!;
+        expect(select.querySelector('.form-control-custom.disabled')).toBeFalsy();
+
+        setFields([
+            {
+                key: 'organization',
+                kind: 'select',
+                props: { disabled: true, options: [{ value: 'organization-a', label: 'Organization A' }] }
+            }
+        ]);
+
+        expect(testComponent.dynamicForm().formGroup.get('organization')?.disabled).toBe(true);
+        expect(select.querySelector('.form-control-custom')?.classList.contains('disabled')).toBe(true);
     });
 
     it('should disable a field when disabled is true', () => {
         setFields([
             { key: 'role', kind: 'select', props: { options: [{ value: 'dev', label: '开发' }] } },
-            { key: 'title', kind: 'input', disabled: true }
+            { key: 'title', kind: 'input', props: { disabled: true } }
         ]);
         setValue({ role: 'dev', title: '工程师' });
-        const titleInput = formElement.querySelector('input');
+        const titleInput = formElement.querySelector<HTMLInputElement>('input[name="title"]');
+        expect(testComponent.dynamicForm().formGroup.get('title')?.disabled).toBe(true);
         expect(titleInput).toBeTruthy();
         expect(titleInput?.disabled).toBe(true);
     });
 
-    it('should keep the same input element when fields is a deep-equal clone', () => {
-        const fields: ThyDynamicFormFieldConfig[] = [{ key: 'name', kind: 'input', props: { label: '名称' } }];
+    it('should reuse the form control when fields is a deep-equal clone', () => {
+        const fields: ThyFormFieldConfig[] = [{ key: 'name', kind: 'input', props: { label: '名称' } }];
         setFields(fields);
+        const control = testComponent.dynamicForm().formGroup.get('name');
         const input = formElement.querySelector('input');
-        expect(input).toBeTruthy();
         setFields(JSON.parse(JSON.stringify(fields)));
+        expect(testComponent.dynamicForm().formGroup.get('name')).toBe(control);
         expect(formElement.querySelector('input')).toBe(input);
     });
 
     it('should keep a selected value after fields clone and echoed value', () => {
-        const fields: ThyDynamicFormFieldConfig[] = [
+        const fields: ThyFormFieldConfig[] = [
             {
                 key: 'role',
                 kind: 'select',
@@ -341,14 +375,78 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('textarea')?.classList.contains('form-control-sm')).toBe(true);
     });
 
+    it('should reset values to defaultValue or empty and clear displayed errors', () => {
+        setFields([
+            { key: 'name', kind: 'input', defaultValue: 'Ada', props: { required: true } },
+            {
+                key: 'title',
+                kind: 'input',
+                errorMessages: { required: '请填写职称' },
+                props: { required: true }
+            },
+            { key: 'bio', kind: 'textarea' },
+            { key: 'role', kind: 'select', props: { options: [{ value: 'dev', label: '开发' }] } },
+            {
+                key: 'tags',
+                kind: 'select',
+                defaultValue: ['a'],
+                props: { multiple: true, options: [{ value: 'a', label: 'A' }] }
+            }
+        ]);
+        setValue({ name: 'Lin', title: '工程师', bio: 'hi', role: 'dev', tags: ['a'] });
+        testComponent.dynamicForm().formGroup.get('title')!.setValue('');
+        fixture.detectChanges();
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+        expect(formElement.querySelector('.invalid-feedback')?.textContent).toContain('请填写职称');
+
+        testComponent.valueChanges.length = 0;
+        testComponent.dynamicForm().reset();
+        fixture.detectChanges();
+
+        const form = testComponent.dynamicForm().formGroup;
+        expect(form.getRawValue()).toEqual({ name: 'Ada', title: '', bio: '', role: null, tags: ['a'] });
+        expect(form.get('title')?.pristine).toBe(true);
+        expect(form.get('title')?.untouched).toBe(true);
+        expect(formElement.querySelector('.invalid-feedback')).toBeFalsy();
+        expect(formElement.querySelector('.is-invalid')).toBeFalsy();
+        expect((formElement.querySelector('input[name="name"]') as HTMLInputElement).value).toBe('Ada');
+        expect((formElement.querySelector('input[name="title"]') as HTMLInputElement).value).toBe('');
+        expect(testComponent.valueChanges.at(-1)).toEqual({ name: 'Ada', title: '', bio: '', role: null, tags: ['a'] });
+    });
+
+    it('should clear change errors and keep a disabled field disabled after reset', () => {
+        setFields([
+            { key: 'name', kind: 'input', updateOn: 'change', props: { required: true, minlength: 2 } },
+            { key: 'title', kind: 'input', defaultValue: '初级', props: { disabled: true } }
+        ]);
+        const input = formElement.querySelector('input[name="name"]') as HTMLInputElement;
+        input.value = 'a';
+        dispatchFakeEvent(input, 'input');
+        fixture.detectChanges();
+        expect(formElement.querySelector('.invalid-feedback')).toBeTruthy();
+
+        testComponent.dynamicForm().formGroup.get('title')!.setValue('工程师');
+        testComponent.dynamicForm().reset();
+        fixture.detectChanges();
+
+        const form = testComponent.dynamicForm().formGroup;
+        expect(form.get('name')?.value).toBe('');
+        expect(form.get('name')?.dirty).toBe(false);
+        expect(form.get('title')?.value).toBe('初级');
+        expect(form.get('title')?.disabled).toBe(true);
+        expect(formElement.querySelector('.invalid-feedback')).toBeFalsy();
+        expect(formElement.querySelector('.is-invalid')).toBeFalsy();
+    });
+
     it('should render field col on thy-col using a 12-column grid', () => {
         setFields([
             { key: 'email', kind: 'input', col: 6, props: { label: '邮箱' } },
             { key: 'age', kind: 'input', col: 6, props: { label: '年龄' } },
             { key: 'bio', kind: 'textarea', props: { label: '简介' } }
         ]);
-        expect(formElement.querySelectorAll('.thy-col-12').length).toBe(2);
-        expect(formElement.querySelectorAll('.thy-col-24').length).toBe(1);
+        expect(formElement.querySelectorAll('thy-form-group.thy-col-12').length).toBe(2);
+        expect(formElement.querySelectorAll('thy-form-group.thy-col-24').length).toBe(1);
         formElement.querySelectorAll('thy-form-group').forEach(group => {
             expect(group.classList.contains('row')).toBe(false);
         });

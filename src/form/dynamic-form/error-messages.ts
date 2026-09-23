@@ -2,10 +2,10 @@ import { AbstractControl } from '@angular/forms';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
 import { ERROR_VALUE_REPLACE_REGEX } from '../form-validator-loader';
-import { ThyDynamicFormFieldConfig } from './types';
+import { ThyFormFieldConfig } from './types';
 
 export function resolveFieldErrorMessage(
-    field: ThyDynamicFormFieldConfig,
+    field: ThyFormFieldConfig,
     control: AbstractControl,
     getErrorMessage: (name: string, code: string) => string | undefined
 ): string | null {

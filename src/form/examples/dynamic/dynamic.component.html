@@ -1,16 +1,28 @@
-<div class="mb-3">当前值：{{ value() | json }}</div>
-@if (lastSubmit()) {
-  <div class="mb-3">
-    <p>状态：{{ lastSubmit()!.valid ? '通过' : '未通过' }}</p>
-    <p>保存值：{{ lastSubmit()!.value | json }}</p>
-  </div>
-}
-
 <thy-dynamic-form
-  [thyFields]="fields"
+  #dynamicForm
+  [thyFields]="fields()"
   [thyValue]="value()"
   (thyValueChange)="onValueChange($event)"
+  (thyStatusChange)="onStatusChange($event)"
   (thyFieldValueChange)="onFieldValueChange($event)"
   (thySubmit)="onSubmit($event)">
-  <button type="submit" [thyButton]="'primary'">保存</button>
+  <thy-form-group-footer thyAlign="right">
+    <button type="submit" [thyButton]="'primary'">Save</button>
+    <button type="button" [thyButton]="'default'" thyAppearance="link" (click)="dynamicForm.reset()">Reset</button>
+  </thy-form-group-footer>
 </thy-dynamic-form>
+<div class="d-flex align-items-center">
+  <span class="mr-2">Status</span>
+  <thy-tag [thyColor]="statusColor()" thySize="sm">{{ status() }}</thy-tag>
+</div>
+
+<div class="thy-typography mt-4" thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="11">
+    <p class="mb-2">Value</p>
+    <pre class="mb-0"><code>{{ value() | json }}</code></pre>
+  </div>
+  <div thyCol [thySpan]="11">
+    <p class="mb-2">Submit Value</p>
+    <pre class="mb-0"><code>{{ lastSubmit() | json }}</code></pre>
+  </div>
+</div>

@@ -8,13 +8,13 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    computed,
     DestroyRef,
     effect,
     inject,
     input,
     output,
     signal,
+    untracked,
     viewChild
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -22,6 +22,7 @@ import {
     AbstractControl,
     AsyncValidatorFn,
     FormControl,
+    FormControlStatus,
     FormGroup,
     FormGroupDirective,
     ReactiveFormsModule,
@@ -38,13 +39,7 @@ import { THY_FORM_CONFIG_PROVIDER, ThyFormLayout } from '../form.class';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { ThyDynamicFormSpanPipe } from './dynamic-form.pipe';
 import { resolveFieldErrorMessage } from './error-messages';
-import {
-    ThyDynamicFormFieldConfig,
-    ThyDynamicFormFieldValueChange,
-    ThyDynamicFormSubmitEvent,
-    ThyDynamicFormValidatorFn,
-    ThyDynamicFormValue
-} from './types';
+import { ThyFormFieldConfig, ThyFormFieldValueChange, ThyFormFieldValidator, ThyDynamicFormValue } from './types';
 
 /**
  * 动态表单
@@ -55,16 +50,7 @@ import {
     selector: 'thy-dynamic-form',
     templateUrl: './dynamic-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        ReactiveFormsModule,
-        ThyFormGroup,
-        ThyFormGroupFooter,
-        ThyRowDirective,
-        ThyColDirective,
-        ThySelect,
-        ThyInputDirective,
-        ThyDynamicFormSpanPipe
-    ],
+    imports: [ReactiveFormsModule, ThyFormGroup, ThyRowDirective, ThyColDirective, ThySelect, ThyInputDirective, ThyDynamicFormSpanPipe],
     providers: [
         {
             provide: ThyFormDirective,
@@ -74,55 +60,53 @@ import {
         THY_FORM_CONFIG_PROVIDER
     ],
     host: {
-        class: 'thy-dynamic-form'
+        class: 'thy-form thy-dynamic-form'
     }
 })
 export class ThyDynamicForm {
-    readonly thyFields = input<ThyDynamicFormFieldConfig[]>([]);
+    readonly thyFields = input<ThyFormFieldConfig[]>([]);
 
     readonly thyValue = input<ThyDynamicFormValue | undefined>(undefined);
 
-    readonly thySize = input<ThyFormControlSize>('md');
+    /**
+     * 表单控件大小
+     * @type xs | sm | md | lg
+     * @default md
+     */
+    readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
+        transform: value => value ?? 'md'
+    });
 
-    readonly thyLayout: ThyFormLayout = 'vertical';
+    /**
+     * 布局
+     * @type horizontal | vertical | inline
+     * @default vertical
+     */
+    readonly thyLayout = input<ThyFormLayout>('vertical');
 
     get isHorizontal() {
-        return this.thyLayout === 'horizontal';
+        return this.thyLayout() === 'horizontal';
     }
 
     readonly thyValueChange = output<ThyDynamicFormValue>();
 
-    readonly thyFieldValueChange = output<ThyDynamicFormFieldValueChange>();
+    readonly thyFieldValueChange = output<ThyFormFieldValueChange>();
 
-    readonly thyStatusChange = output<string>();
+    readonly thyStatusChange = output<FormControlStatus>();
 
-    readonly thySubmit = output<ThyDynamicFormSubmitEvent>();
+    readonly thySubmit = output<ThyDynamicFormValue>();
 
     readonly formGroup = new FormGroup<Record<string, AbstractControl>>({});
 
     protected readonly submitted = signal(false);
-
-    protected readonly fieldSize = computed(() => this.thySize() || 'md');
-
-    protected readonly controls = computed(() => {
-        const fields = this.thyFields() ?? [];
-        const formValue = this.thyValue();
-        if (!this.isSameFields(fields, this.lastFields)) {
-            this.lastFields = fields;
-            this.rebuild(fields, formValue);
-        }
-        this.applyValue(fields, formValue);
-        return this.formGroup;
-    });
 
     private readonly cdr = inject(ChangeDetectorRef);
     private readonly destroyRef = inject(DestroyRef);
     private readonly validatorLoader = inject(ThyFormValidatorLoader);
     private readonly formGroupDir = viewChild(FormGroupDirective);
 
-    private lastFields: ThyDynamicFormFieldConfig[] = [];
     private lastValue = '';
-    private readonly fieldsByKey = new Map<string, ThyDynamicFormFieldConfig>();
+    private readonly fieldsByKey = new Map<string, ThyFormFieldConfig>();
     private fieldValueChangeSubscriptions = new Subscription();
 
     constructor() {
@@ -134,6 +118,14 @@ export class ThyDynamicForm {
             this.thyStatusChange.emit(status);
             this.cdr.markForCheck();
         });
+        effect(() => {
+            const fields = this.thyFields() ?? [];
+            const formValue = this.thyValue();
+            untracked(() => {
+                this.rebuild(fields, formValue);
+                this.applyValue(fields, formValue);
+            });
+        });
         effect(onCleanup => {
             const formGroupDir = this.formGroupDir();
             if (!formGroupDir) {
@@ -142,17 +134,31 @@ export class ThyDynamicForm {
             const sub = formGroupDir.ngSubmit.subscribe(() => {
                 this.submitted.set(true);
                 this.formGroup.markAllAsTouched();
-                this.thySubmit.emit({
-                    value: this.formGroup.getRawValue() as ThyDynamicFormValue,
-                    valid: !!this.formGroup.valid
-                });
+                if (this.formGroup.valid) {
+                    this.thySubmit.emit(this.formGroup.getRawValue() as ThyDynamicFormValue);
+                }
                 this.cdr.markForCheck();
             });
             onCleanup(() => sub.unsubscribe());
         });
     }
 
-    protected showError(field: ThyDynamicFormFieldConfig): boolean {
+    reset(): void {
+        const value: ThyDynamicFormValue = {};
+        for (const field of this.thyFields() ?? []) {
+            value[field.key] = this.getFieldDefaultValue(field);
+        }
+        this.submitted.set(false);
+        const formGroupDir = this.formGroupDir();
+        if (formGroupDir) {
+            formGroupDir.resetForm(value);
+        } else {
+            this.formGroup.reset(value);
+        }
+        this.cdr.markForCheck();
+    }
+
+    protected showError(field: ThyFormFieldConfig): boolean {
         const control = this.formGroup.get(field.key);
         if (!(control instanceof FormControl) || !control.invalid) {
             return false;
@@ -170,7 +176,7 @@ export class ThyDynamicForm {
         }
     }
 
-    protected errorMessage(field: ThyDynamicFormFieldConfig): string | null {
+    protected errorMessage(field: ThyFormFieldConfig): string | null {
         const control = this.formGroup.get(field.key);
         if (!(control instanceof FormControl)) {
             return null;
@@ -188,7 +194,7 @@ export class ThyDynamicForm {
         this.thyValueChange.emit(formValue);
     }
 
-    private rebuild(fields: ThyDynamicFormFieldConfig[], formValue: ThyDynamicFormValue | undefined): void {
+    private rebuild(fields: ThyFormFieldConfig[], formValue: ThyDynamicFormValue | undefined): void {
         this.fieldValueChangeSubscriptions.unsubscribe();
         this.fieldValueChangeSubscriptions = new Subscription();
 
@@ -229,7 +235,7 @@ export class ThyDynamicForm {
         }
     }
 
-    builtinValidators(field: ThyDynamicFormFieldConfig): ValidatorFn[] {
+    builtinValidators(field: ThyFormFieldConfig): ValidatorFn[] {
         const validators: ValidatorFn[] = [];
         if (field.props?.required) {
             validators.push(Validators.required);
@@ -261,7 +267,7 @@ export class ThyDynamicForm {
         return validators;
     }
 
-    private bindCustomValidators(fns: ThyDynamicFormValidatorFn[]): AsyncValidatorFn[] {
+    private bindCustomValidators(fns: ThyFormFieldValidator[]): AsyncValidatorFn[] {
         return fns.map(fn => (control: AbstractControl) => {
             return Promise.resolve(
                 fn({
@@ -277,7 +283,7 @@ export class ThyDynamicForm {
         });
     }
 
-    private canReuseControl(control: AbstractControl | null, field: ThyDynamicFormFieldConfig): control is FormControl {
+    private canReuseControl(control: AbstractControl | null, field: ThyFormFieldConfig): control is FormControl {
         const previous = this.fieldsByKey.get(field.key);
         return (
             control instanceof FormControl &&
@@ -286,7 +292,7 @@ export class ThyDynamicForm {
         );
     }
 
-    private applyValue(fields: ThyDynamicFormFieldConfig[], formValue: ThyDynamicFormValue | undefined): void {
+    private applyValue(fields: ThyFormFieldConfig[], formValue: ThyDynamicFormValue | undefined): void {
         if (formValue == null) {
             return;
         }
@@ -304,8 +310,8 @@ export class ThyDynamicForm {
         }
     }
 
-    private syncFieldDisabled(field: ThyDynamicFormFieldConfig, control: AbstractControl): void {
-        const disabled = field.disabled === true;
+    private syncFieldDisabled(field: ThyFormFieldConfig, control: AbstractControl): void {
+        const disabled = field.props?.disabled === true;
         if (disabled && control.enabled) {
             control.disable({ emitEvent: false });
         } else if (!disabled && control.disabled) {
@@ -313,7 +319,7 @@ export class ThyDynamicForm {
         }
     }
 
-    private resolveFieldValue(field: ThyDynamicFormFieldConfig, formValue: ThyDynamicFormValue | undefined): unknown {
+    private resolveFieldValue(field: ThyFormFieldConfig, formValue: ThyDynamicFormValue | undefined): unknown {
         if (formValue != null && Object.prototype.hasOwnProperty.call(formValue, field.key)) {
             return formValue[field.key];
         }
@@ -321,18 +327,18 @@ export class ThyDynamicForm {
         if (control) {
             return control.value;
         }
+        return this.getFieldDefaultValue(field);
+    }
+
+    private getFieldDefaultValue(field: ThyFormFieldConfig): unknown {
         return field.defaultValue ?? this.getFieldEmptyValue(field);
     }
 
-    private getFieldEmptyValue(field: ThyDynamicFormFieldConfig): unknown {
+    private getFieldEmptyValue(field: ThyFormFieldConfig): unknown {
         if (field.kind === 'select') {
             return field.props?.multiple === true ? [] : null;
         }
         return '';
-    }
-
-    private isSameFields(fields: ThyDynamicFormFieldConfig[], lastFields: ThyDynamicFormFieldConfig[]): boolean {
-        return fields === lastFields || JSON.stringify(fields) === JSON.stringify(lastFields);
     }
 }
 

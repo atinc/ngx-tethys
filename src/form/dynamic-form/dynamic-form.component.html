@@ -1,4 +1,4 @@
-<form novalidate [formGroup]="controls()">
+<form novalidate [formGroup]="formGroup">
   <div thyRow [thyGutter]="30">
     @for (field of thyFields(); track field.key) {
       <thy-form-group
@@ -22,7 +22,7 @@
               [attr.min]="field.props?.min ?? null"
               [attr.max]="field.props?.max ?? null"
               [attr.step]="field.props?.step ?? null"
-              [thySize]="fieldSize()" />
+              [thySize]="thySize()" />
           }
           @case ('textarea') {
             <textarea
@@ -37,13 +37,14 @@
               [attr.maxlength]="field.props?.maxlength ?? null"
               [attr.rows]="field.props?.rows ?? 3"
               [style.resize]="field.props?.resize ?? 'none'"
-              [thySize]="fieldSize()"></textarea>
+              [thySize]="thySize()"></textarea>
           }
           @case ('select') {
             <thy-select
               [formControlName]="field.key"
               [attr.name]="field.key"
               [class.is-invalid]="showError(field)"
+              [thyDisabled]="!!field.props?.disabled"
               [thyOptions]="field.props?.options ?? []"
               [thyPlaceholder]="field.props?.placeholder ?? ''"
               [thyShowSearch]="field.props?.searchable"
@@ -51,7 +52,10 @@
               [thyMode]="field.props?.multiple ? 'multiple' : ''"
               [thyEmptyStateText]="field.props?.emptyText ?? ''"
               [thyEmptySearchMessageText]="field.props?.searchEmptyText ?? ''"
-              [thySize]="fieldSize()" />
+              [thySize]="thySize()" />
+          }
+          @default {
+            <span class="invalid-feedback">Unsupported field kind.</span>
           }
         }
         @if (showError(field)) {
@@ -59,8 +63,8 @@
         }
       </thy-form-group>
     }
+    <div thyCol [thySpan]="24">
+      <ng-content></ng-content>
+    </div>
   </div>
-  <thy-form-group-footer>
-    <ng-content></ng-content>
-  </thy-form-group-footer>
 </form>
