@@ -122,6 +122,11 @@
     cursor: variables.$hand-cursor;
     .panel-is-opened {
         border-color: variables.$primary;
+
+        &.form-control-ghost {
+            border-color: transparent;
+            background-color: transparent;
+        }
     }
     .form-control {
         padding-right: variables.$input-padding-x-md + variables.$font-size-md;
