@@ -1,0 +1,82 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <input
+      thyInput
+      [(ngModel)]="value"
+      [thyAppearance]="'outline'"
+      [placeholder]="'outline'"
+      [thyAutocomplete]="autoOutline"
+      (ngModelChange)="valueChange($event)" />
+    <thy-autocomplete #autoOutline>
+      @for (item of filteredOptions; track $index) {
+        <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+      }
+    </thy-autocomplete>
+    <input
+      thyInput
+      class="mt-3"
+      [(ngModel)]="value"
+      [thyAppearance]="'subtle'"
+      [placeholder]="'subtle'"
+      [thyAutocomplete]="autoSubtle"
+      (ngModelChange)="valueChange($event)" />
+    <thy-autocomplete #autoSubtle>
+      @for (item of filteredOptions; track $index) {
+        <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+      }
+    </thy-autocomplete>
+    <input
+      thyInput
+      class="mt-3"
+      [(ngModel)]="value"
+      [thyAppearance]="'ghost'"
+      [placeholder]="'ghost'"
+      [thyAutocomplete]="autoGhost"
+      (ngModelChange)="valueChange($event)" />
+    <thy-autocomplete #autoGhost>
+      @for (item of filteredOptions; track $index) {
+        <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+      }
+    </thy-autocomplete>
+  </div>
+  <div thyCol [thySpan]="12">
+    <input
+      thyInput
+      [(ngModel)]="value"
+      [thyAppearance]="'outline'"
+      [placeholder]="'outline'"
+      [disabled]="true"
+      [thyAutocomplete]="autoOutlineDisabled" />
+    <thy-autocomplete #autoOutlineDisabled>
+      @for (item of filteredOptions; track $index) {
+        <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+      }
+    </thy-autocomplete>
+    <input
+      thyInput
+      class="mt-3"
+      [(ngModel)]="value"
+      [thyAppearance]="'subtle'"
+      [placeholder]="'subtle'"
+      [disabled]="true"
+      [thyAutocomplete]="autoSubtleDisabled" />
+    <thy-autocomplete #autoSubtleDisabled>
+      @for (item of filteredOptions; track $index) {
+        <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+      }
+    </thy-autocomplete>
+    <input
+      thyInput
+      class="mt-3"
+      [(ngModel)]="value"
+      [thyAppearance]="'ghost'"
+      [placeholder]="'ghost'"
+      [disabled]="true"
+      [thyAutocomplete]="autoGhostDisabled" />
+    <thy-autocomplete #autoGhostDisabled>
+      @for (item of filteredOptions; track $index) {
+        <thy-option [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+      }
+    </thy-autocomplete>
+  </div>
+</div>
