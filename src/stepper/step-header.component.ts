@@ -6,7 +6,7 @@ import { Component, numberAttribute, input } from '@angular/core';
 /**
  * 步骤条头部组件
  * @name thy-step-header
- * @order 25
+ * @private
  */
 @Component({
     selector: 'thy-step-header',

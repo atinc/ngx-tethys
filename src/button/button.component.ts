@@ -23,7 +23,7 @@ export type ThyButtonAppearance = 'fill' | 'outline' | 'link';
 
 export type ThyButtonColor = 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'success';
 
-/** @deprecated use ThyButtonColor */
+/** @deprecated use ThyButtonColor, will be removed in v23 */
 export type ThyButtonType = ThyButtonColor;
 
 const iconOnlyClass = 'thy-btn-icon-only';
@@ -80,8 +80,8 @@ export class ThyButton {
     readonly thyColor = input<ThyButtonColor>();
 
     /**
-     * 按钮颜色（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
+     * 按钮颜色（已废弃，将在 v23 彻底移除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
      * @type default | primary | info | warning | danger | success
      * @default default
      */

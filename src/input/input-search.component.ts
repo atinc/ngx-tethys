@@ -36,7 +36,7 @@ import { ThyInputDirective } from './input.directive';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-/** transparent 已废弃，请使用 thyAppearance="ghost"*/
+/** ThyInputSearchVariant 的 transparent 值已废弃，请使用 thyAppearance="ghost"，将在 v23 中移除 'transparent' */
 export type ThyInputSearchVariant = 'default' | 'ellipse' | 'transparent' | '';
 
 /** @deprecated use ThyInputSearchVariant, will be removed in v23 */

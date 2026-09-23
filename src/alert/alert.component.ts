@@ -84,8 +84,8 @@ export class ThyAlert {
     readonly thyType = input<ThyAlertType>('info');
 
     /**
-     * 指定警告提示的主题（已废弃），请使用 thyAppearance
-     * @deprecated please use thyAppearance
+     * 指定警告提示的主题（已废弃，将在 v23 彻底移除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
      * @type fill | bordered | naked
      * @default fill
      */

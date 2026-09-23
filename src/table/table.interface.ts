@@ -6,6 +6,7 @@ export enum ThyTableSortDirection {
     asc = 'asc',
     desc = 'desc'
 }
+
 export interface ThyTableColumn {
     key: string;
     model: string;
@@ -49,6 +50,7 @@ export interface ThyTableEmptyOptions {
 }
 
 export type PageChangedEvent = ThyPageChangedEvent;
+
 export interface ThyPageChangedEvent {
     itemsPerPage: number;
     page: number;

@@ -23,6 +23,7 @@ import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, THY_PAGINATION_CONFIG, DEFAULT_RANGE_COUNT } from './pagination.config';
 import { PaginationPerPageFormat, PaginationTotalCountFormat } from './pagination.pipe';
 import { injectLocale, ThyI18nLocale, ThyPaginationLocale } from 'ngx-tethys/i18n';
+
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
  * @name thy-pagination

@@ -1,15 +1,4 @@
-import {
-    AfterViewInit,
-    DestroyRef,
-    Directive,
-    ElementRef,
-    inject,
-    Injector,
-    Input,
-    OnDestroy,
-    TemplateRef,
-    ViewContainerRef
-} from '@angular/core';
+import { AfterViewInit, DestroyRef, Directive, ElementRef, inject, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';

@@ -1,15 +1,11 @@
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     Directive,
     ElementRef,
-    EventEmitter,
-    HostBinding,
     HostListener,
-    Input,
     OnDestroy,
     OnInit,
-    Output,
     Signal,
     TemplateRef,
     inject,

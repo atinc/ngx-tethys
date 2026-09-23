@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, input, contentChild } from '@angular/core';
+import { Component, TemplateRef, input, contentChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 /**
@@ -15,7 +15,7 @@ import { NgTemplateOutlet } from '@angular/common';
     },
     imports: [NgTemplateOutlet]
 })
-export class ThyCardHeader implements OnInit {
+export class ThyCardHeader {
     public iconClass?: string;
 
     /**
@@ -45,8 +45,4 @@ export class ThyCardHeader implements OnInit {
      * @type TemplateRef
      */
     public readonly operationTemplateRef = contentChild<TemplateRef<any>>('headerOperation');
-
-    constructor() {}
-
-    ngOnInit() {}
 }
