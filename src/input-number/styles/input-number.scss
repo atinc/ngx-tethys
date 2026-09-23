@@ -60,7 +60,7 @@
     @include hover.hover-focus {
         outline: none;
         .form-control {
-            &:not([disabled]):not(.disabled):not(.is-invalid) {
+            &:not([disabled]):not(.disabled):not(.is-invalid):not(.form-control-ghost) {
                 border-color: variables.$input-hover-border-color;
             }
         }
