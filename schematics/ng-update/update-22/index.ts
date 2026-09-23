@@ -2,6 +2,7 @@ import { Rule } from '@angular-devkit/schematics';
 import { NullableDevkitMigration, TargetVersion } from '@angular/cdk/schematics';
 import { onMigrationComplete } from '../core/complete';
 import { createTwoPhaseMigrationSchematicRule } from '../two-phase-migration-rule';
+import { AlertWeakColorMigration } from './alert-weak-color-migration';
 import { BadgeDotHollowMigration } from './badge-dot-hollow-migration';
 import { ButtonAppearanceMigration } from './button-appearance-migration';
 import { ButtonGroupAppearanceMigration } from './button-group-appearance-migration';
@@ -27,6 +28,7 @@ const migrations: NullableDevkitMigration[] = [
     DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,
+    AlertWeakColorMigration,
     InputSearchAppearanceMigration,
     SelectBorderlessMigration,
     DividerDeeperMigration,

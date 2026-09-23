@@ -549,6 +549,7 @@ ng generate ngx-tethys:migrate-22
 
 **标记为废弃，将在 v23 彻底删除**
 - `thyType`和`ThyAlertType`已废弃，请使用`thyColor`和`ThyAlertColor`
+- `thyColor: ThyAlertColor` 的 `primary-weak | success-weak | warning-weak | danger-weak` 已废弃，请使用 thyAppearance="bordered" + thyColor="color" 组合代替
 - `thyTheme`和`ThyAlertTheme`已废弃，请使用`thyAppearance`和`ThyAlertAppearance`
 
 **自动迁移**
@@ -557,6 +558,12 @@ ng generate ngx-tethys:migrate-22
 - `thyTheme` → `thyAppearance`
 - `ThyAlertType` → `ThyAlertColor`
 - `ThyAlertTheme` → `ThyAlertAppearance`
+- `thyColor` / `thyType` 为 `primary-weak | success-weak | warning-weak | danger-weak` 时 → `thyAppearance="bordered"` + `thyColor="primary | success | warning | danger"`（如 `thyColor="primary-weak"` → `thyAppearance="bordered" thyColor="primary"`）
+- 字面量绑定 `[thyColor]="'primary-weak'"`（及另外三种 `-weak`）同理；若已有 `thyAppearance` 会改为 `bordered`
+
+**手动检查**
+
+- 动态绑定 `[thyColor]="color"` 且变量可能为 `*-weak` 时 **不会自动迁移**，需手动改为 `thyAppearance="bordered"` 并去掉 `-weak` 后缀（Schematics 仅处理模板字面量）
 
 ---
 

@@ -436,6 +436,36 @@ export class AlertDemoComponent {}
         expect(content).not.toMatch(/<thy-alert[^>]*thyType/);
     });
 
+    it('should migrate thy-alert weak thyColor to bordered appearance', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/alert-weak-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyAlertModule } from 'ngx-tethys/alert';
+
+@Component({
+    selector: 'app-alert-weak-demo',
+    template: \`
+        <thy-alert thyColor="primary-weak" thyMessage="message"></thy-alert>
+        <thy-alert thyType="success-weak" thyMessage="message"></thy-alert>
+    \`,
+    imports: [ThyAlertModule]
+})
+export class AlertWeakDemoComponent {}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/alert-weak-demo.component.ts');
+        expect(content).toContain('thyAppearance="bordered" thyColor="primary"');
+        expect(content).toContain('thyAppearance="bordered" thyColor="success"');
+        expect(content).not.toContain('primary-weak');
+        expect(content).not.toContain('success-weak');
+    });
+
     it('should migrate thyType to thyColor for thy-slider', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();
