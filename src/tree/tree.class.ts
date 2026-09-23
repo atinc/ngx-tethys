@@ -1,6 +1,6 @@
 import { Signal } from '@angular/core';
 import { helpers, isArray } from 'ngx-tethys/util';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 export enum ThyTreeNodeCheckState {
     unchecked = 0,

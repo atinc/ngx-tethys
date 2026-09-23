@@ -1,5 +1,5 @@
 import { ControlValueAccessor } from '@angular/forms';
-import { HostBinding, Input, ChangeDetectorRef, Directive, inject, input, computed } from '@angular/core';
+import { Input, ChangeDetectorRef, Directive, inject, input, computed } from '@angular/core';
 import { ThyTranslate, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 

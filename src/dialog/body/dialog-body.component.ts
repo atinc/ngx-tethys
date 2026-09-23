@@ -1,5 +1,4 @@
-import { Component, OnInit, inject, input, ChangeDetectionStrategy } from '@angular/core';
-import { ThyDialog } from '../dialog.service';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -19,12 +18,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.dialog-body-clear-padding]': 'thyClearPadding()'
     }
 })
-export class ThyDialogBody implements OnInit {
-    private dialog = inject(ThyDialog);
+export class ThyDialogBody {
     /**
      * 清除间距
      */
     readonly thyClearPadding = input(false, { transform: coerceBooleanProperty });
-
-    ngOnInit() {}
 }

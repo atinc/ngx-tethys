@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, NgZone, inject, input, effect } from '@angular/core';
+import { Directive, ElementRef, NgZone, inject, input, effect } from '@angular/core';
 import { reqAnimFrame } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 /**
@@ -11,9 +11,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export class ThyAutofocusDirective {
     private elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
-
-    // 自动选择，用于只读的 input 输入框，方便复制粘贴
-    private _autoSelect = false;
 
     /**
      * 是否自动聚焦

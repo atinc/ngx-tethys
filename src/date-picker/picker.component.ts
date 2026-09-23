@@ -9,19 +9,7 @@ import {
 } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    inject,
-    input,
-    effect,
-    output,
-    viewChild,
-    computed
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, input, effect, output, viewChild, computed } from '@angular/core';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';

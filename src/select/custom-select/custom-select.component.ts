@@ -259,6 +259,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         return getFlexiblePositions(this.placement(), this.defaultOffset, undefined, this.flexiblePosition());
     });
 
+    /**
+     * 选项高度，当 thyVirtualScroll 为 true 时，选项高度会根据此值计算，默认值为 40
+     * @type number
+     * @default 40
+     */
     public thyItemSize = input(SELECT_OPTION_MAX_HEIGHT, { transform: value => numberAttribute(value) });
 
     readonly virtualHeight = computed<number>(() => {

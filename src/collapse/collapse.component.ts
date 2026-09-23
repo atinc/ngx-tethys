@@ -5,7 +5,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export type ThyCollapseAppearance = 'divided' | 'bordered' | 'ghost';
 
 /**
- * @deprecated please use ThyCollapseAppearance
+ * @deprecated please use ThyCollapseAppearance，will be removed in v23
  */
 export type ThyCollapseTheme = ThyCollapseAppearance;
 
@@ -47,8 +47,8 @@ export class ThyCollapse implements IThyCollapseComponent {
     readonly thyAppearance = input<ThyCollapseAppearance>();
 
     /**
-     * 折叠面板主题（已废弃），请使用 thyAppearance
-     * @deprecated please use thyAppearance
+     * 折叠面板主题（已废弃，将在 v23 彻底移除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
      * @type divided | bordered | ghost
      */
     readonly thyTheme = input<ThyCollapseAppearance>();

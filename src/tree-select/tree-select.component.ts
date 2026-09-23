@@ -20,7 +20,6 @@ import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, Viewport
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
-    ChangeDetectorRef,
     Component,
     ElementRef,
     forwardRef,
@@ -101,7 +100,6 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
 export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     elementRef = inject(ElementRef);
     private ngZone = inject(NgZone);
-    private ref = inject(ChangeDetectorRef);
     private platformId = inject(PLATFORM_ID);
     private thyClickDispatcher = inject(ThyClickDispatcher);
     private viewportRuler = inject(ViewportRuler);
