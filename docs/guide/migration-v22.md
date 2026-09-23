@@ -193,7 +193,6 @@ ng generate ngx-tethys:migrate-22
 **破坏性更改**
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
-- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
 
 **自动迁移**
 
