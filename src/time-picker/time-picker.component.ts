@@ -21,6 +21,7 @@ import {
     getOverlayGlobalConfig,
     THY_GLOBAL_CONFIG,
     thyAnimationZoom,
+    ThyFormControlAppearance,
     ThyFormControlSize,
     ThyGlobalConfig,
     ThyPlacement
@@ -74,6 +75,15 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     /**

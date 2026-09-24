@@ -8,7 +8,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideTethys, withGlobalConfig } from 'ngx-tethys';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTimePicker, ThyTimePickerModule } from 'ngx-tethys/time-picker';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 
 describe('ThyTimePickerComponent', () => {
     let fixture!: ComponentFixture<ThyTestTimePickerBaseComponent>;
@@ -84,6 +84,26 @@ describe('ThyTimePickerComponent', () => {
             fixtureInstance.placeholder = placeholder;
             fixture.detectChanges();
             expect(getTimePickerInput().getAttribute('placeholder')).toBe(placeholder);
+        });
+
+        it('should use outline appearance by default', () => {
+            fixture.detectChanges();
+            expect(getTimePickerInput().classList.contains('form-control-subtle')).toBe(false);
+            expect(getTimePickerInput().classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-subtle when thyAppearance is subtle', () => {
+            fixtureInstance.appearance = 'subtle';
+            fixture.detectChanges();
+            expect(getTimePickerInput().classList.contains('form-control-subtle')).toBe(true);
+            expect(getTimePickerInput().classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-ghost when thyAppearance is ghost', () => {
+            fixtureInstance.appearance = 'ghost';
+            fixture.detectChanges();
+            expect(getTimePickerInput().classList.contains('form-control-ghost')).toBe(true);
+            expect(getTimePickerInput().classList.contains('form-control-subtle')).toBe(false);
         });
 
         it('should support thyAllowClear and emit change', fakeAsync(() => {
@@ -426,6 +446,7 @@ describe('ThyTimePickerComponent', () => {
             #timePicker
             [(ngModel)]="value"
             [thySize]="size"
+            [thyAppearance]="appearance"
             [thyFormat]="format"
             [thyBackdrop]="backdrop"
             [thyDisabled]="disabled"
@@ -457,6 +478,8 @@ class ThyTestTimePickerBaseComponent {
     allowClear: boolean = true;
 
     size!: ThyFormControlSize;
+
+    appearance!: ThyFormControlAppearance;
 
     placeholder!: string;
 
