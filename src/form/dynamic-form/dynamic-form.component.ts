@@ -305,18 +305,13 @@ export class ThyDynamicForm {
         );
     }
 
-    private applyValue(fields: ThyFormFieldConfig[], formValue: ThyDynamicFormValue | undefined): void {
-        if (formValue == null) {
-            return;
-        }
+    private applyValue(fields: ThyFormFieldConfig[], formValue: ThyDynamicFormValue | null | undefined): void {
         for (const field of fields) {
             const control = this.formGroup.get(field.key);
             if (!(control instanceof FormControl)) {
                 continue;
             }
-            const fieldValue = Object.prototype.hasOwnProperty.call(formValue, field.key)
-                ? formValue[field.key]
-                : this.getFieldEmptyValue(field);
+            const fieldValue = this.resolveFieldValue(field, formValue);
             if (!Object.is(control.value, fieldValue)) {
                 control.setValue(fieldValue, { emitEvent: false });
             }
@@ -332,13 +327,9 @@ export class ThyDynamicForm {
         }
     }
 
-    private resolveFieldValue(field: ThyFormFieldConfig, formValue: ThyDynamicFormValue | undefined): unknown {
-        if (formValue != null && Object.prototype.hasOwnProperty.call(formValue, field.key)) {
+    private resolveFieldValue(field: ThyFormFieldConfig, formValue: ThyDynamicFormValue | null | undefined): unknown {
+        if (formValue?.[field.key] !== undefined) {
             return formValue[field.key];
-        }
-        const control = this.formGroup.get(field.key);
-        if (control) {
-            return control.value;
         }
         return this.getFieldDefaultValue(field);
     }
