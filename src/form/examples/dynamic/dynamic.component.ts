@@ -51,6 +51,12 @@ export class ThyFormDynamicExampleComponent {
             key: 'username',
             kind: 'input',
             updateOn: 'blur',
+            defaultValue: 'Ada',
+            errorMessages: {
+                required: 'Please type username',
+                reserved: 'admin is reserved'
+            },
+            validators: [({ value }) => (value === 'admin' ? { reserved: true } : null)],
             props: {
                 label: 'Username',
                 placeholder: 'Please type username',

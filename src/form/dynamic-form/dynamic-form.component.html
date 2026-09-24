@@ -1,6 +1,7 @@
 <form novalidate [formGroup]="formGroup">
   <div thyRow [thyGutter]="30">
     @for (field of thyFields(); track field.key) {
+      @let invalid = showError(field);
       <thy-form-group
         thyCol
         [thySpan]="field.col | thyDynamicFormSpan"
@@ -12,7 +13,7 @@
               thyInput
               [formControlName]="field.key"
               [name]="field.key"
-              [class.is-invalid]="showError(field)"
+              [class.is-invalid]="invalid"
               [attr.placeholder]="field.props?.placeholder || null"
               [attr.type]="field.props?.type || 'text'"
               [attr.readonly]="field.props?.readonly ? '' : null"
@@ -29,7 +30,7 @@
               thyInput
               [formControlName]="field.key"
               [name]="field.key"
-              [class.is-invalid]="showError(field)"
+              [class.is-invalid]="invalid"
               [attr.placeholder]="field.props?.placeholder || null"
               [attr.readonly]="field.props?.readonly ? '' : null"
               [attr.required]="field.props?.required ? '' : null"
@@ -43,7 +44,7 @@
             <thy-select
               [formControlName]="field.key"
               [attr.name]="field.key"
-              [class.is-invalid]="showError(field)"
+              [class.is-invalid]="invalid"
               [thyDisabled]="!!field.props?.disabled"
               [thyOptions]="field.props?.options ?? []"
               [thyPlaceholder]="field.props?.placeholder ?? ''"
@@ -58,7 +59,7 @@
             <span class="invalid-feedback">Unsupported field kind.</span>
           }
         }
-        @if (showError(field)) {
+        @if (invalid) {
           <div class="invalid-feedback">{{ errorMessage(field) }}</div>
         }
       </thy-form-group>

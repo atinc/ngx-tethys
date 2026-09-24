@@ -33,9 +33,8 @@ import {
 import { Subscription } from 'rxjs';
 
 import { ThyFormGroup } from '../form-group.component';
-import { ThyFormGroupFooter } from '../from-group-footer/form-group-footer.component';
 import { ThyFormDirective } from '../form.directive';
-import { THY_FORM_CONFIG_PROVIDER, ThyFormLayout } from '../form.class';
+import { THY_FORM_CONFIG_PROVIDER } from '../form.class';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { ThyDynamicFormSpanPipe } from './dynamic-form.pipe';
 import { resolveFieldErrorMessage } from './error-messages';
@@ -64,8 +63,16 @@ import { ThyFormFieldConfig, ThyFormFieldValueChange, ThyFormFieldValidator, Thy
     }
 })
 export class ThyDynamicForm {
+    /**
+     * 字段配置。每一项是 ThyFormFieldConfig，kind 目前支持 input、textarea、select。
+     * @type ThyFormFieldConfig[]
+     * @default []
+     */
     readonly thyFields = input<ThyFormFieldConfig[]>([]);
 
+    /**
+     * 外部写入的表单值。不传时用各字段的 defaultValue。
+     */
     readonly thyValue = input<ThyDynamicFormValue | undefined>(undefined);
 
     /**
@@ -77,23 +84,30 @@ export class ThyDynamicForm {
         transform: value => value ?? 'md'
     });
 
-    /**
-     * 布局
-     * @type horizontal | vertical | inline
-     * @default vertical
-     */
-    readonly thyLayout = input<ThyFormLayout>('vertical');
-
     get isHorizontal() {
-        return this.thyLayout() === 'horizontal';
+        return false;
     }
 
+    /**
+     * 表单值变化时抛出当前表单值。
+     */
     readonly thyValueChange = output<ThyDynamicFormValue>();
 
+    /**
+     * 单个字段变化时，抛出包含 key 和 value 的对象。
+     * @type { key: string, value: unknown }
+     */
     readonly thyFieldValueChange = output<ThyFormFieldValueChange>();
 
+    /**
+     * 表单状态变化时，抛出当前表单状态。
+     * @type VALID | INVALID | PENDING | DISABLED
+     */
     readonly thyStatusChange = output<FormControlStatus>();
 
+    /**
+     * 校验通过后抛出表单值。
+     */
     readonly thySubmit = output<ThyDynamicFormValue>();
 
     readonly formGroup = new FormGroup<Record<string, AbstractControl>>({});
@@ -143,6 +157,9 @@ export class ThyDynamicForm {
         });
     }
 
+    /**
+     * 恢复为 defaultValue，并清掉已显示的错误。
+     */
     reset(): void {
         const value: ThyDynamicFormValue = {};
         for (const field of this.thyFields() ?? []) {
@@ -166,7 +183,7 @@ export class ThyDynamicForm {
         if (this.submitted()) {
             return true;
         }
-        switch (field.updateOn ?? 'submit') {
+        switch (field.updateOn) {
             case 'blur':
                 return control.touched;
             case 'change':
@@ -235,7 +252,7 @@ export class ThyDynamicForm {
         }
     }
 
-    builtinValidators(field: ThyFormFieldConfig): ValidatorFn[] {
+    private builtinValidators(field: ThyFormFieldConfig): ValidatorFn[] {
         const validators: ValidatorFn[] = [];
         if (field.props?.required) {
             validators.push(Validators.required);

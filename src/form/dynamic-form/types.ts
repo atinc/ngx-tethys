@@ -2,7 +2,7 @@ import { ThySelectOptionModel } from 'ngx-tethys/select';
 
 export type ThyFormFieldKind = 'input' | 'textarea' | 'select';
 
-export type ThyDynamicFormUpdateOn = 'change' | 'blur' | 'submit';
+export type ThyFormFieldUpdateOn = 'change' | 'blur' | 'submit';
 
 export type ThyDynamicFormValue = Record<string, unknown>;
 
@@ -30,7 +30,7 @@ interface ThyFormFieldBase {
     /**
      * 控件值更新时机。未设置时值为 `change`，错误展示默认跟随提交。
      */
-    updateOn?: ThyDynamicFormUpdateOn;
+    updateOn?: ThyFormFieldUpdateOn;
     validators?: ThyFormFieldValidator[];
 }
 
