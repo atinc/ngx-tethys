@@ -77,8 +77,8 @@
         }
     }
 
-    &:has(.form-control-subtle):hover,
-    &:has(.form-control-subtle):focus-within {
+    &:has(.form-control-subtle:not(:disabled)):hover,
+    &:has(.form-control-subtle:not(:disabled)):focus-within {
         .input-number-handler-wrap {
             border-left-color: variables.$input-border-color;
 
