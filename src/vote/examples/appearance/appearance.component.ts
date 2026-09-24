@@ -2,12 +2,12 @@ import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyVote } from 'ngx-tethys/vote';
 
 @Component({
-    selector: 'thy-vote-weak-example',
-    templateUrl: './weak.component.html',
+    selector: 'thy-vote-appearance-example',
+    templateUrl: './appearance.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyVote]
 })
-export class ThyVoteWeakExampleComponent {
+export class ThyVoteAppearanceExampleComponent {
     vote_count = 112;
 
     vote_count1 = 76;

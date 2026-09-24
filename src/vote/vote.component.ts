@@ -1,11 +1,19 @@
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Component, contentChild, effect, input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, contentChild, effect, input, TemplateRef, ChangeDetectionStrategy, computed } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type ThyVoteSizes = 'default' | 'sm';
+export type ThyVoteSize = 'default' | 'sm';
 
+/** @deprecated use ThyVoteSize */
+export type ThyVoteSizes = ThyVoteSize;
+
+export type ThyVoteColor = 'primary' | 'success';
+
+export type ThyVoteAppearance = 'fill' | 'subtle';
+
+/** @deprecated use ThyVoteColor and ThyVoteAppearance */
 export type ThyVoteType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
 
 export type ThyVoteLayout = 'vertical' | 'horizontal';
@@ -20,7 +28,7 @@ export type ThyVoteLayout = 'vertical' | 'horizontal';
     templateUrl: './vote.component.html',
     host: {
         class: 'thy-vote',
-        '[class.has-voted]': 'thyHasVoted()',
+        '[class.has-voted]': 'voted()',
         '[class.thy-vote-disabled]': `thyDisabled()`
     },
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -31,13 +39,31 @@ export class ThyVote {
 
     /**
      * 大小，thyLayout="vertical" 时，支持: sm | default
+     * @type sm | default
+     * @default default
      */
-    readonly thySize = input<ThyVoteSizes, ThyVoteSizes>('default', {
-        transform: (value: ThyVoteSizes) => value || 'default'
+    readonly thySize = input<ThyVoteSize, ThyVoteSize>('default', {
+        transform: (value: ThyVoteSize) => value || 'default'
     });
 
     /**
-     * 标签类型: primary | success | primary-weak | success-weak
+     * 颜色
+     * @type primary | success
+     * @default primary
+     */
+    readonly thyColor = input<ThyVoteColor>();
+
+    /**
+     * 外观
+     * @type fill | subtle
+     * @default fill
+     */
+    readonly thyAppearance = input<ThyVoteAppearance>('fill');
+
+    /**
+     * 标签类型（已废弃，将在 v23 彻底移除），请使用 thyColor + thyAppearance
+     * @deprecated please use thyColor and thyAppearance
+     * @type primary | success | primary-weak | success-weak
      */
     readonly thyVote = input<ThyVoteType, ThyVoteType>('primary', {
         transform: (value: ThyVoteType) => value || 'primary'
@@ -58,6 +84,12 @@ export class ThyVote {
     /**
      * 赞同的数量
      */
+    readonly thyCount = input<number | string>();
+
+    /**
+     * 赞同的数量
+     * @deprecated please use thyCount
+     */
     readonly thyVoteCount = input<number | string>();
 
     /**
@@ -69,6 +101,12 @@ export class ThyVote {
 
     /**
      * 是否赞同
+     */
+    readonly thyVoted = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否赞同
+     * @deprecated please use thyVoted
      */
     readonly thyHasVoted = input(false, { transform: coerceBooleanProperty });
 
@@ -82,6 +120,32 @@ export class ThyVote {
      */
     readonly voteIcon = contentChild<TemplateRef<any>>('voteIcon');
 
+    readonly count = computed(() => this.thyCount() ?? this.thyVoteCount());
+
+    readonly voted = computed(() => this.thyVoted() || this.thyHasVoted());
+
+    private readonly resolved = computed(() => {
+        const colorInput = this.thyColor();
+        const appearanceInput = this.thyAppearance() || 'fill';
+        const vote = this.thyVote();
+
+        if (colorInput) {
+            return { color: colorInput, appearance: appearanceInput };
+        }
+
+        if (vote === 'primary-weak') {
+            return { color: 'primary' as const, appearance: 'subtle' as const };
+        }
+        if (vote === 'success-weak') {
+            return { color: 'success' as const, appearance: 'subtle' as const };
+        }
+        if (vote === 'primary' || vote === 'success') {
+            return { color: vote, appearance: appearanceInput };
+        }
+
+        return { color: 'primary' as const, appearance: appearanceInput };
+    });
+
     constructor() {
         effect(() => {
             this.setClassesByType();
@@ -90,11 +154,12 @@ export class ThyVote {
 
     private setClassesByType() {
         const classNames = [];
+        const { color, appearance } = this.resolved();
 
         if (this.thyRound()) {
             classNames.push('thy-vote-round');
         }
-        classNames.push(`thy-vote-${this.thyVote()}`);
+        classNames.push(appearance === 'fill' ? `thy-vote-${color}` : `thy-vote-${appearance}-${color}`);
         classNames.push(`thy-vote-${this.thyLayout()}`);
         classNames.push(`thy-vote-${this.thyLayout()}-size-${this.thySize()}`);
         this.hostRenderer.updateClass(classNames);

@@ -38,7 +38,8 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' },
                     { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' },
                     { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
-                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' }
+                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' },
+                    { replace: 'ThyVoteSizes', replaceWith: 'ThyVoteSize' }
                 ]
             }
         ]
@@ -209,6 +210,22 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyHasVoted',
+                        replaceWith: 'thyVoted',
+                        limitedTo: {
+                            attributes: ['thyVote'],
+                            elements: ['thy-vote']
+                        }
+                    },
+                    {
+                        replace: 'thyVoteCount',
+                        replaceWith: 'thyCount',
+                        limitedTo: {
+                            attributes: ['thyVote'],
+                            elements: ['thy-vote']
+                        }
+                    },
+                    {
                         replace: 'thyNavLinkActive',
                         replaceWith: 'thyNavItemActive',
                         limitedTo: {
@@ -373,7 +390,9 @@ export const upgradeData: UpgradeData = {
                 pr: 'https://github.com/atinc/ngx-tethys',
                 changes: [
                     { replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' },
-                    { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' }
+                    { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' },
+                    { replace: 'thy-vote-primary-weak', replaceWith: 'thy-vote-subtle-primary' },
+                    { replace: 'thy-vote-success-weak', replaceWith: 'thy-vote-subtle-success' }
                 ]
             }
         ]
