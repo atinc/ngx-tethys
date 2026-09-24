@@ -438,6 +438,8 @@
   "ThyNotifyContainer": "notify",
   "ThyNotifyModule": "notify",
   "ThyNotifyService": "notify",
+  "ThyNotifyColor": "notify",
+  "ThyNotifyType": "notify",
   "ThyPaginationConfigModel": "pagination",
   "ThyPaginationChangedEvent": "pagination",
   "ThyPagination": "pagination",

@@ -3,7 +3,10 @@ import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 import { ThyMessageBaseConfig } from 'ngx-tethys/message';
 
 export type ThyNotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
-export type ThyNotifyType = 'blank' | 'success' | 'error' | 'warning' | 'info';
+export type ThyNotifyColor = 'blank' | 'success' | 'error' | 'warning' | 'info';
+
+/** @deprecated use ThyNotifyColor */
+export type ThyNotifyType = ThyNotifyColor;
 
 export interface ThyGlobalNotifyConfig {
     placement?: ThyNotifyPlacement;
@@ -41,7 +44,13 @@ export interface ThyNotifyConfig extends ThyMessageBaseConfig {
     placement?: ThyNotifyPlacement;
 
     /**
-     * 弹出通知的类型
+     * 弹出通知的颜色
+     */
+    color?: ThyNotifyColor;
+
+    /**
+     * 弹出通知的类型（已废弃），请使用 color
+     * @deprecated please use color
      */
     type?: ThyNotifyType;
 

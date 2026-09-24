@@ -16,7 +16,7 @@ import { ThyAction } from 'ngx-tethys/action';
     selector: 'thy-notify',
     templateUrl: './notify.component.html',
     host: {
-        '[class]': "'thy-notify thy-notify-' + config()?.type"
+        '[class]': "'thy-notify thy-notify-' + (config()?.color || config()?.type)"
     },
     animations: [
         trigger('flyInOut', [

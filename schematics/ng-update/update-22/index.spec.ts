@@ -809,6 +809,63 @@ export class ActionTypeDemoComponent {
         expect(content).not.toContain('ThyActionType');
     });
 
+    it('should migrate ThyNotifyType to ThyNotifyColor', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/notify-type-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyNotifyType } from 'ngx-tethys/notify';
+
+@Component({
+    selector: 'app-notify-type-demo',
+    template: ''
+})
+export class NotifyTypeDemoComponent {
+    color: ThyNotifyType = 'success';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/notify-type-demo.component.ts');
+        expect(content).toContain("import { ThyNotifyColor } from 'ngx-tethys/notify';");
+        expect(content).toContain("color: ThyNotifyColor = 'success';");
+        expect(content).not.toContain('ThyNotifyType');
+    });
+
+    it('should migrate ThyNotifyConfig.type to color', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/notify-config-demo.component.ts',
+            `
+import { Component, inject } from '@angular/core';
+import { ThyNotifyService } from 'ngx-tethys/notify';
+
+@Component({
+    selector: 'app-notify-config-demo',
+    template: ''
+})
+export class NotifyConfigDemoComponent {
+    private notifyService = inject(ThyNotifyService);
+
+    show() {
+        this.notifyService.show({ type: 'info', title: 'Hi' });
+    }
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/notify-config-demo.component.ts');
+        expect(content).toContain("show({ color: 'info', title: 'Hi' })");
+        expect(content).not.toContain('type: ');
+    });
+
     it('should migrate thyType to thyColor for thy-progress', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

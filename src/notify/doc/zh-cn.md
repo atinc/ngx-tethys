@@ -46,7 +46,7 @@ import { ThyNotifyModule } from "ngx-tethys/notify";
 默认的配置如下：
 ```ts
 const THY_NOTIFY_DEFAULT_CONFIG_VALUE = {
-    type: 'blank',
+    color: 'blank',
     pauseOnHover: true,
     duration: 4500,
     maxStack: 8,

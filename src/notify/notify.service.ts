@@ -57,7 +57,7 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
     public success(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
-            type: 'success',
+            color: 'success',
             title: title || config?.title || this.locale().success,
             content: content || config?.content
         });
@@ -69,7 +69,7 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
     public info(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
-            type: 'info',
+            color: 'info',
             title: title || config?.title || this.locale().info,
             content: content || config?.content
         });
@@ -81,7 +81,7 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
     public warning(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
-            type: 'warning',
+            color: 'warning',
             title: title || config?.title || this.locale().warning,
             content: content || config?.content
         });
@@ -93,7 +93,7 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
     public error(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
-            type: 'error',
+            color: 'error',
             title: title || config?.title || this.locale().error,
             content: content || config?.content
         });
@@ -103,6 +103,8 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
         if (isString(config.detail)) {
             config = { ...config, detail: { link: `[${this.locale().detail}]`, content: config.detail as string } };
         }
-        return Object.assign({ type: 'blank' }, { id: String(this._lastNotifyId++) }, this.defaultConfig, config);
+        const merged = Object.assign({ id: String(this._lastNotifyId++) }, this.defaultConfig, config);
+        const color = merged.color || merged.type || 'blank';
+        return Object.assign(merged, { color, type: color });
     }
 }

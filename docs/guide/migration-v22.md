@@ -763,6 +763,20 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 46. thy-notify
+
+**标记为废弃**
+
+- `ThyNotifyType` 已废弃，请使用 `ThyNotifyColor`
+- `ThyNotifyConfig.type` 已废弃，请使用 `ThyNotifyConfig.color`
+
+**自动迁移**
+
+- TypeScript 中 `ThyNotifyType` → `ThyNotifyColor`
+- `ThyNotifyConfig` 对象字面量中的 `type` → `color`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

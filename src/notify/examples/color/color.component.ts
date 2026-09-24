@@ -4,12 +4,12 @@ import { ThyButton } from 'ngx-tethys/button';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
-    selector: 'thy-notify-type-example',
-    templateUrl: './type.component.html',
+    selector: 'thy-notify-color-example',
+    templateUrl: './color.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThySpace, ThySpaceItemDirective]
 })
-export class ThyNotifyTypeExampleComponent implements OnInit {
+export class ThyNotifyColorExampleComponent implements OnInit {
     private notifyService = inject(ThyNotifyService);
 
     ngOnInit() {}

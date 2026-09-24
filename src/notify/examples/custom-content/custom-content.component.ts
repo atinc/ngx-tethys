@@ -17,7 +17,7 @@ export class ThyNotifyCustomContentExampleComponent {
 
     showWithString() {
         this.notifyService.show({
-            type: 'success',
+            color: 'success',
             title: '成功 ',
             content: 'content is string！',
             detail: {
@@ -30,7 +30,7 @@ export class ThyNotifyCustomContentExampleComponent {
 
     showWithTemplateRef() {
         this.notifyService.show({
-            type: 'success',
+            color: 'success',
             title: '成功 ',
             content: this.contentTemplate()!,
             detail: '提示信息\n提示信息',
@@ -43,7 +43,7 @@ export class ThyNotifyCustomContentExampleComponent {
 
     showWithComponent() {
         this.notifyService.show({
-            type: 'success',
+            color: 'success',
             title: '成功 ',
             content: ThyNotifyContentExampleComponent,
             detail: '提示信息',

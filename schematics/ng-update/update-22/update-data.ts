@@ -38,7 +38,8 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' },
                     { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' },
                     { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
-                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' }
+                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' },
+                    { replace: 'ThyNotifyType', replaceWith: 'ThyNotifyColor' }
                 ]
             }
         ]

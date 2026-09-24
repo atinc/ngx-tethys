@@ -13,7 +13,7 @@ export class ThyNotifyActionsExampleComponent {
 
     showNotify() {
         this.notifyService.show({
-            type: 'success',
+            color: 'success',
             title: '添加项目成功！',
             content: '您已成功添加一个新的项目。',
             duration: 0,

@@ -16,7 +16,7 @@ export class ThyNotifyPlacementExampleComponent implements OnInit {
 
     showTopLeft() {
         this.notifyService.show({
-            type: 'info',
+            color: 'info',
             title: 'Notify topLeft!',
             content: '这里是content。',
             placement: 'topLeft'
@@ -24,7 +24,7 @@ export class ThyNotifyPlacementExampleComponent implements OnInit {
     }
     showTopRight() {
         this.notifyService.show({
-            type: 'info',
+            color: 'info',
             title: 'Notify topRight!',
             content: '这里是content。',
             placement: 'topRight'
@@ -32,7 +32,7 @@ export class ThyNotifyPlacementExampleComponent implements OnInit {
     }
     showBottomLeft() {
         this.notifyService.show({
-            type: 'info',
+            color: 'info',
             title: 'Notify bottomLeft!',
             content: '这里是content。',
             placement: 'bottomLeft'
@@ -40,7 +40,7 @@ export class ThyNotifyPlacementExampleComponent implements OnInit {
     }
     showBottomRight() {
         this.notifyService.show({
-            type: 'info',
+            color: 'info',
             title: 'Notify bottomRight!',
             content: '这里是content。',
             placement: 'bottomRight'

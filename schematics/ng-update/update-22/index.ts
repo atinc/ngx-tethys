@@ -15,6 +15,7 @@ import { InputControlSizeMigration } from './input-control-size-migration';
 import { InputSearchAppearanceMigration } from './input-search-appearance-migration';
 import { MenuThemeMigration } from './menu-theme-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
+import { NotifyColorMigration } from './notify-color-migration';
 import { SelectBorderlessMigration } from './select-borderless-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
@@ -24,6 +25,7 @@ import { upgradeData } from './update-data';
 const migrations: NullableDevkitMigration[] = [
     InputControlSizeMigration,
     NavInsideClosableMigration,
+    NotifyColorMigration,
     DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,

@@ -227,7 +227,7 @@ describe('ThyNotify', () => {
                 content: 'Preview Content'
             };
             componentInstance.option = {
-                type: 'info',
+                color: 'info',
                 title: 'ngx tethys notify',
                 content: 'ngx tethys notify content',
                 detail: {
@@ -257,7 +257,7 @@ describe('ThyNotify', () => {
         it('When detail is string, detail text should be displayed', fakeAsync(() => {
             const detailText = 'ngx tethys notify detail content';
             componentInstance.option = {
-                type: 'warning',
+                color: 'warning',
                 title: 'Warning',
                 content: 'Something is wrong',
                 detail: detailText
@@ -278,7 +278,24 @@ describe('ThyNotify', () => {
             flush();
         }));
 
-        it('should show error type when config.type is error', fakeAsync(() => {
+        it('should show error type when config.color is error', fakeAsync(() => {
+            componentInstance.option = {
+                color: 'error',
+                title: 'Error'
+            };
+            fixture.detectChanges();
+            btnElement.click();
+            fixture.detectChanges();
+            tick();
+            const notifyContainer: HTMLElement = overlayContainerElement.querySelector(`.thy-notify-topRight`)!;
+            const notify = notifyContainer.querySelector('.thy-notify')!;
+            expect(notify.classList.contains('thy-notify-error')).toBeTruthy();
+            tick(DEFAULT_DURATION_TIME);
+            fixture.detectChanges();
+            flush();
+        }));
+
+        it('should show error type when deprecated config.type is error', fakeAsync(() => {
             componentInstance.option = {
                 type: 'error',
                 title: 'Error'

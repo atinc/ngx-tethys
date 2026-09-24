@@ -19,7 +19,7 @@ export class ThyNotifyCloseExampleComponent implements OnInit {
     showHasDetail() {
         this.notifyRef = this.notifyService.show({
             id: 'errorId',
-            type: 'error',
+            color: 'error',
             title: '错误',
             content: '获取数据失败！',
             detail: 'TypeError',
