@@ -64,14 +64,14 @@ import { ThyFormFieldConfig, ThyFormFieldValueChange, ThyFormFieldValidator, Thy
 })
 export class ThyDynamicForm {
     /**
-     * 字段配置。每一项是 ThyFormFieldConfig，kind 目前支持 input、textarea、select，具体配置见 ThyFormFieldConfig
+     * 字段配置，kind 目前支持 input、textarea、select
      * @type ThyFormFieldConfig[]
      * @default []
      */
     readonly thyFields = input<ThyFormFieldConfig[]>([]);
 
     /**
-     * 外部写入的表单值，不传时用各字段的 defaultValue
+     * 表单值，不传时用各字段的 defaultValue
      */
     readonly thyValue = input<ThyDynamicFormValue | undefined>(undefined);
 
@@ -92,7 +92,7 @@ export class ThyDynamicForm {
     readonly thyValueChange = output<ThyDynamicFormValue>();
 
     /**
-     * 单个字段变化时触发，参数为包含 key 和 value 的对象 ThyFormFieldValueChange
+     * 单个字段变化时触发，参数是被触发字段的 key 和 value
      */
     readonly thyFieldValueChange = output<ThyFormFieldValueChange>();
 
