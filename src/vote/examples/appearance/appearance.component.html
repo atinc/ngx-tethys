@@ -1,0 +1,14 @@
+<div>
+  <thy-vote class="mr-3" thyColor="primary" [thyCount]="112" [thyVoted]="hasVoted()" (click)="toggleVote($event)"></thy-vote>
+  <thy-vote
+    class="mr-3"
+    thyColor="primary"
+    thyAppearance="subtle"
+    [thyCount]="112"
+    [thyVoted]="hasVoted()"
+    (click)="toggleVote($event)"></thy-vote>
+</div>
+<div class="mt-3">
+  <span class="mr-3" thyVote="success" [thyCount]="112" [thyVoted]="hasVoted()" (click)="toggleVote($event)"></span>
+  <span class="mr-3" thyVote="success" thyAppearance="subtle" [thyCount]="112" [thyVoted]="hasVoted()" (click)="toggleVote($event)"></span>
+</div>

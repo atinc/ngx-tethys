@@ -763,6 +763,46 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 46. thy-vote（`thyVote` 指令）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- 颜色与外观拆分（指令用 `thyVote` 传颜色，组件用 `thyColor`）：
+  - `thyVote` / `thyColor`：`primary | success`（默认 `primary`）
+  - `thyAppearance`：`fill | subtle`（默认 `fill`）
+- 旧复合类型 `ThyVoteType`（`primary-weak` / `success-weak`）已废弃，请改用 `thyColor`/`thyVote` + `thyAppearance`
+- CSS 类 `thy-vote-primary-weak` / `thy-vote-success-weak` 改名为 `thy-vote-primary-subtle` / `thy-vote-success-subtle`
+- `thyHasVoted` 已废弃，请使用 `thyVoted`
+- `thyVoteCount` 已废弃，请使用 `thyCount`
+- `ThyVoteSizes` 已废弃，请使用 `ThyVoteSize`
+
+| 旧写法 | 新写法 |
+|--------|--------|
+| `<span thyVote="success"></span>` | 保持不变（指令写法） |
+| `<thy-vote thyVote="success"></thy-vote>` | `<thy-vote thyColor="success"></thy-vote>` |
+| `thyVote="primary-weak"`（组件） | `thyColor="primary" thyAppearance="subtle"` |
+| `thyVote="success-weak"`（指令） | `thyVote="success" thyAppearance="subtle"` |
+| `[thyVote]="'success-weak'"`（组件） | `[thyColor]="'success'" thyAppearance="subtle"` |
+| `[thyVote]="'success-weak'"`（指令） | `[thyVote]="'success'" thyAppearance="subtle"` |
+| `thyHasVoted` | `thyVoted` |
+| `thyVoteCount` | `thyCount` |
+
+**自动迁移**
+
+- 组件 `thy-vote` 上的字面量 `thyVote` / `[thyVote]` 迁移为 `thyColor`（值为 `primary-weak | success-weak`的会额外补 `thyAppearance="subtle"`）
+- 指令宿主上的 `primary` / `success` **不迁移**；仅将 `*-weak` 拆为 `thyVote="color"` + `thyAppearance="subtle"`
+- CSS 选择器 `thy-vote-primary-weak` → `thy-vote-primary-subtle`；`thy-vote-success-weak` → `thy-vote-success-subtle`
+- `thyHasVoted` → `thyVoted`（`thy-vote` / `thyVote`）
+- `thyVoteCount` → `thyCount`（`thy-vote` / `thyVote`）
+- TypeScript 中 `ThyVoteSizes` → `ThyVoteSize`
+
+**手动检查**
+
+- 动态绑定形如 `[thyVote]="voteType"` 且变量可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需拆分为颜色 + `thyAppearance`
+- TypeScript 中 `ThyVoteType` **不会自动替换**；请改为 `ThyVoteColor` / `ThyVoteAppearance`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**
@@ -839,4 +879,6 @@ ng generate ngx-tethys:migrate-22
   - `thy-card--clear-left-right-padding`（移除 `thyHasLeftRightPadding` 后不再生成）
   - `thy-card-header--{sm,md,lg}`、`thy-card-content--sm`（`thySize` 仅保留在 `thy-card` 上）
   - `thy-badge-dot` / `thy-badge-hollow`（改用 `thy-dot` 组件）
+  - CSS 样式：`thy-vote-primary-weak` / `thy-vote-success-weak` → `thy-vote-primary-subtle` / `thy-vote-success-subtle`
+  - Vote 动态绑定：形如 `[thyVote]="voteType"` 且可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需手动拆为颜色 + `[thyAppearance]`
 

@@ -1,7 +1,7 @@
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyVote } from 'ngx-tethys/vote';
+import { ThyVote, ThyVoteAppearance, ThyVoteColor, ThyVoteType } from 'ngx-tethys/vote';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('ThyVote', () => {
@@ -30,6 +30,7 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-round')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal-size-default')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('has-voted')).toBe(true);
     });
 
     it('should have thy-vote-success when thyVote is success', () => {
@@ -38,10 +39,39 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
     });
 
-    it('should have thy-vote-success when thyVote is success-weak', () => {
+    it('should have thy-vote-success when thyColor is success', () => {
+        basicTestComponent.thyColor = 'success';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
+    });
+
+    it('should have thy-vote-success-subtle when thyAppearance is subtle', () => {
+        basicTestComponent.thyColor = 'success';
+        basicTestComponent.thyAppearance = 'subtle';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success-subtle')).toBe(true);
+    });
+
+    it('should still work with deprecated thyVote success-weak', () => {
         basicTestComponent.thyVote = 'success-weak';
         fixture.detectChanges();
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-success-weak')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success-subtle')).toBe(true);
+    });
+
+    it('should prefer thyVote over thyColor', () => {
+        basicTestComponent.thyVote = 'success';
+        basicTestComponent.thyColor = 'primary';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-primary')).toBe(false);
+    });
+
+    it('should still work with deprecated thyHasVoted and thyVoteCount', () => {
+        const deprecatedFixture = TestBed.createComponent(ThyDemoVoteDeprecatedComponent);
+        deprecatedFixture.detectChanges();
+        const deprecatedVote = deprecatedFixture.debugElement.query(By.directive(ThyVote));
+        expect(deprecatedVote.nativeElement.classList.contains('has-voted')).toBe(true);
+        expect(deprecatedVote.nativeElement.textContent).toContain('10');
     });
 
     it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyLayout is vertical', () => {
@@ -78,8 +108,10 @@ describe('ThyVote', () => {
     template: `
         <div
             [thyVote]="thyVote"
-            [thyVoteCount]="vote_count"
-            [thyHasVoted]="has_voted"
+            [thyColor]="thyColor"
+            [thyAppearance]="thyAppearance"
+            [thyCount]="vote_count"
+            [thyVoted]="hasVoted"
             [thyLayout]="layout"
             [thySize]="size"
             [thyRound]="isRound"
@@ -91,9 +123,22 @@ describe('ThyVote', () => {
 class ThyDemoVoteBasicComponent {
     vote_count = '10';
     hasVoted = true;
-    thyVote = '';
+    thyVote: ThyVoteColor | ThyVoteType | '' = '';
+    thyColor: ThyVoteColor | '' = '';
+    thyAppearance: ThyVoteAppearance = 'fill';
     layout = '';
     size = '';
     isRound = true;
     isDisabled = false;
+}
+
+@Component({
+    selector: 'thy-demo-vote-deprecated',
+    template: ` <div thyVote [thyVoteCount]="vote_count" [thyHasVoted]="hasVoted"></div> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyVote]
+})
+class ThyDemoVoteDeprecatedComponent {
+    vote_count = '10';
+    hasVoted = true;
 }
