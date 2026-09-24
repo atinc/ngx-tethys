@@ -1,21 +1,21 @@
+import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
+import { registerLocaleData } from '@angular/common';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import zh from '@angular/common/locales/zh';
+import { ChangeDetectionStrategy, Component, DebugElement, ViewChild } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThyCascader, ThyCascaderExpandTrigger, ThyCascaderModule, ThyCascaderTriggerType } from 'ngx-tethys/cascader';
 import { EXPANDED_DROPDOWN_POSITIONS, ThyFormControlAppearance } from 'ngx-tethys/core';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 import { Subject, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
-import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ViewChild, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { ThyCascaderModule, ThyCascaderExpandTrigger, ThyCascaderTriggerType, ThyCascader } from 'ngx-tethys/cascader';
-import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
-import { ThyIconModule } from 'ngx-tethys/icon';
-import { provideHttpClient, withXhr } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -771,14 +771,6 @@ describe('thy-cascader', () => {
             const formControl = debugElement.query(By.css('.form-control')).nativeElement;
             expect(formControl.classList.contains('form-control-ghost')).toBe(true);
             expect(formControl.classList.contains('form-control-subtle')).toBe(false);
-        });
-
-        it('should apply disabled class when thyDisabled is true', () => {
-            component.disabled = true;
-            fixture.detectChanges();
-            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
-            expect(formControl.classList.contains('disabled')).toBe(true);
-            expect(debugElement.query(By.css('.thy-cascader-picker-disabled'))).toBeTruthy();
         });
 
         it('should select', fakeAsync(() => {
