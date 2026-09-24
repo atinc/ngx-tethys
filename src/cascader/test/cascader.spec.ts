@@ -1,21 +1,21 @@
-import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
+import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
+import { registerLocaleData } from '@angular/common';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import zh from '@angular/common/locales/zh';
+import { ChangeDetectionStrategy, Component, DebugElement, ViewChild } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThyCascader, ThyCascaderExpandTrigger, ThyCascaderModule, ThyCascaderTriggerType } from 'ngx-tethys/cascader';
+import { EXPANDED_DROPDOWN_POSITIONS, ThyFormControlAppearance } from 'ngx-tethys/core';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
 import { Subject, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
-import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, ViewChild, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { ThyCascaderModule, ThyCascaderExpandTrigger, ThyCascaderTriggerType, ThyCascader } from 'ngx-tethys/cascader';
-import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
-import { ThyIconModule } from 'ngx-tethys/icon';
-import { provideHttpClient, withXhr } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 
 registerLocaleData(zh);
 
@@ -332,6 +332,7 @@ const customLabelPropertyOptions = [
             [thyLoadData]="loadData"
             [thyShowSearch]="isShowSearch"
             [thyDisabled]="disabled"
+            [thyAppearance]="appearance"
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
             [thyEmptyStateText]="emptyStateText"
             [thyMultiple]="isMultiple"
@@ -372,6 +373,7 @@ class CascaderBasicComponent {
     public isShowSearch: boolean = false;
     public emptyStateText = '无选项';
     public disabled = false;
+    public appearance: ThyFormControlAppearance = 'outline';
     public isOnlySelectLeaf = true;
     public isMultiple = false;
     public thyAutoExpand = true;
@@ -747,6 +749,29 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeFalsy();
         }));
+
+        it('should use outline appearance by default', () => {
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+            expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-subtle when thyAppearance is subtle', () => {
+            component.appearance = 'subtle';
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('form-control-subtle')).toBe(true);
+            expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+        });
+
+        it('should add form-control-ghost when thyAppearance is ghost', () => {
+            component.appearance = 'ghost';
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('form-control-ghost')).toBe(true);
+            expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+        });
 
         it('should select', fakeAsync(() => {
             const selectedVal = ['zhejiang', 'hangzhou', 'xihu'];
