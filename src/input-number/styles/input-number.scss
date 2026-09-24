@@ -68,4 +68,26 @@
     .input-number-disabled {
         display: none;
     }
+
+    &:has(.form-control-subtle),
+    &:has(.form-control-ghost) {
+        .input-number-handler-wrap {
+            border-left-color: transparent;
+
+            .input-number-handler-down {
+                border-top-color: transparent;
+            }
+        }
+    }
+
+    &:has(.form-control-subtle):hover,
+    &:has(.form-control-subtle):focus-within {
+        .input-number-handler-wrap {
+            border-left-color: variables.$input-border-color;
+
+            .input-number-handler-down {
+                border-top-color: variables.$input-border-color;
+            }
+        }
+    }
 }
