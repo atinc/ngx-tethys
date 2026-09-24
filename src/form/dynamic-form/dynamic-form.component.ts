@@ -64,14 +64,14 @@ import { ThyFormFieldConfig, ThyFormFieldValueChange, ThyFormFieldValidator, Thy
 })
 export class ThyDynamicForm {
     /**
-     * 字段配置。每一项是 ThyFormFieldConfig，kind 目前支持 input、textarea、select。
+     * 字段配置。每一项是 ThyFormFieldConfig，kind 目前支持 input、textarea、select，具体配置见 ThyFormFieldConfig
      * @type ThyFormFieldConfig[]
      * @default []
      */
     readonly thyFields = input<ThyFormFieldConfig[]>([]);
 
     /**
-     * 外部写入的表单值。不传时用各字段的 defaultValue。
+     * 外部写入的表单值，不传时用各字段的 defaultValue
      */
     readonly thyValue = input<ThyDynamicFormValue | undefined>(undefined);
 
@@ -84,29 +84,25 @@ export class ThyDynamicForm {
         transform: value => value ?? 'md'
     });
 
-    get isHorizontal() {
-        return false;
-    }
+    readonly isHorizontal = false;
 
     /**
-     * 表单值变化时抛出当前表单值。
+     * 表单值变化时触发，参数为当前表单值
      */
     readonly thyValueChange = output<ThyDynamicFormValue>();
 
     /**
-     * 单个字段变化时，抛出包含 key 和 value 的对象。
-     * @type { key: string, value: unknown }
+     * 单个字段变化时触发，参数为包含 key 和 value 的对象 ThyFormFieldValueChange
      */
     readonly thyFieldValueChange = output<ThyFormFieldValueChange>();
 
     /**
-     * 表单状态变化时，抛出当前表单状态。
-     * @type VALID | INVALID | PENDING | DISABLED
+     * 表单值变化时触发，参数为当前表单状态 VALID | INVALID | PENDING | DISABLED
      */
     readonly thyStatusChange = output<FormControlStatus>();
 
     /**
-     * 校验通过后抛出表单值。
+     * 点击 submit 按钮提交表单且校验通过后触发，参数为当前表单值
      */
     readonly thySubmit = output<ThyDynamicFormValue>();
 
