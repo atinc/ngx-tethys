@@ -60,12 +60,31 @@
     @include hover.hover-focus {
         outline: none;
         .form-control {
-            &:not([disabled]):not(.disabled):not(.is-invalid) {
+            &:not([disabled]):not(.disabled):not(.is-invalid):not(.form-control-ghost) {
                 border-color: variables.$input-hover-border-color;
             }
         }
     }
-    .input-number-disabled {
-        display: none;
+
+    &:has(.form-control-subtle),
+    &:has(.form-control-ghost) {
+        .input-number-handler-wrap {
+            border-left-color: transparent;
+
+            .input-number-handler-down {
+                border-top-color: transparent;
+            }
+        }
+    }
+
+    &:has(.form-control-subtle:not(:disabled)):hover,
+    &:has(.form-control-subtle:not(:disabled)):focus-within {
+        .input-number-handler-wrap {
+            border-left-color: variables.$input-border-color;
+
+            .input-number-handler-down {
+                border-top-color: variables.$input-border-color;
+            }
+        }
     }
 }

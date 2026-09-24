@@ -4,6 +4,7 @@ import { Component, DebugElement, viewChild, ChangeDetectionStrategy } from '@an
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ThyFormControlAppearance } from 'ngx-tethys/core';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
@@ -16,6 +17,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
             [thyPrecision]="thyPrecision"
             [thySuffix]="thySuffix"
             [thySize]="thySize"
+            [thyAppearance]="thyAppearance"
             [thyAutoFocus]="thyAutoFocus"
             [thyPlaceholder]="placeholder"
             [thyMax]="thyMax"
@@ -33,6 +35,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
             [thyPrecision]="thyPrecision"
             [thySuffix]="thySuffix"
             [thySize]="thySize"
+            [thyAppearance]="thyAppearance"
             [thyPlaceholder]="placeholder"
             [thyMax]="thyMax"
             [thyMin]="thyMin"
@@ -53,6 +56,8 @@ class TestInputNumberComponent {
     readonly secondInputNumberComponent = viewChild<ThyInputNumber>('second');
 
     thySize = ``;
+
+    thyAppearance: ThyFormControlAppearance | undefined = 'outline';
 
     modelValue!: string | number;
 
@@ -187,6 +192,33 @@ describe('input-number component', () => {
         inputNumberComponentInstance.thySize = 'lg';
         fixture.detectChanges();
         expect(inputElement.classList.contains('form-control-lg')).toBe(true);
+    });
+
+    it('should use outline appearance by default', () => {
+        fixture.detectChanges();
+        expect(inputElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(inputElement.classList.contains('form-control-ghost')).toBe(false);
+    });
+
+    it('should add form-control-subtle when thyAppearance is subtle', () => {
+        inputNumberComponentInstance.thyAppearance = 'subtle';
+        fixture.detectChanges();
+        expect(inputElement.classList.contains('form-control-subtle')).toBe(true);
+        expect(inputElement.classList.contains('form-control-ghost')).toBe(false);
+    });
+
+    it('should add form-control-ghost when thyAppearance is ghost', () => {
+        inputNumberComponentInstance.thyAppearance = 'ghost';
+        fixture.detectChanges();
+        expect(inputElement.classList.contains('form-control-ghost')).toBe(true);
+        expect(inputElement.classList.contains('form-control-subtle')).toBe(false);
+    });
+
+    it('should use outline appearance when thyAppearance is undefined', () => {
+        inputNumberComponentInstance.thyAppearance = undefined;
+        fixture.detectChanges();
+        expect(inputElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(inputElement.classList.contains('form-control-ghost')).toBe(false);
     });
 
     it('should autofocus work', fakeAsync(() => {

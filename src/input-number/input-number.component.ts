@@ -1,4 +1,9 @@
-import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlSize, useHostFocusControl } from 'ngx-tethys/core';
+import {
+    TabIndexDisabledControlValueAccessorMixin,
+    ThyFormControlAppearance,
+    ThyFormControlSize,
+    useHostFocusControl
+} from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
@@ -117,6 +122,15 @@ export class ThyInputNumber extends TabIndexDisabledControlValueAccessorMixin im
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 输入框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     /**

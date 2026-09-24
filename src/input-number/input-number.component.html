@@ -1,5 +1,5 @@
 @if (thyShowStepControls()) {
-  <div class="input-number-handler-wrap" [class.input-number-disabled]="thyDisabled">
+  <div class="input-number-handler-wrap">
     <span
       unselectable="unselectable"
       class="input-number-handler input-number-handler-up"
@@ -26,6 +26,7 @@
   autocomplete="off"
   class="input-number-input form-control"
   [thySize]="thySize()"
+  [thyAppearance]="thyAppearance()"
   [thyAutofocus]="thyAutoFocus()"
   [disabled]="thyDisabled"
   [attr.min]="thyMin()"
