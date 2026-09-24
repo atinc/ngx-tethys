@@ -765,39 +765,40 @@ ng generate ngx-tethys:migrate-22
 
 ### 46. thy-vote（`thyVote` 指令）
 
-**破坏性更改**
+**标记为废弃，将在 v23 彻底删除**
 
-- 旧 `thyVote`（`primary` / `success` / `primary-weak` / `success-weak`）拆分为：
-  - `thyColor`：`primary | success`（默认 `primary`）
+- 颜色与外观拆分（对齐 `button`：指令用 `thyVote` 传颜色，组件用 `thyColor`）：
+  - `thyVote` / `thyColor`：`primary | success`（默认 `primary`）
   - `thyAppearance`：`fill | subtle`（默认 `fill`）
-- `thyVote` 输入参数与 `ThyVoteType` 已废弃，请使用 `thyColor` + `thyAppearance`；指令宿主仍可用裸属性 `thyVote` 作为选择器
-- CSS 类 `thy-vote-primary-weak` / `thy-vote-success-weak` 改名为 `thy-vote-subtle-primary` / `thy-vote-subtle-success`
+- 旧复合类型 `ThyVoteType`（`primary-weak` / `success-weak`）已废弃，请改用 `thyColor`/`thyVote` + `thyAppearance`
+- CSS 类 `thy-vote-primary-weak` / `thy-vote-success-weak` 改名为 `thy-vote-primary-subtle` / `thy-vote-success-subtle`
 - `thyHasVoted` 已废弃，请使用 `thyVoted`
 - `thyVoteCount` 已废弃，请使用 `thyCount`
 - `ThyVoteSizes` 已废弃，请使用 `ThyVoteSize`
 
 | 旧写法 | 新写法 |
 |--------|--------|
-| `thyVote="primary"` | `thyColor="primary"` |
-| `thyVote="success"` | `thyColor="success"` |
-| `thyVote="primary-weak"` | `thyColor="primary" thyAppearance="subtle"` |
-| `thyVote="success-weak"` | `thyColor="success" thyAppearance="subtle"` |
+| `<span thyVote="success"></span>` | 保持不变（指令写法） |
+| `<thy-vote thyVote="success"></thy-vote>` | `<thy-vote thyColor="success"></thy-vote>` |
+| `thyVote="primary-weak"`（组件） | `thyColor="primary" thyAppearance="subtle"` |
+| `thyVote="success-weak"`（指令） | `thyVote="success" thyAppearance="subtle"` |
 | `[thyVote]="'success-weak'"`（组件） | `[thyColor]="'success'" thyAppearance="subtle"` |
-| `[thyVote]="'success-weak'"`（指令宿主） | `thyVote [thyColor]="'success'" thyAppearance="subtle"` |
+| `[thyVote]="'success-weak'"`（指令） | `[thyVote]="'success'" thyAppearance="subtle"` |
 | `thyHasVoted` | `thyVoted` |
 | `thyVoteCount` | `thyCount` |
 
 **自动迁移**
 
-- 模板中字面量 `thyVote` / `[thyVote]` 按上表拆分为 `thyColor`（及必要时的 `thyAppearance`）；指令宿主会保留裸属性 `thyVote` 作为选择器
-- CSS 选择器 `thy-vote-primary-weak` → `thy-vote-subtle-primary`；`thy-vote-success-weak` → `thy-vote-subtle-success`
+- 组件 `thy-vote` 上的字面量 `thyVote` / `[thyVote]` 迁移为 `thyColor`（弱类型会额外补 `thyAppearance="subtle"`）
+- 指令宿主上的 `primary` / `success` **不迁移**；仅将 `*-weak` 拆为 `thyVote="color"` + `thyAppearance="subtle"`
+- CSS 选择器 `thy-vote-primary-weak` → `thy-vote-primary-subtle`；`thy-vote-success-weak` → `thy-vote-success-subtle`
 - `thyHasVoted` → `thyVoted`（`thy-vote` / `thyVote`）
 - `thyVoteCount` → `thyCount`（`thy-vote` / `thyVote`）
 - TypeScript 中 `ThyVoteSizes` → `ThyVoteSize`
 
 **手动检查**
 
-- 动态绑定形如 `[thyVote]="voteType"` 且变量可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需拆分为 `thyColor` / `thyAppearance` 两个变量
+- 动态绑定形如 `[thyVote]="voteType"` 且变量可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需拆分为颜色 + `thyAppearance`
 - TypeScript 中 `ThyVoteType` **不会自动替换**；请改为 `ThyVoteColor` / `ThyVoteAppearance`
 
 ---
@@ -878,6 +879,6 @@ ng generate ngx-tethys:migrate-22
   - `thy-card--clear-left-right-padding`（移除 `thyHasLeftRightPadding` 后不再生成）
   - `thy-card-header--{sm,md,lg}`、`thy-card-content--sm`（`thySize` 仅保留在 `thy-card` 上）
   - `thy-badge-dot` / `thy-badge-hollow`（改用 `thy-dot` 组件）
-  - `thy-vote-primary-weak` / `thy-vote-success-weak` → `thy-vote-subtle-primary` / `thy-vote-subtle-success`
-  - Vote 动态绑定：形如 `[thyVote]="voteType"` 且可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需手动改为 `[thyColor]` + `[thyAppearance]`
+  - `thy-vote-primary-weak` / `thy-vote-success-weak` → `thy-vote-primary-subtle` / `thy-vote-success-subtle`
+  - Vote 动态绑定：形如 `[thyVote]="voteType"` 且可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需手动拆为颜色 + `[thyAppearance]`
 

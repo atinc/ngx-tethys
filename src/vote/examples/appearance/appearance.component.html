@@ -1,52 +1,14 @@
 <div>
-  <thy-vote class="mr-3" thyColor="primary" [thyCount]="vote_count" [thyVoted]="has_voted()" thySize="sm" (click)="toggleVote($event)">
-  </thy-vote>
+  <thy-vote class="mr-3" thyColor="primary" [thyCount]="112" [thyVoted]="hasVoted()" (click)="toggleVote($event)"></thy-vote>
   <thy-vote
     class="mr-3"
     thyColor="primary"
     thyAppearance="subtle"
-    [thyCount]="vote_count"
-    [thyVoted]="has_voted()"
-    (click)="toggleVote($event)">
-  </thy-vote>
-</div>
-<div class="mt-3">
-  <span>圆角:</span>
-  <thy-vote
-    class="mr-3 ml-3"
-    thyColor="success"
-    thyAppearance="subtle"
-    [thyCount]="vote_count"
-    [thyVoted]="has_voted()"
-    [thySize]="'sm'"
-    [thyRound]="true"
-    (click)="toggleVote($event)"></thy-vote>
-  <thy-vote
-    thyColor="success"
-    thyAppearance="subtle"
-    [thyCount]="vote_count1"
-    [thyVoted]="has_voted()"
-    [thyRound]="true"
+    [thyCount]="112"
+    [thyVoted]="hasVoted()"
     (click)="toggleVote($event)"></thy-vote>
 </div>
 <div class="mt-3">
-  <span
-    class="mr-3"
-    thyVote
-    thyColor="success"
-    thyAppearance="subtle"
-    [thyLayout]="'vertical'"
-    [thyCount]="vote_count"
-    [thyVoted]="has_voted()"
-    thySize="sm"
-    (click)="toggleVote($event)"></span>
-  <span
-    class="mr-3"
-    thyVote
-    thyColor="success"
-    thyAppearance="subtle"
-    [thyLayout]="'vertical'"
-    [thyCount]="vote_count"
-    [thyVoted]="has_voted()"
-    (click)="toggleVote($event)"></span>
+  <span class="mr-3" thyVote="success" [thyCount]="112" [thyVoted]="hasVoted()" (click)="toggleVote($event)"></span>
+  <span class="mr-3" thyVote="success" thyAppearance="subtle" [thyCount]="112" [thyVoted]="hasVoted()" (click)="toggleVote($event)"></span>
 </div>

@@ -80,24 +80,30 @@ function collectOpenTagEdits(tag: string, tagOffset: number): RelativeTemplateEd
 
     const tagName = getOpenTagName(tag);
     const isComponent = tagName === 'thy-vote';
+    const isWeak = mapped.appearance !== 'fill';
     const leadingSpace = voteAttribute.attrSource.startsWith(' ') ? ' ' : '';
-    const colorAttr = voteAttribute.bound ? `[thyColor]="'${mapped.color}'"` : `thyColor="${mapped.color}"`;
     const appearanceSuffix =
-        mapped.appearance !== 'fill' && !openingTagHasAttribute(tag, 'thyAppearance')
-            ? ` thyAppearance="${mapped.appearance}"`
-            : '';
+        isWeak && !openingTagHasAttribute(tag, 'thyAppearance') ? ` thyAppearance="${mapped.appearance}"` : '';
 
-    // Component: replace thyVote input with thyColor (+ thyAppearance when needed)
-    // Directive: keep bare thyVote selector and add thyColor (+ thyAppearance)
-    const insert = isComponent
-        ? `${leadingSpace}${colorAttr}${appearanceSuffix}`
-        : `${leadingSpace}thyVote ${colorAttr}${appearanceSuffix}`;
+    // Component: thyVote → thyColor (+ thyAppearance for weak), like thy-button uses thyColor
+    // Directive: keep thyVote as color (like thyButton); only rewrite weak composite values
+    if (!isComponent && !isWeak) {
+        return [];
+    }
+
+    const colorAttr = isComponent
+        ? voteAttribute.bound
+            ? `[thyColor]="'${mapped.color}'"`
+            : `thyColor="${mapped.color}"`
+        : voteAttribute.bound
+          ? `[thyVote]="'${mapped.color}'"`
+          : `thyVote="${mapped.color}"`;
 
     return [
         {
             start: tagOffset + voteAttribute.attrIndex,
             remove: voteAttribute.attrSource.length,
-            insert
+            insert: `${leadingSpace}${colorAttr}${appearanceSuffix}`
         }
     ];
 }

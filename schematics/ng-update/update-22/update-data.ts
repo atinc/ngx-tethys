@@ -391,8 +391,8 @@ export const upgradeData: UpgradeData = {
                 changes: [
                     { replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' },
                     { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' },
-                    { replace: 'thy-vote-primary-weak', replaceWith: 'thy-vote-subtle-primary' },
-                    { replace: 'thy-vote-success-weak', replaceWith: 'thy-vote-subtle-success' }
+                    { replace: 'thy-vote-primary-weak', replaceWith: 'thy-vote-primary-subtle' },
+                    { replace: 'thy-vote-success-weak', replaceWith: 'thy-vote-success-subtle' }
                 ]
             }
         ]

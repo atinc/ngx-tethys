@@ -33,38 +33,37 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('has-voted')).toBe(true);
     });
 
+    it('should have thy-vote-success when thyVote is success', () => {
+        basicTestComponent.thyVote = 'success';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
+    });
+
     it('should have thy-vote-success when thyColor is success', () => {
         basicTestComponent.thyColor = 'success';
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
     });
 
-    it('should have thy-vote-subtle-success when thyAppearance is subtle', () => {
+    it('should have thy-vote-success-subtle when thyAppearance is subtle', () => {
         basicTestComponent.thyColor = 'success';
         basicTestComponent.thyAppearance = 'subtle';
         fixture.detectChanges();
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-subtle-success')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success-subtle')).toBe(true);
     });
 
     it('should still work with deprecated thyVote success-weak', () => {
         basicTestComponent.thyVote = 'success-weak';
         fixture.detectChanges();
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-subtle-success')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success-subtle')).toBe(true);
     });
 
-    it('should still work with deprecated thyVote primary', () => {
-        basicTestComponent.thyVote = 'primary';
-        fixture.detectChanges();
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-primary')).toBe(true);
-    });
-
-    it('should prefer thyColor over deprecated thyVote', () => {
-        basicTestComponent.thyVote = 'success-weak';
+    it('should prefer thyVote over thyColor', () => {
+        basicTestComponent.thyVote = 'success';
         basicTestComponent.thyColor = 'primary';
-        basicTestComponent.thyAppearance = 'fill';
         fixture.detectChanges();
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-primary')).toBe(true);
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-subtle-success')).toBe(false);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-primary')).toBe(false);
     });
 
     it('should still work with deprecated thyHasVoted and thyVoteCount', () => {
@@ -124,7 +123,7 @@ describe('ThyVote', () => {
 class ThyDemoVoteBasicComponent {
     vote_count = '10';
     hasVoted = true;
-    thyVote: ThyVoteType | '' = '';
+    thyVote: ThyVoteColor | ThyVoteType | '' = '';
     thyColor: ThyVoteColor | '' = '';
     thyAppearance: ThyVoteAppearance = 'fill';
     layout = '';

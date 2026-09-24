@@ -6,14 +6,14 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type ThyVoteSize = 'default' | 'sm';
 
-/** @deprecated use ThyVoteSize */
+/** @deprecated use ThyVoteSize, will be remove in v23 */
 export type ThyVoteSizes = ThyVoteSize;
 
 export type ThyVoteColor = 'primary' | 'success';
 
 export type ThyVoteAppearance = 'fill' | 'subtle';
 
-/** @deprecated use ThyVoteColor and ThyVoteAppearance */
+/** @deprecated use ThyVoteColor and ThyVoteAppearance, will be remove in v23 */
 export type ThyVoteType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
 
 export type ThyVoteLayout = 'vertical' | 'horizontal';
@@ -47,7 +47,14 @@ export class ThyVote {
     });
 
     /**
-     * 颜色
+     * 颜色，一般使用`thyVote`指令写法
+     * @type primary | success
+     * @default primary
+     */
+    readonly thyVote = input<ThyVoteColor | ThyVoteType>();
+
+    /**
+     * 颜色，一般使用`thyVote`指令写法；通过`thy-vote`组件使用时，使用该参数控制颜色
      * @type primary | success
      * @default primary
      */
@@ -59,15 +66,6 @@ export class ThyVote {
      * @default fill
      */
     readonly thyAppearance = input<ThyVoteAppearance>('fill');
-
-    /**
-     * 标签类型（已废弃，将在 v23 彻底移除），请使用 thyColor + thyAppearance
-     * @deprecated please use thyColor and thyAppearance
-     * @type primary | success | primary-weak | success-weak
-     */
-    readonly thyVote = input<ThyVoteType, ThyVoteType>('primary', {
-        transform: (value: ThyVoteType) => value || 'primary'
-    });
 
     /**
      * 是否是偏圆型
@@ -87,8 +85,8 @@ export class ThyVote {
     readonly thyCount = input<number | string>();
 
     /**
-     * 赞同的数量
-     * @deprecated please use thyCount
+     * 赞同的数量（已废弃，将在 v23 彻底移除），请使用 thyCount
+     * @deprecated please use thyCount, will be remove in v23
      */
     readonly thyVoteCount = input<number | string>();
 
@@ -105,8 +103,8 @@ export class ThyVote {
     readonly thyVoted = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 是否赞同
-     * @deprecated please use thyVoted
+     * 是否赞同（已废弃，将在 v23 彻底移除），请使用 thyVoted
+     * @deprecated please use thyVoted, will be remove in v23
      */
     readonly thyHasVoted = input(false, { transform: coerceBooleanProperty });
 
@@ -125,22 +123,18 @@ export class ThyVote {
     readonly voted = computed(() => this.thyVoted() || this.thyHasVoted());
 
     private readonly resolved = computed(() => {
-        const colorInput = this.thyColor();
         const appearanceInput = this.thyAppearance() || 'fill';
-        const vote = this.thyVote();
+        // Prefer thyVote (directive) then thyColor (component), like button: thyButton || thyColor
+        const value = this.thyVote() || this.thyColor();
 
-        if (colorInput) {
-            return { color: colorInput, appearance: appearanceInput };
-        }
-
-        if (vote === 'primary-weak') {
+        if (value === 'primary-weak') {
             return { color: 'primary' as const, appearance: 'subtle' as const };
         }
-        if (vote === 'success-weak') {
+        if (value === 'success-weak') {
             return { color: 'success' as const, appearance: 'subtle' as const };
         }
-        if (vote === 'primary' || vote === 'success') {
-            return { color: vote, appearance: appearanceInput };
+        if (value === 'primary' || value === 'success') {
+            return { color: value, appearance: appearanceInput };
         }
 
         return { color: 'primary' as const, appearance: appearanceInput };
@@ -159,7 +153,7 @@ export class ThyVote {
         if (this.thyRound()) {
             classNames.push('thy-vote-round');
         }
-        classNames.push(appearance === 'fill' ? `thy-vote-${color}` : `thy-vote-${appearance}-${color}`);
+        classNames.push(appearance === 'fill' ? `thy-vote-${color}` : `thy-vote-${color}-${appearance}`);
         classNames.push(`thy-vote-${this.thyLayout()}`);
         classNames.push(`thy-vote-${this.thyLayout()}-size-${this.thySize()}`);
         this.hostRenderer.updateClass(classNames);

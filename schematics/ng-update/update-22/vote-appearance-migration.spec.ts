@@ -24,14 +24,19 @@ describe('migrateVoteAppearance', () => {
         );
     });
 
-    it('should keep thyVote selector on directive host and add thyColor', () => {
+    it('should keep thyVote color on directive host for fill types', () => {
         const content = `<span [thyVote]="'success'" [thyLayout]="'vertical'"></span>`;
-        expect(migrateVoteAppearance(content)).toBe(`<span thyVote [thyColor]="'success'" [thyLayout]="'vertical'"></span>`);
+        expect(migrateVoteAppearance(content)).toBe(content);
     });
 
-    it('should migrate weak type on directive host', () => {
+    it('should migrate weak type on directive host to thyVote color + thyAppearance', () => {
         const content = `<span thyVote="success-weak"></span>`;
-        expect(migrateVoteAppearance(content)).toBe(`<span thyVote thyColor="success" thyAppearance="subtle"></span>`);
+        expect(migrateVoteAppearance(content)).toBe(`<span thyVote="success" thyAppearance="subtle"></span>`);
+    });
+
+    it('should migrate bound weak type on directive host', () => {
+        const content = `<span [thyVote]="'primary-weak'"></span>`;
+        expect(migrateVoteAppearance(content)).toBe(`<span [thyVote]="'primary'" thyAppearance="subtle"></span>`);
     });
 
     it('should not duplicate thyAppearance when already present', () => {

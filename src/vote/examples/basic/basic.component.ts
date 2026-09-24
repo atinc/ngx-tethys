@@ -12,9 +12,9 @@ export class ThyVoteBasicExampleComponent {
 
     vote_count1 = 134;
 
-    has_voted = signal<boolean>(true);
+    hasVoted = signal<boolean>(true);
 
     toggleVote(event: Event) {
-        this.has_voted.set(!this.has_voted());
+        this.hasVoted.set(!this.hasVoted());
     }
 }
