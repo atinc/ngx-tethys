@@ -4,6 +4,7 @@ import {
     thyAnimationZoom,
     TabIndexDisabledControlValueAccessorMixin,
     ThyClickDispatcher,
+    ThyFormControlAppearance,
     ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
@@ -220,6 +221,15 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     /**

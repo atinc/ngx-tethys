@@ -21,6 +21,7 @@ import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '..
 import { ThyTreeSelectNode, filterTreeData, ThyTreeSelect, ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyFormControlAppearance } from 'ngx-tethys/core';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -53,6 +54,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 [thyGetNodeChildren]="fetchNodeChildren"
                 [thyHiddenNodeKey]="hiddenKey"
                 [thyDisableNodeKey]="disableKey"
+                [thyAppearance]="appearance"
                 (thyExpandStatusChange)="expandChange($event)"></thy-tree-select>
         </div>
     `,
@@ -143,6 +145,8 @@ class BasicTreeSelectComponent {
     disable = false;
 
     allowClear = true;
+
+    appearance: ThyFormControlAppearance = 'outline';
 
     cdkConnectOverlayWidth = 0;
 
@@ -536,6 +540,32 @@ describe('ThyTreeSelect', () => {
                 expect(iconElement).toBeTruthy();
                 expect(iconElement.classList.contains(`thy-icon`)).toBeTruthy();
                 expect(iconElement.classList.contains(`thy-icon-angle-down`)).toBeTruthy();
+            });
+
+            it('should use outline appearance by default', () => {
+                const formControl = treeSelectElement.querySelector('.form-control')!;
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            });
+
+            it('should add form-control-subtle when thyAppearance is subtle', () => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.componentInstance.appearance = 'subtle';
+                fixture.detectChanges();
+                const treeSelect = fixture.debugElement.query(By.directive(ThyTreeSelect)).nativeElement as HTMLElement;
+                const formControl = treeSelect.querySelector('.form-control')!;
+                expect(formControl.classList.contains('form-control-subtle')).toBe(true);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            });
+
+            it('should add form-control-ghost when thyAppearance is ghost', () => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.componentInstance.appearance = 'ghost';
+                fixture.detectChanges();
+                const treeSelect = fixture.debugElement.query(By.directive(ThyTreeSelect)).nativeElement as HTMLElement;
+                const formControl = treeSelect.querySelector('.form-control')!;
+                expect(formControl.classList.contains('form-control-ghost')).toBe(true);
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
             });
 
             it('should disabled worked', fakeAsync(() => {
