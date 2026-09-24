@@ -22,7 +22,7 @@ export class ThyBackTopTargetExampleComponent implements OnInit {
 
     visibleChange(visible: boolean) {
         this.notifyService.show({
-            type: 'info',
+            color: 'info',
             placement: 'bottomLeft',
             title: `target backTop button ${visible ? 'visible' : 'hidden'}`
         });
@@ -30,7 +30,7 @@ export class ThyBackTopTargetExampleComponent implements OnInit {
 
     click($event: boolean) {
         this.notifyService.show({
-            type: 'info',
+            color: 'info',
             placement: 'bottomLeft',
             title: `backup button has clicked`
         });

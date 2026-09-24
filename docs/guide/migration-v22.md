@@ -842,6 +842,8 @@ ng generate ngx-tethys:migrate-22
   - Button 三元表达式：形如 `[thyButton]="shouldDisplayReview ? 'outline-default' : 'danger'"`，需要手动拆分
   - 尺寸：形如 `[thySize]="size"` **不会自动补** `lg`，需要手动检查
   - `thy-button-group`：形如 `[thyType]="type"` 的动态绑定 **不会自动迁移**；需手动改为 `[thyAppearance]`，并将旧值（`outline-default` / `outline-primary` / `primary`）映射为 `outline` / `fill`，并在子按钮上通过 `thyButton` 或 `thyColor` 设置 `default`、`primary`
+- **`ThyNotifyConfig.type` 间接赋值**（Schematics 仅处理对象字面量）：
+  - 形如 `const option = { type: 'info' }; this.notifyService.show(option)` **不会自动迁移**；需改为 `color: 'info'`
 - **`thy-tag` 运行时赋值 / 字符串中的旧值**（Schematics 仅处理模板字面量）：
   - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
 - **`thy-select` / `thySelectControl` 的 `thyBorderless` 动态绑定**（Schematics 仅处理字面量）：
