@@ -27,7 +27,7 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
 export class ThyFormDynamicExampleComponent {
     private readonly dynamicForm = viewChild(ThyDynamicForm);
 
-    value = signal<ThyDynamicFormValue>({});
+    value = signal<ThyDynamicFormValue | undefined>(undefined);
 
     lastSubmit = signal<ThyDynamicFormValue | null>(null);
 
