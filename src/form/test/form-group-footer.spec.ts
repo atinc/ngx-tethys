@@ -1,7 +1,16 @@
-import { ThyFormModule, ThyFormGroupFooter, ThyFormDirective, THY_FORM_CONFIG } from 'ngx-tethys/form';
+import {
+    ThyFormModule,
+    ThyFormGroupFooter,
+    ThyFormDirective,
+    THY_FORM_CONFIG,
+    ThyFormLayout
+} from 'ngx-tethys/form';
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 @Component({
     selector: 'thy-test-form-group-footer-basic',
@@ -145,5 +154,67 @@ describe('form-group-footer', () => {
             const containerElement = debugElement.query(By.css('.form-group-footer'));
             expect(containerElement.nativeElement.classList.contains('form-group-footer-align-center')).toBeTruthy();
         });
+    });
+});
+
+@Component({
+    selector: 'thy-test-form-group-footer-layout-sync',
+    template: `
+        <form thyForm name="footerLayoutForm" [thyLayout]="layout">
+            <thy-form-group-footer></thy-form-group-footer>
+        </form>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyFormModule, FormsModule]
+})
+export class FormGroupFooterLayoutSyncComponent {
+    layout: ThyFormLayout = 'horizontal';
+}
+
+describe('form-group-footer layout sync', () => {
+    let fixture!: ComponentFixture<FormGroupFooterLayoutSyncComponent>;
+    let testComponent!: FormGroupFooterLayoutSyncComponent;
+    let footerHost!: HTMLElement;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyFormModule],
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
+        }).compileComponents();
+
+        injectDefaultSvgIconSet();
+        fixture = TestBed.createComponent(FormGroupFooterLayoutSyncComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        footerHost = fixture.debugElement.query(By.directive(ThyFormGroupFooter)).nativeElement as HTMLElement;
+    });
+
+    function footerInner(): HTMLElement {
+        return footerHost.querySelector('.form-group-footer') as HTMLElement;
+    }
+
+    it('should apply horizontal footer offset when thyLayout is horizontal', () => {
+        expect(footerHost.classList.contains('row')).toBe(true);
+        expect(footerInner().classList.contains('offset-sm-2')).toBe(true);
+        expect(footerInner().classList.contains('col-sm-10')).toBe(true);
+    });
+
+    it('should update footer classes when thyLayout changes from horizontal to vertical', () => {
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+
+        expect(footerHost.classList.contains('row')).toBe(false);
+        expect(footerInner().classList.contains('offset-sm-2')).toBe(false);
+        expect(footerInner().classList.contains('col-sm-10')).toBe(false);
+    });
+
+    it('should update footer classes when thyLayout changes from vertical back to horizontal', () => {
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+        testComponent.layout = 'horizontal';
+        fixture.detectChanges();
+
+        expect(footerHost.classList.contains('row')).toBe(true);
+        expect(footerInner().classList.contains('offset-sm-2')).toBe(true);
     });
 });

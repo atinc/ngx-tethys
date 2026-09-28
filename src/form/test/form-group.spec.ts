@@ -1,4 +1,10 @@
-import { ThyFormModule, ThyFormValidatorConfig, ThyFormGroup, ThyFormGroupLabelDirective } from 'ngx-tethys/form';
+import {
+    ThyFormModule,
+    ThyFormValidatorConfig,
+    ThyFormGroup,
+    ThyFormGroupLabelDirective,
+    ThyFormLayout
+} from 'ngx-tethys/form';
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -233,6 +239,70 @@ describe('form-group in vertical', () => {
         const fomGroupElement: HTMLElement = formGroupDebugElement.nativeElement;
         const labelElement = fomGroupElement.querySelector(`.form-label`);
         expect(labelElement).toBeFalsy();
+    });
+});
+
+@Component({
+    selector: 'test-form-group-layout-sync',
+    template: `
+        <form thyForm name="layoutSyncForm" [thyLayout]="layout">
+            <thy-form-group thyLabelText="Username">
+                <input thyInput name="username" />
+            </thy-form-group>
+        </form>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyFormModule, FormsModule]
+})
+export class TestFormGroupLayoutSyncComponent {
+    layout: ThyFormLayout = 'horizontal';
+}
+
+describe('form-group layout sync', () => {
+    let fixture!: ComponentFixture<TestFormGroupLayoutSyncComponent>;
+    let testComponent!: TestFormGroupLayoutSyncComponent;
+    let formGroupElement!: HTMLElement;
+
+    function getControlContainer(): HTMLElement | null {
+        return formGroupElement.querySelector('.col-sm-10') ?? formGroupElement.querySelector('.position-relative');
+    }
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyFormModule],
+            providers: [bypassSanitizeProvider, provideHttpClient(withXhr())]
+        }).compileComponents();
+
+        injectDefaultSvgIconSet();
+        fixture = TestBed.createComponent(TestFormGroupLayoutSyncComponent);
+        testComponent = fixture.componentInstance;
+        fixture.detectChanges();
+        formGroupElement = fixture.debugElement.query(By.directive(ThyFormGroup)).nativeElement as HTMLElement;
+    });
+
+    it('should apply horizontal grid classes when thyLayout is horizontal', () => {
+        expect(formGroupElement.classList.contains('row')).toBe(true);
+        expect(formGroupElement.querySelector('.col-form-label')).toBeTruthy();
+        expect(formGroupElement.querySelector('.col-sm-10')).toBeTruthy();
+    });
+
+    it('should update grid classes when thyLayout changes from horizontal to vertical', () => {
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+
+        expect(formGroupElement.classList.contains('row')).toBe(false);
+        expect(formGroupElement.querySelector('.col-sm-10')).toBeFalsy();
+        expect(getControlContainer()?.classList.contains('position-relative')).toBe(true);
+    });
+
+    it('should update grid classes when thyLayout changes from vertical back to horizontal', () => {
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+        testComponent.layout = 'horizontal';
+        fixture.detectChanges();
+
+        expect(formGroupElement.classList.contains('row')).toBe(true);
+        expect(formGroupElement.querySelector('.col-sm-10')).toBeTruthy();
     });
 });
 
