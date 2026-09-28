@@ -98,7 +98,7 @@ describe('popover-layout', () => {
             expect(closeIconNode.childElementCount).toEqual(0);
             expect(closeIconNode.nodeName).toEqual('THY-ICON');
             expect(closeIconNode.nodeType).toEqual(1);
-            expect(closeIconNode.attributes['thyiconname'].nodeValue).toEqual('close');
+            expect(closeIconNode.attributes['thyname'].nodeValue).toEqual('close');
         });
 
         it('should has correct title', () => {

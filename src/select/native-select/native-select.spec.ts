@@ -156,8 +156,8 @@ describe(`select`, () => {
 
             expect(removeBtn.nodeName).toEqual('A');
             expect(removeIcon.nodeName).toEqual('THY-ICON');
-            expect(removeIcon.attributes['thyiconname'].nodeType).toEqual(2);
-            expect(removeIcon.attributes['thyiconname'].nodeValue).toEqual('close-circle-bold-fill');
+            expect(removeIcon.attributes['thyname'].nodeType).toEqual(2);
+            expect(removeIcon.attributes['thyname'].nodeValue).toEqual('close-circle-bold-fill');
             expect(removeIcon.attributes['class'].nodeType).toEqual(2);
             expect(removeIcon.attributes['class'].nodeValue).toContain('thy-icon remove-link-icon thy-icon-close-circle-bold-fill');
         }));
