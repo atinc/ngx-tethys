@@ -60,7 +60,7 @@
     </thy-option>
   }
   <ng-template #selectedDisplay let-value>
-    <thy-tag thyShape="pill" [thyColor]="value?.bg_color || 'default'">
+    <thy-tag thyShape="ellipse" [thyColor]="value?.bg_color || 'default'">
       @if (!value) {
         <span>!!!空</span>
       }

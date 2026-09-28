@@ -807,6 +807,31 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 47. thy-tag（`thyTag` 指令）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyShape` 的旧值 `pill` 已废弃，请使用 `ellipse`，传入 `pill` 仍兼容（等同 `ellipse`）
+- CSS 类 `thy-tag-pill` 改名为 `thy-tag-ellipse`
+
+| 旧写法 | 新写法 |
+|--------|--------|
+| `thyShape="pill"` | `thyShape="ellipse"` |
+| `[thyShape]="'pill'"` | `[thyShape]="'ellipse'"` |
+
+**自动迁移**
+
+- 模板字面量 `thyShape="pill"` → `thyShape="ellipse"`（`thy-tag` / `thyTag`）
+- 绑定字面量 `[thyShape]="'pill'"` → `[thyShape]="'ellipse'"`
+- CSS 选择器 `thy-tag-pill` → `thy-tag-ellipse`
+
+**手动检查**
+
+- 动态绑定形如 `[thyShape]="shape"` 且变量可能为 `'pill'` 时 **不会自动迁移**；运行时仍兼容（按 `ellipse` 处理），建议改为 `'ellipse'`
+- TypeScript 中 `ThyTagShape` 类型为 `'ellipse' | 'rectangle'`，代码中赋值 `'pill'` 需改为 `'ellipse'`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**
@@ -885,4 +910,6 @@ ng generate ngx-tethys:migrate-22
   - `thy-badge-dot` / `thy-badge-hollow`（改用 `thy-dot` 组件）
   - CSS 样式：`thy-vote-primary-weak` / `thy-vote-success-weak` → `thy-vote-primary-subtle` / `thy-vote-success-subtle`
   - Vote 动态绑定：形如 `[thyVote]="voteType"` 且可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需手动拆为颜色 + `[thyAppearance]`
+  - CSS 样式：`thy-tag-pill` → `thy-tag-ellipse`（`thyShape="ellipse"`）
+  - Tag 动态绑定：形如 `[thyShape]="shape"` 且可能为 `'pill'` 时 **不会自动迁移**；运行时仍兼容（按 `ellipse` 处理），建议改为 `'ellipse'`
 

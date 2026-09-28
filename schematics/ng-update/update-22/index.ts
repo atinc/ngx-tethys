@@ -18,6 +18,7 @@ import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { SelectBorderlessMigration } from './select-borderless-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
+import { TagShapeMigration } from './tag-shape-migration';
 import { TreeSelectIconTypeMigration } from './tree-select-icon-type-migration';
 import { VoteAppearanceMigration } from './vote-appearance-migration';
 import { upgradeData } from './update-data';
@@ -28,6 +29,7 @@ const migrations: NullableDevkitMigration[] = [
     DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,
+    TagShapeMigration,
     InputSearchAppearanceMigration,
     SelectBorderlessMigration,
     DividerDeeperMigration,

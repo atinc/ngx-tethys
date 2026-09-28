@@ -2165,7 +2165,7 @@ export class StatisticDemoComponent {
         const content = workspaceTree.readContent('/projects/update-22-test/src/app/statistic-demo.component.ts');
         expect(content).toContain('<thy-statistic thyAppearance="card" [thyValue]="20"></thy-statistic>');
         expect(content).toContain('<thy-statistic [thyAppearance]="shape" [thyValue]="20"></thy-statistic>');
-        expect(content).toContain('<thy-tag thyShape="pill">Tag</thy-tag>');
+        expect(content).toContain('<thy-tag thyShape="ellipse">Tag</thy-tag>');
         expect(content).not.toMatch(/<thy-statistic[^>]*thyShape/);
         expect(content).not.toMatch(/<thy-statistic[^>]*\[thyShape\]/);
     });

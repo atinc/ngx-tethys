@@ -46,7 +46,7 @@
   </thy-cascader>
 
   <ng-template #labelRender let-labels="labels" let-selectedOptions="selectedOptions">
-    <thy-tag thyShape="pill" thyColor="info">
+    <thy-tag thyShape="ellipse" thyColor="info">
       @for (label of labels; track $index; let i = $index; let isLast = $last) {
         @if (isLast && label) {
           <span> {{ label }}</span>

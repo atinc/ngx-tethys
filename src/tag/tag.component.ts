@@ -5,7 +5,7 @@ import { coerceBooleanProperty, hexToRgb } from 'ngx-tethys/util';
 
 export type ThyTagColor = ThyThemeColor | string;
 
-export type ThyTagShape = 'pill' | 'rectangle';
+export type ThyTagShape = 'ellipse' | 'rectangle';
 
 export type ThyTagSize = 'sm' | 'md' | 'lg';
 
@@ -20,7 +20,7 @@ export type ThyTagAppearance = 'outline' | 'fill' | 'subtle';
     templateUrl: './tag.component.html',
     host: {
         class: 'thy-tag',
-        '[class.thy-tag-pill]': 'thyShape() === "pill"',
+        '[class.thy-tag-ellipse]': 'thyShape() === "ellipse"',
         '[class.thy-tag-outline]': 'thyAppearance() === "outline"',
         '[class.thy-tag-hover]': 'thyHoverable()',
         '[class.thy-tag-md]': 'thySize() === "md"',
@@ -41,10 +41,13 @@ export class ThyTag {
     readonly thyTag = input<ThyTagColor>('');
 
     /**
-     * 标签形状
-     * @type pill | rectangle
+     * 标签形状，ellipse 为椭圆形（旧值 pill 已废弃，将在 v23 彻底移除）
+     * @type ellipse | rectangle
      */
-    readonly thyShape = input<ThyTagShape>('rectangle');
+    readonly thyShape = input<ThyTagShape, ThyTagShape | 'pill'>('rectangle', {
+        // 兼容已废弃的 pill，将在 v23 彻底移除
+        transform: (value: ThyTagShape | 'pill') => (value === 'pill' ? 'ellipse' : value)
+    });
 
     /**
      * 标签颜色，支持设置主题色和颜色值，主题色为 default、primary、success、info、warning、danger
