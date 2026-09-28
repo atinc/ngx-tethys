@@ -48,11 +48,11 @@
               [thyDisabled]="!!field.props?.disabled"
               [thyOptions]="field.props?.options ?? []"
               [thyPlaceholder]="field.props?.placeholder ?? ''"
-              [thyShowSearch]="field.props?.searchable"
-              [thyAllowClear]="field.props?.clearable"
-              [thyMode]="field.props?.multiple ? 'multiple' : ''"
+              [thySearchable]="field.props?.searchable"
+              [thyClearable]="field.props?.clearable"
+              [thyMultiple]="field.props?.multiple"
               [thyEmptyStateText]="field.props?.emptyText ?? ''"
-              [thyEmptySearchMessageText]="field.props?.searchEmptyText ?? ''"
+              [thySearchEmptyText]="field.props?.searchEmptyText ?? ''"
               [thySize]="thySize()" />
           }
           @default {

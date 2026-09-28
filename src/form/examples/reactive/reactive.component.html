@@ -26,8 +26,8 @@
         formControlName="treeSelect"
         name="treeSelect"
         [thyTreeNodes]="basicTreeSelectData"
-        [thyShowSearch]="true"
-        [thyAllowClear]="true">
+        [thySearchable]="true"
+        [thyClearable]="true">
       </thy-tree-select>
     </thy-form-group>
     <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired>
@@ -38,8 +38,8 @@
         thyPlaceholder="请选择"
         formControlName="customersSelect"
         name="customersSelect"
-        [thyShowSearch]="true"
-        [thyAllowClear]="true">
+        [thySearchable]="true"
+        [thyClearable]="true">
         @for (option of listOfOption; track option.value) {
           <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
         }
@@ -53,12 +53,12 @@
     </thy-form-group>
     <thy-form-group thyLabelText="customersMultiSelect" thyLabelRequired>
       <thy-select
-        [thyMode]="'multiple'"
+        thyMultiple
         thyPlaceholder="请选择"
         formControlName="customersMultiSelect"
         name="customersMultiSelect"
-        [thyShowSearch]="true"
-        [thyAllowClear]="true">
+        [thySearchable]="true"
+        [thyClearable]="true">
         @for (option of listOfOption; track option.value) {
           <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
         }
@@ -70,8 +70,8 @@
         [thyMultiple]="true"
         name="treeSelectMulti"
         [thyTreeNodes]="basicTreeSelectData"
-        [thyShowSearch]="true"
-        [thyAllowClear]="true">
+        [thySearchable]="true"
+        [thyClearable]="true">
       </thy-tree-select>
     </thy-form-group>
     <thy-form-group class="align-items-center" thyLabelText="Switch" thyLayout="horizontal" thyLabelRequired>

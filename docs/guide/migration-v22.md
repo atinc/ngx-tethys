@@ -164,43 +164,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 8. thy-select / thy-custom-select / thy-native-select / thy-tree-select
-
-**破坏性更改**
-
-- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
-- `thyPlaceHolder` 重命名为 `thyPlaceholder`
-- 尺寸类型 `SelectControlSize` 重命名为 `ThyFormControlSize`
-- `thy-tree-select` 移除 `thyIconType` 及类型 `ThyTreeSelectType`
-- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
-
-**标记为废弃，将在 v23 彻底删除**
-
-- `thyBorderless` 已废弃，请使用 `thyAppearance="ghost"`
-
-**自动迁移**
-
-- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
-- `thyPlaceHolder` → `thyPlaceholder` (thy-select / thy-custom-select)
-- TypeScript 中 `SelectControlSize` → `ThyFormControlSize`
-- 移除 `thy-tree-select` 上的 `thyIconType` 和 `ThyTreeSelectType`
-- `thyBorderless` / `thyBorderless="true"` / `[thyBorderless]="true"` → `thyAppearance="ghost"`；`thyBorderless="false"` / `[thyBorderless]="false"` 直接删除；若已设置 `thyAppearance`，则仅删除 `thyBorderless`
-
----
-
-### 9. thy-cascader（`thy-cascader` 指令）
-
-**破坏性更改**
-
-- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
-
-**自动迁移**
-
-- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
-
----
-
-### 10. thy-select-control（`thySelectControl` 指令）
+### 8. thy-select-control（`thySelectControl` 指令）
 
 **破坏性更改**
 
@@ -211,16 +175,107 @@ ng generate ngx-tethys:migrate-22
 **标记为废弃，将在 v23 彻底删除**
 
 - `thyBorderless` 已废弃，请使用 `thyAppearance="ghost"`
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+- `thyIsMultiple` 已废弃，请使用 `thyMultiple`
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+- `(thyOnRemove)` / `(thyOnClear)` / `(thyOnBlur)` 已废弃，请使用 `(thyRemove)` / `(thyClear)` / `(thyBlur)`
 
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
 - TypeScript 中 `SelectControlSize` → `ThyFormControlSize`
 - `thyBorderless` / `thyBorderless="true"` / `[thyBorderless]="true"` → `thyAppearance="ghost"`；`thyBorderless="false"` / `[thyBorderless]="false"` 直接删除；若已设置 `thyAppearance`，则仅删除 `thyBorderless`
+- `thyShowSearch` → `thySearchable`；`thyAllowClear` → `thyClearable`；`thyIsMultiple` → `thyMultiple`
+- `(thyOnSearch)` → `(thyInputChange)`；`(thyOnRemove)` → `(thyRemove)`；`(thyOnClear)` → `(thyClear)`；`(thyOnBlur)` → `(thyBlur)`
 
 ---
 
-### 11. thy-date-picker / thy-range-picker / thy-month-picker / thy-quarter-picker / thy-week-picker / thy-year-picker
+### 9. thy-select / thy-custom-select / thy-native-select
+
+**破坏性更改**
+
+- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`（三者均适用）
+- `thyPlaceHolder` 重命名为 `thyPlaceholder`（`thy-select` / `thy-custom-select`）
+
+**标记为废弃，将在 v23 彻底删除**
+
+`thy-select` / `thy-custom-select`：
+
+- `thyBorderless` 已废弃，请使用 `thyAppearance="ghost"`
+- `thyMode` 已废弃，请使用 `thyMultiple`
+- TypeScript 类型 `SelectMode` 已废弃，请改用 `boolean` 配合 `thyMultiple`，不再使用 `'multiple' | ''`
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyServerSearch` 已废弃，请使用 `thyServerSearchable`
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+- `thyLoadState` 已废弃，请使用 `thyLoading`（默认 `false`，表示未在加载；与旧属性语义相反）
+- `thyEmptySearchMessageText` 已废弃，请使用 `thySearchEmptyText`
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+- `thyOnScrollToBottom` 已废弃，请使用 `thyScrollToBottom`
+- `thyOnExpandStatusChange` 已废弃，请使用 `thyExpandStatusChange`
+
+`thy-native-select`：
+
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+
+**自动迁移**
+
+- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- `thyPlaceHolder` → `thyPlaceholder`（`thy-select` / `thy-custom-select`）
+- `thyBorderless` / `thyBorderless="true"` / `[thyBorderless]="true"` → `thyAppearance="ghost"`；`thyBorderless="false"` / `[thyBorderless]="false"` 直接删除；若已设置 `thyAppearance`，则仅删除 `thyBorderless`（`thy-select` / `thy-custom-select` 及 `thySelectControl`）
+- `thyMode="multiple"` / `[thyMode]="'multiple'"` → `thyMultiple`；其它 `thyMode` 取值直接删除；`[thyMode]="mode"` → `[thyMultiple]="mode === 'multiple'"`
+- `thyShowSearch` → `thySearchable`；`thyServerSearch` → `thyServerSearchable`；`thyAllowClear` → `thyClearable`；`thyEmptySearchMessageText` → `thySearchEmptyText`（`thy-select` / `thy-custom-select`；`thyAllowClear` → `thyClearable` 另含 `thy-native-select`）
+- `thyLoadState="false"` / `[thyLoadState]="false"` → `thyLoading`；`thyLoadState="true"` / `[thyLoadState]="true"` 直接删除；`[thyLoadState]="loadState"` → `[thyLoading]="!(loadState)"`（`thy-select` / `thy-custom-select`
+- `thyOnSearch` → `thyInputChange`；`thyOnScrollToBottom` → `thyScrollToBottom`；`thyOnExpandStatusChange` → `thyExpandStatusChange`（`thy-select` / `thy-custom-select`）
+
+---
+
+### 10. thy-tree-select
+
+**破坏性更改**
+
+- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
+- 移除 `thyIconType` 及类型 `ThyTreeSelectType`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyServerSearch` 已废弃，请使用 `thyServerSearchable`
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+- `thyLoadState` 已废弃，请使用 `thyLoading`（默认 `false`，表示未在加载；与旧属性语义相反）
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+
+**自动迁移**
+
+- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- 移除 `thyIconType` 和 `ThyTreeSelectType`
+- `thyShowSearch` → `thySearchable`；`thyServerSearch` → `thyServerSearchable`；`thyAllowClear` → `thyClearable`
+- `thyLoadState="false"` / `[thyLoadState]="false"` → `thyLoading`；`thyLoadState="true"` / `[thyLoadState]="true"` 直接删除；`[thyLoadState]="loadState"` → `[thyLoading]="!(loadState)"`
+- `thyOnSearch` → `thyInputChange`
+
+---
+
+### 11. thy-cascader（`thy-cascader` 指令）
+
+**破坏性更改**
+
+- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+
+**自动迁移**
+
+- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- `thyShowSearch` → `thySearchable`
+- `thyOnSearch` → `thyInputChange`
+
+---
+
+### 12. thy-date-picker / thy-range-picker / thy-month-picker / thy-quarter-picker / thy-week-picker / thy-year-picker
 
 **破坏性更改**
 
@@ -236,7 +291,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 12. thyDatePicker / thyRangePicker 指令
+### 13. thyDatePicker / thyRangePicker 指令
 
 **破坏性更改**
 
@@ -253,7 +308,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 13. thy-time-picker
+### 14. thy-time-picker
 
 **破坏性更改**
 
@@ -267,7 +322,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 14. Autocomplete（`thyAutocomplete`）
+### 15. Autocomplete（`thyAutocomplete`）
 
 **破坏性更改**
 
@@ -279,7 +334,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 15. thy-action
+### 16. thy-action
 
 **破坏性更改**
 
@@ -291,7 +346,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 16. thy-tag
+### 17. thy-tag
 
 **破坏性更改**
 
@@ -306,7 +361,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 17. thy-header
+### 18. thy-header
 
 **破坏性更改**
 
@@ -320,7 +375,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 18. thy-badge
+### 19. thy-badge
 
 **破坏性更改**
 
@@ -334,7 +389,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 19. thy-nav（`thyNavItem` / `thyNavItemActive` 指令）
+### 20. thy-nav（`thyNavItem` / `thyNavItemActive` 指令）
 
 **破坏性更改**
 
@@ -355,7 +410,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 20. thy-table
+### 21. thy-table
 
 **破坏性更改**
 
@@ -370,7 +425,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 21. thy-card / thy-card-header / thy-card-content
+### 22. thy-card / thy-card-header / thy-card-content
 
 **破坏性更改**
 
@@ -384,7 +439,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 22. thy-divider
+### 23. thy-divider
 
 **破坏性更改**
 
@@ -406,7 +461,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 23. thy-avatar
+### 24. thy-avatar
 
 **破坏性更改**
 
@@ -426,7 +481,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 24. thy-anchor-link（原 `thy-link`）
+### 25. thy-anchor-link（原 `thy-link`）
 
 **破坏性更改**
 
@@ -439,7 +494,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 25. thy-dialog
+### 26. thy-dialog
 
 **破坏性更改**
 
@@ -453,7 +508,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 26. thy-tabs
+### 27. thy-tabs
 
 **破坏性更改**
 
@@ -472,7 +527,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 27. thy-progress
+### 28. thy-progress
 
 **破坏性更改**
 
@@ -500,7 +555,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 28. thy-property
+### 29. thy-property
 
 **破坏性更改**
 
@@ -512,7 +567,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 29. thy-empty
+### 30. thy-empty
 
 **破坏性更改**
 
@@ -532,7 +587,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 30. thy-dot
+### 31. thy-dot
 
 **标记为废弃，将在 v23 彻底删除**
 - `thyTheme`和`ThyThemeType`已废弃，请使用`thyAppearance`和`ThyDotAppearance`
@@ -548,7 +603,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 31. thy-alert
+### 32. thy-alert
 
 **标记为废弃，将在 v23 彻底删除**
 - `thyType`和`ThyAlertType`已废弃，请使用`thyColor`和`ThyAlertColor`
@@ -563,7 +618,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 32. thy-collapse
+### 33. thy-collapse
 
 **标记为废弃，将在 v23 彻底删除**
 - `thyTheme`和`ThyCollapseTheme`已废弃，请使用`thyAppearance`和`ThyCollapseAppearance`
@@ -573,7 +628,7 @@ ng generate ngx-tethys:migrate-22
 - `thyTheme` → `thyAppearance`
 - `ThyCollapseTheme` → `ThyCollapseAppearance`
 
-### 33. thy-menu
+### 34. thy-menu
 
 **标记为废弃**
 
@@ -594,7 +649,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 33. thy-slider
+### 35. thy-slider
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -613,7 +668,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 34. thy-switch
+### 36. thy-switch
 
 **标记为废弃，将在 v23 彻底删除**
 - `thyType` 已废弃，请使用 `thyColor`
@@ -624,7 +679,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 35. thy-badge（`thyBadge` 指令）
+### 37. thy-badge（`thyBadge` 指令）
 
 **标记为废弃，将在 v23 彻底删除**
 - `thyType` 已废弃，请使用 `thyColor`
@@ -635,7 +690,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 36. thy-input-search
+### 38. thy-input-search
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -652,7 +707,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 37. thyDropdownMenuItem
+### 39. thyDropdownMenuItem
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -665,7 +720,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 38. thy-timeline / thy-timeline-item
+### 40. thy-timeline / thy-timeline-item
 
 **破坏性更改**
 
@@ -683,7 +738,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 39. thy-statistic
+### 41. thy-statistic
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -700,7 +755,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 40. thy-arrow-switcher
+### 42. thy-arrow-switcher
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -714,7 +769,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 41. thy-action（`thyAction` 指令）
+### 43. thy-action（`thyAction` 指令）
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -727,7 +782,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 42. thy-icon-nav
+### 44. thy-icon-nav
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -735,7 +790,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 43. thy-property-operation
+### 45. thy-property-operation
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -743,7 +798,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 44. thy-table / thy-native-table / thy-table-skeleton
+### 46. thy-table / thy-native-table / thy-table-skeleton
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -763,7 +818,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 45. thy-strength
+### 47. thy-strength
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -771,7 +826,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 46. thy-vote（`thyVote` 指令）
+### 48. thy-vote（`thyVote` 指令）
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -811,7 +866,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 47. thy-loading
+### 49. thy-loading
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -892,6 +947,8 @@ ng generate ngx-tethys:migrate-22
   - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
 - **`thy-select` / `thySelectControl` 的 `thyBorderless` 动态绑定**（Schematics 仅处理字面量）：
   - 形如 `[thyBorderless]="borderless"` **不会自动迁移**；需手动改为 `[thyAppearance]="borderless ? 'ghost' : 'outline'"`，或直接使用 `thyAppearance="ghost"`
+- **`thy-select` 的 `thyLoadState` 动态绑定**（Schematics 对非字面量会生成取反表达式）：
+  - 若变量语义不是「`true` 表示加载完成」，迁移后请手动核对 `[thyLoading]` 与接口 loading 状态是否一致
   - i18n / TS 字符串内嵌旧 CSS 类名：形如 `thy-tag-weak-fill-primary` **不会自动替换**，需改为 `thy-tag-subtle-primary`（其它颜色后缀同理，如 `thy-tag-weak-fill-default` → `thy-tag-subtle-default`）
 - **`ThyAvatarService` 子类中的 `avatarSrcTransform` 方法定义**：自动迁移仅改写 `ThyAvatarService` 类型变量上的**调用**（如 `this.thyAvatarService.avatarSrcTransform(...)` → `srcTransform(...)`），**不会**删除或重命名子类里的方法声明；若子类仍保留仅为兼容的 `avatarSrcTransform()` 包装方法，需手动删除，只保留 `srcTransform()` 实现
 - **移除的 CSS 类**（自定义样式若依赖这些 class 会失效，请改用新写法或移除选择器）：
