@@ -124,7 +124,7 @@ describe('thy-tag', () => {
     it('should set shape with deprecated pill value', () => {
         const tagDebugElement = fixture.debugElement.query(By.css('#shape'));
         const tagElement: HTMLElement = tagDebugElement.nativeElement;
-        fixture.componentInstance.shape = 'pill' as ThyTagShape;
+        fixture.componentInstance.shape = 'pill';
         fixture.detectChanges();
         expect(tagElement.classList.contains(`thy-tag-ellipse`)).toBe(true);
     });

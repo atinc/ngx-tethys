@@ -5,7 +5,13 @@ import { coerceBooleanProperty, hexToRgb } from 'ngx-tethys/util';
 
 export type ThyTagColor = ThyThemeColor | string;
 
-export type ThyTagShape = 'ellipse' | 'rectangle';
+export type ThyTagShape =
+    | 'ellipse'
+    | 'rectangle'
+    /**
+     * @deprecated use 'ellipse', will be removed in v23
+     */
+    | 'pill';
 
 export type ThyTagSize = 'sm' | 'md' | 'lg';
 
@@ -44,9 +50,9 @@ export class ThyTag {
      * 标签形状，ellipse 为椭圆形（旧值 pill 已废弃，将在 v23 彻底移除）
      * @type ellipse | rectangle
      */
-    readonly thyShape = input<ThyTagShape, ThyTagShape | 'pill'>('rectangle', {
+    readonly thyShape = input<ThyTagShape>('rectangle', {
         // 兼容已废弃的 pill，将在 v23 彻底移除
-        transform: (value: ThyTagShape | 'pill') => (value === 'pill' ? 'ellipse' : value)
+        transform: (value: ThyTagShape) => (value === 'pill' ? 'ellipse' : value)
     });
 
     /**
