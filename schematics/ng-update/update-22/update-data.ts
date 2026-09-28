@@ -40,6 +40,7 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
                     { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' },
                     { replace: 'ThyVoteSizes', replaceWith: 'ThyVoteSize' },
+                    { replace: 'ThyTableMode', replaceWith: 'ThyTableVariant' },
                     { replace: 'ThyThemeType', replaceWith: 'ThyDotAppearance' },
                     { replace: 'ThyColorType', replaceWith: 'ThyDotColor' },
                     { replace: 'ThySizeType', replaceWith: 'ThyDotSize' },
@@ -125,6 +126,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAppearance',
                         limitedTo: {
                             elements: ['thy-native-table', 'thy-table-skeleton', 'thy-table']
+                        }
+                    },
+                    {
+                        replace: 'thyMode',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-table']
                         }
                     },
                     {
