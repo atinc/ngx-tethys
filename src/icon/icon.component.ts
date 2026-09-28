@@ -7,6 +7,7 @@ import {
     Renderer2,
     SecurityContext,
     ViewEncapsulation,
+    computed,
     effect,
     inject,
     input,
@@ -61,7 +62,7 @@ function setElementAttributes(render: Renderer2, element: Element, attributes: R
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-icon',
-        '[class.thy-icon-legging]': 'thyIconLegging()'
+        '[class.thy-icon-legging]': 'legging()'
     }
 })
 export class ThyIcon {
@@ -71,32 +72,83 @@ export class ThyIcon {
     private sanitizer = inject(DomSanitizer);
 
     /**
-     * 图标的类型
+     * 图标的外观
+     * @type outline | fill | twotone
+     * @default outline
+     */
+    readonly thyAppearance = input<'outline' | 'fill' | 'twotone'>();
+
+    /**
+     * 图标的类型（已废弃，将在 v23 彻底删除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
      * @type outline | fill | twotone
      */
-    readonly thyIconType = input<'outline' | 'fill' | 'twotone'>('outline');
+    readonly thyIconType = input<'outline' | 'fill' | 'twotone'>();
 
     readonly thyTwotoneColor = input<string>();
 
     /**
      * 图标的名字
      */
-    readonly thyIconName = input.required<string>();
+    readonly thyName = input<string>();
+
+    /**
+     * 图标的名字（已废弃，将在 v23 彻底删除），请使用 thyName
+     * @deprecated please use thyName, will be removed in v23
+     */
+    readonly thyIconName = input<string>();
 
     /**
      * 图标的旋转角度
      * @default 0
      */
+    readonly thyRotate = input<number, unknown>(undefined, { transform: numberAttribute });
+
+    /**
+     * 图标的旋转角度（已废弃，将在 v23 彻底删除），请使用 thyRotate
+     * @deprecated please use thyRotate, will be removed in v23
+     * @default 0
+     */
     readonly thyIconRotate = input<number, unknown>(undefined, { transform: numberAttribute });
 
+    readonly thySet = input<string>();
+
+    /**
+     * 图标集（已废弃，将在 v23 彻底删除），请使用 thySet
+     * @deprecated please use thySet, will be removed in v23
+     */
     readonly thyIconSet = input<string>();
 
     /**
      * 图标打底色，镂空的图标，会透过颜色来
      */
+    readonly thyLegging = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 图标打底色（已废弃，将在 v23 彻底删除），镂空的图标，会透过颜色来，请使用 thyLegging
+     * @deprecated please use thyLegging, will be removed in v23
+     */
     readonly thyIconLegging = input(false, { transform: coerceBooleanProperty });
 
+    readonly thyLinearGradient = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否支持 Safari SVG LinearGradient（已废弃，将在 v23 彻底删除），请使用 thyLinearGradient
+     * @deprecated please use thyLinearGradient, will be removed in v23
+     */
     readonly thyIconLinearGradient = input(false, { transform: coerceBooleanProperty });
+
+    readonly appearance = computed(() => this.thyAppearance() || this.thyIconType() || 'outline');
+
+    readonly name = computed(() => this.thyName() ?? this.thyIconName());
+
+    readonly rotate = computed(() => this.thyRotate() ?? this.thyIconRotate());
+
+    readonly set = computed(() => this.thySet() ?? this.thyIconSet());
+
+    readonly legging = computed(() => this.thyLegging() || this.thyIconLegging());
+
+    readonly linearGradient = computed(() => this.thyLinearGradient() || this.thyIconLinearGradient());
 
     private hostRenderer = useHostRenderer();
 
@@ -110,7 +162,10 @@ export class ThyIcon {
     }
 
     private updateClasses() {
-        const rawName = this.thyIconName();
+        const rawName = this.name();
+        if (!rawName) {
+            return;
+        }
         if (isImagePathSource(rawName)) {
             this.setImageElement(rawName.trim());
             return;
@@ -134,22 +189,22 @@ export class ThyIcon {
                     );
                 this.hostRenderer.updateClass([`thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`]);
             } else {
-                const fontSetClass = this.thyIconSet()
-                    ? this.iconRegistry.getFontSetClassByAlias(this.thyIconSet()!)
+                const fontSetClass = this.set()
+                    ? this.iconRegistry.getFontSetClassByAlias(this.set()!)
                     : this.iconRegistry.getDefaultFontSetClass();
-                this.hostRenderer.updateClass([fontSetClass, `${fontSetClass}-${this.thyIconName()}`]);
+                this.hostRenderer.updateClass([fontSetClass, `${fontSetClass}-${this.name()}`]);
             }
         }
     }
 
     private setStyleRotate() {
-        if (this.thyIconRotate() !== undefined) {
+        if (this.rotate() !== undefined) {
             // 基于 effect 无法保证在 setSvgElement 之前执行，所以这里增加判断
             const svg = this.elementRef.nativeElement.querySelector('svg');
             if (!svg) {
                 return;
             }
-            this.render.setStyle(svg, 'transform', `rotate(${this.thyIconRotate()}deg)`);
+            this.render.setStyle(svg, 'transform', `rotate(${this.rotate()}deg)`);
         }
     }
 
@@ -190,7 +245,7 @@ export class ThyIcon {
             styleTags[i].textContent += ' ';
         }
 
-        if (this.thyIconType() === 'twotone') {
+        if (this.appearance() === 'twotone') {
             const allPaths = svg.querySelectorAll('path');
             if (allPaths.length > 1) {
                 allPaths.forEach((child, index: number) => {
@@ -209,7 +264,7 @@ export class ThyIcon {
         //     this._cacheChildrenWithExternalReferences(svg);
         //     this._prependPathToReferences(path);
         // }
-        if (this.thyIconLinearGradient()) {
+        if (this.linearGradient()) {
             this.setBaseUrl(svg);
             this.clearTitleElement(svg);
         }
@@ -241,8 +296,9 @@ export class ThyIcon {
     //#endregion
 
     private buildIconNameByType(iconName: string) {
-        if (this.thyIconType() && ['fill', 'twotone'].indexOf(this.thyIconType()) >= 0) {
-            const suffix = iconSuffixMap[this.thyIconType() as keyof typeof iconSuffixMap];
+        const appearance = this.appearance();
+        if (['fill', 'twotone'].indexOf(appearance) >= 0) {
+            const suffix = iconSuffixMap[appearance as keyof typeof iconSuffixMap];
             return iconName.includes(`-${suffix}`) ? iconName : `${iconName}-${suffix}`;
         } else {
             return iconName;

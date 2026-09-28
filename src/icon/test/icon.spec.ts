@@ -17,6 +17,44 @@ import { of } from 'rxjs';
 @Component({
     template: `
         <thy-icon
+            [thyName]="iconName"
+            [thyLinearGradient]="linearGradient"
+            [thyAppearance]="iconType"
+            [thyRotate]="rotate"
+            [thyLegging]="legging"
+            [thyTwotoneColor]="twotoneColor"
+            [thySet]="iconSet"></thy-icon>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyIconModule]
+})
+class ThyIconTestBasicComponent {
+    iconRegistry = coreInject(ThyIconRegistry);
+
+    iconName = 'check';
+    iconType = '';
+    legging = false;
+    linearGradient = false;
+    rotate!: number;
+    twotoneColor!: string;
+    iconSet!: string;
+}
+
+@Component({
+    template: ` <thy-icon [thyName]="newName" [thyIconName]="oldName" [thyAppearance]="newAppearance" [thyIconType]="oldType"></thy-icon> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyIconModule]
+})
+class ThyIconTestPrecedenceComponent {
+    newName = 'close';
+    oldName = 'check';
+    newAppearance = 'fill';
+    oldType = 'twotone';
+}
+
+@Component({
+    template: `
+        <thy-icon
             [thyIconName]="iconName"
             [thyIconLinearGradient]="linearGradient"
             [thyIconType]="iconType"
@@ -28,9 +66,7 @@ import { of } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIconModule]
 })
-class ThyIconTestBasicComponent {
-    iconRegistry = coreInject(ThyIconRegistry);
-
+class ThyIconTestDeprecatedComponent {
     iconName = 'check';
     iconType = '';
     legging = false;
@@ -85,7 +121,7 @@ describe('ThyIconComponent', () => {
             expect(fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${oldIconName}`)).toBeFalsy();
         });
 
-        it('should set icon type success', () => {
+        it('should set appearance success', () => {
             componentInstance.iconType = 'fill';
             fixture.detectChanges();
             assertSvgIcon(iconDebugElement.nativeElement, 'check', 'fill');
@@ -94,7 +130,7 @@ describe('ThyIconComponent', () => {
             assertSvgIcon(iconDebugElement.nativeElement, 'check', 'tt');
         });
 
-        it('should set thyIconLegging success', () => {
+        it('should set thyLegging success', () => {
             componentInstance.legging = true;
             fixture.detectChanges();
             assertSvgIcon(iconDebugElement.nativeElement, 'check');
@@ -204,13 +240,49 @@ describe('ThyIconComponent', () => {
             assertSvgIcon(host, 'check');
         });
 
-        it('should apply thyIconRotate to svg root when icon is image path', () => {
+        it('should apply thyRotate to svg root when icon is image path', () => {
             componentInstance.iconName = 'https://cdn.example.com/i.png';
             componentInstance.rotate = 45;
             fixture.detectChanges();
             const svg = iconDebugElement.nativeElement.querySelector('svg') as SVGSVGElement;
             expect(svg).toBeTruthy();
             expect(svg.style.transform).toEqual('rotate(45deg)');
+        });
+    });
+
+    describe('Deprecated inputs', () => {
+        let fixture!: ComponentFixture<ThyIconTestDeprecatedComponent>;
+        let componentInstance!: ThyIconTestDeprecatedComponent;
+        let iconDebugElement!: DebugElement;
+        const iconSvgClassPrefix = 'thy-icon';
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyIconTestDeprecatedComponent);
+            componentInstance = fixture.debugElement.componentInstance;
+            fixture.detectChanges();
+            iconDebugElement = fixture.debugElement.query(By.directive(ThyIcon));
+        });
+
+        it('should work with deprecated thyIconName, thyIconType, thyIconRotate, thyIconLegging, thyIconSet and thyIconLinearGradient', () => {
+            componentInstance.iconType = 'fill';
+            componentInstance.legging = true;
+            componentInstance.rotate = 90;
+            fixture.detectChanges();
+
+            const iconElement: HTMLElement = iconDebugElement.nativeElement;
+            expect(iconElement.classList.contains(`${iconSvgClassPrefix}-check-fill`)).toBeTruthy();
+            expect(iconElement.classList.contains(`${iconSvgClassPrefix}-legging`)).toBeTruthy();
+            const svgElement = iconElement.querySelector('svg') as SVGSVGElement;
+            expect(svgElement).toBeTruthy();
+            expect(svgElement.style.transform).toEqual(`rotate(90deg)`);
+        });
+
+        it('should prefer new inputs over deprecated ones', () => {
+            const precedenceFixture = TestBed.createComponent(ThyIconTestPrecedenceComponent);
+            precedenceFixture.detectChanges();
+            const icon: ThyIcon = precedenceFixture.debugElement.query(By.directive(ThyIcon)).componentInstance;
+            expect(icon.name()).toEqual('close');
+            expect(icon.appearance()).toEqual('fill');
         });
     });
 });

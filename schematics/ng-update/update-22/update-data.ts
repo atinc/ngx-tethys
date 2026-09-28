@@ -245,6 +245,54 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyIconType',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconName',
+                        replaceWith: 'thyName',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconRotate',
+                        replaceWith: 'thyRotate',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconSet',
+                        replaceWith: 'thySet',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconLegging',
+                        replaceWith: 'thyLegging',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconLinearGradient',
+                        replaceWith: 'thyLinearGradient',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
                         replace: 'thyNavLinkActive',
                         replaceWith: 'thyNavItemActive',
                         limitedTo: {

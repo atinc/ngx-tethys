@@ -7,7 +7,7 @@ order: 30
 
 <alert>矢量图标。</alert>
 
-`thy-icon` 支持图标字体与 SVG 图标；当 `thyIconName` 为图片资源地址（如 `http(s)`、`data:image/...`、带 `.png` / `.svg` 等后缀且无命名空间冒号的静态路径）时，会生成与矢量图标相同的根节点 `<svg>`，其内使用 SVG `<image>` 引用该地址，尺寸仍随 `font-size`变化。
+`thy-icon` 支持图标字体与 SVG 图标；当 `thyName` 为图片资源地址（如 `http(s)`、`data:image/...`、带 `.png` / `.svg` 等后缀且无命名空间冒号的静态路径）时，会生成与矢量图标相同的根节点 `<svg>`，其内使用 SVG `<image>` 引用该地址，尺寸仍随 `font-size`变化。
 
 ## 模块导入
 
@@ -52,22 +52,22 @@ iconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(`assets/i
 ```
 
 ## 基本使用
-图标组件支持 `outline`、`fill`和`twotone`三种类型的图标，可以使用`thyIconType`设置类型，也可以通过在`thyIconName`后加`-类型后缀`设置类型。
+图标组件支持 `outline`、`fill`和`twotone`三种类型的图标，可以使用`thyAppearance`设置类型，也可以通过在`thyName`后加`-类型后缀`设置类型。
 ```html
-<thy-icon thyIconName="bell"></thy-icon>
-<thy-icon thyIconName="bell-fill"></thy-icon>
-<thy-icon thyIconName="bell" thyIconType="fill"></thy-icon>
+<thy-icon thyName="bell"></thy-icon>
+<thy-icon thyName="bell-fill"></thy-icon>
+<thy-icon thyName="bell" thyAppearance="fill"></thy-icon>
 
 ```
 <example name="thy-icon-basic-example" />
 
 ## 图片地址
 
-通过 `thyIconName` 传入图片 URL 或 data URL 等，可用作自定义图标（例如用户头像、品牌图）。可与 `thyIconRotate` 等属性配合。
+通过 `thyName` 传入图片 URL 或 data URL 等，可用作自定义图标（例如用户头像、品牌图）。可与 `thyRotate` 等属性配合。
 
 ```html
-<thy-icon thyIconName="https://example.com/icon.png"></thy-icon>
-<thy-icon [thyIconName]="assetsPathOrDataUrl"></thy-icon>
+<thy-icon thyName="https://example.com/icon.png"></thy-icon>
+<thy-icon [thyName]="assetsPathOrDataUrl"></thy-icon>
 ```
 
 <example name="thy-icon-image-example" />
@@ -76,15 +76,15 @@ iconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(`assets/i
 双色图标需要设置类型为`twotone`，同时设置`thyTwotoneColor`，对于双色图标的 SVG 来说需要包含id包含`secondary-color`的`path`，会填充该`path`的`fill`属性为传入的`thyTwotoneColor`
 ```html
 <thy-icon class="text-info" 
-   thyIconName="pause-circle" 
-   thyIconType="twotone" 
+   thyName="pause-circle" 
+   thyAppearance="twotone" 
    thyTwotoneColor="#52c41a">
 </thy-icon>
 ```
 <example name="thy-icon-twotone-example" />
 
 ## 自定义命名空间
-默认图标会在默认的命名空间下根据图标名查找对应的SVG，当`thyIconName`设置为`mat:thumbs-up`，则会在`mat`命名空间下查找对应的图标，同时注册图标的时候需要使用传入的命名空间：
+默认图标会在默认的命名空间下根据图标名查找对应的SVG，当`thyName`设置为`mat:thumbs-up`，则会在`mat`命名空间下查找对应的图标，同时注册图标的时候需要使用传入的命名空间：
 ```ts
  iconRegistry.addSvgIconInNamespace(
             'mat',

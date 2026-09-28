@@ -823,6 +823,28 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 48. thy-icon（`thy-icon` 指令）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyIconType` 已废弃，请使用 `thyAppearance`
+- `thyIconName` 已废弃，请使用 `thyName`
+- `thyIconRotate` 已废弃，请使用 `thyRotate`
+- `thyIconSet` 已废弃，请使用 `thySet`
+- `thyIconLegging` 已废弃，请使用 `thyLegging`
+- `thyIconLinearGradient` 已废弃，请使用 `thyLinearGradient`
+
+**自动迁移**
+
+- `thyIconType` → `thyAppearance`（`thy-icon` / `thy-icon` 指令）
+- `thyIconName` → `thyName`（`thy-icon` / `thy-icon` 指令）
+- `thyIconRotate` → `thyRotate`（`thy-icon` / `thy-icon` 指令）
+- `thyIconSet` → `thySet`（`thy-icon` / `thy-icon` 指令）
+- `thyIconLegging` → `thyLegging`（`thy-icon` / `thy-icon` 指令）
+- `thyIconLinearGradient` → `thyLinearGradient`（`thy-icon` / `thy-icon` 指令）
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**
