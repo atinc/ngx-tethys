@@ -811,6 +811,18 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
+### 47. thy-loading
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyTip` 参数已废弃，请使用 `thyTips`
+
+**自动迁移**
+
+- `thyTip` → `thyTips`
+
+---
+
 ### 样式（Sass / CSS）
 
 **破坏性更改**

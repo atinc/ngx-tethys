@@ -2,7 +2,7 @@
   @if (!thyDone()) {
     <div class="thy-loading-indicator">
       <h4>
-        <span [style.display]="thyTip() ? 'inline' : 'none'">{{ thyTip() }}</span>
+        <span [style.display]="tips() ? 'inline' : 'none'">{{ tips() }}</span>
         <div class="thy-loading-ellipsis">
           <span class="thy-spot"></span>
         </div>
