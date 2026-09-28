@@ -536,11 +536,15 @@ ng generate ngx-tethys:migrate-22
 
 **标记为废弃，将在 v23 彻底删除**
 - `thyTheme`和`ThyThemeType`已废弃，请使用`thyAppearance`和`ThyDotAppearance`
+- `ThyColorType`、`ThySizeType`、`ThyShapeType`已废弃，请使用`ThyDotColor`、`ThyDotSize`、`ThyDotShape`
 
 **自动迁移**
 
 - `thyTheme` → `thyAppearance`
 - `ThyThemeType` → `ThyDotAppearance`
+- `ThyColorType` → `ThyDotColor`
+- `ThySizeType` → `ThyDotSize`
+- `ThyShapeType` → `ThyDotShape`
 
 ---
 

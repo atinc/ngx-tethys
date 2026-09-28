@@ -1,13 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyDot } from 'ngx-tethys/dot';
-import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-dot-basic-example',
     templateUrl: './basic.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyDot, ThySpace, ThySpaceItemDirective]
+    imports: [ThyDot]
 })
-export class ThyDotBasicExampleComponent implements OnInit {
-    ngOnInit() {}
-}
+export class ThyDotBasicExampleComponent {}
