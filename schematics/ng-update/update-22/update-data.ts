@@ -39,6 +39,7 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' },
                     { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
                     { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' },
+                    { replace: 'ThyTableMode', replaceWith: 'ThyTableVariant' },
                     { replace: 'ThyVoteSizes', replaceWith: 'ThyVoteSize' }
                 ]
             }
@@ -121,6 +122,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAppearance',
                         limitedTo: {
                             elements: ['thy-native-table', 'thy-table-skeleton', 'thy-table']
+                        }
+                    },
+                    {
+                        replace: 'thyMode',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-table']
                         }
                     },
                     {

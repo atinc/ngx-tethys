@@ -746,12 +746,16 @@ ng generate ngx-tethys:migrate-22
 - `thyTheme` 已废弃，请使用 `thyAppearance`
 - `ThyNativeTableTheme` 已废弃，请使用 `ThyNativeTableAppearance`（仅 `thy-native-table`）
 - `ThyTableTheme` 已废弃，请使用 `ThyTableAppearance`
+- `thyMode` 已废弃，请使用 `thyVariant`（仅 `thy-table`）
+- `ThyTableMode` 已废弃，请使用 `ThyTableVariant`
 
 **自动迁移**
 
 - `thyTheme` → `thyAppearance`（`thy-table`、`thy-native-table` 与 `thy-table-skeleton`）
 - TypeScript 中 `ThyNativeTableTheme` → `ThyNativeTableAppearance`
 - TypeScript 中 `ThyTableTheme` → `ThyTableAppearance`
+- `thyMode` → `thyVariant`（`thy-table`）
+- TypeScript 中 `ThyTableMode` → `ThyTableVariant`
 
 ---
 

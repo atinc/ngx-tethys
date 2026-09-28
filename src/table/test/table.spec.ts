@@ -22,7 +22,8 @@ import { SafeAny } from 'ngx-tethys/types';
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
-            [thyMode]="mode"
+            [thyVariant]="variant"
+            [thyMode]="deprecatedMode"
             [thyGroups]="groups"
             [thyAppearance]="theme"
             [thyTheme]="deprecatedTheme"
@@ -167,7 +168,8 @@ class ThyDemoDefaultTableComponent {
     size = 'sm';
     showTotal = false;
     showSizeChanger = true;
-    mode = 'list';
+    variant = 'list';
+    deprecatedMode = '';
     emptyOptions = { message: '空' };
     tableMinWidth = 500;
     tableLayoutFixed = false;
@@ -481,17 +483,31 @@ describe('ThyTable: basic', () => {
         expect(table.querySelector('thead')).toBeFalsy();
     });
 
-    it('should has correct class and when mode is group', () => {
-        testComponent.mode = 'group';
+    it('should has correct class and when variant is group', () => {
+        testComponent.variant = 'group';
         fixture.detectChanges();
         expect(table.classList.contains('table-group')).toBe(true);
     });
 
-    it('should has group element when mode is group', () => {
-        testComponent.mode = 'group';
+    it('should has group element when variant is group', () => {
+        testComponent.variant = 'group';
         fixture.detectChanges();
         const groups = table.querySelector('.thy-table-group');
         expect(groups).toBeTruthy();
+    });
+
+    it('should has correct class when deprecated thyMode is group', () => {
+        testComponent.variant = '';
+        testComponent.deprecatedMode = 'group';
+        fixture.detectChanges();
+        expect(table.classList.contains('table-group')).toBe(true);
+    });
+
+    it('should prefer thyVariant over deprecated thyMode', () => {
+        testComponent.variant = 'list';
+        testComponent.deprecatedMode = 'group';
+        fixture.detectChanges();
+        expect(table.classList.contains('table-group')).toBe(false);
     });
 
     it('should call thyOnRowClick when click tr', fakeAsync(() => {
@@ -688,7 +704,8 @@ describe('ThyTable: basic', () => {
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
-            [thyMode]="mode"
+            [thyVariant]="variant"
+            [thyMode]="deprecatedMode"
             [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
@@ -790,7 +807,9 @@ class ThyDemoGroupTableComponent {
         }
     ];
 
-    mode = 'group';
+    variant = 'group';
+
+    deprecatedMode = '';
 
     pagination = {
         index: 1,
@@ -849,6 +868,16 @@ describe('ThyTable: group', () => {
         fixture.detectChanges();
         const groups = table.querySelector('.thy-table-group');
         expect(groups).toBeTruthy();
+    });
+
+    it('should build groups on first render when only deprecated thyMode is group', () => {
+        const deprecatedFixture = TestBed.createComponent(ThyDemoGroupTableComponent);
+        deprecatedFixture.componentInstance.variant = '';
+        deprecatedFixture.componentInstance.deprecatedMode = 'group';
+        deprecatedFixture.detectChanges();
+        const deprecatedTable = deprecatedFixture.debugElement.query(By.directive(ThyTable)).nativeElement.querySelector('table');
+        expect(deprecatedTable.classList.contains('table-group')).toBe(true);
+        expect(deprecatedTable.querySelectorAll('tr').length).toBe(6);
     });
 
     it('should set expand successfully', () => {
@@ -985,7 +1014,7 @@ describe('ThyTable: group', () => {
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
-            [thyMode]="mode"
+            [thyVariant]="variant"
             [thyGroups]="groups"
             [thyAppearance]="theme"
             [thyTheme]="deprecatedTheme"
@@ -1053,7 +1082,7 @@ class ThyDemoEmptyTableComponent {
     size = 'sm';
     showTotal = false;
 
-    mode = 'list';
+    variant = 'list';
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 

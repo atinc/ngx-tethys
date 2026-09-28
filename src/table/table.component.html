@@ -12,7 +12,7 @@
     [ngClass]="[className]"
     [class.table-fixed]="thyLayoutFixed"
     [class.table-draggable]="draggable"
-    [class.table-group]="mode === 'group'"
+    [class.table-group]="variant === 'group'"
     [ngStyle]="{ 'min-width': thyMinWidth }">
     <colgroup>
       @for (column of columns; track $index) {
@@ -57,7 +57,7 @@
         [cdkDropListSortPredicate]="dropListEnterPredicate"
         (cdkDropListDropped)="onDragDropped($event)">
         <!-- group -->
-        @if (mode === 'group') {
+        @if (variant === 'group') {
           @for (group of groups; track group.id) {
             <tr
               class="thy-table-group"
@@ -96,7 +96,7 @@
           }
         }
         <!-- list模式下没有直接使用item模板，是因为使用了模板影响了Angular的依赖树，导致CdkDragDrop排序失效，目前这样修改可以暂时解决线上不能排序的问题，Tree模式的排序暂时不支持 -->
-        @if (mode === 'list') {
+        @if (variant === 'list') {
           @for (row of model; track $index; let i = $index) {
             <tr
               #rows
@@ -119,7 +119,7 @@
             </tr>
           }
         }
-        @if (mode === 'tree') {
+        @if (variant === 'tree') {
           @for (row of model; track trackByFn(i, row); let i = $index) {
             <ng-template [ngTemplateOutlet]="trTemplate" [ngTemplateOutletContext]="{ row: row, index: i, level: 0 }"></ng-template>
           }
@@ -144,7 +144,7 @@
                 level: level + 1
               }"></ng-template>
           </tr>
-          @if (mode === 'tree' && isExpanded(row)) {
+          @if (variant === 'tree' && isExpanded(row)) {
             @for (child of row[thyChildrenKey]; track trackByFn(j, child); let j = $index) {
               <ng-template
                 [ngTemplateOutlet]="trTemplate"
@@ -162,7 +162,7 @@
               [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
               [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
               [ngStyle]="
-                mode === 'tree' && column.expand
+                variant === 'tree' && column.expand
                   ? tdIndentComputed(level, column)
                   : { left: column.left + 'px', right: column.right + 'px' }
               ">
@@ -171,7 +171,7 @@
               }
               <!--template-->
               @if (isTemplateRef(column.cellTemplateRef())) {
-                @if (mode === 'tree' && column.expand) {
+                @if (variant === 'tree' && column.expand) {
                   <thy-icon
                     class="tree-expand-icon cursor-pointer"
                     [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
@@ -184,7 +184,7 @@
               @if (!isTemplateRef(column.cellTemplateRef())) {
                 <!-- default -->
                 @if (column.model && !column.type) {
-                  @if (mode === 'tree' && column.expand) {
+                  @if (variant === 'tree' && column.expand) {
                     <thy-icon
                       class="tree-expand-icon cursor-pointer"
                       [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
