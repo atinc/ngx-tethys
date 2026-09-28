@@ -2,15 +2,22 @@ import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 
 import { Component, computed, effect, ElementRef, inject, input, Renderer2, ViewEncapsulation } from '@angular/core';
 
-export type ThyColorType = ThyThemeColor | string;
-export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
+export type ThyDotColor = ThyThemeColor | string;
+export type ThyDotSize = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 export type ThyDotAppearance = 'outline' | 'fill';
+export type ThyDotShape = 'square' | 'circle';
 
-/**
- * @deprecated please use ThyDotAppearance
- */
+/** @deprecated please use ThyDotColor, will be removed in v23 */
+export type ThyColorType = ThyDotColor;
+
+/** @deprecated please use ThyDotSize, will be removed in v23 */
+export type ThySizeType = ThyDotSize;
+
+/** @deprecated please use ThyDotAppearance, will be removed in v23 */
 export type ThyThemeType = ThyDotAppearance;
-export type ThyShapeType = 'square' | 'circle';
+
+/** @deprecated please use ThyDotShape, will be removed in v23 */
+export type ThyShapeType = ThyDotShape;
 
 export const COMPONENT_CLASS_NAME = 'thy-dot';
 
@@ -56,18 +63,18 @@ export class ThyDot {
 
     /**
      * 颜色，可选值为：`primary` `success` `info` `warning` `danger` `default` `light`和自定义颜色，如`#2cccda` `red`  `rgb(153, 153, 153)`
-     * @type ThyThemeColor | string
+     * @type ThyDotColor
      */
-    readonly thyColor = input<ThyColorType, ThyColorType>(DEFAULT_COLOR_NAME, {
-        transform: (value: ThyColorType) => value || DEFAULT_COLOR_NAME
+    readonly thyColor = input<ThyDotColor, ThyDotColor>(DEFAULT_COLOR_NAME, {
+        transform: (value: ThyDotColor) => value || DEFAULT_COLOR_NAME
     });
 
     /**
      * 大小
      * @type xs | sm | md | lg | xlg
      */
-    readonly thySize = input<ThySizeType, ThySizeType>(DEFAULT_SIZE_NAME, {
-        transform: (value: ThySizeType) => value || DEFAULT_SIZE_NAME
+    readonly thySize = input<ThyDotSize, ThyDotSize>(DEFAULT_SIZE_NAME, {
+        transform: (value: ThyDotSize) => value || DEFAULT_SIZE_NAME
     });
 
     /**
@@ -90,8 +97,8 @@ export class ThyDot {
      * 形状
      * @type circle(圆形) | square(方形)
      */
-    readonly thyShape = input<ThyShapeType, ThyShapeType>(DEFAULT_SHAPE_NAME, {
-        transform: (value: ThyShapeType) => value || DEFAULT_SHAPE_NAME
+    readonly thyShape = input<ThyDotShape, ThyDotShape>(DEFAULT_SHAPE_NAME, {
+        transform: (value: ThyDotShape) => value || DEFAULT_SHAPE_NAME
     });
 
     updateColorStyle() {

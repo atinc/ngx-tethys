@@ -284,6 +284,66 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toMatch(/\bCompatibleDate\b/);
     });
 
+    it('should rename ThyColorType to ThyDotColor from ngx-tethys/dot', async () => {
+        const filePath = '/projects/update-22-test/src/app/dot-color-type.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyColorType } from 'ngx-tethys/dot';
+
+                export const dotColor: ThyColorType = 'primary';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDotColor } from 'ngx-tethys/dot'");
+        expect(content).toContain("export const dotColor: ThyDotColor = 'primary'");
+        expect(content).not.toContain('ThyColorType');
+    });
+
+    it('should rename ThySizeType and ThyShapeType from ngx-tethys/dot', async () => {
+        const filePath = '/projects/update-22-test/src/app/dot-size-shape-type.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThySizeType, ThyShapeType } from 'ngx-tethys/dot';
+
+                export const dotSize: ThySizeType = 'md';
+                export const dotShape: ThyShapeType = 'circle';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDotSize, ThyDotShape } from 'ngx-tethys/dot'");
+        expect(content).toContain("export const dotSize: ThyDotSize = 'md'");
+        expect(content).toContain("export const dotShape: ThyDotShape = 'circle'");
+        expect(content).not.toContain('ThySizeType');
+        expect(content).not.toContain('ThyShapeType');
+    });
+
+    it('should rename ThyThemeType to ThyDotAppearance from ngx-tethys/dot', async () => {
+        const filePath = '/projects/update-22-test/src/app/dot-theme-type.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyThemeType } from 'ngx-tethys/dot';
+
+                export const dotAppearance: ThyThemeType = 'outline';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDotAppearance } from 'ngx-tethys/dot'");
+        expect(content).toContain("export const dotAppearance: ThyDotAppearance = 'outline'");
+        expect(content).not.toContain('ThyThemeType');
+    });
+
     it('should not rename local identifiers that are not imported from ngx-tethys', async () => {
         const filePath = '/projects/update-22-test/src/app/local-size.ts';
         tree.create(
