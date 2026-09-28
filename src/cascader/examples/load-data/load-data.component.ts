@@ -88,7 +88,7 @@ export class ThyCascaderLoadDataExampleComponent implements OnInit {
         }
     };
 
-    public thyOnSearch(event: string) {
+    public inputChange(event: string) {
         console.log(event);
         this.thyLoadingDone.set(false);
         setTimeout(() => {

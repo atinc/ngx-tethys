@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center">
-  <thy-select [(ngModel)]="selectedValue1" thyPlaceholder="选择内容" [thyShowSearch]="true" style="width: 240px; margin-right: 50px">
+  <thy-select [(ngModel)]="selectedValue1" thyPlaceholder="选择内容" [thySearchable]="true" style="width: 240px; margin-right: 50px">
     @for (group of productGroups; track group.id) {
       <thy-option-group [thyGroupLabel]="group.name">
         @for (option of group.options; track option.value) {

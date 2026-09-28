@@ -1727,6 +1727,92 @@ export class SelectDemoComponent {}
         expect(content).not.toContain('thyPlaceHolder');
     });
 
+    it('should migrate deprecated thy-select props to v22 names', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/select-props-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThySelectModule } from 'ngx-tethys/select';
+
+@Component({
+    selector: 'app-select-props-demo',
+    template: \`
+        <thy-select
+            thyMode="multiple"
+            thyShowSearch="true"
+            thyServerSearch="true"
+            thyAllowClear="true"
+            thyLoadState="false"
+            thyEmptySearchMessageText="无结果">
+        </thy-select>
+        <thy-tree-select [thyLoadState]="loadState" [thyShowSearch]="true"></thy-tree-select>
+    \`,
+    imports: [ThySelectModule]
+})
+export class SelectPropsDemoComponent {
+    loadState = true;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/select-props-demo.component.ts');
+        expect(content).toContain('thyMultiple');
+        expect(content).toContain('thySearchable="true"');
+        expect(content).toContain('thyServerSearchable="true"');
+        expect(content).toContain('thyClearable="true"');
+        expect(content).toContain('thyLoading');
+        expect(content).toContain('thySearchEmptyText="无结果"');
+        expect(content).toContain('[thyLoading]="!(loadState)"');
+        expect(content).not.toMatch(/\bthyMode\b/);
+        expect(content).not.toMatch(/\bthyShowSearch\b/);
+        expect(content).not.toMatch(/\bthyLoadState\b/);
+    });
+
+    it('should migrate deprecated thy-select outputs to v22 names', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/select-outputs-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThySelectModule } from 'ngx-tethys/select';
+
+@Component({
+    selector: 'app-select-outputs-demo',
+    template: \`
+        <thy-select
+            (thyOnSearch)="onSearch($event)"
+            (thyOnScrollToBottom)="onScroll()"
+            (thyOnExpandStatusChange)="onExpand($event)">
+        </thy-select>
+        <thy-tree-select (thyOnSearch)="onSearch($event)"></thy-tree-select>
+        <thy-cascader (thyOnSearch)="onSearch($event)"></thy-cascader>
+    \`,
+    imports: [ThySelectModule]
+})
+export class SelectOutputsDemoComponent {
+    onSearch(_value: string) {}
+    onScroll() {}
+    onExpand(_expanded: boolean) {}
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/select-outputs-demo.component.ts');
+        expect(content).toContain('(thyInputChange)="onSearch($event)"');
+        expect(content).toContain('(thyScrollToBottom)="onScroll()"');
+        expect(content).toContain('(thyExpandStatusChange)="onExpand($event)"');
+        expect(content).not.toMatch(/\bthyOnSearch\b/);
+        expect(content).not.toMatch(/\bthyOnScrollToBottom\b/);
+        expect(content).not.toMatch(/\bthyOnExpandStatusChange\b/);
+    });
+
     it('should migrate thyPlaceHolder to thyPlaceholder for thy-date-picker', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

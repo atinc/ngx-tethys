@@ -21,7 +21,7 @@
       {{ thyPlaceholder() }}
     </div>
   }
-  @if (thyIsMultiple()) {
+  @if (isMultiple()) {
     <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100" #tagsContainer>
       @if (thyPreset() === 'tag') {
         @for (item of selectedTags(); track trackValue($index, item)) {

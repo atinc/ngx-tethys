@@ -22,11 +22,8 @@ export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
 
     page = signal(0);
 
-    loadState = signal(true);
-
     fetchOptions() {
         this.loading.set(true);
-        this.loadState.set(false);
         this.loadMoreData.set([]);
         return timer(1500).pipe(
             tap(() => {
@@ -46,7 +43,6 @@ export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
     ngOnInit() {
         this.fetchOptions().subscribe(() => {
             this.loading.set(false);
-            this.loadState.set(true);
         });
     }
 
@@ -54,7 +50,6 @@ export class ThySelectAsyncLoadDataExampleComponent implements OnInit {
         if (expand) {
             this.fetchOptions().subscribe(() => {
                 this.loading.set(false);
-                this.loadState.set(true);
             });
         }
     }
