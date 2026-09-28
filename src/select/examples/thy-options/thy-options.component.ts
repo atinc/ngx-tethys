@@ -2,7 +2,7 @@ import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/cor
 import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select/custom-select/custom-select.component';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { groupOptions } from '../mock-data';
+import { groupOptions, optionsWithIcon } from '../mock-data';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -19,6 +19,10 @@ export class ThyOptionsExampleComponent implements OnInit {
     value = '';
 
     multipleValue: Array<string> = [];
+
+    optionsWithIcon = optionsWithIcon;
+
+    iconValue = '';
 
     loading = signal(false);
 

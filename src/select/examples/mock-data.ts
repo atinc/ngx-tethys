@@ -50,6 +50,25 @@ export const listOfOption = [
     }
 ];
 
+export const optionsWithIcon = [
+    {
+        value: 'requirement',
+        label: '用户故事',
+        icon: 'user-story-square-fill'
+    },
+    {
+        value: 'task',
+        label: '任务',
+        icon: 'task-square-fill'
+    },
+    {
+        value: 'bug',
+        label: '缺陷',
+        icon: 'bug-square-fill',
+        disabled: true
+    }
+];
+
 export const options = [
     {
         value: 'dog',
