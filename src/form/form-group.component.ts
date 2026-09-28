@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, OnInit, TemplateRef, ViewEncapsulation, inject, input, computed, signal, contentChild } from '@angular/core';
+import { Component, TemplateRef, ViewEncapsulation, effect, inject, input, computed, signal, contentChild } from '@angular/core';
 
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -31,7 +31,7 @@ type TipsMode = 'default' | 'label';
         '[class.has-feedback]': 'thyFeedbackIcon()'
     }
 })
-export class ThyFormGroup implements OnInit {
+export class ThyFormGroup {
     private thyParentForm = inject(ThyFormDirective, { optional: true })!;
     private thyTranslate = inject(ThyTranslate);
 
@@ -132,14 +132,9 @@ export class ThyFormGroup implements OnInit {
     readonly contentTemplate = contentChild<TemplateRef<any>>('content');
 
     constructor() {
-        // effect(() => {
-        //     const isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
-        //     this.isHorizontal.set(isHorizontal);
-        // });
-    }
-
-    ngOnInit() {
-        const isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
-        this.isHorizontalSignal.set(isHorizontal);
+        effect(() => {
+            const isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
+            this.isHorizontalSignal.set(isHorizontal);
+        });
     }
 }
