@@ -1,7 +1,7 @@
 import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyVote, ThyVoteAppearance, ThyVoteColor, ThyVoteType } from 'ngx-tethys/vote';
+import { ThyVote, ThyVoteAppearance, ThyVoteColor, ThyVoteShape, ThyVoteType } from 'ngx-tethys/vote';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('ThyVote', () => {
@@ -101,6 +101,27 @@ describe('ThyVote', () => {
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote-disabled')).toBe(true);
     });
+
+    it('should have thy-vote-round when thyShape is ellipse', () => {
+        basicTestComponent.isRound = false;
+        basicTestComponent.shape = 'ellipse';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-round')).toBe(true);
+    });
+
+    it('should not have thy-vote-round when thyShape is rectangle', () => {
+        basicTestComponent.isRound = true;
+        basicTestComponent.shape = 'rectangle';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-round')).toBe(false);
+    });
+
+    it('should prefer thyShape over deprecated thyRound', () => {
+        basicTestComponent.isRound = true;
+        basicTestComponent.shape = 'rectangle';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-round')).toBe(false);
+    });
 });
 
 @Component({
@@ -115,6 +136,7 @@ describe('ThyVote', () => {
             [thyLayout]="layout"
             [thySize]="size"
             [thyRound]="isRound"
+            [thyShape]="shape"
             [thyDisabled]="isDisabled"></div>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -129,6 +151,7 @@ class ThyDemoVoteBasicComponent {
     layout = '';
     size = '';
     isRound = true;
+    shape: ThyVoteShape | undefined = undefined;
     isDisabled = false;
 }
 

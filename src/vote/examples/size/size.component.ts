@@ -2,12 +2,12 @@ import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ThyVote } from 'ngx-tethys/vote';
 
 @Component({
-    selector: 'thy-vote-disabled-example',
-    templateUrl: './disabled.component.html',
+    selector: 'thy-vote-size-example',
+    templateUrl: './size.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyVote]
 })
-export class ThyVoteDisabledExampleComponent {
+export class ThyVoteSizeExampleComponent {
     voted = signal<boolean>(true);
 
     toggleVote() {
