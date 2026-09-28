@@ -9,7 +9,7 @@ import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
         @if (loadingDone) {
             <div style="width: 500px; height:500px">Test loading</div>
         }
-        <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTip]="tip"></thy-loading>
+        <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTips]="tips"></thy-loading>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLoadingModule]
@@ -17,7 +17,17 @@ import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
 export class TestLoadingComponent {
     loadingDone!: boolean;
     isMask!: boolean;
-    tip!: string;
+    tips!: string;
+}
+
+@Component({
+    selector: `test-loading-deprecated-tip`,
+    template: `<thy-loading [thyDone]="false" [thyTip]="tip"></thy-loading>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyLoadingModule]
+})
+export class TestLoadingDeprecatedTipComponent {
+    tip = 'custom loading tip';
 }
 
 describe('test loading', () => {
@@ -54,9 +64,9 @@ describe('test loading', () => {
 
         testComponent.loadingDone = true;
         fixture.detectChanges();
-        expect(indicatorElement).toBeFalsy;
-        expect(ellipsisElement).toBeFalsy;
-        expect(spotElement).toBeFalsy;
+        expect(indicatorElement).toBeFalsy();
+        expect(ellipsisElement).toBeFalsy();
+        expect(spotElement).toBeFalsy();
     });
 
     it('thyIsMask', () => {
@@ -69,11 +79,18 @@ describe('test loading', () => {
         expect(loadingComponent.nativeElement.querySelector('.thy-loading-mask')).toBeTruthy();
     });
 
-    it('thyTip', () => {
+    it('thyTips', () => {
         fixture.detectChanges();
         expect(loadingElement.textContent).toEqual('');
-        testComponent.tip = 'custom loading tip';
+        testComponent.tips = 'custom loading tip';
         fixture.detectChanges();
         expect(loadingElement.textContent).toEqual('custom loading tip');
+    });
+
+    it('should still work with deprecated thyTip', () => {
+        const deprecatedFixture = TestBed.createComponent(TestLoadingDeprecatedTipComponent);
+        deprecatedFixture.detectChanges();
+        const deprecatedLoading = deprecatedFixture.debugElement.query(By.directive(ThyLoading));
+        expect(deprecatedLoading.nativeElement.textContent).toEqual('custom loading tip');
     });
 });

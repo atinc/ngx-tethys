@@ -226,6 +226,13 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyTip',
+                        replaceWith: 'thyTips',
+                        limitedTo: {
+                            elements: ['thy-loading']
+                        }
+                    },
+                    {
                         replace: 'thyNavLinkActive',
                         replaceWith: 'thyNavItemActive',
                         limitedTo: {
