@@ -123,8 +123,8 @@ export class ThyIcon {
     /**
      * 图标打底色，镂空的图标，会透过颜色来
      */
-    readonly thyLegging = input<boolean | undefined>(undefined, {
-        transform: (value: boolean | undefined) => (value === undefined ? undefined : coerceBooleanProperty(value))
+    readonly thyLegging = input<boolean | undefined, unknown>(undefined, {
+        transform: (value: unknown) => (value === undefined ? undefined : coerceBooleanProperty(value))
     });
 
     /**
@@ -133,8 +133,8 @@ export class ThyIcon {
      */
     readonly thyIconLegging = input(false, { transform: coerceBooleanProperty });
 
-    readonly thyLinearGradient = input<boolean | undefined>(undefined, {
-        transform: (value: boolean | undefined) => (value === undefined ? undefined : coerceBooleanProperty(value))
+    readonly thyLinearGradient = input<boolean | undefined, unknown>(undefined, {
+        transform: (value: unknown) => (value === undefined ? undefined : coerceBooleanProperty(value))
     });
 
     /**
