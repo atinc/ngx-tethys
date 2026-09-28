@@ -1,7 +1,7 @@
 <thy-cascader
   class="mb-3"
   [thyOptions]="areaCode"
-  [thyShowSearch]="true"
+  [thySearchable]="true"
   [(ngModel)]="value"
   (ngModelChange)="selectChanges($event)"
   style="width: 200px">
@@ -10,7 +10,7 @@
 
 <thy-cascader
   [thyOptions]="multiAreaCode"
-  [thyShowSearch]="true"
+  [thySearchable]="true"
   [(ngModel)]="multiValues"
   [thyMultiple]="true"
   (ngModelChange)="selectChanges($event)"

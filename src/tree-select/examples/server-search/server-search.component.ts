@@ -15,7 +15,7 @@ export class ThyTreeSelectServerSearchExampleComponent implements OnInit {
 
     treeSelectNodes = signal(searchTreeSelectData);
 
-    loadState = signal(true);
+    loading = signal(false);
 
     selectedValue = '';
 
@@ -24,7 +24,7 @@ export class ThyTreeSelectServerSearchExampleComponent implements OnInit {
     }
 
     search(value: string) {
-        this.loadState.set(false);
+        this.loading.set(true);
         // fake api response data
         timer(3000).subscribe(() => {
             if (!value) {
@@ -32,7 +32,7 @@ export class ThyTreeSelectServerSearchExampleComponent implements OnInit {
             } else {
                 this.treeSelectNodes.set(filterTreeData(this.allTreeNodes, value, 'name'));
             }
-            this.loadState.set(true);
+            this.loading.set(false);
         });
     }
 }

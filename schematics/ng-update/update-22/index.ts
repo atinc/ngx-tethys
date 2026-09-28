@@ -16,6 +16,7 @@ import { InputSearchAppearanceMigration } from './input-search-appearance-migrat
 import { MenuThemeMigration } from './menu-theme-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { SelectBorderlessMigration } from './select-borderless-migration';
+import { SelectPropsMigration } from './select-props-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
 import { TagShapeMigration } from './tag-shape-migration';
@@ -33,6 +34,7 @@ const migrations: NullableDevkitMigration[] = [
     TagShapeMigration,
     InputSearchAppearanceMigration,
     SelectBorderlessMigration,
+    SelectPropsMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
     MenuThemeMigration,
