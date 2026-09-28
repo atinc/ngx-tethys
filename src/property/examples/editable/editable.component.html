@@ -75,7 +75,7 @@
         <span>无</span>
       }
       @for (item of user.likes; track $index) {
-        <thy-tag class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
+        <thy-tag class="mr-1" thyShape="ellipse" thyColor="success">{{ item }}</thy-tag>
       }
       <ng-template #editor>
         <thy-select thyMultiple thySize="md" [(ngModel)]="user.likes">
@@ -96,7 +96,7 @@
       @if (!user.profession) {
         <span>无</span>
       }
-      <thy-tag thyShape="pill" thyColor="warning">{{ user.profession }}</thy-tag>
+      <thy-tag thyShape="ellipse" thyColor="warning">{{ user.profession }}</thy-tag>
       <ng-template #editor>
         <thy-select #selectProfession (thyExpandStatusChange)="onExpandStatusChange($event)" thySize="md" [(ngModel)]="user.profession">
           <thy-option [thyValue]="'教师'" [thyLabelText]="'教师'"> </thy-option>
@@ -106,7 +106,7 @@
           <ng-template #selectedDisplay let-value>
             @if (value) {
               <span class="text-truncate">
-                <thy-tag thyShape="pill" thyColor="warning">{{ value }}</thy-tag>
+                <thy-tag thyShape="ellipse" thyColor="warning">{{ value }}</thy-tag>
               </span>
             }
           </ng-template>

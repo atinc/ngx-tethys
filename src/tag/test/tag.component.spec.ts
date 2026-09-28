@@ -116,9 +116,17 @@ describe('thy-tag', () => {
     it('should set shape with thyShape', () => {
         const tagDebugElement = fixture.debugElement.query(By.css('#shape'));
         const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        fixture.componentInstance.shape = 'ellipse';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains(`thy-tag-ellipse`)).toBe(true);
+    });
+
+    it('should set shape with deprecated pill value', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#shape'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
         fixture.componentInstance.shape = 'pill';
         fixture.detectChanges();
-        expect(tagElement.classList.contains(`thy-tag-pill`)).toBe(true);
+        expect(tagElement.classList.contains(`thy-tag-ellipse`)).toBe(true);
     });
 
     it('should set color with custom color value', () => {
