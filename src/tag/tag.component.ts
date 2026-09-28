@@ -50,7 +50,7 @@ export class ThyTag {
      * 标签形状，ellipse 为椭圆形（旧值 pill 已废弃，将在 v23 彻底移除）
      * @type ellipse | rectangle
      */
-    readonly thyShape = input<ThyTagShape>('rectangle', {
+    readonly thyShape = input<ThyTagShape, ThyTagShape>('rectangle', {
         // 兼容已废弃的 pill，将在 v23 彻底移除
         transform: (value: ThyTagShape) => (value === 'pill' ? 'ellipse' : value)
     });
