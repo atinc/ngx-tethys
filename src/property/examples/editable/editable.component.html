@@ -98,11 +98,7 @@
       }
       <thy-tag thyShape="pill" thyColor="warning">{{ user.profession }}</thy-tag>
       <ng-template #editor>
-        <thy-select
-          #selectProfession
-          (thyExpandStatusChange)="onExpandStatusChange($event)"
-          thySize="md"
-          [(ngModel)]="user.profession">
+        <thy-select #selectProfession (thyExpandStatusChange)="onExpandStatusChange($event)" thySize="md" [(ngModel)]="user.profession">
           <thy-option [thyValue]="'教师'" [thyLabelText]="'教师'"> </thy-option>
           <thy-option [thyValue]="'运动员'" [thyLabelText]="'运动员'"> </thy-option>
           <thy-option [thyValue]="'科学家'" [thyLabelText]="'科学家'"> </thy-option>
