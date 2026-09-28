@@ -39,8 +39,12 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' },
                     { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
                     { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' },
+                    { replace: 'ThyVoteSizes', replaceWith: 'ThyVoteSize' },
                     { replace: 'ThyTableMode', replaceWith: 'ThyTableVariant' },
-                    { replace: 'ThyVoteSizes', replaceWith: 'ThyVoteSize' }
+                    { replace: 'ThyThemeType', replaceWith: 'ThyDotAppearance' },
+                    { replace: 'ThyColorType', replaceWith: 'ThyDotColor' },
+                    { replace: 'ThySizeType', replaceWith: 'ThyDotSize' },
+                    { replace: 'ThyShapeType', replaceWith: 'ThyDotShape' }
                 ]
             }
         ]

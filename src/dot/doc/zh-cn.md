@@ -46,10 +46,10 @@ import { ThyDotModule } from "ngx-tethys/dot";
 
 <example name="thy-dot-shape-example" />
 
-### 主题 
+### 外观
 - 填充`fill`  
 - 线框`outline`
 
-<example name="thy-dot-theme-example" />
+<example name="thy-dot-appearance-example" />
 
 
