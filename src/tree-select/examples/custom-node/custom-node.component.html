@@ -1,6 +1,6 @@
 <thy-tree-select [thyTreeNodes]="treeSelectNodes" thyPlaceholder="请选择值" [(ngModel)]="selectedValue">
   <ng-template #treeNodeTemplate let-node>
-    <thy-icon class="prefix-icon" [thyIconName]="node.icon"></thy-icon>
+    <thy-icon class="prefix-icon" [thyName]="node.icon"></thy-icon>
     <span class="text-truncate">{{ node.name }}</span>
   </ng-template>
 </thy-tree-select>

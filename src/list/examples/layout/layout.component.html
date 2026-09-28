@@ -7,7 +7,7 @@
     (thySelectionChange)="selectionChange($event)">
     @for (item of gridItems; track item?.id) {
       <thy-list-option [thyValue]="$safeNavigationMigration(item?.id)">
-        <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
+        <thy-icon thyName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
         <div class="thy-grid-option-name">{{ item.name }}</div>
       </thy-list-option>
     }

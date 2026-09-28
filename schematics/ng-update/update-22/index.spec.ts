@@ -1002,6 +1002,39 @@ export class TableModeDemoComponent {
         expect(content).not.toContain('ThyTableMode');
     });
 
+    it('should migrate thy-icon deprecated inputs to new names', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/icon-inputs-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-icon-inputs-demo',
+    template: \`
+        <thy-icon thyIconName="bell" thyIconType="fill" [thyIconRotate]="rotate" thyIconLegging="true"></thy-icon>
+        <span thy-icon [thyIconName]="name" thyIconSet="myset" [thyIconLinearGradient]="linearGradient"></span>
+        <div thyIconType="twotone"></div>
+    \`
+})
+export class IconInputsDemoComponent {
+    name = 'check';
+    rotate = 90;
+    linearGradient = true;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/icon-inputs-demo.component.ts');
+        expect(content).toContain('<thy-icon thyName="bell" thyAppearance="fill" [thyRotate]="rotate" thyLegging="true"></thy-icon>');
+        expect(content).toContain('<span thy-icon [thyName]="name" thySet="myset" [thyLinearGradient]="linearGradient"></span>');
+        expect(content).toContain('<div thyIconType="twotone"></div>');
+        expect(content).not.toMatch(/<(thy-icon|span)[^>]*\bthyIcon(Name|Type|Rotate|Set|Legging|LinearGradient)\b/);
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

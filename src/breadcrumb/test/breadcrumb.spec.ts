@@ -8,7 +8,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
     template: `
-        <thy-breadcrumb [thyIcon]="thyIconName" [thySeparator]="thySeparator">
+        <thy-breadcrumb [thyIcon]="thyName" [thySeparator]="thySeparator">
             <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
             <thy-breadcrumb-item>
                 <a href="javascript:;">产品研发部</a>
@@ -17,7 +17,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
                 <a href="javascript:;">架构</a>
             </thy-breadcrumb-item>
             <thy-breadcrumb-item>
-                <a href="javascript:;">基础 <thy-icon thyIconName="angle-down"></thy-icon></a>
+                <a href="javascript:;">基础 <thy-icon thyName="angle-down"></thy-icon></a>
             </thy-breadcrumb-item>
         </thy-breadcrumb>
     `,
@@ -25,7 +25,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
     imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon]
 })
 class ThyDemoBreadcrumbBasicComponent {
-    thyIconName = `folder-fill`;
+    thyName = `folder-fill`;
     thySeparator = ``;
 }
 
@@ -84,21 +84,21 @@ describe('ThyBreadcrumb', () => {
     });
 
     it('should have correct class when change icon name', () => {
-        basicTestComponent.thyIconName = `folder-open-fill`;
+        basicTestComponent.thyName = `folder-open-fill`;
         fixture.detectChanges();
         assertBreadcrumbComponentAndItemsClass();
         assertBreadcrumbIconClass(`folder-open-fill`);
     });
 
     it('should have correct class when icon with wtf', () => {
-        basicTestComponent.thyIconName = `wtf wtf-folder1`;
+        basicTestComponent.thyName = `wtf wtf-folder1`;
         fixture.detectChanges();
         assertBreadcrumbComponentAndItemsClass();
         assertBreadcrumbIconClass(`wtf-folder1`);
     });
 
     it('should have not icon element when icon is null', () => {
-        basicTestComponent.thyIconName = ``;
+        basicTestComponent.thyName = ``;
         fixture.detectChanges();
         const breadcrumbIcon = breadcrumbComponent.nativeElement.querySelector(`thy-breadcrumb-icon`);
         expect(breadcrumbIcon).toBeNull();

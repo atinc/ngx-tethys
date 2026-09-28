@@ -25,10 +25,10 @@
     @if (isPasswordType()) {
       <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
         @if (!passwordVisible()) {
-          <thy-icon thyIconName="eye"></thy-icon>
+          <thy-icon thyName="eye"></thy-icon>
         }
         @if (passwordVisible()) {
-          <thy-icon thyIconName="eye-invisible"></thy-icon>
+          <thy-icon thyName="eye-invisible"></thy-icon>
         }
       </a>
     } @else {

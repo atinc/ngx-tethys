@@ -37,10 +37,10 @@
   <thy-header>
     <ng-template #headerTitle>
       <a class="prefix-icon" thyTooltip="Return Home" thyTooltipPlacement="bottom" href="javascript:;"
-        ><thy-icon thyIconName="house-square" thyIconType="fill"></thy-icon
+        ><thy-icon thyName="house-square" thyAppearance="fill"></thy-icon
       ></a>
-      <thy-icon class="title-separator" thyIconName="angle-right"></thy-icon>
-      <a href="javascript:;" class="title-name">Custom header<thy-icon thyIconName="angle-down"></thy-icon></a>
+      <thy-icon class="title-separator" thyName="angle-right"></thy-icon>
+      <a href="javascript:;" class="title-name">Custom header<thy-icon thyName="angle-down"></thy-icon></a>
     </ng-template>
     <ng-template #headerContent>
       <thy-nav thyVariant="pulled" thyHorizontal="center">
@@ -51,7 +51,7 @@
     <ng-template #headerOperation>
       <thy-nav thyVariant="pulled" thyHorizontal="right">
         <a thyNavItem href="javascript:;">
-          <thy-icon [thyIconName]="'settings'"></thy-icon>
+          <thy-icon [thyName]="'settings'"></thy-icon>
           Settings
         </a>
       </thy-nav>
@@ -64,10 +64,10 @@
   <thy-header thyDivided="true">
     <ng-template #headerTitle>
       <a class="prefix-icon" thyTooltip="Return Home" thyTooltipPlacement="bottom" href="javascript:;"
-        ><thy-icon thyIconName="house-square" thyIconType="fill"></thy-icon
+        ><thy-icon thyName="house-square" thyAppearance="fill"></thy-icon
       ></a>
-      <thy-icon class="title-separator" thyIconName="angle-right"></thy-icon>
-      <a href="javascript:;" class="title-name">Custom header<thy-icon thyIconName="angle-down"></thy-icon></a>
+      <thy-icon class="title-separator" thyName="angle-right"></thy-icon>
+      <a href="javascript:;" class="title-name">Custom header<thy-icon thyName="angle-down"></thy-icon></a>
       <thy-divider class="mx-2" thyColor="light" thyVertical="true"></thy-divider>
       <thy-space thySize="xxs">
         <a *thySpaceItem href="javascrpt:;" thyAction class="text-warning" thyIcon="star-fill"></a>

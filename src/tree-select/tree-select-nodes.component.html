@@ -46,9 +46,7 @@
           class="thy-tree-select-option-icon"
           [class.invisible]="!(node.children?.length > 0 || (node[childCountKey()] && node[childCountKey()] > 0))"
           (click)="nodeExpandToggle($event, node)">
-          <thy-icon
-            class="node-expand-icon"
-            [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
+          <thy-icon class="node-expand-icon" [thyName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
         </span>
         <span class="thy-tree-select-option-text" [ngClass]="{ 'ml-1': hasChildren }">
           @if (treeNodeTemplateRef()) {
@@ -58,7 +56,7 @@
           }
         </span>
         @if (isMultiple()) {
-          <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
+          <thy-icon class="checked-icon" thyName="check"></thy-icon>
         }
       </a>
     }

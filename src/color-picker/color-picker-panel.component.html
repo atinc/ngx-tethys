@@ -27,9 +27,9 @@
   </div>
 </div>
 <div class="more-color" (click)="showMoreColor($event)">
-  <thy-icon thyIconName="palette" class="mr-2"></thy-icon>
+  <thy-icon thyName="palette" class="mr-2"></thy-icon>
   <span class="font-size-sm custom-text">{{ locale().customColor }}</span>
-  <thy-icon thyDropdownMenuItemExtendIcon thyIconName="angle-right"></thy-icon>
+  <thy-icon thyDropdownMenuItemExtendIcon thyName="angle-right"></thy-icon>
 </div>
 
 <ng-template #checkIconTpl let-colorItem>
@@ -39,7 +39,7 @@
     [ngClass]="colorItem === '#FFFFFF' ? 'item-border' : ''"
     (click)="selectColor(colorItem)">
     <thy-icon
-      thyIconName="check-thick"
+      thyName="check-thick"
       class="check-icon"
       [ngClass]="
         color() === colorItem ? (getIconColor(colorItem) === 'white' ? 'checked white-check' : 'checked black-check') : ''

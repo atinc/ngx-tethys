@@ -815,7 +815,7 @@ describe('ThyTreeComponent', () => {
             (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
                 @if (data.type !== 'member') {
-                    <thy-icon class="thy-tree-node-icon" [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                    <thy-icon class="thy-tree-node-icon" [thyName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
                 }
                 <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="$safeNavigationMigration(data?.title)">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
@@ -877,7 +877,7 @@ class TestBasicTreeComponent {
         <div style="height: 300px">
             <thy-tree #tree [thyCheckable]="true" [thyMultiple]="true" [thyShowExpand]="true" [thyCheckable]="true" [(ngModel)]="mockData">
                 <ng-template #treeNodeTemplate let-node="node" let-data="origin">
-                    <thy-icon [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                    <thy-icon [thyName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
                     <div
                         class="thy-tree-node-title text-truncate"
                         thyFlexibleText
@@ -1060,7 +1060,7 @@ class TestVirtualScrollingTreeComponent implements OnInit {
             (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
                 @if (data.type !== 'member') {
-                    <thy-icon class="thy-tree-node-icon" [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                    <thy-icon class="thy-tree-node-icon" [thyName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
                 }
                 <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="$safeNavigationMigration(data?.title)">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>

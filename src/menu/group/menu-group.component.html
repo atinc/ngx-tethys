@@ -5,17 +5,17 @@
     } @else {
       <span class="thy-menu-group-title">
         @if (displayIcon()) {
-          <thy-icon class="thy-menu-group-title-icon mr-2" [thyIconName]="displayIcon()"></thy-icon>
+          <thy-icon class="thy-menu-group-title-icon mr-2" [thyName]="displayIcon()"></thy-icon>
         }
         <span class="thy-menu-group-title-text">{{ thyTitle() }}</span>
       </span>
     }
   </div>
   @if (displayActionIcon()) {
-    <thy-icon class="thy-menu-group-operation" [thyIconName]="displayActionIcon()" (click)="onActionClick($event)"></thy-icon>
+    <thy-icon class="thy-menu-group-operation" [thyName]="displayActionIcon()" (click)="onActionClick($event)"></thy-icon>
   }
   @if (thyCollapsible()) {
-    <thy-icon thyIconName="angle-up" class="thy-menu-group-arrow"></thy-icon>
+    <thy-icon thyName="angle-up" class="thy-menu-group-arrow"></thy-icon>
   }
 </div>
 <div

@@ -31,7 +31,7 @@ class PopoverHeaderTranslationComponent {}
             <ng-template #popoverHeader>
                 <div class="header-template">我是自定义头部模板</div>
                 <button type="button" class="close" (click)="close($event)">
-                    <thy-icon thyIconName="close"></thy-icon>
+                    <thy-icon thyName="close"></thy-icon>
                 </button>
             </ng-template>
         </thy-popover-header>
@@ -98,7 +98,7 @@ describe('popover-layout', () => {
             expect(closeIconNode.childElementCount).toEqual(0);
             expect(closeIconNode.nodeName).toEqual('THY-ICON');
             expect(closeIconNode.nodeType).toEqual(1);
-            expect(closeIconNode.attributes['thyiconname'].nodeValue).toEqual('close');
+            expect(closeIconNode.attributes['thyname'].nodeValue).toEqual('close');
         });
 
         it('should has correct title', () => {
