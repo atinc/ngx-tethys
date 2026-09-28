@@ -21,6 +21,7 @@ import { TagAppearanceMigration } from './tag-appearance-migration';
 import { TagShapeMigration } from './tag-shape-migration';
 import { TreeSelectIconTypeMigration } from './tree-select-icon-type-migration';
 import { VoteAppearanceMigration } from './vote-appearance-migration';
+import { VoteShapeMigration } from './vote-shape-migration';
 import { upgradeData } from './update-data';
 
 const migrations: NullableDevkitMigration[] = [
@@ -42,7 +43,8 @@ const migrations: NullableDevkitMigration[] = [
     FormControlSizeTypeMigration,
     HeaderIconPrefixMigration,
     TreeSelectIconTypeMigration,
-    VoteAppearanceMigration
+    VoteAppearanceMigration,
+    VoteShapeMigration
 ];
 
 export function createMigrate22Rule(onComplete: typeof onMigrationComplete = onMigrationComplete): Rule {

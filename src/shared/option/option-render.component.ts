@@ -47,6 +47,11 @@ export class ThyOptionRender implements Highlightable {
     readonly thyLabelText = input<string>();
 
     /**
+     * 选项前缀图标名称
+     */
+    readonly thyIcon = input<string>();
+
+    /**
      * 搜索关键字
      */
     readonly thySearchKey = input<string>();

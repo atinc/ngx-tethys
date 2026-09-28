@@ -2866,5 +2866,32 @@ describe('ThyCustomSelect', () => {
             const groupName = optionGroup.querySelector('.group-name') as HTMLElement;
             expect(groupName.innerText).toEqual(fixture.componentInstance.options[0].groupLabel as any);
         }));
+
+        it('should render prefix icon when thyOptions item has icon', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWidthThyOptionsComponent);
+            fixture.componentInstance.options = [{ label: '任务', value: 'task', icon: 'task-square-fill' }];
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const prefixIcon = overlayContainerElement.querySelector('.prefix-icon') as HTMLElement;
+            expect(prefixIcon).toBeTruthy();
+            expect(prefixIcon.classList.contains('thy-icon-task-square-fill')).toBeTruthy();
+        }));
+
+        it('should render prefix icon in select control when thyOptions item has icon and selected', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWidthThyOptionsComponent);
+            fixture.componentInstance.options = [{ label: '任务', value: 'task', icon: 'task-square-fill' }];
+            fixture.componentInstance.selectedValue = 'task';
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const selectedIcon = fixture.debugElement.nativeElement.querySelector('.selected-value .prefix-icon') as HTMLElement;
+            expect(selectedIcon).toBeTruthy();
+            expect(selectedIcon.classList.contains('thy-icon-task-square-fill')).toBeTruthy();
+        }));
     });
 });

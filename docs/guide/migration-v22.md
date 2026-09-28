@@ -800,6 +800,7 @@ ng generate ngx-tethys:migrate-22
 - `thyHasVoted` 已废弃，请使用 `thyVoted`
 - `thyVoteCount` 已废弃，请使用 `thyCount`
 - `ThyVoteSizes` 已废弃，请使用 `ThyVoteSize`
+- `thyRound` 已废弃，请使用 `thyShape`（`rectangle` | `ellipse`）
 
 | 旧写法 | 新写法 |
 |--------|--------|
@@ -811,6 +812,8 @@ ng generate ngx-tethys:migrate-22
 | `[thyVote]="'success-weak'"`（指令） | `[thyVote]="'success'" thyAppearance="subtle"` |
 | `thyHasVoted` | `thyVoted` |
 | `thyVoteCount` | `thyCount` |
+| `thyRound="true"` / `[thyRound]="true"` | `thyShape="ellipse"` |
+| `thyRound="false"` | 移除（默认 `rectangle`） |
 
 **自动迁移**
 
@@ -820,11 +823,26 @@ ng generate ngx-tethys:migrate-22
 - `thyHasVoted` → `thyVoted`（`thy-vote` / `thyVote`）
 - `thyVoteCount` → `thyCount`（`thy-vote` / `thyVote`）
 - TypeScript 中 `ThyVoteSizes` → `ThyVoteSize`
+- `thyRound="true"` / `[thyRound]="true"` → `thyShape="ellipse"`，`thyRound="false"` → 移除 thyRound
+
 
 **手动检查**
 
 - 动态绑定形如 `[thyVote]="voteType"` 且变量可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需拆分为颜色 + `thyAppearance`
 - TypeScript 中 `ThyVoteType` **不会自动替换**；请改为 `ThyVoteColor` / `ThyVoteAppearance`
+- 动态绑定形如 `[thyRound]="isRound"` **不会自动迁移**；请改为 `[thyShape]="isRound ? 'ellipse' : 'rectangle'"` 或等价写法
+
+---
+
+### 47. thy-loading
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyTip` 参数已废弃，请使用 `thyTips`
+
+**自动迁移**
+
+- `thyTip` → `thyTips`
 
 ---
 
