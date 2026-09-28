@@ -1285,3 +1285,87 @@ describe('ThyTable: sort', () => {
         expect(args3.direction).toEqual(ThyTableSortDirection.default);
     });
 });
+
+@Component({
+    selector: 'thy-demo-row-tracking-table',
+    template: `
+        <thy-table [thyVariant]="variant" thyRowKey="id" thyGroupBy="group_id" [thyModel]="model" [thyGroups]="groups">
+            <ng-template #group let-group>{{ group.id }}</ng-template>
+            <thy-table-column thyTitle="名称" thyModelKey="name"></thy-table-column>
+        </thy-table>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyTable, ThyTableColumnComponent]
+})
+class ThyDemoRowTrackingTableComponent {
+    variant = 'list';
+
+    groups = [{ id: 'g1', expand: true }];
+
+    model: { id?: number; group_id: string; name: string }[] = [
+        { id: 1, group_id: 'g1', name: 'A' },
+        { id: 2, group_id: 'g1', name: 'B' },
+        { id: 3, group_id: 'g1', name: 'C' },
+        { id: 4, group_id: 'g1', name: 'D' }
+    ];
+}
+
+describe('ThyTable: row tracking', () => {
+    let fixture!: ComponentFixture<ThyDemoRowTrackingTableComponent>;
+    let testComponent!: ThyDemoRowTrackingTableComponent;
+
+    const getRows = (): HTMLElement[] => Array.from(fixture.nativeElement.querySelectorAll('tbody tr:not(.thy-table-group)'));
+    const getText = (row: HTMLElement) => row.textContent!.trim();
+
+    function expectRowsMovedWithModel() {
+        const rowsBefore = new Map(getRows().map(row => [getText(row), row]));
+        testComponent.model = [...testComponent.model].reverse();
+        testComponent.groups = [...testComponent.groups];
+        fixture.detectChanges();
+
+        const rowsAfter = getRows();
+        expect(rowsAfter.map(getText)).toEqual(['D', 'C', 'B', 'A']);
+        rowsAfter.forEach(row => {
+            expect(row).toBe(rowsBefore.get(getText(row))!);
+        });
+    }
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [provideHttpClient(withXhr())]
+        });
+        fixture = TestBed.createComponent(ThyDemoRowTrackingTableComponent);
+        testComponent = fixture.componentInstance;
+    });
+
+    it('should move list rows with thyRowKey when model order changes', () => {
+        fixture.detectChanges();
+        expectRowsMovedWithModel();
+    });
+
+    it('should move group children with thyRowKey when model order changes', () => {
+        testComponent.variant = 'group';
+        fixture.detectChanges();
+        expectRowsMovedWithModel();
+    });
+
+    it('should fall back to index when rows have no thyRowKey value', () => {
+        const warnSpy = spyOn(console, 'warn');
+        testComponent.model = testComponent.model.map(({ id, ...row }) => row);
+        fixture.detectChanges();
+        testComponent.model = [...testComponent.model].reverse();
+        fixture.detectChanges();
+
+        expect(getRows().map(getText)).toEqual(['D', 'C', 'B', 'A']);
+        expect(warnSpy.calls.allArgs().some(args => String(args[0]).includes('NG0955'))).toBe(false);
+    });
+
+    it('should not duplicate group children when only thyModel changes', () => {
+        testComponent.variant = 'group';
+        fixture.detectChanges();
+        testComponent.model = [...testComponent.model].reverse();
+        fixture.detectChanges();
+
+        expect(getRows().map(getText)).toEqual(['D', 'C', 'B', 'A']);
+    });
+});

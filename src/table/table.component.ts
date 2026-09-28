@@ -276,6 +276,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     set thyGroups(value: SafeAny) {
         if (this.variant === 'group') {
             this.buildGroups(value);
+            this.buildModel();
         }
     }
 
@@ -637,7 +638,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     private _bindTrackFn() {
         this.trackByFn = function (this: SafeAny, index: number, row: SafeAny): SafeAny {
-            return row && this.rowKey ? row[this.rowKey] : index;
+            return (row && this.rowKey ? row[this.rowKey] : undefined) ?? index;
         }.bind(this);
     }
 
@@ -964,6 +965,9 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     private buildModel() {
         const groupsMap = keyBy(this.groups, 'id');
+        this.groups.forEach(group => {
+            group.children = [];
+        });
         this.model.forEach(row => {
             const group = groupsMap[helpers.get(row, this.groupBy)];
             if (group) {
