@@ -19,7 +19,7 @@
       [thyCustomOptions]="customOptions"
       [(ngModel)]="singleValues"
       (ngModelChange)="selectChanges($event)"
-      [thyShowSearch]="true"
+      [thySearchable]="true"
       [thyIsOnlySelectLeaf]="false">
     </thy-cascader>
   </thy-form-group>
@@ -36,7 +36,7 @@
       [thyMultiple]="true"
       (ngModelChange)="selectChanges($event)"
       [thyLabelRender]="renderTpl"
-      [thyShowSearch]="true">
+      [thySearchable]="true">
     </thy-cascader>
   </thy-form-group>
 
@@ -51,7 +51,7 @@
       (ngModelChange)="selectChanges($event)"
       [thyLabelRender]="renderTpl"
       [thyIsOnlySelectLeaf]="false"
-      [thyShowSearch]="true">
+      [thySearchable]="true">
     </thy-cascader>
   </thy-form-group>
 </form>

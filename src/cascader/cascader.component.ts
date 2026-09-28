@@ -301,7 +301,15 @@ export class ThyCascader
     /**
      * 是否支持搜索
      */
+    readonly thySearchable = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否支持搜索（已废弃，将在 v23 彻底删除），请使用 `thySearchable`
+     * @deprecated please use thySearchable, will be removed in v23
+     */
     readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
+
+    readonly searchable = computed(() => this.thySearchable() || this.thyShowSearch());
 
     /**
      * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
@@ -352,7 +360,13 @@ export class ThyCascader
     readonly thyExpandStatusChange = output<boolean>();
 
     /**
-     * 搜索时回调
+     * 搜索输入变化时回调
+     */
+    readonly thyInputChange = output<string>();
+
+    /**
+     * 搜索输入变化时回调（已废弃，将在 v23 彻底删除），请使用 `thyInputChange`
+     * @deprecated please use thyInputChange, will be removed in v23
      */
     readonly thyOnSearch = output<string>();
 
@@ -812,6 +826,7 @@ export class ThyCascader
                 filter(text => text !== '')
             )
             .subscribe(searchText => {
+                this.thyInputChange.emit(searchText);
                 this.thyOnSearch.emit(searchText);
                 this.resetSearch();
 

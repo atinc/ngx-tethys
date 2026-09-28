@@ -8,13 +8,9 @@ import { ThyVote } from 'ngx-tethys/vote';
     imports: [ThyVote]
 })
 export class ThyVoteBasicExampleComponent {
-    vote_count = 5;
+    voted = signal<boolean>(true);
 
-    vote_count1 = 134;
-
-    hasVoted = signal<boolean>(true);
-
-    toggleVote(event: Event) {
-        this.hasVoted.set(!this.hasVoted());
+    toggleVote() {
+        this.voted.set(!this.voted());
     }
 }

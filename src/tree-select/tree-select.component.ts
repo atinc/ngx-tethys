@@ -161,14 +161,14 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     readonly thyTreeNodes = input<ThyTreeSelectNode[]>([]);
 
     treeNodes = computed(() => {
-        if (this.thyServerSearch()) {
+        if (this.serverSearchable()) {
             return this.thyTreeNodes();
         }
         return filterTreeData(this.thyTreeNodes(), this.searchText(), this.thyShowKey());
     });
 
     /**
-     * 开启虚拟滚动
+     * 是否开启虚拟滚动
      */
     readonly thyVirtualScroll = input(false, { transform: coerceBooleanProperty });
 
@@ -187,10 +187,18 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
     readonly thyChildCountKey = input('childCount');
 
     /**
-     * 单选时，是否显示清除按钮，当为 true 时，显示清除按钮
+     * 是否显示清除按钮，当为 true 时，显示清除按钮
      * @default false
      */
+    readonly thyClearable = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否显示清除按钮，当为 true 时，显示清除按钮（已废弃，将在 v23 彻底删除），请使用 `thyClearable`
+     * @deprecated please use thyClearable, will be removed in v23
+     */
     readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
+
+    readonly clearable = computed(() => this.thyClearable() || this.thyAllowClear());
 
     /**
      * 是否多选
@@ -266,24 +274,55 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
      * 是否展示搜索
      * @type boolean
      */
+    readonly thySearchable = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否展示搜索（已废弃，将在 v23 彻底删除），请使用 `thySearchable`
+     * @deprecated please use thySearchable, will be removed in v23
+     */
     readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
+
+    readonly searchable = computed(() => this.thySearchable() || this.thyShowSearch());
 
     /**
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
      * @type boolean
      */
-    readonly thyServerSearch = input(false, { transform: coerceBooleanProperty });
+    readonly thyServerSearchable = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 搜索时回调
+     * 是否使用服务端搜索（已废弃，将在 v23 彻底删除），请使用 `thyServerSearchable`
+     * @deprecated please use thyServerSearchable, will be removed in v23
+     */
+    readonly thyServerSearch = input(false, { transform: coerceBooleanProperty });
+
+    readonly serverSearchable = computed(() => this.thyServerSearchable() || this.thyServerSearch());
+
+    /**
+     * 搜索输入变化时回调
+     */
+    readonly thyInputChange = output<string>();
+
+    /**
+     * 搜索输入变化时回调（已废弃，将在 v23 彻底删除），请使用 `thyInputChange`
+     * @deprecated please use thyInputChange, will be removed in v23
      */
     readonly thyOnSearch = output<string>();
 
     /**
-     * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
-     * @type boolean
+     * 是否处于异步加载中，默认 `false` 表示未在加载
      */
-    readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
+    readonly thyLoading = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 异步加载 loading 状态（已废弃，将在 v23 彻底删除），请使用 `thyLoading`，与 `thyLoading` 语义相反
+     * @deprecated please use thyLoading, will be removed in v23
+     */
+    readonly thyLoadState = input(undefined, {
+        transform: (value: boolean | undefined) => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
+    });
+
+    readonly isLoading = computed(() => this.thyLoading() || (this.thyLoadState() !== undefined && !this.thyLoadState()));
 
     /**
      * 设置是否隐藏节点(不可进行任何操作),优先级低于 thyHiddenNodeKey。
@@ -395,7 +434,8 @@ export class ThyTreeSelect extends TabIndexDisabledControlValueAccessorMixin imp
 
     searchValue(searchText: string) {
         this.searchText.set(searchText.trim());
-        if (this.thyServerSearch()) {
+        if (this.serverSearchable()) {
+            this.thyInputChange.emit(searchText);
             this.thyOnSearch.emit(searchText);
         }
     }

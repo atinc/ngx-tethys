@@ -18,6 +18,8 @@ export type ThyVoteType = 'primary' | 'success' | 'primary-weak' | 'success-weak
 
 export type ThyVoteLayout = 'vertical' | 'horizontal';
 
+export type ThyVoteShape = 'rectangle' | 'ellipse';
+
 /**
  * 投票组件
  * @name thy-vote,[thyVote]
@@ -47,14 +49,14 @@ export class ThyVote {
     });
 
     /**
-     * 颜色，一般使用`thyVote`指令写法
+     * 颜色，用于 [thyVote] 指令写法
      * @type primary | success
      * @default primary
      */
     readonly thyVote = input<ThyVoteColor | ThyVoteType>();
 
     /**
-     * 颜色，一般使用`thyVote`指令写法；通过`thy-vote`组件使用时，使用该参数控制颜色
+     * 颜色，用于组件 thy-vote 写法，优先级高于 thyVote
      * @type primary | success
      * @default primary
      */
@@ -68,7 +70,15 @@ export class ThyVote {
     readonly thyAppearance = input<ThyVoteAppearance>('fill');
 
     /**
-     * 是否是偏圆型
+     * 形状
+     * @type rectangle | ellipse
+     * @default rectangle
+     */
+    readonly thyShape = input<ThyVoteShape>();
+
+    /**
+     * 是否是偏圆型（已废弃，将在 v23 彻底移除），请使用 thyShape
+     * @deprecated please use thyShape, will be remove in v23
      */
     readonly thyRound = input(false, { transform: coerceBooleanProperty });
 
@@ -122,6 +132,14 @@ export class ThyVote {
 
     readonly voted = computed(() => this.thyVoted() || this.thyHasVoted());
 
+    readonly shape = computed(() => {
+        const shape = this.thyShape();
+        if (shape) {
+            return shape;
+        }
+        return this.thyRound() ? 'ellipse' : 'rectangle';
+    });
+
     private readonly resolved = computed(() => {
         const appearanceInput = this.thyAppearance() || 'fill';
         // Prefer thyVote (directive) then thyColor (component), like button: thyButton || thyColor
@@ -150,7 +168,7 @@ export class ThyVote {
         const classNames = [];
         const { color, appearance } = this.resolved();
 
-        if (this.thyRound()) {
+        if (this.shape() === 'ellipse') {
             classNames.push('thy-vote-round');
         }
         classNames.push(appearance === 'fill' ? `thy-vote-${color}` : `thy-vote-${color}-${appearance}`);

@@ -120,8 +120,8 @@ export class TestFormFullComponent {
                         thyPlaceholder="请选择"
                         formControlName="customersSelect"
                         name="customersSelect"
-                        [thyShowSearch]="true"
-                        [thyAllowClear]="true">
+                        [thySearchable]="true"
+                        [thyClearable]="true">
                         @for (option of listOfOption; track option.value) {
                             <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
                         }

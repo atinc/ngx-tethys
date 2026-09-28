@@ -3,7 +3,7 @@
   thyPrimaryKey="key"
   thyShowKey="title"
   thyPlaceholder="请选择树选择的值"
-  [thyAllowClear]="moreSetting.isAllowClear"
+  [thyClearable]="moreSetting.isAllowClear"
   [thyDisable]="moreSetting.isDisabled"
   [thyMultiple]="moreSetting.isMultiple"
   thyHiddenNodeKey="hidden"
@@ -16,7 +16,7 @@
 </thy-tree-select>
 <h6 class="my-3">是否可以清除选择：</h6>
 <p>
-  通过改变 <code>thyAllowClear </code> 的值来支持清除已选项:
+  通过改变 <code>thyClearable</code> 的值来支持清除已选项:
   <thy-switch [(ngModel)]="moreSetting.isAllowClear"></thy-switch>
 </p>
 

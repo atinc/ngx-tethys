@@ -345,6 +345,43 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyShowSearch',
+                        replaceWith: 'thySearchable',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select', 'thy-cascader'],
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyServerSearch',
+                        replaceWith: 'thyServerSearchable',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select']
+                        }
+                    },
+                    {
+                        replace: 'thyAllowClear',
+                        replaceWith: 'thyClearable',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select', 'thy-native-select'],
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyEmptySearchMessageText',
+                        replaceWith: 'thySearchEmptyText',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select']
+                        }
+                    },
+                    {
+                        replace: 'thyIsMultiple',
+                        replaceWith: 'thyMultiple',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
                         replace: 'thyAutocompleteComponent',
                         replaceWith: 'thyAutocomplete',
                         limitedTo: {
@@ -386,6 +423,49 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyClear',
                         limitedTo: {
                             elements: ['thy-input-search']
+                        }
+                    },
+                    {
+                        replace: 'thyOnSearch',
+                        replaceWith: 'thyInputChange',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select', 'thy-cascader'],
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyOnScrollToBottom',
+                        replaceWith: 'thyScrollToBottom',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select']
+                        }
+                    },
+                    {
+                        replace: 'thyOnExpandStatusChange',
+                        replaceWith: 'thyExpandStatusChange',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select']
+                        }
+                    },
+                    {
+                        replace: 'thyOnRemove',
+                        replaceWith: 'thyRemove',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyOnClear',
+                        replaceWith: 'thyClear',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyOnBlur',
+                        replaceWith: 'thyBlur',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
                         }
                     }
                 ]
