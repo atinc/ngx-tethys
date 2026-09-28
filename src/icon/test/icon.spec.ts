@@ -298,7 +298,7 @@ describe('ThyIconComponent', () => {
             const fixture = TestBed.createComponent(ThyIconTestBooleanPrecedenceComponent);
             fixture.detectChanges();
             const icon: ThyIcon = fixture.debugElement.query(By.directive(ThyIcon)).componentInstance;
-            expect(icon.legging()).toBeFalse();
+            expect(icon.legging()).toBe(false);
         });
     });
 });

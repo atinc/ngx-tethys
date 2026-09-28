@@ -25,10 +25,7 @@
 <ng-template #rightIcon>
   @if (!thyDisabled() && thyAllowClear() && !thyReadonly() && showText()) {
     <span class="{{ prefixCls }}-clear">
-      <thy-icon
-        thyName="close-circle-bold-fill"
-        (click)="onClearTime($event)"
-        ngClass="remove-link remove-link-{{ thySize() }}"></thy-icon>
+      <thy-icon thyName="close-circle-bold-fill" (click)="onClearTime($event)" ngClass="remove-link remove-link-{{ thySize() }}"></thy-icon>
     </span>
   }
   <span class="{{ prefixCls }}-icon">
