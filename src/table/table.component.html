@@ -83,7 +83,7 @@
               </td>
             </tr>
             @if (group.children?.length && group.expand) {
-              @for (row of group.children; track $index; let i = $index) {
+              @for (row of group.children; track trackByFn($index, row); let i = $index) {
                 <ng-template
                   [ngTemplateOutlet]="trTemplate"
                   [ngTemplateOutletContext]="{
@@ -97,7 +97,7 @@
         }
         <!-- list模式下没有直接使用item模板，是因为使用了模板影响了Angular的依赖树，导致CdkDragDrop排序失效，目前这样修改可以暂时解决线上不能排序的问题，Tree模式的排序暂时不支持 -->
         @if (variant === 'list') {
-          @for (row of model; track $index; let i = $index) {
+          @for (row of model; track trackByFn($index, row); let i = $index) {
             <tr
               #rows
               class="thy-sortable-item"

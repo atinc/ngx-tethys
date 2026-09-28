@@ -539,7 +539,8 @@ export const upgradeData: UpgradeData = {
                     { replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' },
                     { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' },
                     { replace: 'thy-vote-primary-weak', replaceWith: 'thy-vote-primary-subtle' },
-                    { replace: 'thy-vote-success-weak', replaceWith: 'thy-vote-success-subtle' }
+                    { replace: 'thy-vote-success-weak', replaceWith: 'thy-vote-success-subtle' },
+                    { replace: 'thy-tag-pill', replaceWith: 'thy-tag-ellipse' }
                 ]
             }
         ]

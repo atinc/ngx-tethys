@@ -19,6 +19,7 @@ import { SelectBorderlessMigration } from './select-borderless-migration';
 import { SelectPropsMigration } from './select-props-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
+import { TagShapeMigration } from './tag-shape-migration';
 import { TreeSelectIconTypeMigration } from './tree-select-icon-type-migration';
 import { VoteAppearanceMigration } from './vote-appearance-migration';
 import { VoteShapeMigration } from './vote-shape-migration';
@@ -30,6 +31,7 @@ const migrations: NullableDevkitMigration[] = [
     DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,
+    TagShapeMigration,
     InputSearchAppearanceMigration,
     SelectBorderlessMigration,
     SelectPropsMigration,
