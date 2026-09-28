@@ -943,6 +943,65 @@ export class TableThemeDemoComponent {
         expect(content).not.toContain('ThyTableTheme');
     });
 
+    it('should migrate thyMode to thyVariant for thy-table', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/table-variant-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-table-variant-demo',
+    template: \`
+        <thy-table [thyModel]="model" thyMode="tree"></thy-table>
+        <thy-table [thyModel]="model" [thyMode]="mode"></thy-table>
+        <thy-segment thyMode="block"></thy-segment>
+    \`
+})
+export class TableVariantDemoComponent {
+    model = [];
+    mode = 'group';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/table-variant-demo.component.ts');
+        expect(content).toContain('<thy-table [thyModel]="model" thyVariant="tree"></thy-table>');
+        expect(content).toContain('<thy-table [thyModel]="model" [thyVariant]="mode"></thy-table>');
+        expect(content).toContain('<thy-segment thyMode="block"></thy-segment>');
+        expect(content).not.toMatch(/<thy-table[^>]*\bthyMode\b/);
+    });
+
+    it('should migrate ThyTableMode to ThyTableVariant', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/table-mode-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyTableMode } from 'ngx-tethys/table';
+
+@Component({
+    selector: 'app-table-mode-demo',
+    template: ''
+})
+export class TableModeDemoComponent {
+    variant: ThyTableMode = 'tree';
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/table-mode-demo.component.ts');
+        expect(content).toContain("import { ThyTableVariant } from 'ngx-tethys/table';");
+        expect(content).toContain("variant: ThyTableVariant = 'tree';");
+        expect(content).not.toContain('ThyTableMode');
+    });
+
     it('should migrate thyContext to thyContent for thy-badge', async () => {
         const factory = createTestWorkspaceFactory(schematicRunner);
         await factory.create();

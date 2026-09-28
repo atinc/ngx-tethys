@@ -70,7 +70,7 @@ import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared
 import { ThyIcon } from 'ngx-tethys/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { ThyTableColumnSkeletonType } from './enums';
-import { ThyTableAppearance, ThyTableMode, ThyTableSize, ThyTableTheme } from './table.type';
+import { ThyTableAppearance, ThyTableMode, ThyTableSize, ThyTableTheme, ThyTableVariant } from './table.type';
 
 export enum ThyFixedDirection {
     left = 'left',
@@ -171,7 +171,13 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public groupBy!: string;
 
-    public mode: ThyTableMode = 'list';
+    private _variant?: ThyTableVariant;
+
+    private _mode?: ThyTableMode;
+
+    public get mode(): ThyTableVariant {
+        return this._variant || this._mode || 'list';
+    }
 
     public className = '';
 
@@ -226,17 +232,28 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     @ViewChildren('rows', { read: ElementRef }) rows!: QueryList<ElementRef<HTMLElement>>;
 
     /**
-     * 表格展示方式，列表/分组/树
+     * 表格展示形态，列表/分组/树
+     * @type list | group | tree
+     * @default list
+     */
+    @Input()
+    set thyVariant(value: ThyTableVariant) {
+        this._variant = value;
+    }
+
+    /**
+     * 表格展示方式（已废弃，将在 v23 彻底删除），请使用 thyVariant
+     * @deprecated please use thyVariant, will be removed in v23
      * @type list | group | tree
      * @default list
      */
     @Input()
     set thyMode(value: ThyTableMode) {
-        this.mode = value || this.mode;
+        this._mode = value;
     }
 
     /**
-     * thyMode的值为 `group` 时分组的 Key
+     * thyVariant 的值为 `group` 时分组的 Key
      */
     @Input()
     set thyGroupBy(value: string) {
@@ -451,12 +468,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     /**
-     * thyMode 为 tree 时，设置 Tree 树状数据展示时的缩进
+     * thyVariant 为 tree 时，设置 Tree 树状数据展示时的缩进
      */
     @Input({ transform: numberAttribute }) thyIndent = 20;
 
     /**
-     * thyMode 为 tree 时，设置 Tree 树状数据对象中的子节点 Key
+     * thyVariant 为 tree 时，设置 Tree 树状数据对象中的子节点 Key
      * @type string
      */
     @Input() thyChildrenKey = 'children';
@@ -1079,10 +1096,10 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
             this._setClass();
         }
 
-        const modeChange = simpleChanges.thyMode;
+        const variantChange = simpleChanges.thyVariant || simpleChanges.thyMode;
         const thyGroupsChange = simpleChanges.thyGroups;
-        const isGroupMode = modeChange && modeChange.currentValue === 'group';
-        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
+        const isGroupVariant = variantChange && this.mode === 'group';
+        if (isGroupVariant && thyGroupsChange && thyGroupsChange.firstChange) {
             this.buildGroups(thyGroupsChange.currentValue);
             this.buildModel();
         }
