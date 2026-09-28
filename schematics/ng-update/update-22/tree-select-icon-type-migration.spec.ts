@@ -30,19 +30,6 @@ describe('ng-update v22 tree select icon type migration', () => {
         expect(content).not.toContain('thyIconType');
     });
 
-    it('should rename thyIconType to thyAppearance on thy-icon instead of removing it', async () => {
-        const templatePath = '/projects/update-22-test/src/app/app.html';
-        tree.overwrite(templatePath, `<thy-icon thyIconName="bell" thyIconType="fill"></thy-icon>`);
-
-        const result = await migrate(tree);
-        const content = result.readContent(templatePath);
-
-        expect(content).toContain('thyAppearance="fill"');
-        expect(content).toContain('thyName="bell"');
-        expect(content).not.toContain('thyIconType');
-        expect(content).not.toContain('thyIconName');
-    });
-
     it('should migrate inline templates', async () => {
         const componentPath = '/projects/update-22-test/src/app/inline.component.ts';
         tree.create(

@@ -1,7 +1,7 @@
 @if (svgIconName() || iconClasses()) {
   <div class="thy-breadcrumb-icon">
     @if (svgIconName()) {
-      <thy-icon [thyIconName]="svgIconName()"></thy-icon>
+      <thy-icon [thyName]="svgIconName()"></thy-icon>
     } @else {
       <i [ngClass]="iconClasses()"></i>
     }
@@ -40,7 +40,7 @@
     <ng-template *ngTemplateOutlet="itemTemplate(); context: { $implicit: item }"></ng-template>
   } @else {
     @if (item?.icon) {
-      <thy-icon [thyIconName]="item.icon" class="mr-2"></thy-icon>
+      <thy-icon [thyName]="item.icon" class="mr-2"></thy-icon>
     }
     @if (item?.name) {
       <span>{{ item.name }}</span>

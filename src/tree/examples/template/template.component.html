@@ -1,6 +1,6 @@
 <thy-tree #tree [thyNodes]="treeNodes">
   <ng-template #treeNodeTemplate let-node="node" let-department="origin">
-    <thy-icon class="thy-tree-node-icon" [thyIconName]="node?.isExpanded ? 'folder-fill' : 'folder-open-fill'"></thy-icon>
+    <thy-icon class="thy-tree-node-icon" [thyName]="node?.isExpanded ? 'folder-fill' : 'folder-open-fill'"></thy-icon>
     <div class="thy-tree-node-title">
       {{ department?.title }}
     </div>

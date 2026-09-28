@@ -3,7 +3,7 @@
     <ng-template [ngTemplateOutlet]="titleTemplateRef()"></ng-template>
   } @else {
     @if (thyIcon()) {
-      <thy-icon class="prefix-icon" [thyIconName]="thyIcon()"></thy-icon>
+      <thy-icon class="prefix-icon" [thyName]="thyIcon()"></thy-icon>
     }
     <span class="title-name">{{ thyTitle() }}</span>
   }

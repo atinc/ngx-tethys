@@ -10,7 +10,7 @@
         <thy-list-option class="thy-transfer-list-content-item" [thyValue]="item">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">
-              <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
+              <thy-icon thyName="scrum-fill" [style.color]="item.color"></thy-icon>
               <span>
                 {{ item.name }}
               </span>
@@ -26,12 +26,12 @@
         <thy-list-item class="thy-transfer-list-content-item">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">
-              <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
+              <thy-icon thyName="scrum-fill" [style.color]="item.color"></thy-icon>
               <span>
                 {{ item.name }}
               </span>
             </div>
-            <thy-icon class="item-status" (click)="remove(item)" thyIconName="close"></thy-icon>
+            <thy-icon class="item-status" (click)="remove(item)" thyName="close"></thy-icon>
           </div>
         </thy-list-item>
       }
@@ -42,7 +42,7 @@
         <thy-list-item class="thy-transfer-list-content-item">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">
-              <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
+              <thy-icon thyName="scrum-fill" [style.color]="item.color"></thy-icon>
               <span>
                 {{ item.name }}
               </span>

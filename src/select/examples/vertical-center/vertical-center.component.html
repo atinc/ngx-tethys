@@ -75,7 +75,7 @@
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <span thyText class="text-truncate">
-          <thy-icon thyIconName="bell" class="mr-2 text-muted"></thy-icon>
+          <thy-icon thyName="bell" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ option?.text }}</span>
         </span>
       </thy-option>
@@ -86,7 +86,7 @@
       }
       @if (value) {
         <span thyText class="w-100 text-truncate">
-          <thy-icon thyIconName="bell" class="mr-2 text-muted"></thy-icon>
+          <thy-icon thyName="bell" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ value?.text }}</span>
         </span>
       }
@@ -115,7 +115,7 @@
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
         <span thyText class="text-truncate">
-          <thy-icon thyIconName="bell" class="mr-2 text-muted"></thy-icon>
+          <thy-icon thyName="bell" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ option?.text }}</span>
         </span>
       </thy-option>
@@ -126,7 +126,7 @@
       }
       @if (value) {
         <span thyText class="w-100 text-truncate">
-          <thy-icon thyIconName="bell" [style.fontSize]="'12px'" class="mr-2 text-muted"></thy-icon>
+          <thy-icon thyName="bell" [style.fontSize]="'12px'" class="mr-2 text-muted"></thy-icon>
           <span class="text-truncate">{{ value?.text }}</span>
         </span>
       }

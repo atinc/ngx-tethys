@@ -285,6 +285,22 @@ describe('ThyIconComponent', () => {
             expect(icon.appearance()).toEqual('fill');
         });
     });
+
+    describe('New input precedence for booleans', () => {
+        @Component({
+            template: `<thy-icon [thyLegging]="false" [thyIconLegging]="true" thyName="check"></thy-icon>`,
+            changeDetection: ChangeDetectionStrategy.Eager,
+            imports: [ThyIconModule]
+        })
+        class ThyIconTestBooleanPrecedenceComponent {}
+
+        it('should prefer thyLegging over thyIconLegging when both are bound', () => {
+            const fixture = TestBed.createComponent(ThyIconTestBooleanPrecedenceComponent);
+            fixture.detectChanges();
+            const icon: ThyIcon = fixture.debugElement.query(By.directive(ThyIcon)).componentInstance;
+            expect(icon.legging()).toBeFalse();
+        });
+    });
 });
 
 describe('IconRegistry', () => {

@@ -370,17 +370,17 @@ describe('invalid dropdown', () => {
         <thy-dropdown-menu [thyWidth]="width" #menu>
             <thy-dropdown-menu-divider></thy-dropdown-menu-divider>
             <a thyDropdownMenuItem href="javascript:;">
-                <thy-icon thyDropdownMenuItemIcon thyIconName="sort"></thy-icon>
+                <thy-icon thyDropdownMenuItemIcon thyName="sort"></thy-icon>
                 <span thyDropdownMenuItemName>Sort</span>
                 <span thyDropdownMenuItemMeta>(Default Sort)</span>
                 <div thyDropdownMenuItemDesc>
                     By default, you can drag and drop work item; other sorting can only be displayed and cannot be dragged
                 </div>
-                <thy-icon thyDropdownMenuItemExtendIcon thyIconName="sort"></thy-icon>
+                <thy-icon thyDropdownMenuItemExtendIcon thyName="sort"></thy-icon>
             </a>
             <thy-dropdown-menu-group thyTitle="Group1">
                 <a thyDropdownMenuItem href="javascript:;">
-                    <thy-icon thyDropdownMenuItemIcon thyIconName="plus"></thy-icon>
+                    <thy-icon thyDropdownMenuItemIcon thyName="plus"></thy-icon>
                     <span thyDropdownMenuItemName>New</span>
                 </a>
             </thy-dropdown-menu-group>
@@ -392,7 +392,7 @@ describe('invalid dropdown', () => {
                 [thyColor]="color"
                 [thyType]="type"
                 [thyDisabled]="disabled">
-                <thy-icon thyDropdownMenuItemIcon thyIconName="plus"></thy-icon>
+                <thy-icon thyDropdownMenuItemIcon thyName="plus"></thy-icon>
                 <span thyDropdownMenuItemName>New</span>
             </a>
         </thy-dropdown-menu>

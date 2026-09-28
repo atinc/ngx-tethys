@@ -1,6 +1,6 @@
 <div class="thy-alert-content">
   @if (icon()) {
-    <thy-icon class="thy-alert-icon" [thyIconName]="icon()"></thy-icon>
+    <thy-icon class="thy-alert-icon" [thyName]="icon()"></thy-icon>
   }
   @if (appearance() === 'naked') {
     <span class="thy-alert-tips">Tips： </span>
@@ -18,6 +18,6 @@
 </div>
 @if (thyCloseable()) {
   <a href="javascript:;" class="thy-alert-close" (click)="closeAlert()">
-    <thy-icon thyIconName="close"></thy-icon>
+    <thy-icon thyName="close"></thy-icon>
   </a>
 }

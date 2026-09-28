@@ -18,7 +18,7 @@
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name" [thyExpand]="true">
     <ng-template #cell let-row>
-      <thy-icon class="broad-icon wiki-page-icon text-desc" thyIconName="file"></thy-icon>
+      <thy-icon class="broad-icon wiki-page-icon text-desc" thyName="file"></thy-icon>
       <span class="ml-2">{{ row?.name }}</span>
     </ng-template>
   </thy-table-column>

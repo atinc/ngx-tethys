@@ -33,7 +33,7 @@
             @if (!thyDisabled()) {
               <div class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
                 <span>
-                  <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+                  <thy-icon thyName="close" class="font-size-sm"></thy-icon>
                 </span>
               </div>
             }
@@ -50,7 +50,7 @@
             <div class="text-truncate h-100 d-flex align-items-center">
               @if (!customDisplayTemplate()) {
                 @if (item?.thyIcon) {
-                  <thy-icon class="prefix-icon" [thyIconName]="item.thyIcon"></thy-icon>
+                  <thy-icon class="prefix-icon" [thyName]="item.thyIcon"></thy-icon>
                 }
                 <thy-flexible-text [thyTooltipContent]="$safeNavigationMigration(item?.thyLabelText)" class="text-truncate h-100">
                   {{ item?.thyLabelText }}
@@ -64,7 +64,7 @@
             @if (!thyDisabled()) {
               <div class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
                 <span>
-                  <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+                  <thy-icon thyName="close" class="font-size-sm"></thy-icon>
                 </span>
               </div>
             }
@@ -91,7 +91,7 @@
       <div class="selected-value text-truncate" [ngStyle]="selectedValueStyle()">
         @if (!customDisplayTemplate()) {
           @if (thySelectedOptions()?.thyIcon) {
-            <thy-icon class="prefix-icon" [thyIconName]="thySelectedOptions().thyIcon"></thy-icon>
+            <thy-icon class="prefix-icon" [thyName]="thySelectedOptions().thyIcon"></thy-icon>
           }
           <span class="text-truncate">{{ thySelectedOptions()?.thyLabelText }}</span>
         } @else {
@@ -109,11 +109,11 @@
   }
 </div>
 <span class="select-control-arrow">
-  <thy-icon thyIconName="angle-down" class="font-size-base"></thy-icon>
+  <thy-icon thyName="angle-down" class="font-size-base"></thy-icon>
 </span>
 @if (showClearIcon()) {
   <span class="select-control-clear remove-link" (click)="clearHandle($event)">
-    <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
+    <thy-icon class="remove-link-icon font-size-base" thyName="close-circle-bold-fill"></thy-icon>
   </span>
 }
 

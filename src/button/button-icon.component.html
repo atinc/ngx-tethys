@@ -1,5 +1,5 @@
 @if (svgIconName()) {
-  <thy-icon [thyIconName]="svgIconName()" [style.color]="thyColor()" [style.borderColor]="thyColor()"></thy-icon>
+  <thy-icon [thyName]="svgIconName()" [style.color]="thyColor()" [style.borderColor]="thyColor()"></thy-icon>
 } @else {
   @if (iconClasses()) {
     <i [ngClass]="iconClasses()" [style.color]="thyColor()" [style.borderColor]="thyColor()"></i>

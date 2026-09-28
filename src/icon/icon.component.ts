@@ -89,6 +89,7 @@ export class ThyIcon {
 
     /**
      * 图标的名字
+     * @description 与已废弃的 `thyIconName` 二选一，至少提供一个，否则不会渲染图标
      */
     readonly thyName = input<string>();
 
@@ -122,7 +123,9 @@ export class ThyIcon {
     /**
      * 图标打底色，镂空的图标，会透过颜色来
      */
-    readonly thyLegging = input(false, { transform: coerceBooleanProperty });
+    readonly thyLegging = input<boolean | undefined>(undefined, {
+        transform: (value: boolean | undefined) => (value === undefined ? undefined : coerceBooleanProperty(value))
+    });
 
     /**
      * 图标打底色（已废弃，将在 v23 彻底删除），镂空的图标，会透过颜色来，请使用 thyLegging
@@ -130,7 +133,9 @@ export class ThyIcon {
      */
     readonly thyIconLegging = input(false, { transform: coerceBooleanProperty });
 
-    readonly thyLinearGradient = input(false, { transform: coerceBooleanProperty });
+    readonly thyLinearGradient = input<boolean | undefined>(undefined, {
+        transform: (value: boolean | undefined) => (value === undefined ? undefined : coerceBooleanProperty(value))
+    });
 
     /**
      * 是否支持 Safari SVG LinearGradient（已废弃，将在 v23 彻底删除），请使用 thyLinearGradient
@@ -146,9 +151,9 @@ export class ThyIcon {
 
     readonly set = computed(() => this.thySet() ?? this.thyIconSet());
 
-    readonly legging = computed(() => this.thyLegging() || this.thyIconLegging());
+    readonly legging = computed(() => this.thyLegging() ?? this.thyIconLegging());
 
-    readonly linearGradient = computed(() => this.thyLinearGradient() || this.thyIconLinearGradient());
+    readonly linearGradient = computed(() => this.thyLinearGradient() ?? this.thyIconLinearGradient());
 
     private hostRenderer = useHostRenderer();
 

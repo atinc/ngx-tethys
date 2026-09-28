@@ -5,11 +5,11 @@
         <thy-list-item class="thy-transfer-list-content-item" (click)="select(item, selectItem, unselectItem)">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">
-              <thy-icon thyIconName="scrum-fill"></thy-icon>
+              <thy-icon thyName="scrum-fill"></thy-icon>
               <span> {{ item.title }} </span>
             </div>
             @if (item.direction === 'right') {
-              <thy-icon class="item-status" thyIconName="check"></thy-icon>
+              <thy-icon class="item-status" thyName="check"></thy-icon>
             }
           </div>
         </thy-list-item>
@@ -22,10 +22,10 @@
         <thy-list-item class="thy-transfer-list-content-item" (click)="select(item, selectItem, unselectItem)">
           <div class="d-flex flex-grow-1 align-items-center">
             <div class="item-name">
-              <thy-icon thyIconName="scrum-fill"></thy-icon>
+              <thy-icon thyName="scrum-fill"></thy-icon>
               <span> {{ item.title }} </span>
             </div>
-            <thy-icon class="item-status" thyIconName="close"></thy-icon>
+            <thy-icon class="item-status" thyName="close"></thy-icon>
           </div>
         </thy-list-item>
       }

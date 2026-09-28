@@ -3,7 +3,7 @@
     @if (arrowIconTemplate()) {
       <ng-template [ngTemplateOutlet]="arrowIconTemplate()"></ng-template>
     } @else {
-      <thy-icon [thyIconName]="arrowIcon() || 'angle-right'" class="thy-collapse-icon" [thyIconRotate]="thyActive() ? -90 : 0"></thy-icon>
+      <thy-icon [thyName]="arrowIcon() || 'angle-right'" class="thy-collapse-icon" [thyRotate]="thyActive() ? -90 : 0"></thy-icon>
     }
   }
 

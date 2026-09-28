@@ -2,10 +2,10 @@
   <ng-container *ngTemplateOutlet="thyTemplate(); context: thyTemplateContext()"></ng-container>
 } @else {
   @if (thyIcon()) {
-    <thy-icon class="prefix-icon" [thyIconName]="thyIcon()"></thy-icon>
+    <thy-icon class="prefix-icon" [thyName]="thyIcon()"></thy-icon>
   }
   <span class="text-truncate">{{ thyLabelText() }}</span>
 }
 @if (thyShowCheckedIcon() && selected()) {
-  <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
+  <thy-icon class="checked-icon" thyName="check"></thy-icon>
 }

@@ -12,9 +12,9 @@
   [class.thy-select-selection-allow-clear]="thyAllowClear()">
   <ng-content></ng-content>
 </select>
-<thy-icon thyIconName="angle-down"></thy-icon>
+<thy-icon thyName="angle-down"></thy-icon>
 @if (thyAllowClear() && innerValue()) {
   <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)">
-    <thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon>
+    <thy-icon class="remove-link-icon" thyName="close-circle-bold-fill"></thy-icon>
   </a>
 }

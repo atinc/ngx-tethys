@@ -12,7 +12,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
         <thy-tag id="color" [thyColor]="color">Tag 1</thy-tag>
         <thy-tag id="appearance" [thyColor]="color" [thyAppearance]="appearance">Tag 8</thy-tag>
         <thy-tag id="shape" [thyShape]="shape">Tag 3</thy-tag>
-        <thy-tag id="icon"> <thy-icon class="text-primary" thyIconName="smile"></thy-icon>Tag 4 </thy-tag>
+        <thy-tag id="icon"> <thy-icon class="text-primary" thyName="smile"></thy-icon>Tag 4 </thy-tag>
         <thy-tag id="size" [thySize]="size">Tag 5</thy-tag>
         <thy-tag id="custom" thyColor="#56abfb">Tag 6</thy-tag>
         <thy-tag id="hoverable" [thyHoverable]="hoverable">Tag 7</thy-tag>

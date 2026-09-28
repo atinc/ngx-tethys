@@ -2,7 +2,7 @@
 <thy-list cdkDropList (cdkDropListDropped)="sort($event)">
   @for (item of ListItems; track $index) {
     <thy-list-item cdkDrag>
-      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
+      <thy-icon thyName="drag" class="drag-handle"></thy-icon>
       {{ item }}
     </thy-list-item>
   }

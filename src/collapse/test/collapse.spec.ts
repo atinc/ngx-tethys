@@ -47,10 +47,10 @@ export class TestCollapseBasicComponent {
             <div class="header-template">头部模板</div>
         </ng-template>
         <ng-template #headerIconTemplate>
-            <thy-icon [thyIconName]="'clock-circle'" class="template-icon"></thy-icon>
+            <thy-icon [thyName]="'clock-circle'" class="template-icon"></thy-icon>
         </ng-template>
         <ng-template #extraTemplate>
-            <thy-icon class="extra-template" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
+            <thy-icon class="extra-template" thyName="settings" (click)="$event.stopPropagation()"></thy-icon>
         </ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,

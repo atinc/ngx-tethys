@@ -40,7 +40,7 @@
                   [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
               }
               @if (column.sortable) {
-                <thy-icon [ngClass]="['thy-table-column-sortable-icon', 'px-1', column.sortDirection]" thyIconName="sort-vertical-tt">
+                <thy-icon [ngClass]="['thy-table-column-sortable-icon', 'px-1', column.sortDirection]" thyName="sort-vertical-tt">
                 </thy-icon>
               }
             </th>
@@ -71,9 +71,9 @@
               <td [attr.colspan]="columns.length">
                 <div class="thy-table-group-container">
                   @if (draggable && !(group | tableRowDragDisabled: thyDragDisabledPredicate)) {
-                    <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
+                    <thy-icon class="table-draggable-icon" thyName="drag"></thy-icon>
                   }
-                  <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
+                  <thy-icon class="expand-icon" [thyName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
                   @if (groupTemplate()) {
                     <ng-template
                       [ngTemplateOutlet]="groupTemplate()"
@@ -167,14 +167,14 @@
                   : { left: column.left + 'px', right: column.right + 'px' }
               ">
               @if (j === 0 && draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)) {
-                <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
+                <thy-icon class="table-draggable-icon" thyName="drag"></thy-icon>
               }
               <!--template-->
               @if (isTemplateRef(column.cellTemplateRef())) {
                 @if (variant === 'tree' && column.expand) {
                   <thy-icon
                     class="tree-expand-icon cursor-pointer"
-                    [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
+                    [thyName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                     [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
                     [style.left.px]="iconIndentComputed(level)"></thy-icon>
                 }
@@ -187,7 +187,7 @@
                   @if (variant === 'tree' && column.expand) {
                     <thy-icon
                       class="tree-expand-icon cursor-pointer"
-                      [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
+                      [thyName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                       [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
                       [style.marginLeft.px]="iconIndentComputed(level)"></thy-icon>
                   }

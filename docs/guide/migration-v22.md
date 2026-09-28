@@ -836,12 +836,12 @@ ng generate ngx-tethys:migrate-22
 
 **自动迁移**
 
-- `thyIconType` → `thyAppearance`（`thy-icon` / `thy-icon` 指令）
-- `thyIconName` → `thyName`（`thy-icon` / `thy-icon` 指令）
-- `thyIconRotate` → `thyRotate`（`thy-icon` / `thy-icon` 指令）
-- `thyIconSet` → `thySet`（`thy-icon` / `thy-icon` 指令）
-- `thyIconLegging` → `thyLegging`（`thy-icon` / `thy-icon` 指令）
-- `thyIconLinearGradient` → `thyLinearGradient`（`thy-icon` / `thy-icon` 指令）
+- `thyIconType` → `thyAppearance`
+- `thyIconName` → `thyName`
+- `thyIconRotate` → `thyRotate`
+- `thyIconSet` → `thySet`
+- `thyIconLegging` → `thyLegging`
+- `thyIconLinearGradient` → `thyLinearGradient`
 
 ---
 

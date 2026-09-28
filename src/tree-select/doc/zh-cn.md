@@ -21,7 +21,7 @@ subtitle: 树选择
 ```html
 <thy-tree-select [thyTreeNodes]="treeSelectNodes" [thyMultiple]="isMultiple" [(ngModel)]="selectedValue">
   <ng-template #treeNodeTemplate let-node>
-    <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+    <thy-icon class="prefix-icon" [thyName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
     {{ node.name }}
   </ng-template>
 </thy-tree-select>

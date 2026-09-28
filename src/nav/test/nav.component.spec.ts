@@ -26,7 +26,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             class="custom-nav"
             [thyExtra]="extra">
             <a thyNavItem thyNavItemActive="true">Link1</a>
-            <a thyNavItem><thy-icon thyIconName="filter"></thy-icon>Link2</a>
+            <a thyNavItem><thy-icon thyName="filter"></thy-icon>Link2</a>
             <a thyNavItem thyNavItemDisabled="true" id="disabled">Link3</a>
         </thy-nav>
         <ng-template #extra>

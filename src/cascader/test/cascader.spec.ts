@@ -480,7 +480,7 @@ class CascaderLoadComponent {
         </ng-template>
 
         <ng-template #optionTpl let-option="option">
-            <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
+            <thy-icon class="option-icon mr-2" thyName="view-tile"></thy-icon>
             <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
     `,

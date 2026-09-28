@@ -52,7 +52,7 @@ iconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(`assets/i
 ```
 
 ## 基本使用
-图标组件支持 `outline`、`fill`和`twotone`三种类型的图标，可以使用`thyAppearance`设置类型，也可以通过在`thyName`后加`-类型后缀`设置类型。
+图标组件支持 `outline`、`fill`和`twotone`三种外观，可以使用`thyAppearance`设置外观，也可以通过在`thyName`后加`-外观后缀`设置外观。
 ```html
 <thy-icon thyName="bell"></thy-icon>
 <thy-icon thyName="bell-fill"></thy-icon>

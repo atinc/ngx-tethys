@@ -8,15 +8,15 @@
   (click)="clickNode($event)">
   <span class="thy-tree-index" [style.width.px]="node().level * thyIndent()"></span>
   <span class="thy-tree-drag-icon">
-    <thy-icon thyIconName="drag"></thy-icon>
+    <thy-icon thyName="drag"></thy-icon>
   </span>
   <span class="thy-tree-expand" (click)="expandNode($event)">
     @if (isShowExpand(node())) {
       @if ((node().children && node().children.length > 0) || thyAsync() || emptyChildrenTemplateRef()) {
         @if (root.icons()?.expand && root.icons()?.collapse) {
-          <thy-icon class="thy-tree-expand-icon" [thyIconName]="node().isExpanded ? root.icons().expand : root.icons().collapse"></thy-icon>
+          <thy-icon class="thy-tree-expand-icon" [thyName]="node().isExpanded ? root.icons().expand : root.icons().collapse"></thy-icon>
         } @else {
-          <thy-icon class="thy-tree-expand-icon" [class.collapse]="!node().isExpanded" thyIconName="caret-right-down"></thy-icon>
+          <thy-icon class="thy-tree-expand-icon" [class.collapse]="!node().isExpanded" thyName="caret-right-down"></thy-icon>
         }
       }
     }

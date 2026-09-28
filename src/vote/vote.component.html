@@ -1,6 +1,6 @@
 @if (voteIcon()) {
   <ng-container [ngTemplateOutlet]="voteIcon()"></ng-container>
 } @else {
-  <thy-icon [thyIconName]="thyIcon()" [thyIconType]="voted() ? 'fill' : ''"></thy-icon>
+  <thy-icon [thyName]="thyIcon()" [thyAppearance]="voted() ? 'fill' : ''"></thy-icon>
 }
 <div>{{ count() }}</div>
