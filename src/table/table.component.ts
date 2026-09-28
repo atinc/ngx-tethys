@@ -175,7 +175,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     private _mode?: ThyTableMode;
 
-    public get mode(): ThyTableVariant {
+    public get variant(): ThyTableVariant {
         return this._variant || this._mode || 'list';
     }
 
@@ -274,7 +274,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      */
     @Input()
     set thyGroups(value: SafeAny) {
-        if (this.mode === 'group') {
+        if (this.variant === 'group') {
             this.buildGroups(value);
         }
     }
@@ -288,7 +288,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         this._diff = this._differs.find(this.model).create();
         this._initializeDataModel();
 
-        if (this.mode === 'group') {
+        if (this.variant === 'group') {
             this.buildModel();
         }
     }
@@ -399,7 +399,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     @Input({ transform: coerceBooleanProperty })
     set thyDraggable(value: boolean) {
         this.draggable = value;
-        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.variant === 'tree') {
             throw new Error('Tree mode sorting is not supported');
         }
     }
@@ -764,7 +764,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     iconIndentComputed(level: number) {
-        if (this.mode === 'tree') {
+        if (this.variant === 'tree') {
             return level * this.thyIndent - 5;
         }
     }
@@ -864,9 +864,9 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     onDragDropped(event: CdkDragDrop<unknown>) {
-        if (this.mode === 'group') {
+        if (this.variant === 'group') {
             this.onDragGroupDropped(event);
-        } else if (this.mode === 'list') {
+        } else if (this.variant === 'list') {
             this.onDragModelDropped(event);
         }
     }
@@ -1098,7 +1098,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
         const variantChange = simpleChanges.thyVariant || simpleChanges.thyMode;
         const thyGroupsChange = simpleChanges.thyGroups;
-        const isGroupVariant = variantChange && this.mode === 'group';
+        const isGroupVariant = variantChange && this.variant === 'group';
         if (isGroupVariant && thyGroupsChange && thyGroupsChange.firstChange) {
             this.buildGroups(thyGroupsChange.currentValue);
             this.buildModel();
