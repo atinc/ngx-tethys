@@ -127,6 +127,7 @@ interface ThySelectFlattedItem {
     value?: string | number;
     rawValue?: any;
     label?: string;
+    icon?: string;
     showOptionCustom?: boolean;
     template?: TemplateRef<any>;
     disabled?: boolean;
@@ -700,6 +701,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                     type: 'option',
                     value: option.value,
                     label: option.label,
+                    icon: option.icon,
                     rawValue: option,
                     showOptionCustom: false,
                     disabled: !!option.disabled,
@@ -713,6 +715,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 type: 'option',
                 value: option.value,
                 label: option.label,
+                icon: option.icon,
                 rawValue: option,
                 showOptionCustom: false,
                 disabled: !!option.disabled
@@ -840,7 +843,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                     newOptions.push({
                         thyLabelText: option.label!,
                         thyValue: option.value,
-                        thyRawValue: option.rawValue
+                        thyRawValue: option.rawValue,
+                        thyIcon: option.icon ?? option.rawValue?.icon
                     });
                 } else if (oldSelectedOptionsMap[value]) {
                     newOptions.push(oldSelectedOptionsMap[value]);
