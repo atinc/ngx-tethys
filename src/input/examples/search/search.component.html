@@ -1,13 +1,19 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
     <thy-input-search
-      [disabled]="true"
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
       (thyClear)="change()"
-      thyPlaceholder="Disabled, can't type (thy-input)"></thy-input-search>
-    <br />
+      thyPlaceholder="Search"></thy-input-search>
+
+    <thy-input-search
+      [disabled]="true"
+      [(ngModel)]="searchText"
+      thyPlaceholder="Disabled, can't type (thy-input)"
+      class="mt-3"></thy-input-search>
+  </div>
+  <div thyCol [thySpan]="12">
     <thy-input-search
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
@@ -15,24 +21,12 @@
       (thyClear)="change()"
       thyIconPosition="after"
       thyPlaceholder="Search"></thy-input-search>
-    <br />
-    <thy-input-group>
-      <thy-input thyPlaceholder="Disabled, can't type (thy-input)" [(ngModel)]="searchText" [disabled]="true"></thy-input>
-      <ng-template #append>
-        <button thyButton="primary"><thy-icon thyName="search"></thy-icon></button>
-      </ng-template>
-    </thy-input-group>
-    <br />
-  </div>
-  <div thyCol [thySpan]="12">
-    <thy-input-search thyVariant="ellipse" thyPlaceholder="Search" [(ngModel)]="searchText"></thy-input-search>
-    <br />
-    <thy-input-search thyVariant="ellipse" [(ngModel)]="searchText" thyIconPosition="after" thyPlaceholder="Search"></thy-input-search>
-    <br />
-    <thy-input thyPlaceholder="Search">
-      <ng-template #append>
-        <thy-icon class="text-placeholder" thyName="search"></thy-icon>
-      </ng-template>
-    </thy-input>
+
+    <thy-input-search
+      [disabled]="true"
+      [(ngModel)]="searchText"
+      thyIconPosition="after"
+      thyPlaceholder="Search"
+      class="mt-3"></thy-input-search>
   </div>
 </div>

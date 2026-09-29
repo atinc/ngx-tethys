@@ -176,17 +176,6 @@
         border-radius: variables.$input-ellipse-radius;
         .input-search-control {
             border-radius: variables.$input-ellipse-radius;
-            background: variables.$input-ellipse-background-color;
-            &:not(:disabled) {
-                &:hover {
-                    background: variables.$input-ellipse-hover-focus-background-color;
-                    border-color: variables.$input-ellipse-hover-border-color;
-                }
-                &:focus {
-                    background: variables.$input-ellipse-hover-focus-background-color;
-                    border-color: variables.$input-ellipse-focus-border-color;
-                }
-            }
         }
     }
 }

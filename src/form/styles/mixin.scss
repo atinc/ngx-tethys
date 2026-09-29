@@ -188,8 +188,10 @@
 
         &:not([disabled]):not(.disabled):not(.is-invalid) {
             &:hover,
-            &:focus {
+            &:focus,
+            &.form-control-active {
                 background-color: transparent;
+                border-color: variables.$input-focus-border-color;
             }
         }
 
@@ -207,6 +209,14 @@
 
     &.form-control-subtle {
         border-color: transparent;
+
+        &:not([disabled]):not(.disabled):not(.is-invalid) {
+            &:hover,
+            &:focus,
+            &.form-control-active {
+                border-color: variables.$input-focus-border-color;
+            }
+        }
 
         &:disabled,
         &.disabled {
