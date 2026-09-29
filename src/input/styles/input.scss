@@ -75,12 +75,6 @@
             .input-prepend {
                 background-color: transparent;
             }
-            &:hover {
-                .input-append,
-                .input-prepend {
-                    background-color: variables.$input-disabled-bg;
-                }
-            }
         }
     }
 
