@@ -19,7 +19,7 @@
     <thy-input-group>
       <thy-input thyPlaceholder="Disabled, can't type (thy-input)" [(ngModel)]="searchText" [disabled]="true"></thy-input>
       <ng-template #append>
-        <button thyButton="primary"><thy-icon thyName="search"></thy-icon></button>
+        <button thyButton="primary"><thy-icon thyIconName="search"></thy-icon></button>
       </ng-template>
     </thy-input-group>
     <br />
@@ -31,7 +31,7 @@
     <br />
     <thy-input thyPlaceholder="Search">
       <ng-template #append>
-        <thy-icon class="text-placeholder" thyName="search"></thy-icon>
+        <thy-icon class="text-placeholder" thyIconName="search"></thy-icon>
       </ng-template>
     </thy-input>
   </div>

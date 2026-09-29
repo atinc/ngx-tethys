@@ -421,7 +421,7 @@ class SearchTreeSelectComponent {
                 [(ngModel)]="selectedValue"
                 [thyShowSearch]="true"
                 [thyServerSearch]="true"
-                (thyInputChange)="thyOnSearch($event)"></thy-tree-select>
+                (thyOnSearch)="thyOnSearch($event)"></thy-tree-select>
         </div>
     `,
     imports: [ThyTreeSelect, FormsModule]

@@ -92,10 +92,6 @@ import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@an
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
 
-/**
- * 下拉选择模式（已废弃，将在 v23 彻底删除），请使用 `thyMultiple`（`boolean`）代替 `'multiple' | ''`
- * @deprecated please use thyMultiple, will be removed in v23
- */
 export type SelectMode = 'multiple' | '';
 
 export type ThySelectTriggerType = 'click' | 'hover';
@@ -131,7 +127,6 @@ interface ThySelectFlattedItem {
     value?: string | number;
     rawValue?: any;
     label?: string;
-    icon?: string;
     showOptionCustom?: boolean;
     template?: TemplateRef<any>;
     disabled?: boolean;
@@ -194,6 +189,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     emptyIcon: Signal<string> = injectPanelEmptyIcon();
 
     disabled = false;
+
+    mode: SelectMode = '';
 
     scrollTop = 0;
 
@@ -302,46 +299,22 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     panelOpen = false;
 
     /**
-     * 搜索输入变化时回调
-     */
-    readonly thyInputChange = output<string>();
-
-    /**
-     * 搜索时回调（已废弃，将在 v23 彻底删除），请使用 `thyInputChange`
-     * @deprecated please use thyInputChange, will be removed in v23
+     * 搜索时回调
      */
     readonly thyOnSearch = output<string>();
 
     /**
      * 下拉菜单滚动到底部事件，可以用这个事件实现滚动加载
      */
-    readonly thyScrollToBottom = output<void>();
-
-    /**
-     * 下拉菜单滚动到底部事件（已废弃，将在 v23 彻底删除），请使用 `thyScrollToBottom`
-     * @deprecated please use thyScrollToBottom, will be removed in v23
-     */
     readonly thyOnScrollToBottom = output<void>();
 
     /**
      * 下拉菜单展开和折叠状态事件
      */
-    readonly thyExpandStatusChange = output<boolean>();
-
-    /**
-     * 下拉菜单展开和折叠状态事件（已废弃，将在 v23 彻底删除），请使用 `thyExpandStatusChange`
-     * @deprecated please use thyExpandStatusChange, will be removed in v23
-     */
     readonly thyOnExpandStatusChange = output<boolean>();
 
     /**
      * 下拉列表是否显示搜索框
-     */
-    readonly thySearchable = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 下拉列表是否显示搜索框（已废弃，将在 v23 彻底删除），请使用 `thySearchable`
-     * @deprecated please use thySearchable, will be removed in v23
      */
     readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
 
@@ -353,26 +326,12 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
      */
-    readonly thyServerSearchable = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 是否使用服务端搜索（已废弃，将在 v23 彻底删除），请使用 `thyServerSearchable`
-     * @deprecated please use thyServerSearchable, will be removed in v23
-     */
     readonly thyServerSearch = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 是否处于异步加载中
+     * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
      */
-    readonly thyLoading = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 异步加载 loading 状态（已废弃，将在 v23 彻底删除），请使用 `thyLoading`，与 `thyLoading` 语义相反
-     * @deprecated please use thyLoading, will be removed in v23
-     */
-    readonly thyLoadState = input(undefined, {
-        transform: (value: boolean | undefined) => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
-    });
+    readonly thyLoadState = input(true, { transform: coerceBooleanProperty });
 
     /**
      * 是否自动设置选项第一条为高亮状态
@@ -380,13 +339,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     readonly thyAutoActiveFirstItem = input(true, { transform: coerceBooleanProperty });
 
     /**
-     * 是否多选
-     */
-    readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 下拉选择模式（已废弃，将在 v23 彻底删除），请使用 `thyMultiple`
-     * @deprecated please use thyMultiple, will be removed in v23
+     * 下拉选择模式
      * @type 'multiple' | ''
      */
     readonly thyMode = input<SelectMode>('');
@@ -417,53 +370,17 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 搜索结果为空时显示的提示文字
      */
-    readonly thySearchEmptyText = input<string | undefined>(undefined);
+    readonly thyEmptySearchMessageText = input(this.locale().empty, { transform: (value: string) => value || this.locale().empty });
 
     /**
-     * 搜索结果为空时显示的提示文字（已废弃，将在 v23 彻底删除），请使用 `thySearchEmptyText`
-     * @deprecated please use thySearchEmptyText, will be removed in v23
-     */
-    readonly thyEmptySearchMessageText = input(undefined as string | undefined, {
-        transform: (value: string | undefined) => (value === undefined || value === null ? undefined : value || this.locale().empty)
-    });
-
-    /**
-     * 滚动加载是否可用，只有为 true 时才会触发 `thyScrollToBottom`
+     * 滚动加载是否可用，只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
      */
     readonly thyEnableScrollLoad = input(false, { transform: coerceBooleanProperty });
 
     /**
-     * 单选(非多选)时，选择框支持清除
-     */
-    readonly thyClearable = input(false, { transform: coerceBooleanProperty });
-
-    /**
-     * 单选时选择框支持清除（已废弃，将在 v23 彻底删除），请使用 `thyClearable`
-     * @deprecated please use thyClearable, will be removed in v23
+     * 单选( thyMode="" 或者不设置)时，选择框支持清除
      */
     readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
-
-    readonly isMultiple = computed(() => this.thyMultiple() || this.thyMode() === 'multiple');
-
-    readonly searchable = computed(() => this.thySearchable() || this.thyShowSearch());
-
-    readonly serverSearchable = computed(() => this.thyServerSearchable() || this.thyServerSearch());
-
-    readonly clearable = computed(() => this.thyClearable() || this.thyAllowClear());
-
-    readonly isLoading = computed(() => this.thyLoading() || (this.thyLoadState() !== undefined && !this.thyLoadState()));
-
-    readonly searchEmptyText = computed(() => {
-        const searchEmptyText = this.thySearchEmptyText();
-        if (searchEmptyText !== undefined) {
-            return searchEmptyText || this.locale().empty;
-        }
-        const deprecated = this.thyEmptySearchMessageText();
-        if (deprecated !== undefined) {
-            return deprecated;
-        }
-        return this.locale().empty;
-    });
 
     /**
      * 是否禁用
@@ -533,8 +450,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
      * @deprecated please use thyAppearance="ghost", will be removed in v23
      */
     readonly thyBorderless = input(false, { transform: coerceBooleanProperty });
-
-    readonly appearance = computed((): ThyFormControlAppearance => (this.thyBorderless() ? 'ghost' : this.thyAppearance()));
 
     readonly panel = viewChild<ElementRef<HTMLElement>>('panel');
 
@@ -606,8 +521,8 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 当前选中的值
      */
-    readonly selectedValues = linkedSignal<boolean, SafeAny[]>({
-        source: () => this.isMultiple(),
+    readonly selectedValues = linkedSignal<SelectMode, SafeAny[]>({
+        source: () => this.thyMode(),
         computation: () => {
             return [];
         }
@@ -620,10 +535,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
     /**
      * 传给 selectControl 指令的选中值
      */
-    readonly selectedOptions: WritableSignal<SelectOptionBase | SelectOptionBase[] | null> = linkedSignal<boolean, SafeAny[] | null>({
-        source: () => this.isMultiple(),
+    readonly selectedOptions: WritableSignal<SelectOptionBase | SelectOptionBase[] | null> = linkedSignal<SelectMode, SafeAny[] | null>({
+        source: () => this.thyMode(),
         computation: () => {
-            return this.isMultiple() ? [] : null;
+            return this.thyMode() === 'multiple' ? [] : null;
         }
     });
 
@@ -785,7 +700,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                     type: 'option',
                     value: option.value,
                     label: option.label,
-                    icon: option.icon,
                     rawValue: option,
                     showOptionCustom: false,
                     disabled: !!option.disabled,
@@ -799,7 +713,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                 type: 'option',
                 value: option.value,
                 label: option.label,
-                icon: option.icon,
                 rawValue: option,
                 showOptionCustom: false,
                 disabled: !!option.disabled
@@ -863,7 +776,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     private buildFilteredGroupsAndOptions() {
         const keywords = this.keywords();
-        const isServerSearch = this.serverSearchable();
+        const isServerSearch = this.thyServerSearch();
         const allGroupsAndOptions = this.allGroupsAndOptions();
         const filteredGroupsAndOptions: ThySelectFlattedItem[] = [];
 
@@ -927,8 +840,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
                     newOptions.push({
                         thyLabelText: option.label!,
                         thyValue: option.value,
-                        thyRawValue: option.rawValue,
-                        thyIcon: option.icon ?? option.rawValue?.icon
+                        thyRawValue: option.rawValue
                     });
                 } else if (oldSelectedOptionsMap[value]) {
                     newOptions.push(oldSelectedOptionsMap[value]);
@@ -947,7 +859,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         if (this.thyEnableScrollLoad()) {
             const isScrollToBottom = index + this.maxItemLength() >= this.filteredGroupsAndOptions().length;
             if (isScrollToBottom) {
-                this.thyScrollToBottom.emit();
                 this.thyOnScrollToBottom.emit();
             }
         }
@@ -960,7 +871,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
         if (scroll + height + 10 >= scrollHeight) {
             this.ngZone.run(() => {
-                this.thyScrollToBottom.emit();
                 this.thyOnScrollToBottom.emit();
             });
         }
@@ -971,8 +881,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.activatedValue.set(null);
         this.keywords.set(keywords.trim());
 
-        if (this.serverSearchable()) {
-            this.thyInputChange.emit(keywords);
+        if (this.thyServerSearch()) {
             this.thyOnSearch.emit(keywords);
         } else {
             this.updateCdkConnectedOverlayPositions();
@@ -991,7 +900,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         // thyShowSearch 与 panelOpen 均为 true 时，点击 thySelectControl 需要触发自动聚焦到 input 的逻辑
         // manualFocusing 如果是手动聚焦，不触发自动聚焦到 input 的逻辑
         if (
-            (this.searchable() && this.panelOpen) ||
+            (this.thyShowSearch() && this.panelOpen) ||
             (!this.manualFocusing &&
                 !elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select']))
         ) {
@@ -1039,6 +948,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         });
     }
 
+    readonly isMultiple = computed<boolean>(() => {
+        return this.thyMode() === 'multiple';
+    });
+
     readonly empty = computed(() => {
         return !this.selectedValues().length;
     });
@@ -1047,7 +960,7 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     public toggle(event: MouseEvent): void {
         if (this.panelOpen) {
-            if (!this.searchable()) {
+            if (!this.thyShowSearch()) {
                 this.close();
             }
         } else {
@@ -1063,7 +976,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.subscribeTriggerResize();
         this.panelOpen = true;
         this.shouldActivateOption = true;
-        this.thyExpandStatusChange.emit(this.panelOpen);
         this.thyOnExpandStatusChange.emit(this.panelOpen);
         this.changeDetectorRef.markForCheck();
     }
@@ -1073,7 +985,6 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
             this.panelOpen = false;
             this.scrolledIndex = 0;
             this.unsubscribeTriggerResize();
-            this.thyExpandStatusChange.emit(this.panelOpen);
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.changeDetectorRef.markForCheck();
             this.onTouchedFn();

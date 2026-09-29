@@ -16,13 +16,9 @@ import { InputSearchAppearanceMigration } from './input-search-appearance-migrat
 import { MenuThemeMigration } from './menu-theme-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { SelectBorderlessMigration } from './select-borderless-migration';
-import { SelectPropsMigration } from './select-props-migration';
 import { TableShowHeaderMigration } from './table-show-header-migration';
 import { TagAppearanceMigration } from './tag-appearance-migration';
-import { TagShapeMigration } from './tag-shape-migration';
 import { TreeSelectIconTypeMigration } from './tree-select-icon-type-migration';
-import { VoteAppearanceMigration } from './vote-appearance-migration';
-import { VoteShapeMigration } from './vote-shape-migration';
 import { upgradeData } from './update-data';
 
 const migrations: NullableDevkitMigration[] = [
@@ -31,10 +27,8 @@ const migrations: NullableDevkitMigration[] = [
     DatePickerPopoverOptionsMigration,
     TableShowHeaderMigration,
     TagAppearanceMigration,
-    TagShapeMigration,
     InputSearchAppearanceMigration,
     SelectBorderlessMigration,
-    SelectPropsMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
     MenuThemeMigration,
@@ -44,9 +38,7 @@ const migrations: NullableDevkitMigration[] = [
     ClassNamesMigration,
     FormControlSizeTypeMigration,
     HeaderIconPrefixMigration,
-    TreeSelectIconTypeMigration,
-    VoteAppearanceMigration,
-    VoteShapeMigration
+    TreeSelectIconTypeMigration
 ];
 
 export function createMigrate22Rule(onComplete: typeof onMigrationComplete = onMigrationComplete): Rule {

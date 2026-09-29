@@ -331,9 +331,6 @@ const customLabelPropertyOptions = [
             [thyColumnClassName]="columnClassName"
             [thyLoadData]="loadData"
             [thyShowSearch]="isShowSearch"
-            [thySearchable]="isSearchable"
-            (thyInputChange)="onInputChange($event)"
-            (thyOnSearch)="onLegacySearch($event)"
             [thyDisabled]="disabled"
             [thyAppearance]="appearance"
             [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
@@ -374,7 +371,6 @@ class CascaderBasicComponent {
     public columnClassName = 'column-menu-class';
     public loadData: any;
     public isShowSearch: boolean = false;
-    public isSearchable = false;
     public emptyStateText = '无选项';
     public disabled = false;
     public appearance: ThyFormControlAppearance = 'outline';
@@ -389,10 +385,6 @@ class CascaderBasicComponent {
     @ViewChild('cascader', { static: true }) cascaderRef!: ThyCascader;
 
     thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
-
-    onInputChange = jasmine.createSpy('thyInputChange');
-
-    onLegacySearch = jasmine.createSpy('thyOnSearch');
 
     // onChanges = jasmine.createSpy('onChanges callback');
 
@@ -488,7 +480,7 @@ class CascaderLoadComponent {
         </ng-template>
 
         <ng-template #optionTpl let-option="option">
-            <thy-icon class="option-icon mr-2" thyName="view-tile"></thy-icon>
+            <thy-icon class="option-icon mr-2" thyIconName="view-tile"></thy-icon>
             <span thyFlexibleText class="option-label-item" [thyTooltipContent]="option.label || ''"> {{ option.label || '' }}</span>
         </ng-template>
     `,
@@ -1194,34 +1186,6 @@ describe('thy-cascader', () => {
 
             expect(fixture.componentInstance.cascaderRef.thyShowSearch()).toBe(true);
             expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
-        }));
-
-        it('should show search input when set thySearchable', fakeAsync(() => {
-            expect(fixture.componentInstance.cascaderRef.searchable()).toBe(false);
-
-            fixture.componentInstance.isSearchable = true;
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-            trigger.click();
-            fixture.detectChanges();
-
-            expect(fixture.componentInstance.cascaderRef.searchable()).toBe(true);
-            expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
-        }));
-
-        it('should emit thyInputChange and thyOnSearch when searching with thySearchable', fakeAsync(() => {
-            fixture.componentInstance.isSearchable = true;
-            fixture.componentInstance.onInputChange.calls.reset();
-            fixture.componentInstance.onLegacySearch.calls.reset();
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-            trigger.click();
-            fixture.detectChanges();
-            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
-            typeInElement('xihu', input);
-            fixture.detectChanges();
-            tick(300);
-            fixture.detectChanges();
-            expect(fixture.componentInstance.onInputChange).toHaveBeenCalled();
-            expect(fixture.componentInstance.onLegacySearch).toHaveBeenCalled();
         }));
 
         it('should searched some options', fakeAsync(() => {

@@ -53,13 +53,7 @@
             position: absolute;
             user-select: none;
             width: 100%;
-            display: flex;
             align-items: center;
-            .prefix-icon {
-                flex-shrink: 0;
-                margin-right: 8px;
-                color: variables.$gray-500;
-            }
             .thy-tag {
                 vertical-align: top;
             }
@@ -151,11 +145,6 @@
         max-width: 97%;
         color: variables.$gray-700;
         cursor: default;
-        .prefix-icon {
-            flex-shrink: 0;
-            margin-right: 4px;
-            color: variables.$gray-500;
-        }
         &.disabled {
             cursor: variables.$disabled-cursor;
             color: variables.$gray-600;

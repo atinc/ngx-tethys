@@ -6,18 +6,19 @@
   #trigger
   [thyPanelOpened]="panelOpen"
   [thySelectedOptions]="selectedOptions()"
-  [thyMultiple]="isMultiple()"
-  [thySearchable]="searchable()"
-  [thyClearable]="clearable()"
+  [thyIsMultiple]="isMultiple()"
+  [thyShowSearch]="thyShowSearch()"
+  [thyAllowClear]="thyAllowClear()"
   [thySize]="thySize()"
-  [thyAppearance]="appearance()"
+  [thyAppearance]="thyAppearance()"
   [thyPlaceholder]="thyPlaceholder()"
   [customDisplayTemplate]="selectedValueDisplayRef()"
   [thyDisabled]="disabled"
-  (thyClear)="clearSelectValue($event)"
-  (thyRemove)="remove($event)"
-  (thyInputChange)="search($event)"
-  (thyBlur)="onBlur($event)"
+  [thyBorderless]="thyBorderless()"
+  (thyOnClear)="clearSelectValue($event)"
+  (thyOnRemove)="remove($event)"
+  (thyOnSearch)="search($event)"
+  (thyOnBlur)="onBlur($event)"
   [thyMaxTagCount]="thyMaxTagCount()"
   [thyPreset]="thyPreset()"></div>
 
@@ -46,12 +47,12 @@
         <ng-container *thyViewOutlet="defaultTemplate"> </ng-container>
       }
     } @else {
-      <thy-loading [thyDone]="!isLoading()" thySize="sm"></thy-loading>
+      <thy-loading [thyDone]="thyLoadState()" thySize="sm"></thy-loading>
       <div class="thy-select-empty-content">
-        @if (!isLoading()) {
+        @if (thyLoadState()) {
           @let isSearching = keywords();
           <thy-empty
-            [thyMessage]="isSearching ? searchEmptyText() : thyEmptyStateText()"
+            [thyMessage]="isSearching ? thyEmptySearchMessageText() : thyEmptyStateText()"
             thySize="sm"
             [thyIconName]="emptyIcon()"></thy-empty>
         }
@@ -130,7 +131,6 @@
       [thyValue]="item.value"
       [thyRawValue]="item.rawValue"
       [thyLabelText]="item.label"
-      [thyIcon]="item.icon"
       [thyShowOptionCustom]="item.showOptionCustom"
       [thySearchKey]="item.searchKey"
       [thyDisabled]="item.disabled"

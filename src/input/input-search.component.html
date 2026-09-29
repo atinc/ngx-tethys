@@ -1,5 +1,5 @@
 @if (iconPosition() === 'before') {
-  <thy-icon class="input-prepend" thyName="search"></thy-icon>
+  <thy-icon class="input-prepend" thyIconName="search"></thy-icon>
 }
 <input
   class="input-search-control"
@@ -20,16 +20,16 @@
   <div class="input-append input-append-divider">
     @if (searchText() && !disabled()) {
       <a class="close" href="javascript:;" (click)="clearSearchText($event)">
-        <thy-icon thyName="close"></thy-icon>
+        <thy-icon thyIconName="close"></thy-icon>
       </a>
     } @else {
-      <thy-icon class="text-placeholder" thyName="search"></thy-icon>
+      <thy-icon class="text-placeholder" thyIconName="search"></thy-icon>
     }
   </div>
 }
 
 @if (searchText() && iconPosition() === 'before' && !disabled()) {
   <a class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
-    <thy-icon thyName="close"></thy-icon>
+    <thy-icon thyIconName="close"></thy-icon>
   </a>
 }

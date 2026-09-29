@@ -1,6 +1,6 @@
 <thy-select
   [ngModel]="value"
-  (thyScrollToBottom)="onScrollToBottom()"
+  (thyOnScrollToBottom)="onScrollToBottom()"
   thyEnableScrollLoad="true"
   style="width: 500px"
   thyPlaceholder="滚动加载"
@@ -12,10 +12,10 @@
 <br />
 <thy-select
   thyPlaceholder="多选可搜索"
-  [thySearchable]="true"
+  [thyShowSearch]="true"
   [ngModel]="multipleValue"
   style="width: 500px"
-  thyMultiple
+  [thyMode]="'multiple'"
   [thyOptions]="options()">
 </thy-select>
 <br />
@@ -23,12 +23,10 @@
 <thy-select
   [thyOptions]="options()"
   thyPlaceholder="自定义 Footer"
-  [thySearchable]="true"
+  [thyShowSearch]="true"
   style="width: 500px"
   [thyFooterTemplate]="footer">
   <ng-template #footer>
     <a class="flex-grow-1">更多选项</a>
   </ng-template>
 </thy-select>
-<br />
-<thy-select style="width: 500px" thyPlaceholder="选项图标" [thyOptions]="optionsWithIcon" [(ngModel)]="iconValue"> </thy-select>
