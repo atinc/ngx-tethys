@@ -116,7 +116,7 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
      * @type rectangle | ellipse
      * @default rectangle
      */
-    readonly thyShape = input<ThyInputSearchShape>('rectangle');
+    readonly thyShape = input<ThyInputSearchShape>();
 
     /**
      * 搜索框风格（已废弃，将在 v23 彻底删除）。`ellipse` 请使用 `thyShape="ellipse" thyAppearance="fill"`；`transparent` 请使用 `thyAppearance="ghost"`

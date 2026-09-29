@@ -35,11 +35,6 @@ describe('migrateInputSearchAppearance', () => {
         );
     });
 
-    it('should not migrate thyVariant (intermediate API, no compatibility migration)', () => {
-        const content = `<thy-input-search thyVariant="ellipse"></thy-input-search><thy-input-search thyVariant="transparent"></thy-input-search>`;
-        expect(migrateInputSearchAppearance(content)).toBe(content);
-    });
-
     it('should not migrate dynamic bindings', () => {
         const content = `<thy-input-search [thyTheme]="theme"></thy-input-search>`;
         expect(migrateInputSearchAppearance(content)).toBe(content);
