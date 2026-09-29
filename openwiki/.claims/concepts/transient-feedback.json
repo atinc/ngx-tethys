@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:6aebc37a39f8fcf08d05bb6ca933792f8c85b88332f5035117dd8684566787c9",
+  "claims": [
+    {
+      "id": "claim_05adf7e8166e4103a0a4986c6237db0f",
+      "statement": "notify 和 message 继承 ThyAbstractMessageService，而不是抽象 overlay 服务。Overlay 无幕布、滚动策略为 noop、定位为全局，容器创建后会被复用并置顶。",
+      "evidence": [
+        {
+          "resource": "repo://src/message/abstract/abstract-message.service.ts#L10-L38",
+          "version": "repo-lines-v1:sha256:4011a32e8d0aa7f5b502fbc4d87dfdd002644afb29229ce3976569cda17a86e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExNThjMmQ3YjA4N2RmZTkwZWM4ZDI0YzNlZjkxMjJmZGM4YTIzNWE4YTZkZjhiMTk2ZTA1Y2ZkNzUwODZkYjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlOTY3NzZhZDQzZTc4MWQyOTRmMWJjOGJjNDhjNzNkYjRjMDI4OWYwZTQ3ODY4MzkxNWM5OTBlNzI5ZDI0YzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4MTk0ZDI1NGI4ZmZiYWE2YzkxYjVjZWExYWJmYjZmNmY1MWY3MDQyYTc1NGJjZGM3MzEyMDdmZTY3ODRjNzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4YjI2M2JmZDlmYjhlNmQwMmNjZTY4ZGY0NmQ0OTUwNmVhZTNjOTJiNDRjMTE1NzViNTBkYWE1N2Y0NTY1ZWIifQ"
+        },
+        {
+          "resource": "repo://src/message/message.service.ts#L9-L12",
+          "version": "repo-lines-v1:sha256:431b946adb00a84d7086a8c70c64ba670324237fc9701dc063325cf727128585:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTk5ZGY1NjczNmVlNzYzY2E0OWM5N2JmNjVlYTU2ZjdjOWY4MWZhYTRiMjZkMzdmODZjZjRjOTcxYjY3NjIxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY3YjcyZDNmZGZhMTY3YTk2OTYwYWU3MTBhNGY2NWEzMzQyMzA1MGU2MWZhNTYzOTVjZDg4N2JhYWZlODJiMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmE4NDkwZDI5MzIxMDc0YzNjNTViYTU4Mzc5NDA3ODY1MDk3ZTMxNGVkZGIyYjFmYjZkOWVhZmU1MGU3OGRkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzZiNTZkOTVlMjA3MzJkNGFjNWYyODFkMzBjZjlmYzJmN2U1ZDdlNzM0ZDFjYmZhYmViNTFiMTE3NmQ3ZjIxNCJ9"
+        },
+        {
+          "resource": "repo://src/notify/notify.service.ts#L15-L18",
+          "version": "repo-lines-v1:sha256:c7f5c846845fb065b0db2e406b9fdc3b5b8213552c9947121e9d32bf69c19acc:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTk5ZGY1NjczNmVlNzYzY2E0OWM5N2JmNjVlYTU2ZjdjOWY4MWZhYTRiMjZkMzdmODZjZjRjOTcxYjY3NjIxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDBjNGU3MTBmODQwODQ4Y2Q0NDQxZWNhOTNmMTNlZmIxY2RmNjgyNjBhNDZiMjI4NzRiNDVmOTNjMDFmZjVkOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjg2Y2M4YzJkMGI0ZWMzMjhkZGI2YjZhZDA4MWNlNDBlN2YyYjRjMDJhOTQ2MmNhYTlkNWU1NTFiYzI5OGVlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmIyMDk4Yjg5YmU1N2YwNDg4ZTJjMmZmODZhNDQ3MzU5YjVkOGMwMjdhMWFkNGI0NzNjZjE5YmIyZjMyMjY0ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fa03571b973c4d638ed871995e36a212",
+      "statement": "队列达到 maxStack 时先关闭最旧一条再追加，默认上限是 8。close 按 id 过滤队列并发出 afterClosed，没有 canClose。notify 默认出现在 topRight，并按四个角拆分计算队列；message 默认显示关闭按钮，队列是单列。",
+      "evidence": [
+        {
+          "resource": "repo://src/message/abstract/abstract-message-queue.service.ts#L22-L40",
+          "version": "repo-lines-v1:sha256:b540e205c8e4552ba9ba170f5bcddf184ccd7064a92350d67005d76d2f5d773f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2MjUyYTI5YzQ2MWEwODA1OWU5NDBlOGEyYmY5OTU0MWFjNmExMGZmZDIxNTljNzgzYmVhYTY1NDJiN2QyYmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjNThiMWY2NmU2ZTkxZWZiYmZjZTcwZjM2YTJhYzQ0Zjk4MDZlNjY0NGU1YjUxN2FiMmYyYzAzMDM5YzM3NmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+        },
+        {
+          "resource": "repo://src/message/abstract/abstract-message-ref.ts#L29-L36",
+          "version": "repo-lines-v1:sha256:af0199c12ce07d44e355d87b104deeacf003200f7b1ab82307260b046ad1a079:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODFiYmI5MDIwYWFmYThlMTk0ZDMzOTAyYTk0OTE4ZGU5Mzk3OTExZDEzMjJkOGQ2ZTgwZThlZjkyNGRhMTgzMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTY0MTUwYTg3ODcxM2EyZTM0MjQzOGIwNTcxNTAxODYxOTY0Nzg4NjgyYjk2NzRiOWQ0MzI5Y2ZhMjYwN2E5MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGI5ZTZiOTVjYjc0NDU0YzdjNDEyN2NhZWE4YjNiYmIyZDFmYzNiZTg1ZTQxMzFmNjI5MzliM2IwYWEzNTU4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWRlZjQxYmYwNzUyYjY4YjdjODEwOTk1MjM1YzkxZDFhNTQ3MmM3M2MzN2U3YTY3ZDViOTlkNmI4MzU4MDUxNSJ9"
+        },
+        {
+          "resource": "repo://src/message/message.config.ts#L20-L26",
+          "version": "repo-lines-v1:sha256:79e0afd726baedf99eda7193ab90402d7af8d0b0c9ff1ad3f207ea6808ad61e5:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjM4YmJhYmNiZWJjYzViNDEyMjYzOTczNTRjNTVmNzU1OWU1Y2I1NWI2MmVjMmI0N2Y4YzA0NzUyNDExOTI3ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWExZDFhNjMzOTAyMjljNzk4MzQ3ZTgzYTA0MDU0NDFjOTQwMDAzNTI4NGFkMTY4YzFiZjZjZGYxZDcwYTM3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDcxNjNmNmY2MDE5ZjZjN2U2YjZmMzFjY2VhMDVhYzUyNWJmZjE0MTA1ZjdlZGQ3ODExYzQ2NmIzZjczMTA0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRiNmQ4OWRiMTdkMThlMzYzZGY5ZTNmMjg0NTgwOTUyMGE2MTAzOTA5NTU0Nzk2ZWU0OTZhMmY0NDhiY2MwMCJ9"
+        },
+        {
+          "resource": "repo://src/notify/notify-queue.service.ts#L13-L28",
+          "version": "repo-lines-v1:sha256:139e3d708d16f389a6369fe01d6c1a38e6b27614e9860a8b392611152761cb06:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyNDgwODc1MWFlZWQxOTc2ZmNiM2E1MWE0NDg3YTFhYzcxODk4YWMwMTc5NmVjNDMxZTczMDgyMThjYmZmOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwYjViYTdhMWEzZmU2YmZhM2IxMTFlMDMzZDhkOGFmMWFlNTM5MmQ5NmQ5ZmMyMDNiZDFkZDk5ZjQ0ODY1ZjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1YzZjYjFjN2QwZGYzOGIyYjE0ZWMyZTRhMGUxZWQwNTQxMDNjNTE4YWY3YjFkOTRhMTgzOTg5YWYzYjYzMmQifQ"
+        },
+        {
+          "resource": "repo://src/notify/notify.config.ts#L78-L84",
+          "version": "repo-lines-v1:sha256:cdb02fb9b003b653ea30330c86d49ff436ada12bfa89f36de82fd9c185359fda:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmYwZDI0ZmIyMzhjYzdkNDg4NzYxZGE1YmQ0NjkwNDI3MjlkNTFmMmMyZDk5M2IzNTM1OGI5YTNiMmYwNDZkZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWExZDFhNjMzOTAyMjljNzk4MzQ3ZTgzYTA0MDU0NDFjOTQwMDAzNTI4NGFkMTY4YzFiZjZjZGYxZDcwYTM3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2FiNGYzMGI0ZmE2M2UwNDlmNzI3MjI1MTFiZjYzMjg2NWQ5YTY1ODQ5M2E1NzkzNzA5NGUwYTE2NGQ2ZWIwNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjgxZTE2NDliOTg4YjZhMzcyNjE2MmZmOTZhNzI2NzA5NDk4ZDMzZThjYjM3Y2RlODExOGZmOTY3MDZjZTQ1OCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_102a62dccc2741adbfcf411895f824ea",
+      "statement": "notify 的 success 在缺少标题时使用 notify 语言包。message 额外提供 loading。两次 show 都会合并默认配置并分配递增 id。",
+      "evidence": [
+        {
+          "resource": "repo://src/message/message.service.ts#L81-L99",
+          "version": "repo-lines-v1:sha256:781c150e562495a2881177b09c494ba7d39096758987d7b0e677ec48280954aa:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyOWNjZWNkYjAyMmY2NzkyYTk4MjkyNjMxNmM4ODQzM2U1ZTA3Y2YwZTBjZmNlMTdhMjRmNjQ2ZWQyOTQxMDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1YWZhZmZkZTgxNGU0OTRkMDJkMmJiNTJmMGI5OTg0YWE3ZjNlZmViYzVjYzg5Yzc4Y2QzNzc5Yzk2MGE2N2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ5YjU3Yzk0ZWNjNjI1ZjAyNzMwYzI0MjU4Mjk5YTdlMDNiMjI4ZDY3NTk5MjQxOTRhZGJkMjc4YjIyZDFhZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+        },
+        {
+          "resource": "repo://src/notify/notify.service.ts#L45-L63",
+          "version": "repo-lines-v1:sha256:ba0e6b554bcce1f70993a5786df65720374811eec4731ad1ccd709a7552fa813:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0OTMwZTgzMzE2MTQ0NzU1YTc2ZjE1NTBmYWRiZmRhYWQ1MTVhMjMzMzU2MmIwN2M3YTY0MjFkOGVkZDU3ZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkMTg2MmI4ZjRkN2I2NTFhYzc4OTcwZTcyMTgyNjYxMTRlNDc3ZTU4ZGQ1NGUwN2NkZWNhYzk4YmIwNjdhMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlMmI5ZTIxZmRjODZmYzJjMmVlNDQ3MjE4NWQ2NzY0NjdiZGQxY2JmMmUyNGI0ZGM2NDRhYjFhYmIzMzI1NDcifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.0",
+    "at": "2026-09-28T07:54:10.806Z"
+  }
+}

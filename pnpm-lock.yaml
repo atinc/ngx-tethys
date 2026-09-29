@@ -100,11 +100,11 @@ importers:
         specifier: 1.2.0
         version: 1.2.0
       '@docgeni/cli':
-        specifier: 3.0.0
-        version: 3.0.0(5825d0b7bd45fb2fc6bfd4d16d9a9ee1)
+        specifier: 3.0.1
+        version: 3.0.1(5825d0b7bd45fb2fc6bfd4d16d9a9ee1)
       '@docgeni/template':
-        specifier: 3.0.0
-        version: 3.0.0(docsearch.js@2.6.3)
+        specifier: 3.0.1
+        version: 3.0.1(docsearch.js@2.6.3)
       '@eslint/js':
         specifier: ^9.23.0
         version: 9.39.4
@@ -1324,26 +1324,26 @@ packages:
       tslib: '>=2.0.0'
       zone.js: '>=0.10.2'
 
-  '@docgeni/cli@3.0.0':
-    resolution: {integrity: sha512-4F/w7uU/HblzF5cZtO575SH54jPrXyM5nNGMROd+QnIj7nRAS1D5l71LTWFattTAUKRcuDTiv/dZyYh4TInQkA==}
+  '@docgeni/cli@3.0.1':
+    resolution: {integrity: sha512-DSQ4N8+qOC5MsX67hVBerYYCc29ufyZzIG3ID33mXcFQkaW2V/NbVwMhnVzFmOhuiE2QqayZ478RksVAKCfByg==}
     hasBin: true
 
-  '@docgeni/core@3.0.0':
-    resolution: {integrity: sha512-LUY358vTuaO5dYkr/PUleZF6jGLsDAOuFAjaxjqdjZ+nnaIVMP/6aJ9YQY3s6vDYi92Mian3f0SqRu7AqVUMcQ==}
+  '@docgeni/core@3.0.1':
+    resolution: {integrity: sha512-950m30Ip9xETYx+9d8KTzXwDU2jzlDXYQ+1/TKNTD8qhBknauqmpjfEHQMqc2TpQmyGiTLO6LXcrDO8T+iaU3A==}
 
-  '@docgeni/ngdoc@3.0.0':
-    resolution: {integrity: sha512-jacmeQR3cbFBDTRmmkyjDMg72LwUoaFjv7LJ4xs9rakUOM3kNbbtE51eUrmKeeem8mG3RK7vSAw4C5xiTk4rIg==}
+  '@docgeni/ngdoc@3.0.1':
+    resolution: {integrity: sha512-+xyBbMolm2N+aBW253sVap08qabgzyZOE5n7fjQPcrgKi8N+qa7CS6m2Golwolri3euJH616iFnQmrhLpfkOgA==}
 
-  '@docgeni/template@3.0.0':
-    resolution: {integrity: sha512-CDShhCiPVhnEv21Ly2kte5vHe8Uv1xMk+nsl9dcMdit2tGZmFLii1RBChe9vC0/dsl8+R2GZyrOEYvfO1Iqm8g==}
+  '@docgeni/template@3.0.1':
+    resolution: {integrity: sha512-lhg36WTMG+GgJFY9zPStI7OICNRW2lBX0q9NJk5/lgAbNzT5cLVY33P/tFeKgGptvIuuiQMMgCwftLFbTxnBFg==}
     peerDependencies:
       docsearch.js: '*'
 
   '@docgeni/toolkit@2.8.0-next.8':
     resolution: {integrity: sha512-JfXmRLSCuxs7Q0pyI8a6gR4AlTiQMsdgVlsuLFQAdppWnSwnF3xfjdTJCCGUnIcIbmOZT+VkfRQYPgHh3ea6HQ==}
 
-  '@docgeni/toolkit@3.0.0':
-    resolution: {integrity: sha512-dV0QlTpNi8B+Uc/hW1ne9b8iFwwZ5O/N0fBW3fBQcLw1hbSRb+n70UAfQ/7KdDyagQQO7OM6XwxiFtLGJpk0Kw==}
+  '@docgeni/toolkit@3.0.1':
+    resolution: {integrity: sha512-RFSxnipGc3+WyMKRJhhKgrlJL0en9tS2j1DIQAKf7Fni0o7m5tH5hEI3XCQmDMeVcWnREMw+VOjGpobfgXO7Fw==}
 
   '@dsherret/to-absolute-glob@2.0.2':
     resolution: {integrity: sha512-InCaQ/KEOcFtAFztn47wadritBLP2nT6m/ucbBnIgI5YwxuMzKKCHtqazR2+D1yR6y1ZTnPea9aLFEUrTttUSQ==}
@@ -10953,13 +10953,13 @@ snapshots:
       - '@types/node'
       - chokidar
 
-  '@docgeni/cli@3.0.0(5825d0b7bd45fb2fc6bfd4d16d9a9ee1)':
+  '@docgeni/cli@3.0.1(5825d0b7bd45fb2fc6bfd4d16d9a9ee1)':
     dependencies:
       '@angular-devkit/schematics': 21.2.13(chokidar@3.6.0)
       '@angular-devkit/schematics-cli': 21.2.13(@types/node@22.19.19)(chokidar@3.6.0)
-      '@docgeni/core': 3.0.0(57cf984ca3808213b009bebb5e7401e8)
-      '@docgeni/template': 3.0.0(docsearch.js@2.6.3)
-      '@docgeni/toolkit': 3.0.0
+      '@docgeni/core': 3.0.1(57cf984ca3808213b009bebb5e7401e8)
+      '@docgeni/template': 3.0.1(docsearch.js@2.6.3)
+      '@docgeni/toolkit': 3.0.1
       '@schematics/angular': 21.2.13(chokidar@3.6.0)
       chokidar: 3.6.0
       cosmiconfig: 9.0.1(typescript@6.0.3)
@@ -11002,13 +11002,13 @@ snapshots:
       - vitest
       - yaml
 
-  '@docgeni/core@3.0.0(57cf984ca3808213b009bebb5e7401e8)':
+  '@docgeni/core@3.0.1(57cf984ca3808213b009bebb5e7401e8)':
     dependencies:
       '@angular-devkit/core': 21.2.13(chokidar@3.6.0)
       '@angular-devkit/schematics': 21.2.13(chokidar@3.6.0)
       '@angular/build': 21.2.13(49c56bbddaff47eaf3c1de9dd66b5a57)
-      '@docgeni/ngdoc': 3.0.0(chokidar@3.6.0)
-      '@docgeni/toolkit': 3.0.0
+      '@docgeni/ngdoc': 3.0.1(chokidar@3.6.0)
+      '@docgeni/toolkit': 3.0.1
       '@schematics/angular': 21.2.13(chokidar@3.6.0)
       '@types/text-table': 0.2.5
       ansi-colors: 4.1.3
@@ -11060,17 +11060,17 @@ snapshots:
       - vitest
       - yaml
 
-  '@docgeni/ngdoc@3.0.0(chokidar@3.6.0)':
+  '@docgeni/ngdoc@3.0.1(chokidar@3.6.0)':
     dependencies:
       '@angular-devkit/core': 21.2.13(chokidar@3.6.0)
-      '@docgeni/toolkit': 3.0.0
+      '@docgeni/toolkit': 3.0.1
       ts-morph: 12.1.0
       typescript: 6.0.3
     transitivePeerDependencies:
       - chokidar
       - supports-color
 
-  '@docgeni/template@3.0.0(docsearch.js@2.6.3)':
+  '@docgeni/template@3.0.1(docsearch.js@2.6.3)':
     dependencies:
       docsearch.js: 2.6.3
       tslib: 2.8.1
@@ -11100,7 +11100,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@docgeni/toolkit@3.0.0':
+  '@docgeni/toolkit@3.0.1':
     dependencies:
       '@angular-devkit/core': 21.2.13(chokidar@3.6.0)
       camelcase: 6.3.0

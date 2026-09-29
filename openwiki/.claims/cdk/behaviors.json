@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:3bc35de673874e569cadbe0a276074ecc49b168acf867b893dd56939b698b60b",
+  "claims": [
+    {
+      "id": "claim_dca68e3708bf4d4aa89a26626c8ca800",
+      "statement": "actionBehavior 和 asyncBehavior 必须在注入上下文中创建，因为实现类构造时调用 takeUntilDestroyed。调用返回的函数只记录参数，真正执行动作的是随后的 execute。",
+      "evidence": [
+        {
+          "resource": "repo://cdk/behaviors/action-behavior.ts#L65-L82",
+          "version": "repo-lines-v1:sha256:93b67b50673a6f9bf8fd9f4df27488b6f0abf2e01eae05ec8e6f397795dbe49c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5N2YyOTdiYTAwYTNiZDQ5NTBmMzVmZTg2MDcwZTQzZTVlMGQyMWFhNmViNzNjOTA4NDZmNTkyN2M1NDgzOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmYTgwZDQ0NjgxYTc0NjQxMzNlOTBiZTIwOGMxZjNlNTYzY2E4MjUyYWU3NzEzZjdmYzMwYjI0ODU1NGE0M2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://cdk/behaviors/async-behavior.ts#L83-L105",
+          "version": "repo-lines-v1:sha256:86ceb14b003900863242a2a8690a2e989a4c9b49fabeb5da8f28fa0a8177dab4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3NTdmZDBiOTI2Y2E4M2RmNjE0N2VkZTBmMzg0YTY5YWJjOWJkYzI2OTAyYmM4MzFjODRlZGUwNjY1MmE1MmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhNzgyYmIyM2E4ZmM1Zjc2NmRmZjkzM2U5Y2M2YmViY2Y0YTUyZTA2ZjZjNjVhYTE1Y2RmNTVlYmZlNDQwNTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://cdk/behaviors/behavior.ts#L21-L31",
+          "version": "repo-lines-v1:sha256:465c547256b2e2869fa759380a20d6a1776931ddd0e06459f8434f9094f11f0d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwODJmNjY4MDEzMDFmMDZhNTEyNzE2MjY2YWY4NDZjYTBlNDg2ZTY4ZjBkZDQwODNhZjMxNmY0YWUyNzA5NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlODY3M2Q5YzQwMzQ4MjExNWJkMTM2Y2NhYTZiNWEzZjQ5NWE2YzFkNTQ4MGY0ZDYzNzRiYzliNTRmYTc3YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgyMDU2MmFmNmZjMjQwNzZmMzI1NTZiNTFhNzM4YjY3YTU4NWMwNjliM2E0NDdmYTFmNmFhZjhhZmZhZDMyZjIifQ"
+        },
+        {
+          "resource": "repo://cdk/behaviors/examples/action/action.component.ts#L16-L46",
+          "version": "repo-lines-v1:sha256:12d103ad8d3678ab93470913aa082c878eaa5c3a6ca8b7b4c37eaec33b96e6bf:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhNjI5OTM0MGY5OWQyZGIwZTA5MmJhNTNlYmEwY2QyYWVhOWZlNjdiMjEyMjg4OTcyMGVlMmRmMWE2NzZmZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4ZWRjMWI1YzVlZmJiOTA1MzI4ZjYyZDFhYTNjNDc4YTNmNzQ3NDJlOGQ3ZmU3OGE3NDkxMDdjZDQ3OTQ0ZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExZmQ4NzQ0N2M1NmMwN2VlNmMyNTNkNWMwNDI4MTMyYzU0ZTdhN2UzNjYzMDI4MGM0YzBkNDg4NzNhMDUxMTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6c2b47371cc04bc68bece70dd94b5e29",
+      "statement": "execute 的成功和失败回调优先使用本次调用传入的函数或上下文字段，缺省时回落到创建时的 BehaviorContext。合并后仍没有 error 回调时，handleBehaviorError 调用模块级默认处理器；初始默认处理器是空函数，setDefaultErrorHandler 会替换它。",
+      "evidence": [
+        {
+          "resource": "repo://cdk/behaviors/behavior.ts#L33-L55",
+          "version": "repo-lines-v1:sha256:e1568c6edb882226f99617edcad30a69de43732a38ad253fb2b056dabc809214:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2YjRjNzA1YThkMTkzOGZkMGU4YWU3MWFjYjVkMThkZTMzNjRkMGQ1NjE0YTBhZGZiYjNmMDZiNTU4ZTM1ODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5YmEwZDFiZmZlMWQ0ZGNlNmM4ZmViYjE2ZTcxNjM3Yzk0NjE5MTYyMjY3NTY1ZmJlZmZjNTY2YjU1M2Y3MGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVjZWE5YzU5NjFmNmRiZDBiMDg0ZTQzYjM3YTc5YjM3YjE4NWIyODExYmM5YjhiOTRmNDIxNTk2ZTU3ZGU5NmIifQ"
+        },
+        {
+          "resource": "repo://cdk/behaviors/behavior.ts#L57-L64",
+          "version": "repo-lines-v1:sha256:148a9d69daf1b004d57ecccb709613952f69e9ad16bee5fc9a88125aa8755f2f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODc3NjYwYWU4MjJiYzBlMDRiNTczNzNlZjQ5ZDRlMjk5MzQwNDYyYWU1ZDgyZjI1NTEzZDkzNTYxNmIxNmZlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTQ2NzY4NzU1MGJjMDkyOGNhYWViMjU0OTljNjNmODNhNjA3NDJjNmMxNjAwZGZlMGJiYjhiYjEyNzQyNTU5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://cdk/behaviors/error-handler.ts#L3-L11",
+          "version": "repo-lines-v1:sha256:2e934b1d5bc2671e55a01ae07892b6a1a307e51d7f27eeb1760ad57a96ff05a6:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGJiOTM5NGFjNWZlMTBlOWE3M2U5ZWM3ZmYyNmFhNjBlNWI4OTQ3MTBkMmMxNDI5YmExY2JkNjdjN2MyZGRmNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjg2NjZiYWYxMDY0YTdmMjkzNGFjMGI1NWM0MzBhY2QyNmU2Yjk4ZWFhNTRhODEwNDA1NjM4OTlkOTdkNzgyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://cdk/behaviors/test/action-behavior.spec.ts#L158-L175",
+          "version": "repo-lines-v1:sha256:a4b73893aeba722f9abe8e494deca57d6517d819590fe96b1027fc6ccf14b88c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5NDkwMGVlNmUxNWQyZjVjOGQ3MTY1N2NiYTNhMDY1YjczYzEzZTNmYmVmNzhkNTI0MzIyYjMyZmRiMzg0N2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4YzY2NmU1MGE5ZTIyZjQ0MzhlYWE2MDgxOWI0ZDMwZWUyNDE3OTExNTIxMmY5OGRkZTlhN2VhMmNjN2MzZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmZDQ0NGFkMDljZGU2Y2IxMGRjODMzMjNkZGRiMzRmN2RkZDUyZDE2OThmM2Y0NzBhMjA0MDc0ZWMxYjBjZTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_15dd27f55f814c72bf85b648b47cb5ad",
+      "statement": "actionBehavior 用 saving 信号防止重入：上一次尚未结束时再次 execute 返回 undefined。它把结果 Observable shareReplay 后返回；成功、失败、完成或同步抛错都会把 saving 设回 false，同步抛错还会返回 throwError。",
+      "evidence": [
+        {
+          "resource": "repo://cdk/behaviors/action-behavior.ts#L30-L62",
+          "version": "repo-lines-v1:sha256:82b59162ad398f5e5b764da2b249659dccea10efa1475a326e570a20719938ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2ZDk5NjU3MTVmOWZlMzgyYWIzYTQ3MGNlNzllODA5NTI3MDQ1OTBlMTM2NTAwYWQ2ZjY5MzZjNzM4YTg2OTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2OWM2M2JmNWIwODIxMjVjMWRlOGU5OTdlZDg1ZTQzOWNhNGEwNjA3OWYyMmU2Njk2Nzg2MTVlYTVkYjFiYTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliZjA5MzdjOTQ1YjQ3OGZjNTZkNjU3NWQ0MzQyM2E0MzRkYjY1MzE4YWI1NjJmYTMyZjNlOTQ2NTc1NzlhYjIifQ"
+        },
+        {
+          "resource": "repo://cdk/behaviors/test/action-behavior.spec.ts#L76-L99",
+          "version": "repo-lines-v1:sha256:a4a0f542eb036bb39325d5d79bd0b6662c78f03f492c8a9a9675c85c9b1da1b0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzMjEyZjQwZGIyZDU4MzUzZDA0OWRlMDgxMWViODAyNDU0MjBkMzNlMGVhMDhkZDY1MTAyZTQzZDk4Yzg3ZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4YzY2NmU1MGE5ZTIyZjQ0MzhlYWE2MDgxOWI0ZDMwZWUyNDE3OTExNTIxMmY5OGRkZTlhN2VhMmNjN2MzZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM2OTJhYTE4MDFlYTE0YWIxMzNiMjIxOWY0NGE3MjA2NzdlMmZmYzJiZDgyMjU4MzkzMzE3MTYzZjIwMjJmODQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1b1fb9187d7e49c9bb51c04edb9bc1fd",
+      "statement": "asyncBehavior 不防重入。状态从 pending 进入 loading，成功写入 value 并变为 success，失败写入 error 并变为 error；execute 返回 void，loadingDone 是 loading 的取反。",
+      "evidence": [
+        {
+          "resource": "repo://cdk/behaviors/async-behavior.ts#L20-L80",
+          "version": "repo-lines-v1:sha256:5e0e3fb8af87349d516e00938620fcd74c1fb725d3fe358e714d457e25c86ce5:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkMWE2MmEzNDA1N2VhZjUwYjk4YzI5NjYxMmZkNjcyNzllNDBkOWQ4ZmE1NWQ5NjRkNjE2OTU3Mzc5N2U5ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc0MDlkOWVmOThiMWJjNDZiZThlNjc1YTAxYTg1ZTRkMTRhOTNlMzAyZWMyOGU4MGFlZTUyNzA4M2IzYmQzMTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg5YTZiOWM5MzU4MWJiYzA1ZWJhNjI2NzM5MTRmMjRkYzgwNTdmMjY1OTAxNDg1NTg3MzlhM2I2MmUyNTdmMzkifQ"
+        },
+        {
+          "resource": "repo://cdk/behaviors/test/async-behavior.spec.ts#L17-L34",
+          "version": "repo-lines-v1:sha256:04d55d02ff5aa61b627cdf0b4ae36f4e20bfbb73f8db6b6fda0b97841623bd58:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmZTQ5ZjdlY2RkOWQ3ZDFlOTQ2Mzg0ZjBmOGQxOTViMjE3NDExYjQzY2MwNGUyZjIwNTgwYzhlYmQyYWZlMjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyY2MwZDQ0ZGRlMzkxMDE4YTQ1OWMwNmIwOTBlZWVjOGRmNTA0MTg4Mjk3MzIwMmQwYTc2NWZjOTM1NjRjYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzZGI3OTc1ZDdhNzFhOGY3YWUyMmVmZWM3M2MxOWIwNWIwYjI1ZjM4ZTdiOTEwYmZiNmJhZDhlZDgzNzBiZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6e2a6c70b9ca4a80990cd2568d1c93e9",
+      "statement": "behaviors 导出的 runInZone 把 Observable 的 next、error 和 complete 放进给定 NgZone.run。action 与 async 不会自动使用它。热键分发器在本文件内定义了另一个 runInZone，键盘事件流管道用的是那一份。",
+      "evidence": [
+        {
+          "resource": "repo://cdk/behaviors/run-in-zone.ts#L4-L16",
+          "version": "repo-lines-v1:sha256:685e0e5e2f28a95574bca1448312963994154cb0059e26014978702f25a50ae7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlODg3MGIxYzYzODI5M2EzNTM1ZmE3MDk3NDhkYWM0ODhhNDlhYjIwODVhMmRlNGU1OTEwYzI2YmQzZTViY2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxOTNmNzAzODBjYzU2MjAxY2YwNzI2MTIxNzk1YjNhZjgxNjFjOGQ0NTcyNWZhNDUxZmQzNmM0M2M4YTNlMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://cdk/hotkey/hotkey-dispatcher.ts#L56-L56",
+          "version": "repo-lines-v1:sha256:2accd9a81682414d79df6d9915496e749de89725de9596965a7ae4a6355c0024:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmFjY2Q5YTgxNjgyNDE0ZDc5ZGY2ZDk5MTU0OTZlNzQ5ZGU4OTcyNWRlOTU5Njk2NWE3YWU0YTYzNTVjMDAyNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmFjY2Q5YTgxNjgyNDE0ZDc5ZGY2ZDk5MTU0OTZlNzQ5ZGU4OTcyNWRlOTU5Njk2NWE3YWU0YTYzNTVjMDAyNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTU4YzlkMGJmNTNlZGIyYzI2ZDkzNWJhYmQxZmFjM2JmMTA1OGRkZDIyNjc5NmYyYzI4Y2NkYmM1MWZjZjUzMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzc5NGQwMmE4MTIxOTQ0ZDE3NmQyNjVlOWJiOWNjNTlmNmFiODkwYmNhZGY4YWVmZGViZGJiYjRmMmVhODQ0NCJ9"
+        },
+        {
+          "resource": "repo://cdk/hotkey/hotkey-dispatcher.ts#L9-L17",
+          "version": "repo-lines-v1:sha256:72669d5dad6fdda8090ca6ad7c40039a31db360677844dc7205434a9049a29ff:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU2Yjc0Mjc4OTBjZDE3ZTE2MTBhYTE3ZjQwZDZjYTNjMDJmMjFlZmVmMGIwNDVmNjg4NzY0ZjgxN2ZlNzNmYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTdjOTM2ZTg0ODk3OTMwNGE1MmFiNzYyNDc1NTkxNjUxMzI1MjgzYzA0MmY1ZDc4Y2ZhZTgwN2MxOTFhMTg5OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGQ3ZTE1MDY2YzljNGNmYWVmMjUwMDZhYzVlZDZhMTJjMjE0NDdkN2I4NmQ5YjVlZjFlY2RjMmJmMzc5ZTUyOSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.0",
+    "at": "2026-09-28T07:54:10.806Z"
+  }
+}

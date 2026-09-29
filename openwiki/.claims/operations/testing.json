@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:d06c8eb2a58f5cb98b7c22a740944f880957da915e2a1edf46474a58059c70d5",
+  "claims": [
+    {
+      "id": "claim_f044a81f6d764533ace97e5f44058bb4",
+      "statement": "pnpm test 只串行 test-tethys 和 test-schematics。组件库测试在 src/test.ts 里强制注入 zone 变更检测、替换 debounceTime、关闭图标缺失日志和废弃警告，并在每个用例后销毁。CDK 测试只初始化平台并销毁用例，没有这些桩。schematics 先编译再对 dist 里的 spec.js 跑 Jasmine。",
+      "evidence": [
+        {
+          "resource": "repo://angular.json#L27-L30",
+          "version": "repo-lines-v1:sha256:caf8df26787994318a516287c9143befb30db494d5df698b4af4e9d6abeba9fe:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDk0MTBmNDYyY2U0ODExYzk1OGE2NDk0NzA1YTNmZDE2NTg1NzBkNzY3MzFjNTE2NTIzNWE2OGVmZDdmOGQyNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQzMzlkMzY3ZTI0YTNiNzA0MjVhYzgwZGVkYWU3NmFiMTkyZTUyMWE4YTU0MjI0Y2UzMzY4YWFjODIxZmQ2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjRjZTgyY2NiZmJmMDRiNGY2NTI0OGYzY2FiOTU3NTgwZmE1MWM2NTZkMDA4YjEwOGMyNDU3YmEzYzA0ZjNjOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjg2NTRkYTdiMDQzZTIwNTU0MjFkNzQxOTQ1YmJkYzE5MGU0MjYzNDYyZWRlYTlkZDdmM2YyMDQ0Y2ZmNDg4ZiJ9"
+        },
+        {
+          "resource": "repo://cdk/test.ts#L8-L11",
+          "version": "repo-lines-v1:sha256:9feeb6de633c18d91f6298b5b6de2ffac4324bdfc039967d651f85bb56f23a19:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjk5ZTQ3MDM2NGUzZTkzZjRmYWFkMzQwYThhM2FkMzMzOTJhOTIzNjVkZTViOTEzZDk1YjQ3Mzk2YmI5MGIyNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGI5ZDg4NTg0ZDg0MGVlY2VmYTIzZTgyYzk4MTdkNjY3NmU5MjNmYWU4MGNiMWUxYzY0MTJiNWZhYThkZjg5MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://package.json#L41-L43",
+          "version": "repo-lines-v1:sha256:3c712fd0916e56b662e8cf6d8f7d3717b02bdeb5c4e23e79efe4f37dcbf1d593:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVmOWZhMTU2ZWE1YTBjYzQwYmRmNGNjYzgxNGI5MjEzNzNjMmZlYzAxZDNhM2NkNzZmNjBlMGVhOWNlYTg3YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmI1ZmM1Mzk5Zjc5YmQ2MjQ2MjA2YzQ4MzMxYTk4NjA3NGZiY2QwMWM0ZmI4MWFhNzY5YjFjZTdkMjQ0YWY2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGE5MTI1MDkxMzMyNTY3MjBhYjFhMDExYzZkMmFmZjA3Y2VkMjZmMTU5ZDY0ZDljMWZlMzk4NzgxMTk3Y2YzYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzNlM2RjNWNmNjllNzBmNjk4N2Q4NmY1Zjk2MThhZGUzNzQxYTEzYWYwYTk1OThlOTVjY2Y5MWYwY2I1ZGRjYiJ9"
+        },
+        {
+          "resource": "repo://package.json#L52-L52",
+          "version": "repo-lines-v1:sha256:4ae360740f7658f8a07b29b604848b6bfc47b22e0437a4b7acd6fc6823d064ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFlMzYwNzQwZjc2NThmOGEwN2IyOWI2MDQ4NDhiNmJmYzQ3YjIyZTA0MzdhNGI3YWNkNmZjNjgyM2QwNjRhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFlMzYwNzQwZjc2NThmOGEwN2IyOWI2MDQ4NDhiNmJmYzQ3YjIyZTA0MzdhNGI3YWNkNmZjNjgyM2QwNjRhZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTVmMjhlYmVlMTRhZjQ1NmY5ZWQ5YzQwOGM1YzI1OWQzNWRhNjU0MDY0M2MyOGM1Njk1ZDQ1NjIyYmQ1MjA0NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTA4NmMyMDlmMjAzOTM4Zjk1MjczMzRmNWY1ZjhmODgxMmU5NTU0MmEyYTkwMjEzNzJkNGFjZWJlODczMDQzMSJ9"
+        },
+        {
+          "resource": "repo://src/test.ts#L12-L33",
+          "version": "repo-lines-v1:sha256:56b121934721c549f887a5232852aaf19380f3a641fcac5e5ad7aee293b7cf6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjM2ZmYzZlODYwNmEzZTVhMWZhZDM1YjAxNDQ1NTJiNmQ4OGQyNjQ3ZTZhYzI1M2QyN2VjMDdhYzM5ODUzMjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjMzg2MGIwOTAwMmJmNTJhODg5YWViYWRmNTBhYzJhNWYzMGMzNDljZjI0OTc4YWQ2MTk1Yzc5NTkxYTkyOWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_eedbae163d4e4aaeadc5d31610a2fc20",
+      "statement": "CI 在 master 的 push 和 pull request 上，用 Node 22、中文 locale 和 Asia/Shanghai，依次跑 lint、test-tethys、test-cdk 和 test-schematics。Karma 使用 ChromeHeadlessCI 且 no-watch。本地默认浏览器是 Chrome 并保持监视。",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/main.yml#L8-L50",
+          "version": "repo-lines-v1:sha256:facba60174de5a2e67dfade5f5a3f15b59c99ba5bea86e51d45615f3ece5f8b9:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMGUyZGRhYTY2MjI5ZjAwOGEyOWQxMjhkMzBhZDlhMjk1MjU2Zjg1NGJhZGYzMjQwOWFkMDQ3MjRiNTA1NjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1YWRhMWNhZTNkZDYzMDdiYmE3MjdkYjEzMWUxOGJhNWRlMTVlNmI2MWZjOTE3ZDRlZDVjNzFlYWI0Njc5NzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhNDUwOTc2MzQyZTRlZDhhNDk1MGNjMTI1YzQ2NmQ4MDRkY2Q2NWJkNDQ2NGE4YmE3ZDJmZjVkMTgzODNkYmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://karma.conf.js#L36-L42",
+          "version": "repo-lines-v1:sha256:a6d977af5bbf1cff133108abc004d48dc1475e7379f73943ceb4cb50413978b9:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWEzNGJiYTNlODE2M2RiN2U2ZjM2NTEyOGJjOWE0YTYyZjJjNjIyYzJjNDBmODZhNDAwYzg4N2MxY2ZmODBkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUyMmM0MmNkMTljNmQwM2Q4MDhjNDUyNzIwNTUyODI1YjdlYTFjNWI0OTFiMjE4NTExY2FjNzQxNWNmOWQ5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWEzNDk1ZWZkOWQyOGJkNTZiMjk5ODExOGVkYTk0MGE0YzNmZDg5NzFkMzk3YWIxZTAyOGYxOWIzNDIzYWYyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTI0ZmUyNjVmZTZhYjZhNDNlNjZlZmJjZmIyMGNlNzZkNzFlOTA0ZDZjMmFkZGZhODI3MjVjMTRlNDk2MzVjMCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.0",
+    "at": "2026-09-28T07:54:10.806Z"
+  }
+}
