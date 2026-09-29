@@ -5,7 +5,7 @@ description: ngx-tethys、@tethys/cdk 与内嵌 schematics 的发布边界、pee
 tags: [packages, ng-packagr, peer-dependencies, public-api]
 verified:
   - by: openwiki/0.6.0
-    at: 2026-09-28T07:54:10.806Z
+    at: 2026-09-29T01:54:27.255Z
 sources:
   - id: openwiki-source-73378d4ee3f791429188ddb5
     resource: repo://angular.json
@@ -33,7 +33,7 @@ sources:
     resource: repo://src/version.ts
   - id: openwiki-source-98d5ddb014a0fd4d678f6f2a
     resource: repo://tsconfig.json
-generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
+generated: { by: "cursor", at: "2026-09-29T01:54:27.255Z" }
 ---
 
 这个仓库发布两个 npm 包，文档站不发布。组件库 `ngx-tethys` 把脚手架打进同一个包；无 UI 的工具库 `@tethys/cdk` 单独发布，并由组件库声明为 peer。
@@ -54,7 +54,7 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 ## ngx-tethys
 
-发布元数据在 `src/package.json`，当前版本 `22.0.2`，与 `src/version.ts` 里的 `VERSION` 一致。根 `package.json` 是工作区的开发依赖清单，不是发布清单。
+发布元数据在 `src/package.json`，当前版本 `22.0.3`，与 `src/version.ts` 里的 `VERSION` 一致。根 `package.json` 是工作区的开发依赖清单，不是发布清单。
 
 运行时依赖只有 `tslib`。Angular、Angular CDK、`@tethys/cdk`、`date-fns@4.1.0`、`@date-fns/tz@1.2.0`、`@tethys/icons` 和 `rxjs` 都是 peer。其中 `date-fns` 锁死补丁版本，`@tethys/cdk` 写成 `*`，由使用方自己安装对齐的 CDK 包。
 
@@ -70,7 +70,7 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 ## 构建与发布顺序
 
-`pnpm run build` 先 `ng build cdk`，再 `ng build ngx-tethys`，最后编译 schematics 进 `dist/tethys`。`pub-only` 分别在 `dist/tethys` 和 `dist/cdk` 执行 `npm publish`。两个包版本号都写在各自的 `package.json` 里，目前同为 `22.0.2`。
+`pnpm run build` 先 `ng build cdk`，再 `ng build ngx-tethys`，最后编译 schematics 进 `dist/tethys`。`pub-only` 分别在 `dist/tethys` 和 `dist/cdk` 执行 `npm publish`。两个包版本号都写在各自的 `package.json` 里，目前同为 `22.0.3`。
 
 ## 相关页面
 

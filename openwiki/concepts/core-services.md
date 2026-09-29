@@ -3,9 +3,6 @@ type: concept
 title: 核心服务与全局配置
 description: ngx-tethys/core 里被多个组件共用的全局配置、主题信号、表单尺寸、滚动和 mixin，以及只被时间选择器使用的 MiniStore。
 tags: [core, providers, theme, form-control]
-verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-28T07:54:10.806Z
 sources:
   - id: openwiki-source-d27b27f8a24d9be321a99559
     resource: repo://.docgenirc.js
@@ -13,10 +10,12 @@ sources:
     resource: repo://src/core/behaviors/mixin.ts
   - id: openwiki-source-2279ba94b8328596e167f800
     resource: repo://src/core/behaviors/tabindex.ts
-  - id: openwiki-source-cd36e3d22238f8df003ef225
-    resource: repo://src/core/form-control-size.ts
+  - id: openwiki-source-e4e50b5da1173fbc63131e06
+    resource: repo://src/core/form-control.ts
   - id: openwiki-source-fe81bd2dfe0c63a56273cd3b
     resource: repo://src/core/global-config.ts
+  - id: openwiki-source-24e9ef5b915dcefae8c538f4
+    resource: repo://src/core/index.ts
   - id: openwiki-source-465bb371c5e6e4ca12ed34b2
     resource: repo://src/core/provide.ts
   - id: openwiki-source-a6c799960b34407a02cca592
@@ -41,7 +40,10 @@ sources:
     resource: repo://src/table/table.component.ts
   - id: openwiki-source-73411d03d41837fe76a50fa5
     resource: repo://src/time-picker/inner/inner-time-picker.store.ts
-generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
+generated: { by: "cursor", at: "2026-09-29T01:54:27.255Z" }
+verified:
+  - by: openwiki/0.6.0
+    at: 2026-09-29T01:54:27.255Z
 ---
 
 `ngx-tethys/core` 是组件之间的共享层，不是组件次级入口那种 UI 包。根包 `ngx-tethys` 只再导出全局配置和 `provideTethys`。主题、滚动、mixin 和浮层基类都从 `ngx-tethys/core` 导入。Docgeni 生成组件文档时排除 `core`。
@@ -58,9 +60,11 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 `normalizeColor` 接受一个颜色或一对颜色。字符串原样返回；只有一个元素的数组返回那一个；两个及以上时，暗色用第二个，亮色用第一个。空数组返回 `undefined`。`injectPanelEmptyIcon()` 据此在暗色下给出 `preset-light`，亮色下给出空字符串。水印指令和文档站初始化也会注入这个 store。样式变量本身不在这里切换，见[主题与样式](theming.md)。
 
-## 表单控件尺寸
+## 表单控件尺寸和外观
 
-`ThyFormControlSize` 是 `'xs' | 'sm' | 'md' | 'lg'`。输入框、搜索框、原生选择、自定义选择、树选择和时间选择都把 `thySize` 的默认值写成 `md`，空值也折回 `md`。这只是共享类型，不负责校验或布局。
+`ThyFormControlSize` 与 `ThyFormControlAppearance` 都定义在 `src/core/form-control.ts`，并从 `ngx-tethys/core` 导出。原先单独的 `form-control-size.ts` 已删除。尺寸仍是 `'xs' | 'sm' | 'md' | 'lg'`。外观是 `'outline' | 'subtle' | 'ghost'`。
+
+输入框的 `thySize` 默认 `md`，空值折回 `md`。`thyAppearance` 默认 `outline`，空值折回 `outline`。`subtle` 给宿主加上 `form-control-subtle`，`ghost` 加上 `form-control-ghost`，`outline` 不加这两类。搜索框、选择、日期和时间选择使用同一对外观类型。这两个类型不负责校验或布局。
 
 ## 宿主类、焦点和滚动
 
@@ -82,5 +86,5 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 - [包与入口](../architecture/packages.md)说明根入口为什么只导出配置和 `provideTethys`。
 - [浮层体系](overlay.md)说明 overlay 全局开关如何进入定位。
-- [表单与校验](forms.md)说明尺寸类型之外的表单指令和校验。
+- [表单与校验](forms.md)说明尺寸和外观类型之外的表单指令和校验。
 - [主题与样式](theming.md)说明 Sass 变量和运行时主题如何配合。

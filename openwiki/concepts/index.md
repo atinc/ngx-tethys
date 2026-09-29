@@ -2,7 +2,7 @@
 
 - [核心服务与全局配置](core-services.md) - ngx-tethys/core 里被多个组件共用的全局配置、主题信号、表单尺寸、滚动和 mixin，以及只被时间选择器使用的 MiniStore。
 - [日期与时间](date-time.md) - 日期、范围、时间和日历如何共用 TinyDate，把 date-fns 与 @date-fns/tz 锁在 peer 版本上，并从 i18n 语言包取文案。
-- [表单与校验](forms.md) - thyForm 如何在提交、变更或失焦时校验 Angular 控件，把错误写成 is-invalid 和 invalid-feedback，以及多个控件如何共用尺寸类型。
+- [表单与校验](forms.md) - thyForm 如何在提交、变更或失焦时校验 Angular 控件，动态表单如何按 schema 建控件，以及多个控件如何共用尺寸和外观。
 - [国际化](i18n.md) - ThyI18nService 如何用信号保存五份语言包，injectLocale 如何按模块切片，以及 ThyTranslate 为何不调用 ngx-translate。
 - [图标](icons.md) - ThyIcon 如何从 ThyIconRegistry 取 SVG 或字体类，找不到图标时如何报错，以及测试和 ng add 如何对待 @tethys/icons。
 - [浮层体系](overlay.md) - ThyAbstractOverlayService 如何用 CDK Overlay 打开和关闭 dialog，以及 popover、slide、autocomplete 与指令型浮层各自复用哪一层。

@@ -3,9 +3,6 @@ type: integration
 title: 脚手架与版本迁移
 description: ng add 写入哪些依赖和样式，以及 v22 迁移如何先提交 CDK 规则、再跑自定义模板规则，失败时如何继续。
 tags: [schematics, ng-add, ng-update, migration]
-verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-28T07:54:10.806Z
 sources:
   - id: openwiki-source-14d7c63fe78db8c38058b813
     resource: repo://schematics/dependencies.ts
@@ -23,11 +20,16 @@ sources:
     resource: repo://schematics/ng-update/two-phase-migration-rule.ts
   - id: openwiki-source-79a60be2779a861daacdb978
     resource: repo://schematics/ng-update/update-22/index.ts
+  - id: openwiki-source-8a4456fa3041925d9f9e0e1d
+    resource: repo://schematics/ng-update/update-22/select-props-migration.ts
   - id: openwiki-source-62cac766b8b04a559a874cb5
     resource: repo://schematics/utils/get-project.ts
   - id: openwiki-source-c3577e881522cf261d60c37e
     resource: repo://schematics/utils/package-config.ts
-generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
+generated: { by: "cursor", at: "2026-09-29T01:54:27.255Z" }
+verified:
+  - by: openwiki/0.6.0
+    at: 2026-09-29T01:54:27.255Z
 ---
 
 脚手架打在 `ngx-tethys` 包里，不是单独发布的包。`ng add ngx-tethys` 做初始化。`ng update ngx-tethys` 走到 `migration-v22`，版本标记是 `22.0.0`。另有一条 `migrate-22`，只跑同样的代码改写，不负责升级包版本。
@@ -46,7 +48,7 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 找不到工作区配置时只打错误日志并返回，不做改写。某个工程既没有 build tsconfig 也没有 test tsconfig 时，警告并跳过该工程。有的话，build 和 test 各跑一遍，并额外扫工程根下的样式文件。同一阶段里用一个 `analyzedFiles` 集合记住已分析路径，避免 monorepo 里同一份模板被两个工程各改一次。每个工程结束后 `fileSystem.commitEdits()`，下一段才能读到上一段已经落盘的结果。自定义规则因此要求按属性或标签做增量修改，不能整份替换模板。
 
-CDK 阶段用 `upgradeData` 做数据驱动的重命名，例如类名 `ThyButtonType` 到 `ThyButtonColor`、元素选择器 `thy-link` 到 `thy-anchor-link`，以及一批输入名。自定义阶段是点状规则，覆盖输入尺寸、按钮和标签外观、导航可关闭、表格表头、分割线、徽标、卡片废弃属性、日期弹出选项和树选择图标等。这里不逐条列出替换表。
+CDK 阶段用 `upgradeData` 做数据驱动的重命名，例如类名 `ThyButtonType` 到 `ThyButtonColor`、元素选择器 `thy-link` 到 `thy-anchor-link`，以及一批输入名。自定义阶段是点状规则，覆盖输入尺寸、按钮和标签外观、导航可关闭、表格表头、分割线、徽标、卡片废弃属性、日期弹出选项、树选择图标、选择属性重命名、无边框选择、菜单主题、标签形状、搜索框外观、按钮组外观、投票外观和形状、类名、表单尺寸类型和页头图标前缀。选择属性规则会把 `thy-select` 和 `thy-custom-select` 上的 `thyMode` 改成 `thyMultiple`。这里不逐条列出替换表。
 
 某一规则失败不会停掉后续阶段。`hasFailures` 一直或到结束。两条入口的完成回调都先打印成功句，再在有失败时警告：有些问题没能自动修好，需要按上面的输出手工改。`ng update` 的句子是 `Updated NGX-TETHYS to 22`；`migrate-22` 的句子是 `Completed NGX-TETHYS v22 code migration`。若某条迁移的 `globalPostMigration` 要求装包，结束时再加一次 `NodePackageInstallTask`。
 

@@ -1,14 +1,19 @@
 ---
 type: concept
 title: 表单与校验
-description: thyForm 如何在提交、变更或失焦时校验 Angular 控件，把错误写成 is-invalid 和 invalid-feedback，以及多个控件如何共用尺寸类型。
+description: thyForm 如何在提交、变更或失焦时校验 Angular 控件，动态表单如何按 schema 建控件，以及多个控件如何共用尺寸和外观。
 tags: [form, validation, i18n, form-control]
-verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-28T07:54:10.806Z
 sources:
-  - id: openwiki-source-cd36e3d22238f8df003ef225
-    resource: repo://src/core/form-control-size.ts
+  - id: openwiki-source-e4e50b5da1173fbc63131e06
+    resource: repo://src/core/form-control.ts
+  - id: openwiki-source-7a991b592ed4fb79b539505b
+    resource: repo://src/form/dynamic-form/dynamic-form.component.html
+  - id: openwiki-source-4473ca9466b1ac1ab849076e
+    resource: repo://src/form/dynamic-form/dynamic-form.component.ts
+  - id: openwiki-source-3d1d7d81241d81845236a9c7
+    resource: repo://src/form/dynamic-form/dynamic-form.pipe.ts
+  - id: openwiki-source-3126b269f7255d0b750d6912
+    resource: repo://src/form/dynamic-form/types.ts
   - id: openwiki-source-9eecfb6e04b0f8606db30da4
     resource: repo://src/form/form-group-error/form-group-error.component.ts
   - id: openwiki-source-fb8de40a07c8673056647a3f
@@ -25,7 +30,10 @@ sources:
     resource: repo://src/input/input.component.ts
   - id: openwiki-source-7c45def29acf9392a068161c
     resource: repo://src/shared/base-form-check.component.ts
-generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
+generated: { by: "cursor", at: "2026-09-29T01:54:27.255Z" }
+verified:
+  - by: openwiki/0.6.0
+    at: 2026-09-29T01:54:27.255Z
 ---
 
 `thyForm` 挂在 Angular 的 `NgForm` 或 `FormGroupDirective` 上。指令自己提供一份 `ThyFormValidatorService`，所以每张表单的错误列表互不影响。布局类名来自 `thyLayout`，缺省用 `THY_FORM_CONFIG.layout`，宿主上会加上 `thy-form-<layout>`。
@@ -52,15 +60,25 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 `ThyFormModule` 导出分组、提交指令、`thy-form-group-error`，以及 min、max、确认和唯一性校验指令。
 
-## 尺寸与勾选控件
+## 尺寸与外观
 
-`ThyFormControlSize` 不属于表单指令。它是 `'xs' | 'sm' | 'md' | 'lg'`，输入框和各类选择控件的 `thySize` 默认 `md`，传入空值时折回 `md`。改尺寸不会触发上面的校验。
+`ThyFormControlSize` 和 `ThyFormControlAppearance` 定义在 `src/core/form-control.ts`，不属于表单指令。尺寸是 `'xs' | 'sm' | 'md' | 'lg'`。外观是 `'outline' | 'subtle' | 'ghost'`。输入框的 `thySize` 默认 `md`，空值折回 `md`；`thyAppearance` 默认 `outline`，空值折回 `outline`。改尺寸或外观不会触发上面的校验。
 
 复选框和单选的基类 `ThyFormCheckBaseComponent` 继承 core 的禁用与 tabIndex mixin，并实现 `ControlValueAccessor`。`thyLabelTextTranslateKey` 经 `ThyTranslate` 取文案。禁用时 mixin 把 `tabIndex` 读成 `-1`。
 
+## 动态表单
+
+`thy-dynamic-form` 按 `thyFields` 自己建 `FormGroup`，不走 `thyForm` 的 `validateOn`。字段 `kind` 只支持 `input`、`textarea` 和 `select`。其他 kind 渲染一行 `Unsupported field kind.`。
+
+控件的 `updateOn` 缺省是 `change`。错误默认要等提交后才显示：`updateOn` 为 `blur` 时，触碰后即可显示；为 `change` 时，变脏后即可显示；没写 `updateOn` 时，只有 `submitted` 为真才显示。提交且整表有效才发出 `thySubmit`。无效时不发。`reset()` 把各字段恢复成 `defaultValue`（选择的空值是 `null`，多选是 `[]`，文本是空字符串），并清掉已显示的错误。
+
+`props.required`、长度、`pattern`，以及 input 的 `min` / `max`，会变成 Angular 内置校验。自定义 `validators` 一律当成异步校验，返回错误对象或 `null`。文案先用字段自己的 `errorMessages`，再用校验加载器按字段名取，最后才用错误值里的字符串。
+
+布局固定为非横向：组件把 `isHorizontal` 设为 `false`，并把自己提供成 `ThyFormDirective`，让 `thy-form-group` 读到这个值。`col` 按 12 列理解，管道乘 2 映射到 24 列栅格；不写时按 12，也就是整行。选择字段使用 `thyMultiple`、`thySearchable` 和 `thyClearable`。动态表单不设置 `thyAppearance`。
+
 ## 相关页面
 
-- [核心服务与全局配置](core-services.md)说明尺寸类型和 tabIndex mixin 的定义。
+- [核心服务与全局配置](core-services.md)说明尺寸、外观类型和 tabIndex mixin 的定义。
 - [国际化](i18n.md)说明 `form` 语言包如何切换。
 - [选择控件](selection.md)说明选择类控件如何作为表单控件。
 - [脚手架与版本迁移](../integrations/schematics.md)说明 v22 对表单控件尺寸类型的迁移。
