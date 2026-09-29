@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:9768722749eee38fedd50cb4d170c92a56bfbeb82429131afd635fadc56d1ee5",
+  "claims": [
+    {
+      "id": "claim_f00ca34d60f242d9bf992ac3fc333d33",
+      "statement": "pnpm run build 先构建 cdk 到 dist/cdk，再清空并构建 ngx-tethys，拷贝 README、CHANGELOG 和 core/testing 源码，最后把 schematics 编译进 dist/tethys/schematics。build-styles 不在这条链上。",
+      "evidence": [
+        {
+          "resource": "repo://cdk/ng-package.json#L1-L8",
+          "version": "repo-lines-v1:sha256:37cf2699302c08ca488480da4caec3e61875aec3b869d1bf8bfecc5ed21a3ac4:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTZmYjA4ZmRhMWFjYjk1N2I2MTE2YmQzNzgxMWExZmU0MWEwMTYxMWMwNjMxZWRiZjc4NmQ2ODg5YTI3YTU1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://package.json#L21-L26",
+          "version": "repo-lines-v1:sha256:6538f522de624572c9eee21d3c77c37474804428c3d2c1bee8afea037d32c969:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjExNDQxYzg5NjZjNmFhZGQ5YmU1YzNkMzc5YTYwMjcyNjhlMTM3YWVmNjZkY2E3ZDNjMGQyZWRjYTM1MzNjMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ5OTk1NzVmMmQwZWU1NDE2ZjdmZjExMTcyNjJhYTI3ODQ5MzQxNDBkZDg4YzEzNTk0ZTY5ZjQ5MTYzMDQ5MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDM1ZmMyNDdhMTcxMWY3Yzc0OThiNmNlZmYyNzUyNjQxYTUwMjY1NGU2NTk5MzI4OTA0YWJiZTA1NzM1MDU5YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDQ3MTg4Y2NmYTY4NWIwZmEyMDYxNzBiZmJlNjdmNTJlNjNjYWNlNmFiOGU2ZjJlNWY4NmI4YzQyMzc4ZGEzZiJ9"
+        },
+        {
+          "resource": "repo://package.json#L50-L51",
+          "version": "repo-lines-v1:sha256:21ff97eed76e893e1c41b959a1ef20fcbab3506ead1f2ac0d60b119548dc89bd:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTAyYjYxYzhiOTJmMjRiZDkwNzY2NmJlMzI2Y2Q3MjBhODExMGUxN2Q3ZTQ1ZGQwZGI5M2UyNTYxOTQ4YzFjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY4OGZmNzFiY2MwZmYxNTE2ODFjODBmMzkxNGZiMmM5N2MzNDVlYzgzNTU0NDM4YjA5ZjY2YjY4N2M0MGU4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzY1ZTZjNzE4ZmY1NmJiZjVhYmRjNTdkYjJmNWI2ZGZhMTg4N2RiYmQ0YWY5ZTRhNGY1NjI4ZDRmNTMzZGRkMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWY5MDkwNmIwZTE1ZjkyMzFjOWM4ZGY1ODFiMTFmMTg5YWQzMDkxYTk4MjBhODRjMzBmNGU4ZDIwNDY5OWEzYyJ9"
+        },
+        {
+          "resource": "repo://src/ng-package.json#L1-L8",
+          "version": "repo-lines-v1:sha256:5455ebf9200277c92149986fcc02111d6f8348247816b7b4ae40e8bd0035d18b:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTZmYjA4ZmRhMWFjYjk1N2I2MTE2YmQzNzgxMWExZmU0MWEwMTYxMWMwNjMxZWRiZjc4NmQ2ODg5YTI3YTU1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTFhYTEzOTlkYjUzOGI4MmRmNzgxMDE4OWJlYjk1NzRjNzliNjliZWE4MzQ2NzAyODViNjM1NDJiMGQ5NDg0MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_410fbefcc3f14015adb01aa4f9692235",
+      "statement": "release 创建 release-auto-v 分支，release-next 创建 release-auto-next-v 分支。pub 以 latest 发布 dist/tethys 和 dist/cdk，pub-next 使用 next tag。版本号含 next 且 tag 不是 next 时 prepublishOnly 以退出码 1 中止。dry-run 只打印步骤。",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L67-L69",
+          "version": "repo-lines-v1:sha256:cca69e84d75abf95b9cf466482106bbdcf894ea7e1befc8efac22a435636f5d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDc2YTdhMjZlNjQ0ZTg1OTU4MGQ0Mjg5NjFjYjgwY2Y0OTA3MWVmNjUwOGFjZTRlZjg5NTg0NTVkNzEyNzhiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQ5OWFmMDIzZjU4ZjRkODExOTdjYWMwNzYwN2E3ODEzMDU4YTFiMzMyZjA5YTgzNTJlZTM2ZGQwMGUzODI1ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjJiNzM4N2YxOGEwNTZlZWVjMzg0YWFlMDUxMjhhMmZlYjZmNmZmYzc0ZTZhZDNlNjZmMzRkNzQ5YzRjNDljOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmMwOWJlZDE2YzI0ODZkNDI3MGRkNDZmYjAxM2M0NmFjYTI2YmYwOGVmZGUzMzBkZTNkNWMwOWUwNzY1OGI5ZSJ9"
+        },
+        {
+          "resource": "repo://package.json#L27-L40",
+          "version": "repo-lines-v1:sha256:42029ff60e9d7725537f5ef3bc562a00eb0d283132f7b095185ac3e636fa00cc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwMTNjZDcyMjg4MTE5MzAyOGMxMjViY2ZhNDhkOTQwY2MzZmQxMTNiMDE2ZDhhMTM1YzljMTgyMzI4ZmVlZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmYmRjYTQxZTJlYzhjOGRhM2UzMDA0YmIwNmZhMjQxZWZiMGY1OGM3MDVhMjkxOTVkZGY3OTQ1OTQyZWRjYjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5ZDNmNzk4MzQyMTNlZjI0MzQzMmNjZTNkYWM0YTBlY2NlZGFlMDVlNzNmZDhlNzFiMGY5MGJmNDg4NGEyYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNjNzEyZmQwOTE2ZTU2YjY2MmU4Y2Y2ZDhmN2QzNzE3YjAyYmRlYjVjNGUyM2U3OWVmZTRmMzdkY2JmMWQ1OTMifQ"
+        },
+        {
+          "resource": "repo://package.json#L56-L57",
+          "version": "repo-lines-v1:sha256:7d6b06b1013cb806a911ff9e9ff7fdf9b7a7fc081e06cea0c3fe70ff64ca834d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjMwN2RiMDZhNjZmM2FlYWEzMjAyZDg0Y2NmZjVmN2ZhYTQzNGRkMGRiYWI0MDZjODVmOTViN2Y4MjNjMDdjZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzM1ZjViMjEwODUxOTI3ZTliZmMxNjEzNGE5ZjFmN2Q1NmZjNTliNWI4ZTg0MDk3ZGQ3Yzc3MzM0MjJjNDM1NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTA4NmMyMDlmMjAzOTM4Zjk1MjczMzRmNWY1ZjhmODgxMmU5NTU0MmEyYTkwMjEzNzJkNGFjZWJlODczMDQzMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTIzMWNiMDcwNTI3YWFmOTFjZmJkNDc1YTU4OGEwZjI4OTY1OTAxM2QzNmIxM2E2ZDI2NDU1YmYwMTU5ZjM2ZSJ9"
+        },
+        {
+          "resource": "repo://scripts/pre-publish.js#L3-L9",
+          "version": "repo-lines-v1:sha256:7c1ccca0891815b14acf086ade5b3930a6932c40376814a3a2edaa8e9b0a776e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDkyNjk4NTZmYjVmMzkxNmRhMWQyNTZhOWVjZWM3YjM1MmFkOThlYzNiMWY5YjFhMzNmYmU0MTI3Njk4Mzc4MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmI5NzhlZDZhYmYxYTU1N2M2MjY5YjhjZTNmMDhkMzJkZjBiNjU3OWIxNGNhZGQ2YWI5NDAzODcyMGJjMWRjMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8bf02a6df6ea4d5ab5abc60f5dd5dde5",
+      "statement": "发布工作流只处理 release-auto- 开头的 pull request：先自动批准，release-auto-v 跑 pub，release-auto-next-v 跑 pub-next，然后把根 package.json 的版本发到 webhook 并尝试自动合并。",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/release.yml#L16-L84",
+          "version": "repo-lines-v1:sha256:50bbdbfae76bae33b35e18b668bf36aff84107f66e3b0e26e076e2d5cd3d9376:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5ZDgwMTU0ZWQ0MmZjNWM3NzliMTMzMTU3OGI1OGI4OWM4MDFlYWNlNzRmMjRjZDQ4ZWI0YTIzNTc5NDBhOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1MmFjZDg3OTIxZmI3ZTRjYzk5ZmQ1MGFhOGEyNTZhOWQxMzRkMDg4ZTQ1YzYyZjk1M2IxMjdhYzU1ZGViZTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwOTViNzgwMjZkMmM5NTkzYjEzZDZhNDc0ZTMwY2NjY2QxNmQzZDM3NzAzNTBmOTAxMjk0ODQzNjE1NzIwYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY0OGM4MWQ1MGRjMDQ0ODQ3NGViZGRkOTY1YmRlZmYwNDRhYmY0MWIyNDg3ZjM1NDMxZTEwMjYyNzhmNTUzZGUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.0",
+    "at": "2026-09-28T07:54:10.806Z"
+  }
+}
