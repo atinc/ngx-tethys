@@ -6,7 +6,7 @@
       (mousedown)="up($event)"
       (mouseup)="stop()"
       (mouseleave)="stop()"
-      [class.disabled]="disabledUp()">
+      [class.disabled]="disabledUp() || thyDisabled">
       <thy-icon thyName="angle-up"></thy-icon>
     </span>
     <span
@@ -15,7 +15,7 @@
       (mousedown)="down($event)"
       (mouseup)="stop()"
       (mouseleave)="stop()"
-      [class.disabled]="disabledDown()">
+      [class.disabled]="disabledDown() || thyDisabled">
       <thy-icon thyName="angle-down"></thy-icon>
     </span>
   </div>

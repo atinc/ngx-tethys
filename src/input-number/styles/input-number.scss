@@ -41,10 +41,8 @@
             .thy-icon {
                 font-size: variables.$rem-10px;
             }
-            &:hover:not(.disabled) {
-                color: variables.$primary;
-            }
             &.disabled {
+                color: variables.$gray-400;
                 cursor: variables.$disabled-cursor;
             }
         }
@@ -57,11 +55,32 @@
         }
     }
 
+    &:not(:has(.form-control:disabled)) {
+        .input-number-handler:hover:not(.disabled) {
+            color: variables.$primary;
+        }
+    }
+
+    &:has(.form-control:disabled) {
+        .input-number-handler-wrap {
+            cursor: variables.$disabled-cursor;
+
+            .input-number-handler {
+                color: variables.$gray-400;
+                cursor: variables.$disabled-cursor;
+            }
+        }
+    }
+
     @include hover.hover-focus {
         outline: none;
         .form-control {
             &:not([disabled]):not(.disabled):not(.is-invalid):not(.form-control-ghost) {
                 border-color: variables.$input-hover-border-color;
+            }
+
+            &.form-control-fill:not([disabled]):not(.disabled):not(.is-invalid) {
+                background-color: transparent;
             }
         }
     }
