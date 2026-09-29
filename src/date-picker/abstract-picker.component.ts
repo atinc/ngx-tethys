@@ -1,36 +1,36 @@
-import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import {
     ChangeDetectorRef,
     computed,
+    DestroyRef,
     Directive,
+    effect,
     inject,
     Input,
     input,
-    signal,
-    effect,
+    linkedSignal,
+    model,
     OnChanges,
     OnInit,
     output,
+    signal,
     Signal,
     SimpleChanges,
-    viewChild,
-    model,
-    DestroyRef,
-    linkedSignal
+    viewChild
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 import { injectLocale, ThyDatePickerLocale } from 'ngx-tethys/i18n';
 import { SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPicker } from './picker.component';
 import { makeValue, setValueByTimestampPrecision, transformDateValue } from './picker.util';
 import {
-    ThyCompatibleDate,
     CompatiblePresets,
     DateEntry,
     DisabledDateFn,
+    ThyCompatibleDate,
     ThyDateChangeEvent,
     ThyDateGranularity,
     ThyDateRangeEntry,
@@ -129,8 +129,8 @@ export abstract class AbstractPickerComponent
     });
 
     /**
-     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
-     * @type outline | subtle | ghost
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`fill`: 灰色底、灰色边框，hover/focus 时白色底、蓝色边框，禁用同 outline；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | fill | subtle | ghost
      * @default outline
      */
     readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {

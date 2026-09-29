@@ -141,6 +141,15 @@ describe('input search', () => {
         expect(debugInputElement.nativeElement.classList.contains('form-control-subtle')).toBe(true);
     });
 
+    it('should add form-control-fill when thyAppearance is fill', () => {
+        basicTestComponent.thyAppearance = 'fill';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('form-control-fill')).toBe(true);
+        expect(searchElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
+        expect(debugInputElement.nativeElement.classList.contains('form-control-fill')).toBe(true);
+    });
+
     it('should add ghost classes when thyAppearance is ghost', () => {
         basicTestComponent.thyAppearance = 'ghost';
         fixture.detectChanges();

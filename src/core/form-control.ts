@@ -1,3 +1,3 @@
 export type ThyFormControlSize = 'xs' | 'sm' | 'md' | 'lg';
 
-export type ThyFormControlAppearance = 'outline' | 'subtle' | 'ghost';
+export type ThyFormControlAppearance = 'outline' | 'fill' | 'subtle' | 'ghost';

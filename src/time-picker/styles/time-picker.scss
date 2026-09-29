@@ -45,7 +45,7 @@
     }
     &-disabled:hover,
     &-readonly:hover {
-        .form-control:not(.form-control-ghost):not(.form-control-subtle) {
+        .form-control:not(.form-control-ghost):not(.form-control-subtle):not(.form-control-fill) {
             border-color: variables.$input-border-color;
         }
         .#{vars.$time-picker-prefix-cls}-icon {

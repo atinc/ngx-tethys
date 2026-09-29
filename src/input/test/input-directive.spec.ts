@@ -89,6 +89,14 @@ describe('input directive', () => {
         expect(debugElement.nativeElement.classList.contains('form-control-subtle')).toBe(false);
     });
 
+    it('should add form-control-fill when thyAppearance is fill', () => {
+        basicTestComponent.thyAppearance = 'fill';
+        fixture.detectChanges();
+        expect(debugElement.nativeElement.classList.contains('form-control-fill')).toBe(true);
+        expect(debugElement.nativeElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(debugElement.nativeElement.classList.contains('form-control-ghost')).toBe(false);
+    });
+
     it('should use outline appearance when thyAppearance is undefined', () => {
         basicTestComponent.thyAppearance = undefined;
         fixture.detectChanges();

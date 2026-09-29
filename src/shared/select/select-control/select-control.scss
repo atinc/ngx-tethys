@@ -67,6 +67,9 @@
     }
     &.panel-is-opened {
         border-color: variables.$primary;
+        &.form-control-fill:not(.is-invalid) {
+            background-color: transparent;
+        }
         &.form-control-ghost:not(.is-invalid) {
             border-color: transparent;
             background-color: transparent;

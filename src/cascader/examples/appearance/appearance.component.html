@@ -4,6 +4,12 @@
     <thy-cascader
       [thyOptions]="areaCode"
       [(ngModel)]="values"
+      [thyAppearance]="'fill'"
+      [thyPlaceholder]="'fill'"
+      class="mt-3"></thy-cascader>
+    <thy-cascader
+      [thyOptions]="areaCode"
+      [(ngModel)]="values"
       [thyAppearance]="'subtle'"
       [thyPlaceholder]="'subtle'"
       class="mt-3"></thy-cascader>
@@ -21,6 +27,13 @@
       [thyAppearance]="'outline'"
       [thyPlaceholder]="'outline'"
       [disabled]="true"></thy-cascader>
+    <thy-cascader
+      [thyOptions]="areaCode"
+      [(ngModel)]="values"
+      [thyAppearance]="'fill'"
+      [thyPlaceholder]="'fill'"
+      [disabled]="true"
+      class="mt-3"></thy-cascader>
     <thy-cascader
       [thyOptions]="areaCode"
       [(ngModel)]="values"

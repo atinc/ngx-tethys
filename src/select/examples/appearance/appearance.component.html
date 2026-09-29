@@ -6,6 +6,11 @@
         <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
       }
     </thy-select>
+    <thy-select [(ngModel)]="value" [thyAppearance]="'fill'" [thyPlaceholder]="'fill'" class="mt-3">
+      @for (option of listOfOption; track option.value) {
+        <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
+      }
+    </thy-select>
     <thy-select [(ngModel)]="value" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'" class="mt-3">
       @for (option of listOfOption; track option.value) {
         <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
@@ -20,6 +25,11 @@
   <div thyCol [thySpan]="12">
     <div class="mb-2 text-secondary">thy-select（disabled）</div>
     <thy-select [(ngModel)]="value" [thyAppearance]="'outline'" [thyDisabled]="true" [thyPlaceholder]="'outline'">
+      @for (option of listOfOption; track option.value) {
+        <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
+      }
+    </thy-select>
+    <thy-select [(ngModel)]="value" [thyAppearance]="'fill'" [thyDisabled]="true" [thyPlaceholder]="'fill'" class="mt-3">
       @for (option of listOfOption; track option.value) {
         <thy-option [thyValue]="option.value" [thyLabelText]="option.text"></thy-option>
       }
@@ -45,6 +55,12 @@
         <option [value]="option.value">{{ option.text }}</option>
       }
     </thy-native-select>
+    <thy-native-select [(ngModel)]="value" [thyAppearance]="'fill'" class="mt-3">
+      <option value="">fill</option>
+      @for (option of listOfOption; track option.value) {
+        <option [value]="option.value">{{ option.text }}</option>
+      }
+    </thy-native-select>
     <thy-native-select [(ngModel)]="value" [thyAppearance]="'subtle'" class="mt-3">
       <option value="">subtle</option>
       @for (option of listOfOption; track option.value) {
@@ -62,6 +78,12 @@
     <div class="mb-2 text-secondary">thy-native-select（disabled）</div>
     <thy-native-select [(ngModel)]="value" [thyAppearance]="'outline'" [disabled]="true">
       <option value="">outline</option>
+      @for (option of listOfOption; track option.value) {
+        <option [value]="option.value">{{ option.text }}</option>
+      }
+    </thy-native-select>
+    <thy-native-select [(ngModel)]="value" [thyAppearance]="'fill'" class="mt-3" [disabled]="true">
+      <option value="">fill</option>
       @for (option of listOfOption; track option.value) {
         <option [value]="option.value">{{ option.text }}</option>
       }
