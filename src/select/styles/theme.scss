@@ -7,6 +7,10 @@
                 border-color: transparent;
                 background-color: transparent;
             }
+
+            &.form-control-fill {
+                background-color: transparent;
+            }
         }
     }
     &:focus {

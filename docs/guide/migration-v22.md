@@ -170,7 +170,7 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - 尺寸类型 `SelectControlSize` 重命名为 `ThyFormControlSize`
-- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
+- 新增 `thyAppearance`（`outline` / `fill` / `subtle` / `ghost`），默认 `outline`
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -236,7 +236,7 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - 移除 `thyIconType` 及类型 `ThyTreeSelectType`
-- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
+- 新增 `thyAppearance`（`outline` / `fill` / `subtle` / `ghost`），默认 `outline`
 
 **标记为废弃，将在 v23 彻底删除**
 

@@ -1025,6 +1025,17 @@ describe('ThyCustomSelect', () => {
                 expect(formControl.classList.contains('form-control-ghost')).toBe(false);
             }));
 
+            it('should add form-control-fill when thyAppearance is fill', fakeAsync(() => {
+                fixture.componentInstance.appearance = 'fill';
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const formControl = selectElement.querySelector('.form-control');
+                expect(formControl.classList.contains('form-control-fill')).toBe(true);
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            }));
+
             it('should add form-control-ghost when thyAppearance is ghost', fakeAsync(() => {
                 fixture.componentInstance.appearance = 'ghost';
                 fixture.detectChanges();

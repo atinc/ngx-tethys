@@ -126,6 +126,15 @@ describe('input component', () => {
         expect(debugContainerElement.nativeElement.classList.contains('form-control-ghost')).toBe(false);
     });
 
+    it('should add form-control-fill when thyAppearance is fill', () => {
+        basicTestComponent.thyAppearance = 'fill';
+        fixture.detectChanges();
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-fill')).toBe(true);
+        expect(debugElement.nativeElement.classList.contains('form-control-fill')).toBe(true);
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-subtle')).toBe(false);
+        expect(debugContainerElement.nativeElement.classList.contains('form-control-ghost')).toBe(false);
+    });
+
     it('should add form-control-ghost when thyAppearance is ghost', () => {
         basicTestComponent.thyAppearance = 'ghost';
         fixture.detectChanges();

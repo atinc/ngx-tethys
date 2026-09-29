@@ -773,6 +773,15 @@ describe('thy-cascader', () => {
             expect(formControl.classList.contains('form-control-ghost')).toBe(false);
         });
 
+        it('should add form-control-fill when thyAppearance is fill', () => {
+            component.appearance = 'fill';
+            fixture.detectChanges();
+            const formControl = debugElement.query(By.css('.form-control')).nativeElement;
+            expect(formControl.classList.contains('form-control-fill')).toBe(true);
+            expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+            expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+        });
+
         it('should add form-control-ghost when thyAppearance is ghost', () => {
             component.appearance = 'ghost';
             fixture.detectChanges();

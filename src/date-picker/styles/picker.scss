@@ -127,6 +127,10 @@
             border-color: transparent;
             background-color: transparent;
         }
+
+        &.form-control-fill:not(.is-invalid) {
+            background-color: transparent;
+        }
     }
     .form-control {
         padding-right: variables.$input-padding-x-md + variables.$font-size-md;
