@@ -222,11 +222,6 @@
         &.disabled {
             border-color: transparent;
             background-color: transparent;
-
-            &:hover {
-                border-color: transparent;
-                background-color: variables.$input-disabled-bg;
-            }
         }
     }
 
