@@ -9,6 +9,7 @@ import {
     ThyTableSize,
     ThyTableSkeletonColumn,
     ThyTableSkeleton,
+    ThyTableAppearance,
     ThyTableTheme
 } from 'ngx-tethys/table';
 import { SafeAny } from 'ngx-tethys/types';
@@ -40,6 +41,7 @@ const defaultColumns = [
     selector: 'test-table-skeleton-basic',
     template: `<thy-table-skeleton
         [thyRowCount]="rowCount"
+        [thyAppearance]="appearance"
         [thyTheme]="theme"
         [thySize]="size"
         [thyColumns]="columns"
@@ -53,6 +55,8 @@ class TestTableSkeletonBasicComponent {
     rowCount!: number;
 
     headless!: boolean;
+
+    appearance!: ThyTableAppearance;
 
     theme!: ThyTableTheme;
 
@@ -97,7 +101,21 @@ describe('thy-table-skeleton', () => {
         expect(tableElement.classList).toContain('table');
     });
 
-    it('should support thyTheme', () => {
+    it('should support thyAppearance', () => {
+        testComponent.theme = undefined as unknown as ThyTableTheme;
+        testComponent.appearance = 'bordered';
+        fixture.detectChanges();
+        expect(tableSkeletonInstance.thyAppearance).toBe('bordered');
+        expect(tableElement.classList).toContain('table-bordered');
+
+        testComponent.appearance = 'boxed';
+        fixture.detectChanges();
+        expect(tableSkeletonInstance.thyAppearance).toBe('boxed');
+        expect(tableElement.classList).toContain('table-boxed');
+    });
+
+    it('should support deprecated thyTheme', () => {
+        testComponent.appearance = undefined as unknown as ThyTableAppearance;
         testComponent.theme = 'bordered';
         fixture.detectChanges();
         expect(tableSkeletonInstance.thyTheme).toBe('bordered');

@@ -70,7 +70,7 @@ import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared
 import { ThyIcon } from 'ngx-tethys/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { ThyTableColumnSkeletonType } from './enums';
-import { ThyTableTheme, ThyTableMode, ThyTableSize } from './table.type';
+import { ThyTableAppearance, ThyTableMode, ThyTableSize, ThyTableTheme, ThyTableVariant } from './table.type';
 
 export enum ThyFixedDirection {
     left = 'left',
@@ -171,9 +171,13 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     public groupBy!: string;
 
-    public mode: ThyTableMode = 'list';
+    private _variant?: ThyTableVariant;
 
-    public theme: ThyTableTheme = 'default';
+    private _mode?: ThyTableMode;
+
+    public get variant(): ThyTableVariant {
+        return this._variant || this._mode || 'list';
+    }
 
     public className = '';
 
@@ -228,17 +232,28 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     @ViewChildren('rows', { read: ElementRef }) rows!: QueryList<ElementRef<HTMLElement>>;
 
     /**
-     * 表格展示方式，列表/分组/树
+     * 表格展示形态，列表/分组/树
+     * @type list | group | tree
+     * @default list
+     */
+    @Input()
+    set thyVariant(value: ThyTableVariant) {
+        this._variant = value;
+    }
+
+    /**
+     * 表格展示方式（已废弃，将在 v23 彻底删除），请使用 thyVariant
+     * @deprecated please use thyVariant, will be removed in v23
      * @type list | group | tree
      * @default list
      */
     @Input()
     set thyMode(value: ThyTableMode) {
-        this.mode = value || this.mode;
+        this._mode = value;
     }
 
     /**
-     * thyMode的值为 `group` 时分组的 Key
+     * thyVariant 的值为 `group` 时分组的 Key
      */
     @Input()
     set thyGroupBy(value: string) {
@@ -259,8 +274,9 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      */
     @Input()
     set thyGroups(value: SafeAny) {
-        if (this.mode === 'group') {
+        if (this.variant === 'group') {
             this.buildGroups(value);
+            this.buildModel();
         }
     }
 
@@ -273,20 +289,28 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
         this._diff = this._differs.find(this.model).create();
         this._initializeDataModel();
 
-        if (this.mode === 'group') {
+        if (this.variant === 'group') {
             this.buildModel();
         }
     }
 
     /**
-     * 表格的显示风格，`bordered` 时头部有背景色且分割线区别明显
+     * 表格的外观，`bordered` 时头部有背景色且分割线区别明显
      * @type default | bordered | boxed
      * @default default
      */
-    @Input()
-    set thyTheme(value: ThyTableTheme) {
-        this.theme = value || this.theme;
-        this._setClass();
+    @Input() thyAppearance?: ThyTableAppearance;
+
+    /**
+     * 表格的显示风格（已废弃，将在 v23 彻底删除），请使用 thyAppearance
+     * @deprecated please use thyAppearance, will be removed in v23
+     * @type default | bordered | boxed
+     * @default default
+     */
+    @Input() thyTheme: ThyTableTheme = 'default';
+
+    get theme(): ThyTableAppearance {
+        return this.thyAppearance || this.thyTheme || 'default';
     }
 
     /**
@@ -376,7 +400,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     @Input({ transform: coerceBooleanProperty })
     set thyDraggable(value: boolean) {
         this.draggable = value;
-        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.variant === 'tree') {
             throw new Error('Tree mode sorting is not supported');
         }
     }
@@ -445,12 +469,12 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     /**
-     * thyMode 为 tree 时，设置 Tree 树状数据展示时的缩进
+     * thyVariant 为 tree 时，设置 Tree 树状数据展示时的缩进
      */
     @Input({ transform: numberAttribute }) thyIndent = 20;
 
     /**
-     * thyMode 为 tree 时，设置 Tree 树状数据对象中的子节点 Key
+     * thyVariant 为 tree 时，设置 Tree 树状数据对象中的子节点 Key
      * @type string
      */
     @Input() thyChildrenKey = 'children';
@@ -614,7 +638,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     private _bindTrackFn() {
         this.trackByFn = function (this: SafeAny, index: number, row: SafeAny): SafeAny {
-            return row && this.rowKey ? row[this.rowKey] : index;
+            return (row && this.rowKey ? row[this.rowKey] : undefined) ?? index;
         }.bind(this);
     }
 
@@ -741,7 +765,7 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     iconIndentComputed(level: number) {
-        if (this.mode === 'tree') {
+        if (this.variant === 'tree') {
             return level * this.thyIndent - 5;
         }
     }
@@ -841,9 +865,9 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     onDragDropped(event: CdkDragDrop<unknown>) {
-        if (this.mode === 'group') {
+        if (this.variant === 'group') {
             this.onDragGroupDropped(event);
-        } else if (this.mode === 'list') {
+        } else if (this.variant === 'list') {
             this.onDragModelDropped(event);
         }
     }
@@ -941,6 +965,9 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     private buildModel() {
         const groupsMap = keyBy(this.groups, 'id');
+        this.groups.forEach(group => {
+            group.children = [];
+        });
         this.model.forEach(row => {
             const group = groupsMap[helpers.get(row, this.groupBy)];
             if (group) {
@@ -1069,10 +1096,14 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
-        const modeChange = simpleChanges.thyMode;
+        if (simpleChanges.thyAppearance || simpleChanges.thyTheme) {
+            this._setClass();
+        }
+
+        const variantChange = simpleChanges.thyVariant || simpleChanges.thyMode;
         const thyGroupsChange = simpleChanges.thyGroups;
-        const isGroupMode = modeChange && modeChange.currentValue === 'group';
-        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
+        const isGroupVariant = variantChange && this.variant === 'group';
+        if (isGroupVariant && thyGroupsChange && thyGroupsChange.firstChange) {
             this.buildGroups(thyGroupsChange.currentValue);
             this.buildModel();
         }

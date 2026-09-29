@@ -41,12 +41,20 @@ describe('ThyArrowSwitcher', () => {
         expect(arrowSwitcherComponent.nativeElement.classList.contains('thy-arrow-switcher-small')).toBe(true);
     });
 
-    it('should create correct when theme is lite', () => {
-        testComponent.theme = `lite`;
+    it('should create correct when variant is lite', () => {
+        testComponent.variant = `lite`;
         fixture.detectChanges();
         const actionElements = arrowSwitcherComponent.nativeElement.querySelectorAll('.thy-action');
         expect(actionElements.length).toBe(2);
         expect(actionElements[0]).toBeTruthy();
+        expect(actionElements[0].classList.contains('thy-action')).toBe(true);
+    });
+
+    it('should still work with deprecated thyTheme', () => {
+        testComponent.theme = `lite`;
+        fixture.detectChanges();
+        const actionElements = arrowSwitcherComponent.nativeElement.querySelectorAll('.thy-action');
+        expect(actionElements.length).toBe(2);
         expect(actionElements[0].classList.contains('thy-action')).toBe(true);
     });
 
@@ -126,6 +134,7 @@ describe('ThyArrowSwitcher', () => {
             [(ngModel)]="index"
             [thyTotal]="totalCount"
             [thySize]="size"
+            [thyVariant]="variant"
             [thyTheme]="theme"
             [disabled]="disabled"
             (thyPrevious)="previousClick()"
@@ -139,6 +148,7 @@ describe('ThyArrowSwitcher', () => {
 class ThyDemoArrowSwitcherComponent {
     index = 0;
     totalCount = 10;
+    variant: string | undefined = undefined;
     theme = 'default';
     disabled = false;
     size = ``;

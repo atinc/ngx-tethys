@@ -1,7 +1,9 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
@@ -21,8 +23,7 @@ import {
     Signal,
     TemplateRef,
     viewChild,
-    viewChildren,
-    ChangeDetectionStrategy
+    viewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -30,14 +31,16 @@ import {
     DebounceTimeWrapper,
     EXPANDED_DROPDOWN_POSITIONS,
     injectPanelEmptyIcon,
-    thyAnimationZoom,
     TabIndexDisabledControlValueAccessorMixin,
+    thyAnimationZoom,
     ThyClickDispatcher,
+    ThyFormControlAppearance,
     ThyFormControlSize
 } from 'ngx-tethys/core';
 import { ThyDivider } from 'ngx-tethys/divider';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { injectLocale, ThyCascaderLocale } from 'ngx-tethys/i18n';
+import { ThyLoading } from 'ngx-tethys/loading';
 import { SelectOptionBase, ThySelectControl } from 'ngx-tethys/shared';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, elementMatchClosest, isEmpty } from 'ngx-tethys/util';
@@ -45,11 +48,9 @@ import { BehaviorSubject, Observable, Subject, Subscription, timer } from 'rxjs'
 import { delay, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
+import { ThyCascaderOptionsPipe } from './cascader.pipe';
 import { ThyCascaderService } from './cascader.service';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
-import { CdkVirtualScrollViewport, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
-import { ThyCascaderOptionsPipe } from './cascader.pipe';
-import { ThyLoading } from 'ngx-tethys/loading';
 
 /**
  * 级联选择菜单
@@ -126,6 +127,15 @@ export class ThyCascader
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     /**
@@ -291,7 +301,15 @@ export class ThyCascader
     /**
      * 是否支持搜索
      */
+    readonly thySearchable = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * 是否支持搜索（已废弃，将在 v23 彻底删除），请使用 `thySearchable`
+     * @deprecated please use thySearchable, will be removed in v23
+     */
     readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
+
+    readonly searchable = computed(() => this.thySearchable() || this.thyShowSearch());
 
     /**
      * 多选选中项的展示方式，默认为空，渲染文字模板，传入tag，渲染展示模板,
@@ -342,7 +360,13 @@ export class ThyCascader
     readonly thyExpandStatusChange = output<boolean>();
 
     /**
-     * 搜索时回调
+     * 搜索输入变化时回调
+     */
+    readonly thyInputChange = output<string>();
+
+    /**
+     * 搜索输入变化时回调（已废弃，将在 v23 彻底删除），请使用 `thyInputChange`
+     * @deprecated please use thyInputChange, will be removed in v23
      */
     readonly thyOnSearch = output<string>();
 
@@ -527,6 +551,8 @@ export class ThyCascader
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this.setClassMap();
+        this.cdr.markForCheck();
     }
 
     public positionChange(position: ConnectedOverlayPositionChange): void {
@@ -800,6 +826,7 @@ export class ThyCascader
                 filter(text => text !== '')
             )
             .subscribe(searchText => {
+                this.thyInputChange.emit(searchText);
                 this.thyOnSearch.emit(searchText);
                 this.resetSearch();
 

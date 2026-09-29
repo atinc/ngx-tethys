@@ -12,22 +12,22 @@ export class ThyProgressTextExampleComponent {
 
     stackedValues: ThyProgressStackedValue[] = [
         {
-            type: 'success',
+            color: 'success',
             value: 20,
             label: 'success'
         },
         {
-            type: 'warning',
+            color: 'warning',
             value: 20,
             label: 'warning'
         },
         {
-            type: 'danger',
+            color: 'danger',
             value: 20,
             label: 'danger'
         },
         {
-            type: 'info',
+            color: 'info',
             value: 30,
             label: 'info'
         }

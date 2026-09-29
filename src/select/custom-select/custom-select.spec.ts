@@ -7,10 +7,10 @@ import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/f
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideTethys, withGlobalConfig } from 'ngx-tethys';
-import { POSITION_MAP, ThyFormControlSize, ThyPlacement } from 'ngx-tethys/core';
+import { POSITION_MAP, ThyFormControlAppearance, ThyFormControlSize, ThyPlacement } from 'ngx-tethys/core';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode, ThySelect, ThySelectModule } from 'ngx-tethys/select';
-import { ThyOption, ThyOptionGroupRender, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
+import { ThyOption, ThyOptionRender, ThySelectOptionGroup } from 'ngx-tethys/shared';
 import {
     bypassSanitizeProvider,
     dispatchFakeEvent,
@@ -38,14 +38,19 @@ interface FoodsInfo {
             <thy-select
                 thyPlaceholder="Food"
                 [thyEnableScrollLoad]="enableScrollLoad"
-                (thyOnScrollToBottom)="thyOnScrollToBottom()"
+                (thyScrollToBottom)="thyOnScrollToBottom()"
                 [formControl]="control"
                 [required]="isRequired"
                 [thySize]="size"
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
                 [thyDisabled]="selectDisabled"
                 [thyMode]="mode"
+                [thyMultiple]="multiple"
+                [thyClearable]="clearable"
+                [thyLoading]="loading"
+                [thySearchEmptyText]="searchEmptyText"
                 [thyBorderless]="borderless"
+                [thyAppearance]="appearance"
                 [thyOrigin]="customizeOrigin"
                 [thyFooterTemplate]="footerTmp"
                 [thyFooterClass]="footerClass"
@@ -90,9 +95,14 @@ class BasicSelectComponent {
     enableScrollLoad!: boolean;
     size: ThyFormControlSize = 'md';
     mode: 'multiple' | '' = '';
+    multiple = false;
+    clearable = false;
+    loading = false;
+    searchEmptyText: string | undefined = undefined;
     thyAutoActiveFirstItem = true;
     customizeOrigin!: ElementRef | HTMLElement;
     borderless = false;
+    appearance: ThyFormControlAppearance = 'outline';
     footerTmp!: TemplateRef<any>;
     footerClass!: string;
     emptyStateText!: string;
@@ -353,6 +363,7 @@ class SelectWithSearchUseSearchKeyComponent {
                 thyPlaceholder="Pokemon"
                 [thyShowSearch]="true"
                 [thyEmptySearchMessageText]="emptySearchMessageText"
+                [thySearchEmptyText]="searchEmptyText"
                 [formControl]="control">
                 @for (group of pokemonTypes; track $index) {
                     <thy-option-group [thyGroupLabel]="group.name">
@@ -386,6 +397,7 @@ class SelectWithSearchAndGroupComponent {
         }
     ];
     emptySearchMessageText = 'empty result';
+    searchEmptyText: string | undefined = undefined;
     readonly select = viewChild<ThySelect>(ThySelect);
 }
 
@@ -398,7 +410,8 @@ class SelectWithSearchAndGroupComponent {
                 name="foods"
                 [thyShowSearch]="thyShowSearch"
                 [thyServerSearch]="true"
-                (thyOnSearch)="thyOnSearch()">
+                (thyInputChange)="onInputChange($event)"
+                (thyOnSearch)="thyOnSearch($event)">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
@@ -423,7 +436,8 @@ class SelectWithSearchAndServerSearchComponent {
     thyShowSearch = true;
     control = new UntypedFormControl();
     readonly select = viewChild<ThySelect>(ThySelect);
-    thyOnSearch = jasmine.createSpy('thyServerSearch callback');
+    onInputChange = jasmine.createSpy('thyInputChange');
+    thyOnSearch = jasmine.createSpy('thyOnSearch');
 }
 
 @Component({
@@ -471,7 +485,7 @@ class SelectEimtOptionsChangesComponent {
     selector: 'thy-select-expand-status',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-select [formControl]="control" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)">
+            <thy-select [formControl]="control" (thyExpandStatusChange)="thyOnExpandStatusChange($event)">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
@@ -635,7 +649,7 @@ class SelectWithThyFlexiblePositionComponent {
                 [thyShowSearch]="showSearch"
                 [thyServerSearch]="serverSearch"
                 [thyEnableScrollLoad]="true"
-                (thyOnSearch)="search($event)">
+                (thyInputChange)="search($event)">
                 @for (food of foods; track food.value) {
                     <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
                 }
@@ -672,7 +686,11 @@ class SelectWithScrollAndSearchComponent {
 @Component({
     selector: 'thy-select-with-load-state',
     template: `
-        <thy-select (thyOnExpandStatusChange)="expandChange($event)" [thyLoadState]="loadState" [thyShowSearch]="showSearch">
+        <thy-select
+            (thyExpandStatusChange)="expandChange($event)"
+            [thyLoadState]="loadState"
+            [thyLoading]="loading"
+            [thyShowSearch]="showSearch">
             @for (food of foods; track food.value) {
                 <thy-option [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue"> </thy-option>
             }
@@ -685,6 +703,8 @@ class SelectWithAsyncLoadComponent implements OnInit {
     readonly customSelect = viewChild<ThySelect>(ThySelect);
 
     loadState = true;
+
+    loading = false;
 
     showSearch = false;
 
@@ -844,7 +864,27 @@ describe('ThyCustomSelect', () => {
             it('should get correct mode when get thyMode', () => {
                 fixture.componentInstance.mode = 'multiple';
                 fixture.detectChanges();
-                expect(fixture.componentInstance.select().thyMode()).toEqual('multiple');
+                expect(fixture.componentInstance.select().isMultiple()).toBe(true);
+            });
+
+            it('should resolve isMultiple and clearable from thyMultiple and thyClearable', () => {
+                fixture.componentInstance.mode = '';
+                fixture.componentInstance.multiple = true;
+                fixture.componentInstance.clearable = true;
+                fixture.detectChanges();
+                const select = fixture.componentInstance.select();
+                expect(select.isMultiple()).toBe(true);
+                expect(select.clearable()).toBe(true);
+            });
+
+            it('should resolve isLoading from thyLoading', () => {
+                fixture.componentInstance.loading = true;
+                fixture.detectChanges();
+                expect(fixture.componentInstance.select().isLoading()).toBe(true);
+            });
+
+            it('should not be loading by default when thyLoadState is unbound', () => {
+                expect(fixture.componentInstance.select().isLoading()).toBe(false);
             });
 
             it('select component modelValue will be null when multiple is false and changeValue length is 0', () => {
@@ -963,7 +1003,36 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
-                expect(selectElement.querySelector('.select-control-borderless')).toBeTruthy();
+                expect(selectElement.querySelector('.form-control-ghost')).toBeTruthy();
+            }));
+
+            it('should use outline appearance by default', fakeAsync(() => {
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const formControl = selectElement.querySelector('.form-control');
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            }));
+
+            it('should add form-control-subtle when thyAppearance is subtle', fakeAsync(() => {
+                fixture.componentInstance.appearance = 'subtle';
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const formControl = selectElement.querySelector('.form-control');
+                expect(formControl.classList.contains('form-control-subtle')).toBe(true);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            }));
+
+            it('should add form-control-ghost when thyAppearance is ghost', fakeAsync(() => {
+                fixture.componentInstance.appearance = 'ghost';
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const formControl = selectElement.querySelector('.form-control');
+                expect(formControl.classList.contains('form-control-ghost')).toBe(true);
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
             }));
         });
 
@@ -1832,14 +1901,16 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             fixture.detectChanges();
 
-            const spy = fixture.componentInstance.thyOnSearch;
+            const legacySpy = fixture.componentInstance.thyOnSearch;
+            const inputSpy = fixture.componentInstance.onInputChange;
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
 
             typeInElement('milk', input);
             fixture.detectChanges();
             tick();
 
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(legacySpy).toHaveBeenCalledTimes(1);
+            expect(inputSpy).toHaveBeenCalledTimes(1);
         }));
 
         it('should show emptySearchMessageText when do not match any option', fakeAsync(() => {
@@ -1865,6 +1936,21 @@ describe('ThyCustomSelect', () => {
             expect(emptyTextNode).toBeTruthy();
             expect(emptyTextNode.textContent).toContain(fixture.componentInstance.emptySearchMessageText);
         }));
+
+        it('should resolve searchEmptyText from thySearchEmptyText', () => {
+            const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
+            fixture.componentInstance.searchEmptyText = '无匹配结果';
+            fixture.detectChanges();
+            expect(fixture.componentInstance.select()!.searchEmptyText()).toBe('无匹配结果');
+        });
+
+        it('should treat thyLoading as loading when thyLoadState indicates loaded', () => {
+            const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
+            fixture.componentInstance.loading = true;
+            fixture.componentInstance.loadState = true;
+            fixture.detectChanges();
+            expect(fixture.componentInstance.customSelect()!.isLoading()).toBe(true);
+        });
     });
 
     describe('remove and clear logic', () => {
@@ -2834,6 +2920,33 @@ describe('ThyCustomSelect', () => {
             const optionGroup = overlayContainerElement.querySelector('thy-option-group-render') as HTMLElement;
             const groupName = optionGroup.querySelector('.group-name') as HTMLElement;
             expect(groupName.innerText).toEqual(fixture.componentInstance.options[0].groupLabel as any);
+        }));
+
+        it('should render prefix icon when thyOptions item has icon', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWidthThyOptionsComponent);
+            fixture.componentInstance.options = [{ label: '任务', value: 'task', icon: 'task-square-fill' }];
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            flush();
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const prefixIcon = overlayContainerElement.querySelector('.prefix-icon') as HTMLElement;
+            expect(prefixIcon).toBeTruthy();
+            expect(prefixIcon.classList.contains('thy-icon-task-square-fill')).toBeTruthy();
+        }));
+
+        it('should render prefix icon in select control when thyOptions item has icon and selected', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWidthThyOptionsComponent);
+            fixture.componentInstance.options = [{ label: '任务', value: 'task', icon: 'task-square-fill' }];
+            fixture.componentInstance.selectedValue = 'task';
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+            const selectedIcon = fixture.debugElement.nativeElement.querySelector('.selected-value .prefix-icon') as HTMLElement;
+            expect(selectedIcon).toBeTruthy();
+            expect(selectedIcon.classList.contains('thy-icon-task-square-fill')).toBeTruthy();
         }));
     });
 });

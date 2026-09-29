@@ -1,15 +1,11 @@
-import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     Directive,
     ElementRef,
-    EventEmitter,
-    HostBinding,
     HostListener,
-    Input,
     OnDestroy,
     OnInit,
-    Output,
     Signal,
     TemplateRef,
     inject,
@@ -153,7 +149,7 @@ export class ThySidebarDirective implements OnInit {
                     [thyTooltip]="!thyTrigger() && collapseTip()">
                     <ng-template [ngTemplateOutlet]="thyTrigger() || defaultTrigger"></ng-template>
                     <ng-template #defaultTrigger>
-                        <thy-icon class="sidebar-collapse-icon" [thyIconName]="collapsed() ? 'indent' : 'outdent'"></thy-icon>
+                        <thy-icon class="sidebar-collapse-icon" [thyName]="collapsed() ? 'indent' : 'outdent'"></thy-icon>
                     </ng-template>
                 </div>
             }

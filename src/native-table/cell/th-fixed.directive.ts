@@ -1,16 +1,4 @@
-import {
-    booleanAttribute,
-    computed,
-    Directive,
-    ElementRef,
-    inject,
-    input,
-    Input,
-    linkedSignal,
-    OnChanges,
-    Renderer2,
-    signal
-} from '@angular/core';
+import { booleanAttribute, computed, Directive, ElementRef, inject, input, Renderer2, signal } from '@angular/core';
 
 @Directive({
     selector: 'th[thyFixedRight],th[thyFixedLeft]',

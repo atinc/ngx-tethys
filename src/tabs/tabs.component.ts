@@ -24,7 +24,7 @@ export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
 export type ThyTabsVariant = 'pulled' | 'tabs' | 'pills' | 'lite' | 'card';
 
-/** @deprecated use ThyTabsVariant */
+/** @deprecated use ThyTabsVariant, will be removed in v23 */
 export type ThyTabsType = ThyTabsVariant;
 
 export type ThyTabsPosition = 'top' | 'left';
@@ -59,8 +59,8 @@ export class ThyTabs implements OnInit {
     readonly thyVariant = input<ThyTabsVariant>();
 
     /**
-     * 标签类型（已废弃），请使用 thyVariant
-     * @deprecated please use thyVariant
+     * 标签类型（已废弃，将在 v23 中移除），请使用 thyVariant
+     * @deprecated please use thyVariant, will be removed in v23
      * @type pulled | tabs | pills | lite | card
      * @default tabs
      */

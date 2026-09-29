@@ -11,13 +11,13 @@
   <ng-template #leftTemplateRef let-item>
     <div (click)="onSelect(item.direction === 'left' ? 'left' : 'right', { item: item })" class="list-item-content">
       @if (thyLeftDraggable()) {
-        <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
+        <thy-icon thyName="drag" class="drag-handle"></thy-icon>
       }
       <div class="item-name" [ngClass]="{ 'un-select-item': item.direction !== 'right' }">
         <ng-template [ngTemplateOutlet]="thyTransferListItem" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
       </div>
       @if (item.direction === 'right') {
-        <thy-icon class="text-primary item-status" thyIconName="check"></thy-icon>
+        <thy-icon class="text-primary item-status" thyName="check"></thy-icon>
       }
     </div>
   </ng-template>
@@ -25,9 +25,9 @@
 
 <div class="thy-transfer-operation">
   <div class="thy-transfer-operation-body">
-    <thy-icon thyIconName="angle-right" class="operation-link"></thy-icon>
+    <thy-icon thyName="angle-right" class="operation-link"></thy-icon>
     <br />
-    <thy-icon thyIconName="angle-left" class="operation-link"></thy-icon>
+    <thy-icon thyName="angle-left" class="operation-link"></thy-icon>
   </div>
 </div>
 
@@ -45,14 +45,14 @@
   (unselectItem)="unselectItem($event)">
   <ng-template #rightTemplateRef let-item>
     @if (thyRightDraggable()) {
-      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
+      <thy-icon thyName="drag" class="drag-handle"></thy-icon>
     }
     <div class="item-name">
       <ng-template [ngTemplateOutlet]="thyTransferListItem" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
     </div>
     @if (item.direction === 'right' && !item.isFixed) {
       <a class="link-secondary" (click)="onSelect('right', { item: item })">
-        <thy-icon class="item-status" thyIconName="close"></thy-icon>
+        <thy-icon class="item-status" thyName="close"></thy-icon>
       </a>
     }
   </ng-template>

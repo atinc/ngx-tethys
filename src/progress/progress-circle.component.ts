@@ -10,7 +10,8 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
+import { ThyProgressColor, ThyProgressGapPosition, ThyProgressShape, ThyProgressStackedValue } from './interfaces';
+import { isProgressPresetColor } from './progress-strip.component';
 import { NgClass, NgStyle } from '@angular/common';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
@@ -30,7 +31,11 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 export class ThyProgressCircle {
     private hostRenderer = useHostRenderer();
 
-    readonly thyType = input<ThyProgressType | undefined>(undefined);
+    /**
+     * 进度条颜色
+     * @type primary | success | info | warning | danger
+     */
+    readonly thyColor = input<ThyProgressColor | undefined>(undefined);
 
     readonly thySize = input<string | number | undefined>(undefined);
 
@@ -40,11 +45,11 @@ export class ThyProgressCircle {
 
     readonly thyTips = input<string | TemplateRef<unknown> | undefined>(undefined);
 
-    readonly thyShape = input<ThyProgressShapeType>('strip');
+    readonly thyShape = input<ThyProgressShape>('strip');
 
     readonly thyGapDegree = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    readonly thyGapPosition = input<ThyProgressGapPositionType>('top');
+    readonly thyGapPosition = input<ThyProgressGapPosition>('top');
 
     readonly thyStrokeWidth = input<number, unknown>(undefined, { transform: numberAttribute });
 
@@ -123,12 +128,13 @@ export class ThyProgressCircle {
 
         const progressCirclePath = values
             .map((item, index) => {
+                const color = item.color ?? item.type;
                 return {
                     stroke: '',
                     value: +item.value,
-                    className: item.type ? `progress-circle-path-${item.type}` : null,
+                    className: isProgressPresetColor(color) ? `progress-circle-path-${color}` : null,
                     strokePathStyle: {
-                        stroke: item?.color ? item?.color : null,
+                        stroke: color && !isProgressPresetColor(color) ? color : null,
                         transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s',
                         strokeDasharray: `${((item.value || 0) / 100) * (len - gapDegree)}px ${len}px`,
                         strokeDashoffset: `-${gapDegree / 2}px`
@@ -141,8 +147,8 @@ export class ThyProgressCircle {
 
     constructor() {
         effect(() => {
-            const type = this.thyType();
-            this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
+            const color = this.thyColor();
+            this.hostRenderer.updateClass(color ? [`progress-circle-${color}`] : []);
         });
     }
 }

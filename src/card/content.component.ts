@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -15,11 +15,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.thy-card-content--scroll]': '!!thyScroll()'
     }
 })
-export class ThyCardContent implements OnInit {
+export class ThyCardContent {
     /**
      * 内容区，滚动
      */
     readonly thyScroll = input(false, { transform: coerceBooleanProperty });
-
-    ngOnInit() {}
 }

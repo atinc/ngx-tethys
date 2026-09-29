@@ -13,7 +13,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
     selector: 'thy-native-table-test',
     template: `
-        <thy-native-table #nativeTable [thyData]="data" [thyTheme]="theme" [thySize]="size" [thyEmptyOptions]="emptyOptions">
+        <thy-native-table #nativeTable [thyData]="data" [thyAppearance]="theme" [thyTheme]="deprecatedTheme" [thySize]="size" [thyEmptyOptions]="emptyOptions">
             <thead>
                 <tr>
                     <th thyWidth="50px">Id</th>
@@ -59,6 +59,8 @@ class ThyNativeTableTestComponent {
     };
 
     theme = 'default';
+
+    deprecatedTheme = '';
 
     size = 'md';
 
@@ -126,16 +128,23 @@ describe('ThyNativeTable: basic', () => {
         expect(cols[1].offsetWidth).toEqual(100);
     });
 
-    it('should have correct class when thyTheme is bordered', () => {
+    it('should have correct class when thyAppearance is bordered', () => {
         testComponent.theme = 'bordered';
         fixture.detectChanges();
         expect(table.classList.contains('native-table-bordered')).toBe(true);
     });
 
-    it('should have correct class when thyTheme is boxed', () => {
+    it('should have correct class when thyAppearance is boxed', () => {
         testComponent.theme = 'boxed';
         fixture.detectChanges();
         expect(table.classList.contains('native-table-boxed')).toBe(true);
+    });
+
+    it('should have correct class when deprecated thyTheme is bordered', () => {
+        testComponent.theme = '';
+        testComponent.deprecatedTheme = 'bordered';
+        fixture.detectChanges();
+        expect(table.classList.contains('native-table-bordered')).toBe(true);
     });
 
     it('should have correct class when thySize is md', () => {
@@ -170,7 +179,7 @@ describe('ThyNativeTable: basic', () => {
 @Component({
     selector: 'thy-native-table-checkbox-test',
     template: `
-        <thy-native-table #nativeTable [thyData]="data" thySize="md" thyTheme="default">
+        <thy-native-table #nativeTable [thyData]="data" thySize="md" thyAppearance="default">
             <thead>
                 <tr>
                     <th

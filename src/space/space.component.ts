@@ -15,6 +15,8 @@ export class ThySpaceItemDirective {}
 
 const DEFAULT_SIZE: ThySpacingSize = 'md';
 
+export type ThySpaceAlign = 'start' | 'end' | 'baseline' | 'center';
+
 /**
  * 间距组件
  * @name thy-space
@@ -51,7 +53,7 @@ export class ThySpace {
     /**
      * 对齐方式，可选择 `start` | `end` | `baseline` | `center`
      */
-    readonly thyAlign = input<string>();
+    readonly thyAlign = input<ThySpaceAlign>();
 
     readonly items = contentChildren(ThySpaceItemDirective, { read: TemplateRef<HTMLElement> });
 

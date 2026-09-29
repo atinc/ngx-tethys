@@ -1,5 +1,4 @@
-import { Component, OnInit, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ThyPopover } from 'ngx-tethys/popover';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyMenu, ThyMenuItem, ThyMenuItemAction, ThyMenuGroup, ThyMenuItemName, ThyMenuItemIcon } from 'ngx-tethys/menu';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
@@ -29,21 +28,6 @@ import { ThyDropdownMenuComponent, ThyDropdownMenuItemIconDirective, ThyDropdown
         ThyMenuItemIcon
     ]
 })
-export class ThyMenuThemeExampleComponent implements OnInit {
-    private popover = inject(ThyPopover);
-
-    theme: string = 'loose';
-
-    coll!: boolean;
-
-    ngOnInit(): void {}
-
-    openActionMenu(event: Event, menuTpl: TemplateRef<any>) {
-        this.popover.open(menuTpl, {
-            origin: event.currentTarget as HTMLElement,
-            placement: 'bottomLeft',
-            insideClosable: true,
-            originActiveClass: 'active'
-        });
-    }
+export class ThyMenuThemeExampleComponent {
+    theme: string = 'light';
 }

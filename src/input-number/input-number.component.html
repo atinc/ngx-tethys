@@ -1,5 +1,5 @@
 @if (thyShowStepControls()) {
-  <div class="input-number-handler-wrap" [class.input-number-disabled]="thyDisabled">
+  <div class="input-number-handler-wrap">
     <span
       unselectable="unselectable"
       class="input-number-handler input-number-handler-up"
@@ -7,7 +7,7 @@
       (mouseup)="stop()"
       (mouseleave)="stop()"
       [class.disabled]="disabledUp()">
-      <thy-icon thyIconName="angle-up"></thy-icon>
+      <thy-icon thyName="angle-up"></thy-icon>
     </span>
     <span
       unselectable="unselectable"
@@ -16,7 +16,7 @@
       (mouseup)="stop()"
       (mouseleave)="stop()"
       [class.disabled]="disabledDown()">
-      <thy-icon thyIconName="angle-down"></thy-icon>
+      <thy-icon thyName="angle-down"></thy-icon>
     </span>
   </div>
 }
@@ -26,6 +26,7 @@
   autocomplete="off"
   class="input-number-input form-control"
   [thySize]="thySize()"
+  [thyAppearance]="thyAppearance()"
   [thyAutofocus]="thyAutoFocus()"
   [disabled]="thyDisabled"
   [attr.min]="thyMin()"

@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 @use './variables.scss' as vars;
 
 .#{vars.$time-picker-prefix-cls} {
@@ -11,6 +11,15 @@
     &-input {
         outline: none;
         padding-right: 38px;
+
+        &.thy-time-picker-panel-opened {
+            border-color: variables.$primary;
+
+            &.form-control-ghost {
+                border-color: transparent;
+                background-color: transparent;
+            }
+        }
     }
     &-icon,
     &-clear {
@@ -36,7 +45,7 @@
     }
     &-disabled:hover,
     &-readonly:hover {
-        .form-control {
+        .form-control:not(.form-control-ghost):not(.form-control-subtle) {
             border-color: variables.$input-border-color;
         }
         .#{vars.$time-picker-prefix-cls}-icon {

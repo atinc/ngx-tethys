@@ -11,7 +11,7 @@ import {
     ThyDropdownAbstractMenu,
     ThyDropdownDirective,
     ThyDropdownMenuComponent,
-    ThyDropdownMenuItemType,
+    ThyDropdownMenuItemColor,
     ThyDropdownModule
 } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
@@ -370,17 +370,17 @@ describe('invalid dropdown', () => {
         <thy-dropdown-menu [thyWidth]="width" #menu>
             <thy-dropdown-menu-divider></thy-dropdown-menu-divider>
             <a thyDropdownMenuItem href="javascript:;">
-                <thy-icon thyDropdownMenuItemIcon thyIconName="sort"></thy-icon>
+                <thy-icon thyDropdownMenuItemIcon thyName="sort"></thy-icon>
                 <span thyDropdownMenuItemName>Sort</span>
                 <span thyDropdownMenuItemMeta>(Default Sort)</span>
                 <div thyDropdownMenuItemDesc>
                     By default, you can drag and drop work item; other sorting can only be displayed and cannot be dragged
                 </div>
-                <thy-icon thyDropdownMenuItemExtendIcon thyIconName="sort"></thy-icon>
+                <thy-icon thyDropdownMenuItemExtendIcon thyName="sort"></thy-icon>
             </a>
             <thy-dropdown-menu-group thyTitle="Group1">
                 <a thyDropdownMenuItem href="javascript:;">
-                    <thy-icon thyDropdownMenuItemIcon thyIconName="plus"></thy-icon>
+                    <thy-icon thyDropdownMenuItemIcon thyName="plus"></thy-icon>
                     <span thyDropdownMenuItemName>New</span>
                 </a>
             </thy-dropdown-menu-group>
@@ -389,9 +389,10 @@ describe('invalid dropdown', () => {
                 href="javascript:;"
                 id="menu-item"
                 [thyDropdownMenuItemActive]="active"
+                [thyColor]="color"
                 [thyType]="type"
                 [thyDisabled]="disabled">
-                <thy-icon thyDropdownMenuItemIcon thyIconName="plus"></thy-icon>
+                <thy-icon thyDropdownMenuItemIcon thyName="plus"></thy-icon>
                 <span thyDropdownMenuItemName>New</span>
             </a>
         </thy-dropdown-menu>
@@ -404,7 +405,9 @@ class DropdownMenuTestComponent {
 
     width!: number;
 
-    type!: ThyDropdownMenuItemType;
+    color!: ThyDropdownMenuItemColor;
+
+    type!: ThyDropdownMenuItemColor;
 
     disabled!: boolean;
 
@@ -491,18 +494,29 @@ describe('dropdown menu', () => {
         expect(title.textContent).toEqual('Group1');
     }));
 
-    it('should set menu item type', fakeAsync(() => {
-        const types: ThyDropdownMenuItemType[] = ['danger', 'success'];
-        types.forEach(type => {
-            fixture.componentInstance.type = type;
+    it('should set menu item color', fakeAsync(() => {
+        const colors: ThyDropdownMenuItemColor[] = ['danger', 'success'];
+        colors.forEach(color => {
+            fixture.componentInstance.color = color;
             fixture.detectChanges();
             dropdown.show();
             tick();
             fixture.detectChanges();
             const dropdownMenuElement = getDropdownMenu();
             const menuItem = dropdownMenuElement.querySelector('#menu-item')!;
-            expect(menuItem.classList.contains(`dropdown-menu-item--${type}`)).toBeTruthy();
+            expect(menuItem.classList.contains(`dropdown-menu-item--${color}`)).toBeTruthy();
         });
+    }));
+
+    it('should still work with deprecated thyType', fakeAsync(() => {
+        fixture.componentInstance.type = 'danger';
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        fixture.detectChanges();
+        const dropdownMenuElement = getDropdownMenu();
+        const menuItem = dropdownMenuElement.querySelector('#menu-item')!;
+        expect(menuItem.classList.contains('dropdown-menu-item--danger')).toBeTruthy();
     }));
 
     it('should set menu disabled', fakeAsync(() => {

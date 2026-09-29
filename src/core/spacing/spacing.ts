@@ -1,4 +1,5 @@
 import { isNumber } from 'ngx-tethys/util';
+
 export type ThySpacingSize = 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' | number;
 
 const SPACING_SIZES_MAP = {

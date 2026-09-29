@@ -14,7 +14,8 @@ import {
     ThyMenuItemIcon,
     ThyMenuItemName,
     ThyMenuModule,
-    ThyMenuTheme
+    ThyMenuTheme,
+    ThyMenuVariant
 } from 'ngx-tethys/menu';
 import { ThyPopover, ThyPopoverModule } from 'ngx-tethys/popover';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
@@ -31,21 +32,21 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
                 [thyActionIcon]="'user-group-fill'">
                 <thy-menu-item>
                     <thy-menu-item-icon class="noColorIcon">
-                        <thy-icon thyIconName="user-group-fill"></thy-icon>
+                        <thy-icon thyName="user-group-fill"></thy-icon>
                     </thy-menu-item-icon>
                     <thy-menu-item-name>我的工作</thy-menu-item-name>
                     <thy-menu-item-action (click)="click()" [thyActionMenu]="action">
-                        <thy-icon thyIconName="more"></thy-icon>
+                        <thy-icon thyName="more"></thy-icon>
                     </thy-menu-item-action>
                     <thy-menu-item-action (click)="click()" [thyActionMenu]="action" [thyStopPropagation]="true" class="thyStopPropagation">
-                        <thy-icon thyIconName="more"></thy-icon>
+                        <thy-icon thyName="more"></thy-icon>
                     </thy-menu-item-action>
                     <thy-menu-item-action
                         (click)="click()"
                         [thyActionMenu]="action"
                         [thyStopPropagation]="false"
                         class="nothyStopPropagation">
-                        <thy-icon thyIconName="more"></thy-icon>
+                        <thy-icon thyName="more"></thy-icon>
                     </thy-menu-item-action>
                 </thy-menu-item>
                 <ng-template #headerContent>
@@ -54,7 +55,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
             </thy-menu-group>
             <thy-menu-item>
                 <thy-menu-item-icon class="hasColorIcon" thyColor="red">
-                    <thy-icon thyIconName="settings"></thy-icon>
+                    <thy-icon thyName="settings"></thy-icon>
                 </thy-menu-item-icon>
                 <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis">配置中心</thy-menu-item-name>
             </thy-menu-item>
@@ -93,7 +94,7 @@ class ThyDemoMenuComponent {
             </a>
             <thy-divider></thy-divider>
             <a thyMenuItem href="javascript:;">
-                <span thyMenuItemIcon thyColor="#ff5b57"><thy-icon thyIconName="trash"></thy-icon></span>
+                <span thyMenuItemIcon thyColor="#ff5b57"><thy-icon thyName="trash"></thy-icon></span>
                 <span thyMenuItemName>Trash</span>
             </a>
         </thy-menu>
@@ -104,6 +105,17 @@ class ThyDemoMenuComponent {
 class ThyMenuTestBasicComponent {
     theme: ThyMenuTheme = undefined;
     collapsed = false;
+}
+
+@Component({
+    selector: 'thy-menu-test-variant-theme',
+    template: ` <thy-menu [thyVariant]="variant" [thyTheme]="theme"></thy-menu> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyMenuModule]
+})
+class ThyMenuVariantThemeComponent {
+    variant: ThyMenuVariant = 'compact';
+    theme: ThyMenuTheme = 'light';
 }
 
 describe('ThyMenu', () => {
@@ -143,13 +155,6 @@ describe('ThyMenu', () => {
             expect(menuElement.classList.contains('thy-menu')).toBeTruthy();
         });
 
-        it('should set theme loose', () => {
-            fixture.debugElement.componentInstance.theme = 'loose';
-            fixture.detectChanges();
-            const menu = fixture.debugElement.query(By.directive(ThyMenu));
-            expect(menu.nativeElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
-        });
-
         it('should set theme dark', () => {
             fixture.debugElement.componentInstance.theme = 'dark';
             fixture.detectChanges();
@@ -180,6 +185,49 @@ describe('ThyMenu', () => {
             expect(iconItemElement.children[0].classList.contains('thy-icon'));
             expect(iconItemElement.children[0].classList.contains('thy-menu-item-icon'));
             expect(iconItemElement.children[0].classList.contains('thy-icon-calendar'));
+        });
+    });
+
+    describe('thy-menu variant and theme', () => {
+        let fixture!: ComponentFixture<ThyMenuVariantThemeComponent>;
+        let menuElement!: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyMenuVariantThemeComponent);
+            fixture.detectChanges();
+            menuElement = fixture.debugElement.query(By.directive(ThyMenu)).nativeElement;
+        });
+
+        it('should use compact and light by default', () => {
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeFalsy();
+            expect(menuElement.classList.contains('thy-menu-theme-dark')).toBeFalsy();
+        });
+
+        it('should set variant loose via thyVariant', () => {
+            fixture.componentInstance.variant = 'loose';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
+        });
+
+        it('should set theme dark via thyTheme', () => {
+            fixture.componentInstance.theme = 'dark';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-dark')).toBeTruthy();
+        });
+
+        it('should support loose variant and dark theme together', () => {
+            fixture.componentInstance.variant = 'loose';
+            fixture.componentInstance.theme = 'dark';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
+            expect(menuElement.classList.contains('thy-menu-theme-dark')).toBeTruthy();
+        });
+
+        it('should prefer thyVariant over legacy thyTheme compact or loose', () => {
+            fixture.componentInstance.variant = 'compact';
+            fixture.componentInstance.theme = 'loose';
+            fixture.detectChanges();
+            expect(menuElement.classList.contains('thy-menu-theme-loose')).toBeFalsy();
         });
     });
 

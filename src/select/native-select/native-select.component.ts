@@ -1,6 +1,17 @@
-import { Component, forwardRef, OnInit, input, viewChild, model, signal, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    forwardRef,
+    OnInit,
+    input,
+    viewChild,
+    model,
+    signal,
+    ElementRef,
+    ChangeDetectionStrategy,
+    computed
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlSize } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -46,9 +57,25 @@ export class ThyNativeSelect extends TabIndexDisabledControlValueAccessorMixin i
         transform: value => value ?? 'md'
     });
 
+    /**
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
+    });
+
     readonly name = input<string>();
 
+    readonly thyClearable = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * @deprecated please use thyClearable, will be removed in v23
+     */
     readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
+
+    readonly clearable = computed(() => this.thyClearable() || this.thyAllowClear());
 
     writeValue(obj: any): void {
         if (obj !== this.innerValue()) {

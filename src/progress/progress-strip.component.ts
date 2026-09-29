@@ -12,7 +12,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyProgressType } from './interfaces';
+import { ThyProgressColor } from './interfaces';
 import { NgStyle } from '@angular/common';
 
 export interface ThyParentProgress {
@@ -20,6 +20,10 @@ export interface ThyParentProgress {
     readonly bars: Signal<readonly ThyProgressStrip[]>;
 }
 export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY_PROGRESS_COMPONENT');
+
+export function isProgressPresetColor(color?: string) {
+    return color === 'primary' || color === 'success' || color === 'info' || color === 'warning' || color === 'danger';
+}
 
 /**
  * @private
@@ -42,13 +46,11 @@ export class ThyProgressStrip {
 
     readonly thyTips = input<string | TemplateRef<HTMLElement> | undefined>(undefined);
 
-    readonly thyType = input<ThyProgressType>();
-
     readonly thyValue = input(0, {
         transform: numberAttribute
     });
 
-    readonly thyColor = input<string>();
+    readonly thyColor = input<ThyProgressColor | string>();
 
     protected readonly percent = computed(() => {
         const value = this.thyValue();
@@ -58,10 +60,18 @@ export class ThyProgressStrip {
         return +((value / this.progress.max()) * 100).toFixed(2);
     });
 
+    protected readonly barInnerStyle = computed(() => {
+        const color = this.thyColor();
+        if (color && !isProgressPresetColor(color)) {
+            return { 'background-color': color };
+        }
+        return null;
+    });
+
     constructor() {
         effect(() => {
-            const type = this.thyType();
-            this.hostRenderer.updateClass(type ? [`progress-bar-${type}`] : []);
+            const color = this.thyColor();
+            this.hostRenderer.updateClass(isProgressPresetColor(color) ? [`progress-bar-${color}`] : []);
         });
     }
 }

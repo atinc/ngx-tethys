@@ -1,5 +1,5 @@
 @if (iconPosition() === 'before') {
-  <thy-icon class="input-prepend" thyIconName="search"></thy-icon>
+  <thy-icon class="input-prepend" thyName="search"></thy-icon>
 }
 <input
   class="input-search-control"
@@ -14,21 +14,22 @@
   (ngModelChange)="searchModelChange()"
   (focus)="!focused() ? focused.set(true) : null"
   [thySize]="thySize()"
+  [thyAppearance]="appearance()"
   tabindex="-1" />
 @if (iconPosition() === 'after') {
   <div class="input-append input-append-divider">
-    @if (searchText()) {
+    @if (searchText() && !disabled()) {
       <a class="close" href="javascript:;" (click)="clearSearchText($event)">
-        <thy-icon thyIconName="close"></thy-icon>
+        <thy-icon thyName="close"></thy-icon>
       </a>
     } @else {
-      <thy-icon class="text-placeholder" thyIconName="search"></thy-icon>
+      <thy-icon class="text-placeholder" thyName="search"></thy-icon>
     }
   </div>
 }
 
-@if (searchText() && iconPosition() === 'before') {
+@if (searchText() && iconPosition() === 'before' && !disabled()) {
   <a class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
-    <thy-icon thyIconName="close"></thy-icon>
+    <thy-icon thyName="close"></thy-icon>
   </a>
 }

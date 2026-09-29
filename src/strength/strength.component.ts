@@ -3,6 +3,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
 import { Component, computed, forwardRef, HostBinding, inject, input, OnInit, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { injectLocale, ThyStrengthLocale } from 'ngx-tethys/i18n';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 enum ThyStrengthEnum {
     highest = 4,
@@ -14,6 +15,7 @@ enum ThyStrengthEnum {
 /**
  * 程度展示组件
  * @name thy-strength
+ * @deprecated will be removed in v23
  * @order 10
  */
 @Component({
@@ -94,6 +96,12 @@ export class ThyStrength implements OnInit, ControlValueAccessor {
     private _onChange = Function.prototype;
 
     private _onTouched = Function.prototype;
+
+    constructor() {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation('thy-strength has been deprecated and will be removed in v23');
+        }
+    }
 
     ngOnInit() {}
 

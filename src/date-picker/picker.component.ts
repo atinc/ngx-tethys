@@ -2,6 +2,7 @@ import {
     getFlexiblePositions,
     getOverlayGlobalConfig,
     THY_GLOBAL_CONFIG,
+    ThyFormControlAppearance,
     ThyFormControlSize,
     ThyGlobalConfig,
     ThyPlacement,
@@ -9,19 +10,7 @@ import {
 } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    inject,
-    input,
-    effect,
-    output,
-    viewChild,
-    computed
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, input, effect, output, viewChild, computed } from '@angular/core';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyI18nService } from 'ngx-tethys/i18n';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -69,6 +58,15 @@ export class ThyPicker implements AfterViewInit {
 
     readonly size = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly appearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     readonly suffixIcon = input<string>();

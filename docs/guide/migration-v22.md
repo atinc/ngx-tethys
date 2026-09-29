@@ -56,7 +56,7 @@ ng generate ngx-tethys:migrate-22
 - 尺寸类型 `ButtonGroupSize` 重命名为 `ThyButtonSize`
 
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thy-button` 组件上 `thyType` 已废弃，请使用 `thyColor`；`ThyButtonType` 已废弃，请使用 `ThyButtonColor`
 
 **自动迁移**
@@ -75,7 +75,7 @@ ng generate ngx-tethys:migrate-22
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `ButtonGroupType` 已废弃，请使用 `ThyButtonGroupAppearance`
 - `thyType` 已废弃，请使用 `thyAppearance`；对照如下：
 
@@ -164,51 +164,118 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 8. thy-select / thy-custom-select / thy-native-select / thy-tree-select
-
-**破坏性更改**
-
-- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
-- `thyPlaceHolder` 重命名为 `thyPlaceholder`
-- 尺寸类型 `SelectControlSize` 重命名为 `ThyFormControlSize`
-- `thy-tree-select` 移除 `thyIconType` 及类型 `ThyTreeSelectType`
-
-**自动迁移**
-
-- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
-- `thyPlaceHolder` → `thyPlaceholder` (thy-select / thy-custom-select)
-- TypeScript 中 `SelectControlSize` → `ThyFormControlSize`
-- 移除 `thy-tree-select` 上的 `thyIconType` 和 `ThyTreeSelectType`
-
----
-
-### 9. thy-cascader（`thy-cascader` 指令）
-
-**破坏性更改**
-
-- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
-
-**自动迁移**
-
-- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
-
----
-
-### 10. thy-select-control（`thySelectControl` 指令）
+### 8. thy-select-control（`thySelectControl` 指令）
 
 **破坏性更改**
 
 - 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
 - 尺寸类型 `SelectControlSize` 重命名为 `ThyFormControlSize`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyBorderless` 已废弃，请使用 `thyAppearance="ghost"`
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+- `thyIsMultiple` 已废弃，请使用 `thyMultiple`
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+- `(thyOnRemove)` / `(thyOnClear)` / `(thyOnBlur)` 已废弃，请使用 `(thyRemove)` / `(thyClear)` / `(thyBlur)`
 
 **自动迁移**
 
 - 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
 - TypeScript 中 `SelectControlSize` → `ThyFormControlSize`
+- `thyBorderless` / `thyBorderless="true"` / `[thyBorderless]="true"` → `thyAppearance="ghost"`；`thyBorderless="false"` / `[thyBorderless]="false"` 直接删除；若已设置 `thyAppearance`，则仅删除 `thyBorderless`
+- `thyShowSearch` → `thySearchable`；`thyAllowClear` → `thyClearable`；`thyIsMultiple` → `thyMultiple`
+- `(thyOnSearch)` → `(thyInputChange)`；`(thyOnRemove)` → `(thyRemove)`；`(thyOnClear)` → `(thyClear)`；`(thyOnBlur)` → `(thyBlur)`
 
 ---
 
-### 11. thy-date-picker / thy-range-picker / thy-month-picker / thy-quarter-picker / thy-week-picker / thy-year-picker
+### 9. thy-select / thy-custom-select / thy-native-select
+
+**破坏性更改**
+
+- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`（三者均适用）
+- `thyPlaceHolder` 重命名为 `thyPlaceholder`（`thy-select` / `thy-custom-select`）
+
+**标记为废弃，将在 v23 彻底删除**
+
+`thy-select` / `thy-custom-select`：
+
+- `thyBorderless` 已废弃，请使用 `thyAppearance="ghost"`
+- `thyMode` 已废弃，请使用 `thyMultiple`
+- TypeScript 类型 `SelectMode` 已废弃，请改用 `boolean` 配合 `thyMultiple`，不再使用 `'multiple' | ''`
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyServerSearch` 已废弃，请使用 `thyServerSearchable`
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+- `thyLoadState` 已废弃，请使用 `thyLoading`（默认 `false`，表示未在加载；与旧属性语义相反）
+- `thyEmptySearchMessageText` 已废弃，请使用 `thySearchEmptyText`
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+- `thyOnScrollToBottom` 已废弃，请使用 `thyScrollToBottom`
+- `thyOnExpandStatusChange` 已废弃，请使用 `thyExpandStatusChange`
+
+`thy-native-select`：
+
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+
+**自动迁移**
+
+- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- `thyPlaceHolder` → `thyPlaceholder`（`thy-select` / `thy-custom-select`）
+- `thyBorderless` / `thyBorderless="true"` / `[thyBorderless]="true"` → `thyAppearance="ghost"`；`thyBorderless="false"` / `[thyBorderless]="false"` 直接删除；若已设置 `thyAppearance`，则仅删除 `thyBorderless`（`thy-select` / `thy-custom-select` 及 `thySelectControl`）
+- `thyMode="multiple"` / `[thyMode]="'multiple'"` → `thyMultiple`；其它 `thyMode` 取值直接删除；`[thyMode]="mode"` → `[thyMultiple]="mode === 'multiple'"`
+- `thyShowSearch` → `thySearchable`；`thyServerSearch` → `thyServerSearchable`；`thyAllowClear` → `thyClearable`；`thyEmptySearchMessageText` → `thySearchEmptyText`（`thy-select` / `thy-custom-select`；`thyAllowClear` → `thyClearable` 另含 `thy-native-select`）
+- `thyLoadState="false"` / `[thyLoadState]="false"` → `thyLoading`；`thyLoadState="true"` / `[thyLoadState]="true"` 直接删除；`[thyLoadState]="loadState"` → `[thyLoading]="!(loadState)"`（`thy-select` / `thy-custom-select`
+- `thyOnSearch` → `thyInputChange`；`thyOnScrollToBottom` → `thyScrollToBottom`；`thyOnExpandStatusChange` → `thyExpandStatusChange`（`thy-select` / `thy-custom-select`）
+
+---
+
+### 10. thy-tree-select
+
+**破坏性更改**
+
+- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
+- 移除 `thyIconType` 及类型 `ThyTreeSelectType`
+- 新增 `thyAppearance`（`outline` / `subtle` / `ghost`），默认 `outline`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyServerSearch` 已废弃，请使用 `thyServerSearchable`
+- `thyAllowClear` 已废弃，请使用 `thyClearable`
+- `thyLoadState` 已废弃，请使用 `thyLoading`（默认 `false`，表示未在加载；与旧属性语义相反）
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+
+**自动迁移**
+
+- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- 移除 `thyIconType` 和 `ThyTreeSelectType`
+- `thyShowSearch` → `thySearchable`；`thyServerSearch` → `thyServerSearchable`；`thyAllowClear` → `thyClearable`
+- `thyLoadState="false"` / `[thyLoadState]="false"` → `thyLoading`；`thyLoadState="true"` / `[thyLoadState]="true"` 直接删除；`[thyLoadState]="loadState"` → `[thyLoading]="!(loadState)"`
+- `thyOnSearch` → `thyInputChange`
+
+---
+
+### 11. thy-cascader（`thy-cascader` 指令）
+
+**破坏性更改**
+
+- 默认尺寸从 36px 改为 md（32px）；需保持 36px 视觉请设 `thySize="lg"`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyShowSearch` 已废弃，请使用 `thySearchable`
+- `thyOnSearch` 已废弃，请使用 `thyInputChange`
+
+**自动迁移**
+
+- 未设置 `thySize` 时补回 `thySize="lg"`；`thySize="default"` / `thySize=""` 替换为 `thySize="lg"`
+- `thyShowSearch` → `thySearchable`
+- `thyOnSearch` → `thyInputChange`
+
+---
+
+### 12. thy-date-picker / thy-range-picker / thy-month-picker / thy-quarter-picker / thy-week-picker / thy-year-picker
 
 **破坏性更改**
 
@@ -224,7 +291,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 12. thyDatePicker / thyRangePicker 指令
+### 13. thyDatePicker / thyRangePicker 指令
 
 **破坏性更改**
 
@@ -241,7 +308,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 13. thy-time-picker
+### 14. thy-time-picker
 
 **破坏性更改**
 
@@ -255,7 +322,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 14. Autocomplete（`thyAutocomplete`）
+### 15. Autocomplete（`thyAutocomplete`）
 
 **破坏性更改**
 
@@ -267,7 +334,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 15. thy-action
+### 16. thy-action
 
 **破坏性更改**
 
@@ -279,22 +346,39 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 16. thy-tag
+### 17. thy-tag
 
 **破坏性更改**
 
 - `thyTheme` 重命名为 `thyAppearance`
 - `weak-fill` 外观值改名为 `subtle`
 
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyShape` 的旧值 `pill` 已废弃，请使用 `ellipse`，传入 `pill` 仍兼容（等同 `ellipse`）
+- CSS 类 `thy-tag-pill` 改名为 `thy-tag-ellipse`
+
+| 旧写法 | 新写法 |
+|--------|--------|
+| `thyShape="pill"` | `thyShape="ellipse"` |
+| `[thyShape]="'pill'"` | `[thyShape]="'ellipse'"` |
+
 **自动迁移**
 
 - `thyTheme` → `thyAppearance`
 - `thyAppearance="weak-fill"` / `thyTheme="weak-fill"` 替换为 `thyAppearance="subtle"`
+- 模板字面量 `thyShape="pill"` → `thyShape="ellipse"`（`thy-tag` / `thyTag`）
+- 绑定字面量 `[thyShape]="'pill'"` → `[thyShape]="'ellipse'"`
+- CSS 选择器 `thy-tag-pill` → `thy-tag-ellipse`
 - TypeScript 运行时赋值（如 `theme.set('weak-fill')`）及字符串内嵌旧 CSS 类名（如 `thy-tag-weak-fill-*`）无自动迁移，需手动处理（详见 **手动检查**）
+
+**手动检查**
+
+- 动态绑定形如 `[thyShape]="shape"` 且变量可能为 `'pill'` 时 **不会自动迁移**；运行时仍兼容（按 `ellipse` 处理），建议改为 `'ellipse'`
 
 ---
 
-### 17. thy-header
+### 18. thy-header
 
 **破坏性更改**
 
@@ -308,7 +392,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 18. thy-badge
+### 19. thy-badge
 
 **破坏性更改**
 
@@ -322,7 +406,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 19. thy-nav（`thyNavItem` / `thyNavItemActive` 指令）
+### 20. thy-nav（`thyNavItem` / `thyNavItemActive` 指令）
 
 **破坏性更改**
 
@@ -330,7 +414,7 @@ ng generate ngx-tethys:migrate-22
 - `thyNavLinkActive` 重命名为 `thyNavItemActive`
 - 移除 `thyInsideClosable`，改用 `thyPopoverOptions.insideClosable`
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyType` 和 `ThyNavType` 已废弃，请使用 `thyVariant` 和 `ThyNavVariant`；推荐值 `pulled | tabs | pills | lite`；`primary | secondary | thirdly | secondary-divider` 已废弃
 
 **自动迁移**
@@ -343,7 +427,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 20. thy-table
+### 21. thy-table
 
 **破坏性更改**
 
@@ -358,7 +442,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 21. thy-card / thy-card-header / thy-card-content
+### 22. thy-card / thy-card-header / thy-card-content
 
 **破坏性更改**
 
@@ -372,14 +456,14 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 22. thy-divider
+### 23. thy-divider
 
 **破坏性更改**
 
 - 移除 `thyDeeper`，改用 `thyColor="light"` 表示较深分割线
 - `thyColor="deeper"` 不再有效（`$divider-colors` 中已移除 `deeper`），请统一改用 `thyColor="light"`
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyStyle` 和 `ThyDividerStyle` 已废弃，请使用 `thyAppearance` 和 `ThyDividerAppearance`
 - `ThyDividerColor` 支持传 `'light' | 'lighter' | 'danger' | 'primary' | 'success' | 'warning'`，去掉了 string 类型（因为组件库原本就没支持任意颜色值字符串）。原来传了 `'default'` 的请使用等价的 `'lighter'` 值。
@@ -394,7 +478,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 23. thy-avatar
+### 24. thy-avatar
 
 **破坏性更改**
 
@@ -414,7 +498,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 24. thy-anchor-link（原 `thy-link`）
+### 25. thy-anchor-link（原 `thy-link`）
 
 **破坏性更改**
 
@@ -427,7 +511,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 25. thy-dialog
+### 26. thy-dialog
 
 **破坏性更改**
 
@@ -441,14 +525,14 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 26. thy-tabs
+### 27. thy-tabs
 
 **破坏性更改**
 
 - 类型 `ThyActiveTabInfo` 重命名为 `ThyActiveTabValue`
 
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyType` 和 `ThyTabsType` 已废弃，请使用 `thyVariant` 和 `ThyTabsVariant`
 
@@ -460,19 +544,35 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 27. thy-progress
+### 28. thy-progress
 
 **破坏性更改**
 
 - 类型 `ThyStackedValue` 重命名为 `ThyProgressStackedValue`
+- 内部私有组件 `thy-progress-bar`、`thy-progress-circle` 的 `thyType` 改成了 `thyColor`
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyType` 和 `ThyProgressType` 已废弃，请使用 `thyColor` 和 `ThyProgressColor`
+- `ThyProgressShapeType` 已废弃，请使用 `ThyProgressShape`
+- `ThyProgressGapPositionType` 已废弃，请使用 `ThyProgressGapPosition`
+- `ThyProgressStackedValue.type` 已废弃，请使用 `ThyProgressStackedValue.color`
 
 **自动迁移**
 
 - `ThyStackedValue` → `ThyProgressStackedValue`
+- `thyType` → `thyColor`
+- TypeScript 中 `ThyProgressType` → `ThyProgressColor`
+- TypeScript 中 `ThyProgressShapeType` → `ThyProgressShape`
+- TypeScript 中 `ThyProgressGapPositionType` → `ThyProgressGapPosition`
+
+**手动检查**
+
+- stacked 数据中的 `type` 需手动改为 `color`
 
 ---
 
-### 28. thy-property
+### 29. thy-property
 
 **破坏性更改**
 
@@ -484,7 +584,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 29. thy-empty
+### 30. thy-empty
 
 **破坏性更改**
 
@@ -504,21 +604,25 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 30. thy-dot
+### 31. thy-dot
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyTheme`和`ThyThemeType`已废弃，请使用`thyAppearance`和`ThyDotAppearance`
+- `ThyColorType`、`ThySizeType`、`ThyShapeType`已废弃，请使用`ThyDotColor`、`ThyDotSize`、`ThyDotShape`
 
 **自动迁移**
 
 - `thyTheme` → `thyAppearance`
 - `ThyThemeType` → `ThyDotAppearance`
+- `ThyColorType` → `ThyDotColor`
+- `ThySizeType` → `ThyDotSize`
+- `ThyShapeType` → `ThyDotShape`
 
 ---
 
-### 31. thy-alert
+### 32. thy-alert
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyType`和`ThyAlertType`已废弃，请使用`thyColor`和`ThyAlertColor`
 - `thyTheme`和`ThyAlertTheme`已废弃，请使用`thyAppearance`和`ThyAlertAppearance`
 
@@ -531,9 +635,9 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 32. thy-collapse
+### 33. thy-collapse
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyTheme`和`ThyCollapseTheme`已废弃，请使用`thyAppearance`和`ThyCollapseAppearance`
 
 **自动迁移**
@@ -541,11 +645,30 @@ ng generate ngx-tethys:migrate-22
 - `thyTheme` → `thyAppearance`
 - `ThyCollapseTheme` → `ThyCollapseAppearance`
 
----
-
-### 33. thy-slider
+### 34. thy-menu
 
 **标记为废弃**
+
+- 旧版 `thyTheme="compact" | loose | dark"` 同时表示形态与配色。现已拆分为：
+  - `thyVariant`：`compact | loose`（形态，默认 `compact`）
+  - `thyTheme`：`light | dark`（主题，默认 `light`）
+- 旧值 `compact | loose` 作为 `thyTheme` 传入仍兼容，将在下一个大版本策底删除，请改用 `thyVariant`
+
+**自动迁移**
+
+- `thyTheme="compact"` → 移除（等价于默认形态`thyVariant="compact"`）
+- `thyTheme="loose"` → `thyVariant="loose"`，`[thyTheme]="'loose'"` → `[thyVariant]="'loose'"`
+
+
+**手动检查**
+
+- 动态绑定 `[thyTheme]="theme"` 且变量可能为 `compact | loose | dark` 时，需手动拆分为 `thyVariant` 与 `thyTheme`
+
+---
+
+### 35. thy-slider
+
+**标记为废弃，将在 v23 彻底删除**
 
 - `thyType` 和 `ThySliderType` 已废弃，请使用 `thyColor` 和 `ThySliderColor`。`thyColor` 支持传 `primary | success | info | warning | danger`，也支持任意合法 CSS 颜色值，比如 `#ccc`。
 
@@ -562,14 +685,241 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 34. thy-switch
+### 36. thy-switch
 
-**标记为废弃**
+**标记为废弃，将在 v23 彻底删除**
 - `thyType` 已废弃，请使用 `thyColor`
 
 **自动迁移**
 
 - `thyType` → `thyColor`
+
+---
+
+### 37. thy-badge（`thyBadge` 指令）
+
+**标记为废弃，将在 v23 彻底删除**
+- `thyType` 已废弃，请使用 `thyColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（`thy-badge` 与 `thyBadge`）
+
+---
+
+### 38. thy-input-search
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyVariant` 和 `ThyInputSearchVariant`
+- `thyTheme="transparent"` / `thyVariant="transparent"` 已废弃，请使用 `thyAppearance="ghost"`
+
+**自动迁移**
+
+- `thyTheme` → `thyVariant`（仅 `thy-input-search`，如 `ellipse`）
+- `thyTheme="transparent"` / `thyVariant="transparent"` → `thyAppearance="ghost"`
+- `[thyTheme]="'transparent'"` / `[thyVariant]="'transparent'"` → `[thyAppearance]="'ghost'"`
+- 若已设置 `thyAppearance`，则删除多余的 `transparent`
+- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchVariant`
+
+---
+
+### 39. thyDropdownMenuItem
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyType` 和 `ThyDropdownMenuItemType` 已废弃，请使用 `thyColor` 和 `ThyDropdownMenuItemColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（仅 `thyDropdownMenuItem`）
+- TypeScript 中 `ThyDropdownMenuItemType` → `ThyDropdownMenuItemColor`
+
+---
+
+### 40. thy-timeline / thy-timeline-item
+
+**破坏性更改**
+
+- 移除 `ThyTimeModes` 枚举，请直接使用 `'left' | 'right' | 'center'` 字符串
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyColor` 类型已废弃，请使用 `ThyTimelineColor`（`thy-timeline-item` 的 `thyColor` 入参不变）
+- `ThyTimeMode` 已废弃，请使用 `ThyTimelineMode`
+
+**自动迁移**
+
+- TypeScript 中 `thyColor` → `ThyTimelineColor`
+- TypeScript 中 `ThyTimeMode` → `ThyTimelineMode`
+
+---
+
+### 41. thy-statistic
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyShape` 和 `ThyStatisticShape` 已废弃，请使用 `thyAppearance` 和 `ThyStatisticAppearance`
+- `ThyStatisticColorType` 已废弃，请使用 `ThyStatisticColor`
+- `ThyStatisticSizes` 已废弃，请使用 `ThyStatisticSize`
+
+**自动迁移**
+
+- `thyShape` → `thyAppearance`
+- TypeScript 中 `ThyStatisticShape` → `ThyStatisticAppearance`
+- TypeScript 中 `ThyStatisticColorType` → `ThyStatisticColor`
+- TypeScript 中 `ThyStatisticSizes` → `ThyStatisticSize`
+
+---
+
+### 42. thy-arrow-switcher
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyTheme` 已废弃，请使用 `thyVariant`
+- `ThyArrowSwitcherTheme` 已废弃，请使用 `ThyArrowSwitcherVariant`
+
+**自动迁移**
+
+- `thyTheme` → `thyVariant`
+- TypeScript 中 `ThyArrowSwitcherTheme` → `ThyArrowSwitcherVariant`
+
+---
+
+### 43. thy-action（`thyAction` 指令）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyType` 和 `ThyActionType` 已废弃，请使用 `thyColor` 和 `ThyActionColor`
+
+**自动迁移**
+
+- `thyType` → `thyColor`（`thy-action` 与 `thyAction`）
+- TypeScript 中 `ThyActionType` → `ThyActionColor`
+
+---
+
+### 44. thy-icon-nav
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thy-icon-nav` 及 `thyIconNavLink` 已废弃，请使用 `thy-action`
+
+---
+
+### 45. thy-property-operation
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thy-property-operation` / `thy-property-operation-group` / `ThyPropertyOperationModule` 已废弃
+
+---
+
+### 46. thy-table / thy-native-table / thy-table-skeleton
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyTheme` 已废弃，请使用 `thyAppearance`
+- `ThyNativeTableTheme` 已废弃，请使用 `ThyNativeTableAppearance`（仅 `thy-native-table`）
+- `ThyTableTheme` 已废弃，请使用 `ThyTableAppearance`
+- `thyMode` 已废弃，请使用 `thyVariant`（仅 `thy-table`）
+- `ThyTableMode` 已废弃，请使用 `ThyTableVariant`
+
+**自动迁移**
+
+- `thyTheme` → `thyAppearance`（`thy-table`、`thy-native-table` 与 `thy-table-skeleton`）
+- TypeScript 中 `ThyNativeTableTheme` → `ThyNativeTableAppearance`
+- TypeScript 中 `ThyTableTheme` → `ThyTableAppearance`
+- `thyMode` → `thyVariant`（`thy-table`）
+- TypeScript 中 `ThyTableMode` → `ThyTableVariant`
+
+---
+
+### 47. thy-strength
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thy-strength` / `ThyStrengthModule` 已废弃
+
+---
+
+### 48. thy-vote（`thyVote` 指令）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- 颜色与外观拆分（指令用 `thyVote` 传颜色，组件用 `thyColor`）：
+  - `thyVote` / `thyColor`：`primary | success`（默认 `primary`）
+  - `thyAppearance`：`fill | subtle`（默认 `fill`）
+- 旧复合类型 `ThyVoteType`（`primary-weak` / `success-weak`）已废弃，请改用 `thyColor`/`thyVote` + `thyAppearance`
+- CSS 类 `thy-vote-primary-weak` / `thy-vote-success-weak` 改名为 `thy-vote-primary-subtle` / `thy-vote-success-subtle`
+- `thyHasVoted` 已废弃，请使用 `thyVoted`
+- `thyVoteCount` 已废弃，请使用 `thyCount`
+- `ThyVoteSizes` 已废弃，请使用 `ThyVoteSize`
+- `thyRound` 已废弃，请使用 `thyShape`（`rectangle` | `ellipse`）
+
+| 旧写法 | 新写法 |
+|--------|--------|
+| `<span thyVote="success"></span>` | 保持不变（指令写法） |
+| `<thy-vote thyVote="success"></thy-vote>` | `<thy-vote thyColor="success"></thy-vote>` |
+| `thyVote="primary-weak"`（组件） | `thyColor="primary" thyAppearance="subtle"` |
+| `thyVote="success-weak"`（指令） | `thyVote="success" thyAppearance="subtle"` |
+| `[thyVote]="'success-weak'"`（组件） | `[thyColor]="'success'" thyAppearance="subtle"` |
+| `[thyVote]="'success-weak'"`（指令） | `[thyVote]="'success'" thyAppearance="subtle"` |
+| `thyHasVoted` | `thyVoted` |
+| `thyVoteCount` | `thyCount` |
+| `thyRound="true"` / `[thyRound]="true"` | `thyShape="ellipse"` |
+| `thyRound="false"` | 移除（默认 `rectangle`） |
+
+**自动迁移**
+
+- 组件 `thy-vote` 上的字面量 `thyVote` / `[thyVote]` 迁移为 `thyColor`（值为 `primary-weak | success-weak`的会额外补 `thyAppearance="subtle"`）
+- 指令宿主上的 `primary` / `success` **不迁移**；仅将 `*-weak` 拆为 `thyVote="color"` + `thyAppearance="subtle"`
+- CSS 选择器 `thy-vote-primary-weak` → `thy-vote-primary-subtle`；`thy-vote-success-weak` → `thy-vote-success-subtle`
+- `thyHasVoted` → `thyVoted`（`thy-vote` / `thyVote`）
+- `thyVoteCount` → `thyCount`（`thy-vote` / `thyVote`）
+- TypeScript 中 `ThyVoteSizes` → `ThyVoteSize`
+- `thyRound="true"` / `[thyRound]="true"` → `thyShape="ellipse"`，`thyRound="false"` → 移除 thyRound
+
+
+**手动检查**
+
+- 动态绑定形如 `[thyVote]="voteType"` 且变量可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需拆分为颜色 + `thyAppearance`
+- TypeScript 中 `ThyVoteType` **不会自动替换**；请改为 `ThyVoteColor` / `ThyVoteAppearance`
+- 动态绑定形如 `[thyRound]="isRound"` **不会自动迁移**；请改为 `[thyShape]="isRound ? 'ellipse' : 'rectangle'"` 或等价写法
+
+---
+
+### 49. thy-loading
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyTip` 参数已废弃，请使用 `thyTips`
+
+**自动迁移**
+
+- `thyTip` → `thyTips`
+
+---
+
+### 48. thy-icon（`thy-icon` 指令）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thyIconType` 已废弃，请使用 `thyAppearance`
+- `thyIconName` 已废弃，请使用 `thyName`
+- `thyIconRotate` 已废弃，请使用 `thyRotate`
+- `thyIconSet` 已废弃，请使用 `thySet`
+- `thyIconLegging` 已废弃，请使用 `thyLegging`
+- `thyIconLinearGradient` 已废弃，请使用 `thyLinearGradient`
+
+**自动迁移**
+
+- `thyIconType` → `thyAppearance`
+- `thyIconName` → `thyName`
+- `thyIconRotate` → `thyRotate`
+- `thyIconSet` → `thySet`
+- `thyIconLegging` → `thyLegging`
+- `thyIconLinearGradient` → `thyLinearGradient`
 
 ---
 
@@ -640,6 +990,10 @@ ng generate ngx-tethys:migrate-22
   - `thy-button-group`：形如 `[thyType]="type"` 的动态绑定 **不会自动迁移**；需手动改为 `[thyAppearance]`，并将旧值（`outline-default` / `outline-primary` / `primary`）映射为 `outline` / `fill`，并在子按钮上通过 `thyButton` 或 `thyColor` 设置 `default`、`primary`
 - **`thy-tag` 运行时赋值 / 字符串中的旧值**（Schematics 仅处理模板字面量）：
   - TypeScript 中形如 `this.theme.set('weak-fill')` **不会自动迁移**；v22 合法值为 `'outline' | 'fill' | 'subtle'`，需改为 `'subtle'`（若模板为 `[thyAppearance]="theme()"` 等同理）
+- **`thy-select` / `thySelectControl` 的 `thyBorderless` 动态绑定**（Schematics 仅处理字面量）：
+  - 形如 `[thyBorderless]="borderless"` **不会自动迁移**；需手动改为 `[thyAppearance]="borderless ? 'ghost' : 'outline'"`，或直接使用 `thyAppearance="ghost"`
+- **`thy-select` 的 `thyLoadState` 动态绑定**（Schematics 对非字面量会生成取反表达式）：
+  - 若变量语义不是「`true` 表示加载完成」，迁移后请手动核对 `[thyLoading]` 与接口 loading 状态是否一致
   - i18n / TS 字符串内嵌旧 CSS 类名：形如 `thy-tag-weak-fill-primary` **不会自动替换**，需改为 `thy-tag-subtle-primary`（其它颜色后缀同理，如 `thy-tag-weak-fill-default` → `thy-tag-subtle-default`）
 - **`ThyAvatarService` 子类中的 `avatarSrcTransform` 方法定义**：自动迁移仅改写 `ThyAvatarService` 类型变量上的**调用**（如 `this.thyAvatarService.avatarSrcTransform(...)` → `srcTransform(...)`），**不会**删除或重命名子类里的方法声明；若子类仍保留仅为兼容的 `avatarSrcTransform()` 包装方法，需手动删除，只保留 `srcTransform()` 实现
 - **移除的 CSS 类**（自定义样式若依赖这些 class 会失效，请改用新写法或移除选择器）：
@@ -647,4 +1001,8 @@ ng generate ngx-tethys:migrate-22
   - `thy-card--clear-left-right-padding`（移除 `thyHasLeftRightPadding` 后不再生成）
   - `thy-card-header--{sm,md,lg}`、`thy-card-content--sm`（`thySize` 仅保留在 `thy-card` 上）
   - `thy-badge-dot` / `thy-badge-hollow`（改用 `thy-dot` 组件）
+  - CSS 样式：`thy-vote-primary-weak` / `thy-vote-success-weak` → `thy-vote-primary-subtle` / `thy-vote-success-subtle`
+  - Vote 动态绑定：形如 `[thyVote]="voteType"` 且可能为 `'primary-weak'` 等旧复合值时 **不会自动迁移**；需手动拆为颜色 + `[thyAppearance]`
+  - CSS 样式：`thy-tag-pill` → `thy-tag-ellipse`（`thyShape="ellipse"`）
+  - Tag 动态绑定：形如 `[thyShape]="shape"` 且可能为 `'pill'` 时 **不会自动迁移**；运行时仍兼容（按 `ellipse` 处理），建议改为 `'ellipse'`
 

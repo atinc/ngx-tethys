@@ -21,7 +21,7 @@ subtitle: 树选择
 ```html
 <thy-tree-select [thyTreeNodes]="treeSelectNodes" [thyMultiple]="isMultiple" [(ngModel)]="selectedValue">
   <ng-template #treeNodeTemplate let-node>
-    <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+    <thy-icon class="prefix-icon" [thyName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
     {{ node.name }}
   </ng-template>
 </thy-tree-select>
@@ -74,24 +74,24 @@ fetchNodeChildren(node: ThyTreeSelectNode) {
 <example name="thy-tree-select-async-fetch-example" />
 
 ## 服务端搜索
-设置 `thyServerSearch` 为 `true` 后，组件不再在前端过滤树节点，而是通过 `thyOnSearch` 事件将搜索关键词交给外部处理，由服务端返回匹配的数据后更新 `thyTreeNodes`。接口请求期间可通过 `thyLoadState` 控制 loading 状态，`false` 表示加载中，`true` 表示加载完成。
+设置 `thyServerSearchable` 为 `true` 后，组件不再在前端过滤树节点，而是通过 `thyInputChange` 事件将搜索关键词交给外部处理，由服务端返回匹配的数据后更新 `thyTreeNodes`。接口请求期间可通过 `thyLoading` 控制 loading 状态，`true` 表示加载中，默认 `false` 表示未在加载。
 ```html
 <thy-tree-select
   [thyTreeNodes]="treeSelectNodes()"
   [(ngModel)]="selectedValue"
-  [thyShowSearch]="true"
-  [thyServerSearch]="true"
-  [thyLoadState]="loadState()"
-  (thyOnSearch)="search($event)">
+  [thySearchable]="true"
+  [thyServerSearchable]="true"
+  [thyLoading]="loading()"
+  (thyInputChange)="search($event)">
 </thy-tree-select>
 ```
 ```typescript
 search(value: string) {
-    this.loadState.set(false);
+    this.loading.set(true);
     // 调用接口获取匹配的树节点数据
     this.fetchTreeNodes(value).subscribe(data => {
         this.treeSelectNodes.set(data);
-        this.loadState.set(true);
+        this.loading.set(false);
     });
 }
 ```

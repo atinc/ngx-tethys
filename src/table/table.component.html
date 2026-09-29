@@ -12,7 +12,7 @@
     [ngClass]="[className]"
     [class.table-fixed]="thyLayoutFixed"
     [class.table-draggable]="draggable"
-    [class.table-group]="mode === 'group'"
+    [class.table-group]="variant === 'group'"
     [ngStyle]="{ 'min-width': thyMinWidth }">
     <colgroup>
       @for (column of columns; track $index) {
@@ -40,7 +40,7 @@
                   [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
               }
               @if (column.sortable) {
-                <thy-icon [ngClass]="['thy-table-column-sortable-icon', 'px-1', column.sortDirection]" thyIconName="sort-vertical-tt">
+                <thy-icon [ngClass]="['thy-table-column-sortable-icon', 'px-1', column.sortDirection]" thyName="sort-vertical-tt">
                 </thy-icon>
               }
             </th>
@@ -57,7 +57,7 @@
         [cdkDropListSortPredicate]="dropListEnterPredicate"
         (cdkDropListDropped)="onDragDropped($event)">
         <!-- group -->
-        @if (mode === 'group') {
+        @if (variant === 'group') {
           @for (group of groups; track group.id) {
             <tr
               class="thy-table-group"
@@ -71,9 +71,9 @@
               <td [attr.colspan]="columns.length">
                 <div class="thy-table-group-container">
                   @if (draggable && !(group | tableRowDragDisabled: thyDragDisabledPredicate)) {
-                    <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
+                    <thy-icon class="table-draggable-icon" thyName="drag"></thy-icon>
                   }
-                  <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
+                  <thy-icon class="expand-icon" [thyName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
                   @if (groupTemplate()) {
                     <ng-template
                       [ngTemplateOutlet]="groupTemplate()"
@@ -83,7 +83,7 @@
               </td>
             </tr>
             @if (group.children?.length && group.expand) {
-              @for (row of group.children; track $index; let i = $index) {
+              @for (row of group.children; track trackByFn($index, row); let i = $index) {
                 <ng-template
                   [ngTemplateOutlet]="trTemplate"
                   [ngTemplateOutletContext]="{
@@ -96,8 +96,8 @@
           }
         }
         <!-- list模式下没有直接使用item模板，是因为使用了模板影响了Angular的依赖树，导致CdkDragDrop排序失效，目前这样修改可以暂时解决线上不能排序的问题，Tree模式的排序暂时不支持 -->
-        @if (mode === 'list') {
-          @for (row of model; track $index; let i = $index) {
+        @if (variant === 'list') {
+          @for (row of model; track trackByFn($index, row); let i = $index) {
             <tr
               #rows
               class="thy-sortable-item"
@@ -119,7 +119,7 @@
             </tr>
           }
         }
-        @if (mode === 'tree') {
+        @if (variant === 'tree') {
           @for (row of model; track trackByFn(i, row); let i = $index) {
             <ng-template [ngTemplateOutlet]="trTemplate" [ngTemplateOutletContext]="{ row: row, index: i, level: 0 }"></ng-template>
           }
@@ -144,7 +144,7 @@
                 level: level + 1
               }"></ng-template>
           </tr>
-          @if (mode === 'tree' && isExpanded(row)) {
+          @if (variant === 'tree' && isExpanded(row)) {
             @for (child of row[thyChildrenKey]; track trackByFn(j, child); let j = $index) {
               <ng-template
                 [ngTemplateOutlet]="trTemplate"
@@ -162,19 +162,19 @@
               [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
               [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
               [ngStyle]="
-                mode === 'tree' && column.expand
+                variant === 'tree' && column.expand
                   ? tdIndentComputed(level, column)
                   : { left: column.left + 'px', right: column.right + 'px' }
               ">
               @if (j === 0 && draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)) {
-                <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
+                <thy-icon class="table-draggable-icon" thyName="drag"></thy-icon>
               }
               <!--template-->
               @if (isTemplateRef(column.cellTemplateRef())) {
-                @if (mode === 'tree' && column.expand) {
+                @if (variant === 'tree' && column.expand) {
                   <thy-icon
                     class="tree-expand-icon cursor-pointer"
-                    [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
+                    [thyName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                     [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
                     [style.left.px]="iconIndentComputed(level)"></thy-icon>
                 }
@@ -184,10 +184,10 @@
               @if (!isTemplateRef(column.cellTemplateRef())) {
                 <!-- default -->
                 @if (column.model && !column.type) {
-                  @if (mode === 'tree' && column.expand) {
+                  @if (variant === 'tree' && column.expand) {
                     <thy-icon
                       class="tree-expand-icon cursor-pointer"
-                      [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
+                      [thyName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                       [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
                       [style.marginLeft.px]="iconIndentComputed(level)"></thy-icon>
                   }
@@ -270,7 +270,7 @@
     <thy-table-skeleton
       [thyRowCount]="6"
       [thyHeadless]="true"
-      [thyTheme]="theme"
+      [thyAppearance]="theme"
       [thySize]="size"
       [thyMinWidth]="thyMinWidth"
       [thyColumns]="skeletonColumns">

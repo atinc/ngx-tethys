@@ -11,7 +11,7 @@
       <div style="margin: 5px 0">
         {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime - {{ queueFile.progress.estimatedTimeHuman }}
       </div>
-      <thy-progress class="progress" thyType="success" [thyValue]="queueFile.progress.percentage" [thyMax]="100"
+      <thy-progress class="progress" thyColor="success" [thyValue]="queueFile.progress.percentage" [thyMax]="100"
         >{{ queueFile.progress.percentage }}%</thy-progress
       >
     </div>

@@ -6,6 +6,7 @@
 
     // Thy Custom
     @include set-input-hover-border($input-hover-border-color);
+    @include form-control-appearance();
 }
 
 @include form-validation-state('invalid', $form-feedback-invalid-color);

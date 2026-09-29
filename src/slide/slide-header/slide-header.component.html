@@ -3,7 +3,7 @@
 } @else {
   <h3 class="thy-slide-header-title">
     @if (!isIconFont() && thyIcon()) {
-      <thy-icon [thyIconName]="thyIcon()"></thy-icon>
+      <thy-icon [thyName]="thyIcon()"></thy-icon>
     } @else {
       @if (thyIcon()) {
         <i class="wft {{ thyIcon() }}"></i>

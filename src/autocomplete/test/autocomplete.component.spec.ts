@@ -18,6 +18,7 @@ import { ThyOptionModule, ThyOption } from 'ngx-tethys/shared';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective, ThyAutocompleteModule } from 'ngx-tethys/autocomplete';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThyFormControlAppearance } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-basic-autocomplete',
@@ -74,6 +75,30 @@ class BasicSelectComponent {
 }
 
 @Component({
+    selector: 'thy-appearance-autocomplete',
+    template: `
+        <div>
+            <input class="form-control" [thyAutocomplete]="auto" [thyAppearance]="appearance" />
+            <thy-autocomplete #auto>
+                @for (item of foods; track $index) {
+                    <thy-option [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+                }
+            </thy-autocomplete>
+        </div>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyOptionModule, ThyAutocompleteModule]
+})
+class AppearanceAutocompleteComponent {
+    appearance: ThyFormControlAppearance | undefined = 'outline';
+
+    foods: { value: string; viewValue: string }[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' }
+    ];
+}
+
+@Component({
     selector: 'thy-input-search-autocomplete',
     template: `
         <div>
@@ -104,6 +129,8 @@ class InputSearchSelectComponent {
 
     readonly autocomplete = viewChild.required(ThyAutocomplete);
     readonly options = viewChildren(ThyOption);
+
+    valueChange(event: string) {}
 }
 
 describe('ThyAutocomplete', () => {
@@ -129,7 +156,7 @@ describe('ThyAutocomplete', () => {
 
     describe('core', () => {
         beforeEach(waitForAsync(() => {
-            configureThyCustomSelectTestingModule([BasicSelectComponent, InputSearchSelectComponent]);
+            configureThyCustomSelectTestingModule([BasicSelectComponent, InputSearchSelectComponent, AppearanceAutocompleteComponent]);
         }));
 
         describe('panel', () => {
@@ -310,6 +337,44 @@ describe('ThyAutocomplete', () => {
                 flush();
                 expect(closedSpy).toHaveBeenCalled();
             }));
+        });
+
+        describe('appearance', () => {
+            let fixture!: ComponentFixture<AppearanceAutocompleteComponent>;
+            let trigger!: HTMLElement;
+
+            beforeEach(fakeAsync(() => {
+                fixture = TestBed.createComponent(AppearanceAutocompleteComponent);
+                fixture.detectChanges();
+                tick(100);
+                trigger = fixture.debugElement.query(By.css('input')).nativeElement;
+            }));
+
+            it('should use outline appearance by default', () => {
+                expect(trigger.classList.contains('form-control-subtle')).toBe(false);
+                expect(trigger.classList.contains('form-control-ghost')).toBe(false);
+            });
+
+            it('should add form-control-subtle when thyAppearance is subtle', () => {
+                fixture.componentInstance.appearance = 'subtle';
+                fixture.detectChanges();
+                expect(trigger.classList.contains('form-control-subtle')).toBe(true);
+                expect(trigger.classList.contains('form-control-ghost')).toBe(false);
+            });
+
+            it('should add form-control-ghost when thyAppearance is ghost', () => {
+                fixture.componentInstance.appearance = 'ghost';
+                fixture.detectChanges();
+                expect(trigger.classList.contains('form-control-ghost')).toBe(true);
+                expect(trigger.classList.contains('form-control-subtle')).toBe(false);
+            });
+
+            it('should use outline appearance when thyAppearance is undefined', () => {
+                fixture.componentInstance.appearance = undefined;
+                fixture.detectChanges();
+                expect(trigger.classList.contains('form-control-subtle')).toBe(false);
+                expect(trigger.classList.contains('form-control-ghost')).toBe(false);
+            });
         });
 
         describe('input-search', () => {

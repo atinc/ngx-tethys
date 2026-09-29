@@ -5,6 +5,7 @@ import {
     mixinInitialized,
     mixinTabIndex,
     ThyCanDisable,
+    ThyFormControlAppearance,
     ThyFormControlSize,
     ThyHasTabIndex,
     ThyInitialized,
@@ -13,17 +14,18 @@ import {
 
 import {
     Component,
+    computed,
+    effect,
     ElementRef,
     forwardRef,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation,
     inject,
     input,
-    effect,
-    signal,
+    OnDestroy,
+    OnInit,
     output,
-    viewChild
+    signal,
+    viewChild,
+    ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -34,7 +36,12 @@ import { ThyInputDirective } from './input.directive';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
+/** ThyInputSearchVariant 的 transparent 值已废弃，请使用 thyAppearance="ghost"，将在 v23 中移除 'transparent' */
+export type ThyInputSearchVariant = 'default' | 'ellipse' | 'transparent' | '';
+
+/** @deprecated use ThyInputSearchVariant, will be removed in v23 */
+export type ThyInputSearchTheme = ThyInputSearchVariant;
+
 export type ThyInputSearchIconPosition = 'before' | 'after';
 
 export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
@@ -62,10 +69,13 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control thy-input-search',
-        '[class.thy-input-search-ellipse]': 'thyTheme() === "ellipse"',
-        '[class.thy-input-search-transparent]': 'thyTheme() === "transparent"',
-        '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before"',
+        '[class.form-control-subtle]': 'appearance() === "subtle"',
+        '[class.form-control-ghost]': 'appearance() === "ghost"',
+        '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before" && !disabled()',
+        '[class.thy-input-search-ellipse]': 'variant() === "ellipse"',
+        '[class.thy-input-search-transparent]': 'variant() === "transparent"',
         '[class.form-control-active]': 'focused()',
+        '[class.disabled]': 'disabled()',
         '[attr.tabindex]': 'tabIndex'
     },
     imports: [ThyIcon, ThyInputDirective, ThyAutofocusDirective, FormsModule]
@@ -96,11 +106,32 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thyPlaceholder = input('');
 
     /**
-     * 搜索框风格
+     * 搜索框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance>();
+
+    /**
+     * 搜索框风格。`ellipse` 为圆角搜索框；`transparent` 已废弃，请使用 `thyAppearance="ghost"`
+     * 搜索框形态。`transparent` 已废弃，将在 v23 彻底删除，请使用 thyAppearance="ghost"
+     * @type 'default' | 'ellipse' | 'transparent'
+     * @default default
+     */
+    readonly thyVariant = input<ThyInputSearchVariant>();
+
+    /**
+     * 搜索框风格（已废弃，将在 v23 彻底删除），请使用 thyVariant；`transparent` 已废弃，请使用 thyAppearance="ghost"
+     * @deprecated please use thyVariant; transparent is deprecated, use thyAppearance="ghost", will be removed in v23
      * @type 'default' | 'ellipse' | 'transparent'
      * @default default
      */
     readonly thyTheme = input<ThyInputSearchTheme>();
+
+    protected readonly appearance = computed<ThyFormControlAppearance>(
+        () => this.thyAppearance() || (this.variant() === 'transparent' ? 'ghost' : 'outline')
+    );
+    readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
 
     /**
      * 是否自动聚焦

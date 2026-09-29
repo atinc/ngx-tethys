@@ -6,6 +6,7 @@ type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
 
 /**
  * @private
+ * @deprecated thy-icon-nav will be removed in v23, please use thy-action
  */
 @Component({
     selector: 'thy-icon-nav',
@@ -24,7 +25,7 @@ export class ThyIconNav {
 
     constructor() {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation('thy-icon-nav has been deprecated, please use thyAction and thy-space components instead of it');
+            warnDeprecation('thy-icon-nav has been deprecated and will be removed in v23, please use thy-action');
         }
 
         effect(() => {

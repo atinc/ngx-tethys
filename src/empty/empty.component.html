@@ -6,7 +6,7 @@
       <div [innerHTML]="presetSvg()"></div>
     } @else {
       @if (thyIconName()) {
-        <thy-icon class="empty-icon" [thyIconName]="thyIconName()"></thy-icon>
+        <thy-icon class="empty-icon" [thyName]="thyIconName()"></thy-icon>
       }
     }
   }

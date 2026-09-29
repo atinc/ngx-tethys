@@ -2,8 +2,8 @@ import {
     Component,
     HostBinding,
     ViewEncapsulation,
-    OnInit,
     TemplateRef,
+    effect,
     inject,
     input,
     contentChild,
@@ -25,7 +25,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgClass, NgTemplateOutlet]
 })
-export class ThyFormGroupFooter implements OnInit {
+export class ThyFormGroupFooter {
     private thyParentForm = inject(ThyFormDirective, { optional: true })!;
     private defaultConfig = inject(THY_FORM_CONFIG);
 
@@ -49,11 +49,11 @@ export class ThyFormGroupFooter implements OnInit {
         return thyAlign ? thyAlign : this.defaultConfig.footerAlign;
     }
 
-    ngOnInit() {
-        if (this.thyParentForm) {
-            this.isHorizontal = this.thyParentForm.isHorizontal;
-        }
-        this.setFooterClassMap();
+    constructor() {
+        effect(() => {
+            this.isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
+            this.setFooterClassMap();
+        });
     }
 
     setFooterClassMap() {

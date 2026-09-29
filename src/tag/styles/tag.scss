@@ -32,6 +32,11 @@
         margin-right: 4px;
     }
 
+    &.thy-tag-ellipse {
+        border-radius: 18px;
+    }
+
+    // deprecated: use thy-tag-ellipse, will be removed in v23
     &.thy-tag-pill {
         border-radius: 18px;
     }

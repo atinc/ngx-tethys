@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ThyTimeDirection, ThyTimeline, ThyTimelineItem, ThyTimeMode } from 'ngx-tethys/timeline';
+import { ThyTimeDirection, ThyTimeline, ThyTimelineItem, ThyTimelineMode } from 'ngx-tethys/timeline';
 import { ThyRadioGroup, ThyRadioButton } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatar } from 'ngx-tethys/avatar';
@@ -12,7 +12,7 @@ import { ThyButton } from 'ngx-tethys/button';
     imports: [ThyTimeline, ThyTimelineItem, ThyRadioGroup, ThyRadioButton, FormsModule, ThyAvatar, ThyButton]
 })
 export class ThyTimelinePositionExampleComponent {
-    public mode: ThyTimeMode = 'left';
+    public mode: ThyTimelineMode = 'left';
 
     public direction: ThyTimeDirection = 'horizontal';
 

@@ -46,6 +46,9 @@ import { ThyAutocompleteModule } from "ngx-tethys/autocomplete";
 ## 自定义下拉列表样式
 <example name="thy-autocomplete-custom-example" />
 
+## 外观
+<example name="thy-autocomplete-appearance-example" />
+
 
 ## 下拉列表全局配置
 

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2, effect, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 
 const inputGroupSizeMap = {
     xs: ['form-control-xs'],
@@ -17,7 +17,11 @@ const inputGroupSizeMap = {
  */
 @Directive({
     selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
-    exportAs: 'thyInput'
+    exportAs: 'thyInput',
+    host: {
+        '[class.form-control-subtle]': 'thyAppearance() === "subtle"',
+        '[class.form-control-ghost]': 'thyAppearance() === "ghost"'
+    }
 })
 export class ThyInputDirective {
     private elementRef = inject(ElementRef);
@@ -35,6 +39,15 @@ export class ThyInputDirective {
      */
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
+    });
+
+    /**
+     * 输入框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
     });
 
     get ngControl() {

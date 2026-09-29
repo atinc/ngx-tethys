@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef, effect, inject, input } from '@angular/core';
+import { Directive, TemplateRef, ViewContainerRef, effect, inject, input } from '@angular/core';
 
 /**
  * @private

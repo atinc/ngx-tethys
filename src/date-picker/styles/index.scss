@@ -16,6 +16,11 @@
     &:focus {
         .thy-calendar-picker-input:not(.thy-input-disabled) {
             border-color: variables.$primary;
+
+            &.form-control-ghost {
+                border-color: transparent;
+                background-color: transparent;
+            }
         }
     }
 }

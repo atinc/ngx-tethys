@@ -23,7 +23,7 @@ import {
     untracked
 } from '@angular/core';
 import { ThyProperties } from './properties.component';
-import { coerceBooleanProperty, helpers, ThyBooleanInput } from 'ngx-tethys/util';
+import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';

@@ -16,7 +16,7 @@ import {
     Injector
 } from '@angular/core';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { ThyPlacement, ScrollToService } from 'ngx-tethys/core';
+import { ThyPlacement, ScrollToService, ThyFormControlAppearance } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocomplete } from './autocomplete.component';
@@ -37,7 +37,9 @@ import { outputToObservable, toObservable } from '@angular/core/rxjs-interop';
     host: {
         '(input)': 'handleInput($event)',
         '(focusin)': 'onFocus()',
-        '(keydown)': 'onKeydown($event)'
+        '(keydown)': 'onKeydown($event)',
+        '[class.form-control-subtle]': 'thyAppearance() === "subtle"',
+        '[class.form-control-ghost]': 'thyAppearance() === "ghost"'
     }
 })
 export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
@@ -85,6 +87,15 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * 是否允许聚焦时打开下拉菜单
      */
     readonly thyIsFocusOpen = input(true, { transform: coerceBooleanProperty });
+
+    /**
+     * 输入框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | subtle | ghost
+     * @default outline
+     */
+    readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
+        transform: value => value ?? 'outline'
+    });
 
     readonly activeOption: Signal<ThyOptionRender | null> = computed(() => {
         if (this.thyAutocomplete()! && this.thyAutocomplete()!.keyManager) {

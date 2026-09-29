@@ -9,6 +9,11 @@ $cascader-menu-min-width: 122px;
     &:focus {
         .form-control-custom:not(.disabled) {
             border: 1px solid variables.$primary;
+
+            &.form-control-ghost {
+                border-color: transparent;
+                background-color: transparent;
+            }
         }
     }
 

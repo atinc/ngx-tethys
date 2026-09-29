@@ -51,6 +51,44 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ButtonGroupSize');
     });
 
+    it('should rename ThyProgressShapeType to ThyProgressShape', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-shape.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressShapeType } from 'ngx-tethys/progress';
+
+                export const progressShape: ThyProgressShapeType = 'circle';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressShape } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const progressShape: ThyProgressShape = 'circle'");
+        expect(content).not.toContain('ThyProgressShapeType');
+    });
+
+    it('should rename ThyProgressGapPositionType to ThyProgressGapPosition', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-gap-position.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressGapPositionType } from 'ngx-tethys/progress';
+
+                export const gapPosition: ThyProgressGapPositionType = 'top';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressGapPosition } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const gapPosition: ThyProgressGapPosition = 'top'");
+        expect(content).not.toContain('ThyProgressGapPositionType');
+    });
+
     it('should rename ThyStackedValue to ThyProgressStackedValue', async () => {
         const filePath = '/projects/update-22-test/src/app/progress-stacked-value.ts';
         tree.create(
@@ -70,6 +108,163 @@ describe('ng-update v22 class name migration', () => {
         expect(content).not.toContain('ThyStackedValue');
     });
 
+    it('should rename ThyDropdownMenuItemType to ThyDropdownMenuItemColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/dropdown-menu-item-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyDropdownMenuItemType } from 'ngx-tethys/dropdown';
+
+                export const color: ThyDropdownMenuItemType = 'danger';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDropdownMenuItemColor } from 'ngx-tethys/dropdown'");
+        expect(content).toContain("export const color: ThyDropdownMenuItemColor = 'danger'");
+        expect(content).not.toContain('ThyDropdownMenuItemType');
+    });
+
+    it('should rename timeline thyColor type to ThyTimelineColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/timeline-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { thyColor } from 'ngx-tethys/timeline';
+
+                export const color: thyColor = 'success';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyTimelineColor } from 'ngx-tethys/timeline'");
+        expect(content).toContain("export const color: ThyTimelineColor = 'success'");
+        expect(content).not.toMatch(/\bthyColor\b/);
+    });
+
+    it('should not rename thyColor input on thy-timeline-item', async () => {
+        const filePath = '/projects/update-22-test/src/app/timeline-item-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { Component } from '@angular/core';
+                import { ThyTimelineItem } from 'ngx-tethys/timeline';
+
+                @Component({
+                    selector: 'app-timeline-item-color',
+                    template: '<thy-timeline-item thyColor="success"></thy-timeline-item>',
+                    imports: [ThyTimelineItem]
+                })
+                export class TimelineItemColorComponent {}
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain('thyColor="success"');
+        expect(content).not.toContain('ThyTimelineColor="success"');
+    });
+
+    it('should rename ThyTimeMode to ThyTimelineMode', async () => {
+        const filePath = '/projects/update-22-test/src/app/timeline-mode.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyTimeMode } from 'ngx-tethys/timeline';
+
+                export const mode: ThyTimeMode = 'left';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyTimelineMode } from 'ngx-tethys/timeline'");
+        expect(content).toContain("export const mode: ThyTimelineMode = 'left'");
+        expect(content).not.toMatch(/\bThyTimeMode\b/);
+    });
+
+    it('should rename ThyStatisticColorType to ThyStatisticColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/statistic-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyStatisticColorType } from 'ngx-tethys/statistic';
+
+                export const color: ThyStatisticColorType = 'success';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyStatisticColor } from 'ngx-tethys/statistic'");
+        expect(content).toContain("export const color: ThyStatisticColor = 'success'");
+        expect(content).not.toContain('ThyStatisticColorType');
+    });
+
+    it('should rename ThyStatisticSizes to ThyStatisticSize', async () => {
+        const filePath = '/projects/update-22-test/src/app/statistic-size.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyStatisticSizes } from 'ngx-tethys/statistic';
+
+                export const size: ThyStatisticSizes = 'default';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyStatisticSize } from 'ngx-tethys/statistic'");
+        expect(content).toContain("export const size: ThyStatisticSize = 'default'");
+        expect(content).not.toContain('ThyStatisticSizes');
+    });
+
+    it('should rename ThyStatisticShape to ThyStatisticAppearance', async () => {
+        const filePath = '/projects/update-22-test/src/app/statistic-appearance.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyStatisticShape } from 'ngx-tethys/statistic';
+
+                export const appearance: ThyStatisticShape = 'card';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyStatisticAppearance } from 'ngx-tethys/statistic'");
+        expect(content).toContain("export const appearance: ThyStatisticAppearance = 'card'");
+        expect(content).not.toContain('ThyStatisticShape');
+    });
+
+    it('should rename ThyProgressType to ThyProgressColor', async () => {
+        const filePath = '/projects/update-22-test/src/app/progress-color.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyProgressType } from 'ngx-tethys/progress';
+
+                export const color: ThyProgressType = 'success';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyProgressColor } from 'ngx-tethys/progress'");
+        expect(content).toContain("export const color: ThyProgressColor = 'success'");
+        expect(content).not.toContain('ThyProgressType');
+    });
+
     it('should rename CompatibleDate to ThyCompatibleDate', async () => {
         const filePath = '/projects/update-22-test/src/app/compatible-date.ts';
         tree.create(
@@ -87,6 +282,66 @@ describe('ng-update v22 class name migration', () => {
         expect(content).toContain("import { ThyCompatibleDate } from 'ngx-tethys/date-picker'");
         expect(content).toContain('export const dateValue: ThyCompatibleDate = new Date()');
         expect(content).not.toMatch(/\bCompatibleDate\b/);
+    });
+
+    it('should rename ThyColorType to ThyDotColor from ngx-tethys/dot', async () => {
+        const filePath = '/projects/update-22-test/src/app/dot-color-type.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyColorType } from 'ngx-tethys/dot';
+
+                export const dotColor: ThyColorType = 'primary';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDotColor } from 'ngx-tethys/dot'");
+        expect(content).toContain("export const dotColor: ThyDotColor = 'primary'");
+        expect(content).not.toContain('ThyColorType');
+    });
+
+    it('should rename ThySizeType and ThyShapeType from ngx-tethys/dot', async () => {
+        const filePath = '/projects/update-22-test/src/app/dot-size-shape-type.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThySizeType, ThyShapeType } from 'ngx-tethys/dot';
+
+                export const dotSize: ThySizeType = 'md';
+                export const dotShape: ThyShapeType = 'circle';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDotSize, ThyDotShape } from 'ngx-tethys/dot'");
+        expect(content).toContain("export const dotSize: ThyDotSize = 'md'");
+        expect(content).toContain("export const dotShape: ThyDotShape = 'circle'");
+        expect(content).not.toContain('ThySizeType');
+        expect(content).not.toContain('ThyShapeType');
+    });
+
+    it('should rename ThyThemeType to ThyDotAppearance from ngx-tethys/dot', async () => {
+        const filePath = '/projects/update-22-test/src/app/dot-theme-type.ts';
+        tree.create(
+            filePath,
+            `
+                import { ThyThemeType } from 'ngx-tethys/dot';
+
+                export const dotAppearance: ThyThemeType = 'outline';
+            `
+        );
+
+        const result = await migrate(tree);
+        const content = result.readContent(filePath);
+
+        expect(content).toContain("import { ThyDotAppearance } from 'ngx-tethys/dot'");
+        expect(content).toContain("export const dotAppearance: ThyDotAppearance = 'outline'");
+        expect(content).not.toContain('ThyThemeType');
     });
 
     it('should not rename local identifiers that are not imported from ngx-tethys', async () => {

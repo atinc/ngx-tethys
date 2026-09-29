@@ -13,14 +13,16 @@ import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from 'ngx-tethys/tooltip';
             [thyPlaceholder]="placeholder"
             [thyDisabled]="thyDisabled"
             [thyShowSearch]="thyShowSearch"
+            [thySearchable]="thySearchable"
             [thySelectedOptions]="selectedOptions"
             [thyAllowClear]="thyAllowClear"
+            [thyClearable]="thyClearable"
             [thySize]="thySize"
-            [thyIsMultiple]="thyIsMultiple"
+            [thyMultiple]="multiple"
             [thyPanelOpened]="thyPanelOpened"
             [thyBorderless]="borderless"
             [thyMaxTagCount]="thyMaxTagCount"
-            (thyOnSearch)="search($event)"></thy-select-control>
+            (thyInputChange)="search($event)"></thy-select-control>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySelectControl]
@@ -32,13 +34,17 @@ class BasicSelectControlComponent {
 
     thyShowSearch = false;
 
+    thySearchable = false;
+
     selectedOptions: SelectOptionBase | SelectOptionBase[] = null;
 
     thyAllowClear = true;
 
+    thyClearable = false;
+
     thySize: ThyFormControlSize = 'md';
 
-    thyIsMultiple = false;
+    multiple = false;
 
     thyPanelOpened = false;
 
@@ -106,7 +112,7 @@ describe('ThySelectControl', () => {
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
-                expect(selectElement.classList.contains('select-control-borderless')).toBeTruthy();
+                expect(selectElement.classList.contains('form-control-ghost')).toBeTruthy();
             }));
         });
 
@@ -153,6 +159,17 @@ describe('ThySelectControl', () => {
 
                 clearElement = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
                 expect(clearElement).toBeTruthy();
+            });
+
+            it('should render clear element when assign thyClearable to true', () => {
+                fixture.componentInstance.thyAllowClear = false;
+                fixture.componentInstance.thyClearable = true;
+                fixture.componentInstance.selectedOptions = [testBaseOption];
+                fixture.detectChanges();
+
+                const clearElement = fixture.debugElement.query(By.css('.select-control-clear'));
+                expect(clearElement).toBeTruthy();
+                expect(fixture.componentInstance.selectControlComponent()!.clearable()).toBe(true);
             });
         });
 
@@ -217,14 +234,14 @@ describe('ThySelectControl', () => {
             }));
 
             it('should return correct selectedTags when isMultiple is false', () => {
-                fixture.componentInstance.thyIsMultiple = false;
+                fixture.componentInstance.multiple = false;
                 fixture.componentInstance.selectedOptions = testBaseOption;
                 fixture.detectChanges();
                 expect(fixture.componentInstance.selectControlComponent().selectedTags()).toEqual([]);
             });
 
             it('should return correct selectedTags when isMultiple is true and selectedOptions is empty', () => {
-                fixture.componentInstance.thyIsMultiple = true;
+                fixture.componentInstance.multiple = true;
                 fixture.componentInstance.selectedOptions = [];
                 fixture.detectChanges();
                 expect(fixture.componentInstance.selectControlComponent().selectedTags()).toEqual([]);
@@ -312,6 +329,14 @@ describe('ThySelectControl', () => {
                 searchElement.nativeElement.dispatchEvent(new Event('input'));
                 expect(search).toHaveBeenCalledWith('新值');
             }));
+
+            it('should show search input when thySearchable is true', () => {
+                fixture.componentInstance.thySearchable = true;
+                fixture.componentInstance.thyPanelOpened = true;
+                fixture.detectChanges();
+                expect(fixture.debugElement.query(By.css('.search-input-field'))).toBeTruthy();
+                expect(fixture.componentInstance.selectControlComponent()!.searchable()).toBe(true);
+            });
         });
     });
 });

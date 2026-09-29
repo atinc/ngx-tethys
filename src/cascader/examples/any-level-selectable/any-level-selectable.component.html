@@ -4,7 +4,7 @@
     [thyOptions]="areaCode"
     [(ngModel)]="singleValues"
     (ngModelChange)="selectChanges($event)"
-    [thyShowSearch]="true"
+    [thySearchable]="true"
     [thyIsOnlySelectLeaf]="false"
     thyColumnClassName="column-class-name">
   </thy-cascader>
@@ -20,7 +20,7 @@
     [thyLabelRender]="renderTpl"
     style="width: 200px"
     [thyIsOnlySelectLeaf]="false"
-    [thyShowSearch]="true">
+    [thySearchable]="true">
   </thy-cascader>
 
   <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
@@ -41,12 +41,12 @@
     [thyLabelRender]="labelRender"
     style="width: 200px"
     [thyIsOnlySelectLeaf]="false"
-    [thyShowSearch]="true"
+    [thySearchable]="true"
     thyPreset="tag">
   </thy-cascader>
 
   <ng-template #labelRender let-labels="labels" let-selectedOptions="selectedOptions">
-    <thy-tag thyShape="pill" thyColor="info">
+    <thy-tag thyShape="ellipse" thyColor="info">
       @for (label of labels; track $index; let i = $index; let isLast = $last) {
         @if (isLast && label) {
           <span> {{ label }}</span>

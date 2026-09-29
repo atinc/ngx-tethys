@@ -62,6 +62,8 @@ const BUTTON_APPEARANCE_EXCLUDED_ELEMENTS = new Set([
     'thy-alert',
     'thy-dot',
     'thy-progress',
+    'thy-progress-circle',
+    'thy-progress-bar',
     'thy-table-column',
     'thy-dropdown-menu-item',
     'thy-icon-nav',

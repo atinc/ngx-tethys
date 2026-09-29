@@ -1,10 +1,10 @@
 <div class="mb-2 mt-2">服务端搜索</div>
 <thy-select
   thyPlaceholder="请选择"
-  [thyShowSearch]="true"
-  (thyOnSearch)="search($event)"
-  [thyServerSearch]="true"
-  [thyMode]="'multiple'"
+  [thySearchable]="true"
+  (thyInputChange)="search($event)"
+  [thyServerSearchable]="true"
+  thyMultiple
   style="width: 500px"
   [(ngModel)]="selectedEnterprise">
   @for (item of searchResultList(); track item._id) {

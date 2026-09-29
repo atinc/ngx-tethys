@@ -3,17 +3,18 @@
   thyInput
   [tabindex]="-1"
   [thySize]="thySize()"
+  [thyAppearance]="thyAppearance()"
   [disabled]="disabled()"
   [(ngModel)]="innerValue"
   [ngModelOptions]="{ standalone: true }"
   (ngModelChange)="ngModelChange()"
   (blur)="onBlur($event)"
-  [class.thy-select-selection-allow-clear]="thyAllowClear()">
+  [class.thy-select-selection-allow-clear]="clearable()">
   <ng-content></ng-content>
 </select>
-<thy-icon thyIconName="angle-down"></thy-icon>
-@if (thyAllowClear() && innerValue()) {
+<thy-icon thyName="angle-down"></thy-icon>
+@if (clearable() && innerValue()) {
   <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)">
-    <thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon>
+    <thy-icon class="remove-link-icon" thyName="close-circle-bold-fill"></thy-icon>
   </a>
 }

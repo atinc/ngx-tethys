@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ThyTable, ThyTableColumnComponent, ThyTableTheme } from 'ngx-tethys/table';
+import { ThyTable, ThyTableColumnComponent, ThyTableAppearance } from 'ngx-tethys/table';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyRadioGroup, ThyRadio } from 'ngx-tethys/radio';
@@ -23,7 +23,7 @@ export class ThyTableHeaderFixedExampleComponent implements OnInit {
         { id: 8, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
     ];
 
-    theme: ThyTableTheme = 'default';
+    appearance: ThyTableAppearance = 'default';
 
     constructor() {}
 

@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { getElementOffset } from 'ngx-tethys/util';
 import { SafeAny } from 'ngx-tethys/types';
 

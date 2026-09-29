@@ -1,12 +1,12 @@
 <div class="mb-2">
-  <thy-radio-group [(ngModel)]="theme">
+  <thy-radio-group [(ngModel)]="appearance">
     <label thyRadio thyLabelText="Default" thyInline thyValue="default"></label>
     <label thyRadio thyLabelText="Bordered" thyInline thyValue="bordered"></label>
     <label thyRadio thyLabelText="Boxed" thyInline thyValue="boxed"></label>
   </thy-radio-group>
 </div>
 
-<thy-table [thyModel]="data" thyRowKey="id" [thyHeaderFixed]="true" [thyHeight]="300" [thyTheme]="theme">
+<thy-table [thyModel]="data" thyRowKey="id" [thyHeaderFixed]="true" [thyHeight]="300" [thyAppearance]="appearance">
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="15%">
     <ng-template #cell let-row>
@@ -19,10 +19,10 @@
   <thy-table-column thyTitle="" thyOperational="true">
     <ng-template #cell let-row>
       <a class="link-secondary" href="javascript:;">
-        <thy-icon thyIconName="user-add"></thy-icon>
+        <thy-icon thyName="user-add"></thy-icon>
       </a>
       <a class="link-danger-weak" href="javascript:;">
-        <thy-icon thyIconName="trash"></thy-icon>
+        <thy-icon thyName="trash"></thy-icon>
       </a>
       <a href="javascript:;" thyAction thyIcon="settings"> </a>
     </ng-template>

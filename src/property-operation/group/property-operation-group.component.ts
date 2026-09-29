@@ -2,6 +2,7 @@ import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * @name thy-property-operation-group
+ * @deprecated will be removed in v23
  */
 @Component({
     selector: 'thy-property-operation-group',

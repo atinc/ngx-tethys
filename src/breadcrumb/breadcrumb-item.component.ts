@@ -8,7 +8,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
  */
 @Component({
     selector: 'thy-breadcrumb-item,[thyBreadcrumbItem]',
-    template: '<ng-content></ng-content><thy-icon class="separator-icon" thyIconName="angle-right"></thy-icon>',
+    template: '<ng-content></ng-content><thy-icon class="separator-icon" thyName="angle-right"></thy-icon>',
     exportAs: 'ThyBreadcrumbItem',
     host: {
         class: 'thy-breadcrumb-item'

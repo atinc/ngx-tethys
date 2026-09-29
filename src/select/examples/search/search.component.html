@@ -1,11 +1,11 @@
 <div class="search-container">
-  <thy-select ngModel="option1" [thyShowSearch]="true" style="width: 200px">
+  <thy-select ngModel="option1" [thySearchable]="true" style="width: 200px">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>
 
-  <thy-select [(ngModel)]="selectedUser" thyPlaceholder="选择成员" style="width: 240px" thyShowSearch="true">
+  <thy-select [(ngModel)]="selectedUser" thyPlaceholder="选择成员" style="width: 240px" thySearchable="true">
     @for (option of users; track option.uid) {
       <thy-option [thyRawValue]="option" [thyValue]="option.uid" [thyShowOptionCustom]="true" [thySearchKey]="option.name">
         <thy-avatar [thyName]="option.name" [thyShowName]="true" thySize="xs"></thy-avatar>

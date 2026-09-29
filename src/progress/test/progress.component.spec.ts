@@ -10,7 +10,7 @@ import {
     ThyProgressModule,
     ThyProgressStackedValue,
     ThyProgressStrip,
-    ThyProgressType
+    ThyProgressColor
 } from 'ngx-tethys/progress';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -26,7 +26,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
     selector: 'thy-demo-progress-basic',
     template: `
         <button (click)="changeTemplate(demo)">Basic Usage</button>
-        <thy-progress [thyValue]="value" [thyTips]="tips" [thyType]="type" [thySize]="size"> 20% </thy-progress>
+        <thy-progress [thyValue]="value" [thyTips]="tips" [thyColor]="color" [thySize]="size"> 20% </thy-progress>
         <ng-template #demo>{{ message }}</ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -34,7 +34,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
-    type!: ThyProgressType;
+    color!: ThyProgressColor;
     size!: string;
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     message = TOOLTIP_TEMPLATE_MESSAGE;
@@ -50,7 +50,7 @@ class ThyDemoProgressBasicComponent {
             [thyShape]="'circle'"
             [thyTips]="tips"
             [thyValue]="value"
-            [thyType]="type"
+            [thyColor]="color"
             [thySize]="size"
             [thyGapDegree]="gapDegree"
             [thyGapPosition]="gapPosition"
@@ -63,7 +63,7 @@ class ThyDemoProgressBasicComponent {
 })
 class ThyDemoProgressCircleComponent {
     value = 20;
-    type!: ThyProgressType;
+    color!: ThyProgressColor;
     size: string = 'md';
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     gapDegree = 0;
@@ -71,16 +71,16 @@ class ThyDemoProgressCircleComponent {
     strokeWidth = 6;
     stackedValue = [
         {
-            type: 'success',
+            color: 'success',
             value: 40
         },
         {
-            type: 'danger',
+            color: 'danger',
             value: 60,
             tips: 'hello world'
         },
         {
-            type: 'warning',
+            color: 'warning',
             value: 100
         }
     ];
@@ -94,16 +94,16 @@ class ThyDemoProgressCircleComponent {
 class ThyDemoProgressStackedComponent {
     value: ThyProgressStackedValue[] = [
         {
-            type: 'success',
+            color: 'success',
             value: 40
         },
         {
-            type: 'danger',
+            color: 'danger',
             value: 60,
             tips: 'hello world'
         },
         {
-            type: 'warning',
+            color: 'warning',
             value: 100
         }
     ];
@@ -119,16 +119,16 @@ class ThyDemoProgressStackedComponent {
 class ThyDemoProgressStackedMaxComponent {
     value: ThyProgressStackedValue[] = [
         {
-            type: 'success',
+            color: 'success',
             value: 40
         },
         {
-            type: 'danger',
+            color: 'danger',
             value: 60,
             tips: 'hello world'
         },
         {
-            type: 'warning',
+            color: 'warning',
             value: 100
         }
     ];
@@ -140,7 +140,7 @@ class ThyDemoProgressStackedMaxComponent {
     selector: 'thy-demo-progress-tooltip',
     template: `
         <thy-progress [thyValue]="value" [thyTips]="customProgressTooTip"></thy-progress>
-        <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
+        <ng-template #customProgressTooTip let-item>color: {{ item.color }}-value: {{ item.value }}</ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
@@ -148,15 +148,15 @@ class ThyDemoProgressStackedMaxComponent {
 class ThyDemoProgressTooltipTemplateComponent {
     value: ThyProgressStackedValue[] = [
         {
-            type: 'success',
+            color: 'success',
             value: 40
         },
         {
-            type: 'danger',
+            color: 'danger',
             value: 60
         },
         {
-            type: 'warning',
+            color: 'warning',
             value: 100
         }
     ];
@@ -233,22 +233,22 @@ describe(`ThyProgressComponent`, () => {
             assertProgressAndBarComponentClass();
         });
 
-        it('should be correct class when input type is success or warning', () => {
-            basicTestComponent.type = 'success';
+        it('should be correct class when input color is success or warning', () => {
+            basicTestComponent.color = 'success';
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
-            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
+            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.color}`)).toBe(true);
 
-            basicTestComponent.type = 'warning';
+            basicTestComponent.color = 'warning';
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStrip));
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
-            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
+            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.color}`)).toBe(true);
         });
 
         it('should be correct class when input size is sm', () => {
@@ -436,20 +436,20 @@ describe(`ThyProgressComponent`, () => {
             expect(progressElement.classList.contains('thy-progress-circle')).toBe(true);
         });
 
-        it('should show correct color when input type is success or warning', () => {
-            circleTestComponent.type = 'success';
+        it('should show correct color when input color is success or warning', () => {
+            circleTestComponent.color = 'success';
             fixture.detectChanges();
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircle));
             progressCircleElement = progressCircleComponent.nativeElement;
             progressCircleInnerElement = fixture.debugElement.query(By.css('.progress-circle-inner')).nativeElement;
-            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.type}`)).toBe(true);
+            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.color}`)).toBe(true);
 
-            circleTestComponent.type = 'warning';
+            circleTestComponent.color = 'warning';
             fixture.detectChanges();
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircle));
             progressCircleElement = progressCircleComponent.nativeElement;
             progressCircleInnerElement = fixture.debugElement.query(By.css('.progress-circle-inner')).nativeElement;
-            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.type}`)).toBe(true);
+            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.color}`)).toBe(true);
         });
 
         it('should show correct size when input size is sm', fakeAsync(() => {
@@ -765,19 +765,18 @@ describe(`ThyProgressComponent`, () => {
         it('should be correct value by custom stacked value has max ', () => {
             stackedTestComponent.value = [
                 {
-                    type: 'success',
+                    color: 'success',
                     value: 20
                 },
                 {
-                    type: 'warning',
+                    color: 'warning',
                     value: 20
                 },
                 {
-                    type: 'danger',
+                    color: 'danger',
                     value: 20
                 },
                 {
-                    type: 'info',
                     value: 30,
                     color: '#7076fa',
                     label: 'custom color'
@@ -806,15 +805,15 @@ describe(`ThyProgressComponent`, () => {
         it('should be correct values item value has 0 by custom stacked value has max ', () => {
             stackedTestComponent.value = [
                 {
-                    type: 'success',
+                    color: 'success',
                     value: 0
                 },
                 {
-                    type: 'warning',
+                    color: 'warning',
                     value: 20
                 },
                 {
-                    type: 'danger',
+                    color: 'danger',
                     value: 20
                 }
             ];
@@ -836,15 +835,15 @@ describe(`ThyProgressComponent`, () => {
         it('should be correct values item value has 0 and total greater than max by custom stacked value', () => {
             stackedTestComponent.value = [
                 {
-                    type: 'success',
+                    color: 'success',
                     value: 0
                 },
                 {
-                    type: 'warning',
+                    color: 'warning',
                     value: 20
                 },
                 {
-                    type: 'danger',
+                    color: 'danger',
                     value: 20
                 }
             ];
@@ -866,7 +865,7 @@ describe(`ThyProgressComponent`, () => {
         it('should be correct when value or max is change', () => {
             stackedTestComponent.value = [
                 {
-                    type: 'warning',
+                    color: 'warning',
                     value: 30
                 }
             ];
@@ -878,7 +877,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             stackedTestComponent.value = [
                 {
-                    type: 'warning',
+                    color: 'warning',
                     value: 100
                 }
             ];
@@ -889,7 +888,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             stackedTestComponent.value = [
                 {
-                    type: 'warning',
+                    color: 'warning',
                     value: 45
                 }
             ];
@@ -912,7 +911,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             stackedTestComponent.value = [
                 {
-                    type: 'warning',
+                    color: 'warning',
                     value: 90
                 }
             ];
@@ -1002,7 +1001,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             const data = toolTipTemplateTestComponent.value[0];
             const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
-            const text = `type: ${data.type}-value: ${data.value}`;
+            const text = `color: ${data.color}-value: ${data.value}`;
 
             expect(tooltipElement instanceof HTMLElement).toBe(true);
             expect(tooltipElement.textContent).toEqual(text);
@@ -1025,5 +1024,46 @@ describe(`ThyProgressComponent`, () => {
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);
         }));
+    });
+
+    describe('deprecated API', () => {
+        @Component({
+            selector: 'thy-progress-deprecated-test',
+            template: `
+                <thy-progress [thyValue]="20" [thyType]="type"></thy-progress>
+                <thy-progress thyShape="circle" [thyValue]="20" [thyType]="type"></thy-progress>
+            `,
+            changeDetection: ChangeDetectionStrategy.Eager,
+            imports: [ThyProgress]
+        })
+        class ThyProgressDeprecatedComponent {
+            type: ThyProgressColor = 'success';
+        }
+
+        let fixture!: ComponentFixture<ThyProgressDeprecatedComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyProgressModule],
+                providers: [provideNoopAnimations()]
+            });
+            fixture = TestBed.createComponent(ThyProgressDeprecatedComponent);
+        });
+
+        it('should still work with deprecated thyType', () => {
+            fixture.detectChanges();
+
+            const progressBarElement = fixture.debugElement.query(By.directive(ThyProgressStrip)).nativeElement as HTMLElement;
+            expect(progressBarElement.classList.contains('progress-bar-success')).toBe(true);
+
+            const progressCircleElement = fixture.debugElement.query(By.directive(ThyProgressCircle)).nativeElement as HTMLElement;
+            expect(progressCircleElement.classList.contains('progress-circle-success')).toBe(true);
+
+            fixture.componentInstance.type = 'warning';
+            fixture.detectChanges();
+
+            expect(progressBarElement.classList.contains('progress-bar-warning')).toBe(true);
+            expect(progressCircleElement.classList.contains('progress-circle-warning')).toBe(true);
+        });
     });
 });

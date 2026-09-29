@@ -14,7 +14,7 @@ const ICON_NAV_LINK_CLASS = `thy-icon-nav-link`;
     template: `
         <thy-icon-nav [thyType]="type">
             <a thyIconNavLink thyIconNavLinkActive="true" thyIconNavLinkIcon="inbox"></a>
-            <a thyIconNavLink><thy-icon thyIconName="filter"></thy-icon></a>
+            <a thyIconNavLink><thy-icon thyName="filter"></thy-icon></a>
         </thy-icon-nav>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,

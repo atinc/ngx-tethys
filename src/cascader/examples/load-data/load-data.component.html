@@ -4,8 +4,8 @@
   [(ngModel)]="value"
   (ngModelChange)="selectChanges($event)"
   [thyLoadData]="loadData"
-  [thyShowSearch]="true"
-  (thyOnSearch)="thyOnSearch($event)"
+  [thySearchable]="true"
+  (thyInputChange)="inputChange($event)"
   [thyLoadingDone]="thyLoadingDone()"
   thyColumnClassName="column-class-name">
 </thy-cascader>

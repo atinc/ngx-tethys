@@ -1,4 +1,4 @@
-@if (thyTheme() === 'lite') {
+@if (variant() === 'lite') {
   <div class="switcher-wrapper">
     <a
       thyAction
@@ -7,10 +7,10 @@
       [thyDisabled]="previousDisabled()"
       class="mr-2"
       (click)="onPreviousClick($event)"
-      ><thy-icon thyIconName="angle-up"></thy-icon
+      ><thy-icon thyName="angle-up"></thy-icon
     ></a>
     <a thyAction [thyTooltip]="nextTooltip()" href="javascript:;" [thyDisabled]="nextDisabled()" (click)="onNextClick($event)"
-      ><thy-icon thyIconName="angle-down"></thy-icon
+      ><thy-icon thyName="angle-down"></thy-icon
     ></a>
   </div>
 } @else {

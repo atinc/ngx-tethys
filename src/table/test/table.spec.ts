@@ -22,9 +22,11 @@ import { SafeAny } from 'ngx-tethys/types';
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
-            [thyMode]="mode"
+            [thyVariant]="variant"
+            [thyMode]="deprecatedMode"
             [thyGroups]="groups"
-            [thyTheme]="theme"
+            [thyAppearance]="theme"
+            [thyTheme]="deprecatedTheme"
             [thySize]="size"
             [thyMinWidth]="tableMinWidth"
             [thyLayoutFixed]="tableLayoutFixed"
@@ -161,11 +163,13 @@ class ThyDemoDefaultTableComponent {
     columnHeaderClassName = 'header-class-name';
     selections: any[] = [];
     theme = 'default';
+    deprecatedTheme = '';
     isLoadingDone = true;
     size = 'sm';
     showTotal = false;
     showSizeChanger = true;
-    mode = 'list';
+    variant = 'list';
+    deprecatedMode = '';
     emptyOptions = { message: '空' };
     tableMinWidth = 500;
     tableLayoutFixed = false;
@@ -328,20 +332,28 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-draggable')).toBe(true);
     });
 
-    it('should have correct class when thyTheme is bordered', () => {
+    it('should have correct class when thyAppearance is bordered', () => {
         testComponent.theme = 'bordered';
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
-    it('should have correct class when thyTheme is boxed', () => {
+    it('should have correct class when thyAppearance is boxed', () => {
         testComponent.theme = 'boxed';
         fixture.detectChanges();
         expect(tableComponent.nativeElement.classList.contains('thy-table')).toBe(true);
         expect(tableComponent.nativeElement.classList.contains('thy-table-boxed')).toBe(true);
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-boxed')).toBe(true);
+    });
+
+    it('should have correct class when deprecated thyTheme is bordered', () => {
+        testComponent.theme = '';
+        testComponent.deprecatedTheme = 'bordered';
+        fixture.detectChanges();
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
     it('should have correct class when thySize is md', () => {
@@ -471,17 +483,31 @@ describe('ThyTable: basic', () => {
         expect(table.querySelector('thead')).toBeFalsy();
     });
 
-    it('should has correct class and when mode is group', () => {
-        testComponent.mode = 'group';
+    it('should has correct class and when variant is group', () => {
+        testComponent.variant = 'group';
         fixture.detectChanges();
         expect(table.classList.contains('table-group')).toBe(true);
     });
 
-    it('should has group element when mode is group', () => {
-        testComponent.mode = 'group';
+    it('should has group element when variant is group', () => {
+        testComponent.variant = 'group';
         fixture.detectChanges();
         const groups = table.querySelector('.thy-table-group');
         expect(groups).toBeTruthy();
+    });
+
+    it('should has correct class when deprecated thyMode is group', () => {
+        testComponent.variant = '';
+        testComponent.deprecatedMode = 'group';
+        fixture.detectChanges();
+        expect(table.classList.contains('table-group')).toBe(true);
+    });
+
+    it('should prefer thyVariant over deprecated thyMode', () => {
+        testComponent.variant = 'list';
+        testComponent.deprecatedMode = 'group';
+        fixture.detectChanges();
+        expect(table.classList.contains('table-group')).toBe(false);
     });
 
     it('should call thyOnRowClick when click tr', fakeAsync(() => {
@@ -678,7 +704,8 @@ describe('ThyTable: basic', () => {
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
-            [thyMode]="mode"
+            [thyVariant]="variant"
+            [thyMode]="deprecatedMode"
             [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
@@ -780,7 +807,9 @@ class ThyDemoGroupTableComponent {
         }
     ];
 
-    mode = 'group';
+    variant = 'group';
+
+    deprecatedMode = '';
 
     pagination = {
         index: 1,
@@ -839,6 +868,16 @@ describe('ThyTable: group', () => {
         fixture.detectChanges();
         const groups = table.querySelector('.thy-table-group');
         expect(groups).toBeTruthy();
+    });
+
+    it('should build groups on first render when only deprecated thyMode is group', () => {
+        const deprecatedFixture = TestBed.createComponent(ThyDemoGroupTableComponent);
+        deprecatedFixture.componentInstance.variant = '';
+        deprecatedFixture.componentInstance.deprecatedMode = 'group';
+        deprecatedFixture.detectChanges();
+        const deprecatedTable = deprecatedFixture.debugElement.query(By.directive(ThyTable)).nativeElement.querySelector('table');
+        expect(deprecatedTable.classList.contains('table-group')).toBe(true);
+        expect(deprecatedTable.querySelectorAll('tr').length).toBe(6);
     });
 
     it('should set expand successfully', () => {
@@ -975,9 +1014,10 @@ describe('ThyTable: group', () => {
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
-            [thyMode]="mode"
+            [thyVariant]="variant"
             [thyGroups]="groups"
-            [thyTheme]="theme"
+            [thyAppearance]="theme"
+            [thyTheme]="deprecatedTheme"
             [thySize]="size"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
@@ -1037,11 +1077,12 @@ class ThyDemoEmptyTableComponent {
     tableRowClassName = 'row-class-name';
     selections: SafeAny[] = [];
     theme = 'default';
+    deprecatedTheme = '';
     isLoadingDone = true;
     size = 'sm';
     showTotal = false;
 
-    mode = 'list';
+    variant = 'list';
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
@@ -1242,5 +1283,89 @@ describe('ThyTable: sort', () => {
         sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
         const args3 = sortChangeSpy.calls.allArgs()[2][0];
         expect(args3.direction).toEqual(ThyTableSortDirection.default);
+    });
+});
+
+@Component({
+    selector: 'thy-demo-row-tracking-table',
+    template: `
+        <thy-table [thyVariant]="variant" thyRowKey="id" thyGroupBy="group_id" [thyModel]="model" [thyGroups]="groups">
+            <ng-template #group let-group>{{ group.id }}</ng-template>
+            <thy-table-column thyTitle="名称" thyModelKey="name"></thy-table-column>
+        </thy-table>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyTable, ThyTableColumnComponent]
+})
+class ThyDemoRowTrackingTableComponent {
+    variant = 'list';
+
+    groups = [{ id: 'g1', expand: true }];
+
+    model: { id?: number; group_id: string; name: string }[] = [
+        { id: 1, group_id: 'g1', name: 'A' },
+        { id: 2, group_id: 'g1', name: 'B' },
+        { id: 3, group_id: 'g1', name: 'C' },
+        { id: 4, group_id: 'g1', name: 'D' }
+    ];
+}
+
+describe('ThyTable: row tracking', () => {
+    let fixture!: ComponentFixture<ThyDemoRowTrackingTableComponent>;
+    let testComponent!: ThyDemoRowTrackingTableComponent;
+
+    const getRows = (): HTMLElement[] => Array.from(fixture.nativeElement.querySelectorAll('tbody tr:not(.thy-table-group)'));
+    const getText = (row: HTMLElement) => row.textContent!.trim();
+
+    function expectRowsMovedWithModel() {
+        const rowsBefore = new Map(getRows().map(row => [getText(row), row]));
+        testComponent.model = [...testComponent.model].reverse();
+        testComponent.groups = [...testComponent.groups];
+        fixture.detectChanges();
+
+        const rowsAfter = getRows();
+        expect(rowsAfter.map(getText)).toEqual(['D', 'C', 'B', 'A']);
+        rowsAfter.forEach(row => {
+            expect(row).toBe(rowsBefore.get(getText(row))!);
+        });
+    }
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [provideHttpClient(withXhr())]
+        });
+        fixture = TestBed.createComponent(ThyDemoRowTrackingTableComponent);
+        testComponent = fixture.componentInstance;
+    });
+
+    it('should move list rows with thyRowKey when model order changes', () => {
+        fixture.detectChanges();
+        expectRowsMovedWithModel();
+    });
+
+    it('should move group children with thyRowKey when model order changes', () => {
+        testComponent.variant = 'group';
+        fixture.detectChanges();
+        expectRowsMovedWithModel();
+    });
+
+    it('should fall back to index when rows have no thyRowKey value', () => {
+        const warnSpy = spyOn(console, 'warn');
+        testComponent.model = testComponent.model.map(({ id, ...row }) => row);
+        fixture.detectChanges();
+        testComponent.model = [...testComponent.model].reverse();
+        fixture.detectChanges();
+
+        expect(getRows().map(getText)).toEqual(['D', 'C', 'B', 'A']);
+        expect(warnSpy.calls.allArgs().some(args => String(args[0]).includes('NG0955'))).toBe(false);
+    });
+
+    it('should not duplicate group children when only thyModel changes', () => {
+        testComponent.variant = 'group';
+        fixture.detectChanges();
+        testComponent.model = [...testComponent.model].reverse();
+        fixture.detectChanges();
+
+        expect(getRows().map(getText)).toEqual(['D', 'C', 'B', 'A']);
     });
 });

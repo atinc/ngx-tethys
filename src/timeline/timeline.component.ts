@@ -15,14 +15,8 @@ import { ThyTimelineItem } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
 import { NgTemplateOutlet } from '@angular/common';
 import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
-import { ThyTimeMode } from './timeline.type';
+import { ThyTimelineMode } from './timeline.type';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-export enum ThyTimeModes {
-    left = 'left',
-    right = 'right',
-    center = 'center'
-}
 
 export type ThyTimeDirection = 'horizontal' | 'vertical';
 
@@ -66,11 +60,11 @@ export class ThyTimeline implements OnInit {
     readonly thyReverse = input<boolean, ThyBooleanInput>(false, { transform: coerceBooleanProperty });
 
     /**
-     * 改变时间轴和内容的相对位置
+     * 改变时间轴和内容的相对位置，当 thyDirection 为 vertical 时生效
      * @type left | right | center
      * @default left
      */
-    readonly thyMode = input<ThyTimeMode>('left');
+    readonly thyMode = input<ThyTimelineMode>('left');
 
     /**
      * 时间轴的方向
@@ -146,6 +140,6 @@ export class ThyTimeline implements OnInit {
     }
 }
 
-function getTimelineItemPosition(index: number, mode: ThyTimeMode): ThyTimeMode | undefined {
+function getTimelineItemPosition(index: number, mode: ThyTimelineMode): ThyTimelineMode | undefined {
     return mode === 'left' ? 'left' : mode === 'right' ? 'right' : mode === 'center' && index % 2 === 0 ? 'left' : 'right';
 }

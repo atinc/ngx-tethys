@@ -1,7 +1,6 @@
 import {
     ChangeDetectorRef,
     Component,
-    DestroyRef,
     ViewEncapsulation,
     numberAttribute,
     inject,
@@ -17,8 +16,7 @@ import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
 
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { coerceBooleanProperty, isUndefined, isUndefinedOrNull } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isUndefinedOrNull } from 'ngx-tethys/util';
 
 export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';
 
@@ -53,7 +51,6 @@ export type ThySegmentMode = 'block' | 'inline';
 })
 export class ThySegment implements IThySegmentComponent {
     private cdr = inject(ChangeDetectorRef);
-    private destroyRef = inject(DestroyRef);
 
     /**
      * @internal
