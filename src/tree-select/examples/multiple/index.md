@@ -1,4 +1,4 @@
 ---
-title: Multiple Selection
+title: Multiple
 order: 6
 ---

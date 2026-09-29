@@ -6,24 +6,15 @@ import { NgTemplateOutlet } from '@angular/common';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
-export type ThyAlertColor =
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'info'
-    | 'primary'
-    | 'primary-weak'
-    | 'success-weak'
-    | 'warning-weak'
-    | 'danger-weak';
+export type ThyAlertColor = 'success' | 'warning' | 'danger' | 'info' | 'primary';
 
 export type ThyAlertAppearance = 'fill' | 'bordered' | 'naked';
 
-/** @deprecated use ThyAlertAppearance */
+/** @deprecated use ThyAlertAppearance, will be removed in v23 */
 export type ThyAlertTheme = ThyAlertAppearance;
 
-/** @deprecated use ThyAlertColor */
-export type ThyAlertType = ThyAlertColor;
+/** @deprecated use ThyAlertColor, will be removed in v23 */
+export type ThyAlertType = ThyAlertColor | 'primary-weak' | 'success-weak' | 'warning-weak' | 'danger-weak';
 
 const typeIconsMap: Record<string, string> = {
     success: 'check-circle-fill',
@@ -63,7 +54,7 @@ export class ThyAlert {
 
     /**
      * 指定警告提示的颜色
-     * @type success | warning | danger | info | primary | primary-weak | success-weak | warning-weak | danger-weak
+     * @type success | warning | danger | info | primary
      * @default info
      */
     readonly thyColor = input<ThyAlertColor>();
@@ -76,9 +67,9 @@ export class ThyAlert {
     readonly thyAppearance = input<ThyAlertAppearance>();
 
     /**
-     * 指定警告提示的类型（已废弃），请使用 thyColor
-     * @deprecated please use thyColor
-     * @type success | warning | danger | info | primary | primary-weak | success-weak | warning-weak | danger-weak
+     * 指定警告提示的类型（已废弃,将在 v23 彻底移除），请使用 thyColor
+     * @deprecated please use thyColor, will be removed in v23
+     * @type success | warning | danger | info | primary
      * @default info
      */
     readonly thyType = input<ThyAlertType>('info');
