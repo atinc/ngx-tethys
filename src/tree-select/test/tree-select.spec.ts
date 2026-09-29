@@ -558,6 +558,17 @@ describe('ThyTreeSelect', () => {
                 expect(formControl.classList.contains('form-control-ghost')).toBe(false);
             });
 
+            it('should add form-control-fill when thyAppearance is fill', () => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.componentInstance.appearance = 'fill';
+                fixture.detectChanges();
+                const treeSelect = fixture.debugElement.query(By.directive(ThyTreeSelect)).nativeElement as HTMLElement;
+                const formControl = treeSelect.querySelector('.form-control')!;
+                expect(formControl.classList.contains('form-control-fill')).toBe(true);
+                expect(formControl.classList.contains('form-control-subtle')).toBe(false);
+                expect(formControl.classList.contains('form-control-ghost')).toBe(false);
+            });
+
             it('should add form-control-ghost when thyAppearance is ghost', () => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.componentInstance.appearance = 'ghost';

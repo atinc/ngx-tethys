@@ -69,6 +69,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control thy-input-search',
+        '[class.form-control-fill]': 'appearance() === "fill"',
         '[class.form-control-subtle]': 'appearance() === "subtle"',
         '[class.form-control-ghost]': 'appearance() === "ghost"',
         '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before" && !disabled()',
@@ -106,8 +107,8 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thyPlaceholder = input('');
 
     /**
-     * 搜索框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
-     * @type outline | subtle | ghost
+     * 搜索框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`fill`: 灰色底、灰色边框（同 ellipse），hover/focus 时白色底、蓝色边框，禁用同 outline；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | fill | subtle | ghost
      * @default outline
      */
     readonly thyAppearance = input<ThyFormControlAppearance>();

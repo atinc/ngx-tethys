@@ -391,6 +391,14 @@ describe('ThyDatePickerComponent', () => {
             expect(getPickerTrigger().classList.contains('form-control-ghost')).toBe(false);
         });
 
+        it('should add form-control-fill when thyAppearance is fill', () => {
+            fixtureInstance.thyAppearance = 'fill';
+            fixture.detectChanges();
+            expect(getPickerTrigger().classList.contains('form-control-fill')).toBe(true);
+            expect(getPickerTrigger().classList.contains('form-control-subtle')).toBe(false);
+            expect(getPickerTrigger().classList.contains('form-control-ghost')).toBe(false);
+        });
+
         it('should add form-control-ghost when thyAppearance is ghost', () => {
             fixtureInstance.thyAppearance = 'ghost';
             fixture.detectChanges();

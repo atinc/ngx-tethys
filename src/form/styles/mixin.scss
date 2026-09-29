@@ -182,6 +182,29 @@
 }
 
 @mixin form-control-appearance() {
+    &.form-control-fill {
+        background-color: variables.$input-fill-background-color;
+        border-color: variables.$input-border-color;
+
+        &:not([disabled]):not(.disabled):not(.is-invalid) {
+            &:hover,
+            &:focus {
+                background-color: transparent;
+            }
+        }
+
+        &:disabled,
+        &.disabled {
+            background-color: variables.$input-disabled-bg;
+            border-color: variables.$input-border-color;
+
+            &:hover {
+                background-color: variables.$input-disabled-bg;
+                border-color: variables.$input-border-color;
+            }
+        }
+    }
+
     &.form-control-subtle {
         border-color: transparent;
 

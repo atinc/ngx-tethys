@@ -84,6 +84,16 @@
         }
     }
 
+    &.form-control-fill {
+        &[disabled]:not([disabled='false']),
+        &.disabled {
+            .input-append,
+            .input-prepend {
+                background-color: variables.$input-disabled-bg;
+            }
+        }
+    }
+
     &.form-control-ghost {
         &[disabled]:not([disabled='false']),
         &.disabled {

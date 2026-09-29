@@ -91,8 +91,8 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     });
 
     /**
-     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
-     * @type outline | subtle | ghost
+     * 选择框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`fill`: 灰色底、灰色边框（同 ellipse），hover/focus 时白色底、蓝色边框，禁用同 outline；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | fill | subtle | ghost
      * @default outline
      */
     readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
@@ -393,6 +393,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             [`form-control`]: true,
             [`form-control-${this.thySize()}`]: !!this.thySize(),
             [`form-control-custom`]: true,
+            [`form-control-fill`]: appearance === 'fill',
             [`form-control-subtle`]: appearance === 'subtle',
             [`form-control-ghost`]: appearance === 'ghost',
             [`select-control`]: true,

@@ -19,6 +19,7 @@ const inputGroupSizeMap = {
     selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
     exportAs: 'thyInput',
     host: {
+        '[class.form-control-fill]': 'thyAppearance() === "fill"',
         '[class.form-control-subtle]': 'thyAppearance() === "subtle"',
         '[class.form-control-ghost]': 'thyAppearance() === "ghost"'
     }
@@ -42,8 +43,8 @@ export class ThyInputDirective {
     });
 
     /**
-     * 输入框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
-     * @type outline | subtle | ghost
+     * 输入框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`fill`: 灰色底、灰色边框（同 ellipse），hover/focus 时白色底、蓝色边框，禁用同 outline；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * @type outline | fill | subtle | ghost
      * @default outline
      */
     readonly thyAppearance = input<ThyFormControlAppearance, ThyFormControlAppearance | null | undefined>('outline', {
