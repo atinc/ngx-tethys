@@ -2,6 +2,7 @@ import { Rule } from '@angular-devkit/schematics';
 import { NullableDevkitMigration, TargetVersion } from '@angular/cdk/schematics';
 import { onMigrationComplete } from '../core/complete';
 import { createTwoPhaseMigrationSchematicRule } from '../two-phase-migration-rule';
+import { AlertAppearanceMigration } from './alert-appearance-migration';
 import { BadgeDotHollowMigration } from './badge-dot-hollow-migration';
 import { ButtonAppearanceMigration } from './button-appearance-migration';
 import { ButtonGroupAppearanceMigration } from './button-group-appearance-migration';
@@ -46,7 +47,8 @@ const migrations: NullableDevkitMigration[] = [
     HeaderIconPrefixMigration,
     TreeSelectIconTypeMigration,
     VoteAppearanceMigration,
-    VoteShapeMigration
+    VoteShapeMigration,
+    AlertAppearanceMigration
 ];
 
 export function createMigrate22Rule(onComplete: typeof onMigrationComplete = onMigrationComplete): Rule {

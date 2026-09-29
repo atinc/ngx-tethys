@@ -1,4 +1,4 @@
 ---
-title: Multiple selection
+title: Multiple
 order: 30
 ---

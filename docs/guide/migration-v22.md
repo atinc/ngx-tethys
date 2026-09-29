@@ -344,7 +344,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 17. thy-tag
+### 17. thy-tag（thyTag指令）
 
 **破坏性更改**
 
@@ -353,26 +353,21 @@ ng generate ngx-tethys:migrate-22
 
 **标记为废弃，将在 v23 彻底删除**
 
-- `thyShape` 的旧值 `pill` 已废弃，请使用 `ellipse`，传入 `pill` 仍兼容（等同 `ellipse`）
-- CSS 类 `thy-tag-pill` 改名为 `thy-tag-ellipse`
-
-| 旧写法 | 新写法 |
-|--------|--------|
-| `thyShape="pill"` | `thyShape="ellipse"` |
-| `[thyShape]="'pill'"` | `[thyShape]="'ellipse'"` |
+- `thyShape: ThyTagShape` 的旧值 `pill` 已废弃，请使用 `ellipse`
+- CSS 类 `thy-tag-pill` 已废弃， 请使用 `thy-tag-ellipse`
 
 **自动迁移**
 
 - `thyTheme` → `thyAppearance`
-- `thyAppearance="weak-fill"` / `thyTheme="weak-fill"` 替换为 `thyAppearance="subtle"`
-- 模板字面量 `thyShape="pill"` → `thyShape="ellipse"`（`thy-tag` / `thyTag`）
-- 绑定字面量 `[thyShape]="'pill'"` → `[thyShape]="'ellipse'"`
+- `thyAppearance="weak-fill"` / `thyTheme="weak-fill"` → `thyAppearance="subtle"`
+- `thyShape="pill"` → `thyShape="ellipse"`
+- `[thyShape]="'pill'"` → `[thyShape]="'ellipse'"`
 - CSS 选择器 `thy-tag-pill` → `thy-tag-ellipse`
-- TypeScript 运行时赋值（如 `theme.set('weak-fill')`）及字符串内嵌旧 CSS 类名（如 `thy-tag-weak-fill-*`）无自动迁移，需手动处理（详见 **手动检查**）
 
 **手动检查**
 
-- 动态绑定形如 `[thyShape]="shape"` 且变量可能为 `'pill'` 时 **不会自动迁移**；运行时仍兼容（按 `ellipse` 处理），建议改为 `'ellipse'`
+- 动态绑定形如 `[thyShape]="shape"` 且变量可能为 `'pill'` 时 **不会自动迁移**，请使用 `'ellipse'`
+- TypeScript 运行时赋值（如 `theme.set('weak-fill')`）及字符串内嵌旧 CSS 类名（如 `thy-tag-weak-fill-*`）无自动迁移，需手动检查处理
 
 ---
 
@@ -413,7 +408,7 @@ ng generate ngx-tethys:migrate-22
 - 移除 `thyInsideClosable`，改用 `thyPopoverOptions.insideClosable`
 
 **标记为废弃，将在 v23 彻底删除**
-- `thyType` 和 `ThyNavType` 已废弃，请使用 `thyVariant` 和 `ThyNavVariant`；推荐值 `pulled | tabs | pills | lite`；`primary | secondary | thirdly | secondary-divider` 已废弃
+- `thyType` 和 `ThyNavType` 已废弃，请使用 `thyVariant` 和 `ThyNavVariant`，推荐值 `pulled | tabs | pills | lite`。`primary | secondary | thirdly | secondary-divider` 已废弃
 
 **自动迁移**
 
@@ -621,7 +616,7 @@ ng generate ngx-tethys:migrate-22
 ### 32. thy-alert
 
 **标记为废弃，将在 v23 彻底删除**
-- `thyType`和`ThyAlertType`已废弃，请使用`thyColor`和`ThyAlertColor`
+- `thyType`和`ThyAlertType`已废弃，请使用`thyColor`和`ThyAlertColor`。`primary-weak | success-weak | warning-weak |  danger-weak` 值已废弃，请使用 `thyAppearance="bordered" + thyColor="primary | success | warning | danger"` 组合。
 - `thyTheme`和`ThyAlertTheme`已废弃，请使用`thyAppearance`和`ThyAlertAppearance`
 
 **自动迁移**
@@ -630,6 +625,14 @@ ng generate ngx-tethys:migrate-22
 - `thyTheme` → `thyAppearance`
 - `ThyAlertType` → `ThyAlertColor`
 - `ThyAlertTheme` → `ThyAlertAppearance`
+- 字面量 `thyType` / `thyColor` 为 `primary-weak | success-weak | warning-weak | danger-weak` 时，迁移为 `thyAppearance="bordered"` + 对应 `thyColor`（`primary | success | warning | danger`）
+
+**手动检查**
+
+- 动态绑定形如 `[thyType]="type"` / `[thyColor]="type"` 且变量可能为 `*-weak` 旧值时 **不会自动迁移**；需拆分为颜色 + `thyAppearance="bordered"`
+- 
+
+
 
 ---
 
