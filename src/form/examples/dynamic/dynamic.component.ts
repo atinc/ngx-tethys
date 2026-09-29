@@ -141,10 +141,12 @@ export class ThyFormDynamicExampleComponent {
     }
 
     onValueChange(value: ThyDynamicFormValue) {
+        console.log('valueChange：', value);
         this.value.set(value);
     }
 
     onFieldValueChange(event: ThyFormFieldValueChange) {
+        console.log('fieldValueChange：', event);
         if (event.key === 'role') {
             this.patchOrganizationDisabled(event.value === 'developer');
             return;
@@ -158,10 +160,12 @@ export class ThyFormDynamicExampleComponent {
     }
 
     onSubmit(value: ThyDynamicFormValue) {
+        console.log('submit：', value);
         this.lastSubmit.set(value);
     }
 
     onStatusChange(status: FormControlStatus) {
+        console.log('statusChange：', status);
         this.status.set(status);
     }
 
