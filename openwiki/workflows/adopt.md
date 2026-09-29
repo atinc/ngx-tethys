@@ -1,11 +1,8 @@
 ---
 type: workflow
 title: 在应用中接入
-description: ng add 实际写入哪些依赖、样式和图标，以及组件必须从次级路径导入；文档里过时的 date-fns 版本以当前 peer 为准。
+description: ng add 实际写入哪些依赖、样式和图标，以及组件必须从次级路径导入；手动安装文档的 date-fns 已是 4.1.0，但仍缺时区包和 CDK。
 tags: [ng-add, install, styles, icons]
-verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-28T07:54:10.806Z
 sources:
   - id: openwiki-source-ee48a60e3f29e233db382feb
     resource: repo://docs/guide/getting-started.md
@@ -23,7 +20,10 @@ sources:
     resource: repo://src/package.json
   - id: openwiki-source-cdfd99fd7010fe28f99f9940
     resource: repo://src/public-api.ts
-generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
+generated: { by: "cursor", at: "2026-09-29T01:54:27.255Z" }
+verified:
+  - by: openwiki/0.6.0
+    at: 2026-09-29T01:54:27.255Z
 ---
 
 接入有两条路：`ng add ngx-tethys`，或按发布包的 peer 自己装依赖并改 `angular.json`。组件都从 `ngx-tethys/<目录>` 导入，根入口不导出组件。
@@ -42,9 +42,9 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 这两项 peer 不会被 ng-add 写进 `package.json`，需要自己装：`@tethys/cdk`（peer 是 `*`）和 `@date-fns/tz@1.2.0`。发布包里 `@tethys/icons` 的 peer 是 `^1.4.23`，ng-add 写入的是更窄的 `^1.4.50`。
 
-## 文档里过时的安装说明
+## 文档里的手动安装
 
-`docs/guide/getting-started.md` 的手动安装写成 `date-fns@^2.6.0`。当前 `src/package.json` 的 peer 是 `date-fns@4.1.0` 和 `@date-fns/tz@1.2.0`。按文档那个范围安装，和库实际要求不一致。
+`docs/guide/getting-started.md` 的手动安装已经写成 `date-fns@4.1.0`，和发布包 peer 的精确版本一致。这条命令仍然不包含 `@date-fns/tz@1.2.0` 和 `@tethys/cdk`。图标只写了包名，没有写成 peer 的 `^1.4.23`。
 
 样式路径和文档一致：`angular.json` 的 styles 加 `node_modules/ngx-tethys/styles/index.scss`，或在样式文件里 `@use 'ngx-tethys/styles/index.scss'`。图标 assets 的 `input` / `output` 也和 ng-add 相同。
 

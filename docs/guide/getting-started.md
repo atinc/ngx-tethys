@@ -87,7 +87,7 @@ yarn add ngx-tethys --save
 ### 安装依赖
 
 ```bash
-pnpm i @tethys/icons @angular/cdk date-fns@^2.6.0 --save
+pnpm i @tethys/icons @angular/cdk date-fns@4.1.0 --save
 ```
 
 ### 引入样式

@@ -3,9 +3,6 @@ type: concept
 title: 图标
 description: ThyIcon 如何从 ThyIconRegistry 取 SVG 或字体类，找不到图标时如何报错，以及测试和 ng add 如何对待 @tethys/icons。
 tags: [icon, registry, svg]
-verified:
-  - by: openwiki/0.6.0
-    at: 2026-09-28T07:54:10.806Z
 sources:
   - id: openwiki-source-d7379e502b9d927a0920cb5f
     resource: repo://schematics/ng-add/index.ts
@@ -19,7 +16,10 @@ sources:
     resource: repo://src/package.json
   - id: openwiki-source-7fa97f5752425a4288f27401
     resource: repo://src/test.ts
-generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
+generated: { by: "cursor", at: "2026-09-29T01:54:27.255Z" }
+verified:
+  - by: openwiki/0.6.0
+    at: 2026-09-29T01:54:27.255Z
 ---
 
 `thy-icon` 不内置图形。默认图标模式是 `svg`，图形来自应用注册的 SVG 集。`@tethys/icons` 是 peer，版本 `^1.4.23`，包里是静态资源，不是 Angular 服务。
@@ -32,11 +32,13 @@ generated: { by: "cursor", at: "2026-09-28T07:54:10.806Z" }
 
 ## 渲染与失败
 
-`ThyIcon` 把 `thyIconName` 拆成命名空间和名字。名字像图片路径时直接画 `image`，不查注册表。
+名字优先用 `thyName`，没有时用已废弃的 `thyIconName`。两者都空时不渲染。名字像图片路径时直接画 `image`，不查注册表。否则按命名空间拆开。
+
+外观优先用 `thyAppearance`，否则用已废弃的 `thyIconType`，再否则是 `outline`。`fill` 和 `twotone` 会给图标名补上对应后缀，名字里已经有该后缀则不重复加。`outline` 不改名字。旋转、图标集、镂空底色和线性渐变同样是新输入优先：`thyRotate`、`thySet`、`thyLegging`、`thyLinearGradient` 盖过 `thyIconRotate`、`thyIconSet`、`thyIconLegging`、`thyIconLinearGradient`。这些旧输入都标明将在 v23 删除。
 
 SVG 模式下调用 `getSvgIcon`。单个图标配置优先于图标集。两者都没有时，Observable 抛出 `Unable to find icon with the name "<key>"`。组件订阅失败后，若 `getWhetherPrintErrorWhenIconNotFound()` 为真，向控制台打印 `Error retrieving icon: ...`。这个开关默认是真。无论请求是否成功，宿主类名都会先更新成 `thy-icon-<namespace>-<name>`。
 
-`setIconMode('font')` 后不再取 SVG，而是使用字体类。默认字体集类名是 `wt-icon`，可用别名替换。
+`setIconMode('font')` 后不再取 SVG，而是使用字体类。图标集优先用 `thySet`。默认字体集类名是 `wt-icon`，可用别名替换。
 
 ## 测试
 
