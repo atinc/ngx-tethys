@@ -710,18 +710,26 @@ ng generate ngx-tethys:migrate-22
 
 ### 38. thy-input-search
 
+**破坏性更改**
+- 原 `thyTheme="ellipse"` 请改为 `thyShape="ellipse" thyAppearance="fill"`
+
 **标记为废弃，将在 v23 彻底删除**
 
-- `thyTheme` 和 `ThyInputSearchTheme` 已废弃，请使用 `thyVariant` 和 `ThyInputSearchVariant`
-- `thyTheme="transparent"` / `thyVariant="transparent"` 已废弃，请使用 `thyAppearance="ghost"`
+- `thyTheme` 和 `ThyInputSearchTheme` 已废弃：`ellipse` 请使用 `thyShape="ellipse" thyAppearance="fill"`；`transparent` 请使用 `thyAppearance="ghost"`
 
 **自动迁移**
 
-- `thyTheme` → `thyVariant`（仅 `thy-input-search`，如 `ellipse`）
-- `thyTheme="transparent"` / `thyVariant="transparent"` → `thyAppearance="ghost"`
-- `[thyTheme]="'transparent'"` / `[thyVariant]="'transparent'"` → `[thyAppearance]="'ghost'"`
-- 若已设置 `thyAppearance`，则删除多余的 `transparent`
-- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchVariant`
+- `thyTheme="ellipse"` → `thyShape="ellipse" thyAppearance="fill"`
+- `thyTheme="transparent"` → `thyAppearance="ghost"`
+- `[thyTheme]="'ellipse'"` → `[thyShape]="'ellipse'" [thyAppearance]="'fill'"`
+- `[thyTheme]="'transparent'"` → `[thyAppearance]="'ghost'"`
+- `thyTheme="default"` → 删除
+- 若已设置 `thyAppearance`，ellipse 仅补 `thyShape`，transparent 仅删除旧属性
+- TypeScript 中 `ThyInputSearchTheme` → `ThyInputSearchShape`
+
+**手动检查**
+
+- 动态绑定形如 `[thyTheme]="theme"` **不会自动迁移**；需按值语义改为 `thyShape` + `thyAppearance`（如 `ellipse` → `thyShape="ellipse" thyAppearance="fill"`，`transparent` → `thyAppearance="ghost"`）
 
 ---
 

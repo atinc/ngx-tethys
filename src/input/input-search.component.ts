@@ -36,11 +36,12 @@ import { ThyInputDirective } from './input.directive';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-/** ThyInputSearchVariant 的 transparent 值已废弃，请使用 thyAppearance="ghost"，将在 v23 中移除 'transparent' */
-export type ThyInputSearchVariant = 'default' | 'ellipse' | 'transparent' | '';
+export type ThyInputSearchShape = 'rectangle' | 'ellipse';
 
-/** @deprecated use ThyInputSearchVariant, will be removed in v23 */
-export type ThyInputSearchTheme = ThyInputSearchVariant;
+/**
+ * @deprecated please use `thyShape="ellipse"` with `thyAppearance="fill"`, or `thyAppearance="ghost"` for transparent; will be removed in v23
+ */
+export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
 
 export type ThyInputSearchIconPosition = 'before' | 'after';
 
@@ -49,8 +50,6 @@ export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => ThyInputSearch),
     multi: true
 };
-
-const noop = () => {};
 
 const _MixinBase: Constructor<ThyHasTabIndex> &
     Constructor<ThyInitialized> &
@@ -73,8 +72,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
         '[class.form-control-subtle]': 'appearance() === "subtle"',
         '[class.form-control-ghost]': 'appearance() === "ghost"',
         '[class.thy-input-search-before-with-clear]': 'searchText() && iconPosition() === "before" && !disabled()',
-        '[class.thy-input-search-ellipse]': 'variant() === "ellipse"',
-        '[class.thy-input-search-transparent]': 'variant() === "transparent"',
+        '[class.thy-input-search-ellipse]': 'shape() === "ellipse"',
         '[class.form-control-active]': 'focused()',
         '[class.disabled]': 'disabled()',
         '[attr.tabindex]': 'tabIndex'
@@ -107,33 +105,42 @@ export class ThyInputSearch extends _MixinBase implements ControlValueAccessor, 
     readonly thyPlaceholder = input('');
 
     /**
-     * 搜索框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`fill`: 灰色底、灰色边框（同 ellipse），hover/focus 时白色底、蓝色边框，禁用同 outline；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
+     * 搜索框外观。`outline`: 灰色边框、白色底，hover/focus 时蓝色边框；`fill`: 灰色底、灰色边框，hover/focus 时白色底、蓝色边框，禁用同 outline；`subtle`: 无边框，hover/focus 时蓝色边框；`ghost`: 无边框，hover/focus 时也无边框
      * @type outline | fill | subtle | ghost
      * @default outline
      */
     readonly thyAppearance = input<ThyFormControlAppearance>();
 
     /**
-     * 搜索框风格。`ellipse` 为圆角搜索框；`transparent` 已废弃，请使用 `thyAppearance="ghost"`
-     * 搜索框形态。`transparent` 已废弃，将在 v23 彻底删除，请使用 thyAppearance="ghost"
-     * @type 'default' | 'ellipse' | 'transparent'
-     * @default default
+     * 搜索框形状。`ellipse` 为圆角搜索框
+     * @type rectangle | ellipse
+     * @default rectangle
      */
-    readonly thyVariant = input<ThyInputSearchVariant>();
+    readonly thyShape = input<ThyInputSearchShape>();
 
     /**
-     * 搜索框风格（已废弃，将在 v23 彻底删除），请使用 thyVariant；`transparent` 已废弃，请使用 thyAppearance="ghost"
-     * @deprecated please use thyVariant; transparent is deprecated, use thyAppearance="ghost", will be removed in v23
+     * 搜索框风格（已废弃，将在 v23 彻底删除）。`ellipse` 请使用 `thyShape="ellipse" thyAppearance="fill"`；`transparent` 请使用 `thyAppearance="ghost"`
+     * @deprecated please use thyShape="ellipse" with thyAppearance="fill", or thyAppearance="ghost" for transparent; will be removed in v23
      * @type 'default' | 'ellipse' | 'transparent'
-     * @default default
      */
     readonly thyTheme = input<ThyInputSearchTheme>();
 
-    protected readonly appearance = computed<ThyFormControlAppearance>(
-        () => this.thyAppearance() || (this.variant() === 'transparent' ? 'ghost' : 'outline')
-    );
-    readonly variant = computed(() => this.thyVariant() || this.thyTheme() || 'default');
+    protected readonly appearance = computed<ThyFormControlAppearance>(() => {
+        if (this.thyAppearance()) {
+            return this.thyAppearance()!;
+        }
+        if (this.thyTheme() === 'transparent') {
+            return 'ghost';
+        }
+        if (this.thyTheme() === 'ellipse') {
+            return 'fill';
+        }
+        return 'outline';
+    });
 
+    protected readonly shape = computed<ThyInputSearchShape>(
+        () => this.thyShape() || (this.thyTheme() === 'ellipse' ? 'ellipse' : 'rectangle')
+    );
     /**
      * 是否自动聚焦
      * @default false

@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { ThyFormControlAppearance, ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchTheme, ThyInputSearchVariant } from '../input-search.component';
+import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchShape, ThyInputSearchTheme } from '../input-search.component';
 
 @Component({
     selector: 'thy-input-search-basic-test',
@@ -15,7 +15,7 @@ import { ThyInputSearch, ThyInputSearchIconPosition, ThyInputSearchTheme, ThyInp
             name="search"
             thyPlaceholder="Please type"
             [disabled]="disabled"
-            [thyVariant]="thyVariant"
+            [thyShape]="thyShape"
             [thyTheme]="thyTheme"
             [thyAppearance]="thyAppearance"
             [thySearchFocus]="searchFocus"
@@ -34,7 +34,7 @@ class TestInputSearchBasicComponent {
     searchFocus = true;
     searchText = '';
     thySize: ThyFormControlSize | undefined = 'sm';
-    thyVariant: ThyInputSearchVariant | '' = '';
+    thyShape: ThyInputSearchShape | undefined;
     thyTheme: ThyInputSearchTheme | '' = '';
     thyAppearance!: ThyFormControlAppearance;
     disabled = false;
@@ -88,7 +88,6 @@ describe('input search', () => {
         const appendElement = searchElement.querySelector('.input-append');
         expect(appendElement).toBeTruthy();
         expect(appendElement?.classList.contains(`input-append-divider`)).toBeTruthy();
-        expect(appendElement?.classList.contains(`input-append-divider`)).toBeTruthy();
         expect(appendElement?.querySelector('.thy-icon-search')).toBeTruthy();
 
         basicTestComponent.searchText = 'New Text';
@@ -111,17 +110,28 @@ describe('input search', () => {
         expect(modelChangeSpy).toHaveBeenCalled();
     }));
 
-    it('should set variant', () => {
-        basicTestComponent.thyTheme = '';
-        basicTestComponent.thyVariant = 'default';
+    it('should set shape', () => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
 
-        basicTestComponent.thyVariant = 'ellipse';
+        basicTestComponent.thyShape = 'ellipse';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
 
-        basicTestComponent.thyVariant = 'transparent';
+        basicTestComponent.thyShape = 'rectangle';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
+    });
+
+    it('should map deprecated thyTheme ellipse to shape and fill', () => {
+        basicTestComponent.thyTheme = 'ellipse';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
+        expect(searchElement.classList.contains('form-control-fill')).toBe(true);
+    });
+
+    it('should map deprecated thyTheme transparent to ghost', () => {
+        basicTestComponent.thyTheme = 'transparent';
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-ghost')).toBe(true);
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
@@ -131,6 +141,7 @@ describe('input search', () => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-subtle')).toBe(false);
         expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
+        expect(searchElement.classList.contains('form-control-fill')).toBe(false);
     });
 
     it('should add form-control-subtle when thyAppearance is subtle', () => {
@@ -164,6 +175,14 @@ describe('input search', () => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-subtle')).toBe(true);
         expect(searchElement.classList.contains('form-control-ghost')).toBe(false);
+    });
+
+    it('should prefer thyShape over deprecated thyTheme ellipse', () => {
+        basicTestComponent.thyTheme = 'ellipse';
+        basicTestComponent.thyShape = 'rectangle';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
+        expect(searchElement.classList.contains('form-control-fill')).toBe(true);
     });
 
     it('thyClear EventEmitter', fakeAsync(() => {
