@@ -103,16 +103,22 @@
     @include vote-color-variant(variables.$primary, variables.$primary-subtle);
 }
 
+.thy-vote-success-subtle {
+    @include vote-color-variant-weak(variables.$success, variables.$success-subtle);
+}
+
+.thy-vote-primary-subtle {
+    @include vote-color-variant-weak(variables.$primary, variables.$primary-subtle);
+}
+
+// deprecated: use thy-vote-success-subtle
 .thy-vote-success-weak {
     @include vote-color-variant-weak(variables.$success, variables.$success-subtle);
 }
 
+// deprecated: use thy-vote-primary-subtle
 .thy-vote-primary-weak {
     @include vote-color-variant-weak(variables.$primary, variables.$primary-subtle);
-}
-
-.thy-vote-disabled {
-    pointer-events: none;
 }
 
 .thy-vote-disabled {

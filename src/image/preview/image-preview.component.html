@@ -45,7 +45,7 @@
       [thyTooltip]="locale().prev"
       [class.thy-image-preview-switch-left-disabled]="previewIndex <= 0"
       (click)="prev()">
-      <thy-icon thyIconName="angle-left-bold"></thy-icon>
+      <thy-icon thyName="angle-left-bold"></thy-icon>
     </div>
     <div
       class="thy-image-preview-switch-right"
@@ -53,7 +53,7 @@
       [thyTooltipDisabled]="previewIndex >= images.length - 1"
       [class.thy-image-preview-switch-right-disabled]="previewIndex >= images.length - 1"
       (click)="next()">
-      <thy-icon thyIconName="angle-right-bold"> </thy-icon>
+      <thy-icon thyName="angle-right-bold"> </thy-icon>
     </div>
   }
   @if (!isFullScreen) {

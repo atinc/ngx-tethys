@@ -18,11 +18,11 @@ import { coerceBooleanProperty, ThyBooleanInput } from 'ngx-tethys/util';
         </div>
 
         <ng-template #defaultTemplate>
-            <thy-icon thyIconName="star-fill"></thy-icon>
+            <thy-icon thyName="star-fill"></thy-icon>
         </ng-template>
 
         <ng-template #character>
-            <thy-icon [thyIconName]="iconValue()"></thy-icon>
+            <thy-icon [thyName]="iconValue()"></thy-icon>
         </ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,

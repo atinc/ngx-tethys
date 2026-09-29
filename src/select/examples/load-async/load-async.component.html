@@ -2,8 +2,8 @@
   [ngModel]="listOfSelectedValue"
   thyEnableScrollLoad="true"
   style="width: 500px"
-  [thyLoadState]="loadState()"
-  (thyOnExpandStatusChange)="expandChange($event)">
+  [thyLoading]="loading()"
+  (thyExpandStatusChange)="expandChange($event)">
   @for (option of loadMoreData(); track option._id) {
     <thy-option [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
   }

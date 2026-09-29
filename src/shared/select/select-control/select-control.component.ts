@@ -67,9 +67,23 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thyPanelOpened = input(false, { transform: coerceBooleanProperty });
 
+    readonly thyMultiple = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * @deprecated please use thyMultiple, will be removed in v23
+     */
     readonly thyIsMultiple = input(false, { transform: coerceBooleanProperty });
 
+    readonly isMultiple = computed(() => this.thyMultiple() || this.thyIsMultiple());
+
+    readonly thySearchable = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * @deprecated please use thySearchable, will be removed in v23
+     */
     readonly thyShowSearch = input(false, { transform: coerceBooleanProperty });
+
+    readonly searchable = computed(() => this.thySearchable() || this.thyShowSearch());
 
     readonly thySelectedOptions = input<SelectOptionBase | SelectOptionBase[]>();
 
@@ -82,7 +96,14 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly customDisplayTemplate = input<TemplateRef<any>>();
 
+    readonly thyClearable = input(false, { transform: coerceBooleanProperty });
+
+    /**
+     * @deprecated please use thyClearable, will be removed in v23
+     */
     readonly thyAllowClear = input(false, { transform: coerceBooleanProperty });
+
+    readonly clearable = computed(() => this.thyClearable() || this.thyAllowClear());
 
     readonly thyPlaceholder = input('');
 
@@ -123,12 +144,32 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     readonly thyPreset = input<string>('');
 
+    public readonly thyInputChange = output<string>();
+
+    /**
+     * @deprecated please use thyInputChange, will be removed in v23
+     */
     public readonly thyOnSearch = output<string>();
 
+    public readonly thyRemove = output<{ item: SelectOptionBase; $eventOrigin: Event }>();
+
+    /**
+     * @deprecated please use thyRemove, will be removed in v23
+     */
     public readonly thyOnRemove = output<{ item: SelectOptionBase; $eventOrigin: Event }>();
 
+    public readonly thyClear = output<Event>();
+
+    /**
+     * @deprecated please use thyClear, will be removed in v23
+     */
     public readonly thyOnClear = output<Event>();
 
+    public readonly thyBlur = output<Event>();
+
+    /**
+     * @deprecated please use thyBlur, will be removed in v23
+     */
     public readonly thyOnBlur = output<Event>();
 
     readonly inputElement = viewChild<ElementRef>('inputElement');
@@ -137,8 +178,8 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     isSelectedValue = computed(() => {
         return (
-            (!this.thyIsMultiple() && !isUndefinedOrNull(this.thySelectedOptions())) ||
-            (this.thyIsMultiple() && (this.thySelectedOptions() as SelectOptionBase[]).length > 0)
+            (!this.isMultiple() && !isUndefinedOrNull(this.thySelectedOptions())) ||
+            (this.isMultiple() && (this.thySelectedOptions() as SelectOptionBase[]).length > 0)
         );
     });
 
@@ -147,18 +188,18 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     visibleTagCount = signal(0);
 
     showClearIcon = computed(() => {
-        return this.thyAllowClear() && this.isSelectedValue();
+        return this.clearable() && this.isSelectedValue();
     });
 
     selectedTags = computed(() => {
-        if (!this.thyIsMultiple() || !this.thySelectedOptions()) return [];
+        if (!this.isMultiple() || !this.thySelectedOptions()) return [];
         const selectedOptions = coerceArray(this.thySelectedOptions());
 
         return selectedOptions;
     });
 
     collapsedSelectedTags = computed(() => {
-        if (!this.thyIsMultiple() || !this.thySelectedOptions()) return [];
+        if (!this.isMultiple() || !this.thySelectedOptions()) return [];
         const selectedOptions = coerceArray(this.thySelectedOptions());
 
         const shouldShowMoreTags = (this.thyMaxTagCount() as string) === 'auto' || (this.thyMaxTagCount() as number) > 0;
@@ -175,7 +216,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
 
     selectedValueStyle = computed(() => {
         let showSelectedValue = false;
-        if (this.thyShowSearch()) {
+        if (this.searchable()) {
             if (this.thyPanelOpened()) {
                 showSelectedValue = !(this.isComposing() || this.inputValue());
             } else {
@@ -210,7 +251,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             }
             if (panelOpened) {
                 untracked(() => {
-                    if (this.thyShowSearch()) {
+                    if (this.searchable()) {
                         Promise.resolve(null).then(() => {
                             this.inputElement()?.nativeElement.focus();
                         });
@@ -218,10 +259,11 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                 });
             } else {
                 untracked(() => {
-                    if (this.thyShowSearch()) {
+                    if (this.searchable()) {
                         new Promise(resolve => setTimeout(resolve, 100)).then(() => {
                             this.inputValue.set('');
                             this.updateWidth();
+                            this.thyInputChange.emit(this.inputValue());
                             this.thyOnSearch.emit(this.inputValue());
                         });
                     }
@@ -241,7 +283,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                 untracked(() => {
                     sameValue = this.compareSelectedOptions(oldValue, value);
 
-                    if (this.thyPanelOpened() && this.thyShowSearch()) {
+                    if (this.thyPanelOpened() && this.searchable()) {
                         if (!sameValue) {
                             Promise.resolve(null).then(() => {
                                 this.inputValue.set('');
@@ -255,7 +297,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
                             }
                         }, 200);
                     }
-                    if (!sameValue && this.thyIsMultiple()) {
+                    if (!sameValue && this.isMultiple()) {
                         this.calculateVisibleTags();
                     }
                 });
@@ -318,7 +360,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
      * @returns 如果 thyValue 相等返回 true，否则返回 false
      */
     private compareSelectedOptions(oldValue: unknown, value: SelectOptionBase | SelectOptionBase[]): boolean {
-        if (this.thyIsMultiple()) {
+        if (this.isMultiple()) {
             if (oldValue instanceof Array && value instanceof Array && oldValue.length === value.length) {
                 return value.every((option, index) => this.compareThyValue(oldValue[index].thyValue, option.thyValue));
             }
@@ -387,7 +429,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     }
 
     setSelectControlClass() {
-        const modeType = this.thyIsMultiple() ? 'multiple' : 'single';
+        const modeType = this.isMultiple() ? 'multiple' : 'single';
         const appearance = this.thyBorderless() ? 'ghost' : this.thyAppearance();
         const selectControlClass = {
             [`form-control`]: true,
@@ -398,7 +440,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             [`form-control-ghost`]: appearance === 'ghost',
             [`select-control`]: true,
             [`select-control-${modeType}`]: true,
-            [`select-control-show-search`]: this.thyShowSearch(),
+            [`select-control-show-search`]: this.searchable(),
             [`panel-is-opened`]: this.thyPanelOpened(),
             [`disabled`]: this.thyDisabled()
         };
@@ -407,7 +449,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
             [`form-control`]: true,
             [`form-control-${this.thySize()}`]: !!this.thySize(),
             [`search-input-field`]: true,
-            [`hidden`]: !this.thyShowSearch(),
+            [`hidden`]: !this.searchable(),
             [`disabled`]: this.thyDisabled()
         };
     }
@@ -416,6 +458,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
         if (value !== this.inputValue()) {
             this.inputValue.set(value);
             this.updateWidth();
+            this.thyInputChange.emit(this.inputValue());
             this.thyOnSearch.emit(this.inputValue());
         }
     }
@@ -433,7 +476,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     }
 
     updateWidth() {
-        if (this.thyIsMultiple() && this.thyShowSearch()) {
+        if (this.isMultiple() && this.searchable()) {
             if (this.inputValue() || this.isComposing()) {
                 this.renderer.setStyle(this.inputElement()?.nativeElement, 'width', `${this.inputElement()?.nativeElement.scrollWidth}px`);
             } else {
@@ -443,10 +486,12 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     }
 
     removeHandle(item: SelectOptionBase, $event: Event) {
+        this.thyRemove.emit({ item: item, $eventOrigin: $event });
         this.thyOnRemove.emit({ item: item, $eventOrigin: $event });
     }
 
     clearHandle($event: Event) {
+        this.thyClear.emit($event);
         this.thyOnClear.emit($event);
     }
 
@@ -459,6 +504,7 @@ export class ThySelectControl implements OnInit, AfterViewInit {
     }
 
     onBlur(event: Event) {
+        this.thyBlur.emit(event);
         this.thyOnBlur.emit(event);
     }
 }

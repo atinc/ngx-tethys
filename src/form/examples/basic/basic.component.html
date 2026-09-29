@@ -5,7 +5,7 @@
   <thy-form-group thyLabelText="Password" thyLabelRequired thyTips="This is tips for password" thyTipsMode="label">
     <input thyInput type="password" name="password" [(ngModel)]="model.password" required placeholder="Please type password" />
   </thy-form-group>
-  <thy-form-group-footer>
+  <thy-form-group-footer thyAlign="right">
     <button [thyButton]="'primary'" [thyLoading]="saving()" thyLoadingText="Logining" (thyFormSubmit)="login()">Login</button>
     <button [thyButton]="'default'" thyAppearance="link" (click)="cancel()">Cancel</button>
   </thy-form-group-footer>

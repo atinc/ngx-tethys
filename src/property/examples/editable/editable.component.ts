@@ -130,7 +130,7 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
         }
     }
 
-    thyOnExpandStatusChange(event: boolean) {
-        console.log('thyOnExpandStatusChange', event);
+    onExpandStatusChange(event: boolean) {
+        console.log('thyExpandStatusChange', event);
     }
 }

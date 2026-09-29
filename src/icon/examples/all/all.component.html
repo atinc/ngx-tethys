@@ -5,7 +5,7 @@
       <div class="icons">
         @for (icon of category.icons; track $index) {
           <div class="icon-item">
-            <thy-icon [thyIconName]="icon.name"></thy-icon>
+            <thy-icon [thyName]="icon.name"></thy-icon>
             <div class="name mt-2 text-secondary">{{ icon.name }}</div>
           </div>
         }

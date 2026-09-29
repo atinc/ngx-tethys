@@ -16,13 +16,13 @@ import { ThyNativeTableSortOrder } from '../table.interface';
                 } @else {
                     @if (isUp()) {
                         <thy-icon
-                            thyIconName="angle-up"
+                            thyName="angle-up"
                             class="thy-native-table-column-sorter-up"
                             [class.active]="currentSortOrder() === 'asc'" />
                     }
                     @if (isDown()) {
                         <thy-icon
-                            thyIconName="angle-down"
+                            thyName="angle-down"
                             class="thy-native-table-column-sorter-down"
                             [class.active]="currentSortOrder() === 'desc'" />
                     }

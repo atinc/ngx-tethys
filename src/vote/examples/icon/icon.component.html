@@ -1,61 +1,7 @@
-<div class="mt-3">
-  <span>icon传参数:</span>
-  <thy-vote
-    class="mr-3 ml-3"
-    [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted()"
-    [thySize]="'sm'"
-    thyIcon="star"
-    (click)="toggleVote($event)"></thy-vote>
-  <thy-vote
-    class="mr-3"
-    [thyVote]="'primary-weak'"
-    [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted()"
-    [thySize]="'sm'"
-    thyIcon="bell"
-    (click)="toggleVote($event)"></thy-vote>
-  <thy-vote
-    [thyVote]="'success-weak'"
-    [thyVoteCount]="vote_count1"
-    [thyHasVoted]="has_voted()"
-    [thyRound]="true"
-    thyIcon="app-bulletin"
-    (click)="toggleVote($event)"></thy-vote>
-</div>
+<thy-vote thyIcon="bell" [thyCount]="5" [thyVoted]="voted()" (click)="toggleVote()"></thy-vote>
 
-<div class="mt-3">
-  <span>icon传模板:</span>
-  <thy-vote
-    class="mr-3 ml-3"
-    [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted()"
-    [thyRound]="true"
-    thySize="sm"
-    (click)="toggleVote($event)">
-    <ng-template #voteIcon>
-      <img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png" />
-    </ng-template>
-  </thy-vote>
-  <thy-vote
-    class="mr-3"
-    [thyVote]="'primary-weak'"
-    [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted()"
-    [thyRound]="true"
-    thySize="sm"
-    (click)="toggleVote($event)">
-    <ng-template #voteIcon>
-      <img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png" />
-    </ng-template>
-  </thy-vote>
-  <thy-vote
-    class="mr-3"
-    [thyVote]="'success-weak'"
-    [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted()"
-    [thyRound]="true"
-    (click)="toggleVote($event)">
+<div class="d-block mt-3">
+  <thy-vote [thyCount]="5" [thyVoted]="voted()" (click)="toggleVote()" class="d-block mt-3">
     <ng-template #voteIcon>
       <img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png" />
     </ng-template>

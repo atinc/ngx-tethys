@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ThyDynamicForm } from './dynamic-form/dynamic-form.component';
 import { ThyFormGroupError } from './form-group-error/form-group-error.component';
 import { ThyFormGroupLabelDirective } from './form-group-label.directive';
 import { ThyFormGroup } from './form-group.component';
@@ -35,7 +36,8 @@ import { ThyConfirmValidatorDirective, ThyMaxDirective, ThyMinDirective, ThyUniq
         ThyFormGroupError,
         ThyMinDirective,
         ThyMaxDirective,
-        ThyConfirmValidatorDirective
+        ThyConfirmValidatorDirective,
+        ThyDynamicForm
     ],
     exports: [
         ThyFormDirective,
@@ -47,7 +49,8 @@ import { ThyConfirmValidatorDirective, ThyMaxDirective, ThyMinDirective, ThyUniq
         ThyFormGroupError,
         ThyMinDirective,
         ThyMaxDirective,
-        ThyConfirmValidatorDirective
+        ThyConfirmValidatorDirective,
+        ThyDynamicForm
     ],
     providers: [ThyFormValidatorLoader, THY_FORM_CONFIG_PROVIDER]
 })

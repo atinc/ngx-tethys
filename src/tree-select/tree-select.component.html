@@ -5,18 +5,18 @@
   #origin="cdkOverlayOrigin"
   [thyPanelOpened]="expandTreeSelectOptions()"
   [thySelectedOptions]="selectedValueObject()"
-  [thyIsMultiple]="thyMultiple()"
-  [thyAllowClear]="thyAllowClear()"
+  [thyMultiple]="thyMultiple()"
+  [thyClearable]="clearable()"
   [thySize]="thySize()"
   [thyAppearance]="thyAppearance()"
   [thyPlaceholder]="thyPlaceholder()"
   [customDisplayTemplate]="customDisplayTemplate"
-  [thyShowSearch]="thyShowSearch()"
+  [thySearchable]="searchable()"
   [thyDisabled]="thyDisable()"
-  (thyOnBlur)="onBlur($event)"
-  (thyOnClear)="clearSelectedValue($event)"
-  (thyOnRemove)="removeMultipleSelectedNode($event)"
-  (thyOnSearch)="searchValue($event)">
+  (thyBlur)="onBlur($event)"
+  (thyClear)="clearSelectedValue($event)"
+  (thyRemove)="removeMultipleSelectedNode($event)"
+  (thyInputChange)="searchValue($event)">
   <ng-template #customDisplayTemplate let-node>
     @if (thyTreeSelectTriggerDisplayRef()) {
       <ng-template [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef()" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
@@ -39,7 +39,7 @@
   <thy-tree-select-nodes
     thyStopPropagation
     [thyVirtualScroll]="thyVirtualScroll()"
-    [loadState]="thyLoadState()"
+    [loadState]="!isLoading()"
     [treeNodes]="thyVirtualScroll() ? virtualTreeNodes() : treeNodes()"
     [animate.enter]="animateEnterClass">
   </thy-tree-select-nodes>

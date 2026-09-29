@@ -1,0 +1,12 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <thy-input-number [(ngModel)]="value" [thyAppearance]="'outline'" [thyPlaceholder]="'outline'"></thy-input-number>
+    <thy-input-number [(ngModel)]="value" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'" class="mt-3"></thy-input-number>
+    <thy-input-number [(ngModel)]="value" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'" class="mt-3"></thy-input-number>
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-input-number [(ngModel)]="value" [thyAppearance]="'outline'" [thyPlaceholder]="'outline'" disabled></thy-input-number>
+    <thy-input-number [(ngModel)]="value" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'" class="mt-3" disabled></thy-input-number>
+    <thy-input-number [(ngModel)]="value" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'" class="mt-3" disabled></thy-input-number>
+  </div>
+</div>

@@ -6,22 +6,17 @@
       </button>
     }
   </thy-button-group>
-  <thy-select thyPlaceholder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
+  <thy-select thyPlaceholder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyClearable]="true" [thySearchable]="true">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>
-  <thy-select thyPlaceholder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
+  <thy-select thyPlaceholder="请选择" [thySize]="currentSize.name" thyMultiple [(ngModel)]="listOfSelectedValue">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }
   </thy-select>
-  <thy-select
-    thyPlaceholder="请选择"
-    [thySize]="currentSize.name"
-    thyMode="multiple"
-    [thyShowSearch]="true"
-    [(ngModel)]="listOfSelectedValue">
+  <thy-select thyPlaceholder="请选择" [thySize]="currentSize.name" thyMultiple [thySearchable]="true" [(ngModel)]="listOfSelectedValue">
     @for (option of listOfOption; track option.value) {
       <thy-option [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     }

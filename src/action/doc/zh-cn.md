@@ -19,10 +19,10 @@ import { ThyActionModule } from "ngx-tethys/action";
 支持组件和指令两种使用方式:
 ```html
 <a href="javascript:;" thyAction thyActionIcon="vertical-view-lines"></a>
-<a href="javascript:;" thyAction><thy-icon thyIconName="vertical-view-lines"></thy-icon></a>
+<a href="javascript:;" thyAction><thy-icon thyName="vertical-view-lines"></thy-icon></a>
 
 <thy-action  thyActionIcon="vertical-view-lines"></thy-action>
-<thy-action><thy-icon thyIconName="vertical-view-lines"></thy-icon></thy-action>
+<thy-action><thy-icon thyName="vertical-view-lines"></thy-icon></thy-action>
 ```
 
 支持手动触发成功和失败反馈操作:

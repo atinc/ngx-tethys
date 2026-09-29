@@ -38,7 +38,13 @@ export const upgradeData: UpgradeData = {
                     { replace: 'ThyStatisticShape', replaceWith: 'ThyStatisticAppearance' },
                     { replace: 'ThyArrowSwitcherTheme', replaceWith: 'ThyArrowSwitcherVariant' },
                     { replace: 'ThyNativeTableTheme', replaceWith: 'ThyNativeTableAppearance' },
-                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' }
+                    { replace: 'ThyTableTheme', replaceWith: 'ThyTableAppearance' },
+                    { replace: 'ThyVoteSizes', replaceWith: 'ThyVoteSize' },
+                    { replace: 'ThyTableMode', replaceWith: 'ThyTableVariant' },
+                    { replace: 'ThyThemeType', replaceWith: 'ThyDotAppearance' },
+                    { replace: 'ThyColorType', replaceWith: 'ThyDotColor' },
+                    { replace: 'ThySizeType', replaceWith: 'ThyDotSize' },
+                    { replace: 'ThyShapeType', replaceWith: 'ThyDotShape' }
                 ]
             }
         ]
@@ -120,6 +126,13 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyAppearance',
                         limitedTo: {
                             elements: ['thy-native-table', 'thy-table-skeleton', 'thy-table']
+                        }
+                    },
+                    {
+                        replace: 'thyMode',
+                        replaceWith: 'thyVariant',
+                        limitedTo: {
+                            elements: ['thy-table']
                         }
                     },
                     {
@@ -209,6 +222,77 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyHasVoted',
+                        replaceWith: 'thyVoted',
+                        limitedTo: {
+                            attributes: ['thyVote'],
+                            elements: ['thy-vote']
+                        }
+                    },
+                    {
+                        replace: 'thyVoteCount',
+                        replaceWith: 'thyCount',
+                        limitedTo: {
+                            attributes: ['thyVote'],
+                            elements: ['thy-vote']
+                        }
+                    },
+                    {
+                        replace: 'thyTip',
+                        replaceWith: 'thyTips',
+                        limitedTo: {
+                            elements: ['thy-loading']
+                        }
+                    },
+                    {
+                        replace: 'thyIconType',
+                        replaceWith: 'thyAppearance',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconName',
+                        replaceWith: 'thyName',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconRotate',
+                        replaceWith: 'thyRotate',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconSet',
+                        replaceWith: 'thySet',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconLegging',
+                        replaceWith: 'thyLegging',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
+                        replace: 'thyIconLinearGradient',
+                        replaceWith: 'thyLinearGradient',
+                        limitedTo: {
+                            attributes: ['thy-icon'],
+                            elements: ['thy-icon']
+                        }
+                    },
+                    {
                         replace: 'thyNavLinkActive',
                         replaceWith: 'thyNavItemActive',
                         limitedTo: {
@@ -261,6 +345,43 @@ export const upgradeData: UpgradeData = {
                         }
                     },
                     {
+                        replace: 'thyShowSearch',
+                        replaceWith: 'thySearchable',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select', 'thy-cascader'],
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyServerSearch',
+                        replaceWith: 'thyServerSearchable',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select']
+                        }
+                    },
+                    {
+                        replace: 'thyAllowClear',
+                        replaceWith: 'thyClearable',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select', 'thy-native-select'],
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyEmptySearchMessageText',
+                        replaceWith: 'thySearchEmptyText',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select']
+                        }
+                    },
+                    {
+                        replace: 'thyIsMultiple',
+                        replaceWith: 'thyMultiple',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
                         replace: 'thyAutocompleteComponent',
                         replaceWith: 'thyAutocomplete',
                         limitedTo: {
@@ -302,6 +423,49 @@ export const upgradeData: UpgradeData = {
                         replaceWith: 'thyClear',
                         limitedTo: {
                             elements: ['thy-input-search']
+                        }
+                    },
+                    {
+                        replace: 'thyOnSearch',
+                        replaceWith: 'thyInputChange',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select', 'thy-tree-select', 'thy-cascader'],
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyOnScrollToBottom',
+                        replaceWith: 'thyScrollToBottom',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select']
+                        }
+                    },
+                    {
+                        replace: 'thyOnExpandStatusChange',
+                        replaceWith: 'thyExpandStatusChange',
+                        limitedTo: {
+                            elements: ['thy-select', 'thy-custom-select']
+                        }
+                    },
+                    {
+                        replace: 'thyOnRemove',
+                        replaceWith: 'thyRemove',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyOnClear',
+                        replaceWith: 'thyClear',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
+                        }
+                    },
+                    {
+                        replace: 'thyOnBlur',
+                        replaceWith: 'thyBlur',
+                        limitedTo: {
+                            attributes: ['thySelectControl']
                         }
                     }
                 ]
@@ -373,7 +537,10 @@ export const upgradeData: UpgradeData = {
                 pr: 'https://github.com/atinc/ngx-tethys',
                 changes: [
                     { replace: 'dialog-supper-lg', replaceWith: 'dialog-super-lg' },
-                    { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' }
+                    { replace: 'thy-divider-deeper', replaceWith: 'thy-divider-light' },
+                    { replace: 'thy-vote-primary-weak', replaceWith: 'thy-vote-primary-subtle' },
+                    { replace: 'thy-vote-success-weak', replaceWith: 'thy-vote-success-subtle' },
+                    { replace: 'thy-tag-pill', replaceWith: 'thy-tag-ellipse' }
                 ]
             }
         ]

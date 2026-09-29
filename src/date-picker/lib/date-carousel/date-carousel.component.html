@@ -18,7 +18,7 @@
     <p class="carousel-item-title">{{ title }}</p>
     <div class="carousel-item-content">
       <button thyButton="default" thyAppearance="outline" thySize="sm" class="right-space" (click)="prevClick(type)">
-        <thy-icon thyIconName="angle-left"></thy-icon>
+        <thy-icon thyName="angle-left"></thy-icon>
       </button>
       @for (item of selectableData; track $index) {
         <div
@@ -31,10 +31,10 @@
             <span class="year-tip">{{ item?.startValue?.getYear() }}</span>
           }
           @if (item.isInRange && isSelected(item)) {
-            <thy-icon thyIconName="close"></thy-icon>
+            <thy-icon thyName="close"></thy-icon>
           }
           @if (item.isInRange && !isSelected(item)) {
-            <thy-icon thyIconName="plus"></thy-icon>
+            <thy-icon thyName="plus"></thy-icon>
           }
           @if (!item.isInRange) {
             <span>{{ item?.content }}</span>
@@ -42,7 +42,7 @@
         </div>
       }
       <button thyButton="default" thyAppearance="outline" thySize="sm" (click)="nextClick(type)">
-        <thy-icon thyIconName="angle-right"></thy-icon>
+        <thy-icon thyName="angle-right"></thy-icon>
       </button>
     </div>
   </div>

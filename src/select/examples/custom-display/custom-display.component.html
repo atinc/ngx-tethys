@@ -8,7 +8,7 @@
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
       <span thyText class="w-100"
-        ><thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(option?.icon)"></thy-icon
+        ><thy-icon thyTextColor="primary" [thyName]="$safeNavigationMigration(option?.icon)"></thy-icon
         ><span class="text-truncate">{{ option?.display_name }}</span>
       </span>
     </thy-option>
@@ -19,19 +19,19 @@
     }
     @if (value) {
       <span thyText class="w-100">
-        <thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(value?.icon)"></thy-icon
+        <thy-icon thyTextColor="primary" [thyName]="$safeNavigationMigration(value?.icon)"></thy-icon
         ><span class="text-truncate">{{ value?.display_name }}</span>
       </span>
     }
   </ng-template>
 </thy-select>
 <div class="mt-2 mb-2">多选</div>
-<thy-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceholder="请选择" style="width: 500px">
+<thy-select [(ngModel)]="selectedTaskTypes" thyMultiple thyPlaceholder="请选择" style="width: 500px">
   <thy-option thyValue="" thyLabelText="空"></thy-option>
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
       <span thyText class="w-100"
-        ><thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(option?.icon)"></thy-icon
+        ><thy-icon thyTextColor="primary" [thyName]="$safeNavigationMigration(option?.icon)"></thy-icon
         ><span class="text-truncate">{{ option?.display_name }}</span>
       </span>
     </thy-option>
@@ -42,25 +42,25 @@
     }
     @if (value) {
       <span thyText class="w-100">
-        <thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(value?.icon)"></thy-icon>
+        <thy-icon thyTextColor="primary" [thyName]="$safeNavigationMigration(value?.icon)"></thy-icon>
         <span class="text-truncate">{{ value?.display_name }}</span>
       </span>
     }
   </ng-template>
 </thy-select>
 <div class="mt-2 mb-2">多选 自定义选中的option样式</div>
-<thy-select [(ngModel)]="selectedTaskTypes" thyMode="multiple" thyPlaceholder="请选择" style="width: 500px" thyPreset="tag">
+<thy-select [(ngModel)]="selectedTaskTypes" thyMultiple thyPlaceholder="请选择" style="width: 500px" thyPreset="tag">
   <thy-option thyValue="" thyLabelText="空"></thy-option>
   @for (option of optionData; track option._id) {
     <thy-option thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
       <span thyText class="w-100"
-        ><thy-icon thyTextColor="primary" [thyIconName]="$safeNavigationMigration(option?.icon)"></thy-icon
+        ><thy-icon thyTextColor="primary" [thyName]="$safeNavigationMigration(option?.icon)"></thy-icon
         ><span class="text-truncate">{{ option?.display_name }}</span>
       </span>
     </thy-option>
   }
   <ng-template #selectedDisplay let-value>
-    <thy-tag thyShape="pill" [thyColor]="value?.bg_color || 'default'">
+    <thy-tag thyShape="ellipse" [thyColor]="value?.bg_color || 'default'">
       @if (!value) {
         <span>!!!空</span>
       }

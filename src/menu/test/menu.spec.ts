@@ -32,21 +32,21 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
                 [thyActionIcon]="'user-group-fill'">
                 <thy-menu-item>
                     <thy-menu-item-icon class="noColorIcon">
-                        <thy-icon thyIconName="user-group-fill"></thy-icon>
+                        <thy-icon thyName="user-group-fill"></thy-icon>
                     </thy-menu-item-icon>
                     <thy-menu-item-name>我的工作</thy-menu-item-name>
                     <thy-menu-item-action (click)="click()" [thyActionMenu]="action">
-                        <thy-icon thyIconName="more"></thy-icon>
+                        <thy-icon thyName="more"></thy-icon>
                     </thy-menu-item-action>
                     <thy-menu-item-action (click)="click()" [thyActionMenu]="action" [thyStopPropagation]="true" class="thyStopPropagation">
-                        <thy-icon thyIconName="more"></thy-icon>
+                        <thy-icon thyName="more"></thy-icon>
                     </thy-menu-item-action>
                     <thy-menu-item-action
                         (click)="click()"
                         [thyActionMenu]="action"
                         [thyStopPropagation]="false"
                         class="nothyStopPropagation">
-                        <thy-icon thyIconName="more"></thy-icon>
+                        <thy-icon thyName="more"></thy-icon>
                     </thy-menu-item-action>
                 </thy-menu-item>
                 <ng-template #headerContent>
@@ -55,7 +55,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
             </thy-menu-group>
             <thy-menu-item>
                 <thy-menu-item-icon class="hasColorIcon" thyColor="red">
-                    <thy-icon thyIconName="settings"></thy-icon>
+                    <thy-icon thyName="settings"></thy-icon>
                 </thy-menu-item-icon>
                 <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis">配置中心</thy-menu-item-name>
             </thy-menu-item>
@@ -94,7 +94,7 @@ class ThyDemoMenuComponent {
             </a>
             <thy-divider></thy-divider>
             <a thyMenuItem href="javascript:;">
-                <span thyMenuItemIcon thyColor="#ff5b57"><thy-icon thyIconName="trash"></thy-icon></span>
+                <span thyMenuItemIcon thyColor="#ff5b57"><thy-icon thyName="trash"></thy-icon></span>
                 <span thyMenuItemName>Trash</span>
             </a>
         </thy-menu>

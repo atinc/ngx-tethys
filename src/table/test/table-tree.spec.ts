@@ -8,7 +8,7 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 @Component({
     selector: 'thy-demo-table-tree',
     template: `
-        <thy-table [thyModel]="model" thyRowKey="id" [thyMode]="mode" [thyDraggable]="draggable">
+        <thy-table [thyModel]="model" thyRowKey="id" [thyVariant]="variant" [thyDraggable]="draggable">
             <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
             <thy-table-column
                 thyTitle="年龄"
@@ -107,7 +107,7 @@ class ThyDemoTableTreeComponent {
         }
     ];
 
-    mode = 'tree';
+    variant = 'tree';
 
     draggable!: boolean;
 }

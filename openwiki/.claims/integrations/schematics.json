@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:27d0c6c8c47bf2a741a8c99c388e85fb78698f65f7c14bd871ca7894c1820a72",
+  "claims": [
+    {
+      "id": "claim_e9a96e44b09f49d397cd71f71aa76861",
+      "statement": "ng add 只在 dependencies 里还没有对应包时写入 @angular/cdk ^22、date-fns 4.1.0 和 @tethys/icons ^1.4.50，并在 ngx-tethys 缺失时写入当前版本。它总会安装依赖并加入 styles/index.scss；icon 默认真时拷贝图标资源。找不到工程时抛出 Could not find project in workspace。",
+      "evidence": [
+        {
+          "resource": "repo://schematics/dependencies.ts#L1-L5",
+          "version": "repo-lines-v1:sha256:e4bd9906646a10ee86d8b6a6e4ba7eb67a178a8e46fcba77ee54d7de8ee2ef6c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzIwMzg4ZjMxNWMyZjc5YjEwYWM0Zjc3NTMxZThmYTZhZjgwMjMzZGY2N2M5OGM4ZjBjODhjNmM2MjZlZTNmYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWExZDFhNjMzOTAyMjljNzk4MzQ3ZTgzYTA0MDU0NDFjOTQwMDAzNTI4NGFkMTY4YzFiZjZjZGYxZDcwYTM3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-add/index.ts#L46-L67",
+          "version": "repo-lines-v1:sha256:b69eeec7d4e01ba7e54a692e35f78b71f720fb4ba1baba0aba5069b69de56bdd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwMTZhNDQ5ZGUwM2I4Y2NlZTVlYzlkNGNhNjFiNzg3OTI5NWIyOWM5ZTU1YzUwYWE5NTRiYTgyOGNlZmQ4MDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyYWMwMWU5NTlmNzRjZmM3NDQyNzk3Mzk1YjRkMWNmODk0MzQ2NWRlMDk1MmFiYzljOTk1YTcyZTc5MzAzNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxMWU1NDdiZjdmNGIwMzNkYTNjOTAzYjRmNzdhZjA1NjQ2ZGQ3YWZmYjViYTMyM2FmOTI5MjY0MGQ1MjA0ZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1Yzk3NzBlMjQ3M2Y1ZDNmYjlhODlmYWNiM2NjMzllYWYwODYwYjI2NmM4MTg5ZjY1NTg4ZWQ1YjU0MmM0ZDcifQ"
+        },
+        {
+          "resource": "repo://schematics/ng-add/schema.json#L14-L18",
+          "version": "repo-lines-v1:sha256:c78e0813947e6e86c1d9a57d95d6cf5a2a6eea5c4ad6de184cf5d29627061f42:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjAwMDBiNjJmZTcwNTgwMThiZWJhZTA3MzcxZGI3ZTM5NTE0NWRkYWYxODg0NzZlMmFiOGJkOWE0Zjg2YmI5MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzkyNTExY2VjMzc4ZGQwMjhlNzg1MWNlMDUyZTcxYzM3YWE0ODJlZjY5ZjY2NDU2ODlmNGQ3ZmY4YTJjMjVhMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTRiNDA2YWY1MGZlNjRmMzBkZTU2Njg4ZTIyYmI5OWExNTE5MzNhM2RiY2I3MWRiYmIwNjZmZjBjYzcwOTJkMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGUwZjcyOTNkMTU2YTZkMTI1MjhkYjEyOTMzNzllNTJhNWY4MzY3MDQ0Mjk3YjIyODJiOTdmZjJjODYwNDM4ZCJ9"
+        },
+        {
+          "resource": "repo://schematics/utils/get-project.ts#L16-L26",
+          "version": "repo-lines-v1:sha256:77dda5904ca001642a87c858b58620a395f48a7987d3fafb054c76569a69fca0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhMDk2ZDBmNmY4ZmYyMTE4NjJiZjYzZjBlMDdkN2M4NThmMGY4OTM5ZTMxYmE2NGJlNGM0YjMxZjhhZTM4N2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyODY4NWZhNDE2NmExNDljY2FiZThmNGFiZjUwMDkyM2VjMTVkMGNiMWY0OWY3YjM2NzhhOTMyYWNmZDRhNGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1ZTU5YTY5NWZmYjc2OWZjNmE3NjMwMGU4Y2E2MTc4MjJhNmUxNmVhNzM3YjY5ZDQ2OTZkZjQ0NTA5NmZiMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://schematics/utils/package-config.ts#L14-L24",
+          "version": "repo-lines-v1:sha256:0419fcc7bda44efa1a872b1a30eacddacb53539a24cba590eaa7bdda44a7baef:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZmMjY5ZjhjNmY5MzcxZDllNTNjZDE2YThlOWY5ZmNlYmUwN2FkNTNlZDc5MjBjMTU4YzQ1M2VkMDUyMzJiMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5NzI2ODNjMTVkOTljMDcxOTcyOWY0YThkMjQzY2VhNWZiY2Y1NTBkNjUzNjdlZjdlMTM4NWFjODNmNzIzOGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkxOTViODhiMDUxN2NhNzE5Njk2YTFhMmQyMmJhODgzYmNkOTdiMmQ5ZmUyNDMzOWUzM2QyYTIyMTM0Mjk2MjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzODA0NTdmMDI3YmYxNDVlMzJlNThjNTYzZmQwNTBmZjZjMTIxNzdhMWY1M2I4YzgxODI5NWI2YmE4N2ZhZDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cc4fa2f8affb4c0f92b7946656d0040b",
+      "statement": "v22 迁移先跑 CDK 规则并在每个工程后提交编辑，再跑自定义规则。没有工作区配置时直接返回。没有 tsconfig 的工程被跳过。migration-v22 的版本标记是 22.0.0。自定义规则列表在 update-22/index.ts。",
+      "evidence": [
+        {
+          "resource": "repo://schematics/ng-update/migration-collection.json#L1-L9",
+          "version": "repo-lines-v1:sha256:d7a151da89e26c5d1c75ab3df19a1e3072ac5455a757ea46c88baeefb1e4e1ae:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTZmYjA4ZmRhMWFjYjk1N2I2MTE2YmQzNzgxMWExZmU0MWEwMTYxMWMwNjMxZWRiZjc4NmQ2ODg5YTI3YTU1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-update/two-phase-migration-rule.ts#L143-L145",
+          "version": "repo-lines-v1:sha256:273ea5512ffdd890822ee2f922d08963da43186b8438bf821d7a5c12cf27c493:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjczZGY0ZjE1NjBlMGVhZTAxMjQ5YjA4MTAwNDU0YjMyNzVkZTgzZjUzYjdlNmNiZDlmZjk5NTc0YmJjODg2MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTVkNmQzMzdhZTgyZmNiYzk2ODUzMTFmNmJkN2JhMGNlNjllNmE0ZDJiMTk4MmE2ZDAwYjNhNzhjZDRiYTZlMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWM5MjBlMDZhNDM1ZGQ3ZjU5ZjgyZGVlOWYxNWI1YjY0ZTNiOGE0NDg3ZGVkMGRmMGJjMzZmMWM5ODVhNzYxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTQ5NjNhOWUyODAyMGEzMjg4YTVkNGE1MWU2MjQzNjQwYTVhYTk1ODY4ODZlMmE5NjJjNzBhZWFmMWQ5MzJlNSJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-update/two-phase-migration-rule.ts#L192-L192",
+          "version": "repo-lines-v1:sha256:568923c86b8236af7fd431d859341b78d250afc337488c0fbcbaa22d87a04c19:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTY4OTIzYzg2YjgyMzZhZjdmZDQzMWQ4NTkzNDFiNzhkMjUwYWZjMzM3NDg4YzBmYmNiYWEyMmQ4N2EwNGMxOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTY4OTIzYzg2YjgyMzZhZjdmZDQzMWQ4NTkzNDFiNzhkMjUwYWZjMzM3NDg4YzBmYmNiYWEyMmQ4N2EwNGMxOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTE0YzJiMDNjMGRhYThkMTMwMzY4ZDQzMmYyOGIxNWM5OGE2NGQ2MGUwNDdkZjdjZTFhOGQ4NzU1NGIyMzgyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYThmOTE2NmQyMGY2NjgzZTlmZGI2MGEzN2ZkM2NiOWM5MzI1NGYwYTU0NWI1MjYzMzMxYzE0OGQwYmQyYTRkNCJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-update/two-phase-migration-rule.ts#L26-L31",
+          "version": "repo-lines-v1:sha256:7c12f3320eda4ccf33adb2d9d8dc50dc2db13af388d41ad13ccc8a8ec5531e28:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDYwODcwOGYzYTA1MzI5OTg2Njg1ZGI3NzBmYjhiZDg5ZjU0ZGY2N2E0ZGQzZWJjOTg4NjI5NGE5NmY1NTcxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDc0ZjVjMTdkNDEyNzkyZDJhZTM2MjZjZTMxM2I4Y2YyMTJhMTRkYjJiNjY4ODNkZWM3MmY5NDNiMjcyNDE2MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTVhNjZkZTQ0NDQ5YzQ3YjNmZDZmYzlkYjAyYmQ5ZDdiMDllNmNlNWQ2NGY1YmU3ZjE4NDMxNjZjZTExMmU2MyJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-update/two-phase-migration-rule.ts#L51-L83",
+          "version": "repo-lines-v1:sha256:5a814ab275b9c0e198ad5cb76bd8e5e797b56e697e662b4d60aa44b06f70a8d5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1MmRmNjdjZjZjYTJiZmZiZjM3ZTVmYTUyZjU4NmUxYjkwZjQxZDE1ZTc5ZjFmZmJmNmYwY2ZlMTQxZDYwNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE0MGZhYzM5ODZhNTE3MDM1NWQwYzAxYWNiNWQ5MThmNWNhMjRjOWFhZDhhOWJjN2ZjZmRlZjcxMDhjY2U2OGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwNjk1YzMzZDg1NWE3NGY5MjJiNmYyMWQyYWJkOGQ1NDFhNzBlZDE1ZWRjOTc3ZWEyZTA5YTMwNGFlOWQxZjEifQ"
+        },
+        {
+          "resource": "repo://schematics/ng-update/update-22/index.ts#L28-L50",
+          "version": "repo-lines-v1:sha256:557d304599b35f6ecae8e3c2173996fbeecf4b5f8f880f6b65ed838babe962f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNTNhNThlODk1YjNkNzRlZjIyYjFhNzJiZjQxZjMxNGMyMGFkZDE0ZDdiODhmOGM3YTU5ZDgyZjJhMDg2NjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4NjA3YjQ2YzVlYjc5NTIxYmE2NjQ4ZTg2ZTUyZGYwMWRjYzIyMGM3MzY2YmFmYTZkNDRkYjE5MGFhNDBkM2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmZTNmMWQ1MDgzMjVhOThiYzQ3ZGZhNGIyNzdiZTdkNWM2NDg4ZjAzNDY2OTg0ZjgwMDNiYzc2YzVkNjJhOGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_200aa89973d747ac8a8db3e887e164a9",
+      "statement": "单条迁移失败不会中断后续阶段。结束时若有失败会警告需要手工修复。ng update 打印 Updated NGX-TETHYS，migrate-22 打印 Completed NGX-TETHYS v22 code migration。需要装包时才追加 NodePackageInstallTask。",
+      "evidence": [
+        {
+          "resource": "repo://schematics/migrate-22/index.ts#L5-L7",
+          "version": "repo-lines-v1:sha256:a2f245fb0dd82e5d0dd164632aa4fa7deb4344a6aa07f8396f762b9aa570adaf:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQyYjBhMDQ3MTZhZGE3NDliODlhZTc4MWUyZDdkZTE3N2U2ZGZiMzY1OGIwYWRjZjc4YjBiNzJjZWYwZTk2ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWRkMDE2YjgxYjRmYzg5ZGVkZTE4YmMxYmVjYmVhMmZmMjIzOGMyZmQ0NTE2N2NhNTcxZGJkOTcxNTk3ZTc1OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-update/core/complete.ts#L9-L22",
+          "version": "repo-lines-v1:sha256:7cb9f71a920c5af275cee0268b032610292dc9cdb41fa7c7fc69d45bf37c0262:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhYmMyNmUwZGYyMDg5ZjcyZWM4MTkzYzBiNzFkNmMzMWNhYjRiYTc2Mzc5ZDc4OTYyZDc5NjllOTEyYTU1ZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1NDA1MDk4ODU5NGE0ZmIyYmQwMDg0ZDYyMzMxMzUyYTYyNDcxM2E4N2JjYmJiMDRmYzZkOTE1ZWM0MDYzMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyYThjMjY5MDA1MDBmNjQ4NWE4MDg1ZDhjY2M1ZDNiODQ5YzIzNTE4YjEwYzMzMjBiMGQ5MTFjMmQwZjFjNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://schematics/ng-update/two-phase-migration-rule.ts#L248-L248",
+          "version": "repo-lines-v1:sha256:f74b73cc8354a81ae633814ab9a188c1534d7c3cf8ae81b96c0b2af1ed4bc11e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjc0YjczY2M4MzU0YTgxYWU2MzM4MTRhYjlhMTg4YzE1MzRkN2MzY2Y4YWU4MWI5NmMwYjJhZjFlZDRiYzExZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjc0YjczY2M4MzU0YTgxYWU2MzM4MTRhYjlhMTg4YzE1MzRkN2MzY2Y4YWU4MWI5NmMwYjJhZjFlZDRiYzExZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzBkZjI0NTE0ZTNmYzRkYmNmMjM4NjM1ZGE1ZmJlN2Q0YWRjNmI0M2JkNzdiY2Y1Y2Y4OTdkZTZlZTNhNDI5YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-update/two-phase-migration-rule.ts#L87-L108",
+          "version": "repo-lines-v1:sha256:b6a2264ec6c02a2bba7680083ad93dd17573276cb45580e8e146b9dca71d00a0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwNjk1YzMzZDg1NWE3NGY5MjJiNmYyMWQyYWJkOGQ1NDFhNzBlZDE1ZWRjOTc3ZWEyZTA5YTMwNGFlOWQxZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0Njc2ODc1NTBiYzA5MjhjYWFlYjI1NDk5YzYzZjgzYTYwNzQyYzZjMTYwMGRmZTBiYmI4YmIxMjc0MjU1OTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_09942eb71d78444aa45abb08f4351632",
+      "statement": "v22 自定义规则除尺寸、按钮、标签、导航、表格、分割线、徽标、卡片、日期弹出和树选择图标外，还包括选择属性、无边框选择、菜单主题、标签形状、搜索框外观、投票外观和形状。选择属性规则把 thy-select 与 thy-custom-select 的 thyMode 改成 thyMultiple。",
+      "evidence": [
+        {
+          "resource": "repo://schematics/ng-update/update-22/index.ts#L5-L50",
+          "version": "repo-lines-v1:sha256:29b081d51e4c2f1684ac9fab15bb2a5432ff81f6e5e4a6f17bfb5a00d3bab234:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZjZiZTQyZGQ4YzZhNTE0NTlmYTc1NmMxOTA0Y2E3ODJmZTIxMDk4OWI1YTlmNmYzMTI2Njg3NzEzZGI1ZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4ODU5MTRmYjE1MmI2MTNmMWQyMTVhNzBmYTdhNWVhOGIxMGNlZmMzYWMzNzA4Y2Y2ZmE1ODkyNTcwMWE3Y2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmZTNmMWQ1MDgzMjVhOThiYzQ3ZGZhNGIyNzdiZTdkNWM2NDg4ZjAzNDY2OTg0ZjgwMDNiYzc2YzVkNjJhOGQifQ"
+        },
+        {
+          "resource": "repo://schematics/ng-update/update-22/select-props-migration.ts#L14-L15",
+          "version": "repo-lines-v1:sha256:d1bad1b669d2cd5d1371f2c35b38cb67947ef049819cefaad3994a68763d5bb3:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjQ3ZDdmZWE4ODJjZDI2ZWYyYzZkMjJkYjI5ODk5NDE5MzM0YjhiOTZjY2Q3YzA3NmM0MWE3NjY4ZDQyMmI0ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTk1YTMxYzRiYWQ5MTg5ZjZmOTgyYWU2MjI4ZjVlNWQwNThmMWNhOWQ0OTM5MDk1NWRkNTlhMTY2Nzg0MGIxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIyNmY2MjJlNjRiOTdhNjFjYmI0OGI2ZDg3NWY4MmFlMmZkMDRjNWI2NmJhMDM3ODI4ZWE1NDg0NmMzNmQ2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTg3ODRkNjQ3MTM1MGMyMTE2NmUyNjk3YzdjMjAxMDEzNDllODhmMjUzNmZlZjZiMTJmZDczOGQ2YTg0Yzg4YSJ9"
+        },
+        {
+          "resource": "repo://schematics/ng-update/update-22/select-props-migration.ts#L58-L73",
+          "version": "repo-lines-v1:sha256:e5f8d0ce25a6428435df11d6608a742d828c78cf5a1eb6f26200c1ceba389560:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZmNjU2NTk5MmE3OGRmYzI4YjY5NjQ4N2U1ZDEyNDRhMDhlZTJjOTM2Y2RkOTExZDAzMTE2NDQxZmU0YzJhYjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmYTcwM2E4MDc5ZGE2OGY3NTIyM2I0NzMyYjE1NTgwMWU5MGZlZDU3ZDMwNTRjMzk1YjNkOTk1NzlhYTA1MzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmMjBiMTZmMTVhZGU5M2JlYzIyYTkyMTAzMGYyNGMzZDQ0YWJiNjYzODY1MDFkZGYyOWNlODU3ZTEwYjAyZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzMzhmZDI4MWYxMDY0NzIxODQzZDM0ZjA3OGNjYzJjNGNjNjk4M2U1YzgyYmQ4MmJlZjk5MjYxZWQwNmNmMjAifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.6.0",
+    "at": "2026-09-29T01:54:27.255Z"
+  }
+}

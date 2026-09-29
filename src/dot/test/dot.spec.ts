@@ -7,11 +7,11 @@ import {
     DEFAULT_SHAPE_NAME,
     DEFAULT_SIZE_NAME,
     DEFAULT_THEME_NAME,
-    ThyColorType,
     ThyDot,
-    ThyShapeType,
-    ThySizeType,
     ThyDotAppearance,
+    ThyDotColor,
+    ThyDotShape,
+    ThyDotSize,
     ThyThemeType
 } from 'ngx-tethys/dot';
 
@@ -61,9 +61,9 @@ describe('ThyDot', () => {
     });
 
     it('should have correct class', () => {
-        const randomColor = getRandomAttributes<ThyColorType>(colors);
-        const randomSize = getRandomAttributes<ThySizeType>(sizes);
-        const randomShape = getRandomAttributes<ThyShapeType>(shapes);
+        const randomColor = getRandomAttributes<ThyDotColor>(colors);
+        const randomSize = getRandomAttributes<ThyDotSize>(sizes);
+        const randomShape = getRandomAttributes<ThyDotShape>(shapes);
         const randomAppearance = getRandomAttributes<ThyDotAppearance>(themes);
         basicTestComponent.thyColor = randomColor;
         basicTestComponent.thyShape = randomShape;
@@ -120,12 +120,12 @@ describe('ThyDot', () => {
     imports: [ThyDot]
 })
 class ThyDemoDotComponent {
-    thyColor!: ThyColorType;
-    thySize!: ThySizeType;
+    thyColor!: ThyDotColor;
+    thySize!: ThyDotSize;
     thyAppearance!: ThyDotAppearance;
 
     thyTheme!: ThyThemeType;
-    thyShape!: ThyShapeType;
+    thyShape!: ThyDotShape;
     remove() {
         console.log('remove success');
     }

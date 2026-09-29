@@ -1,4 +1,4 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { Component, computed, HostBinding, input } from '@angular/core';
 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -22,7 +22,15 @@ export class ThyLoading {
     /**
      * 自定义加载提示文案
      */
+    readonly thyTips = input<string>('');
+
+    /**
+     * 自定义加载提示文案（已废弃，将在 v23 彻底移除），请使用 thyTips
+     * @deprecated please use thyTips, will be remove in v23
+     */
     readonly thyTip = input<string>('');
+
+    readonly tips = computed(() => this.thyTips() || this.thyTip());
 
     /**
      * 加载时是否启用嵌套遮罩模式，不传或传 false，没有遮罩层，加载完成出现内容

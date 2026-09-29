@@ -1,10 +1,10 @@
 @if (icon() && !feedback()) {
-  <thy-icon [thyIconName]="icon()"></thy-icon>
+  <thy-icon [thyName]="icon()"></thy-icon>
 }
 @if (feedbackOptions()?.icon) {
-  <thy-icon [class]="feedbackOptions()?.class" [thyIconName]="$safeNavigationMigration(feedbackOptions()?.icon)"></thy-icon>
+  <thy-icon [class]="feedbackOptions()?.class" [thyName]="$safeNavigationMigration(feedbackOptions()?.icon)"></thy-icon>
 }
 @if (thyHoverIcon()) {
-  <thy-icon class="hover-icon" [thyIconName]="thyHoverIcon()"></thy-icon>
+  <thy-icon class="hover-icon" [thyName]="thyHoverIcon()"></thy-icon>
 }
 <ng-content></ng-content>
