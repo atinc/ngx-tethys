@@ -1,7 +1,9 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyCascader } from 'ngx-tethys/cascader';
-import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
+import { ThyFormControlAppearance } from 'ngx-tethys/core';
 import { clone, options } from '../cascader-address-options';
 
 @Component({
@@ -10,17 +12,22 @@ import { clone, options } from '../cascader-address-options';
     styles: [
         `
             thy-cascader {
-                width: 100%;
+                display: block;
+                width: 240px;
             }
         `
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyCascader, FormsModule, ThyColDirective, ThyRowDirective]
+    imports: [ThyCascader, FormsModule, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyCascaderAppearanceExampleComponent implements OnInit {
-    public areaCode: any[] = [];
+    appearances: ThyFormControlAppearance[] = ['outline', 'fill', 'subtle', 'ghost'];
 
-    public values: any[] = [];
+    appearance: ThyFormControlAppearance = 'outline';
+
+    areaCode: any[] = [];
+
+    values: any[] = [];
 
     ngOnInit() {
         this.areaCode = clone(options);

@@ -1,6 +1,8 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyFormControlAppearance } from 'ngx-tethys/core';
 import { ThyTreeSelect } from 'ngx-tethys/tree-select';
 import { basicTreeSelectData } from '../mock-data';
 
@@ -10,15 +12,20 @@ import { basicTreeSelectData } from '../mock-data';
     styles: [
         `
             thy-tree-select {
-                width: 100%;
+                display: block;
+                width: 240px;
             }
         `
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyTreeSelect, FormsModule, ThyColDirective, ThyRowDirective]
+    imports: [ThyTreeSelect, FormsModule, ThyButtonGroup, NgClass, ThyButton]
 })
 export class ThyTreeSelectAppearanceExampleComponent {
-    public treeSelectNodes = basicTreeSelectData;
+    appearances: ThyFormControlAppearance[] = ['outline', 'fill', 'subtle', 'ghost'];
 
-    public selectedValue = '';
+    appearance: ThyFormControlAppearance = 'outline';
+
+    treeSelectNodes = basicTreeSelectData;
+
+    selectedValue = '';
 }
