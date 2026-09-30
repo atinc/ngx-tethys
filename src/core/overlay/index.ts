@@ -5,5 +5,7 @@ export * from './overlay.directive';
 export * from './abstract-overlay-ref';
 export * from './abstract-overlay.config';
 export * from './abstract-overlay-container';
+export * from './overlay-motion';
+export * from './overlay-motion.constants';
 export * from './abstract-overlay.service';
 export * from './portal-directives';

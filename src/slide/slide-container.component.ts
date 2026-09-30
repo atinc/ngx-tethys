@@ -1,9 +1,8 @@
 import { ThyAbstractOverlayContainer, ThyPortalOutlet } from 'ngx-tethys/core';
 import { helpers } from 'ngx-tethys/util';
-import { Observable, Subject } from 'rxjs';
-import { filter, startWith, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 
-import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 
@@ -21,7 +20,6 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { thySlideAnimations } from './slide-animations';
 import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
 
 /**
@@ -30,7 +28,6 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
 @Component({
     selector: 'thy-slide-container',
     template: ` <ng-template thyPortalOutlet></ng-template> `,
-    animations: [thySlideAnimations.slideContainer],
     host: {
         class: 'thy-slide-container',
         '[class.thy-slide-push]': 'isPush',
@@ -38,9 +35,6 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
         '[class.thy-slide-over]': '!isPush && !isSide',
         tabindex: '-1',
         '[attr.role]': `'slide'`,
-        '[@slideContainer]': 'animationState',
-        '(@slideContainer.start)': 'onAnimationStart($event)',
-        '(@slideContainer.done)': 'onAnimationDone($event)',
         '[style.width.px]': 'slideContainerStyles.width',
         '[style.height.px]': 'slideContainerStyles.height',
         '[style.max-height.px]': 'slideContainerStyles.height'
@@ -59,12 +53,6 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet!: ThyPortalOutlet;
 
-    animationOpeningDone!: Observable<AnimationEvent>;
-
-    animationClosingDone!: Observable<AnimationEvent>;
-
-    animationState: ThySlideFromTypes = 'void';
-
     slideContainerStyles: { width?: number; height?: number } = {};
 
     private drawerContainerElement!: HTMLElement | null;
@@ -72,6 +60,8 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
     private ngUnsubscribe$ = new Subject<void>();
 
     private hostRenderer = useHostRenderer();
+
+    private slideMotionClass = '';
 
     get isPush() {
         return this.config.mode === 'push' && !!this.drawerContainerElement;
@@ -116,16 +106,7 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
         const changeDetectorRef = inject(ChangeDetectorRef);
 
         super(slideAbstractOverlayOptions, changeDetectorRef);
-        this.animationOpeningDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === this.animationState;
-            })
-        );
-        this.animationClosingDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'exit';
-            })
-        );
+        this.animationHost = this.elementRef.nativeElement;
         this.setDrawerContainerElement();
         this.checkContainerWithinViewport();
         this.addDrawerContainerElementClass();
@@ -199,26 +180,29 @@ export class ThySlideContainer extends ThyAbstractOverlayContainer implements On
         }
     }
 
+    private applySlideMotionClass(fromState: ThySlideFromTypes) {
+        const host = this.elementRef.nativeElement;
+        if (this.slideMotionClass) {
+            this.renderer.removeClass(host, this.slideMotionClass);
+        }
+        this.slideMotionClass = `thy-slide-from-${fromState}`;
+        this.renderer.addClass(host, this.slideMotionClass);
+    }
+
     beforeAttachPortal(): void {
+        let fromState: ThySlideFromTypes;
         if (this.config.offset) {
             this.hostRenderer.setStyle(this.config.from!, `${this.config.offset}px`);
-            this.animationState = helpers.camelCase(['offset', this.config.from!]) as ThySlideFromTypes;
+            fromState = helpers.camelCase(['offset', this.config.from!]) as ThySlideFromTypes;
         } else {
-            this.animationState = this.config.from!;
+            fromState = this.config.from!;
         }
+        this.applySlideMotionClass(fromState);
         this.setDrawerContainerElementStyle();
     }
 
     beforeDetachPortal(): void {
         this.removeDrawerContainerElementStyle();
-    }
-
-    onAnimationDone(event: AnimationEvent) {
-        this.animationStateChanged.emit(event);
-    }
-
-    onAnimationStart(event: AnimationEvent) {
-        this.animationStateChanged.emit(event);
     }
 
     ngOnDestroy() {

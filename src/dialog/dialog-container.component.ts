@@ -1,8 +1,5 @@
 import { reqAnimFrame, ThyAbstractOverlayContainer, ThyClickPositioner, ThyPortalOutlet } from 'ngx-tethys/core';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
-import { AnimationEvent } from '@angular/animations';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
 
@@ -11,8 +8,8 @@ import {
     ChangeDetectorRef,
     Component,
     DOCUMENT,
+    DestroyRef,
     ElementRef,
-    EventEmitter,
     forwardRef,
     HostBinding,
     inject,
@@ -21,8 +18,8 @@ import {
     Renderer2,
     ViewChild
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { thyDialogAnimations } from './dialog-animations';
 import { ThyDialogConfig } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
 import { ThyDialogHeader } from './header/dialog-header.component';
@@ -43,7 +40,6 @@ import { ThyDialogHeader } from './header/dialog-header.component';
     // Using OnPush for dialogs caused some sync issues, e.g. custom ngModel can't to detect changes
     // Disabled until we can track them down.
     changeDetection: ChangeDetectionStrategy.Eager,
-    animations: [thyDialogAnimations.dialogContainer],
     host: {
         class: 'thy-dialog-container',
         tabindex: '-1',
@@ -52,10 +48,7 @@ import { ThyDialogHeader } from './header/dialog-header.component';
         '[attr.role]': 'config.role',
         '[attr.aria-labelledby]': 'config.ariaLabel ? null : ariaLabelledBy',
         '[attr.aria-label]': 'config.ariaLabel',
-        '[attr.aria-describedby]': 'config.ariaDescribedBy || null',
-        '[@dialogContainer]': 'animationState',
-        '(@dialogContainer.start)': 'onAnimationStart($event)',
-        '(@dialogContainer.done)': 'onAnimationDone($event)'
+        '[attr.aria-describedby]': 'config.ariaDescribedBy || null'
     },
     imports: [PortalModule, ThyPortalOutlet, forwardRef(() => ThyDialogHeader)]
 })
@@ -67,21 +60,13 @@ export class ThyDialogContainer extends ThyAbstractOverlayContainer implements O
     private focusTrapFactory = inject(FocusTrapFactory);
     private ngZone = inject(NgZone);
     private renderer = inject(Renderer2);
-
-    animationOpeningDone!: Observable<AnimationEvent>;
-    animationClosingDone!: Observable<AnimationEvent>;
+    private destroyRef = inject(DestroyRef);
 
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet!: ThyPortalOutlet;
 
     @HostBinding(`attr.id`)
     id!: string;
-
-    /** State of the dialog animation. */
-    animationState: 'void' | 'enter' | 'exit' = 'void';
-
-    /** Emits when an animation state changes. */
-    animationStateChanged = new EventEmitter<AnimationEvent>();
 
     /** ID of the element that should be considered as the dialog's label. */
     ariaLabelledBy: string | null = null;
@@ -155,18 +140,22 @@ export class ThyDialogContainer extends ThyAbstractOverlayContainer implements O
         }
     }
 
-    private setTransformOrigin() {
-        this.clickPositioner.runTaskUseLastPosition(lastPosition => {
-            if (lastPosition) {
-                const containerElement: HTMLElement = this.elementRef.nativeElement;
-                const transformOrigin = `${lastPosition.x - containerElement.offsetLeft}px ${
-                    lastPosition.y - containerElement.offsetTop
-                }px 0px`;
-                containerElement.style.transformOrigin = transformOrigin;
-                // 手动修改动画状态为从 void 到 enter, 开启动画
-            }
-            this.animationState = 'enter';
-            this.changeDetectorRef.markForCheck();
+    private applyTransformOrigin() {
+        const containerElement: HTMLElement = this.elementRef.nativeElement;
+        const lastPosition = this.clickPositioner.lastClickPosition;
+        if (lastPosition) {
+            const transformOrigin = `${lastPosition.x - containerElement.offsetLeft}px ${
+                lastPosition.y - containerElement.offsetTop
+            }px 0px`;
+            containerElement.style.transformOrigin = transformOrigin;
+            // 手动修改动画状态为从 void 到 enter, 开启动画
+        }
+    }
+
+    protected override afterAttachPortal(): void {
+        this.scheduleEnterAnimation(() => {
+            this.applyTransformOrigin();
+            this.beginEnterAnimation();
         });
     }
 
@@ -174,46 +163,22 @@ export class ThyDialogContainer extends ThyAbstractOverlayContainer implements O
         const changeDetectorRef = inject(ChangeDetectorRef);
 
         super(dialogAbstractOverlayOptions, changeDetectorRef);
-        this.animationOpeningDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'void';
-            })
-        );
-        this.animationClosingDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'exit';
-            })
-        );
-        /* Prohibit operations on elements inside the container during animation execution */
-        this.animationStateChanged
-            .pipe(
-                filter((event: AnimationEvent) => {
-                    return event.phaseName === 'start' && event.toState === 'exit';
-                })
-            )
-            .subscribe(() => {
+        this.animationHost = this.elementRef.nativeElement;
+
+        this.motionPhaseChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(phase => {
+            if (phase === 'enter-active') {
+                this.trapFocus();
+            } else if (phase === 'leave-active') {
+                this.restoreFocus();
+            } else if (phase === 'leave-start') {
+                /* Prohibit operations on elements inside the container during animation execution */
                 this.renderer.setStyle(this.elementRef.nativeElement, 'pointer-events', 'none');
-            });
+            }
+        });
     }
 
     beforeAttachPortal(): void {
-        this.setTransformOrigin();
         this.savePreviouslyFocusedElement();
-    }
-
-    /** Callback, invoked whenever an animation on the host completes. */
-    onAnimationDone(event: AnimationEvent) {
-        if (event.toState === 'void') {
-            this.trapFocus();
-        } else if (event.toState === 'exit') {
-            this.restoreFocus();
-        }
-        this.animationStateChanged.emit(event);
-    }
-
-    /** Callback, invoked when an animation on the host starts. */
-    onAnimationStart(event: AnimationEvent) {
-        this.animationStateChanged.emit(event);
     }
 
     ngOnDestroy() {

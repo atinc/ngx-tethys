@@ -1,8 +1,7 @@
-import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet, scaleMotion, scaleXMotion, scaleYMotion } from 'ngx-tethys/core';
-import { from, Observable, timer } from 'rxjs';
-import { filter, take, takeUntil } from 'rxjs/operators';
+import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet } from 'ngx-tethys/core';
+import { timer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { AnimationEvent } from '@angular/animations';
 import { ContentObserver } from '@angular/cdk/observers';
 import { PortalModule } from '@angular/cdk/portal';
 import {
@@ -18,7 +17,8 @@ import {
     inject,
     Injector,
     afterNextRender,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    Renderer2
 } from '@angular/core';
 
 import { ThyPopoverConfig } from './popover.config';
@@ -30,23 +30,11 @@ import { popoverAbstractOverlayOptions } from './popover.options';
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',
-    animations: [scaleXMotion, scaleYMotion, scaleMotion],
     host: {
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
-        '[attr.id]': 'id',
-        '[@.disabled]': '!!config.animationDisabled',
-        '[@scaleXMotion]': '(config.placement === "left" || config.placement === "right") ? animationState : "void"',
-        '(@scaleXMotion.start)': 'onAnimationStart($event)',
-        '(@scaleXMotion.done)': 'onAnimationDone($event)',
-        '[@scaleYMotion]': '(config.placement === "top" || config.placement === "bottom") ? animationState : "void"',
-        '(@scaleYMotion.start)': 'onAnimationStart($event)',
-        '(@scaleYMotion.done)': 'onAnimationDone($event)',
-        '[@scaleMotion]':
-            '(config.placement !== "left" && config.placement !== "right" && config.placement !== "top" && config.placement !== "bottom") ? animationState : "void"',
-        '(@scaleMotion.start)': 'onAnimationStart($event)',
-        '(@scaleMotion.done)': 'onAnimationDone($event)'
+        '[attr.id]': 'id'
     },
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [PortalModule, ThyPortalOutlet]
@@ -58,18 +46,10 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
     private contentObserver = inject(ContentObserver);
     private ngZone = inject(NgZone);
     private injector = inject(Injector);
+    private renderer = inject(Renderer2);
 
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet!: ThyPortalOutlet;
-
-    /** State of the popover animation. */
-    animationState: 'void' | 'enter' | 'exit' = 'enter';
-
-    /** Emits when an animation state changes. */
-    animationStateChanged = new EventEmitter<AnimationEvent>();
-
-    animationOpeningDone!: Observable<AnimationEvent>;
-    animationClosingDone!: Observable<AnimationEvent>;
 
     insideClicked = new EventEmitter();
 
@@ -83,17 +63,12 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
         const changeDetectorRef = inject(ChangeDetectorRef);
 
         super(popoverAbstractOverlayOptions, changeDetectorRef);
+        this.animationHost = this.elementRef.nativeElement;
+        this.applyMotionVariantClass();
+    }
 
-        this.animationOpeningDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'enter';
-            })
-        );
-        this.animationClosingDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'exit';
-            })
-        );
+    protected override isOverlayAnimationEnabled(): boolean {
+        return super.isOverlayAnimationEnabled() && !this.config.animationDisabled;
     }
 
     ngAfterViewInit() {
@@ -128,27 +103,16 @@ export class ThyPopoverContainer<TData = unknown> extends ThyAbstractOverlayCont
         }
     }
 
-    /** Callback, invoked whenever an animation on the host completes. */
-    onAnimationDone(event: AnimationEvent) {
-        // if (event.toState === 'void') {
-        //     this.trapFocus();
-        // } else if (event.toState === 'exit') {
-        //     this.restoreFocus();
-        // }
-        this.animationStateChanged.emit(event);
-    }
-
-    /** Callback, invoked when an animation on the host starts. */
-    onAnimationStart(event: AnimationEvent) {
-        this.animationStateChanged.emit(event);
-    }
-
-    startExitAnimation(): void {
-        this.animationState = 'exit';
-
-        // Mark the container for check so it can react if the
-        // view container is using OnPush change detection.
-        this.changeDetectorRef.markForCheck();
+    private applyMotionVariantClass(): void {
+        const placement = this.config.placement;
+        const host = this.elementRef.nativeElement;
+        if (placement === 'left' || placement === 'right') {
+            this.renderer.addClass(host, 'thy-popover-motion-x');
+        } else if (placement === 'top' || placement === 'bottom') {
+            this.renderer.addClass(host, 'thy-popover-motion-y');
+        } else {
+            this.renderer.addClass(host, 'thy-popover-motion-scale');
+        }
     }
 
     @HostListener('click', [])

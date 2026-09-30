@@ -1,6 +1,4 @@
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { AnimationEvent } from '@angular/animations';
+import { ElementRef } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { CdkPortalOutlet, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
@@ -70,10 +68,6 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
 export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnDestroy {
     config!: ThyAbstractOverlayConfig<TData>;
 
-    animationOpeningDone!: Observable<AnimationEvent>;
-
-    animationClosingDone!: Observable<AnimationEvent>;
-
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet!: CdkPortalOutlet;
 
@@ -81,18 +75,10 @@ export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOv
 
     constructor() {
         const changeDetectorRef = coreInject(ChangeDetectorRef);
+        const elementRef = coreInject(ElementRef);
 
         super(testDialogOptions, changeDetectorRef);
-        this.animationOpeningDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'void';
-            })
-        );
-        this.animationClosingDone = this.animationStateChanged.pipe(
-            filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'exit';
-            })
-        );
+        this.animationHost = elementRef.nativeElement;
     }
 
     ngOnDestroy() {
