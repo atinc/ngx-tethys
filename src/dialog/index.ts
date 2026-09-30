@@ -8,4 +8,5 @@ export * from './header/dialog-header.component';
 export * from './body/dialog-body.component';
 export * from './footer/dialog-footer.component';
 export { ThyConfirm as ThyConfirmComponent$1 } from './confirm/confirm.component';
+export * from './dialog-animation.config';
 export * from './dialog-animations';

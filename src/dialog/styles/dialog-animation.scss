@@ -1,0 +1,38 @@
+// Dialog zoom motion — matches legacy thyDialogAnimations timing/curves.
+
+@keyframes thyDialogZoomIn {
+    from {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes thyDialogZoomOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+}
+
+.thy-dialog-zoom-enter {
+    transform: scale(0.1);
+    opacity: 0;
+}
+
+.thy-dialog-zoom-enter-active {
+    animation: thyDialogZoomIn 200ms cubic-bezier(0, 0, 0.57, 1);
+    animation-fill-mode: forwards;
+}
+
+.thy-dialog-zoom-leave-active {
+    animation: thyDialogZoomOut 150ms cubic-bezier(0.24, 0.18, 0.96, 0.52);
+    animation-fill-mode: forwards;
+}

@@ -3,6 +3,7 @@
 @use '../../styles/bootstrap/mixins/text-truncate';
 @use '../../styles/variables';
 @use '../../styles/modules/utils.scss';
+@use './dialog-animation.scss';
 
 .thy-dialog-content-sidebar-header {
     min-height: variables.$dialog-header-height;
