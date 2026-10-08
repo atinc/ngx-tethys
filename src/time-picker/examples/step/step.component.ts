@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 import { FormsModule } from '@angular/forms';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-time-picker-step-example',
@@ -8,10 +9,6 @@ import { FormsModule } from '@angular/forms';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimePicker, FormsModule]
 })
-export class ThyTimePickerStepExampleComponent implements OnInit {
-    date!: Date;
-
-    constructor() {}
-
-    ngOnInit() {}
+export class ThyTimePickerStepExampleComponent {
+    date: Date = new TinyDate()?.nativeDate;
 }

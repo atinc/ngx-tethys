@@ -1,14 +1,18 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
-    selector: 'thy-time-picker-readonly-example',
-    templateUrl: './readonly.component.html',
+    selector: 'thy-time-picker-disabled-example',
+    templateUrl: './disabled.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimePicker, FormsModule]
 })
-export class ThyTimePickerReadonlyExampleComponent {
+export class ThyTimePickerDisabledExampleComponent {
     date: Date = new TinyDate()?.nativeDate;
+
+    onChange(event: Date) {
+        console.log(event);
+    }
 }
