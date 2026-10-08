@@ -173,20 +173,8 @@ export class ThyDynamicForm {
 
     protected showError(field: ThyFormFieldConfig): boolean {
         const control = this.formGroup.get(field.key);
-        if (!(control instanceof FormControl) || !control.invalid) {
-            return false;
-        }
-        if (this.submitted()) {
-            return true;
-        }
-        switch (field.updateOn) {
-            case 'blur':
-                return control.touched;
-            case 'change':
-                return control.dirty;
-            default:
-                return false;
-        }
+
+        return control instanceof FormControl && control.invalid && (control.dirty || control.touched || this.submitted());
     }
 
     protected errorMessage(field: ThyFormFieldConfig): string | null {
