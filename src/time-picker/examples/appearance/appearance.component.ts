@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyFormControlAppearance } from 'ngx-tethys/core';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-time-picker-appearance-example',
@@ -16,5 +17,5 @@ export class ThyTimePickerAppearanceExampleComponent {
 
     appearance: ThyFormControlAppearance = 'outline';
 
-    date: Date | null = null;
+    date: Date = new TinyDate()?.nativeDate;
 }

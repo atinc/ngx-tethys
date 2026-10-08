@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-time-picker-size-example',
@@ -10,8 +11,8 @@ import { FormsModule } from '@angular/forms';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimePicker, ThyButtonGroup, ThyButton, NgClass, FormsModule]
 })
-export class ThyTimePickerSizeExampleComponent implements OnInit {
-    date!: Date;
+export class ThyTimePickerSizeExampleComponent {
+    date: Date = new TinyDate()?.nativeDate;
 
     sizes = [
         {
@@ -29,8 +30,4 @@ export class ThyTimePickerSizeExampleComponent implements OnInit {
     ];
 
     size: string = 'lg';
-
-    constructor() {}
-
-    ngOnInit() {}
 }
