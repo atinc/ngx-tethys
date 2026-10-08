@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.4](github.com/atinc/ngx-tethys/compare/22.0.3...22.0.4) (2026-10-08)
+
+
+### Bug Fixes
+
+* **form:** fix form layout style error #TINFR-4117 ([#3977](/github.com/atinc/ngx-tethys/issues/3977)) ([6e72130](github.com/atinc/ngx-tethys/commits/6e721302d0c4840f5fada0faa16628a0f094d062)), closes [#TINFR-4117](github.com/atinc/ngx-tethys/issues/TINFR-4117)
+* **styles:** remove unused border color from form control focus mixin ([#3998](/github.com/atinc/ngx-tethys/issues/3998)) ([8717a80](github.com/atinc/ngx-tethys/commits/8717a80f54a900df9340849f066cc6fa5d0bdaf7))
+* **table:** track list and group rows by thyRowKey #TINFR-4151 ([#3986](/github.com/atinc/ngx-tethys/issues/3986)) ([1142aa3](github.com/atinc/ngx-tethys/commits/1142aa39ff472f02abe8301267e30d91fef65188)), closes [#TINFR-4151](github.com/atinc/ngx-tethys/issues/TINFR-4151)
+
+
+### Features
+
+* **alert:** mark 'primary-weak' | 'success-weak' | 'warning-weak' | 'danger-weak' as deprecated #TINFR-4141- [#3993](/github.com/atinc/ngx-tethys/issues/3993) ([#3993](/github.com/atinc/ngx-tethys/issues/3993)) ([db3adf9](github.com/atinc/ngx-tethys/commits/db3adf9ffc4b3a9caf222ac4d2c92f8ce6c703bb)), closes [#TINFR-4141-](github.com/atinc/ngx-tethys/issues/TINFR-4141-)
+* appearance support fill #TINFR-4126 ([#3992](/github.com/atinc/ngx-tethys/issues/3992)) ([dc3a6aa](github.com/atinc/ngx-tethys/commits/dc3a6aa0fb341a9ca861465f5e08b9c5b2b7778b)), closes [#TINFR-4126](github.com/atinc/ngx-tethys/issues/TINFR-4126)
+* **dot:** add ThyDotColor, ThyDotSize, ThyDotShape and mark ThyColorType, ThySizeType, ThyShapeType as deprecated #TINFR-4145 ([#3980](/github.com/atinc/ngx-tethys/issues/3980)) ([0f10026](github.com/atinc/ngx-tethys/commits/0f100260fba7b64d85e251f1ea4ae2b7ac54bbeb)), closes [#TINFR-4145](github.com/atinc/ngx-tethys/issues/TINFR-4145)
+* **icon:** add thyAppearance, thyName, thyRotate, thySet, thyLegging, thyLinearGradient and mark thyIconType, thyIconName, thyIconRotate, thyIconSet, thyIconLegging, thyIconLinearGradient as deprecated #TINFR-4142 ([#3984](/github.com/atinc/ngx-tethys/issues/3984)) ([287ceb2](github.com/atinc/ngx-tethys/commits/287ceb25c0f4188701ef3e4abc24dffb04ce1c9f)), closes [#TINFR-4142](github.com/atinc/ngx-tethys/issues/TINFR-4142)
+* **input:** use 「`thyShape="ellipse" thyAppearance="fill"`」 instead of  thyTheme="ellipse" #TINFR-4126 ([#3994](/github.com/atinc/ngx-tethys/issues/3994)) ([7745e69](github.com/atinc/ngx-tethys/commits/7745e696d6b20eaca5702ea2e2bd3b7f96a730fe)), closes [#TINFR-4126](github.com/atinc/ngx-tethys/issues/TINFR-4126)
+* **loading:** add thyTips and mark thyTip as deprecated #TINFR-4127 ([#3982](/github.com/atinc/ngx-tethys/issues/3982)) ([21575b8](github.com/atinc/ngx-tethys/commits/21575b85156e8d9a4cf3c52d5f0ac64ec2a8eab6)), closes [#TINFR-4127](github.com/atinc/ngx-tethys/issues/TINFR-4127)
+* **select:** rename thyMode→thyMultiple,thyAllowClear→thyClearable,thyShowSearch→thySearchable, thyServerSearch→thyServerSearchable,thyLoadState→thyLoading,thyEmptySearchMessageText→thySearchEmptyText,thyOnSearch→thyInputChange, thyOnScrollToBottom→thyScrollToBottom, thyOnExpandStatusChange→thyExpandStatusChange #TINFR-3996 ([#3985](/github.com/atinc/ngx-tethys/issues/3985)) ([6549aeb](github.com/atinc/ngx-tethys/commits/6549aeb7efe1abf349c55de0625d5f392e6642d8)), closes [#TINFR-3996](github.com/atinc/ngx-tethys/issues/TINFR-3996)
+* **select:** support thyOptions option icon in list and selected display #TINFR-4149 ([#3979](/github.com/atinc/ngx-tethys/issues/3979)) ([24721b1](github.com/atinc/ngx-tethys/commits/24721b1996eb69d038a963a2a682a59a462a24ec)), closes [#TINFR-4149](github.com/atinc/ngx-tethys/issues/TINFR-4149)
+* **table:** add thyVariant and ThyTableVariant, deprecate thyMode and ThyTableMode #TINFR-4144 ([#3978](/github.com/atinc/ngx-tethys/issues/3978)) ([7f33fb6](github.com/atinc/ngx-tethys/commits/7f33fb6c1d5608f7f0c6f74dbf91ac65bd73a479)), closes [#TINFR-4144](github.com/atinc/ngx-tethys/issues/TINFR-4144)
+* **tag:** rename thyShape pill value to ellipse, deprecate pill and thy-tag-pill class #TINFR-4093 ([#3983](/github.com/atinc/ngx-tethys/issues/3983)) ([38b62b0](github.com/atinc/ngx-tethys/commits/38b62b0d2356ff308b0ea15d767beb905f4ed85a)), closes [#TINFR-4093](github.com/atinc/ngx-tethys/issues/TINFR-4093)
+* **vote:** add thyColor+thyAppearance instead of thyVote, and rename thyHasVoted → thyVoted, thyVoteCount → thyCount, ThyVoteSizes → ThyVoteSize #TINFR-4140 ([#3975](/github.com/atinc/ngx-tethys/issues/3975)) ([913aab4](github.com/atinc/ngx-tethys/commits/913aab40388e5cabeceeb7ad59235edd7deeb35c)), closes [#TINFR-4140](github.com/atinc/ngx-tethys/issues/TINFR-4140) [#TINFR-4140](github.com/atinc/ngx-tethys/issues/TINFR-4140)
+* **vote:** add thyShape: 'rectangle' | 'ellipse' and mark thyRound: boolean as deprecated #TINFR-4146 ([#3981](/github.com/atinc/ngx-tethys/issues/3981)) ([9a651de](github.com/atinc/ngx-tethys/commits/9a651de5c131682124a5ee7e08f3114cb4a98703)), closes [#TINFR-4146](github.com/atinc/ngx-tethys/issues/TINFR-4146)
+
 ## [22.0.3](github.com/atinc/ngx-tethys/compare/22.0.2...22.0.3) (2026-09-24)
 
 
