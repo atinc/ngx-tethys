@@ -3,33 +3,29 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyFormControlAppearance } from 'ngx-tethys/core';
-import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
+import { ThyNativeSelect } from 'ngx-tethys/select';
+import { listOfOption } from '../mock-data';
 
 @Component({
-    selector: 'thy-date-picker-appearance-example',
-    templateUrl: './appearance.component.html',
+    selector: 'thy-native-select-appearance-example',
+    templateUrl: './native-appearance.component.html',
     styles: [
         `
-            thy-date-picker {
+            thy-native-select {
                 display: block;
                 width: 240px;
-            }
-
-            thy-range-picker {
-                display: block;
-                width: 320px;
             }
         `
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyDatePicker, ThyRangePicker, FormsModule, ThyButtonGroup, NgClass, ThyButton]
+    imports: [ThyNativeSelect, FormsModule, ThyButtonGroup, NgClass, ThyButton]
 })
-export class ThyDatePickerAppearanceExampleComponent {
+export class ThyNativeSelectAppearanceExampleComponent {
     appearances: ThyFormControlAppearance[] = ['outline', 'fill', 'subtle', 'ghost'];
 
     appearance: ThyFormControlAppearance = 'outline';
 
-    date: Date | null = null;
+    listOfOption = listOfOption;
 
-    dateRange: Date[] = [];
+    value = '';
 }

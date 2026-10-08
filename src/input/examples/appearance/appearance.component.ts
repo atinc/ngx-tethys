@@ -1,5 +1,8 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
+import { ThyFormControlAppearance } from 'ngx-tethys/core';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
 
@@ -7,8 +10,12 @@ import { ThyInput, ThyInputDirective } from 'ngx-tethys/input';
     selector: 'thy-input-appearance-example',
     templateUrl: './appearance.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyInput, ThyInputDirective, ThyColDirective, ThyRowDirective, FormsModule]
+    imports: [ThyInputDirective, ThyInput, FormsModule, ThyButtonGroup, NgClass, ThyButton, ThyRowDirective, ThyColDirective]
 })
 export class ThyInputAppearanceExampleComponent {
-    public value: any = '';
+    appearances: ThyFormControlAppearance[] = ['outline', 'fill', 'subtle', 'ghost'];
+
+    appearance: ThyFormControlAppearance = 'outline';
+
+    value = '';
 }

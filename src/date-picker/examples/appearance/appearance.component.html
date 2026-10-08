@@ -1,32 +1,11 @@
-<div thyRow [thyGutter]="30">
-  <div thyCol [thySpan]="12">
-    <div class="mb-2 text-secondary">thy-date-picker</div>
-    <thy-date-picker [(ngModel)]="date" [thyAppearance]="'outline'" [thyPlaceholder]="'outline'"></thy-date-picker>
-    <thy-date-picker class="mt-3" [(ngModel)]="date" [thyAppearance]="'fill'" [thyPlaceholder]="'fill'"></thy-date-picker>
-    <thy-date-picker class="mt-3" [(ngModel)]="date" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'"></thy-date-picker>
-    <thy-date-picker class="mt-3" [(ngModel)]="date" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'"></thy-date-picker>
-  </div>
-  <div thyCol [thySpan]="12">
-    <div class="mb-2 text-secondary">thy-date-picker（disabled）</div>
-    <thy-date-picker [thyAppearance]="'outline'" [thyPlaceholder]="'outline'" thyDisabled></thy-date-picker>
-    <thy-date-picker class="mt-3" [thyAppearance]="'fill'" [thyPlaceholder]="'fill'" thyDisabled></thy-date-picker>
-    <thy-date-picker class="mt-3" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'" thyDisabled></thy-date-picker>
-    <thy-date-picker class="mt-3" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'" thyDisabled></thy-date-picker>
-  </div>
-</div>
-<div thyRow [thyGutter]="30" class="mt-4">
-  <div thyCol [thySpan]="12">
-    <div class="mb-2 text-secondary">thy-range-picker</div>
-    <thy-range-picker [(ngModel)]="dateRange" [thyAppearance]="'outline'" [thyPlaceholder]="'outline'"></thy-range-picker>
-    <thy-range-picker class="mt-3" [(ngModel)]="dateRange" [thyAppearance]="'fill'" [thyPlaceholder]="'fill'"></thy-range-picker>
-    <thy-range-picker class="mt-3" [(ngModel)]="dateRange" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'"></thy-range-picker>
-    <thy-range-picker class="mt-3" [(ngModel)]="dateRange" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'"></thy-range-picker>
-  </div>
-  <div thyCol [thySpan]="12">
-    <div class="mb-2 text-secondary">thy-range-picker（disabled）</div>
-    <thy-range-picker [thyAppearance]="'outline'" [thyPlaceholder]="'outline'" thyDisabled></thy-range-picker>
-    <thy-range-picker class="mt-3" [thyAppearance]="'fill'" [thyPlaceholder]="'fill'" thyDisabled></thy-range-picker>
-    <thy-range-picker class="mt-3" [thyAppearance]="'subtle'" [thyPlaceholder]="'subtle'" thyDisabled></thy-range-picker>
-    <thy-range-picker class="mt-3" [thyAppearance]="'ghost'" [thyPlaceholder]="'ghost'" thyDisabled></thy-range-picker>
-  </div>
-</div>
+<thy-button-group class="mb-3" thySize="md" thyAppearance="outline">
+  @for (item of appearances; track $index) {
+    <button thyButton (click)="appearance = item" [ngClass]="{ active: item === appearance }">
+      {{ item }}
+    </button>
+  }
+</thy-button-group>
+<div class="mb-2 text-secondary">thy-date-picker</div>
+<thy-date-picker [(ngModel)]="date" [thyAppearance]="appearance" [thyPlaceholder]="appearance"></thy-date-picker>
+<div class="mb-2 mt-3 text-secondary">thy-range-picker</div>
+<thy-range-picker [(ngModel)]="dateRange" [thyAppearance]="appearance" [thyPlaceholder]="appearance"></thy-range-picker>

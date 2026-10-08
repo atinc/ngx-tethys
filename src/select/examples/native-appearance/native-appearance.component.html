@@ -5,8 +5,9 @@
     </button>
   }
 </thy-button-group>
-<thy-tree-select
-  [thyTreeNodes]="treeSelectNodes"
-  [(ngModel)]="selectedValue"
-  [thyAppearance]="appearance"
-  [thyPlaceholder]="appearance"></thy-tree-select>
+<thy-native-select [(ngModel)]="value" [thyAppearance]="appearance">
+  <option value="">{{ appearance }}</option>
+  @for (option of listOfOption; track option.value) {
+    <option [value]="option.value">{{ option.text }}</option>
+  }
+</thy-native-select>
