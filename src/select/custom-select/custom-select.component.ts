@@ -700,6 +700,11 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
         this.selectedValues.set(selectedValues);
     }
 
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+        this.changeDetectorRef.markForCheck();
+    }
+
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher

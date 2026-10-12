@@ -1,6 +1,6 @@
-<form novalidate [formGroup]="formGroup">
+<form [formRoot]="fieldTree" (reset)="handleReset($event)">
   <div thyRow [thyGutter]="30">
-    @for (field of thyFields(); track field.key) {
+    @for (field of fields(); track field.key) {
       @let invalid = showError(field);
       <thy-form-group
         thyCol
@@ -11,41 +11,45 @@
           @case ('input') {
             <input
               thyInput
-              [formControlName]="field.key"
+              [formField]="getField(field.key)"
+              [id]="field.key"
               [name]="field.key"
               [class.is-invalid]="invalid"
               [attr.placeholder]="field.props?.placeholder || null"
               [attr.type]="field.props?.type || 'text'"
-              [attr.readonly]="field.props?.readonly ? '' : null"
-              [attr.required]="field.props?.required ? '' : null"
-              [attr.minlength]="field.props?.minlength ?? null"
-              [attr.maxlength]="field.props?.maxlength ?? null"
-              [attr.min]="field.props?.min ?? null"
-              [attr.max]="field.props?.max ?? null"
-              [attr.step]="field.props?.step ?? null"
+              [thySize]="thySize()" />
+          }
+          @case ('number') {
+            <thy-input-number
+              [formField]="getField(field.key)"
+              [id]="field.key"
+              [name]="field.key"
+              [class.is-invalid]="invalid"
+              [thyPlaceholder]="field.props?.placeholder || null"
+              [thySuffix]="field.props?.suffix"
+              [thyMax]="field.props?.max"
+              [thyMin]="field.props?.min"
+              [thyStep]="field.props?.step"
               [thySize]="thySize()" />
           }
           @case ('textarea') {
             <textarea
               thyInput
-              [formControlName]="field.key"
+              [formField]="getField(field.key)"
+              [id]="field.key"
               [name]="field.key"
               [class.is-invalid]="invalid"
               [attr.placeholder]="field.props?.placeholder || null"
-              [attr.readonly]="field.props?.readonly ? '' : null"
-              [attr.required]="field.props?.required ? '' : null"
-              [attr.minlength]="field.props?.minlength ?? null"
-              [attr.maxlength]="field.props?.maxlength ?? null"
               [attr.rows]="field.props?.rows ?? 3"
               [style.resize]="field.props?.resize ?? 'none'"
               [thySize]="thySize()"></textarea>
           }
           @case ('select') {
             <thy-select
-              [formControlName]="field.key"
+              [formField]="getField(field.key)"
+              [id]="field.key"
               [attr.name]="field.key"
               [class.is-invalid]="invalid"
-              [thyDisabled]="!!field.props?.disabled"
               [thyOptions]="field.props?.options ?? []"
               [thyPlaceholder]="field.props?.placeholder ?? ''"
               [thySearchable]="field.props?.searchable"

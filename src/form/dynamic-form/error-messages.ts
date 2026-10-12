@@ -1,45 +1,40 @@
-import { AbstractControl } from '@angular/forms';
+import { ValidationError } from '@angular/forms/signals';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
 import { ERROR_VALUE_REPLACE_REGEX } from '../form-validator-loader';
 import { ThyFormFieldConfig } from './types';
 
+const loaderErrorCodes: Readonly<Record<string, string>> = {
+    minLength: 'minlength',
+    maxLength: 'maxlength'
+};
+
 export function resolveFieldErrorMessage(
     field: ThyFormFieldConfig,
-    control: AbstractControl,
+    error: ValidationError | undefined,
     getErrorMessage: (name: string, code: string) => string | undefined
 ): string | null {
-    const errors = control.errors;
-    if (!errors) {
+    if (!error) {
         return null;
     }
-    const code = Object.keys(errors)[0];
-    if (!code) {
-        return null;
+    const code = error.kind;
+    const loaderErrorCode = loaderErrorCodes[code] ?? code;
+    const messageTemplate = field.errorMessages?.[code] ?? getErrorMessage(field.key, loaderErrorCode);
+
+    if (messageTemplate) {
+        return formatValidationMessage(error, messageTemplate, loaderErrorCode);
     }
-    const fromField = field.errorMessages?.[code];
-    const fromLoader = getErrorMessage(field.key, code);
-    const message = typeof fromField === 'string' ? fromField : fromLoader;
-    if (typeof message === 'string' && message) {
-        return formatValidationMessage(control, message);
-    }
-    const payload = errors[code];
-    return typeof payload === 'string' ? payload : null;
+
+    return error.message ?? null;
 }
 
-function formatValidationMessage(control: AbstractControl, message: string): string {
-    const errors = control.errors;
-    if (!errors) {
-        return message;
-    }
+function formatValidationMessage(error: ValidationError, message: string, loaderErrorCode: string): string {
+    const errorData = error as ValidationError & Record<string, unknown>;
     return message.replace(ERROR_VALUE_REPLACE_REGEX, (tag, key) => {
-        if (!key || !errors[key]) {
+        const errorValue = errorData[key] ?? (key === loaderErrorCode ? errorData[error.kind] : undefined);
+        if (!key || isUndefinedOrNull(errorValue)) {
             return tag;
         }
-        const error = errors[key] as Record<string, unknown>;
-        if (isUndefinedOrNull(error[key])) {
-            return String(error['requiredLength'] ?? '');
-        }
-        return String(error[key]);
+        return String(errorValue);
     });
 }

@@ -1,8 +1,14 @@
 import { JsonPipe } from '@angular/common';
-import { afterNextRender, ChangeDetectionStrategy, Component, computed, signal, viewChild } from '@angular/core';
-import { FormControlStatus } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
-import { ThyDynamicForm, ThyFormFieldConfig, ThyFormFieldValueChange, ThyDynamicFormValue, ThyFormGroupFooter } from 'ngx-tethys/form';
+import {
+    ThyDynamicForm,
+    ThyDynamicFormStatus,
+    ThyFormFieldConfig,
+    ThyFormFieldValueChange,
+    ThyDynamicFormValue,
+    ThyFormGroupFooter
+} from 'ngx-tethys/form';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThyTag } from 'ngx-tethys/tag';
@@ -25,16 +31,30 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     imports: [JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThyTag, ThyRowDirective, ThyColDirective]
 })
 export class ThyFormDynamicExampleComponent {
-    private readonly dynamicForm = viewChild(ThyDynamicForm);
-
-    value = signal<ThyDynamicFormValue | undefined>(undefined);
+    value = signal<ThyDynamicFormValue>({});
 
     lastSubmit = signal<ThyDynamicFormValue | null>(null);
 
-    status = signal<FormControlStatus>('INVALID');
+    status = signal<ThyDynamicFormStatus>({
+        valid: false,
+        invalid: false,
+        pending: false,
+        submitting: false
+    });
+
+    readonly statusText = computed(() => {
+        const status = this.status();
+        if (status.submitting) {
+            return 'SUBMITTING';
+        }
+        if (status.pending) {
+            return 'PENDING';
+        }
+        return status.invalid ? 'INVALID' : 'VALID';
+    });
 
     readonly statusColor = computed(() => {
-        switch (this.status()) {
+        switch (this.statusText()) {
             case 'VALID':
                 return 'success';
             case 'INVALID':
@@ -46,17 +66,17 @@ export class ThyFormDynamicExampleComponent {
         }
     });
 
-    fields = signal<ThyFormFieldConfig[]>([
+    readonly fields = signal<ThyFormFieldConfig[]>([
         {
             key: 'username',
             kind: 'input',
-            updateOn: 'blur',
+            debounce: 'blur',
             defaultValue: 'Ada',
             errorMessages: {
                 required: 'Please type username',
                 reserved: 'admin is reserved'
             },
-            validators: [({ value }) => (value === 'admin' ? { reserved: true } : null)],
+            validators: [({ value }) => (value === 'admin' ? { kind: 'reserved' } : null)],
             props: {
                 label: 'Username',
                 placeholder: 'Please type username',
@@ -77,12 +97,11 @@ export class ThyFormDynamicExampleComponent {
         },
         {
             key: 'age',
-            kind: 'input',
+            kind: 'number',
             col: 6,
             props: {
                 label: 'Age',
                 placeholder: 'Please type number larger than 10',
-                type: 'number',
                 required: true,
                 min: 10
             }
@@ -106,7 +125,7 @@ export class ThyFormDynamicExampleComponent {
             col: 6,
             props: {
                 label: 'Organization',
-                placeholder: 'Disabled when Role is Developer',
+                placeholder: 'Please select organization',
                 required: true,
                 options: [
                     { value: 'organization-a', label: 'Organization A' },
@@ -126,23 +145,10 @@ export class ThyFormDynamicExampleComponent {
             }
         }
     ]);
-
     private projectSeq = 0;
-
-    constructor() {
-        afterNextRender(() => {
-            const form = this.dynamicForm();
-            if (!form) {
-                return;
-            }
-            this.value.set(form.formGroup.getRawValue() as ThyDynamicFormValue);
-            this.status.set(form.formGroup.status);
-        });
-    }
 
     onValueChange(value: ThyDynamicFormValue) {
         console.log('valueChange：', value);
-        this.value.set(value);
     }
 
     onFieldValueChange(event: ThyFormFieldValueChange) {
@@ -154,7 +160,7 @@ export class ThyFormDynamicExampleComponent {
         if (event.key !== 'organization') {
             return;
         }
-        this.value.update(current => ({ ...current, organization: event.value, project: null }));
+        this.value.update(current => ({ ...current, project: null }));
         this.patchProjectOptions([]);
         void this.loadProjects(event.value);
     }
@@ -164,14 +170,14 @@ export class ThyFormDynamicExampleComponent {
         this.lastSubmit.set(value);
     }
 
-    onStatusChange(status: FormControlStatus) {
+    onStatusChange(status: ThyDynamicFormStatus) {
         console.log('statusChange：', status);
         this.status.set(status);
     }
 
     private patchOrganizationDisabled(disabled: boolean) {
         this.fields.update(fields =>
-            fields.map(field => (field.key === 'organization' ? { ...field, props: { ...field.props, disabled } } : field))
+            fields.map(field => (field.key === 'organization' ? { ...field, props: { ...field.props, disabled: disabled } } : field))
         );
     }
 
