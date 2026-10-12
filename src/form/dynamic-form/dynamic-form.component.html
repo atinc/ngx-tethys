@@ -23,7 +23,7 @@
             <thy-input-number
               [formField]="getField(field.key)"
               [id]="field.key"
-              [name]="field.key"
+              [attr.name]="field.key"
               [class.is-invalid]="invalid"
               [thyPlaceholder]="field.props?.placeholder || null"
               [thySuffix]="field.props?.suffix"
@@ -50,6 +50,7 @@
               [id]="field.key"
               [attr.name]="field.key"
               [class.is-invalid]="invalid"
+              [thyDisabled]="getField(field.key)().disabled()"
               [thyOptions]="field.props?.options ?? []"
               [thyPlaceholder]="field.props?.placeholder ?? ''"
               [thySearchable]="field.props?.searchable"

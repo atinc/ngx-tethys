@@ -17,21 +17,13 @@ export function buildDynamicFormValue(fields: readonly ThyFormFieldConfig[], val
     const result: ThyDynamicFormValue = {};
 
     for (const field of fields) {
-        if (value?.[field.key] !== undefined) {
-            result[field.key] = value[field.key];
-        } else {
-            result[field.key] = getDynamicFormFieldDefaultValue(field);
-        }
+        result[field.key] = value?.[field.key] !== undefined ? value[field.key] : fieldDefaultValue(field);
     }
 
     return result;
 }
 
-export function buildDynamicFormDefaultValue(fields: readonly ThyFormFieldConfig[]): ThyDynamicFormValue {
-    return buildDynamicFormValue(fields);
-}
-
-export function getDynamicFormFieldDefaultValue(field: ThyFormFieldConfig): unknown {
+function fieldDefaultValue(field: ThyFormFieldConfig): unknown {
     if (field.defaultValue !== undefined) {
         return field.defaultValue;
     }

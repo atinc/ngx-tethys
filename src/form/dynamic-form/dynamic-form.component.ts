@@ -26,12 +26,7 @@ import { THY_FORM_CONFIG_PROVIDER } from '../form.class';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { ThyDynamicFormSpanPipe } from './dynamic-form.pipe';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
-import {
-    buildDynamicFormDefaultValue,
-    buildDynamicFormValue,
-    isSameDynamicFormValue,
-    validateDynamicFormFields
-} from './dynamic-form-value';
+import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
 import {
     FieldTreeRebuildDependency,
@@ -181,9 +176,7 @@ export class ThyDynamicForm {
     }
 
     reset(value?: ThyDynamicFormValue): void {
-        const fields = this.fields();
-        const nextValue = value === undefined ? buildDynamicFormDefaultValue(fields) : buildDynamicFormValue(fields, value);
-        this.fieldTree().reset(nextValue);
+        this.fieldTree().reset(buildDynamicFormValue(this.fields(), value));
     }
 
     protected handleReset(event: Event): void {
