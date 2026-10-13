@@ -74,12 +74,20 @@ export class ThyFormDynamicExampleComponent {
             defaultValue: 'Ada',
             errorMessages: {
                 required: 'Please type username',
-                reserved: 'admin is reserved'
+                minlength: 'Username must contain at least {minlength} characters',
+                reserved: 'admin is reserved',
+                usernameUnavailable: 'This username is already in use'
             },
             validators: [({ value }) => (value === 'admin' ? { kind: 'reserved' } : null)],
+            asyncValidators: [
+                async ({ value }) => {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    return value === 'tethys' ? { kind: 'usernameUnavailable' } : null;
+                }
+            ],
             props: {
                 label: 'Username',
-                placeholder: 'Please type username',
+                placeholder: 'Try admin or tethys',
                 required: true,
                 minlength: 2
             }

@@ -304,6 +304,30 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('input')?.classList.contains('is-invalid')).toBe(true);
     }));
 
+    it('should provide formValue and preserve all synchronous validator errors', fakeAsync(() => {
+        setFields([
+            { key: 'password', kind: 'input' },
+            {
+                key: 'confirmation',
+                kind: 'input',
+                validators: [
+                    ({ value, formValue }) => (value === formValue['password'] ? null : { kind: 'passwordMismatch' }),
+                    () => [{ kind: 'firstCustomError' }, { kind: 'secondCustomError' }]
+                ]
+            }
+        ]);
+        setValue({ password: 'secret', confirmation: 'different' });
+        tick();
+
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('confirmation')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['passwordMismatch', 'firstCustomError', 'secondCustomError']);
+    }));
+
     it('should show custom validator payload when the validator returns a Promise', fakeAsync(() => {
         setFields([
             {
@@ -329,6 +353,31 @@ describe('dynamic-form', () => {
         fixture.detectChanges();
         expect(formElement.textContent).toContain('必须输入 ok');
         expect(formElement.querySelector('input')?.classList.contains('is-invalid')).toBe(true);
+    }));
+
+    it('should aggregate asynchronous validator errors and preserve rejected validators', fakeAsync(() => {
+        setFields([
+            {
+                key: 'code',
+                kind: 'input',
+                asyncValidators: [
+                    ({ value, formValue }) =>
+                        Promise.resolve(
+                            value === formValue['expectedCode'] ? null : [{ kind: 'firstAsyncError' }, { kind: 'secondAsyncError' }]
+                        ),
+                    () => Promise.reject(new Error('validation failed'))
+                ]
+            },
+            { key: 'expectedCode', kind: 'input' }
+        ]);
+        setValue({ code: 'wrong', expectedCode: 'ok' });
+        tick();
+        flushMicrotasks();
+        fixture.detectChanges();
+
+        const errors = testComponent.dynamicForm().getField('code')().errors();
+        expect(errors.map(error => error.kind)).toEqual(['firstAsyncError', 'secondAsyncError', 'asyncValidation']);
+        expect(errors[2].message).toBe('validation failed');
     }));
 
     it('should expose pending while an async validator is running', fakeAsync(() => {

@@ -13,7 +13,8 @@ import {
     SchemaFn,
     SchemaPath,
     validate,
-    validateAsync
+    validateAsync,
+    ValidationError
 } from '@angular/forms/signals';
 
 import { ThyDynamicFormValue, ThyFormFieldAsyncValidator, ThyFormFieldConfig, ThyFormFieldValidator } from './types';
@@ -78,14 +79,17 @@ function bindCustomValidators(
     fieldPath: SchemaPath<unknown>,
     validators: readonly ThyFormFieldValidator[]
 ): void {
-    for (const validator of validators) {
-        validate(fieldPath, context =>
-            validator({
-                value: context.value(),
-                form: context.valueOf(rootPath)
-            })
-        );
+    if (!validators.length) {
+        return;
     }
+
+    validate(fieldPath, context => {
+        const validatorContext = {
+            value: context.value(),
+            formValue: context.valueOf(rootPath)
+        };
+        return validators.flatMap(validator => normalizeValidationErrors(validator(validatorContext)));
+    });
 }
 
 function bindAsyncValidators(
@@ -93,27 +97,52 @@ function bindAsyncValidators(
     fieldPath: SchemaPath<unknown>,
     validators: readonly ThyFormFieldAsyncValidator[]
 ): void {
-    for (const validator of validators) {
-        validateAsync(fieldPath, {
-            params: context => ({
-                value: context.value(),
-                form: context.valueOf(rootPath)
-            }),
-            factory: params =>
-                resource({
-                    params: () => params(),
-                    loader: ({ params: validatorContext }) => {
-                        if (!validatorContext) {
-                            return Promise.resolve(null);
-                        }
-                        return validator(validatorContext);
-                    }
-                }),
-            onSuccess: result => result,
-            onError: error => ({
-                kind: 'asyncValidation',
-                message: error instanceof Error ? error.message : String(error)
-            })
-        });
+    if (!validators.length) {
+        return;
     }
+
+    validateAsync(fieldPath, {
+        params: context => ({
+            value: context.value(),
+            formValue: context.valueOf(rootPath)
+        }),
+        factory: params =>
+            resource({
+                params: () => params(),
+                loader: ({ params: validatorContext }) =>
+                    validatorContext ? runAsyncValidators(validators, validatorContext) : Promise.resolve([])
+            }),
+        onSuccess: result => result,
+        onError: toAsyncValidationError
+    });
+}
+
+async function runAsyncValidators(
+    validators: readonly ThyFormFieldAsyncValidator[],
+    validatorContext: Parameters<ThyFormFieldAsyncValidator>[0]
+): Promise<ValidationError[]> {
+    const results = await Promise.all(
+        validators.map(async validator => {
+            try {
+                return await validator(validatorContext);
+            } catch (error) {
+                return toAsyncValidationError(error);
+            }
+        })
+    );
+    return results.flatMap(normalizeValidationErrors);
+}
+
+function normalizeValidationErrors(result: ValidationError | ValidationError[] | null): ValidationError[] {
+    if (!result) {
+        return [];
+    }
+    return Array.isArray(result) ? result : [result];
+}
+
+function toAsyncValidationError(error: unknown): ValidationError {
+    return {
+        kind: 'asyncValidation',
+        message: error instanceof Error ? error.message : String(error)
+    };
 }

@@ -7,11 +7,11 @@ export type ThyDynamicFormValue = Record<string, unknown>;
 
 export type ThyFormTextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
 
-export type ThyFormFieldValidator = (ctx: { value: unknown; form: ThyDynamicFormValue }) => ValidationError | ValidationError[] | null;
+export type ThyFormFieldValidator = (ctx: { value: unknown; formValue: ThyDynamicFormValue }) => ValidationError | ValidationError[] | null;
 
 export type ThyFormFieldAsyncValidator = (ctx: {
     value: unknown;
-    form: ThyDynamicFormValue;
+    formValue: ThyDynamicFormValue;
 }) => Promise<ValidationError | ValidationError[] | null>;
 
 export interface FieldTreeRebuildDependency {

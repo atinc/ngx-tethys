@@ -18,7 +18,7 @@ import {
     signal,
     untracked
 } from '@angular/core';
-import { Field, FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
+import { Field, FieldTree, form, FormField, FormRoot, ValidationError } from '@angular/forms/signals';
 
 import { ThyFormGroup } from '../form-group.component';
 import { ThyFormDirective } from '../form.directive';
@@ -105,15 +105,20 @@ export class ThyDynamicForm {
     private readonly validatorLoader = inject(ThyFormValidatorLoader);
     protected readonly fields = computed(() => validateDynamicFormFields(this.thyFields() || []));
     private readonly fieldTreeRebuildDependencies = computed<readonly FieldTreeRebuildDependency[]>(
-        () =>
-            this.fields()
-                .map(field => ({
-                    key: field.key,
-                    kind: field.kind,
-                    validators: [...(field.validators ?? [])],
-                    asyncValidators: [...(field.asyncValidators ?? [])]
-                }))
-                .sort((previous, current) => previous.key.localeCompare(current.key)),
+        () => {
+            return this.fields()
+                .map(field => {
+                    return {
+                        key: field.key,
+                        kind: field.kind,
+                        validators: [...(field.validators ?? [])],
+                        asyncValidators: [...(field.asyncValidators ?? [])]
+                    };
+                })
+                .sort((previous, current) => {
+                    return previous.key.localeCompare(current.key);
+                });
+        },
         { equal: isSameFieldTreeRebuildDependencies }
     );
     private readonly fieldTreeSignal = signal<FieldTree<ThyDynamicFormValue> | undefined>(undefined);
@@ -146,10 +151,10 @@ export class ThyDynamicForm {
 
         effect(() => {
             const value = this.thyValue();
-            untracked(() => (this.previousFieldValue = value));
+            this.previousFieldValue = value;
         });
+
         afterNextRender(() => {
-            this.previousFieldValue = this.thyValue();
             this.thyValue.subscribe(value => {
                 const previousValue = this.previousFieldValue;
                 this.previousFieldValue = value;
@@ -188,13 +193,7 @@ export class ThyDynamicForm {
         return this.fieldTree[key] as unknown as Field<TValue>;
     }
 
-    protected showError(field: ThyFormFieldConfig): boolean {
-        const state = this.getField(field.key)();
-        return state.invalid() && state.touched();
-    }
-
-    protected errorMessage(field: ThyFormFieldConfig): string | null {
-        const error = this.getField(field.key)().errors()[0];
+    protected errorMessage(field: ThyFormFieldConfig, error: ValidationError | undefined): string | null {
         return resolveFieldErrorMessage(field, error, (name, code) => this.validatorLoader.getErrorMessage(name, code));
     }
 

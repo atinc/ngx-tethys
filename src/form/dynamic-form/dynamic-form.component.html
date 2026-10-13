@@ -1,7 +1,9 @@
 <form [formRoot]="fieldTree" (reset)="handleReset($event)">
   <div thyRow [thyGutter]="30">
     @for (field of fields(); track field.key) {
-      @let invalid = showError(field);
+      @let fieldControl = getField(field.key);
+      @let fieldState = fieldControl();
+      @let invalid = fieldState.invalid() && fieldState.touched();
       <thy-form-group
         thyCol
         [thySpan]="field.col | thyDynamicFormSpan"
@@ -11,7 +13,7 @@
           @case ('input') {
             <input
               thyInput
-              [formField]="getField(field.key)"
+              [formField]="fieldControl"
               [id]="field.key"
               [name]="field.key"
               [class.is-invalid]="invalid"
@@ -21,7 +23,7 @@
           }
           @case ('number') {
             <thy-input-number
-              [formField]="getField(field.key)"
+              [formField]="fieldControl"
               [id]="field.key"
               [attr.name]="field.key"
               [class.is-invalid]="invalid"
@@ -35,7 +37,7 @@
           @case ('textarea') {
             <textarea
               thyInput
-              [formField]="getField(field.key)"
+              [formField]="fieldControl"
               [id]="field.key"
               [name]="field.key"
               [class.is-invalid]="invalid"
@@ -46,11 +48,11 @@
           }
           @case ('select') {
             <thy-select
-              [formField]="getField(field.key)"
+              [formField]="fieldControl"
               [id]="field.key"
               [attr.name]="field.key"
               [class.is-invalid]="invalid"
-              [thyDisabled]="getField(field.key)().disabled()"
+              [thyDisabled]="fieldState.disabled()"
               [thyOptions]="field.props?.options ?? []"
               [thyPlaceholder]="field.props?.placeholder ?? ''"
               [thySearchable]="field.props?.searchable"
@@ -65,7 +67,7 @@
           }
         }
         @if (invalid) {
-          <div class="invalid-feedback">{{ errorMessage(field) }}</div>
+          <div class="invalid-feedback">{{ errorMessage(field, fieldState.errors()[0]) }}</div>
         }
       </thy-form-group>
     }
