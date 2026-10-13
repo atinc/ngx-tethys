@@ -29,7 +29,6 @@ import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
 import {
-    FieldTreeRebuildDependency,
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
     ThyFormFieldAsyncValidator,
@@ -37,6 +36,13 @@ import {
     ThyFormFieldValidator,
     ThyFormFieldValueChange
 } from './types';
+
+interface FieldTreeRebuildDependency {
+    readonly key: string;
+    readonly kind: ThyFormFieldSchema['kind'];
+    readonly validators: readonly ThyFormFieldValidator[];
+    readonly asyncValidators: readonly ThyFormFieldAsyncValidator[];
+}
 
 /**
  * 动态表单

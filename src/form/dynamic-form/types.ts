@@ -14,12 +14,6 @@ export type ThyFormFieldAsyncValidator = (ctx: {
     formValue: ThyDynamicFormValue;
 }) => Promise<ValidationError | ValidationError[] | null>;
 
-export interface FieldTreeRebuildDependency {
-    readonly key: string;
-    readonly kind: ThyFormFieldSchema['kind'];
-    readonly validators: readonly ThyFormFieldValidator[];
-    readonly asyncValidators: readonly ThyFormFieldAsyncValidator[];
-}
 export interface ThyDynamicFormStatus {
     readonly valid: boolean;
     readonly invalid: boolean;
