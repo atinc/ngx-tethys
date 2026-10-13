@@ -17,9 +17,9 @@ import {
     ValidationError
 } from '@angular/forms/signals';
 
-import { ThyDynamicFormValue, ThyFormFieldAsyncValidator, ThyFormFieldConfig, ThyFormFieldValidator } from './types';
+import { ThyDynamicFormValue, ThyFormFieldAsyncValidator, ThyFormFieldSchema, ThyFormFieldValidator } from './types';
 
-export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldConfig[]>): SchemaFn<ThyDynamicFormValue> {
+export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchema[]>): SchemaFn<ThyDynamicFormValue> {
     return rootPath => {
         for (const field of fields()) {
             const fieldPath = rootPath[field.key] as unknown as SchemaPath<unknown>;
@@ -46,7 +46,7 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldConfi
     };
 }
 
-function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyFormFieldConfig | undefined): void {
+function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyFormFieldSchema | undefined): void {
     const props = () => {
         const field = resolveField();
         return field?.kind === 'input' || field?.kind === 'textarea' ? field.props : undefined;
@@ -60,7 +60,7 @@ function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyFor
     });
 }
 
-function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () => ThyFormFieldConfig | undefined): void {
+function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () => ThyFormFieldSchema | undefined): void {
     const props = () => {
         const field = resolveField();
         return field?.kind === 'number' ? field.props : undefined;

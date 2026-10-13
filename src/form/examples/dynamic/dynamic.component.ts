@@ -4,7 +4,7 @@ import { ThyButton } from 'ngx-tethys/button';
 import {
     ThyDynamicForm,
     ThyDynamicFormStatus,
-    ThyFormFieldConfig,
+    ThyFormFieldSchema,
     ThyFormFieldValueChange,
     ThyDynamicFormValue,
     ThyFormGroupFooter
@@ -35,20 +35,15 @@ export class ThyFormDynamicExampleComponent {
 
     lastSubmit = signal<ThyDynamicFormValue | null>(null);
 
-    status = signal<ThyDynamicFormStatus>({
-        valid: false,
-        invalid: false,
-        pending: false,
-        submitting: false
-    });
+    status = signal<ThyDynamicFormStatus | null>(null);
 
     readonly statusText = computed(() => {
         const status = this.status();
+        if (!status) {
+            return null;
+        }
         if (status.submitting) {
             return 'SUBMITTING';
-        }
-        if (status.pending) {
-            return 'PENDING';
         }
         return status.invalid ? 'INVALID' : 'VALID';
     });
@@ -59,14 +54,12 @@ export class ThyFormDynamicExampleComponent {
                 return 'success';
             case 'INVALID':
                 return 'danger';
-            case 'PENDING':
-                return 'warning';
             default:
                 return 'default';
         }
     });
 
-    readonly fields = signal<ThyFormFieldConfig[]>([
+    readonly fields = signal<ThyFormFieldSchema[]>([
         {
             key: 'username',
             kind: 'input',

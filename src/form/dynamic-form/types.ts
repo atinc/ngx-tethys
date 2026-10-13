@@ -16,14 +16,13 @@ export type ThyFormFieldAsyncValidator = (ctx: {
 
 export interface FieldTreeRebuildDependency {
     readonly key: string;
-    readonly kind: ThyFormFieldConfig['kind'];
+    readonly kind: ThyFormFieldSchema['kind'];
     readonly validators: readonly ThyFormFieldValidator[];
     readonly asyncValidators: readonly ThyFormFieldAsyncValidator[];
 }
 export interface ThyDynamicFormStatus {
     readonly valid: boolean;
     readonly invalid: boolean;
-    readonly pending: boolean;
     readonly submitting: boolean;
 }
 
@@ -32,7 +31,7 @@ export interface ThyFormFieldValueChange {
     value: unknown;
 }
 
-interface ThyFormFieldBase {
+interface ThyFormFieldBaseSchema {
     key: string;
     kind: ThyFormFieldKind;
     /**
@@ -49,22 +48,22 @@ interface ThyFormFieldBase {
     asyncValidators?: ThyFormFieldAsyncValidator[];
 }
 
-export interface ThyFormInputFieldConfig extends ThyFormFieldBase {
+export interface ThyFormInputFieldSchema extends ThyFormFieldBaseSchema {
     kind: 'input';
     props?: ThyFormInputFieldProps;
 }
 
-export interface ThyFormNumberFieldConfig extends ThyFormFieldBase {
+export interface ThyFormNumberFieldSchema extends ThyFormFieldBaseSchema {
     kind: 'number';
     props?: ThyFormNumberFieldProps;
 }
 
-export interface ThyFormTextareaFieldConfig extends ThyFormFieldBase {
+export interface ThyFormTextareaFieldSchema extends ThyFormFieldBaseSchema {
     kind: 'textarea';
     props?: ThyFormTextareaFieldProps;
 }
 
-export interface ThyFormSelectFieldConfig extends ThyFormFieldBase {
+export interface ThyFormSelectFieldSchema extends ThyFormFieldBaseSchema {
     kind: 'select';
     props?: ThyFormSelectFieldProps;
 }
@@ -108,4 +107,4 @@ export interface ThyFormSelectFieldProps extends ThyFormFieldBaseProps {
     searchEmptyText?: string;
 }
 
-export type ThyFormFieldConfig = ThyFormInputFieldConfig | ThyFormTextareaFieldConfig | ThyFormSelectFieldConfig | ThyFormNumberFieldConfig;
+export type ThyFormFieldSchema = ThyFormInputFieldSchema | ThyFormTextareaFieldSchema | ThyFormSelectFieldSchema | ThyFormNumberFieldSchema;

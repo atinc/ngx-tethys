@@ -2,7 +2,7 @@ import { ValidationError } from '@angular/forms/signals';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
 import { ERROR_VALUE_REPLACE_REGEX } from '../form-validator-loader';
-import { ThyFormFieldConfig } from './types';
+import { ThyFormFieldSchema } from './types';
 
 const loaderErrorCodes: Readonly<Record<string, string>> = {
     minLength: 'minlength',
@@ -10,7 +10,7 @@ const loaderErrorCodes: Readonly<Record<string, string>> = {
 };
 
 export function resolveFieldErrorMessage(
-    field: ThyFormFieldConfig,
+    field: ThyFormFieldSchema,
     error: ValidationError | undefined,
     getErrorMessage: (name: string, code: string) => string | undefined
 ): string | null {

@@ -8,7 +8,7 @@ import { ThyButton } from 'ngx-tethys/button';
 import {
     ThyDynamicForm,
     ThyDynamicFormStatus,
-    ThyFormFieldConfig,
+    ThyFormFieldSchema,
     ThyDynamicFormValue,
     ThyFormModule,
     ThyFormValidatorLoader
@@ -37,7 +37,7 @@ import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } fr
 class TestDynamicFormComponent {
     readonly dynamicForm = viewChild.required(ThyDynamicForm);
 
-    fields: ThyFormFieldConfig[] = [];
+    fields: ThyFormFieldSchema[] = [];
 
     value: ThyDynamicFormValue = {};
 
@@ -81,7 +81,7 @@ describe('dynamic-form', () => {
         injectDefaultSvgIconSet();
     }));
 
-    function setFields(fields: ThyFormFieldConfig[]) {
+    function setFields(fields: ThyFormFieldSchema[]) {
         fixture = TestBed.createComponent(TestDynamicFormComponent);
         testComponent = fixture.componentInstance;
         testComponent.fields = fields;
@@ -168,31 +168,58 @@ describe('dynamic-form', () => {
         expect(testComponent.dynamicForm().fieldTree().value()).toEqual({ organization: null });
     });
 
-    it('should emit Signal Forms status snapshots only when status changes', fakeAsync(() => {
+    it('should not emit the initial status and should emit only when status changes after a field update', fakeAsync(() => {
         setFields([{ key: 'name', kind: 'input', props: { required: true } }]);
         tick();
         fixture.detectChanges();
 
-        expect(testComponent.statusChanges.at(-1)).toEqual({
-            valid: false,
-            invalid: true,
-            pending: false,
-            submitting: false
-        });
+        expect(testComponent.statusChanges).toEqual([]);
 
-        const statusChangeCount = testComponent.statusChanges.length;
-        setValue({ name: '' });
+        const input = formElement.querySelector('input')!;
+        input.value = '';
+        dispatchFakeEvent(input, 'input');
+        fixture.detectChanges();
         tick();
-        expect(testComponent.statusChanges.length).toBe(statusChangeCount);
+        expect(testComponent.statusChanges).toEqual([]);
 
-        setValue({ name: 'Ada' });
+        input.value = 'Ada';
+        dispatchFakeEvent(input, 'input');
+        fixture.detectChanges();
         tick();
         expect(testComponent.statusChanges.at(-1)).toEqual({
             valid: true,
             invalid: false,
-            pending: false,
             submitting: false
         });
+    }));
+
+    it('should not emit when the initial async validation settles', fakeAsync(() => {
+        let resolveValidation: ((errors: ValidationError | ValidationError[] | null) => void) | undefined;
+        setFields([
+            {
+                key: 'code',
+                kind: 'input',
+                defaultValue: 'available',
+                asyncValidators: [
+                    () =>
+                        new Promise(resolve => {
+                            resolveValidation = resolve;
+                        })
+                ]
+            }
+        ]);
+        tick();
+        fixture.detectChanges();
+
+        expect(testComponent.dynamicForm().getField('code')().pending()).toBe(true);
+        expect(testComponent.statusChanges).toEqual([]);
+
+        resolveValidation?.(null);
+        flushMicrotasks();
+        fixture.detectChanges();
+
+        expect(testComponent.dynamicForm().getField('code')().pending()).toBe(false);
+        expect(testComponent.statusChanges).toEqual([]);
     }));
 
     it('should reject duplicate field keys before building the form', () => {
@@ -380,38 +407,66 @@ describe('dynamic-form', () => {
         expect(errors[2].message).toBe('validation failed');
     }));
 
-    it('should expose pending while an async validator is running', fakeAsync(() => {
-        let resolveValidation: ((errors: ValidationError | ValidationError[] | null) => void) | undefined;
+    it('should emit only when the final stable status changes after async validation', fakeAsync(() => {
+        const validationResolvers: Array<(errors: ValidationError | ValidationError[] | null) => void> = [];
         setFields([
             {
                 key: 'code',
                 kind: 'input',
+                defaultValue: 'available',
                 props: { required: true },
                 asyncValidators: [
                     () =>
                         new Promise(resolve => {
-                            resolveValidation = resolve;
+                            validationResolvers.push(resolve);
                         })
                 ]
             }
         ]);
-        testComponent.statusChanges.length = 0;
+        tick();
+        validationResolvers.shift()?.(null);
+        flushMicrotasks();
+        fixture.detectChanges();
+
+        expect(testComponent.dynamicForm().status().valid).toBe(true);
+        expect(testComponent.statusChanges).toEqual([]);
+
         const input = formElement.querySelector('input')!;
+        input.value = 'still-available';
+        dispatchFakeEvent(input, 'input');
+        fixture.detectChanges();
+        tick();
+
+        expect(testComponent.dynamicForm().getField('code')().pending()).toBe(true);
+        expect(testComponent.statusChanges).toEqual([]);
+
+        validationResolvers.shift()?.(null);
+        flushMicrotasks();
+        fixture.detectChanges();
+
+        expect(testComponent.dynamicForm().getField('code')().pending()).toBe(false);
+        expect(testComponent.dynamicForm().status().valid).toBe(true);
+        expect(testComponent.statusChanges).toEqual([]);
+
         input.value = 'reserved';
         dispatchFakeEvent(input, 'input');
         fixture.detectChanges();
         tick();
-        fixture.detectChanges();
 
-        expect(testComponent.dynamicForm().status().pending).toBe(true);
-        expect(testComponent.statusChanges.some(status => status.pending)).toBe(true);
+        expect(testComponent.statusChanges).toEqual([]);
 
-        resolveValidation?.({ kind: 'unavailable', message: '该值已被占用' });
+        validationResolvers.shift()?.({ kind: 'unavailable', message: '该值已被占用' });
         flushMicrotasks();
         fixture.detectChanges();
 
-        expect(testComponent.dynamicForm().status().pending).toBe(false);
         expect(testComponent.dynamicForm().status().invalid).toBe(true);
+        expect(testComponent.statusChanges).toEqual([
+            {
+                valid: false,
+                invalid: true,
+                submitting: false
+            }
+        ]);
     }));
 
     it('should update select disabled state when fields change', fakeAsync(() => {

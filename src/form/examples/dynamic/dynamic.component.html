@@ -11,9 +11,12 @@
     <button type="reset" [thyButton]="'default'" thyAppearance="link">Reset</button>
   </thy-form-group-footer>
 </thy-dynamic-form>
+
 <div class="d-flex align-items-center">
   <span class="mr-2">Status</span>
-  <thy-tag [thyColor]="statusColor()" thySize="sm">{{ statusText() }}</thy-tag>
+  @if (status()) {
+    <thy-tag [thyColor]="statusColor()" thySize="sm">{{ statusText() }}</thy-tag>
+  }
 </div>
 
 <div class="thy-typography mt-4" thyRow [thyGutter]="30">

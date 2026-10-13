@@ -1,6 +1,6 @@
-import { ThyDynamicFormValue, ThyFormFieldConfig } from './types';
+import { ThyDynamicFormValue, ThyFormFieldSchema } from './types';
 
-export function validateDynamicFormFields(fields: readonly ThyFormFieldConfig[]): readonly ThyFormFieldConfig[] {
+export function validateDynamicFormFields(fields: readonly ThyFormFieldSchema[]): readonly ThyFormFieldSchema[] {
     const keys = new Set<string>();
 
     for (const field of fields) {
@@ -13,7 +13,7 @@ export function validateDynamicFormFields(fields: readonly ThyFormFieldConfig[])
     return fields;
 }
 
-export function buildDynamicFormValue(fields: readonly ThyFormFieldConfig[], value?: ThyDynamicFormValue): ThyDynamicFormValue {
+export function buildDynamicFormValue(fields: readonly ThyFormFieldSchema[], value?: ThyDynamicFormValue): ThyDynamicFormValue {
     const result: ThyDynamicFormValue = {};
 
     for (const field of fields) {
@@ -23,7 +23,7 @@ export function buildDynamicFormValue(fields: readonly ThyFormFieldConfig[], val
     return result;
 }
 
-function fieldDefaultValue(field: ThyFormFieldConfig): unknown {
+function fieldDefaultValue(field: ThyFormFieldSchema): unknown {
     if (field.defaultValue !== undefined) {
         return field.defaultValue;
     }

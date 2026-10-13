@@ -33,7 +33,7 @@ import {
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
     ThyFormFieldAsyncValidator,
-    ThyFormFieldConfig,
+    ThyFormFieldSchema,
     ThyFormFieldValidator,
     ThyFormFieldValueChange
 } from './types';
@@ -73,10 +73,10 @@ import {
 export class ThyDynamicForm {
     /**
      * 字段配置，kind 目前支持 input、textarea、select
-     * @type ThyFormFieldConfig[]
+     * @type ThyFormFieldSchema[]
      * @default []
      */
-    readonly thyFields = input<ThyFormFieldConfig[]>([]);
+    readonly thyFields = input<ThyFormFieldSchema[]>([]);
 
     /** 表单值。支持双向绑定；不传时用各字段的 defaultValue */
     readonly thyValue = model<ThyDynamicFormValue>({});
@@ -95,7 +95,7 @@ export class ThyDynamicForm {
     /** 组件内部修改单个字段时触发。 */
     readonly thyFieldValueChange = output<ThyFormFieldValueChange>();
 
-    /** Signal Forms 根字段状态变化时触发。 */
+    /** Signal Forms 状态变化时触发。 */
     readonly thyStatusChange = output<ThyDynamicFormStatus>();
 
     /** 表单通过校验并提交时触发。 */
@@ -134,7 +134,6 @@ export class ThyDynamicForm {
             return {
                 valid: state.valid(),
                 invalid: state.invalid(),
-                pending: state.pending(),
                 submitting: state.submitting()
             };
         },
@@ -147,7 +146,17 @@ export class ThyDynamicForm {
             this.fieldTreeSignal.set(untracked(() => this.createFieldTree()));
         });
 
-        effect(() => this.thyStatusChange.emit(this.status()));
+        let previousStableStatus: ThyDynamicFormStatus | undefined;
+        effect(() => {
+            const status = this.status();
+            if (this.fieldTree().pending()) {
+                return;
+            }
+            if (previousStableStatus && !isSameDynamicFormStatus(previousStableStatus, status)) {
+                this.thyStatusChange.emit(status);
+            }
+            previousStableStatus = status;
+        });
 
         effect(() => {
             const value = this.thyValue();
@@ -193,7 +202,7 @@ export class ThyDynamicForm {
         return this.fieldTree[key] as unknown as Field<TValue>;
     }
 
-    protected errorMessage(field: ThyFormFieldConfig, error: ValidationError | undefined): string | null {
+    protected errorMessage(field: ThyFormFieldSchema, error: ValidationError | undefined): string | null {
         return resolveFieldErrorMessage(field, error, (name, code) => this.validatorLoader.getErrorMessage(name, code));
     }
 
@@ -207,12 +216,7 @@ export class ThyDynamicForm {
 }
 
 function isSameDynamicFormStatus(previous: ThyDynamicFormStatus, current: ThyDynamicFormStatus): boolean {
-    return (
-        previous.valid === current.valid &&
-        previous.invalid === current.invalid &&
-        previous.pending === current.pending &&
-        previous.submitting === current.submitting
-    );
+    return previous.valid === current.valid && previous.invalid === current.invalid && previous.submitting === current.submitting;
 }
 
 function isSameFieldTreeRebuildDependencies(
