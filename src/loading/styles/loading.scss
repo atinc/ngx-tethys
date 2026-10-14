@@ -39,11 +39,24 @@
         }
     }
 
+    // 绝对定位的指示器不参与宽度计算。简单模式改为同一格子叠放，
+    // 宽度取内容和指示器的较大值，文案才能把宿主撑开，遮罩仍盖住内容。
     &.thy-loading-simple.thy-loading-mask {
-        display: inline-block;
+        display: inline-grid;
         width: auto;
         max-width: 100%;
         vertical-align: middle;
+
+        > .thy-loading-indicator,
+        > .thy-loading-container {
+            grid-area: 1 / 1;
+        }
+
+        > .thy-loading-indicator {
+            position: relative;
+            inset: auto;
+            white-space: nowrap;
+        }
     }
 
     &.thy-loading-done {
