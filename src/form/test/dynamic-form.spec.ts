@@ -754,18 +754,17 @@ describe('dynamic-form', () => {
     });
 
     it('should bind extended field props', () => {
-        const showTime = { thyFormat: 'HH:mm' };
         setFields([
             { key: 'enabled', kind: 'switch' },
             { key: 'meeting', kind: 'time', props: { showSelectNow: false } },
             { key: 'birthday', kind: 'date', props: { showTime: true } },
-            { key: 'availability', kind: 'dateRange', props: { showTime } }
+            { key: 'availability', kind: 'dateRange', props: { showTime: true } }
         ]);
 
         expect(fixture.debugElement.query(By.directive(ThySwitch)).componentInstance.thySize()).toBe('md');
         expect(fixture.debugElement.query(By.directive(ThyTimePicker)).componentInstance.thyShowSelectNow()).toBe(false);
         expect(fixture.debugElement.query(By.directive(ThyDatePicker)).componentInstance.thyShowTime()).toBe(true);
-        expect(fixture.debugElement.query(By.directive(ThyRangePicker)).componentInstance.thyShowTime()).toBe(showTime);
+        expect(fixture.debugElement.query(By.directive(ThyRangePicker)).componentInstance.thyShowTime()).toBe(true);
     });
 
     it('should pass disabled state to extended field CVAs', fakeAsync(() => {
