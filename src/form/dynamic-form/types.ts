@@ -1,6 +1,5 @@
 import { ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThySwitchColor } from 'ngx-tethys/switch';
-import { SupportTimeOptions } from 'ngx-tethys/date-picker';
 import { ValidationError } from '@angular/forms/signals';
 
 export type ThyFormFieldKind = 'input' | 'textarea' | 'number' | 'select' | 'checkbox' | 'radio' | 'switch' | 'time' | 'date' | 'dateRange';
@@ -157,7 +156,7 @@ export interface ThyFormDateFieldProps extends ThyFormFieldBaseProps {
     min?: Date | number;
     max?: Date | number;
     allowClear?: boolean;
-    showTime?: boolean | SupportTimeOptions;
+    showTime?: boolean;
     disabledDate?: (date: Date) => boolean;
 }
 
