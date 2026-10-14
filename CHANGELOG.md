@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.5](github.com/atinc/ngx-tethys/compare/22.0.4...22.0.5) (2026-10-14)
+
+
+### Bug Fixes
+
+* **build:** add @standard-schema/spec so docgeni can resolve signal forms ([f8d441f](github.com/atinc/ngx-tethys/commits/f8d441f1080e891612d1eef31c59bd7b3aa1eece))
+
+
+### Features
+
+* **form:** dynamic form 底层替换为signal form #TINFR-4162 ([#4007](/github.com/atinc/ngx-tethys/issues/4007)) ([12a4f3e](github.com/atinc/ngx-tethys/commits/12a4f3ea211d45c2a11fe88bc88aa5b35d3c049a)), closes [#TINFR-4162](github.com/atinc/ngx-tethys/issues/TINFR-4162)
+* **form:** dynamic form 支持Checkbox、 Radio、 Switch、 Time、 Date、 Date Range 类型字段 #TINFR-4121‘ ([#4012](/github.com/atinc/ngx-tethys/issues/4012)) ([65775e1](github.com/atinc/ngx-tethys/commits/65775e101ecf800e51bc3da6fc4f1a9b6240bd3d))
+* **loading:** default to block layout and add thySimple for inline loading #TINFR-4169 ([#4010](/github.com/atinc/ngx-tethys/issues/4010)) ([2b8566e](github.com/atinc/ngx-tethys/commits/2b8566e52c04fa817a7981b336cdc068383d0ee4)), closes [#TINFR-4169](github.com/atinc/ngx-tethys/issues/TINFR-4169)
+
 ## [22.0.4](github.com/atinc/ngx-tethys/compare/22.0.3...22.0.4) (2026-10-08)
 
 
