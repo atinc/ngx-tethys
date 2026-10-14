@@ -100,6 +100,7 @@
     "@docgeni/cli": "3.0.1",
     "@docgeni/template": "3.0.1",
     "@schematics/angular": "^22.1.6",
+    "@standard-schema/spec": "^1.0.0",
     "@tethys/icons": "1.4.89",
     "@types/highlight.js": "^9.12.4",
     "@types/jasmine": "~2.8.6",
