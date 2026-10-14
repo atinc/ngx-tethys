@@ -49,13 +49,11 @@
       <thy-loading [thyDone]="!isLoading()"></thy-loading>
       @if (!isLoading()) {
         <div class="thy-select-empty-content">
-          @if (!isLoading()) {
-            @let isSearching = keywords();
-            <thy-empty
-              [thyMessage]="isSearching ? searchEmptyText() : thyEmptyStateText()"
-              thySize="sm"
-              [thyIconName]="emptyIcon()"></thy-empty>
-          }
+          @let isSearching = keywords();
+          <thy-empty
+            [thyMessage]="isSearching ? searchEmptyText() : thyEmptyStateText()"
+            thySize="sm"
+            [thyIconName]="emptyIcon()"></thy-empty>
         </div>
       }
     }
