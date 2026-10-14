@@ -1,7 +1,8 @@
 import { ThySelectOptionModel } from 'ngx-tethys/select';
+import { ThySwitchColor } from 'ngx-tethys/switch';
 import { ValidationError } from '@angular/forms/signals';
 
-export type ThyFormFieldKind = 'input' | 'textarea' | 'select' | 'number';
+export type ThyFormFieldKind = 'input' | 'textarea' | 'number' | 'select' | 'checkbox' | 'radio' | 'switch' | 'time' | 'date' | 'dateRange';
 
 export type ThyDynamicFormValue = Record<string, unknown>;
 
@@ -62,6 +63,36 @@ export interface ThyFormSelectFieldSchema extends ThyFormFieldBaseSchema {
     props?: ThyFormSelectFieldProps;
 }
 
+export interface ThyFormCheckboxFieldSchema extends ThyFormFieldBaseSchema {
+    kind: 'checkbox';
+    props?: ThyFormFieldBaseProps;
+}
+
+export interface ThyFormRadioFieldSchema extends ThyFormFieldBaseSchema {
+    kind: 'radio';
+    props?: ThyFormRadioFieldProps;
+}
+
+export interface ThyFormSwitchFieldSchema extends ThyFormFieldBaseSchema {
+    kind: 'switch';
+    props?: ThyFormSwitchFieldProps;
+}
+
+export interface ThyFormTimeFieldSchema extends ThyFormFieldBaseSchema {
+    kind: 'time';
+    props?: ThyFormTimeFieldProps;
+}
+
+export interface ThyFormDateFieldSchema extends ThyFormFieldBaseSchema {
+    kind: 'date';
+    props?: ThyFormDateFieldProps;
+}
+
+export interface ThyFormDateRangeFieldSchema extends ThyFormFieldBaseSchema {
+    kind: 'dateRange';
+    props?: ThyFormDateRangeFieldProps;
+}
+
 export interface ThyFormFieldBaseProps {
     label?: string;
     placeholder?: string;
@@ -101,4 +132,44 @@ export interface ThyFormSelectFieldProps extends ThyFormFieldBaseProps {
     searchEmptyText?: string;
 }
 
-export type ThyFormFieldSchema = ThyFormInputFieldSchema | ThyFormTextareaFieldSchema | ThyFormSelectFieldSchema | ThyFormNumberFieldSchema;
+export interface ThyFormRadioFieldProps extends ThyFormFieldBaseProps {
+    options?: {
+        value: string | number;
+        label: string;
+    }[];
+    layout?: 'flex';
+    button?: boolean;
+}
+
+export interface ThyFormSwitchFieldProps extends ThyFormFieldBaseProps {
+    color?: ThySwitchColor;
+}
+
+export interface ThyFormTimeFieldProps extends ThyFormFieldBaseProps {
+    format?: string;
+    allowClear?: boolean;
+}
+
+export interface ThyFormDateFieldProps extends ThyFormFieldBaseProps {
+    format?: string;
+    min?: Date | number;
+    max?: Date | number;
+    allowClear?: boolean;
+    disabledDate?: (date: Date) => boolean;
+}
+
+export interface ThyFormDateRangeFieldProps extends Omit<ThyFormDateFieldProps, 'placeholder'> {
+    placeholder?: string | string[];
+}
+
+export type ThyFormFieldSchema =
+    | ThyFormInputFieldSchema
+    | ThyFormTextareaFieldSchema
+    | ThyFormNumberFieldSchema
+    | ThyFormSelectFieldSchema
+    | ThyFormCheckboxFieldSchema
+    | ThyFormRadioFieldSchema
+    | ThyFormSwitchFieldSchema
+    | ThyFormTimeFieldSchema
+    | ThyFormDateFieldSchema
+    | ThyFormDateRangeFieldSchema;

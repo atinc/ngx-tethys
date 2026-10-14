@@ -12,6 +12,12 @@ import {
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThyTag } from 'ngx-tethys/tag';
+import { addDays, isWeekend, startOfDay } from 'ngx-tethys/util';
+
+const availabilityMinDate = startOfDay(new Date());
+const availabilityMaxDate = addDays(availabilityMinDate, 30);
+const availabilityDefaultStartDate = addDays(availabilityMinDate, (6 - availabilityMinDate.getDay() + 7) % 7);
+const availabilityDefaultEndDate = addDays(availabilityDefaultStartDate, 1);
 
 const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     'organization-a': [
@@ -144,8 +150,64 @@ export class ThyFormDynamicExampleComponent {
                 required: true,
                 options: []
             }
+        },
+        {
+            key: 'subscribe',
+            kind: 'checkbox',
+            col: 6,
+            props: { label: 'Subscribe' }
+        },
+        {
+            key: 'enabled',
+            kind: 'switch',
+            col: 6,
+            defaultValue: true,
+            props: { label: 'Enabled' }
+        },
+        {
+            key: 'contact',
+            kind: 'radio',
+            props: {
+                label: 'Contact',
+                required: true,
+                layout: 'flex',
+                options: [
+                    { value: 'email', label: 'Email' },
+                    { value: 'phone', label: 'Phone' },
+                    { value: 'none', label: 'None' }
+                ]
+            }
+        },
+        {
+            key: 'birthday',
+            kind: 'date',
+            col: 6,
+            props: { label: 'Birthday', placeholder: 'Select date' }
+        },
+        {
+            key: 'meeting',
+            kind: 'time',
+            col: 6,
+            props: { label: 'Meeting', placeholder: 'Select time', format: 'HH:mm' }
+        },
+        {
+            key: 'availability',
+            kind: 'dateRange',
+            col: 6,
+            defaultValue: { begin: availabilityDefaultStartDate, end: availabilityDefaultEndDate },
+            errorMessages: {
+                disabledDate: 'Start and end dates cannot be weekends'
+            },
+            props: {
+                label: 'Availability',
+                placeholder: ['Start date', 'End date'],
+                min: availabilityMinDate,
+                max: availabilityMaxDate,
+                disabledDate: date => isWeekend(date)
+            }
         }
     ]);
+
     private projectSeq = 0;
 
     onValueChange(value: ThyDynamicFormValue) {
@@ -178,7 +240,9 @@ export class ThyFormDynamicExampleComponent {
 
     private patchOrganizationDisabled(disabled: boolean) {
         this.fields.update(fields =>
-            fields.map(field => (field.key === 'organization' ? { ...field, props: { ...field.props, disabled: disabled } } : field))
+            fields.map(field =>
+                field.key === 'organization' && field.kind === 'select' ? { ...field, props: { ...field.props, disabled } } : field
+            )
         );
     }
 

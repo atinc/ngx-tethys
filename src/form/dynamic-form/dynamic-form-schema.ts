@@ -4,8 +4,10 @@ import {
     debounce,
     disabled,
     max,
+    maxDateError,
     maxLength,
     min,
+    minDateError,
     minLength,
     pattern,
     readonly as readonlyField,
@@ -16,8 +18,14 @@ import {
     validateAsync,
     ValidationError
 } from '@angular/forms/signals';
+import { fromUnixTime, isObject, isValid, startOfDay } from 'ngx-tethys/util';
 
 import { ThyDynamicFormValue, ThyFormFieldAsyncValidator, ThyFormFieldSchema, ThyFormFieldValidator } from './types';
+
+interface DisabledDateValidationError extends ValidationError {
+    readonly kind: 'disabledDate';
+    readonly date: Date;
+}
 
 export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchema[]>): SchemaFn<ThyDynamicFormValue> {
     return rootPath => {
@@ -38,6 +46,9 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchem
             }
             if (field.kind === 'number') {
                 bindNumberRules(fieldPath as unknown as SchemaPath<number | null>, currentField);
+            }
+            if (field.kind === 'date' || field.kind === 'dateRange') {
+                bindDateRules(fieldPath, currentField);
             }
 
             bindCustomValidators(rootPath, fieldPath, field.validators ?? []);
@@ -72,6 +83,67 @@ function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () 
 
 function toOptionalNumber(value: unknown): number | undefined {
     return coerceNumberProperty(value, null) ?? undefined;
+}
+
+function bindDateRules(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFormFieldSchema | undefined): void {
+    validate(fieldPath, context => {
+        const field = resolveField();
+        if (field?.kind !== 'date' && field?.kind !== 'dateRange') {
+            return null;
+        }
+
+        const dates = field.kind === 'date' ? toDates(context.value()) : toDateRange(context.value());
+        if (!dates.length) {
+            return null;
+        }
+
+        const minDate = normalizeDate(field.props?.min);
+        const maxDate = normalizeDate(field.props?.max);
+        const errors: ValidationError[] = [];
+
+        if (minDate && dates.some(date => startOfDay(date).getTime() < startOfDay(minDate).getTime())) {
+            errors.push(minDateError(minDate));
+        }
+        if (maxDate && dates.some(date => startOfDay(date).getTime() > startOfDay(maxDate).getTime())) {
+            errors.push(maxDateError(maxDate));
+        }
+
+        const disabledDate = field.props?.disabledDate;
+        const disabledValue = disabledDate ? dates.find(date => disabledDate(date)) : undefined;
+        if (disabledValue) {
+            const error: DisabledDateValidationError = { kind: 'disabledDate', date: disabledValue };
+            errors.push(error);
+        }
+
+        return errors;
+    });
+}
+
+function toDates(value: unknown): Date[] {
+    const dateValue = isObject(value) && 'date' in value ? value['date'] : value;
+    const date = normalizeDate(dateValue);
+    return date ? [date] : [];
+}
+
+function toDateRange(value: unknown): Date[] {
+    if (Array.isArray(value)) {
+        return value.map(normalizeDate).filter((date): date is Date => !!date);
+    }
+    if (!isObject(value)) {
+        return [];
+    }
+    return [normalizeDate('begin' in value ? value['begin'] : undefined), normalizeDate('end' in value ? value['end'] : undefined)].filter(
+        (date): date is Date => !!date
+    );
+}
+
+function normalizeDate(value: unknown): Date | undefined {
+    if (!(value instanceof Date) && (typeof value !== 'number' || !Number.isFinite(value))) {
+        return undefined;
+    }
+
+    const date = value instanceof Date ? value : Math.abs(value).toString().length < 13 ? fromUnixTime(value) : new Date(value);
+    return isValid(date) ? date : undefined;
 }
 
 function bindCustomValidators(

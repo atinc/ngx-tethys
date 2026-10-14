@@ -723,6 +723,133 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('.is-invalid')).toBeFalsy();
     });
 
+    it('should fill kind defaults and render extended fields', () => {
+        setFields([
+            { key: 'subscribe', kind: 'checkbox' },
+            { key: 'enabled', kind: 'switch' },
+            { key: 'contact', kind: 'radio', props: { options: [{ value: 'email', label: 'Email' }] } },
+            { key: 'meeting', kind: 'time' },
+            { key: 'birthday', kind: 'date' },
+            { key: 'availability', kind: 'dateRange' }
+        ]);
+
+        expect(testComponent.value).toEqual({
+            subscribe: false,
+            enabled: false,
+            contact: null,
+            meeting: null,
+            birthday: null,
+            availability: null
+        });
+        expect(formElement.querySelector('thy-checkbox')).toBeTruthy();
+        expect(formElement.querySelector('thy-radio-group')).toBeTruthy();
+        expect(formElement.querySelector('thy-switch')).toBeTruthy();
+        expect(formElement.querySelector('thy-time-picker')).toBeTruthy();
+        expect(formElement.querySelector('thy-date-picker')).toBeTruthy();
+        expect(formElement.querySelector('thy-range-picker')).toBeTruthy();
+    });
+
+    it('should validate date and dateRange constraints for values written outside the picker', fakeAsync(() => {
+        const min = new Date(2026, 0, 10);
+        const max = new Date(2026, 0, 20);
+        const disabledDate = (date: Date) => date.getDate() === 15;
+        setFields([
+            { key: 'birthday', kind: 'date', props: { min, max, disabledDate } },
+            { key: 'availability', kind: 'dateRange', props: { min, max, disabledDate } }
+        ]);
+
+        const birthday = testComponent.dynamicForm().getField('birthday')().value;
+        birthday.set(new Date(2026, 0, 9).getTime() / 1000);
+        tick();
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('birthday')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['minDate']);
+
+        birthday.set({ date: new Date(2026, 0, 21).getTime(), with_time: 0 });
+        tick();
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('birthday')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['maxDate']);
+
+        birthday.set(new Date(2026, 0, 15));
+        tick();
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('birthday')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['disabledDate']);
+
+        const availability = testComponent.dynamicForm().getField('availability')().value;
+        availability.set({ begin: new Date(2026, 0, 9), end: new Date(2026, 0, 12) });
+        tick();
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('availability')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['minDate']);
+
+        availability.set({ begin: new Date(2026, 0, 12), end: new Date(2026, 0, 21) });
+        tick();
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('availability')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['maxDate']);
+
+        availability.set([new Date(2026, 0, 12), new Date(2026, 0, 15)]);
+        tick();
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('availability')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['disabledDate']);
+
+        availability.set({ begin: new Date(2026, 0, 12), end: new Date(2026, 0, 18) });
+        tick();
+        expect(testComponent.dynamicForm().getField('availability')().errors()).toEqual([]);
+    }));
+
+    it('should display an invalid dateRange defaultValue while keeping its validation error', fakeAsync(() => {
+        const begin = new Date(2026, 9, 17);
+        const end = new Date(2026, 9, 18);
+        setFields([
+            {
+                key: 'availability',
+                kind: 'dateRange',
+                defaultValue: { begin, end },
+                props: { disabledDate: date => date.getDay() === 0 || date.getDay() === 6 }
+            }
+        ]);
+        tick();
+        fixture.detectChanges();
+
+        expect(testComponent.value).toEqual({ availability: { begin, end } });
+        expect((formElement.querySelector('thy-range-picker input') as HTMLInputElement).value).toBe('2026-10-17 ~ 2026-10-18');
+        expect(
+            testComponent
+                .dynamicForm()
+                .getField('availability')()
+                .errors()
+                .map(error => error.kind)
+        ).toEqual(['disabledDate']);
+    }));
+
     it('should render field col on thy-col using a 12-column grid', () => {
         setFields([
             { key: 'email', kind: 'input', col: 6, props: { label: '邮箱' } },

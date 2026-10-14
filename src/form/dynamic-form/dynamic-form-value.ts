@@ -27,10 +27,19 @@ function fieldDefaultValue(field: ThyFormFieldSchema): unknown {
     if (field.defaultValue !== undefined) {
         return field.defaultValue;
     }
-    if (field.kind === 'select') {
-        return field.props?.multiple === true ? [] : null;
+    switch (field.kind) {
+        case 'select':
+            return field.props?.multiple === true ? [] : null;
+        case 'checkbox':
+        case 'switch':
+            return false;
+        case 'input':
+        case 'textarea':
+        case 'number':
+            return '';
+        default:
+            return null;
     }
-    return '';
 }
 
 export function isSameDynamicFormValue(previous: ThyDynamicFormValue, current: ThyDynamicFormValue): boolean {
