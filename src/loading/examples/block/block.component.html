@@ -1,0 +1,37 @@
+<div class="d-flex align-items-center mb-4">
+  <span class="mr-3">Loading state:</span>
+  <thy-switch thySize="sm" [(ngModel)]="loading"></thy-switch>
+</div>
+<thy-loading [thyDone]="!loading"></thy-loading>
+@if (!loading) {
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td scope="row">1</td>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>&#64;mdo</td>
+      </tr>
+      <tr>
+        <td scope="row">2</td>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>&#64;fat</td>
+      </tr>
+      <tr>
+        <td scope="row">3</td>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>&#64;twitter</td>
+      </tr>
+    </tbody>
+  </table>
+}

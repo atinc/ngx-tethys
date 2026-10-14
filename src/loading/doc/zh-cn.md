@@ -4,7 +4,7 @@ title: Loading
 subtitle: 加载中
 ---
 
-<alert>用于页面和区块的数据加载中状态。</alert>
+<alert>用于页面、区块和行内内容的加载中状态。</alert>
 
 
 ## 何时使用

@@ -46,16 +46,16 @@
         <ng-container *thyViewOutlet="defaultTemplate"> </ng-container>
       }
     } @else {
-      <thy-loading [thyDone]="!isLoading()" thySize="sm"></thy-loading>
-      <div class="thy-select-empty-content">
-        @if (!isLoading()) {
+      <thy-loading [thyDone]="!isLoading()"></thy-loading>
+      @if (!isLoading()) {
+        <div class="thy-select-empty-content">
           @let isSearching = keywords();
           <thy-empty
             [thyMessage]="isSearching ? searchEmptyText() : thyEmptyStateText()"
             thySize="sm"
             [thyIconName]="emptyIcon()"></thy-empty>
-        }
-      </div>
+        </div>
+      }
     }
     @if (thyFooterTemplate()) {
       <div [class]="thyFooterClass() ? thyFooterClass() : 'thy-custom-select-footer'">

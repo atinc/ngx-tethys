@@ -1,4 +1,4 @@
 ---
-title: 自定义文案
+title: Custom tips
 order: 20
 ---

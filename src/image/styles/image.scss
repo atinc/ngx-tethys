@@ -161,8 +161,8 @@ $image-preview-prefix-cls: 'thy-image-preview';
     .thy-loading {
         position: absolute;
         top: 50%;
-        transform: translateY(-50%);
-        left: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 

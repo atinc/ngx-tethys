@@ -9,7 +9,7 @@ import { ThyLoading, ThyLoadingModule } from 'ngx-tethys/loading';
         @if (loadingDone) {
             <div style="width: 500px; height:500px">Test loading</div>
         }
-        <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTips]="tips"></thy-loading>
+        <thy-loading [thyDone]="loadingDone" [thyIsMask]="isMask" [thyTips]="tips" [thySimple]="simple"></thy-loading>
     `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyLoadingModule]
@@ -18,7 +18,16 @@ export class TestLoadingComponent {
     loadingDone!: boolean;
     isMask!: boolean;
     tips!: string;
+    simple!: boolean;
 }
+
+@Component({
+    selector: `test-loading-simple-attribute`,
+    template: `<thy-loading thySimple></thy-loading><thy-loading thySimple="true"></thy-loading>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyLoading]
+})
+export class TestLoadingSimpleAttributeComponent {}
 
 @Component({
     selector: `test-loading-deprecated-tip`,
@@ -51,32 +60,58 @@ describe('test loading', () => {
     });
 
     it('thyDone', () => {
-        const indicatorElement = loadingElement.querySelector('.thy-loading-indicator');
-        const ellipsisElement = loadingElement.querySelector('.thy-loading-ellipsis');
-        const spotElement = loadingElement.querySelector('.thy-spot');
-
         testComponent.loadingDone = false;
         fixture.detectChanges();
         expect(loadingElement.classList).toContain('thy-loading');
-        expect(indicatorElement).toBeTruthy;
-        expect(ellipsisElement).toBeTruthy;
-        expect(spotElement).toBeTruthy;
+        expect(loadingElement.classList).not.toContain('thy-loading-done');
+        expect(loadingElement.querySelector('.thy-loading-indicator')?.tagName).toBe('SPAN');
+        expect(loadingElement.querySelector('.thy-loading-ellipsis')).toBeTruthy();
+        expect(loadingElement.querySelector('.thy-spot')).toBeTruthy();
 
         testComponent.loadingDone = true;
         fixture.detectChanges();
-        expect(indicatorElement).toBeFalsy();
-        expect(ellipsisElement).toBeFalsy();
-        expect(spotElement).toBeFalsy();
+        expect(loadingElement.classList).toContain('thy-loading-done');
+        expect(loadingElement.querySelector('.thy-loading-indicator')).toBeFalsy();
+        expect(loadingElement.querySelector('.thy-loading-ellipsis')).toBeFalsy();
+        expect(loadingElement.querySelector('.thy-spot')).toBeFalsy();
     });
 
     it('thyIsMask', () => {
         testComponent.isMask = false;
-        fixture.detectChanges();
-        expect(loadingComponent.nativeElement.querySelector('.thy-loading-mask')).toBeFalsy();
-        testComponent.isMask = true;
         testComponent.loadingDone = false;
         fixture.detectChanges();
-        expect(loadingComponent.nativeElement.querySelector('.thy-loading-mask')).toBeTruthy();
+        expect(loadingElement.classList.contains('thy-loading-mask')).toBe(false);
+
+        testComponent.isMask = true;
+        fixture.detectChanges();
+        expect(loadingElement.classList.contains('thy-loading-mask')).toBe(true);
+        expect(loadingElement.querySelector('.thy-loading-container')).toBeTruthy();
+
+        testComponent.loadingDone = true;
+        fixture.detectChanges();
+        expect(loadingElement.classList.contains('thy-loading-mask')).toBe(false);
+        expect(loadingElement.classList.contains('thy-loading-done')).toBe(true);
+    });
+
+    it('thySimple', () => {
+        fixture.detectChanges();
+        expect(loadingElement.classList).not.toContain('thy-loading-simple');
+
+        testComponent.simple = true;
+        fixture.detectChanges();
+        expect(loadingElement.classList).toContain('thy-loading-simple');
+
+        testComponent.simple = false;
+        fixture.detectChanges();
+        expect(loadingElement.classList).not.toContain('thy-loading-simple');
+    });
+
+    it('should enable simple mode when thySimple or thySimple="true"', () => {
+        const simpleFixture = TestBed.createComponent(TestLoadingSimpleAttributeComponent);
+        simpleFixture.detectChanges();
+        const loadings = simpleFixture.debugElement.queryAll(By.directive(ThyLoading));
+        expect(loadings.length).toBe(2);
+        loadings.forEach(loading => expect(loading.nativeElement.classList).toContain('thy-loading-simple'));
     });
 
     it('thyTips', () => {

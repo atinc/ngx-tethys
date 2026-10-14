@@ -1,4 +1,4 @@
 ---
-title: 基本
+title: Basic
 order: 10
 ---

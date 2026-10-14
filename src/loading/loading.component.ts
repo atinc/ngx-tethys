@@ -1,4 +1,4 @@
-import { Component, computed, HostBinding, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -10,6 +10,12 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-loading',
     templateUrl: './loading.component.html',
+    host: {
+        class: 'thy-loading',
+        '[class.thy-loading-simple]': 'thySimple()',
+        '[class.thy-loading-mask]': 'thyIsMask() && !thyDone()',
+        '[class.thy-loading-done]': 'thyDone()'
+    },
     imports: []
 })
 export class ThyLoading {
@@ -37,5 +43,9 @@ export class ThyLoading {
      */
     readonly thyIsMask = input(false, { transform: coerceBooleanProperty });
 
-    @HostBinding('class.thy-loading') loadingClassName = true;
+    /**
+     * 是否为简单模式。简单模式是行内指示器，不占满宽度、无上下内边距，间距和居中由外层容器决定
+     * @default false
+     */
+    readonly thySimple = input(false, { transform: coerceBooleanProperty });
 }
