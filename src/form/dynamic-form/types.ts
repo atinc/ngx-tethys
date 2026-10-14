@@ -1,24 +1,31 @@
 import { ThySelectOptionModel } from 'ngx-tethys/select';
+import { ValidationError } from '@angular/forms/signals';
 
-export type ThyFormFieldKind = 'input' | 'textarea' | 'select';
-
-export type ThyFormFieldUpdateOn = 'change' | 'blur' | 'submit';
+export type ThyFormFieldKind = 'input' | 'textarea' | 'select' | 'number';
 
 export type ThyDynamicFormValue = Record<string, unknown>;
 
 export type ThyFormTextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
 
-export type ThyFormFieldValidator = (ctx: {
+export type ThyFormFieldValidator = (ctx: { value: unknown; formValue: ThyDynamicFormValue }) => ValidationError | ValidationError[] | null;
+
+export type ThyFormFieldAsyncValidator = (ctx: {
     value: unknown;
-    form: ThyDynamicFormValue;
-}) => Record<string, unknown> | null | Promise<Record<string, unknown> | null>;
+    formValue: ThyDynamicFormValue;
+}) => Promise<ValidationError | ValidationError[] | null>;
+
+export interface ThyDynamicFormStatus {
+    readonly valid: boolean;
+    readonly invalid: boolean;
+    readonly submitting: boolean;
+}
 
 export interface ThyFormFieldValueChange {
     key: string;
     value: unknown;
 }
 
-interface ThyFormFieldBase {
+interface ThyFormFieldBaseSchema {
     key: string;
     kind: ThyFormFieldKind;
     /**
@@ -28,23 +35,29 @@ interface ThyFormFieldBase {
     defaultValue?: unknown;
     errorMessages?: Partial<Record<string, string>>;
     /**
-     * 控件值更新时机。未设置时值为 `change`，错误展示默认跟随提交。
+     * 控件值写入表单模型前的延迟。未设置时立即更新，`blur` 表示失焦后更新。
      */
-    updateOn?: ThyFormFieldUpdateOn;
+    debounce?: number | 'blur';
     validators?: ThyFormFieldValidator[];
+    asyncValidators?: ThyFormFieldAsyncValidator[];
 }
 
-export interface ThyFormInputFieldConfig extends ThyFormFieldBase {
+export interface ThyFormInputFieldSchema extends ThyFormFieldBaseSchema {
     kind: 'input';
     props?: ThyFormInputFieldProps;
 }
 
-export interface ThyFormTextareaFieldConfig extends ThyFormFieldBase {
+export interface ThyFormNumberFieldSchema extends ThyFormFieldBaseSchema {
+    kind: 'number';
+    props?: ThyFormNumberFieldProps;
+}
+
+export interface ThyFormTextareaFieldSchema extends ThyFormFieldBaseSchema {
     kind: 'textarea';
     props?: ThyFormTextareaFieldProps;
 }
 
-export interface ThyFormSelectFieldConfig extends ThyFormFieldBase {
+export interface ThyFormSelectFieldSchema extends ThyFormFieldBaseSchema {
     kind: 'select';
     props?: ThyFormSelectFieldProps;
 }
@@ -61,10 +74,14 @@ export interface ThyFormInputFieldProps extends ThyFormFieldBaseProps {
     type?: string;
     minlength?: number;
     maxlength?: number;
+    pattern?: string;
+}
+
+export interface ThyFormNumberFieldProps extends ThyFormFieldBaseProps {
     min?: number | string;
     max?: number | string;
     step?: number | string;
-    pattern?: string;
+    suffix?: string;
 }
 
 export interface ThyFormTextareaFieldProps extends ThyFormFieldBaseProps {
@@ -84,4 +101,4 @@ export interface ThyFormSelectFieldProps extends ThyFormFieldBaseProps {
     searchEmptyText?: string;
 }
 
-export type ThyFormFieldConfig = ThyFormInputFieldConfig | ThyFormTextareaFieldConfig | ThyFormSelectFieldConfig;
+export type ThyFormFieldSchema = ThyFormInputFieldSchema | ThyFormTextareaFieldSchema | ThyFormSelectFieldSchema | ThyFormNumberFieldSchema;
