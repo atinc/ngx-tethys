@@ -147,6 +147,7 @@ export class ThyDynamicForm {
     );
 
     constructor() {
+        console.log('--test--');
         effect(() => {
             this.fieldTreeRebuildDependencies();
             this.fieldTreeSignal.set(untracked(() => this.createFieldTree()));
