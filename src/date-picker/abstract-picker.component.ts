@@ -249,6 +249,8 @@ export abstract class AbstractPickerComponent
 
     private onlyEmitDate = false;
 
+    private hasWrittenValue = false;
+
     protected innerValue!: ThyCompatibleDate | null;
 
     get realOpenState(): boolean {
@@ -282,7 +284,9 @@ export abstract class AbstractPickerComponent
     ngOnInit(): void {
         this.setDefaultPlaceHolder();
         this.setDefaultTimePickerState();
-        this.initValue();
+        if (!this.hasWrittenValue) {
+            this.initValue();
+        }
     }
 
     onDateValueChange(event: ThyDateChangeEvent) {
@@ -375,6 +379,7 @@ export abstract class AbstractPickerComponent
     onChangeFn: (val: ThyCompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
 
     writeValue(originalValue: ThyCompatibleDate | ThyDateRangeEntry): void {
+        this.hasWrittenValue = true;
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
         this.flexibleDateGranularity = flexibleDateGranularity;
         this.innerValue = value;

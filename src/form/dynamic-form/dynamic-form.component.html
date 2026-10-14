@@ -62,6 +62,66 @@
               [thySearchEmptyText]="field.props?.searchEmptyText ?? ''"
               [thySize]="thySize()" />
           }
+          @case ('checkbox') {
+            <thy-checkbox [formField]="fieldControl" [id]="field.key" [class.is-invalid]="invalid" />
+          }
+          @case ('radio') {
+            <thy-radio-group
+              [formField]="fieldControl"
+              [thySize]="thySize()"
+              [thyLayout]="field.props?.layout"
+              [thyDisabled]="fieldState.disabled()">
+              @for (option of field.props?.options ?? []; track option.value) {
+                @if (field.props?.button) {
+                  <label thyRadioButton [thyLabelText]="option.label" [thyValue]="option.value"></label>
+                } @else {
+                  <label thyRadio [thyLabelText]="option.label" [thyValue]="option.value"></label>
+                }
+              }
+            </thy-radio-group>
+          }
+          @case ('switch') {
+            <thy-switch [formField]="fieldControl" [id]="field.key" [thyColor]="field.props?.color" [thyDisabled]="fieldState.disabled()" />
+          }
+          @case ('time') {
+            <thy-time-picker
+              [formField]="fieldControl"
+              [id]="field.key"
+              [class.is-invalid]="invalid"
+              [thySize]="thySize()"
+              [thyPlaceholder]="field.props?.placeholder"
+              [thyFormat]="field.props?.format"
+              [thyAllowClear]="field.props?.allowClear ?? true"
+              [thyReadonly]="fieldState.readonly()" />
+          }
+          @case ('date') {
+            <thy-date-picker
+              [formField]="fieldControl"
+              [id]="field.key"
+              [class.is-invalid]="invalid"
+              [thySize]="thySize()"
+              [thyPlaceholder]="field.props?.placeholder"
+              [thyFormat]="field.props?.format"
+              [thyMinDate]="field.props?.min"
+              [thyMaxDate]="field.props?.max"
+              [thyAllowClear]="field.props?.allowClear ?? true"
+              [thyDisabledDate]="field.props?.disabledDate"
+              [thyReadonly]="fieldState.readonly()" />
+          }
+          @case ('dateRange') {
+            <thy-range-picker
+              [formField]="fieldControl"
+              [id]="field.key"
+              [class.is-invalid]="invalid"
+              [thySize]="thySize()"
+              [thyPlaceholder]="field.props?.placeholder"
+              [thyFormat]="field.props?.format"
+              [thyMinDate]="field.props?.min"
+              [thyMaxDate]="field.props?.max"
+              [thyAllowClear]="field.props?.allowClear ?? true"
+              [thyDisabledDate]="field.props?.disabledDate"
+              [thyReadonly]="fieldState.readonly()" />
+          }
           @default {
             <span class="invalid-feedback">Unsupported field kind.</span>
           }

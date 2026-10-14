@@ -1,8 +1,13 @@
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { ThySelect } from 'ngx-tethys/select';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { ThyRadio, ThyRadioButton, ThyRadioGroup } from 'ngx-tethys/radio';
+import { ThySelect } from 'ngx-tethys/select';
+import { ThySwitch } from 'ngx-tethys/switch';
+import { ThyTimePicker } from 'ngx-tethys/time-picker';
 
 import {
     afterNextRender,
@@ -62,6 +67,14 @@ interface FieldTreeRebuildDependency {
         ThySelect,
         ThyInputDirective,
         ThyInputNumber,
+        ThyCheckbox,
+        ThyRadio,
+        ThyRadioButton,
+        ThyRadioGroup,
+        ThySwitch,
+        ThyTimePicker,
+        ThyDatePicker,
+        ThyRangePicker,
         ThyDynamicFormSpanPipe
     ],
     providers: [
@@ -78,7 +91,7 @@ interface FieldTreeRebuildDependency {
 })
 export class ThyDynamicForm {
     /**
-     * 字段配置，kind 目前支持 input、textarea、select
+     * 字段配置。kind 支持 input、textarea、number、select、checkbox、radio、switch、time、date、dateRange
      * @type ThyFormFieldSchema[]
      * @default []
      */
