@@ -73,15 +73,24 @@
               [thyDisabled]="fieldState.disabled()">
               @for (option of field.props?.options ?? []; track option.value) {
                 @if (field.props?.button) {
-                  <label thyRadioButton [thyLabelText]="option.label" [thyValue]="option.value"></label>
+                  <label
+                    thyRadioButton
+                    [thyLabelText]="option.label"
+                    [thyValue]="option.value"
+                    [thyDisabled]="fieldState.disabled()"></label>
                 } @else {
-                  <label thyRadio [thyLabelText]="option.label" [thyValue]="option.value"></label>
+                  <label thyRadio [thyLabelText]="option.label" [thyValue]="option.value" [thyDisabled]="fieldState.disabled()"></label>
                 }
               }
             </thy-radio-group>
           }
           @case ('switch') {
-            <thy-switch [formField]="fieldControl" [id]="field.key" [thyColor]="field.props?.color" [thyDisabled]="fieldState.disabled()" />
+            <thy-switch
+              [formField]="fieldControl"
+              [id]="field.key"
+              [thyColor]="field.props?.color"
+              [thyDisabled]="fieldState.disabled()"
+              [thySize]="thySize()" />
           }
           @case ('time') {
             <thy-time-picker
@@ -92,6 +101,7 @@
               [thyPlaceholder]="field.props?.placeholder"
               [thyFormat]="field.props?.format"
               [thyAllowClear]="field.props?.allowClear ?? true"
+              [thyShowSelectNow]="field.props?.showSelectNow ?? true"
               [thyReadonly]="fieldState.readonly()" />
           }
           @case ('date') {
@@ -105,6 +115,7 @@
               [thyMinDate]="field.props?.min"
               [thyMaxDate]="field.props?.max"
               [thyAllowClear]="field.props?.allowClear ?? true"
+              [thyShowTime]="field.props?.showTime ?? false"
               [thyDisabledDate]="field.props?.disabledDate"
               [thyReadonly]="fieldState.readonly()" />
           }
@@ -119,6 +130,7 @@
               [thyMinDate]="field.props?.min"
               [thyMaxDate]="field.props?.max"
               [thyAllowClear]="field.props?.allowClear ?? true"
+              [thyShowTime]="field.props?.showTime ?? false"
               [thyDisabledDate]="field.props?.disabledDate"
               [thyReadonly]="fieldState.readonly()" />
           }

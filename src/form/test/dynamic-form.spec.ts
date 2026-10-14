@@ -5,6 +5,8 @@ import { ValidationError } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyButton } from 'ngx-tethys/button';
+import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 import {
     ThyDynamicForm,
     ThyDynamicFormStatus,
@@ -14,7 +16,9 @@ import {
     ThyFormValidatorLoader
 } from 'ngx-tethys/form';
 import { ThySelect } from 'ngx-tethys/select';
+import { ThySwitch } from 'ngx-tethys/switch';
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { ThyTimePicker } from 'ngx-tethys/time-picker';
 
 @Component({
     selector: 'thy-test-dynamic-form',
@@ -748,6 +752,41 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('thy-date-picker')).toBeTruthy();
         expect(formElement.querySelector('thy-range-picker')).toBeTruthy();
     });
+
+    it('should bind extended field props', () => {
+        const showTime = { thyFormat: 'HH:mm' };
+        setFields([
+            { key: 'enabled', kind: 'switch' },
+            { key: 'meeting', kind: 'time', props: { showSelectNow: false } },
+            { key: 'birthday', kind: 'date', props: { showTime: true } },
+            { key: 'availability', kind: 'dateRange', props: { showTime } }
+        ]);
+
+        expect(fixture.debugElement.query(By.directive(ThySwitch)).componentInstance.thySize()).toBe('md');
+        expect(fixture.debugElement.query(By.directive(ThyTimePicker)).componentInstance.thyShowSelectNow()).toBe(false);
+        expect(fixture.debugElement.query(By.directive(ThyDatePicker)).componentInstance.thyShowTime()).toBe(true);
+        expect(fixture.debugElement.query(By.directive(ThyRangePicker)).componentInstance.thyShowTime()).toBe(showTime);
+    });
+
+    it('should pass disabled state to extended field CVAs', fakeAsync(() => {
+        setFields([
+            { key: 'subscribe', kind: 'checkbox', props: { disabled: true } },
+            { key: 'contact', kind: 'radio', props: { disabled: true, options: [{ value: 'email', label: 'Email' }] } },
+            { key: 'enabled', kind: 'switch', props: { disabled: true } },
+            { key: 'meeting', kind: 'time', props: { disabled: true } },
+            { key: 'birthday', kind: 'date', props: { disabled: true } },
+            { key: 'availability', kind: 'dateRange', props: { disabled: true } }
+        ]);
+        tick();
+        fixture.detectChanges();
+
+        expect(fixture.debugElement.query(By.directive(ThyCheckbox)).componentInstance._disabled).toBe(true);
+        expect((formElement.querySelector('thy-radio-group input') as HTMLInputElement).disabled).toBe(true);
+        expect(fixture.debugElement.query(By.directive(ThySwitch)).componentInstance.thyDisabled).toBe(true);
+        expect(fixture.debugElement.query(By.directive(ThyTimePicker)).componentInstance.thyDisabled()).toBe(true);
+        expect(fixture.debugElement.query(By.directive(ThyDatePicker)).componentInstance.thyDisabled).toBe(true);
+        expect(fixture.debugElement.query(By.directive(ThyRangePicker)).componentInstance.thyDisabled).toBe(true);
+    }));
 
     it('should validate date and dateRange constraints for values written outside the picker', fakeAsync(() => {
         const min = new Date(2026, 0, 10);
