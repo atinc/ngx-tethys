@@ -1,6 +1,8 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import {
     ThyDynamicForm,
     ThyDynamicFormStatus,
@@ -10,7 +12,7 @@ import {
     ThyFormGroupFooter
 } from 'ngx-tethys/form';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
-import { ThySelectOptionModel } from 'ngx-tethys/select';
+import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThyTag } from 'ngx-tethys/tag';
 import { addDays, isWeekend, startOfDay } from 'ngx-tethys/util';
 
@@ -34,10 +36,21 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     selector: 'thy-form-dynamic-example',
     templateUrl: './dynamic.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThyTag, ThyRowDirective, ThyColDirective]
+    imports: [FormsModule, JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThySelect, ThyTag, ThyRowDirective, ThyColDirective]
 })
 export class ThyFormDynamicExampleComponent {
     value = signal<ThyDynamicFormValue>({});
+
+    size = signal<ThyFormControlSize>('md');
+
+    readonly sizeOptions: ThySelectOptionModel[] = [
+        { value: 'xs', label: 'XS' },
+        { value: 'sm', label: 'SM' },
+        { value: 'md', label: 'MD' },
+        { value: 'lg', label: 'LG' }
+    ];
+
+    allFieldsDisabled = signal(false);
 
     lastSubmit = signal<ThyDynamicFormValue | null>(null);
 
@@ -238,10 +251,24 @@ export class ThyFormDynamicExampleComponent {
         this.status.set(status);
     }
 
+    onSizeChange(size: ThyFormControlSize) {
+        this.size.set(size);
+    }
+
+    toggleAllFieldsDisabled() {
+        const disabled = !this.allFieldsDisabled();
+        this.allFieldsDisabled.set(disabled);
+        this.fields.update(fields =>
+            fields.map(field => withFieldDisabled(field, disabled || (field.key === 'organization' && this.value().role === 'developer')))
+        );
+    }
+
     private patchOrganizationDisabled(disabled: boolean) {
         this.fields.update(fields =>
             fields.map(field =>
-                field.key === 'organization' && field.kind === 'select' ? { ...field, props: { ...field.props, disabled } } : field
+                field.key === 'organization' && field.kind === 'select'
+                    ? { ...field, props: { ...field.props, disabled: this.allFieldsDisabled() || disabled } }
+                    : field
             )
         );
     }
@@ -262,4 +289,8 @@ export class ThyFormDynamicExampleComponent {
             )
         );
     }
+}
+
+function withFieldDisabled<TField extends ThyFormFieldSchema>(field: TField, disabled: boolean): TField {
+    return { ...field, props: { ...field.props, disabled } };
 }
