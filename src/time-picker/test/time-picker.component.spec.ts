@@ -129,6 +129,20 @@ describe('ThyTimePickerComponent', () => {
             expect(debugElementQuery(clearBtnSelector)).toBeNull();
         }));
 
+        it('should display midnight when the form writes null', () => {
+            const value = new Date();
+            value.setHours(10, 20, 30);
+            fixtureInstance.timePickerRef().writeValue(value);
+            expect(fixtureInstance.timePickerRef().showText()).toBe('10:20:30');
+
+            fixtureInstance.timePickerRef().writeValue(null);
+
+            expect(fixtureInstance.timePickerRef().showText()).toBe('00:00:00');
+            expect(fixtureInstance.timePickerRef().value?.getHours()).toBe(0);
+            expect(fixtureInstance.timePickerRef().value?.getMinutes()).toBe(0);
+            expect(fixtureInstance.timePickerRef().value?.getSeconds()).toBe(0);
+        });
+
         it('should use origin value when thyAllowClear is false and input not valid value', fakeAsync(() => {
             const value = new Date();
             value.setHours(10, 20, 30);
@@ -467,7 +481,7 @@ describe('ThyTimePickerComponent', () => {
 class ThyTestTimePickerBaseComponent {
     readonly timePickerRef = viewChild<ThyTimePicker>('timePicker');
 
-    value!: Date | number;
+    value!: Date | number | null;
 
     format: string = 'HH:mm:ss';
 
