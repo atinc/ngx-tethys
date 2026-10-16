@@ -353,7 +353,9 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
             this.originValue = new TinyDate(value)?.nativeDate;
             this.setValue(new TinyDate(value).nativeDate);
         } else {
-            this.value = new TinyDate().setHms(0, 0, 0).nativeDate;
+            const defaultValue = new TinyDate().setHms(0, 0, 0).nativeDate;
+            this.setValue(defaultValue);
+            this.originValue = defaultValue;
         }
     }
 
