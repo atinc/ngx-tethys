@@ -41,7 +41,9 @@ import {
     ChangeDetectionStrategy,
     contentChild,
     contentChildren,
-    effect
+    effect,
+    computed,
+    input
 } from '@angular/core';
 
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
@@ -493,11 +495,11 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
      * 表格列的骨架类型
      * @type ThyTableColumnSkeletonType[]
      */
-    @Input() thyColumnSkeletonTypes: ThyTableColumnSkeletonType[] = [
+    readonly thyColumnSkeletonTypes = input<ThyTableColumnSkeletonType[]>([
         ThyTableColumnSkeletonType.title,
         ThyTableColumnSkeletonType.member,
         ThyTableColumnSkeletonType.default
-    ];
+    ]);
 
     /**
      * 切换组件回调事件
@@ -556,7 +558,15 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
 
     dragPreviewClass = 'thy-table-drag-preview';
 
-    public skeletonColumns: ThyTableSkeletonColumn[] = [];
+    /**
+     * 列宽和骨架类型可能在列创建之后才绑定（如动态生成的列），随两者变化重新计算
+     */
+    public readonly skeletonColumns = computed<ThyTableSkeletonColumn[]>(() =>
+        this.listOfColumnComponents().map((column, index) => ({
+            type: this.thyColumnSkeletonTypes()[index] || ThyTableColumnSkeletonType.default,
+            width: column.width || 'auto'
+        }))
+    );
 
     constructor() {
         this._bindTrackFn();
@@ -567,7 +577,6 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
             this.hasFixed = !!this.columns.find(item => {
                 return item.fixed === this.fixedDirection.left || item.fixed === this.fixedDirection.right;
             });
-            this.buildSkeletonColumns();
             this._initializeColumns();
             this._initializeDataModel();
         });
@@ -1033,18 +1042,6 @@ export class ThyTable implements OnInit, OnChanges, AfterViewInit, OnDestroy, IT
             this.scroll$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
                 this.updateScrollClass();
             });
-        });
-    }
-
-    private buildSkeletonColumns() {
-        this.skeletonColumns = [];
-
-        this.columns.forEach((column: ThyTableColumnComponent, index: number) => {
-            const item = {
-                type: this.thyColumnSkeletonTypes[index] || ThyTableColumnSkeletonType.default,
-                width: column.width || 'auto'
-            };
-            this.skeletonColumns = [...this.skeletonColumns, item];
         });
     }
 

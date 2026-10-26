@@ -11,7 +11,9 @@ import {
     inject,
     ChangeDetectionStrategy,
     contentChild,
-    computed
+    computed,
+    input,
+    linkedSignal
 } from '@angular/core';
 import { coerceBooleanProperty, coerceCssPixelValue, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
@@ -62,14 +64,18 @@ export class ThyTableColumnComponent implements OnInit {
      */
     @Input('thyType') type = '';
 
-    public width: string = '';
-
     /**
      * 设置列的宽度
      */
-    @Input()
-    set thyWidth(value: string | number) {
-        this.width = coerceCssPixelValue(value);
+    readonly thyWidth = input<string, string | number>('', { transform: coerceCssPixelValue });
+
+    private readonly widthValue = linkedSignal(() => this.thyWidth());
+
+    public get width(): string {
+        return this.widthValue();
+    }
+    public set width(value: string) {
+        this.widthValue.set(value);
     }
 
     public minWidth: string = '';

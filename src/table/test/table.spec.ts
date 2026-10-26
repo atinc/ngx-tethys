@@ -1369,3 +1369,84 @@ describe('ThyTable: row tracking', () => {
         expect(getRows().map(getText)).toEqual(['D', 'C', 'B', 'A']);
     });
 });
+
+@Component({
+    selector: 'thy-demo-skeleton-columns-table',
+    template: `
+        <thy-table [thyModel]="[]" [thyLoadingDone]="false" [thyColumnSkeletonTypes]="skeletonTypes">
+            @for (column of columns; track $index) {
+                <thy-table-column [thyTitle]="column.title" [thyWidth]="column.width"></thy-table-column>
+            }
+        </thy-table>
+    `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyTableModule]
+})
+class ThyDemoSkeletonColumnsTableComponent {
+    columns = [
+        { title: 'Key', width: '15%' },
+        { title: 'Summary', width: '' },
+        { title: 'Assignee', width: '20%' }
+    ];
+
+    skeletonTypes = ['title', 'default', 'member'];
+}
+
+describe('ThyTable: skeleton columns', () => {
+    let fixture: ComponentFixture<ThyDemoSkeletonColumnsTableComponent>;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [provideHttpClient(withXhr()), provideNoopAnimations()]
+        });
+        fixture = TestBed.createComponent(ThyDemoSkeletonColumnsTableComponent);
+        fixture.detectChanges();
+    });
+
+    function skeletonColumns(): SafeAny[] {
+        return fixture.debugElement.query(By.directive(ThyTable)).componentInstance.skeletonColumns();
+    }
+
+    function skeletonColWidths(): (string | null)[] {
+        const cols: HTMLElement[] = Array.from(fixture.nativeElement.querySelectorAll('thy-table-skeleton col'));
+        return cols.map(col => col.getAttribute('width'));
+    }
+
+    it('should use widths bound to dynamically created columns', () => {
+        expect(skeletonColWidths()).toEqual(['15%', 'auto', '20%']);
+        expect(skeletonColumns().map(column => column.type)).toEqual(['title', 'default', 'member']);
+    });
+
+    it('should follow width and skeleton type changes', () => {
+        const columns = skeletonColumns();
+        fixture.detectChanges();
+        expect(skeletonColumns()).toBe(columns);
+
+        fixture.componentInstance.columns = [
+            { title: 'Key', width: '30%' },
+            { title: 'Summary', width: '' },
+            { title: 'Assignee', width: '20%' }
+        ];
+        fixture.componentInstance.skeletonTypes = ['default', 'default', 'member'];
+        fixture.detectChanges();
+
+        expect(skeletonColWidths()).toEqual(['30%', 'auto', '20%']);
+        expect(skeletonColumns().map(column => column.type)).toEqual(['default', 'default', 'member']);
+    });
+
+    it('should follow width assigned in code until thyWidth changes', () => {
+        const column: ThyTableColumnComponent = fixture.debugElement.query(By.directive(ThyTable)).componentInstance.columns[1];
+        column.width = '120px';
+        fixture.detectChanges();
+        expect(skeletonColWidths()).toEqual(['15%', '120px', '20%']);
+
+        fixture.componentInstance.columns = [
+            { title: 'Key', width: '15%' },
+            { title: 'Summary', width: '40%' },
+            { title: 'Assignee', width: '20%' }
+        ];
+        fixture.detectChanges();
+        expect(column.width).toBe('40%');
+        expect(skeletonColWidths()).toEqual(['15%', '40%', '20%']);
+    });
+});
