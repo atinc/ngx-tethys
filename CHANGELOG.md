@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.6](github.com/atinc/ngx-tethys/compare/22.0.5...22.0.6) (2026-10-26)
+
+
+### Bug Fixes
+
+* **form:** 调整动态表单参数 #TINFR-4121 ([#4014](/github.com/atinc/ngx-tethys/issues/4014)) ([9ea234c](github.com/atinc/ngx-tethys/commits/9ea234c4290abee786a9b36f9f16d50bb40ffec0)), closes [#TINFR-4121](github.com/atinc/ngx-tethys/issues/TINFR-4121)
+* **time-picker:** set default value to midnight when input is null #TINFR-4174 ([#4015](/github.com/atinc/ngx-tethys/issues/4015)) ([267ae29](github.com/atinc/ngx-tethys/commits/267ae29194e056826de4e20fb820a83ccbc22272)), closes [#TINFR-4174](github.com/atinc/ngx-tethys/issues/TINFR-4174)
+
+
+### Features
+
+* **form:** enhance dynamic form with size selection and toggle for disabling fields #TINFR-4175 ([#4016](/github.com/atinc/ngx-tethys/issues/4016)) ([e5e9325](github.com/atinc/ngx-tethys/commits/e5e932569df2371f81988189ad88f994e40db0a2)), closes [#TINFR-4175](github.com/atinc/ngx-tethys/issues/TINFR-4175)
+* **table:** use signal inputs for thyWidth and thyColumnSkeletonTypes to make skeleton columns reactive #TINFR-4184 ([#4020](/github.com/atinc/ngx-tethys/issues/4020)) ([19b1536](github.com/atinc/ngx-tethys/commits/19b1536a5b9cf984f0c359f812faa86dcad6f37d)), closes [#TINFR-4184](github.com/atinc/ngx-tethys/issues/TINFR-4184)
+
 ## [22.0.5](github.com/atinc/ngx-tethys/compare/22.0.4...22.0.5) (2026-10-14)
 
 
