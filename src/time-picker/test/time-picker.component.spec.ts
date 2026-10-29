@@ -326,6 +326,32 @@ describe('ThyTimePickerComponent', () => {
             tick();
             expect(valueChange.calls.mostRecent().args[0]).toBeNull();
         }));
+
+        it('should reject out-of-range custom times and restore the previous value', fakeAsync(() => {
+            const original = new Date();
+            original.setHours(10, 20, 30, 0);
+            fixtureInstance.value = original;
+            fixture.detectChanges();
+            tick(200);
+
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
+            openOverlay();
+            for (const invalidTime of ['99:99:99', '24:00:00', '12:60:00', '12:00:60', 'aa:bb:cc']) {
+                getTimePickerInput().value = invalidTime;
+                dispatchFakeEvent(getTimePickerInput(), 'input');
+                fixture.detectChanges();
+                tick();
+
+                expect(fixtureInstance.timePickerRef().value).toEqual(original);
+                expect(valueChange).not.toHaveBeenCalled();
+            }
+
+            dispatchMouseEvent(document.body, 'click');
+            tick(300);
+            fixture.detectChanges();
+            expect(getTimePickerInput().value).toBe('10:20:30');
+            expect(fixtureInstance.timePickerRef().value).toEqual(original);
+        }));
     });
 
     describe('ngModel testing', () => {
