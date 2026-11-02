@@ -31,6 +31,7 @@ import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { coerceBooleanProperty, isValid, TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanel } from './time-picker-panel.component';
+import { parseCustomizeTimeInput } from './time-picker.utils';
 
 /**
  * 时间选择组件
@@ -405,12 +406,9 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
             this.openOverlay();
         }
         if (value?.length) {
-            if (this.validateCustomizeInput(value)) {
-                const formatter = value.split(':');
-                const hour = formatter[0] || 0;
-                const minute = formatter[1] || 0;
-                const second = formatter[2] || 0;
-                this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate, false);
+            const parsed = parseCustomizeTimeInput(value, this.thyFormat());
+            if (parsed) {
+                this.setValue(new TinyDate().setHms(parsed.h, parsed.m, parsed.s).nativeDate, false);
                 this.originValue = new TinyDate(this.value!)?.nativeDate;
                 this.emitValue();
             }
@@ -428,18 +426,7 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
     }
 
     private validateCustomizeInput(value: string): boolean {
-        let valid = false;
-        if (value.length > this.thyFormat().length) {
-            return valid;
-        }
-        const formatRule = this.thyFormat().split(':');
-        const formatter = value.split(':');
-        valid = !formatRule
-            .map((m, i) => {
-                return !!formatter[i];
-            })
-            .includes(false);
-        return valid;
+        return !!parseCustomizeTimeInput(value, this.thyFormat());
     }
 
     private disabledUserOperation() {

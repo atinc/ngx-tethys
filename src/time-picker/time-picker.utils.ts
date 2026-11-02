@@ -167,3 +167,53 @@ export function isInputLimitValid(diff: Time, max: Date, min: Date, timeZone?: s
 export function isInputValid(hours: string, minutes = '0', seconds = '0', isPM: boolean): boolean {
     return isHourInputValid(hours, isPM) && isMinuteInputValid(minutes) && isSecondInputValid(seconds);
 }
+
+const customizeSegmentDigit = /^\d{1,2}$/;
+
+/**
+ * Parse customized time text against a colon-separated format (e.g. HH:mm:ss / HH:mm / mm:ss).
+ * Returns null when segment count, digits, tokens, or ranges are invalid.
+ */
+export function parseCustomizeTimeInput(text: string, format: string): { h: number; m: number; s: number } | null {
+    if (!text || !format) {
+        return null;
+    }
+
+    const formatParts = format.split(':');
+    const textParts = text.split(':');
+    if (formatParts.length !== textParts.length) {
+        return null;
+    }
+
+    const result = { h: 0, m: 0, s: 0 };
+
+    for (let i = 0; i < formatParts.length; i++) {
+        const token = formatParts[i];
+        const part = textParts[i];
+        if (!customizeSegmentDigit.test(part)) {
+            return null;
+        }
+
+        const num = Number(part);
+        if (/^H+$/.test(token)) {
+            if (num < 0 || num > 23) {
+                return null;
+            }
+            result.h = num;
+        } else if (/^m+$/.test(token)) {
+            if (num < 0 || num > 59) {
+                return null;
+            }
+            result.m = num;
+        } else if (/^s+$/.test(token)) {
+            if (num < 0 || num > 59) {
+                return null;
+            }
+            result.s = num;
+        } else {
+            return null;
+        }
+    }
+
+    return result;
+}

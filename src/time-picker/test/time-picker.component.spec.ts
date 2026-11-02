@@ -326,6 +326,52 @@ describe('ThyTimePickerComponent', () => {
             tick();
             expect(valueChange.calls.mostRecent().args[0]).toBeNull();
         }));
+
+        it('should map mm:ss custom input to minutes and seconds', fakeAsync(() => {
+            fixtureInstance.format = 'mm:ss';
+            fixture.detectChanges();
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
+            getTimePickerInput().value = '45:30';
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick();
+            expect(valueChange).toHaveBeenCalled();
+            const emitted = valueChange.calls.mostRecent().args[0] as Date;
+            expect(emitted.getHours()).toBe(0);
+            expect(emitted.getMinutes()).toBe(45);
+            expect(emitted.getSeconds()).toBe(30);
+        }));
+
+        it('should not emit when custom input is out of range', fakeAsync(() => {
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
+            fixture.detectChanges();
+            getTimePickerInput().value = '24:00:00';
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick();
+            expect(valueChange).not.toHaveBeenCalled();
+
+            getTimePickerInput().value = '12:60:00';
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick();
+            expect(valueChange).not.toHaveBeenCalled();
+        }));
+
+        it('should parse HH:mm custom input and default seconds to 0', fakeAsync(() => {
+            fixtureInstance.format = 'HH:mm';
+            fixture.detectChanges();
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
+            getTimePickerInput().value = '08:20';
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick();
+            expect(valueChange).toHaveBeenCalled();
+            const emitted = valueChange.calls.mostRecent().args[0] as Date;
+            expect(emitted.getHours()).toBe(8);
+            expect(emitted.getMinutes()).toBe(20);
+            expect(emitted.getSeconds()).toBe(0);
+        }));
     });
 
     describe('ngModel testing', () => {
