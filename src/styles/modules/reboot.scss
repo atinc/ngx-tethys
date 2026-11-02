@@ -124,6 +124,10 @@ h6 {
 p {
     margin-top: 0;
     margin-bottom: bootstrap-variables.$paragraph-margin-bottom;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 // Abbreviations
