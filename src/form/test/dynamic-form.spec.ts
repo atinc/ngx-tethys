@@ -8,6 +8,7 @@ import { ThyButton } from 'ngx-tethys/button';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 import {
+    THY_FORM_CONFIG,
     ThyDynamicForm,
     ThyDynamicFormStatus,
     ThyFormFieldSchema,
@@ -47,7 +48,7 @@ class TestDynamicFormComponent {
 
     value: ThyDynamicFormValue = {};
 
-    layout: ThyFormLayout = 'horizontal';
+    layout: ThyFormLayout | undefined = undefined;
 
     size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
 
@@ -643,12 +644,34 @@ describe('dynamic-form', () => {
     it('should default layout to horizontal like thyForm', () => {
         setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
         const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+        expect(host.classList.contains('thy-form')).toBe(true);
+        expect(host.classList.contains('thy-dynamic-form')).toBe(true);
         expect(host.classList.contains('thy-form-horizontal')).toBe(true);
         expect(testComponent.dynamicForm().isHorizontal).toBe(true);
         const formGroup = formElement.querySelector('thy-form-group');
         expect(formGroup?.classList.contains('row')).toBe(true);
         expect(formGroup?.querySelector('.col-form-label')).toBeTruthy();
         expect(formGroup?.querySelector('.col-form-control')).toBeTruthy();
+    });
+
+    it('should fall back to THY_FORM_CONFIG.layout when thyLayout is unset', () => {
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule({
+            imports: [ThyFormModule],
+            providers: [
+                bypassSanitizeProvider,
+                provideHttpClient(),
+                provideNoopAnimations(),
+                { provide: THY_FORM_CONFIG, useValue: { layout: 'vertical', footerAlign: 'left' } }
+            ]
+        }).compileComponents();
+        injectDefaultSvgIconSet();
+
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+        expect(host.classList.contains('thy-form-vertical')).toBe(true);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(false);
+        expect(formElement.querySelector('thy-form-group')?.classList.contains('row')).toBe(false);
     });
 
     it('should switch layout classes and form-group horizontal state', () => {

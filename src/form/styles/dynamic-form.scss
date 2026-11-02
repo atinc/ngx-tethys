@@ -37,9 +37,10 @@ $thy-dynamic-form-row-gap: bootstrap-variables.$form-group-margin-bottom;
             row-gap: $thy-dynamic-form-row-gap;
         }
 
-        .thy-dynamic-form-field {
+        .thy-dynamic-form-field.form-group {
             flex: 0 0 auto;
             width: auto;
+            margin-right: 0;
         }
 
         .thy-dynamic-form-actions {

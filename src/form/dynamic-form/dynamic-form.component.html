@@ -6,7 +6,7 @@
       @let invalid = fieldState.invalid() && fieldState.touched();
       <thy-form-group
         class="thy-dynamic-form-field"
-        [style.grid-column]="thyLayout() === 'inline' ? null : 'span ' + (field.col ?? 12)"
+        [style.grid-column]="layout() === 'inline' ? null : 'span ' + (field.col ?? 12)"
         [thyLabelText]="field.props?.label"
         [thyLabelRequired]="!!field.props?.required">
         @switch (field.kind) {

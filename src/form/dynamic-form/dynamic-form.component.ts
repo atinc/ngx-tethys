@@ -25,9 +25,9 @@ import {
 import { Field, FieldTree, form, FormField, FormRoot, ValidationError } from '@angular/forms/signals';
 
 import { ThyFormGroup } from '../form-group.component';
-import { ThyFormDirective } from '../form.directive';
-import { THY_FORM_CONFIG_PROVIDER, ThyFormLayout } from '../form.class';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
+import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
+import { ThyFormDirective } from '../form.directive';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
@@ -77,11 +77,13 @@ interface FieldTreeRebuildDependency {
             provide: ThyFormDirective,
             useExisting: ThyDynamicForm
         },
-        ThyFormValidatorLoader,
-        THY_FORM_CONFIG_PROVIDER
+        ThyFormValidatorLoader
     ],
     host: {
-        '[class]': 'hostClass()'
+        class: 'thy-form thy-dynamic-form',
+        '[class.thy-form-horizontal]': 'layout() === "horizontal"',
+        '[class.thy-form-vertical]': 'layout() === "vertical"',
+        '[class.thy-form-inline]': 'layout() === "inline"'
     }
 })
 export class ThyDynamicForm {
@@ -96,11 +98,12 @@ export class ThyDynamicForm {
     readonly thyValue = model<ThyDynamicFormValue>({});
 
     /**
-     * 表单布局，与 `thyForm` 一致。`horizontal` 左右布局；`vertical` 上下布局；`inline` 行内布局
+     * 表单布局，与 `thyForm` 一致。`horizontal` 左右布局；`vertical` 上下布局；`inline` 行内布局。
+     * 未传入时回落 `THY_FORM_CONFIG.layout`（默认 `horizontal`）。
      * @type horizontal | vertical | inline
      * @default horizontal
      */
-    readonly thyLayout = input<ThyFormLayout>('horizontal');
+    readonly thyLayout = input<ThyFormLayout>();
 
     /**
      * 表单控件大小
@@ -111,10 +114,12 @@ export class ThyDynamicForm {
         transform: value => value ?? 'md'
     });
 
-    protected readonly hostClass = computed(() => `thy-form thy-dynamic-form thy-form-${this.thyLayout()}`);
+    private readonly config = inject(THY_FORM_CONFIG, { optional: true });
+
+    protected readonly layout = computed(() => this.thyLayout() || this.config?.layout || 'horizontal');
 
     get isHorizontal(): boolean {
-        return this.thyLayout() === 'horizontal';
+        return this.layout() === 'horizontal';
     }
 
     /** 组件内部修改单个字段时触发。 */
