@@ -10,10 +10,10 @@ sources:
     resource: repo://src/form/dynamic-form/dynamic-form.component.html
   - id: openwiki-source-4473ca9466b1ac1ab849076e
     resource: repo://src/form/dynamic-form/dynamic-form.component.ts
-  - id: openwiki-source-3d1d7d81241d81845236a9c7
-    resource: repo://src/form/dynamic-form/dynamic-form.pipe.ts
   - id: openwiki-source-3126b269f7255d0b750d6912
     resource: repo://src/form/dynamic-form/types.ts
+  - id: openwiki-source-dynamic-form-scss
+    resource: repo://src/form/styles/dynamic-form.scss
   - id: openwiki-source-9eecfb6e04b0f8606db30da4
     resource: repo://src/form/form-group-error/form-group-error.component.ts
   - id: openwiki-source-fb8de40a07c8673056647a3f
@@ -68,13 +68,11 @@ verified:
 
 ## 动态表单
 
-`thy-dynamic-form` 按 `thyFields` 自己建 `FormGroup`，不走 `thyForm` 的 `validateOn`。字段 `kind` 只支持 `input`、`textarea` 和 `select`。其他 kind 渲染一行 `Unsupported field kind.`。
+`thy-dynamic-form` 按 `thyFields` 用 Signal Forms 建字段树，不走 `thyForm` 的 `validateOn`。字段 `kind` 支持 `input`、`textarea`、`number`、`select`、`checkbox`、`radio`、`switch`、`time`、`date`、`dateRange`。其他 kind 渲染一行 `Unsupported field kind.`。
 
-控件的 `updateOn` 缺省是 `change`。错误默认要等提交后才显示：`updateOn` 为 `blur` 时，触碰后即可显示；为 `change` 时，变脏后即可显示；没写 `updateOn` 时，只有 `submitted` 为真才显示。提交且整表有效才发出 `thySubmit`。无效时不发。`reset()` 把各字段恢复成 `defaultValue`（选择的空值是 `null`，多选是 `[]`，文本是空字符串），并清掉已显示的错误。
+提交且整表有效才发出 `thySubmit`。无效时不发。`reset()` 把各字段恢复成 `defaultValue`（未配置则为空），并清掉已显示的错误。文案先用字段自己的 `errorMessages`，再用校验加载器按字段名取。
 
-`props.required`、长度、`pattern`，以及 input 的 `min` / `max`，会变成 Angular 内置校验。自定义 `validators` 一律当成异步校验，返回错误对象或 `null`。文案先用字段自己的 `errorMessages`，再用校验加载器按字段名取，最后才用错误值里的字符串。
-
-布局固定为非横向：组件把 `isHorizontal` 设为 `false`，并把自己提供成 `ThyFormDirective`，让 `thy-form-group` 读到这个值。`col` 按 12 列理解，管道乘 2 映射到 24 列栅格；不写时按 12，也就是整行。选择字段使用 `thyMultiple`、`thySearchable` 和 `thyClearable`。动态表单不设置 `thyAppearance`。
+`thyLayout` 与 `thyForm` 一致，支持 `horizontal` / `vertical` / `inline`；未传入时回落 `THY_FORM_CONFIG.layout`（默认 `horizontal`）。组件把自己提供成 `ThyFormDirective`，用响应式 `isHorizontal` 让 `thy-form-group` / footer 跟随布局。字段占宽由 schema 的 `col` 控制，按 12 列 CSS Grid 以 `grid-column: span N` 排布；不写时按 12，也就是整行。选择字段使用 `thyMultiple`、`thySearchable` 和 `thyClearable`。动态表单不设置 `thyAppearance`。
 
 ## 相关页面
 
