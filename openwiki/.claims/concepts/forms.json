@@ -86,19 +86,27 @@
     },
     {
       "id": "claim_b565fa8e68f945c5adc000726912e2e0",
-      "statement": "thy-dynamic-form 按 thyFields 用 Signal Forms 建字段树；thyLayout 支持 horizontal/vertical/inline，未传入时回落 THY_FORM_CONFIG.layout（默认 horizontal）；isHorizontal 随 layout 变化；col 缺省 12，按 12 列 CSS Grid 以 grid-column: span N 排布。",
+      "statement": "thy-dynamic-form 按 thyFields 建立 FormGroup，kind 只支持 input、textarea 和 select。控件 updateOn 默认 change，但未写 updateOn 时错误要等提交后才显示。isHorizontal 固定为 false。col 缺省 12，并乘 2 映射到 24 列栅格。",
       "evidence": [
         {
-          "resource": "repo://src/form/dynamic-form/dynamic-form.component.html"
+          "resource": "repo://src/form/dynamic-form/dynamic-form.component.html#L1-L64",
+          "version": "repo-lines-v1:sha256:34b08d3faf373270c5ac734a695087223cdcb38f4626f0fe94150cf1df8a951d:eyJzZWxlY3RlZExpbmVDb3VudCI6NjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmNGZkN2JmNGIwYjNlZmViYjMyYjU1YmVkZWMxYTI2ZGZiZDhkYzgxMmU5YzYzODY4OGJjYmQ3YTVmYTllZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlNjk3NWI3YzA4OTcxMGY2MDE1MjhjZTg5NDk3Yjg0YzhmYzVkN2Q4N2MzMzg2ZWVkODAwNDIzNGEzYzE4NGYifQ"
         },
         {
-          "resource": "repo://src/form/dynamic-form/dynamic-form.component.ts"
+          "resource": "repo://src/form/dynamic-form/dynamic-form.component.ts#L174-L238",
+          "version": "repo-lines-v1:sha256:4e2cda1c396c4ae785cc12e9448f0ae9dd0669f70fd7e5142024adc2cd45e799:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhMmI0OTc2OTQ1MjIzYzZjZThkMGViYWQwNTRkYWE2Y2MyZjNlZGM3ZTU5ZTY2YmU0MGE4MjliOTM5N2E2YWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOTllN2M0OTcxM2MzMzc2Njc3MTI5MWRiY2NjMzc2NGM0OTk1N2U5N2U0NjgyN2U3ODIxMzliM2FiZjk5NDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjYzgxNmM5NmQ4Njg3ODYwY2VjZjMyMTY5NjQxMjQ3MDkxODhjZGE5NTA0MDI4OGQ2YTdiN2E3MzFkYTVjNTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYyYjIwODhiMjExNDM2YzNiODg0MzJjYzE4Mzg4MWI0ZTc3YzdlYzAwNWQ5MTlkODAyYjIzMTQwMTU4MTcxNTUifQ"
         },
         {
-          "resource": "repo://src/form/dynamic-form/types.ts"
+          "resource": "repo://src/form/dynamic-form/dynamic-form.component.ts#L87-L87",
+          "version": "repo-lines-v1:sha256:ffce0eb5a7a1f4cebdbc9946b0f6eed09e1abb9034245b44085b71483a05cd1c:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmZjZTBlYjVhN2ExZjRjZWJkYmM5OTQ2YjBmNmVlZDA5ZTFhYmI5MDM0MjQ1YjQ0MDg1YjcxNDgzYTA1Y2QxYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmZjZTBlYjVhN2ExZjRjZWJkYmM5OTQ2YjBmNmVlZDA5ZTFhYmI5MDM0MjQ1YjQ0MDg1YjcxNDgzYTA1Y2QxYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTAzNzY1NzM5MDZmMDRlZjhkMDhjZjdkZWUxNjQ5OTllZmU3MWM0Nzc2MmQ0ZmJkYzJmYjAzYjI4YjQ4Njc2NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGNiNzc1NjFjODQ2NThkOTMzZmM2YjVlMzc3ZWNjYTI0NTk4NGYwYjZjMDFhYmQ1ZmYzY2EyMDI0Y2FmODQwYSJ9"
         },
         {
-          "resource": "repo://src/form/styles/dynamic-form.scss"
+          "resource": "repo://src/form/dynamic-form/dynamic-form.pipe.ts#L7-L11",
+          "version": "repo-lines-v1:sha256:b7d510feead7cdf3e984f7a8941aa1ee9dbbc23d0d494a568493ed4caf9bb93b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRlZDEyMjRkODMxNTExOTExY2UzMmRjYzcwY2RkMmQ2NDlhYzA1ZDk0NTE3YmM4NWVkYWM5ZTM4M2UzMGU1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODM2ODVlMjQ2ZjJmNjliYzQwMGQyNzBjNDdiYTAzOTJkMDhiODYxMDY3ZDY1MjlhOWNhYjAzOTViMTQ0MzJlOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        },
+        {
+          "resource": "repo://src/form/dynamic-form/types.ts#L3-L33",
+          "version": "repo-lines-v1:sha256:69009492f464f26e2843908631c9c6094eeb68d3255c3065b72adb7a43211613:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMzg0ZDkxZTJkMGQ5ZDFiNjEzNTE1OWRkZjJiNTVhMzljYmIyMDRjZWQxYTVmYmNiZmI1ZDFjN2UwMGM3ZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3ZjcxZmNjNGM2ODE1ZTk0YWJjMWFmN2UyMzEzZmIzYjllYWVjMDczYzFjMjdjN2I1Y2U3MGRiYTFkMDg4YmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMwZmJmZDliNTQ4OGJhMzk4MjJmM2M4ZWQ5MjdjOWQ5ODc0YmE0MTJhYWQxZWU3MTg4ZDM0ZTM5OTIxZjc0MzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyN2Y5ZjM2YjBkM2JhMzRmMDVhNmVhOGQ4YmY4YmJmYjc2ZTU5ZjEyMmQyODVjZDEyZjNiOWMzNjhkNjIzMjkifQ"
         }
       ]
     }
