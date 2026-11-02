@@ -1,0 +1,50 @@
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+
+$thy-dynamic-form-column-gap: 30px;
+$thy-dynamic-form-row-gap: bootstrap-variables.$form-group-margin-bottom;
+
+.thy-dynamic-form {
+    &.thy-form-inline {
+        display: block;
+    }
+
+    .thy-dynamic-form-fields {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: $thy-dynamic-form-column-gap;
+        row-gap: $thy-dynamic-form-row-gap;
+    }
+
+    .thy-dynamic-form-field.form-group {
+        margin-bottom: 0;
+        min-width: 0;
+    }
+
+    .thy-dynamic-form-actions {
+        grid-column: 1 / -1;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &.thy-form-inline {
+        .thy-dynamic-form-fields {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            column-gap: 10px;
+            row-gap: $thy-dynamic-form-row-gap;
+        }
+
+        .thy-dynamic-form-field {
+            flex: 0 0 auto;
+            width: auto;
+        }
+
+        .thy-dynamic-form-actions {
+            grid-column: auto;
+            flex: 0 0 auto;
+        }
+    }
+}

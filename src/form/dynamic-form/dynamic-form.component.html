@@ -1,12 +1,12 @@
 <form [formRoot]="fieldTree" (reset)="handleReset($event)">
-  <div thyRow [thyGutter]="30">
+  <div class="thy-dynamic-form-fields">
     @for (field of fields(); track field.key) {
       @let fieldControl = getField(field.key);
       @let fieldState = fieldControl();
       @let invalid = fieldState.invalid() && fieldState.touched();
       <thy-form-group
-        thyCol
-        [thySpan]="field.col | thyDynamicFormSpan"
+        class="thy-dynamic-form-field"
+        [style.grid-column]="thyLayout() === 'inline' ? null : 'span ' + (field.col ?? 12)"
         [thyLabelText]="field.props?.label"
         [thyLabelRequired]="!!field.props?.required">
         @switch (field.kind) {
@@ -143,7 +143,7 @@
         }
       </thy-form-group>
     }
-    <div thyCol [thySpan]="24">
+    <div class="thy-dynamic-form-actions">
       <ng-content></ng-content>
     </div>
   </div>

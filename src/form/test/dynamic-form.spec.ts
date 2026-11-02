@@ -12,6 +12,7 @@ import {
     ThyDynamicFormStatus,
     ThyFormFieldSchema,
     ThyDynamicFormValue,
+    ThyFormLayout,
     ThyFormModule,
     ThyFormValidatorLoader
 } from 'ngx-tethys/form';
@@ -26,6 +27,7 @@ import { ThyTimePicker } from 'ngx-tethys/time-picker';
         <thy-dynamic-form
             [thyFields]="fields"
             [(thyValue)]="value"
+            [thyLayout]="layout"
             [thySize]="size"
             (thyValueChange)="onValueChange($event)"
             (thyFieldValueChange)="onFieldValueChange($event)"
@@ -44,6 +46,8 @@ class TestDynamicFormComponent {
     fields: ThyFormFieldSchema[] = [];
 
     value: ThyDynamicFormValue = {};
+
+    layout: ThyFormLayout = 'horizontal';
 
     size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
 
@@ -636,6 +640,40 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('textarea')?.classList.contains('form-control-sm')).toBe(true);
     });
 
+    it('should default layout to horizontal like thyForm', () => {
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+        expect(host.classList.contains('thy-form-horizontal')).toBe(true);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(true);
+        const formGroup = formElement.querySelector('thy-form-group');
+        expect(formGroup?.classList.contains('row')).toBe(true);
+        expect(formGroup?.querySelector('.col-form-label')).toBeTruthy();
+        expect(formGroup?.querySelector('.col-form-control')).toBeTruthy();
+    });
+
+    it('should switch layout classes and form-group horizontal state', () => {
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+
+        expect(formElement.querySelector('.thy-dynamic-form-fields')).toBeTruthy();
+        expect(formElement.querySelector('thy-form-group')?.classList.contains('row')).toBe(true);
+
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+        expect(host.classList.contains('thy-form-vertical')).toBe(true);
+        expect(host.classList.contains('thy-form-horizontal')).toBe(false);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(false);
+        expect(formElement.querySelector('thy-form-group')?.classList.contains('row')).toBe(false);
+        expect(formElement.querySelector('.col-form-label')).toBeFalsy();
+
+        testComponent.layout = 'inline';
+        fixture.detectChanges();
+        expect(host.classList.contains('thy-form-inline')).toBe(true);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(false);
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('.thy-dynamic-form-actions')).toBeTruthy();
+    });
+
     it('should reset values to defaultValue or empty and clear displayed errors', () => {
         setFields([
             { key: 'name', kind: 'input', defaultValue: 'Ada', props: { required: true } },
@@ -888,19 +926,35 @@ describe('dynamic-form', () => {
         ).toEqual(['disabledDate']);
     }));
 
-    it('should render field col on thy-col using a 12-column grid', () => {
+    it('should map field col to css grid column span', () => {
         setFields([
             { key: 'email', kind: 'input', col: 6, props: { label: '邮箱' } },
             { key: 'age', kind: 'input', col: 6, props: { label: '年龄' } },
             { key: 'bio', kind: 'textarea', props: { label: '简介' } }
         ]);
-        expect(formElement.querySelectorAll('thy-form-group.thy-col-12').length).toBe(2);
-        expect(formElement.querySelectorAll('thy-form-group.thy-col-24').length).toBe(1);
-        formElement.querySelectorAll('thy-form-group').forEach(group => {
-            expect(group.classList.contains('row')).toBe(false);
-        });
-        expect(formElement.querySelector('.col-sm-2')).toBeNull();
-        expect(formElement.querySelector('.offset-sm-2')).toBeNull();
+
+        const fields = formElement.querySelectorAll('thy-form-group.thy-dynamic-form-field') as NodeListOf<HTMLElement>;
+        expect(fields.length).toBe(3);
+        expect(fields[0].style.gridColumn).toBe('span 6');
+        expect(fields[1].style.gridColumn).toBe('span 6');
+        expect(fields[2].style.gridColumn).toBe('span 12');
+        expect(formElement.querySelector('.thy-dynamic-form-fields .thy-dynamic-form-actions #submit')).toBeTruthy();
+    });
+
+    it('should keep projected footer visible when switching layouts', () => {
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('#reset')).toBeTruthy();
+
+        testComponent.layout = 'inline';
+        fixture.detectChanges();
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('#reset')).toBeTruthy();
+
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('#reset')).toBeTruthy();
     });
 });
 
