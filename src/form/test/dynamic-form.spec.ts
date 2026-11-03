@@ -806,6 +806,37 @@ describe('dynamic-form', () => {
         expect(testComponent.valueChanges.at(-1)).toEqual({ name: 'Ada', title: '' });
     });
 
+    it('should clear radio and checkbox validation feedback after reset', () => {
+        setFields([
+            { key: 'subscribe', kind: 'checkbox', props: { required: true, label: 'Subscribe' } },
+            {
+                key: 'contact',
+                kind: 'radio',
+                props: {
+                    required: true,
+                    label: 'Contact',
+                    layout: 'flex',
+                    options: [
+                        { value: 'email', label: 'Email' },
+                        { value: 'phone', label: 'Phone' }
+                    ]
+                }
+            }
+        ]);
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+        expect(formElement.querySelectorAll('.invalid-feedback').length).toBeGreaterThan(0);
+        expect(testComponent.dynamicForm().getField('contact')().touched()).toBe(true);
+        expect(testComponent.dynamicForm().getField('subscribe')().touched()).toBe(true);
+
+        fixture.debugElement.query(By.css('#reset')).nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testComponent.dynamicForm().getField('contact')().touched()).toBe(false);
+        expect(testComponent.dynamicForm().getField('subscribe')().touched()).toBe(false);
+        expect(formElement.querySelector('.invalid-feedback')).toBeFalsy();
+    });
+
     it('should clear change errors and keep a disabled field disabled after reset', () => {
         setFields([
             { key: 'name', kind: 'input', props: { required: true, minlength: 2 } },
