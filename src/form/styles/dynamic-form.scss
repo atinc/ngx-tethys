@@ -1,11 +1,27 @@
+@use 'sass:map';
 @use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
 
 $thy-dynamic-form-column-gap: 30px;
 $thy-dynamic-form-row-gap: bootstrap-variables.$form-group-margin-bottom;
+$thy-dynamic-form-label-width: 120px;
+$thy-dynamic-form-control-heights: (
+    xs: variables.$input-height-xs,
+    sm: variables.$input-height-sm,
+    md: variables.$input-height-md,
+    lg: variables.$input-height-lg
+);
 
 .thy-dynamic-form {
-    &.thy-form-inline {
-        display: block;
+    --thy-control-height: #{map.get($thy-dynamic-form-control-heights, md)};
+    --thy-dynamic-form-label-width: #{$thy-dynamic-form-label-width};
+
+    @each $size, $height in $thy-dynamic-form-control-heights {
+        @if $size != md {
+            &.thy-dynamic-form-#{$size} {
+                --thy-control-height: #{$height};
+            }
+        }
     }
 
     .thy-dynamic-form-fields {
@@ -20,6 +36,37 @@ $thy-dynamic-form-row-gap: bootstrap-variables.$form-group-margin-bottom;
         min-width: 0;
     }
 
+    .thy-dynamic-form-control {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        width: 100%;
+
+        // 仅 invalid 时渲染；需覆盖 bootstrap .invalid-feedback { display:none }
+        > .invalid-feedback {
+            display: block;
+        }
+    }
+
+    .thy-dynamic-form-control-input {
+        display: flex;
+        align-items: center;
+        min-height: var(--thy-control-height);
+        max-width: 100%;
+
+        > .form-control,
+        > thy-input-number,
+        > thy-select,
+        > thy-date-picker,
+        > thy-range-picker,
+        > thy-time-picker {
+            flex: 1 1 auto;
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+        }
+    }
+
     .thy-dynamic-form-actions {
         grid-column: 1 / -1;
 
@@ -28,24 +75,109 @@ $thy-dynamic-form-row-gap: bootstrap-variables.$form-group-margin-bottom;
         }
     }
 
+    &.thy-form-horizontal {
+        .thy-dynamic-form-field.form-group {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: flex-start;
+            margin-left: 0;
+            margin-right: 0;
+
+            > .form-label {
+                display: flex;
+                flex: 0 0 var(--thy-dynamic-form-label-width);
+                align-items: center;
+                justify-content: flex-end;
+                box-sizing: border-box;
+                max-width: var(--thy-dynamic-form-label-width);
+                height: var(--thy-control-height);
+                margin-bottom: 0;
+                padding: 0 10px 0 0;
+                text-align: right;
+            }
+
+            > .col-form-control {
+                flex: 1 1 0;
+                width: auto;
+                max-width: none;
+                min-width: 0;
+                padding-left: 10px;
+                padding-right: 0;
+            }
+        }
+    }
+
+    &.thy-form-vertical {
+        .thy-dynamic-form-field.form-group {
+            display: block;
+
+            > .form-label {
+                height: auto;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .thy-dynamic-form-control-input {
+            min-height: 0;
+        }
+    }
+
     &.thy-form-inline {
+        display: block;
+
         .thy-dynamic-form-fields {
             display: flex;
             flex-flow: row wrap;
-            align-items: center;
+            align-items: flex-start;
             column-gap: 10px;
             row-gap: $thy-dynamic-form-row-gap;
         }
 
         .thy-dynamic-form-field.form-group {
+            display: flex;
             flex: 0 0 auto;
+            flex-flow: row nowrap;
+            align-items: flex-start;
             width: auto;
             margin-right: 0;
+
+            > .form-label {
+                display: inline-flex;
+                flex: 0 0 auto;
+                align-items: center;
+                box-sizing: border-box;
+                height: var(--thy-control-height);
+                margin-bottom: 0;
+                margin-right: 10px;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            > .position-relative {
+                flex: 0 0 auto;
+                width: auto;
+            }
+        }
+
+        // 避免全局 .thy-form-inline label 居中影响到 .form-check
+        .form-check {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: auto;
+        }
+
+        label.thy-switch {
+            display: inline-block;
         }
 
         .thy-dynamic-form-actions {
             grid-column: auto;
             flex: 0 0 auto;
+            align-self: flex-start;
+            min-height: var(--thy-control-height);
+            display: flex;
+            align-items: center;
         }
     }
 }

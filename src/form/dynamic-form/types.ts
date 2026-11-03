@@ -1,6 +1,6 @@
+import { ValidationError } from '@angular/forms/signals';
 import { ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThySwitchColor } from 'ngx-tethys/switch';
-import { ValidationError } from '@angular/forms/signals';
 
 export type ThyFormFieldKind = 'input' | 'textarea' | 'number' | 'select' | 'checkbox' | 'radio' | 'switch' | 'time' | 'date' | 'dateRange';
 
@@ -30,7 +30,7 @@ interface ThyFormFieldBaseSchema {
     key: string;
     kind: ThyFormFieldKind;
     /**
-     * 栅格占位列数，按 12 列计算。默认 12（整行），6 为半行。
+     * 外层栅格占位（1–12），默认 12；`inline` 下忽略。
      */
     col?: number;
     defaultValue?: unknown;

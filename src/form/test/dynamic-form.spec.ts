@@ -30,6 +30,7 @@ import { ThyTimePicker } from 'ngx-tethys/time-picker';
             [(thyValue)]="value"
             [thyLayout]="layout"
             [thySize]="size"
+            [thyLabelWidth]="labelWidth"
             (thyValueChange)="onValueChange($event)"
             (thyFieldValueChange)="onFieldValueChange($event)"
             (thyStatusChange)="onStatusChange($event)"
@@ -51,6 +52,8 @@ class TestDynamicFormComponent {
     layout: ThyFormLayout | undefined = undefined;
 
     size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
+
+    labelWidth = '120px';
 
     valueChanges: ThyDynamicFormValue[] = [];
 
@@ -652,6 +655,9 @@ describe('dynamic-form', () => {
         expect(formGroup?.classList.contains('row')).toBe(true);
         expect(formGroup?.querySelector('.col-form-label')).toBeTruthy();
         expect(formGroup?.querySelector('.col-form-control')).toBeTruthy();
+        expect(formGroup?.querySelector('.thy-dynamic-form-control')).toBeTruthy();
+        expect(formGroup?.querySelector('.thy-dynamic-form-control-input')).toBeTruthy();
+        expect(formGroup?.querySelector('.thy-dynamic-form-control-input input')).toBeTruthy();
     });
 
     it('should fall back to THY_FORM_CONFIG.layout when thyLayout is unset', () => {
@@ -695,6 +701,43 @@ describe('dynamic-form', () => {
         expect(testComponent.dynamicForm().isHorizontal).toBe(false);
         expect(formElement.querySelector('#submit')).toBeTruthy();
         expect(formElement.querySelector('.thy-dynamic-form-actions')).toBeTruthy();
+    });
+
+    it('should pass radio props.layout to thy-radio-group without coupling form layout', () => {
+        setFields([
+            {
+                key: 'contact',
+                kind: 'radio',
+                props: {
+                    layout: 'flex',
+                    options: [
+                        { value: 'email', label: 'Email' },
+                        { value: 'phone', label: 'Phone' }
+                    ]
+                }
+            },
+            {
+                key: 'priority',
+                kind: 'radio',
+                props: {
+                    options: [
+                        { value: 'low', label: 'Low' },
+                        { value: 'high', label: 'High' }
+                    ]
+                }
+            }
+        ]);
+
+        const groups = fixture.debugElement.queryAll(By.css('thy-radio-group'));
+        expect(groups[0].componentInstance.thyLayout()).toBe('flex');
+        expect(groups[0].nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
+        expect(groups[1].componentInstance.thyLayout()).toBeUndefined();
+        expect(groups[1].nativeElement.classList.contains('radio-group-layout-flex')).toBe(false);
+
+        testComponent.layout = 'inline';
+        fixture.detectChanges();
+        expect(groups[0].componentInstance.thyLayout()).toBe('flex');
+        expect(groups[1].componentInstance.thyLayout()).toBeUndefined();
     });
 
     it('should reset values to defaultValue or empty and clear displayed errors', () => {
@@ -962,6 +1005,19 @@ describe('dynamic-form', () => {
         expect(fields[1].style.gridColumn).toBe('span 6');
         expect(fields[2].style.gridColumn).toBe('span 12');
         expect(formElement.querySelector('.thy-dynamic-form-fields .thy-dynamic-form-actions #submit')).toBeTruthy();
+    });
+
+    it('should apply form-level thyLabelWidth for horizontal layout', () => {
+        setFields([
+            { key: 'email', kind: 'input', col: 6, props: { label: '邮箱' } },
+            { key: 'name', kind: 'input', props: { label: '名称' } }
+        ]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+        expect(host.style.getPropertyValue('--thy-dynamic-form-label-width').trim()).toBe('120px');
+
+        testComponent.labelWidth = '160px';
+        fixture.detectChanges();
+        expect(host.style.getPropertyValue('--thy-dynamic-form-label-width').trim()).toBe('160px');
     });
 
     it('should keep projected footer visible when switching layouts', () => {

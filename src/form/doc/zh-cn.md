@@ -56,16 +56,16 @@ import { ThyFormModule } from "ngx-tethys/form";
 ```
 
 ## 动态表单
-当字段由 schema 驱动时，使用`thy-dynamic-form`。它会根据`thyFields`生成表单字段树，字段用`thy-form-group`渲染，不依赖`thyForm`指令。
+schema 驱动时使用`thy-dynamic-form`：按`thyFields`生成字段树，用`thy-form-group`渲染，不依赖`thyForm`指令。
 
-`thyLayout`与`thyForm`一致，支持`horizontal`（默认）/ `vertical` / `inline`；未传入时回落`THY_FORM_CONFIG.layout`。字段占宽由 schema 的`col`控制，按 12 列 CSS Grid（`grid-column: span N`）排布，默认 12（整行）。校验文案优先使用字段上的`errorMessages`，否则走`ThyFormValidatorLoader`的全局/多语言配置。操作按钮投影到表单内，使用`type="submit"`提交。校验通过时`(thySubmit)`拿到表单值，不通过则不发出。模板引用上调用`reset()`会把全部字段恢复为`defaultValue`，未配置则为空，并清除已展示的校验错误。字段联动时，在`(thyFieldValueChange)`里更新`thyFields`或`thyValue`即可。`key`、`kind`、`validators` 或 `asyncValidators` 变化时会重建表单字段树。
+- **布局**`thyLayout`：`horizontal`（默认）/ `vertical` / `inline`，未传回落`THY_FORM_CONFIG.layout`
+- **占宽**`col`：12 列 Grid，默认 12；`inline` 下忽略
+- **label 宽**`thyLabelWidth`：仅 Horizontal，默认`120px`，与`col`无关
+- **radio 选项方向**：字段`props.layout`（如`flex`）交给`thy-radio-group`，与表单`thyLayout`无关
+- **校验**：优先字段`errorMessages`，否则用`ThyFormValidatorLoader`；通过后`(thySubmit)`才发出值
+- **其它**：内容投影操作区；`reset()`恢复`defaultValue`并清错；`(thyFieldValueChange)`里可改`thyFields`/`thyValue`；`key`/`kind`/校验器变化会重建字段树
 
 <example name="thy-form-dynamic-example" />
-
-## 动态表单布局
-通过`thyLayout`切换水平、垂直、行内三种布局，行为与`thyForm`的布局示例一致。
-
-<example name="thy-form-dynamic-layout-example" />
 
 ## 多列展示
 表单要在同一行展示多个表单控件，需要和布局组件配合使用，使用`thyRow`、`thyCol`设置布局规则。

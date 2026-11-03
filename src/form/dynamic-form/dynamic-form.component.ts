@@ -83,7 +83,11 @@ interface FieldTreeRebuildDependency {
         class: 'thy-form thy-dynamic-form',
         '[class.thy-form-horizontal]': 'layout() === "horizontal"',
         '[class.thy-form-vertical]': 'layout() === "vertical"',
-        '[class.thy-form-inline]': 'layout() === "inline"'
+        '[class.thy-form-inline]': 'layout() === "inline"',
+        '[class.thy-dynamic-form-xs]': 'thySize() === "xs"',
+        '[class.thy-dynamic-form-sm]': 'thySize() === "sm"',
+        '[class.thy-dynamic-form-lg]': 'thySize() === "lg"',
+        '[style.--thy-dynamic-form-label-width]': 'thyLabelWidth()'
     }
 })
 export class ThyDynamicForm {
@@ -113,6 +117,11 @@ export class ThyDynamicForm {
     readonly thySize = input<ThyFormControlSize, ThyFormControlSize | null | undefined>('md', {
         transform: value => value ?? 'md'
     });
+
+    /**
+     * Horizontal 下 label 固定宽度，默认 `120px`；`vertical` / `inline` 不生效。
+     */
+    readonly thyLabelWidth = input('120px');
 
     private readonly config = inject(THY_FORM_CONFIG, { optional: true });
 
