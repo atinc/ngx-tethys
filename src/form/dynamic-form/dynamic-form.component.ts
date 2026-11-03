@@ -83,7 +83,7 @@ interface FieldTreeRebuildDependency {
         class: 'thy-form thy-dynamic-form',
         '[class.thy-form-horizontal]': 'layout() === "horizontal"',
         '[class.thy-form-vertical]': 'layout() === "vertical"',
-        '[class.thy-form-inline]': 'layout() === "inline"',
+        '[class.thy-dynamic-form-inline]': 'layout() === "inline"',
         '[class.thy-dynamic-form-xs]': 'thySize() === "xs"',
         '[class.thy-dynamic-form-sm]': 'thySize() === "sm"',
         '[class.thy-dynamic-form-lg]': 'thySize() === "lg"',

@@ -42,7 +42,6 @@ $thy-dynamic-form-control-heights: (
         min-width: 0;
         width: 100%;
 
-        // 仅 invalid 时渲染；需覆盖 bootstrap .invalid-feedback { display:none }
         > .invalid-feedback {
             display: block;
         }
@@ -54,17 +53,29 @@ $thy-dynamic-form-control-heights: (
         min-height: var(--thy-control-height);
         max-width: 100%;
 
-        > .form-control,
-        > thy-input-number,
-        > thy-select,
-        > thy-date-picker,
-        > thy-range-picker,
-        > thy-time-picker {
+        > :not(thy-checkbox, thy-switch, thy-radio-group, .form-check) {
             flex: 1 1 auto;
             width: 100%;
             min-width: 0;
             max-width: 100%;
         }
+
+        // 与字段 label 同一控件行垂直对齐（取消绝对定位带来的上下偏移）
+        .form-check {
+            display: inline-flex;
+            align-items: center;
+            padding-left: 0;
+            margin-bottom: 0;
+
+            .form-check-input {
+                position: relative;
+                flex-shrink: 0;
+                margin-top: 0;
+                margin-right: variables.$form-check-inline-input-margin-r;
+                margin-left: 0;
+            }
+        }
+
     }
 
     .thy-dynamic-form-actions {
@@ -108,23 +119,12 @@ $thy-dynamic-form-control-heights: (
     }
 
     &.thy-form-vertical {
-        .thy-dynamic-form-field.form-group {
-            display: block;
-
-            > .form-label {
-                height: auto;
-                margin-bottom: 0.5rem;
-            }
-        }
-
         .thy-dynamic-form-control-input {
             min-height: 0;
         }
     }
 
-    &.thy-form-inline {
-        display: block;
-
+    &.thy-dynamic-form-inline {
         .thy-dynamic-form-fields {
             display: flex;
             flex-flow: row wrap;
@@ -139,36 +139,19 @@ $thy-dynamic-form-control-heights: (
             flex-flow: row nowrap;
             align-items: flex-start;
             width: auto;
-            margin-right: 0;
 
             > .form-label {
                 display: inline-flex;
-                flex: 0 0 auto;
                 align-items: center;
-                box-sizing: border-box;
                 height: var(--thy-control-height);
                 margin-bottom: 0;
                 margin-right: 10px;
-                padding-top: 0;
-                padding-bottom: 0;
             }
 
             > .position-relative {
                 flex: 0 0 auto;
                 width: auto;
             }
-        }
-
-        // 避免全局 .thy-form-inline label 居中影响到 .form-check
-        .form-check {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            width: auto;
-        }
-
-        label.thy-switch {
-            display: inline-block;
         }
 
         .thy-dynamic-form-actions {

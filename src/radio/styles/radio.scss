@@ -3,6 +3,7 @@
 .radio-group-layout-flex {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 
     &:not(.btn-group) {
         column-gap: variables.$form-check-inline-margin-r;

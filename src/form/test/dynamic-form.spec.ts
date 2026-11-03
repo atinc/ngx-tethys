@@ -697,7 +697,8 @@ describe('dynamic-form', () => {
 
         testComponent.layout = 'inline';
         fixture.detectChanges();
-        expect(host.classList.contains('thy-form-inline')).toBe(true);
+        expect(host.classList.contains('thy-dynamic-form-inline')).toBe(true);
+        expect(host.classList.contains('thy-form-inline')).toBe(false);
         expect(testComponent.dynamicForm().isHorizontal).toBe(false);
         expect(formElement.querySelector('#submit')).toBeTruthy();
         expect(formElement.querySelector('.thy-dynamic-form-actions')).toBeTruthy();
