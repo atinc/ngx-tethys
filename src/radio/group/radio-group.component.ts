@@ -56,7 +56,7 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     readonly thySize = input<string>('md');
 
     /**
-     * 选项横向排布（普通 radio / radio button 均支持）
+     * 布局
      * @type flex
      */
     readonly thyLayout = input<string>();
