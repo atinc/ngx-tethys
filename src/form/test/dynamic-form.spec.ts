@@ -8,10 +8,12 @@ import { ThyButton } from 'ngx-tethys/button';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 import {
+    THY_FORM_CONFIG,
     ThyDynamicForm,
     ThyDynamicFormStatus,
     ThyFormFieldSchema,
     ThyDynamicFormValue,
+    ThyFormLayout,
     ThyFormModule,
     ThyFormValidatorLoader
 } from 'ngx-tethys/form';
@@ -26,7 +28,9 @@ import { ThyTimePicker } from 'ngx-tethys/time-picker';
         <thy-dynamic-form
             [thyFields]="fields"
             [(thyValue)]="value"
+            [thyLayout]="layout"
             [thySize]="size"
+            [thyLabelWidth]="labelWidth"
             (thyValueChange)="onValueChange($event)"
             (thyFieldValueChange)="onFieldValueChange($event)"
             (thyStatusChange)="onStatusChange($event)"
@@ -45,7 +49,11 @@ class TestDynamicFormComponent {
 
     value: ThyDynamicFormValue = {};
 
+    layout: ThyFormLayout | undefined = undefined;
+
     size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
+
+    labelWidth = '120px';
 
     valueChanges: ThyDynamicFormValue[] = [];
 
@@ -636,6 +644,103 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('textarea')?.classList.contains('form-control-sm')).toBe(true);
     });
 
+    it('should default layout to horizontal like thyForm', () => {
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+        expect(host.classList.contains('thy-form')).toBe(true);
+        expect(host.classList.contains('thy-dynamic-form')).toBe(true);
+        expect(host.classList.contains('thy-form-horizontal')).toBe(true);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(true);
+        const formGroup = formElement.querySelector('thy-form-group');
+        expect(formGroup?.classList.contains('row')).toBe(true);
+        expect(formGroup?.querySelector('.col-form-label')).toBeTruthy();
+        expect(formGroup?.querySelector('.col-form-control')).toBeTruthy();
+        expect(formGroup?.querySelector('.thy-dynamic-form-control')).toBeTruthy();
+        expect(formGroup?.querySelector('.thy-dynamic-form-control-input')).toBeTruthy();
+        expect(formGroup?.querySelector('.thy-dynamic-form-control-input input')).toBeTruthy();
+    });
+
+    it('should fall back to THY_FORM_CONFIG.layout when thyLayout is unset', () => {
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule({
+            imports: [ThyFormModule],
+            providers: [
+                bypassSanitizeProvider,
+                provideHttpClient(),
+                provideNoopAnimations(),
+                { provide: THY_FORM_CONFIG, useValue: { layout: 'vertical', footerAlign: 'left' } }
+            ]
+        }).compileComponents();
+        injectDefaultSvgIconSet();
+
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+        expect(host.classList.contains('thy-form-vertical')).toBe(true);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(false);
+        expect(formElement.querySelector('thy-form-group')?.classList.contains('row')).toBe(false);
+    });
+
+    it('should switch layout classes and form-group horizontal state', () => {
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+
+        expect(formElement.querySelector('.thy-dynamic-form-fields')).toBeTruthy();
+        expect(formElement.querySelector('thy-form-group')?.classList.contains('row')).toBe(true);
+
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+        expect(host.classList.contains('thy-form-vertical')).toBe(true);
+        expect(host.classList.contains('thy-form-horizontal')).toBe(false);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(false);
+        expect(formElement.querySelector('thy-form-group')?.classList.contains('row')).toBe(false);
+        expect(formElement.querySelector('.col-form-label')).toBeFalsy();
+
+        testComponent.layout = 'inline';
+        fixture.detectChanges();
+        expect(host.classList.contains('thy-dynamic-form-inline')).toBe(true);
+        expect(host.classList.contains('thy-form-inline')).toBe(false);
+        expect(testComponent.dynamicForm().isHorizontal).toBe(false);
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('.thy-dynamic-form-actions')).toBeTruthy();
+    });
+
+    it('should pass radio props.layout to thy-radio-group without coupling form layout', () => {
+        setFields([
+            {
+                key: 'contact',
+                kind: 'radio',
+                props: {
+                    layout: 'flex',
+                    options: [
+                        { value: 'email', label: 'Email' },
+                        { value: 'phone', label: 'Phone' }
+                    ]
+                }
+            },
+            {
+                key: 'priority',
+                kind: 'radio',
+                props: {
+                    options: [
+                        { value: 'low', label: 'Low' },
+                        { value: 'high', label: 'High' }
+                    ]
+                }
+            }
+        ]);
+
+        const groups = fixture.debugElement.queryAll(By.css('thy-radio-group'));
+        expect(groups[0].componentInstance.thyLayout()).toBe('flex');
+        expect(groups[0].nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
+        expect(groups[1].componentInstance.thyLayout()).toBeUndefined();
+        expect(groups[1].nativeElement.classList.contains('radio-group-layout-flex')).toBe(false);
+
+        testComponent.layout = 'inline';
+        fixture.detectChanges();
+        expect(groups[0].componentInstance.thyLayout()).toBe('flex');
+        expect(groups[1].componentInstance.thyLayout()).toBeUndefined();
+    });
+
     it('should reset values to defaultValue or empty and clear displayed errors', () => {
         setFields([
             { key: 'name', kind: 'input', defaultValue: 'Ada', props: { required: true } },
@@ -700,6 +805,37 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('.invalid-feedback')).toBeFalsy();
         expect((formElement.querySelector('#name') as HTMLInputElement).value).toBe('Ada');
         expect(testComponent.valueChanges.at(-1)).toEqual({ name: 'Ada', title: '' });
+    });
+
+    it('should clear radio and checkbox validation feedback after reset', () => {
+        setFields([
+            { key: 'subscribe', kind: 'checkbox', props: { required: true, label: 'Subscribe' } },
+            {
+                key: 'contact',
+                kind: 'radio',
+                props: {
+                    required: true,
+                    label: 'Contact',
+                    layout: 'flex',
+                    options: [
+                        { value: 'email', label: 'Email' },
+                        { value: 'phone', label: 'Phone' }
+                    ]
+                }
+            }
+        ]);
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+        expect(formElement.querySelectorAll('.invalid-feedback').length).toBeGreaterThan(0);
+        expect(testComponent.dynamicForm().getField('contact')().touched()).toBe(true);
+        expect(testComponent.dynamicForm().getField('subscribe')().touched()).toBe(true);
+
+        fixture.debugElement.query(By.css('#reset')).nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testComponent.dynamicForm().getField('contact')().touched()).toBe(false);
+        expect(testComponent.dynamicForm().getField('subscribe')().touched()).toBe(false);
+        expect(formElement.querySelector('.invalid-feedback')).toBeFalsy();
     });
 
     it('should clear change errors and keep a disabled field disabled after reset', () => {
@@ -888,19 +1024,48 @@ describe('dynamic-form', () => {
         ).toEqual(['disabledDate']);
     }));
 
-    it('should render field col on thy-col using a 12-column grid', () => {
+    it('should map field col to css grid column span', () => {
         setFields([
             { key: 'email', kind: 'input', col: 6, props: { label: '邮箱' } },
             { key: 'age', kind: 'input', col: 6, props: { label: '年龄' } },
             { key: 'bio', kind: 'textarea', props: { label: '简介' } }
         ]);
-        expect(formElement.querySelectorAll('thy-form-group.thy-col-12').length).toBe(2);
-        expect(formElement.querySelectorAll('thy-form-group.thy-col-24').length).toBe(1);
-        formElement.querySelectorAll('thy-form-group').forEach(group => {
-            expect(group.classList.contains('row')).toBe(false);
-        });
-        expect(formElement.querySelector('.col-sm-2')).toBeNull();
-        expect(formElement.querySelector('.offset-sm-2')).toBeNull();
+
+        const fields = formElement.querySelectorAll('thy-form-group.thy-dynamic-form-field') as NodeListOf<HTMLElement>;
+        expect(fields.length).toBe(3);
+        expect(fields[0].style.gridColumn).toBe('span 6');
+        expect(fields[1].style.gridColumn).toBe('span 6');
+        expect(fields[2].style.gridColumn).toBe('span 12');
+        expect(formElement.querySelector('.thy-dynamic-form-fields .thy-dynamic-form-actions #submit')).toBeTruthy();
+    });
+
+    it('should apply form-level thyLabelWidth for horizontal layout', () => {
+        setFields([
+            { key: 'email', kind: 'input', col: 6, props: { label: '邮箱' } },
+            { key: 'name', kind: 'input', props: { label: '名称' } }
+        ]);
+        const host = fixture.debugElement.query(By.directive(ThyDynamicForm)).nativeElement as HTMLElement;
+        expect(host.style.getPropertyValue('--thy-dynamic-form-label-width').trim()).toBe('120px');
+
+        testComponent.labelWidth = '160px';
+        fixture.detectChanges();
+        expect(host.style.getPropertyValue('--thy-dynamic-form-label-width').trim()).toBe('160px');
+    });
+
+    it('should keep projected footer visible when switching layouts', () => {
+        setFields([{ key: 'name', kind: 'input', props: { label: 'Name' } }]);
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('#reset')).toBeTruthy();
+
+        testComponent.layout = 'inline';
+        fixture.detectChanges();
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('#reset')).toBeTruthy();
+
+        testComponent.layout = 'vertical';
+        fixture.detectChanges();
+        expect(formElement.querySelector('#submit')).toBeTruthy();
+        expect(formElement.querySelector('#reset')).toBeTruthy();
     });
 });
 

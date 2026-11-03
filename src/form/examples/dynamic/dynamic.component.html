@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center mb-3">
+<div class="d-flex align-items-center mb-3 flex-wrap">
   <span class="mr-2">Form size</span>
   <thy-select
     class="mr-3"
@@ -6,6 +6,13 @@
     [ngModel]="size()"
     (ngModelChange)="onSizeChange($event)"
     [thyOptions]="sizeOptions"></thy-select>
+  <span class="mr-2">Form Layout</span>
+  <thy-select
+    class="mr-3"
+    style="width: 140px"
+    [ngModel]="layout()"
+    (ngModelChange)="onLayoutChange($event)"
+    [thyOptions]="layoutOptions"></thy-select>
   <button type="button" thyButton="default" thyAppearance="outline" (click)="toggleAllFieldsDisabled()">
     {{ allFieldsDisabled() ? 'Enable all fields' : 'Disable all fields' }}
   </button>
@@ -14,6 +21,7 @@
 <thy-dynamic-form
   #dynamicForm
   [thyFields]="fields()"
+  [thyLayout]="layout()"
   [thySize]="size()"
   [(thyValue)]="value"
   (thyValueChange)="onValueChange($event)"

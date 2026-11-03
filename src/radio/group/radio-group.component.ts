@@ -89,8 +89,8 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
         });
         if (emit) {
             this.onChange(value);
+            this.onTouched();
         }
-        this.onTouched();
         this.changeDetectorRef.detectChanges();
     }
 

@@ -1,7 +1,6 @@
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
-import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyRadio, ThyRadioButton, ThyRadioGroup } from 'ngx-tethys/radio';
@@ -26,10 +25,9 @@ import {
 import { Field, FieldTree, form, FormField, FormRoot, ValidationError } from '@angular/forms/signals';
 
 import { ThyFormGroup } from '../form-group.component';
-import { ThyFormDirective } from '../form.directive';
-import { THY_FORM_CONFIG_PROVIDER } from '../form.class';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
-import { ThyDynamicFormSpanPipe } from './dynamic-form.pipe';
+import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
+import { ThyFormDirective } from '../form.directive';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
@@ -62,8 +60,6 @@ interface FieldTreeRebuildDependency {
         FormRoot,
         FormField,
         ThyFormGroup,
-        ThyRowDirective,
-        ThyColDirective,
         ThySelect,
         ThyInputDirective,
         ThyInputNumber,
@@ -74,19 +70,24 @@ interface FieldTreeRebuildDependency {
         ThySwitch,
         ThyTimePicker,
         ThyDatePicker,
-        ThyRangePicker,
-        ThyDynamicFormSpanPipe
+        ThyRangePicker
     ],
     providers: [
         {
             provide: ThyFormDirective,
             useExisting: ThyDynamicForm
         },
-        ThyFormValidatorLoader,
-        THY_FORM_CONFIG_PROVIDER
+        ThyFormValidatorLoader
     ],
     host: {
-        class: 'thy-form thy-dynamic-form'
+        class: 'thy-form thy-dynamic-form',
+        '[class.thy-form-horizontal]': 'layout() === "horizontal"',
+        '[class.thy-form-vertical]': 'layout() === "vertical"',
+        '[class.thy-dynamic-form-inline]': 'layout() === "inline"',
+        '[class.thy-dynamic-form-xs]': 'thySize() === "xs"',
+        '[class.thy-dynamic-form-sm]': 'thySize() === "sm"',
+        '[class.thy-dynamic-form-lg]': 'thySize() === "lg"',
+        '[style.--thy-dynamic-form-label-width]': 'thyLabelWidth()'
     }
 })
 export class ThyDynamicForm {
@@ -101,6 +102,14 @@ export class ThyDynamicForm {
     readonly thyValue = model<ThyDynamicFormValue>({});
 
     /**
+     * 表单布局，与 `thyForm` 一致。`horizontal` 左右布局；`vertical` 上下布局；`inline` 行内布局。
+     * 未传入时回落 `THY_FORM_CONFIG.layout`（默认 `horizontal`）。
+     * @type horizontal | vertical | inline
+     * @default horizontal
+     */
+    readonly thyLayout = input<ThyFormLayout>();
+
+    /**
      * 表单控件大小
      * @type xs | sm | md | lg
      * @default md
@@ -109,7 +118,18 @@ export class ThyDynamicForm {
         transform: value => value ?? 'md'
     });
 
-    readonly isHorizontal = false;
+    /**
+     * Horizontal 下 label 固定宽度，默认 `120px`；`vertical` / `inline` 不生效。
+     */
+    readonly thyLabelWidth = input('120px');
+
+    private readonly config = inject(THY_FORM_CONFIG, { optional: true });
+
+    protected readonly layout = computed(() => this.thyLayout() || this.config?.layout || 'horizontal');
+
+    get isHorizontal(): boolean {
+        return this.layout() === 'horizontal';
+    }
 
     /** 组件内部修改单个字段时触发。 */
     readonly thyFieldValueChange = output<ThyFormFieldValueChange>();

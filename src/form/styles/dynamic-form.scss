@@ -1,0 +1,166 @@
+@use 'sass:map';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
+
+$thy-dynamic-form-column-gap: 30px;
+$thy-dynamic-form-row-gap: bootstrap-variables.$form-group-margin-bottom;
+$thy-dynamic-form-label-width: 120px;
+$thy-dynamic-form-control-heights: (
+    xs: variables.$input-height-xs,
+    sm: variables.$input-height-sm,
+    md: variables.$input-height-md,
+    lg: variables.$input-height-lg
+);
+
+.thy-dynamic-form {
+    --thy-control-height: #{map.get($thy-dynamic-form-control-heights, md)};
+    --thy-dynamic-form-label-width: #{$thy-dynamic-form-label-width};
+
+    @each $size, $height in $thy-dynamic-form-control-heights {
+        @if $size != md {
+            &.thy-dynamic-form-#{$size} {
+                --thy-control-height: #{$height};
+            }
+        }
+    }
+
+    .thy-dynamic-form-fields {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: $thy-dynamic-form-column-gap;
+        row-gap: $thy-dynamic-form-row-gap;
+    }
+
+    .thy-dynamic-form-field.form-group {
+        margin-bottom: 0;
+        min-width: 0;
+    }
+
+    .thy-dynamic-form-control {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        width: 100%;
+
+        > .invalid-feedback {
+            display: block;
+        }
+    }
+
+    .thy-dynamic-form-control-input {
+        display: flex;
+        align-items: center;
+        min-height: var(--thy-control-height);
+        max-width: 100%;
+
+        > :not(thy-checkbox, thy-switch, thy-radio-group, .form-check) {
+            flex: 1 1 auto;
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        // 与字段 label 同一控件行垂直对齐（取消绝对定位带来的上下偏移）
+        .form-check {
+            display: inline-flex;
+            align-items: center;
+            padding-left: 0;
+            margin-bottom: 0;
+
+            .form-check-input {
+                position: relative;
+                flex-shrink: 0;
+                margin-top: 0;
+                margin-right: variables.$form-check-inline-input-margin-r;
+                margin-left: 0;
+            }
+        }
+
+    }
+
+    .thy-dynamic-form-actions {
+        grid-column: 1 / -1;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &.thy-form-horizontal {
+        .thy-dynamic-form-field.form-group {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: flex-start;
+            margin-left: 0;
+            margin-right: 0;
+
+            > .form-label {
+                display: flex;
+                flex: 0 0 var(--thy-dynamic-form-label-width);
+                align-items: center;
+                justify-content: flex-end;
+                box-sizing: border-box;
+                max-width: var(--thy-dynamic-form-label-width);
+                height: var(--thy-control-height);
+                margin-bottom: 0;
+                padding: 0 10px 0 0;
+                text-align: right;
+            }
+
+            > .col-form-control {
+                flex: 1 1 0;
+                width: auto;
+                max-width: none;
+                min-width: 0;
+                padding-left: 10px;
+                padding-right: 0;
+            }
+        }
+    }
+
+    &.thy-form-vertical {
+        .thy-dynamic-form-control-input {
+            min-height: 0;
+        }
+    }
+
+    &.thy-dynamic-form-inline {
+        .thy-dynamic-form-fields {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: flex-start;
+            column-gap: 10px;
+            row-gap: $thy-dynamic-form-row-gap;
+        }
+
+        .thy-dynamic-form-field.form-group {
+            display: flex;
+            flex: 0 0 auto;
+            flex-flow: row nowrap;
+            align-items: flex-start;
+            width: auto;
+
+            > .form-label {
+                display: inline-flex;
+                align-items: center;
+                height: var(--thy-control-height);
+                margin-bottom: 0;
+                margin-right: 10px;
+            }
+
+            > .position-relative {
+                flex: 0 0 auto;
+                width: auto;
+            }
+        }
+
+        .thy-dynamic-form-actions {
+            grid-column: auto;
+            flex: 0 0 auto;
+            align-self: flex-start;
+            min-height: var(--thy-control-height);
+            display: flex;
+            align-items: center;
+        }
+    }
+}

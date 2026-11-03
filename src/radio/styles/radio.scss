@@ -1,7 +1,15 @@
 @use '../../styles/variables';
+
 .radio-group-layout-flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &:not(.btn-group) {
+        column-gap: variables.$form-check-inline-margin-r;
+    }
+
     &.btn-group {
-        display: flex;
         .btn {
             min-width: 0;
             flex-grow: 1;

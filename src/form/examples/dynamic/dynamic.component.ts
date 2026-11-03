@@ -9,7 +9,8 @@ import {
     ThyFormFieldSchema,
     ThyFormFieldValueChange,
     ThyDynamicFormValue,
-    ThyFormGroupFooter
+    ThyFormGroupFooter,
+    ThyFormLayout
 } from 'ngx-tethys/form';
 import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select';
@@ -36,7 +37,17 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     selector: 'thy-form-dynamic-example',
     templateUrl: './dynamic.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThySelect, ThyTag, ThyRowDirective, ThyColDirective]
+    imports: [
+        FormsModule,
+        JsonPipe,
+        ThyDynamicForm,
+        ThyButton,
+        ThyFormGroupFooter,
+        ThySelect,
+        ThyTag,
+        ThyRowDirective,
+        ThyColDirective
+    ]
 })
 export class ThyFormDynamicExampleComponent {
     value = signal<ThyDynamicFormValue>({});
@@ -48,6 +59,14 @@ export class ThyFormDynamicExampleComponent {
         { value: 'sm', label: 'SM' },
         { value: 'md', label: 'MD' },
         { value: 'lg', label: 'LG' }
+    ];
+
+    layout = signal<ThyFormLayout>('horizontal');
+
+    readonly layoutOptions: ThySelectOptionModel[] = [
+        { value: 'horizontal', label: 'Horizontal' },
+        { value: 'vertical', label: 'Vertical' },
+        { value: 'inline', label: 'Inline' }
     ];
 
     allFieldsDisabled = signal(false);
@@ -253,6 +272,10 @@ export class ThyFormDynamicExampleComponent {
 
     onSizeChange(size: ThyFormControlSize) {
         this.size.set(size);
+    }
+
+    onLayoutChange(layout: ThyFormLayout) {
+        this.layout.set(layout);
     }
 
     toggleAllFieldsDisabled() {
