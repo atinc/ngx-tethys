@@ -22,15 +22,31 @@ import { fromUnixTime, isObject, isValid, startOfDay } from 'ngx-tethys/util';
 
 import {
     ThyDynamicFormValue,
-    ThyFormDateFieldProps,
-    ThyFormDateRangeFieldProps,
+    ThyFormDateFieldSchema,
+    ThyFormDateRangeFieldSchema,
     ThyFormFieldAsyncValidator,
     ThyFormFieldSchema,
     ThyFormFieldValidator,
-    ThyFormInputFieldProps,
-    ThyFormNumberFieldProps,
-    ThyFormTextareaFieldProps
+    ThyFormInputFieldSchema,
+    ThyFormNumberFieldSchema,
+    ThyFormTextareaFieldSchema
 } from './types';
+
+
+type ThyFormTextFieldSchema = ThyFormInputFieldSchema | ThyFormTextareaFieldSchema;
+type ThyFormDateLikeFieldSchema = ThyFormDateFieldSchema | ThyFormDateRangeFieldSchema;
+
+function asTextField(field: ThyFormFieldSchema | undefined): ThyFormTextFieldSchema | undefined {
+    return field?.kind === 'input' || field?.kind === 'textarea' ? (field as ThyFormTextFieldSchema) : undefined;
+}
+
+function asNumberField(field: ThyFormFieldSchema | undefined): ThyFormNumberFieldSchema | undefined {
+    return field?.kind === 'number' ? (field as ThyFormNumberFieldSchema) : undefined;
+}
+
+function asDateLikeField(field: ThyFormFieldSchema | undefined): ThyFormDateLikeFieldSchema | undefined {
+    return field?.kind === 'date' || field?.kind === 'dateRange' ? (field as ThyFormDateLikeFieldSchema) : undefined;
+}
 
 interface DisabledDateValidationError extends ValidationError {
     readonly kind: 'disabledDate';
@@ -52,13 +68,13 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchem
             }
 
             if (field.kind === 'input' || field.kind === 'textarea') {
-                bindTextRules(fieldPath as unknown as SchemaPath<string>, currentField);
+                bindTextRules(fieldPath as unknown as SchemaPath<string>, () => asTextField(currentField()));
             }
             if (field.kind === 'number') {
-                bindNumberRules(fieldPath as unknown as SchemaPath<number | null>, currentField);
+                bindNumberRules(fieldPath as unknown as SchemaPath<number | null>, () => asNumberField(currentField()));
             }
             if (field.kind === 'date' || field.kind === 'dateRange') {
-                bindDateRules(fieldPath, currentField);
+                bindDateRules(fieldPath, () => asDateLikeField(currentField()));
             }
 
             bindCustomValidators(rootPath, fieldPath, field.validators ?? []);
@@ -67,30 +83,24 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchem
     };
 }
 
-function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyFormFieldSchema | undefined): void {
-    const props = (): ThyFormInputFieldProps | ThyFormTextareaFieldProps | undefined => {
+function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyFormTextFieldSchema | undefined): void {
+    const props = () => {
         const field = resolveField();
-        if (field?.kind !== 'input' && field?.kind !== 'textarea') {
-            return undefined;
-        }
-        return field.props as ThyFormInputFieldProps | ThyFormTextareaFieldProps | undefined;
+        return field?.kind === 'input' || field?.kind === 'textarea' ? field.props : undefined;
     };
 
     minLength(fieldPath, () => toOptionalNumber(props()?.minlength));
     maxLength(fieldPath, () => toOptionalNumber(props()?.maxlength));
     pattern(fieldPath, () => {
         const value = props()?.pattern;
-        return typeof value === 'string' ? new RegExp(value) : undefined;
+        return value ? new RegExp(value) : undefined;
     });
 }
 
-function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () => ThyFormFieldSchema | undefined): void {
-    const props = (): ThyFormNumberFieldProps | undefined => {
+function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () => ThyFormNumberFieldSchema | undefined): void {
+    const props = () => {
         const field = resolveField();
-        if (field?.kind !== 'number') {
-            return undefined;
-        }
-        return field.props as ThyFormNumberFieldProps | undefined;
+        return field?.kind === 'number' ? field.props : undefined;
     };
 
     min(fieldPath, () => toOptionalNumber(props()?.min));
@@ -101,7 +111,7 @@ function toOptionalNumber(value: unknown): number | undefined {
     return coerceNumberProperty(value, null) ?? undefined;
 }
 
-function bindDateRules(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFormFieldSchema | undefined): void {
+function bindDateRules(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFormDateLikeFieldSchema | undefined): void {
     validate(fieldPath, context => {
         const field = resolveField();
         if (field?.kind !== 'date' && field?.kind !== 'dateRange') {
@@ -113,9 +123,8 @@ function bindDateRules(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFo
             return null;
         }
 
-        const dateProps = field.props as ThyFormDateFieldProps | ThyFormDateRangeFieldProps | undefined;
-        const minDate = normalizeDate(dateProps?.min);
-        const maxDate = normalizeDate(dateProps?.max);
+        const minDate = normalizeDate(field.props?.min);
+        const maxDate = normalizeDate(field.props?.max);
         const errors: ValidationError[] = [];
 
         if (minDate && dates.some(date => startOfDay(date).getTime() < startOfDay(minDate).getTime())) {
@@ -125,7 +134,7 @@ function bindDateRules(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFo
             errors.push(maxDateError(maxDate));
         }
 
-        const disabledDate = dateProps?.disabledDate;
+        const disabledDate = field.props?.disabledDate;
         const disabledValue = disabledDate ? dates.find(date => disabledDate(date)) : undefined;
         if (disabledValue) {
             const error: DisabledDateValidationError = { kind: 'disabledDate', date: disabledValue };
