@@ -24,7 +24,13 @@ export class DecadeTable extends CalendarTable {
     readonly endYear = computed<number>(() => this.startYear() + 99);
 
     private chooseDecade(startYear: number): void {
-        const newValue = (this.value() || new TinyDate()).setYear(startYear);
+        const decadeDate = this.activeDate().setYear(startYear);
+        // 该十年只有部分年份可选时，选取区间内最接近的可选日期，避免产生越界的值
+        const newValue = this.findEnabledDateInRange(
+            decadeDate.startOfYear(),
+            decadeDate.setYear(startYear + 9).endOfYear(),
+            decadeDate
+        );
         this.value.set(newValue);
     }
 

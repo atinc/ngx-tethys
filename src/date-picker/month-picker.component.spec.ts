@@ -116,6 +116,27 @@ describe('ThyMonthPickerComponent', () => {
             expect(allDisabledCells.textContent).toContain('4月');
         }));
 
+        it('should clamp value into enabled days when choosing a partially disabled month', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2009-2-11');
+            fixtureInstance.thyDisabledDate = (date: Date) => {
+                return date > new Date('2009-3-1');
+            };
+            fixture.detectChanges();
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getMonthCell('3月'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalled();
+            // 2009-03 只有 03-01 可选，期望收敛到当月首个可选日 2009-03-01
+            const result = new Date((thyOnChange.calls.mostRecent().args[0] as number) * 1000);
+            expect(result.getFullYear()).toBe(2009);
+            expect(result.getMonth()).toBe(2);
+            expect(result.getDate()).toBe(1);
+            flush();
+        }));
+
         it('should support thyPlaceholder', () => {
             const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
@@ -236,6 +257,13 @@ describe('ThyMonthPickerComponent', () => {
 
     function getFirstMonthCell(): HTMLElement {
         return queryFromOverlay('.thy-calendar-month td.thy-calendar-month-panel-cell') as HTMLElement;
+    }
+
+    function getMonthCell(label: string): HTMLElement {
+        const cells = Array.from(
+            overlayContainerElement.querySelectorAll('.thy-calendar-month td.thy-calendar-month-panel-cell')
+        ) as HTMLElement[];
+        return cells.find(cell => (cell.textContent || '').replace(/\s/g, '') === label) as HTMLElement;
     }
 
     function queryFromOverlay(selector: string): HTMLElement {
