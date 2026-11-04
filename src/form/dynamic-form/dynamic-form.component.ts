@@ -1,12 +1,5 @@
-import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyFormControlSize } from 'ngx-tethys/core';
-import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
-import { ThyInputDirective } from 'ngx-tethys/input';
-import { ThyInputNumber } from 'ngx-tethys/input-number';
-import { ThyRadio, ThyRadioButton, ThyRadioGroup } from 'ngx-tethys/radio';
-import { ThySelect } from 'ngx-tethys/select';
-import { ThySwitch } from 'ngx-tethys/switch';
-import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 
 import {
     afterNextRender,
@@ -22,15 +15,23 @@ import {
     signal,
     untracked
 } from '@angular/core';
-import { Field, FieldTree, form, FormField, FormRoot, ValidationError } from '@angular/forms/signals';
+import { Field, FieldTree, form, FormRoot, ValidationError } from '@angular/forms/signals';
 
 import { ThyFormGroup } from '../form-group.component';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
 import { ThyFormDirective } from '../form.directive';
+import {
+    createDynamicFormFieldTypeMap,
+    resolveDynamicFormFieldOutletContext,
+    THY_DYNAMIC_FORM_FIELD_TYPES,
+    ThyDynamicFormFieldOutletContext,
+    ThyDynamicFormFieldType
+} from './dynamic-form-field-types';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
+import { THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES } from './fields';
 import {
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
@@ -56,22 +57,7 @@ interface FieldTreeRebuildDependency {
     selector: 'thy-dynamic-form',
     templateUrl: './dynamic-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        FormRoot,
-        FormField,
-        ThyFormGroup,
-        ThySelect,
-        ThyInputDirective,
-        ThyInputNumber,
-        ThyCheckbox,
-        ThyRadio,
-        ThyRadioButton,
-        ThyRadioGroup,
-        ThySwitch,
-        ThyTimePicker,
-        ThyDatePicker,
-        ThyRangePicker
-    ],
+    imports: [FormRoot, ThyFormGroup, ThyViewOutletDirective],
     providers: [
         {
             provide: ThyFormDirective,
@@ -92,7 +78,8 @@ interface FieldTreeRebuildDependency {
 })
 export class ThyDynamicForm {
     /**
-     * 字段配置。kind 支持 input、textarea、number、select、checkbox、radio、switch、time、date、dateRange
+     * 字段配置。内置 kind：input、textarea、number、select、checkbox、radio、switch、time、date、dateRange；
+     * 也可使用通过 `provideThyDynamicFormFieldTypes` 注册的自定义 kind。
      * @type ThyFormFieldSchema[]
      * @default []
      */
@@ -131,6 +118,13 @@ export class ThyDynamicForm {
         return this.layout() === 'horizontal';
     }
 
+    private readonly injectedFieldTypes: readonly ThyDynamicFormFieldType[] =
+        (inject(THY_DYNAMIC_FORM_FIELD_TYPES, { optional: true }) as unknown as ThyDynamicFormFieldType[] | null) ?? [];
+
+    protected readonly fieldTypeMap = computed(() =>
+        createDynamicFormFieldTypeMap(THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES, this.injectedFieldTypes)
+    );
+
     /** 组件内部修改单个字段时触发。 */
     readonly thyFieldValueChange = output<ThyFormFieldValueChange>();
 
@@ -162,6 +156,7 @@ export class ThyDynamicForm {
     );
     private readonly fieldTreeSignal = signal<FieldTree<ThyDynamicFormValue> | undefined>(undefined);
     private previousFieldValue: ThyDynamicFormValue = {};
+    private readonly fieldOutletContextCache = new Map<string, Record<string, unknown>>();
 
     get fieldTree(): FieldTree<ThyDynamicFormValue> {
         return this.fieldTreeSignal()!;
@@ -182,6 +177,7 @@ export class ThyDynamicForm {
     constructor() {
         effect(() => {
             this.fieldTreeRebuildDependencies();
+            this.fieldTypeMap();
             this.fieldTreeSignal.set(untracked(() => this.createFieldTree()));
         });
 
@@ -211,8 +207,34 @@ export class ThyDynamicForm {
         });
     }
 
+    protected resolveFieldType(kind: string): ThyDynamicFormFieldType | undefined {
+        return this.fieldTypeMap().get(kind);
+    }
+
+    protected resolveFieldOutletContext(
+        fieldType: ThyDynamicFormFieldType,
+        field: ThyFormFieldSchema,
+        fieldControl: Field<unknown>,
+        invalid: boolean
+    ): Record<string, unknown> {
+        const ctx: ThyDynamicFormFieldOutletContext = {
+            field: fieldControl,
+            props: field.props as Record<string, unknown> | undefined,
+            size: this.thySize(),
+            invalid,
+            key: field.key
+        };
+        const next = resolveDynamicFormFieldOutletContext(fieldType, ctx);
+        const cached = this.fieldOutletContextCache.get(field.key);
+        if (cached && isSameOutletContext(cached, next)) {
+            return cached;
+        }
+        this.fieldOutletContextCache.set(field.key, next);
+        return next;
+    }
+
     private createFieldTree(): FieldTree<ThyDynamicFormValue> {
-        const normalizedValue = buildDynamicFormValue(this.fields(), this.thyValue());
+        const normalizedValue = buildDynamicFormValue(this.fields(), this.thyValue(), this.fieldTypeMap());
         if (!isSameDynamicFormValue(this.thyValue(), normalizedValue)) {
             this.thyValue.set(normalizedValue);
         }
@@ -229,7 +251,7 @@ export class ThyDynamicForm {
     }
 
     reset(value?: ThyDynamicFormValue): void {
-        this.fieldTree().reset(buildDynamicFormValue(this.fields(), value));
+        this.fieldTree().reset(buildDynamicFormValue(this.fields(), value, this.fieldTypeMap()));
     }
 
     protected handleReset(event: Event): void {
@@ -278,4 +300,13 @@ function isSameFieldTreeRebuildDependencies(
 
 function isSameReferences<T>(previous: readonly T[], current: readonly T[]): boolean {
     return previous.length === current.length && previous.every((item, index) => Object.is(item, current[index]));
+}
+
+function isSameOutletContext(previous: Record<string, unknown>, current: Record<string, unknown>): boolean {
+    const previousKeys = Object.keys(previous);
+    const currentKeys = Object.keys(current);
+    return (
+        previousKeys.length === currentKeys.length &&
+        previousKeys.every(key => Object.hasOwn(current, key) && Object.is(previous[key], current[key]))
+    );
 }
