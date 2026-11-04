@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyFormControlSize } from 'ngx-tethys/core';
 import {
+    provideThyDynamicFormFieldTypes,
     ThyDynamicForm,
     ThyDynamicFormStatus,
     ThyFormFieldSchema,
@@ -16,6 +17,8 @@ import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThyTag } from 'ngx-tethys/tag';
 import { addDays, isWeekend, startOfDay } from 'ngx-tethys/util';
+
+import { ThyFormDynamicMemberFieldExample } from './member-field.component';
 
 const availabilityMinDate = startOfDay(new Date());
 const availabilityMaxDate = addDays(availabilityMinDate, 30);
@@ -47,6 +50,11 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
         ThyTag,
         ThyRowDirective,
         ThyColDirective
+    ],
+    providers: [
+        provideThyDynamicFormFieldTypes([
+            { kind: 'member', component: ThyFormDynamicMemberFieldExample, defaultValue: null }
+        ])
     ]
 })
 export class ThyFormDynamicExampleComponent {
@@ -155,6 +163,28 @@ export class ThyFormDynamicExampleComponent {
                 options: [
                     { value: 'product', label: 'Product' },
                     { value: 'developer', label: 'Developer' }
+                ]
+            }
+        },
+        {
+            key: 'assignee',
+            kind: 'member',
+            defaultValue: [],
+            errorMessages: {
+                required: 'Please select at least one member'
+            },
+            validators: [
+                ({ value }) => (!Array.isArray(value) || value.length === 0 ? { kind: 'required' } : null)
+            ],
+            props: {
+                label: 'Assignee',
+                placeholder: 'Select member',
+                required: true,
+                multiple: true,
+                options: [
+                    { value: 'u1', label: 'Alice' },
+                    { value: 'u2', label: 'Bob' },
+                    { value: 'u3', label: 'Carol' }
                 ]
             }
         },

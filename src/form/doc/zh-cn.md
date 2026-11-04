@@ -65,6 +65,23 @@ schema 驱动时使用`thy-dynamic-form`：按`thyFields`生成字段树，用`t
 - **校验**：优先字段`errorMessages`，否则用`ThyFormValidatorLoader`；通过后`(thySubmit)`才发出值
 - **其它**：内容投影操作区；`reset()`恢复`defaultValue`并清错；`(thyFieldValueChange)`里可改`thyFields`/`thyValue`；`key`/`kind`/校验器变化会重建字段树
 
+### 自定义字段类型（方案 B：增量注册）
+内置 10 种 kind 仍由模板 `@switch` 渲染；业务可通过 `provideThyDynamicFormFieldTypes` 或实例 `thyFieldTypes` 注册**非内置** kind（如 `member`）。注册同名内置 kind **不会覆盖**内置实现。
+
+自定义字段组件需提供 inputs：`field`（内部绑 `[formField]`）、`props`、`size`、`invalid`、`key`；不要在 `[formField]` 节点上绑 `name`。
+
+```ts
+import { provideThyDynamicFormFieldTypes } from 'ngx-tethys/form';
+
+providers: [
+  provideThyDynamicFormFieldTypes([
+    { kind: 'member', component: AppMemberField, defaultValue: null }
+  ])
+]
+```
+
+未注册的非内置 kind 显示 `Unsupported field kind.`。
+
 <example name="thy-form-dynamic-example" />
 
 ## 多列展示

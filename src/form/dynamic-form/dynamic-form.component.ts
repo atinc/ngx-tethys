@@ -5,6 +5,7 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { ThyRadio, ThyRadioButton, ThyRadioGroup } from 'ngx-tethys/radio';
 import { ThySelect } from 'ngx-tethys/select';
+import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThySwitch } from 'ngx-tethys/switch';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 
@@ -31,6 +32,11 @@ import { ThyFormDirective } from '../form.directive';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
+import {
+    createDynamicFormFieldTypeMap,
+    THY_DYNAMIC_FORM_FIELD_TYPES,
+    ThyDynamicFormFieldTypeDef
+} from './field-types';
 import {
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
@@ -60,6 +66,7 @@ interface FieldTreeRebuildDependency {
         FormRoot,
         FormField,
         ThyFormGroup,
+        ThyViewOutletDirective,
         ThySelect,
         ThyInputDirective,
         ThyInputNumber,
@@ -92,7 +99,8 @@ interface FieldTreeRebuildDependency {
 })
 export class ThyDynamicForm {
     /**
-     * 字段配置。kind 支持 input、textarea、number、select、checkbox、radio、switch、time、date、dateRange
+     * 字段配置。内置 kind：input、textarea、number、select、checkbox、radio、switch、time、date、dateRange；
+     * 也可使用通过 `provideThyDynamicFormFieldTypes` / `thyFieldTypes` 注册的自定义 kind。
      * @type ThyFormFieldSchema[]
      * @default []
      */
@@ -123,9 +131,21 @@ export class ThyDynamicForm {
      */
     readonly thyLabelWidth = input('120px');
 
+    /**
+     * 实例级自定义字段类型（覆盖 DI 同名注册）。不会覆盖内置 @switch kind。
+     * @type ThyDynamicFormFieldTypeDef[]
+     */
+    readonly thyFieldTypes = input<ThyDynamicFormFieldTypeDef[]>([]);
+
     private readonly config = inject(THY_FORM_CONFIG, { optional: true });
+    private readonly injectedFieldTypes: readonly ThyDynamicFormFieldTypeDef[] =
+        (inject(THY_DYNAMIC_FORM_FIELD_TYPES, { optional: true }) as unknown as ThyDynamicFormFieldTypeDef[] | null) ?? [];
 
     protected readonly layout = computed(() => this.thyLayout() || this.config?.layout || 'horizontal');
+
+    protected readonly customFieldTypeMap = computed(() =>
+        createDynamicFormFieldTypeMap(this.injectedFieldTypes, this.thyFieldTypes() || [])
+    );
 
     get isHorizontal(): boolean {
         return this.layout() === 'horizontal';
@@ -182,6 +202,7 @@ export class ThyDynamicForm {
     constructor() {
         effect(() => {
             this.fieldTreeRebuildDependencies();
+            this.customFieldTypeMap();
             this.fieldTreeSignal.set(untracked(() => this.createFieldTree()));
         });
 
@@ -211,8 +232,12 @@ export class ThyDynamicForm {
         });
     }
 
+    protected resolveCustomFieldType(kind: string): ThyDynamicFormFieldTypeDef | undefined {
+        return this.customFieldTypeMap().get(kind);
+    }
+
     private createFieldTree(): FieldTree<ThyDynamicFormValue> {
-        const normalizedValue = buildDynamicFormValue(this.fields(), this.thyValue());
+        const normalizedValue = buildDynamicFormValue(this.fields(), this.thyValue(), this.customFieldTypeMap());
         if (!isSameDynamicFormValue(this.thyValue(), normalizedValue)) {
             this.thyValue.set(normalizedValue);
         }
@@ -229,7 +254,7 @@ export class ThyDynamicForm {
     }
 
     reset(value?: ThyDynamicFormValue): void {
-        this.fieldTree().reset(buildDynamicFormValue(this.fields(), value));
+        this.fieldTree().reset(buildDynamicFormValue(this.fields(), value, this.customFieldTypeMap()));
     }
 
     protected handleReset(event: Event): void {

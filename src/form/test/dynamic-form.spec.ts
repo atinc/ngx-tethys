@@ -1,15 +1,17 @@
 import { provideHttpClient } from '@angular/common/http';
-import { Component, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, viewChild, ChangeDetectionStrategy, input } from '@angular/core';
 import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
-import { ValidationError } from '@angular/forms/signals';
+import { Field, FormField, ValidationError } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 import {
+    provideThyDynamicFormFieldTypes,
     THY_FORM_CONFIG,
     ThyDynamicForm,
+    ThyDynamicFormFieldTypeDef,
     ThyDynamicFormStatus,
     ThyFormFieldSchema,
     ThyDynamicFormValue,
@@ -21,6 +23,42 @@ import { ThySelect } from 'ngx-tethys/select';
 import { ThySwitch } from 'ngx-tethys/switch';
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { SafeAny } from 'ngx-tethys/types';
+
+
+@Component({
+    selector: 'thy-test-dynamic-member-field',
+    template: `
+        <input
+            class="test-member-field"
+            [formField]="field()"
+            [id]="key()"
+            [attr.data-testid]="'member-field'" />
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormField]
+})
+class TestMemberFieldComponent {
+    readonly field = input.required<Field<SafeAny>>();
+    readonly props = input<Record<string, unknown>>();
+    readonly size = input('md');
+    readonly invalid = input(false);
+    readonly key = input('');
+}
+
+@Component({
+    selector: 'thy-test-dynamic-override-input-field',
+    template: ` <input class="test-override-input" [formField]="field()" [id]="key()" /> `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormField]
+})
+class TestOverrideInputFieldComponent {
+    readonly field = input.required<Field<SafeAny>>();
+    readonly props = input<Record<string, unknown>>();
+    readonly size = input('md');
+    readonly invalid = input(false);
+    readonly key = input('');
+}
 
 @Component({
     selector: 'thy-test-dynamic-form',
@@ -31,6 +69,7 @@ import { ThyTimePicker } from 'ngx-tethys/time-picker';
             [thyLayout]="layout"
             [thySize]="size"
             [thyLabelWidth]="labelWidth"
+            [thyFieldTypes]="fieldTypes"
             (thyValueChange)="onValueChange($event)"
             (thyFieldValueChange)="onFieldValueChange($event)"
             (thyStatusChange)="onStatusChange($event)"
@@ -54,6 +93,8 @@ class TestDynamicFormComponent {
     size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
 
     labelWidth = '120px';
+
+    fieldTypes: ThyDynamicFormFieldTypeDef[] = [];
 
     valueChanges: ThyDynamicFormValue[] = [];
 
@@ -1066,6 +1107,106 @@ describe('dynamic-form', () => {
         fixture.detectChanges();
         expect(formElement.querySelector('#submit')).toBeTruthy();
         expect(formElement.querySelector('#reset')).toBeTruthy();
+    });
+
+    it('should show unsupported message for unregistered custom kind', () => {
+        setFields([{ key: 'owner', kind: 'unknown-kind', props: { label: 'Owner' } }]);
+        expect(formElement.textContent).toContain('Unsupported field kind.');
+        expect(testComponent.value).toEqual({ owner: null });
+    });
+
+    it('should render custom kind registered via thyFieldTypes and sync value', fakeAsync(() => {
+        setFields([]);
+        testComponent.fieldTypes = [{ kind: 'member', component: TestMemberFieldComponent, defaultValue: '' }];
+        testComponent.fields = [{ key: 'owner', kind: 'member', props: { label: 'Owner' } }];
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        const input = formElement.querySelector('.test-member-field') as HTMLInputElement;
+        expect(input).toBeTruthy();
+        expect(testComponent.value).toEqual({ owner: '' });
+
+        input.value = 'alice';
+        dispatchFakeEvent(input, 'input');
+        fixture.detectChanges();
+        tick();
+        expect(testComponent.value.owner).toBe('alice');
+    }));
+
+    it('should not let thyFieldTypes override builtin input kind (scheme B)', () => {
+        setFields([]);
+        testComponent.fieldTypes = [{ kind: 'input', component: TestOverrideInputFieldComponent, defaultValue: '' }];
+        testComponent.fields = [{ key: 'name', kind: 'input', defaultValue: 'Ada' }];
+        fixture.detectChanges();
+
+        expect(formElement.querySelector('.test-override-input')).toBeFalsy();
+        expect(formElement.querySelector('input.thy-input, input[thyInput], input')?.classList.contains('test-override-input')).toBeFalsy();
+        expect((formElement.querySelector('input') as HTMLInputElement).value).toBe('Ada');
+    });
+
+    it('should prefer schema defaultValue over type def defaultValue', () => {
+        setFields([]);
+        testComponent.fieldTypes = [{ kind: 'member', component: TestMemberFieldComponent, defaultValue: 'from-type' }];
+        testComponent.fields = [{ key: 'owner', kind: 'member', defaultValue: 'from-schema' }];
+        fixture.detectChanges();
+        expect(testComponent.value).toEqual({ owner: 'from-schema' });
+    });
+});
+
+describe('dynamic-form custom field types via DI', () => {
+    let fixture: ComponentFixture<TestDynamicFormComponent>;
+    let testComponent: TestDynamicFormComponent;
+    let formElement: HTMLElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyFormModule],
+            providers: [
+                bypassSanitizeProvider,
+                provideHttpClient(),
+                provideNoopAnimations(),
+                ...provideThyDynamicFormFieldTypes([
+                    { kind: 'member', component: TestMemberFieldComponent, defaultValue: 'di-default' },
+                    { kind: 'input', component: TestOverrideInputFieldComponent, defaultValue: '' }
+                ])
+            ]
+        }).compileComponents();
+        injectDefaultSvgIconSet();
+    }));
+
+    it('should render custom kind from provideThyDynamicFormFieldTypes', () => {
+        fixture = TestBed.createComponent(TestDynamicFormComponent);
+        testComponent = fixture.componentInstance;
+        testComponent.fields = [{ key: 'owner', kind: 'member', props: { label: 'Owner' } }];
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.css('form')).nativeElement;
+
+        expect(formElement.querySelector('.test-member-field')).toBeTruthy();
+        expect(testComponent.value).toEqual({ owner: 'di-default' });
+    });
+
+    it('should keep builtin input when DI registers the same kind (scheme B)', () => {
+        fixture = TestBed.createComponent(TestDynamicFormComponent);
+        testComponent = fixture.componentInstance;
+        testComponent.fields = [{ key: 'name', kind: 'input', defaultValue: 'Ada' }];
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.css('form')).nativeElement;
+
+        expect(formElement.querySelector('.test-override-input')).toBeFalsy();
+        expect((formElement.querySelector('input') as HTMLInputElement).value).toBe('Ada');
+    });
+
+    it('should let thyFieldTypes override DI registration for custom kinds', () => {
+        fixture = TestBed.createComponent(TestDynamicFormComponent);
+        testComponent = fixture.componentInstance;
+        testComponent.fieldTypes = [{ kind: 'member', component: TestOverrideInputFieldComponent, defaultValue: '' }];
+        testComponent.fields = [{ key: 'owner', kind: 'member' }];
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.css('form')).nativeElement;
+
+        expect(formElement.querySelector('.test-override-input')).toBeTruthy();
+        expect(formElement.querySelector('.test-member-field')).toBeFalsy();
     });
 });
 

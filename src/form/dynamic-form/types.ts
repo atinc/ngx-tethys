@@ -101,6 +101,15 @@ export interface ThyFormFieldBaseProps {
     disabled?: boolean;
 }
 
+/**
+ * 自定义字段（通过 provideThyDynamicFormFieldTypes / thyFieldTypes 注册）。
+ * 方案 B：内置 kind 仍走模板 @switch，同名注册不会覆盖内置。
+ */
+export interface ThyFormCustomFieldSchema extends Omit<ThyFormFieldBaseSchema, 'kind'> {
+    kind: string;
+    props?: ThyFormFieldBaseProps & Record<string, unknown>;
+}
+
 export interface ThyFormInputFieldProps extends ThyFormFieldBaseProps {
     type?: string;
     minlength?: number;
@@ -174,4 +183,5 @@ export type ThyFormFieldSchema =
     | ThyFormSwitchFieldSchema
     | ThyFormTimeFieldSchema
     | ThyFormDateFieldSchema
-    | ThyFormDateRangeFieldSchema;
+    | ThyFormDateRangeFieldSchema
+    | ThyFormCustomFieldSchema;

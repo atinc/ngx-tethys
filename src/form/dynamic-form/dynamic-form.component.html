@@ -137,7 +137,21 @@
                   [thyReadonly]="fieldState.readonly()" />
               }
               @default {
-                <span class="invalid-feedback">Unsupported field kind.</span>
+                @if (resolveCustomFieldType(field.kind); as typeDef) {
+                  <ng-container
+                    *thyViewOutlet="
+                      typeDef.component;
+                      context: {
+                        field: fieldControl,
+                        props: field.props,
+                        size: thySize(),
+                        invalid: invalid,
+                        key: field.key
+                      }
+                    "></ng-container>
+                } @else {
+                  <span class="invalid-feedback">Unsupported field kind.</span>
+                }
               }
             }
           </div>
