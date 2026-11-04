@@ -21,7 +21,9 @@ export class QuarterTable extends CalendarTable {
     MAX_COL = 4;
 
     private chooseQuarter(quarter: number): void {
-        const newValue = this.activeDate().setQuarter(quarter);
+        const quarterDate = this.activeDate().setQuarter(quarter);
+        // 该季度只有部分日期可选时，选取季度内最接近的可选日期，避免产生越界的值
+        const newValue = this.findEnabledDateInRange(quarterDate.startOfQuarter(), quarterDate.endOfQuarter(), quarterDate);
         this.value.set(newValue);
         this.render();
     }
@@ -40,7 +42,8 @@ export class QuarterTable extends CalendarTable {
             };
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const quarter = this.activeDate().setQuarter(quarterValue + 1);
-                const isDisabled = this.disabledDate() ? this.disabledDate()!(quarter.nativeDate) : false;
+                // 季度内存在任意一天可选时，该季度即可选
+                const isDisabled = this.isAllDaysDisabled(quarter.startOfQuarter(), quarter.endOfQuarter());
                 const content = `${quarter.format(QUARTER_FORMAT)}`;
                 const cell: DateCell = {
                     trackByIndex: colIndex,

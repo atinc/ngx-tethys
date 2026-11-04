@@ -18,7 +18,11 @@
         (valueChange)="headerChange.emit($event)">
       </decade-header>
       <div class="{{ prefixCls }}-body">
-        <decade-table [value]="value()" [activeDate]="activeDate()" (valueChange)="onChooseDecade($event)"></decade-table>
+        <decade-table
+          [value]="value()"
+          [activeDate]="activeDate()"
+          [disabledDate]="disabledDate()"
+          (valueChange)="onChooseDecade($event)"></decade-table>
       </div>
     </div>
   }

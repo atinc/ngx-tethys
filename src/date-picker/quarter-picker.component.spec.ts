@@ -111,6 +111,44 @@ describe('ThyQuarterPickerComponent', () => {
             flush();
         }));
 
+        it('should make a quarter with some enabled days selectable (not fully disabled)', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2023-2-11'); // Q1
+            fixture.detectChanges();
+            // 2023-03-01 之后禁用，Q1 内（如 2023-01-01）仍有可选日，因此 Q1 可选；Q2 起整季禁用
+            fixtureInstance.thyDisabledDate = (date: Date) => {
+                return date > new Date('2023-3-1');
+            };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const q1Cell = getQuarterCell('Q1');
+            expect(q1Cell.classList.contains('thy-calendar-quarter-panel-cell-disabled')).toBe(false);
+            const q2Cell = getQuarterCell('Q2');
+            expect(q2Cell.classList.contains('thy-calendar-quarter-panel-cell-disabled')).toBe(true);
+            flush();
+        }));
+
+        it('should clamp value into enabled days when choosing a partially disabled quarter', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2023-8-11'); // Q3
+            // 2023-07-10 之后禁用，Q3（2023-07-01 ~ 2023-09-30）内 07-01~07-10 可选
+            fixtureInstance.thyDisabledDate = (date: Date) => {
+                return date > new Date('2023-7-10');
+            };
+            fixture.detectChanges();
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getQuarterCell('Q3'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalled();
+            // 期望收敛到季内首个可选日 2023-07-10
+            const result = new Date((thyOnChange.calls.mostRecent().args[0] as number) * 1000);
+            expect(result.getFullYear()).toBe(2023);
+            expect(new TinyDate(result).getQuarter()).toBe(3);
+            expect(result.getDate()).toBe(10);
+            flush();
+        }));
+
         it('should support thyPlaceholder', () => {
             const featureKey = (fixtureInstance.thyPlaceholder = 'TEST_PLACEHOLDER');
             fixture.detectChanges();
@@ -254,6 +292,13 @@ describe('ThyQuarterPickerComponent', () => {
 
     function getFirstQuarterCell(): HTMLElement {
         return queryFromOverlay('.thy-calendar-quarter td.thy-calendar-quarter-panel-cell') as HTMLElement;
+    }
+
+    function getQuarterCell(label: string): HTMLElement {
+        const cells = Array.from(
+            overlayContainerElement.querySelectorAll('.thy-calendar-quarter td.thy-calendar-quarter-panel-cell')
+        ) as HTMLElement[];
+        return cells.find(cell => (cell.textContent || '').trim() === label) as HTMLElement;
     }
 
     function openPickerByClickTrigger(): void {

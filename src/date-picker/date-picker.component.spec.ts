@@ -798,6 +798,32 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar .thy-calendar-year')).toBeFalsy();
         }));
+
+        it('should make year selectable when the year only partially exceeds the max date', fakeAsync(() => {
+            // 激活日期 2026-11-10，maxDate 2027-11-03
+            // 2027 年内仍有可选日期（2027-01-01 ~ 2027-11-03），因此 2027 年应可选，2028 年不可选
+            fixtureInstance.thyValue = new Date('2026-11-10');
+            fixtureInstance.thyMaxDate = new Date('2027-11-03 23:59:59');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar .thy-calendar-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+
+            const year2027Cell = getYearPanelCell(2027);
+            expect(year2027Cell.classList.contains('thy-calendar-year-panel-cell-disabled')).toBe(false);
+            const year2028Cell = getYearPanelCell(2028);
+            expect(year2028Cell.classList.contains('thy-calendar-year-panel-cell-disabled')).toBe(true);
+
+            dispatchMouseEvent(year2027Cell, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            // 选中后回到日期面板，年份切换到 2027
+            expect(queryFromOverlay('.thy-calendar .thy-calendar-year')).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent).toContain('2027');
+        }));
     });
 
     describe('specified date picker testing', () => {
@@ -1381,6 +1407,11 @@ describe('ThyDatePickerComponent', () => {
 
     function queryFromOverlay(selector: string): HTMLElement {
         return overlayContainerElement.querySelector(selector) as HTMLElement;
+    }
+
+    function getYearPanelCell(year: number): HTMLElement {
+        const cells = Array.from(overlayContainerElement.querySelectorAll('td.thy-calendar-year-panel-cell'));
+        return cells.find(cell => cell.textContent!.trim() === String(year)) as HTMLElement;
     }
 
     function openPickerByClickTrigger(): void {

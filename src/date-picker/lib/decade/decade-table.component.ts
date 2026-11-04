@@ -24,8 +24,19 @@ export class DecadeTable extends CalendarTable {
     readonly endYear = computed<number>(() => this.startYear() + 99);
 
     private chooseDecade(startYear: number): void {
-        const newValue = (this.value() || new TinyDate()).setYear(startYear);
+        const decadeDate = this.activeDate().setYear(startYear);
+        // 该十年只有部分年份可选时，选取区间内最接近的可选日期，避免产生越界的值
+        const newValue = this.findEnabledDateInRange(
+            decadeDate.startOfYear(),
+            decadeDate.setYear(startYear + 9).endOfYear(),
+            decadeDate
+        );
         this.value.set(newValue);
+    }
+
+    private isDecadeDisabled(startYear: number, endYear: number): boolean {
+        const activeDate = this.activeDate();
+        return this.isAllDaysDisabled(activeDate.setYear(startYear).startOfYear(), activeDate.setYear(endYear).endOfYear());
     }
 
     makeHeadRow(): DateCell[] {
@@ -53,6 +64,8 @@ export class DecadeTable extends CalendarTable {
                 const cell: DecadeCell = {
                     content,
                     title: content,
+                    // 十年内存在任意一天可选时，该十年即可选
+                    isDisabled: this.isDecadeDisabled(start, end),
                     isSelected: currentYear! >= start && currentYear! <= end,
                     isLowerThanStart: end < startYear,
                     isBiggerThanEnd: start > endYear,
@@ -74,6 +87,7 @@ export class DecadeTable extends CalendarTable {
         const prefixCls = this.prefixCls();
         return {
             [`${prefixCls}-decade-panel-cell`]: true,
+            [`${prefixCls}-decade-panel-cell-disabled`]: !!cell.isDisabled,
             [`${prefixCls}-decade-panel-selected-cell`]: !!cell.isSelected,
             [`${prefixCls}-decade-panel-last-century-cell`]: !!cell.isLowerThanStart,
             [`${prefixCls}-decade-panel-next-century-cell`]: !!cell.isBiggerThanEnd
@@ -82,6 +96,9 @@ export class DecadeTable extends CalendarTable {
 
     cellClick(event: Event, cell: DecadeCell) {
         event.stopPropagation();
+        if (cell.isDisabled) {
+            return;
+        }
         cell.onClick();
     }
 }

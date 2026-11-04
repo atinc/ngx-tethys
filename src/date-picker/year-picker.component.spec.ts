@@ -110,8 +110,31 @@ describe('ThyYearPickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            // 2009 年内存在可选日期（2009-02-01 及之前），因此 2009 可选，2010 不可选
             const allDisabledCells = queryFromOverlay('.thy-calendar-year-panel-cell-disabled');
-            expect(allDisabledCells.textContent).toContain('2009');
+            expect(allDisabledCells.textContent).toContain('2010');
+            const enabled2009Cell = getYearCell(2009);
+            expect(enabled2009Cell.classList.contains('thy-calendar-year-panel-cell-disabled')).toBe(false);
+            flush();
+        }));
+
+        it('should clamp value into enabled days when choose a partially disabled year', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2006-2-11');
+            fixtureInstance.thyDisabledDate = (date: Date) => {
+                return date > new Date('2009-2-1');
+            };
+            fixture.detectChanges();
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getYearCell(2009), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalled();
+            // 期望收敛到 2009-02-01（默认时区 Asia/Shanghai），使用显式偏移断言避免受运行环境时区影响
+            const emittedTime = (thyOnChange.calls.allArgs()[0][0] as number) * 1000;
+            expect(emittedTime).toBeGreaterThanOrEqual(new Date('2009-02-01T00:00:00+08:00').getTime());
+            expect(emittedTime).toBeLessThanOrEqual(new Date('2009-02-01T23:59:59+08:00').getTime());
             flush();
         }));
 
@@ -226,6 +249,11 @@ describe('ThyYearPickerComponent', () => {
 
     function getFirstYearCell(): HTMLElement {
         return queryFromOverlay('.thy-calendar-year td.thy-calendar-year-panel-cell') as HTMLElement;
+    }
+
+    function getYearCell(year: number): HTMLElement {
+        const cells = Array.from(overlayContainerElement.querySelectorAll('.thy-calendar-year td.thy-calendar-year-panel-cell'));
+        return cells.find(cell => cell.textContent!.trim() === String(year)) as HTMLElement;
     }
 
     function queryFromOverlay(selector: string): HTMLElement {
