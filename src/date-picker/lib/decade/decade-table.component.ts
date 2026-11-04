@@ -28,6 +28,11 @@ export class DecadeTable extends CalendarTable {
         this.value.set(newValue);
     }
 
+    private isDecadeDisabled(startYear: number, endYear: number): boolean {
+        const activeDate = this.activeDate();
+        return this.isAllDaysDisabled(activeDate.setYear(startYear).startOfYear(), activeDate.setYear(endYear).endOfYear());
+    }
+
     makeHeadRow(): DateCell[] {
         return [];
     }
@@ -53,6 +58,8 @@ export class DecadeTable extends CalendarTable {
                 const cell: DecadeCell = {
                     content,
                     title: content,
+                    // 十年内存在任意一天可选时，该十年即可选
+                    isDisabled: this.isDecadeDisabled(start, end),
                     isSelected: currentYear! >= start && currentYear! <= end,
                     isLowerThanStart: end < startYear,
                     isBiggerThanEnd: start > endYear,
@@ -74,6 +81,7 @@ export class DecadeTable extends CalendarTable {
         const prefixCls = this.prefixCls();
         return {
             [`${prefixCls}-decade-panel-cell`]: true,
+            [`${prefixCls}-decade-panel-cell-disabled`]: !!cell.isDisabled,
             [`${prefixCls}-decade-panel-selected-cell`]: !!cell.isSelected,
             [`${prefixCls}-decade-panel-last-century-cell`]: !!cell.isLowerThanStart,
             [`${prefixCls}-decade-panel-next-century-cell`]: !!cell.isBiggerThanEnd
@@ -82,6 +90,9 @@ export class DecadeTable extends CalendarTable {
 
     cellClick(event: Event, cell: DecadeCell) {
         event.stopPropagation();
+        if (cell.isDisabled) {
+            return;
+        }
         cell.onClick();
     }
 }

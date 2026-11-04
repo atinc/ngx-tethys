@@ -27,7 +27,9 @@ export class MonthTable extends CalendarTable {
     }
 
     private chooseMonth(month: number): void {
-        const newValue = this.activeDate().setMonth(month);
+        const monthDate = this.activeDate().setMonth(month);
+        // 该月只有部分日期可选时，选取月内最接近的可选日期，避免产生越界的值
+        const newValue = this.findEnabledDateInRange(monthDate.startOfMonth(), monthDate.endOfMonth(), monthDate);
         this.value.set(newValue);
         this.render();
     }
@@ -47,7 +49,8 @@ export class MonthTable extends CalendarTable {
             for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
                 const month = this.activeDate().setMonth(monthValue);
                 const monthFormat = this.locale().monthFormat;
-                const isDisabled = this.disabledDate() ? this.disabledDate()!(this.activeDate().setMonth(monthValue).nativeDate) : false;
+                // 月内存在任意一天可选时，该月份即可选
+                const isDisabled = this.isAllDaysDisabled(month.startOfMonth(), month.endOfMonth());
                 const content = this.dateHelper.format(month.nativeDate, monthFormat);
                 const cell: DateCell = {
                     trackByIndex: colIndex,

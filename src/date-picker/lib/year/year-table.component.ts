@@ -21,7 +21,9 @@ export class YearTable extends CalendarTable {
     readonly decadePanelShow = output<void>();
 
     private chooseYear(year: number): void {
-        const newValue = this.activeDate().setYear(year);
+        const yearDate = this.activeDate().setYear(year);
+        // 该年只有部分日期可选时，选取年内最接近的可选日期，避免产生越界的值
+        const newValue = this.findEnabledDateInRange(yearDate.startOfYear(), yearDate.endOfYear(), yearDate);
         this.value.set(newValue);
         this.render();
     }
@@ -47,8 +49,8 @@ export class YearTable extends CalendarTable {
                 const yearNum = previousYear + yearValue;
                 const year = activeDate.setYear(yearNum);
                 const content = String(yearNum);
-                const disabledDate = this.disabledDate();
-                const isDisabled = disabledDate ? disabledDate(year.nativeDate) : false;
+                // 年内存在任意一天可选时，该年份即可选
+                const isDisabled = this.isAllDaysDisabled(year.startOfYear(), year.endOfYear());
 
                 const value = this.value();
                 const cell: YearCell = {

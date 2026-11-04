@@ -111,8 +111,9 @@ describe('ThyMonthPickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             flush();
+            // 3 月内存在可选日期（2009-03-01），因此 3 月可选，4 月起整月不可选
             const allDisabledCells = queryFromOverlay('.thy-calendar-month-panel-cell-disabled');
-            expect(allDisabledCells.textContent).toContain('3月');
+            expect(allDisabledCells.textContent).toContain('4月');
         }));
 
         it('should support thyPlaceholder', () => {
