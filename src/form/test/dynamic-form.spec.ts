@@ -1,13 +1,14 @@
 import { provideHttpClient } from '@angular/common/http';
-import { Component, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, viewChild, ChangeDetectionStrategy, input } from '@angular/core';
 import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
-import { ValidationError } from '@angular/forms/signals';
+import { Field, FormField, ValidationError } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
 import {
+    provideThyDynamicFormFieldTypes,
     THY_FORM_CONFIG,
     ThyDynamicForm,
     ThyDynamicFormStatus,
@@ -21,6 +22,60 @@ import { ThySelect } from 'ngx-tethys/select';
 import { ThySwitch } from 'ngx-tethys/switch';
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { SafeAny } from 'ngx-tethys/types';
+
+@Component({
+    selector: 'thy-test-dynamic-member-field',
+    template: `
+        <input
+            class="test-member-field"
+            [formField]="field()"
+            [id]="key()"
+            [attr.data-testid]="'member-field'" />
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormField]
+})
+class TestMemberFieldComponent {
+    readonly field = input.required<Field<SafeAny>>();
+    readonly props = input<Record<string, unknown>>();
+    readonly size = input('md');
+    readonly invalid = input(false);
+    readonly key = input('');
+}
+
+@Component({
+    selector: 'thy-test-dynamic-override-input-field',
+    template: ` <input class="test-override-input" [formField]="field()" [id]="key()" /> `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormField]
+})
+class TestOverrideInputFieldComponent {
+    readonly field = input.required<Field<SafeAny>>();
+    readonly props = input<Record<string, unknown>>();
+    readonly size = input('md');
+    readonly invalid = input(false);
+    readonly key = input('');
+}
+
+@Component({
+    selector: 'thy-test-dynamic-mapped-member-field',
+    template: `
+        <div class="test-mapped-member" [attr.data-id]="controlId()">
+            @for (option of options(); track $index) {
+                <span class="test-mapped-option">{{ $index }}</span>
+            }
+            <input [formField]="control()" />
+        </div>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormField]
+})
+class TestMappedMemberFieldComponent {
+    readonly control = input.required<Field<SafeAny>>();
+    readonly options = input<{ value: string; label: string }[]>([]);
+    readonly controlId = input('');
+}
 
 @Component({
     selector: 'thy-test-dynamic-form',
@@ -261,6 +316,47 @@ describe('dynamic-form', () => {
         expect(formElement.textContent).toContain('请填写名称');
         expect(formElement.querySelector('input')?.classList.contains('is-invalid')).toBe(true);
         expect(formElement.querySelector('.invalid-feedback')?.textContent).toBe('请填写名称');
+    });
+
+    it('should default number fields to null instead of empty string', () => {
+        setFields([{ key: 'age', kind: 'number', props: { required: true } }]);
+        expect(testComponent.value).toEqual({ age: null });
+        expect(testComponent.dynamicForm().getField('age')().invalid()).toBe(true);
+    });
+
+    it('should treat empty array as required for multiple select', () => {
+        setFields([
+            {
+                key: 'tags',
+                kind: 'select',
+                defaultValue: [],
+                errorMessages: { required: '请至少选择一项' },
+                props: {
+                    required: true,
+                    multiple: true,
+                    options: [
+                        { value: 'a', label: 'A' },
+                        { value: 'b', label: 'B' }
+                    ]
+                }
+            }
+        ]);
+
+        expect(testComponent.dynamicForm().getField('tags')().invalid()).toBe(true);
+
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testComponent.submits).toEqual([]);
+        expect(formElement.querySelector('.invalid-feedback')?.textContent).toBe('请至少选择一项');
+
+        testComponent.dynamicForm().getField('tags')().value.set(['a']);
+        fixture.detectChanges();
+        expect(testComponent.dynamicForm().getField('tags')().invalid()).toBe(false);
+
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+        expect(testComponent.submits).toEqual([{ tags: ['a'] }]);
     });
 
     it('should emit form value from thySubmit when valid', () => {
@@ -1066,6 +1162,101 @@ describe('dynamic-form', () => {
         fixture.detectChanges();
         expect(formElement.querySelector('#submit')).toBeTruthy();
         expect(formElement.querySelector('#reset')).toBeTruthy();
+    });
+
+    it('should show unsupported message for unregistered custom kind', () => {
+        setFields([{ key: 'owner', kind: 'unknown-kind', props: { label: 'Owner' } }]);
+        expect(formElement.textContent).toContain('Unsupported field kind.');
+        expect(testComponent.value).toEqual({ owner: null });
+    });
+});
+
+describe('dynamic-form custom field types via DI', () => {
+    let fixture: ComponentFixture<TestDynamicFormComponent>;
+    let testComponent: TestDynamicFormComponent;
+    let formElement: HTMLElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyFormModule],
+            providers: [
+                bypassSanitizeProvider,
+                provideHttpClient(),
+                provideNoopAnimations(),
+                ...provideThyDynamicFormFieldTypes([
+                    { kind: 'member', component: TestMemberFieldComponent, defaultValue: 'di-default' },
+                    { kind: 'input', component: TestOverrideInputFieldComponent, defaultValue: '' },
+                    {
+                        kind: 'mapped-member',
+                        component: TestMappedMemberFieldComponent,
+                        defaultValue: null,
+                        mapInputs: ctx => ({
+                            control: ctx.field,
+                            options: (ctx.props?.['options'] as unknown[]) ?? [],
+                            controlId: ctx.key
+                        })
+                    }
+                ])
+            ]
+        }).compileComponents();
+        injectDefaultSvgIconSet();
+    }));
+
+    it('should render custom kind from provideThyDynamicFormFieldTypes', fakeAsync(() => {
+        fixture = TestBed.createComponent(TestDynamicFormComponent);
+        testComponent = fixture.componentInstance;
+        testComponent.fields = [{ key: 'owner', kind: 'member', props: { label: 'Owner' } }];
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.css('form')).nativeElement;
+
+        expect(formElement.querySelector('.test-member-field')).toBeTruthy();
+        expect(testComponent.value).toEqual({ owner: 'di-default' });
+
+        const input = formElement.querySelector('.test-member-field') as HTMLInputElement;
+        input.value = 'alice';
+        dispatchFakeEvent(input, 'input');
+        fixture.detectChanges();
+        tick();
+        expect(testComponent.value.owner).toBe('alice');
+    }));
+
+    it('should allow DI registration to override builtin input kind', () => {
+        fixture = TestBed.createComponent(TestDynamicFormComponent);
+        testComponent = fixture.componentInstance;
+        testComponent.fields = [{ key: 'name', kind: 'input', defaultValue: 'Ada' }];
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.css('form')).nativeElement;
+
+        expect(formElement.querySelector('.test-override-input')).toBeTruthy();
+        expect(formElement.querySelector('thy-dynamic-form-input-field')).toBeFalsy();
+    });
+
+    it('should prefer schema defaultValue over type def defaultValue', () => {
+        fixture = TestBed.createComponent(TestDynamicFormComponent);
+        testComponent = fixture.componentInstance;
+        testComponent.fields = [{ key: 'owner', kind: 'member', defaultValue: 'from-schema' }];
+        fixture.detectChanges();
+        expect(testComponent.value).toEqual({ owner: 'from-schema' });
+    });
+
+    it('should apply mapInputs when resolving outlet context', () => {
+        fixture = TestBed.createComponent(TestDynamicFormComponent);
+        testComponent = fixture.componentInstance;
+        testComponent.fields = [
+            {
+                key: 'owner',
+                kind: 'mapped-member',
+                props: { label: 'Owner', options: [{ value: 'a', label: 'A' }] }
+            }
+        ];
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.css('form')).nativeElement;
+
+        expect(formElement.querySelector('.test-mapped-member')).toBeTruthy();
+        expect(formElement.querySelector('.test-mapped-member')?.getAttribute('data-id')).toBe('owner');
+        expect(formElement.querySelectorAll('.test-mapped-option').length).toBe(1);
     });
 });
 

@@ -1,4 +1,5 @@
-import { ThyDynamicFormValue, ThyFormFieldSchema } from './types';
+import { ThyDynamicFormFieldType } from './dynamic-form-field-types';
+import { ThyDynamicFormValue, ThyFormFieldSchema, ThyFormSelectFieldProps } from './types';
 
 export function validateDynamicFormFields(fields: readonly ThyFormFieldSchema[]): readonly ThyFormFieldSchema[] {
     const keys = new Set<string>();
@@ -13,30 +14,40 @@ export function validateDynamicFormFields(fields: readonly ThyFormFieldSchema[])
     return fields;
 }
 
-export function buildDynamicFormValue(fields: readonly ThyFormFieldSchema[], value?: ThyDynamicFormValue): ThyDynamicFormValue {
+export function buildDynamicFormValue(
+    fields: readonly ThyFormFieldSchema[],
+    value?: ThyDynamicFormValue,
+    typeMap?: ReadonlyMap<string, ThyDynamicFormFieldType>
+): ThyDynamicFormValue {
     const result: ThyDynamicFormValue = {};
 
     for (const field of fields) {
-        result[field.key] = value?.[field.key] !== undefined ? value[field.key] : fieldDefaultValue(field);
+        result[field.key] = value?.[field.key] !== undefined ? value[field.key] : fieldDefaultValue(field, typeMap?.get(field.kind));
     }
 
     return result;
 }
 
-function fieldDefaultValue(field: ThyFormFieldSchema): unknown {
+function fieldDefaultValue(field: ThyFormFieldSchema, fieldType?: ThyDynamicFormFieldType): unknown {
     if (field.defaultValue !== undefined) {
         return field.defaultValue;
     }
+    if (field.kind === 'select') {
+        const selectProps = field.props as ThyFormSelectFieldProps | undefined;
+        return selectProps?.multiple === true ? [] : (fieldType?.defaultValue ?? null);
+    }
+    if (fieldType && Object.prototype.hasOwnProperty.call(fieldType, 'defaultValue')) {
+        return fieldType.defaultValue;
+    }
     switch (field.kind) {
-        case 'select':
-            return field.props?.multiple === true ? [] : null;
         case 'checkbox':
         case 'switch':
             return false;
         case 'input':
         case 'textarea':
-        case 'number':
             return '';
+        case 'number':
+            return null;
         default:
             return null;
     }

@@ -2,7 +2,17 @@ import { ValidationError } from '@angular/forms/signals';
 import { ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThySwitchColor } from 'ngx-tethys/switch';
 
-export type ThyFormFieldKind = 'input' | 'textarea' | 'number' | 'select' | 'checkbox' | 'radio' | 'switch' | 'time' | 'date' | 'dateRange';
+export type ThyFormBuiltinFieldKind =
+    | 'input'
+    | 'textarea'
+    | 'number'
+    | 'select'
+    | 'checkbox'
+    | 'radio'
+    | 'switch'
+    | 'time'
+    | 'date'
+    | 'dateRange';
 
 export type ThyDynamicFormValue = Record<string, unknown>;
 
@@ -28,7 +38,6 @@ export interface ThyFormFieldValueChange {
 
 interface ThyFormFieldBaseSchema {
     key: string;
-    kind: ThyFormFieldKind;
     /**
      * 外层栅格占位（1–12），默认 12；`inline` 下忽略。
      */
@@ -41,6 +50,14 @@ interface ThyFormFieldBaseSchema {
     debounce?: number | 'blur';
     validators?: ThyFormFieldValidator[];
     asyncValidators?: ThyFormFieldAsyncValidator[];
+}
+
+/**
+ * 自定义字段（通过 `provideThyDynamicFormFieldTypes` 注册）。
+ */
+export interface ThyFormCustomFieldSchema extends ThyFormFieldBaseSchema {
+    kind: string;
+    props?: ThyFormFieldBaseProps & Record<string, unknown>;
 }
 
 export interface ThyFormInputFieldSchema extends ThyFormFieldBaseSchema {
@@ -174,4 +191,5 @@ export type ThyFormFieldSchema =
     | ThyFormSwitchFieldSchema
     | ThyFormTimeFieldSchema
     | ThyFormDateFieldSchema
-    | ThyFormDateRangeFieldSchema;
+    | ThyFormDateRangeFieldSchema
+    | ThyFormCustomFieldSchema;

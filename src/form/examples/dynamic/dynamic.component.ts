@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyFormControlSize } from 'ngx-tethys/core';
 import {
+    provideThyDynamicFormFieldTypes,
     ThyDynamicForm,
     ThyDynamicFormStatus,
+    ThyDynamicFormValue,
     ThyFormFieldSchema,
     ThyFormFieldValueChange,
-    ThyDynamicFormValue,
     ThyFormGroupFooter,
     ThyFormLayout
 } from 'ngx-tethys/form';
@@ -16,6 +17,8 @@ import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThyTag } from 'ngx-tethys/tag';
 import { addDays, isWeekend, startOfDay } from 'ngx-tethys/util';
+
+import { ThyDynamicFormMemberFieldExample } from './member-field.component';
 
 const availabilityMinDate = startOfDay(new Date());
 const availabilityMaxDate = addDays(availabilityMinDate, 30);
@@ -37,17 +40,8 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     selector: 'thy-form-dynamic-example',
     templateUrl: './dynamic.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        FormsModule,
-        JsonPipe,
-        ThyDynamicForm,
-        ThyButton,
-        ThyFormGroupFooter,
-        ThySelect,
-        ThyTag,
-        ThyRowDirective,
-        ThyColDirective
-    ]
+    imports: [FormsModule, JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThySelect, ThyTag, ThyRowDirective, ThyColDirective],
+    providers: [provideThyDynamicFormFieldTypes([{ kind: 'member', component: ThyDynamicFormMemberFieldExample, defaultValue: null }])]
 })
 export class ThyFormDynamicExampleComponent {
     value = signal<ThyDynamicFormValue>({});
@@ -155,6 +149,25 @@ export class ThyFormDynamicExampleComponent {
                 options: [
                     { value: 'product', label: 'Product' },
                     { value: 'developer', label: 'Developer' }
+                ]
+            }
+        },
+        {
+            key: 'assignee',
+            kind: 'member',
+            defaultValue: [],
+            errorMessages: {
+                required: 'Please select at least one member'
+            },
+            props: {
+                label: 'Assignee',
+                placeholder: 'Select member',
+                required: true,
+                multiple: true,
+                options: [
+                    { value: 'u1', label: 'Alice' },
+                    { value: 'u2', label: 'Bob' },
+                    { value: 'u3', label: 'Carol' }
                 ]
             }
         },
