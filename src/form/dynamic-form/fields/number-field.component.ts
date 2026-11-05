@@ -1,24 +1,24 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ThyFormControlSize } from 'ngx-tethys/core';
 import { Field, FormField } from '@angular/forms/signals';
-import { SafeAny } from 'ngx-tethys/types';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
+import { SafeAny } from 'ngx-tethys/types';
 
-import { ThyFormNumberFieldProps } from '../types';
+import { ThyFormNumberFieldSchema } from '../types';
 
 @Component({
     selector: 'thy-dynamic-form-number-field',
     template: `
         <thy-input-number
             [formField]="field()"
-            [id]="key()"
+            [id]="fieldSchema().key"
             [class.is-invalid]="invalid()"
             [thyDisabled]="field()().disabled()"
-            [thyPlaceholder]="props()?.placeholder || null"
-            [thySuffix]="props()?.suffix"
-            [thyMax]="props()?.max"
-            [thyMin]="props()?.min"
-            [thyStep]="props()?.step"
+            [thyPlaceholder]="fieldSchema().props?.placeholder || null"
+            [thySuffix]="fieldSchema().props?.suffix"
+            [thyMax]="fieldSchema().props?.max"
+            [thyMin]="fieldSchema().props?.min"
+            [thyStep]="fieldSchema().props?.step"
             [thySize]="size()" />
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,8 +26,7 @@ import { ThyFormNumberFieldProps } from '../types';
 })
 export class ThyDynamicFormNumberField {
     readonly field = input.required<Field<SafeAny>>();
-    readonly props = input<ThyFormNumberFieldProps>();
+    readonly fieldSchema = input.required<ThyFormNumberFieldSchema>();
     readonly size = input<ThyFormControlSize>('md');
     readonly invalid = input(false);
-    readonly key = input('');
 }

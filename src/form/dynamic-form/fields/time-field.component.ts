@@ -1,23 +1,23 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ThyFormControlSize } from 'ngx-tethys/core';
 import { Field, FormField } from '@angular/forms/signals';
-import { SafeAny } from 'ngx-tethys/types';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { SafeAny } from 'ngx-tethys/types';
 
-import { ThyFormTimeFieldProps } from '../types';
+import { ThyFormTimeFieldSchema } from '../types';
 
 @Component({
     selector: 'thy-dynamic-form-time-field',
     template: `
         <thy-time-picker
             [formField]="field()"
-            [id]="key()"
+            [id]="fieldSchema().key"
             [class.is-invalid]="invalid()"
             [thySize]="size()"
-            [thyPlaceholder]="props()?.placeholder"
-            [thyFormat]="props()?.format"
-            [thyAllowClear]="props()?.allowClear ?? true"
-            [thyShowSelectNow]="props()?.showSelectNow ?? true"
+            [thyPlaceholder]="fieldSchema().props?.placeholder"
+            [thyFormat]="fieldSchema().props?.format"
+            [thyAllowClear]="fieldSchema().props?.allowClear ?? true"
+            [thyShowSelectNow]="fieldSchema().props?.showSelectNow ?? true"
             [thyDisabled]="field()().disabled()"
             [thyReadonly]="field()().readonly()" />
     `,
@@ -26,8 +26,7 @@ import { ThyFormTimeFieldProps } from '../types';
 })
 export class ThyDynamicFormTimeField {
     readonly field = input.required<Field<SafeAny>>();
-    readonly props = input<ThyFormTimeFieldProps>();
+    readonly fieldSchema = input.required<ThyFormTimeFieldSchema>();
     readonly size = input<ThyFormControlSize>('md');
     readonly invalid = input(false);
-    readonly key = input('');
 }

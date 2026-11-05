@@ -2,25 +2,20 @@ import { InjectionToken, Provider, Type } from '@angular/core';
 import { Field } from '@angular/forms/signals';
 import { ThyFormControlSize } from 'ngx-tethys/core';
 
-/** 动态表单字段 outlet 上下文（对标 Formily field + props）。 */
+import { ThyDynamicFormFieldSchema } from './types';
+
+/** 动态表单字段渲染上下文：固定下发 field / fieldSchema / size / invalid。 */
 export interface ThyDynamicFormFieldOutletContext {
     field: Field<unknown>;
-    props?: Record<string, unknown>;
+    fieldSchema: ThyDynamicFormFieldSchema;
     size: ThyFormControlSize;
     invalid: boolean;
-    key: string;
 }
 
-/**
- * 动态表单字段类型注册项。
- * - 省略 mapInputs：duck-type 下发 field / props / size / invalid / key
- * - 提供 mapInputs：将 outlet 上下文（含 field / props / key 等）映射为控件 input
- */
+/** 字段类型注册项。自定义 kind 通过二次封装组件对接约定 input。 */
 export interface ThyDynamicFormFieldType {
     kind: string;
     component: Type<unknown>;
-    defaultValue?: unknown;
-    mapInputs?: (ctx: ThyDynamicFormFieldOutletContext) => Record<string, unknown>;
 }
 
 export const THY_DYNAMIC_FORM_FIELD_TYPES = new InjectionToken<ThyDynamicFormFieldType>('THY_DYNAMIC_FORM_FIELD_TYPES');
@@ -51,12 +46,4 @@ export function createDynamicFormFieldTypeMap(
         map.set(fieldType.kind, fieldType);
     }
     return map;
-}
-
-/** @internal */
-export function resolveDynamicFormFieldOutletContext(
-    fieldType: ThyDynamicFormFieldType,
-    ctx: ThyDynamicFormFieldOutletContext
-): Record<string, unknown> {
-    return fieldType.mapInputs ? fieldType.mapInputs(ctx) : { ...ctx };
 }

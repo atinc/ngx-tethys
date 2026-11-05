@@ -23,9 +23,7 @@ import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
 import { ThyFormDirective } from '../form.directive';
 import {
     createDynamicFormFieldTypeMap,
-    resolveDynamicFormFieldOutletContext,
     THY_DYNAMIC_FORM_FIELD_TYPES,
-    ThyDynamicFormFieldOutletContext,
     ThyDynamicFormFieldType
 } from './dynamic-form-field-types';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
@@ -33,17 +31,17 @@ import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormField
 import { resolveFieldErrorMessage } from './error-messages';
 import { THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES } from './fields';
 import {
+    ThyDynamicFormFieldSchema,
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
     ThyFormFieldAsyncValidator,
-    ThyFormFieldSchema,
     ThyFormFieldValidator,
     ThyFormFieldValueChange
 } from './types';
 
 interface FieldTreeRebuildDependency {
     readonly key: string;
-    readonly kind: ThyFormFieldSchema['kind'];
+    readonly kind: string;
     readonly validators: readonly ThyFormFieldValidator[];
     readonly asyncValidators: readonly ThyFormFieldAsyncValidator[];
 }
@@ -78,12 +76,11 @@ interface FieldTreeRebuildDependency {
 })
 export class ThyDynamicForm {
     /**
-     * 字段配置。内置 kind：input、textarea、number、select、checkbox、radio、switch、time、date、dateRange；
-     * 也可使用通过 `provideThyDynamicFormFieldTypes` 注册的自定义 kind。
-     * @type ThyFormFieldSchema[]
+     * 字段配置。内置见 `ThyFormFieldSchema`；自定义用 `ThyFormFieldSchemaWith` 扩展。
+     * @type ThyDynamicFormFieldSchema[]
      * @default []
      */
-    readonly thyFields = input<ThyFormFieldSchema[]>([]);
+    readonly thyFields = input<ThyDynamicFormFieldSchema[]>([]);
 
     /** 表单值。支持双向绑定；不传时用各字段的 defaultValue */
     readonly thyValue = model<ThyDynamicFormValue>({});
@@ -212,19 +209,16 @@ export class ThyDynamicForm {
     }
 
     protected resolveFieldOutletContext(
-        fieldType: ThyDynamicFormFieldType,
-        field: ThyFormFieldSchema,
+        field: ThyDynamicFormFieldSchema,
         fieldControl: Field<unknown>,
         invalid: boolean
     ): Record<string, unknown> {
-        const ctx: ThyDynamicFormFieldOutletContext = {
+        const next: Record<string, unknown> = {
             field: fieldControl,
-            props: field.props as Record<string, unknown> | undefined,
+            fieldSchema: field,
             size: this.thySize(),
-            invalid,
-            key: field.key
+            invalid
         };
-        const next = resolveDynamicFormFieldOutletContext(fieldType, ctx);
         const cached = this.fieldOutletContextCache.get(field.key);
         if (cached && isSameOutletContext(cached, next)) {
             return cached;
@@ -234,7 +228,7 @@ export class ThyDynamicForm {
     }
 
     private createFieldTree(): FieldTree<ThyDynamicFormValue> {
-        const normalizedValue = buildDynamicFormValue(this.fields(), this.thyValue(), this.fieldTypeMap());
+        const normalizedValue = buildDynamicFormValue(this.fields(), this.thyValue());
         if (!isSameDynamicFormValue(this.thyValue(), normalizedValue)) {
             this.thyValue.set(normalizedValue);
         }
@@ -251,7 +245,7 @@ export class ThyDynamicForm {
     }
 
     reset(value?: ThyDynamicFormValue): void {
-        this.fieldTree().reset(buildDynamicFormValue(this.fields(), value, this.fieldTypeMap()));
+        this.fieldTree().reset(buildDynamicFormValue(this.fields(), value));
     }
 
     protected handleReset(event: Event): void {
@@ -263,7 +257,7 @@ export class ThyDynamicForm {
         return this.fieldTree[key] as unknown as Field<TValue>;
     }
 
-    protected errorMessage(field: ThyFormFieldSchema, error: ValidationError | undefined): string | null {
+    protected errorMessage(field: ThyDynamicFormFieldSchema, error: ValidationError | undefined): string | null {
         return resolveFieldErrorMessage(field, error, (name, code) => this.validatorLoader.getErrorMessage(name, code));
     }
 

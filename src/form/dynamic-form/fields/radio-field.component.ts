@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ThyFormControlSize } from 'ngx-tethys/core';
 import { Field, FormField } from '@angular/forms/signals';
-import { SafeAny } from 'ngx-tethys/types';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyRadio, ThyRadioButton, ThyRadioGroup } from 'ngx-tethys/radio';
+import { SafeAny } from 'ngx-tethys/types';
 
-import { ThyFormRadioFieldProps } from '../types';
+import { ThyFormRadioFieldSchema } from '../types';
 
 @Component({
     selector: 'thy-dynamic-form-radio-field',
@@ -12,10 +12,10 @@ import { ThyFormRadioFieldProps } from '../types';
         <thy-radio-group
             [formField]="field()"
             [thySize]="size()"
-            [thyLayout]="props()?.layout"
+            [thyLayout]="fieldSchema().props?.layout"
             [thyDisabled]="field()().disabled()">
-            @for (option of props()?.options ?? []; track option.value) {
-                @if (props()?.button) {
+            @for (option of fieldSchema().props?.options ?? []; track option.value) {
+                @if (fieldSchema().props?.button) {
                     <label
                         thyRadioButton
                         [thyLabelText]="option.label"
@@ -36,8 +36,7 @@ import { ThyFormRadioFieldProps } from '../types';
 })
 export class ThyDynamicFormRadioField {
     readonly field = input.required<Field<SafeAny>>();
-    readonly props = input<ThyFormRadioFieldProps>();
+    readonly fieldSchema = input.required<ThyFormRadioFieldSchema>();
     readonly size = input<ThyFormControlSize>('md');
     readonly invalid = input(false);
-    readonly key = input('');
 }

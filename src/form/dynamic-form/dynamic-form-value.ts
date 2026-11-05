@@ -1,7 +1,6 @@
-import { ThyDynamicFormFieldType } from './dynamic-form-field-types';
-import { ThyDynamicFormValue, ThyFormFieldSchema, ThyFormSelectFieldProps } from './types';
+import { ThyDynamicFormFieldSchema, ThyDynamicFormValue, ThyFormFieldBaseProps } from './types';
 
-export function validateDynamicFormFields(fields: readonly ThyFormFieldSchema[]): readonly ThyFormFieldSchema[] {
+export function validateDynamicFormFields(fields: readonly ThyDynamicFormFieldSchema[]): readonly ThyDynamicFormFieldSchema[] {
     const keys = new Set<string>();
 
     for (const field of fields) {
@@ -14,30 +13,22 @@ export function validateDynamicFormFields(fields: readonly ThyFormFieldSchema[])
     return fields;
 }
 
-export function buildDynamicFormValue(
-    fields: readonly ThyFormFieldSchema[],
-    value?: ThyDynamicFormValue,
-    typeMap?: ReadonlyMap<string, ThyDynamicFormFieldType>
-): ThyDynamicFormValue {
+export function buildDynamicFormValue(fields: readonly ThyDynamicFormFieldSchema[], value?: ThyDynamicFormValue): ThyDynamicFormValue {
     const result: ThyDynamicFormValue = {};
 
     for (const field of fields) {
-        result[field.key] = value?.[field.key] !== undefined ? value[field.key] : fieldDefaultValue(field, typeMap?.get(field.kind));
+        result[field.key] = value?.[field.key] !== undefined ? value[field.key] : fieldDefaultValue(field);
     }
 
     return result;
 }
 
-function fieldDefaultValue(field: ThyFormFieldSchema, fieldType?: ThyDynamicFormFieldType): unknown {
+function fieldDefaultValue(field: ThyDynamicFormFieldSchema): unknown {
     if (field.defaultValue !== undefined) {
         return field.defaultValue;
     }
-    if (field.kind === 'select') {
-        const selectProps = field.props as ThyFormSelectFieldProps | undefined;
-        return selectProps?.multiple === true ? [] : (fieldType?.defaultValue ?? null);
-    }
-    if (fieldType && Object.prototype.hasOwnProperty.call(fieldType, 'defaultValue')) {
-        return fieldType.defaultValue;
+    if ((field.props as ThyFormFieldBaseProps | undefined)?.multiple === true) {
+        return [];
     }
     switch (field.kind) {
         case 'checkbox':
@@ -46,8 +37,6 @@ function fieldDefaultValue(field: ThyFormFieldSchema, fieldType?: ThyDynamicForm
         case 'input':
         case 'textarea':
             return '';
-        case 'number':
-            return null;
         default:
             return null;
     }

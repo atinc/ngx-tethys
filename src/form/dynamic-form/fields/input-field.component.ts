@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ThyFormControlSize } from 'ngx-tethys/core';
 import { Field, FormField } from '@angular/forms/signals';
-import { SafeAny } from 'ngx-tethys/types';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyInputDirective } from 'ngx-tethys/input';
+import { SafeAny } from 'ngx-tethys/types';
 
-import { ThyFormInputFieldProps } from '../types';
+import { ThyFormInputFieldSchema } from '../types';
 
 @Component({
     selector: 'thy-dynamic-form-input-field',
@@ -12,10 +12,10 @@ import { ThyFormInputFieldProps } from '../types';
         <input
             thyInput
             [formField]="field()"
-            [id]="key()"
+            [id]="fieldSchema().key"
             [class.is-invalid]="invalid()"
-            [attr.placeholder]="props()?.placeholder || null"
-            [attr.type]="props()?.type || 'text'"
+            [attr.placeholder]="fieldSchema().props?.placeholder || null"
+            [attr.type]="fieldSchema().props?.type || 'text'"
             [thySize]="size()" />
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,8 +23,7 @@ import { ThyFormInputFieldProps } from '../types';
 })
 export class ThyDynamicFormInputField {
     readonly field = input.required<Field<SafeAny>>();
-    readonly props = input<ThyFormInputFieldProps>();
+    readonly fieldSchema = input.required<ThyFormInputFieldSchema>();
     readonly size = input<ThyFormControlSize>('md');
     readonly invalid = input(false);
-    readonly key = input('');
 }

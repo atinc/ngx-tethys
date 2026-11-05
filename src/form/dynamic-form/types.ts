@@ -2,18 +2,6 @@ import { ValidationError } from '@angular/forms/signals';
 import { ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThySwitchColor } from 'ngx-tethys/switch';
 
-export type ThyFormBuiltinFieldKind =
-    | 'input'
-    | 'textarea'
-    | 'number'
-    | 'select'
-    | 'checkbox'
-    | 'radio'
-    | 'switch'
-    | 'time'
-    | 'date'
-    | 'dateRange';
-
 export type ThyDynamicFormValue = Record<string, unknown>;
 
 export type ThyFormTextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
@@ -36,8 +24,20 @@ export interface ThyFormFieldValueChange {
     value: unknown;
 }
 
-interface ThyFormFieldBaseSchema {
+export interface ThyFormFieldBaseProps {
+    label?: string;
+    placeholder?: string;
+    required?: boolean;
+    readonly?: boolean;
+    disabled?: boolean;
+    /** 多选时值为数组；空数组按未填处理 required。 */
+    multiple?: boolean;
+}
+
+export interface ThyFormFieldBaseSchema<TKind extends string = string, TProps extends object = ThyFormFieldBaseProps> {
     key: string;
+    kind: TKind;
+    props?: TProps;
     /**
      * 外层栅格占位（1–12），默认 12；`inline` 下忽略。
      */
@@ -50,72 +50,6 @@ interface ThyFormFieldBaseSchema {
     debounce?: number | 'blur';
     validators?: ThyFormFieldValidator[];
     asyncValidators?: ThyFormFieldAsyncValidator[];
-}
-
-/**
- * 自定义字段（通过 `provideThyDynamicFormFieldTypes` 注册）。
- */
-export interface ThyFormCustomFieldSchema extends ThyFormFieldBaseSchema {
-    kind: string;
-    props?: ThyFormFieldBaseProps & Record<string, unknown>;
-}
-
-export interface ThyFormInputFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'input';
-    props?: ThyFormInputFieldProps;
-}
-
-export interface ThyFormNumberFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'number';
-    props?: ThyFormNumberFieldProps;
-}
-
-export interface ThyFormTextareaFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'textarea';
-    props?: ThyFormTextareaFieldProps;
-}
-
-export interface ThyFormSelectFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'select';
-    props?: ThyFormSelectFieldProps;
-}
-
-export interface ThyFormCheckboxFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'checkbox';
-    props?: ThyFormFieldBaseProps;
-}
-
-export interface ThyFormRadioFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'radio';
-    props?: ThyFormRadioFieldProps;
-}
-
-export interface ThyFormSwitchFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'switch';
-    props?: ThyFormSwitchFieldProps;
-}
-
-export interface ThyFormTimeFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'time';
-    props?: ThyFormTimeFieldProps;
-}
-
-export interface ThyFormDateFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'date';
-    props?: ThyFormDateFieldProps;
-}
-
-export interface ThyFormDateRangeFieldSchema extends ThyFormFieldBaseSchema {
-    kind: 'dateRange';
-    props?: ThyFormDateRangeFieldProps;
-}
-
-export interface ThyFormFieldBaseProps {
-    label?: string;
-    placeholder?: string;
-    required?: boolean;
-    readonly?: boolean;
-    disabled?: boolean;
 }
 
 export interface ThyFormInputFieldProps extends ThyFormFieldBaseProps {
@@ -142,7 +76,6 @@ export interface ThyFormTextareaFieldProps extends ThyFormFieldBaseProps {
 
 export interface ThyFormSelectFieldProps extends ThyFormFieldBaseProps {
     options?: ThySelectOptionModel[];
-    multiple?: boolean;
     searchable?: boolean;
     clearable?: boolean;
     emptyText?: string;
@@ -181,6 +114,26 @@ export interface ThyFormDateRangeFieldProps extends Omit<ThyFormDateFieldProps, 
     placeholder?: string | string[];
 }
 
+export interface ThyFormInputFieldSchema extends ThyFormFieldBaseSchema<'input', ThyFormInputFieldProps> {}
+
+export interface ThyFormNumberFieldSchema extends ThyFormFieldBaseSchema<'number', ThyFormNumberFieldProps> {}
+
+export interface ThyFormTextareaFieldSchema extends ThyFormFieldBaseSchema<'textarea', ThyFormTextareaFieldProps> {}
+
+export interface ThyFormSelectFieldSchema extends ThyFormFieldBaseSchema<'select', ThyFormSelectFieldProps> {}
+
+export interface ThyFormCheckboxFieldSchema extends ThyFormFieldBaseSchema<'checkbox', ThyFormFieldBaseProps> {}
+
+export interface ThyFormRadioFieldSchema extends ThyFormFieldBaseSchema<'radio', ThyFormRadioFieldProps> {}
+
+export interface ThyFormSwitchFieldSchema extends ThyFormFieldBaseSchema<'switch', ThyFormSwitchFieldProps> {}
+
+export interface ThyFormTimeFieldSchema extends ThyFormFieldBaseSchema<'time', ThyFormTimeFieldProps> {}
+
+export interface ThyFormDateFieldSchema extends ThyFormFieldBaseSchema<'date', ThyFormDateFieldProps> {}
+
+export interface ThyFormDateRangeFieldSchema extends ThyFormFieldBaseSchema<'dateRange', ThyFormDateRangeFieldProps> {}
+
 export type ThyFormFieldSchema =
     | ThyFormInputFieldSchema
     | ThyFormTextareaFieldSchema
@@ -191,5 +144,10 @@ export type ThyFormFieldSchema =
     | ThyFormSwitchFieldSchema
     | ThyFormTimeFieldSchema
     | ThyFormDateFieldSchema
-    | ThyFormDateRangeFieldSchema
-    | ThyFormCustomFieldSchema;
+    | ThyFormDateRangeFieldSchema;
+
+/** 内置 + 自定义：`ThyFormFieldSchemaWith<MemberSchema>`。 */
+export type ThyFormFieldSchemaWith<TCustom extends ThyFormFieldBaseSchema> = ThyFormFieldSchema | TCustom;
+
+/** thyFields / 运行时字段（内置联合或任意自定义 BaseSchema）。 */
+export type ThyDynamicFormFieldSchema = ThyFormFieldSchemaWith<ThyFormFieldBaseSchema>;

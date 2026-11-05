@@ -1,31 +1,27 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Field, FormField } from '@angular/forms/signals';
 import { ThyFormControlSize } from 'ngx-tethys/core';
+import { ThyFormFieldBaseProps, ThyFormFieldBaseSchema } from 'ngx-tethys/form';
 import { ThySelect } from 'ngx-tethys/select';
 import { SafeAny } from 'ngx-tethys/types';
 
-interface MemberFieldProps {
-    label?: string;
-    placeholder?: string;
-    multiple?: boolean;
+export interface ThyFormMemberFieldExampleProps extends ThyFormFieldBaseProps {
     options?: { value: string; label: string }[];
 }
 
-/**
- * 示例用 mock 选人字段（非真实选人控件）。
- * duck-type 声明 field/props/size/invalid/key，不继承库内任何基类。
- */
+export interface ThyFormMemberFieldExampleSchema extends ThyFormFieldBaseSchema<'member', ThyFormMemberFieldExampleProps> {}
+
 @Component({
     selector: 'thy-dynamic-form-member-field-example',
     template: `
         <thy-select
             [formField]="field()"
-            [id]="key()"
+            [id]="fieldSchema().key"
             [class.is-invalid]="invalid()"
             [thyDisabled]="field()().disabled()"
-            [thyMultiple]="props()?.multiple"
-            [thyOptions]="props()?.options ?? []"
-            [thyPlaceholder]="props()?.placeholder ?? 'Select member'"
+            [thyMultiple]="fieldSchema().props?.multiple"
+            [thyOptions]="fieldSchema().props?.options ?? []"
+            [thyPlaceholder]="fieldSchema().props?.placeholder ?? 'Select member'"
             [thySize]="size()" />
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,8 +29,7 @@ interface MemberFieldProps {
 })
 export class ThyDynamicFormMemberFieldExample {
     readonly field = input.required<Field<SafeAny>>();
-    readonly props = input<MemberFieldProps>();
+    readonly fieldSchema = input.required<ThyFormMemberFieldExampleSchema>();
     readonly size = input<ThyFormControlSize>('md');
     readonly invalid = input(false);
-    readonly key = input('');
 }

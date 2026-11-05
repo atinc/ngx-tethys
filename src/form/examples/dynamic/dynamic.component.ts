@@ -8,7 +8,7 @@ import {
     ThyDynamicForm,
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
-    ThyFormFieldSchema,
+    ThyFormFieldSchemaWith,
     ThyFormFieldValueChange,
     ThyFormGroupFooter,
     ThyFormLayout
@@ -18,7 +18,9 @@ import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThyTag } from 'ngx-tethys/tag';
 import { addDays, isWeekend, startOfDay } from 'ngx-tethys/util';
 
-import { ThyDynamicFormMemberFieldExample } from './member-field.component';
+import { ThyDynamicFormMemberFieldExample, ThyFormMemberFieldExampleSchema } from './member-field.component';
+
+type ExampleFieldSchema = ThyFormFieldSchemaWith<ThyFormMemberFieldExampleSchema>;
 
 const availabilityMinDate = startOfDay(new Date());
 const availabilityMaxDate = addDays(availabilityMinDate, 30);
@@ -41,7 +43,7 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     templateUrl: './dynamic.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThySelect, ThyTag, ThyRowDirective, ThyColDirective],
-    providers: [provideThyDynamicFormFieldTypes([{ kind: 'member', component: ThyDynamicFormMemberFieldExample, defaultValue: null }])]
+    providers: [provideThyDynamicFormFieldTypes([{ kind: 'member', component: ThyDynamicFormMemberFieldExample }])]
 })
 export class ThyFormDynamicExampleComponent {
     value = signal<ThyDynamicFormValue>({});
@@ -91,7 +93,7 @@ export class ThyFormDynamicExampleComponent {
         }
     });
 
-    readonly fields = signal<ThyFormFieldSchema[]>([
+    readonly fields = signal<ExampleFieldSchema[]>([
         {
             key: 'username',
             kind: 'input',
@@ -155,7 +157,6 @@ export class ThyFormDynamicExampleComponent {
         {
             key: 'assignee',
             kind: 'member',
-            defaultValue: [],
             errorMessages: {
                 required: 'Please select at least one member'
             },
@@ -327,6 +328,6 @@ export class ThyFormDynamicExampleComponent {
     }
 }
 
-function withFieldDisabled<TField extends ThyFormFieldSchema>(field: TField, disabled: boolean): TField {
+function withFieldDisabled<TField extends ExampleFieldSchema>(field: TField, disabled: boolean): TField {
     return { ...field, props: { ...field.props, disabled } };
 }

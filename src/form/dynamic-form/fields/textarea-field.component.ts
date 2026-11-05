@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ThyFormControlSize } from 'ngx-tethys/core';
 import { Field, FormField } from '@angular/forms/signals';
-import { SafeAny } from 'ngx-tethys/types';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyInputDirective } from 'ngx-tethys/input';
+import { SafeAny } from 'ngx-tethys/types';
 
-import { ThyFormTextareaFieldProps } from '../types';
+import { ThyFormTextareaFieldSchema } from '../types';
 
 @Component({
     selector: 'thy-dynamic-form-textarea-field',
@@ -12,11 +12,11 @@ import { ThyFormTextareaFieldProps } from '../types';
         <textarea
             thyInput
             [formField]="field()"
-            [id]="key()"
+            [id]="fieldSchema().key"
             [class.is-invalid]="invalid()"
-            [attr.placeholder]="props()?.placeholder || null"
-            [attr.rows]="props()?.rows ?? 3"
-            [style.resize]="props()?.resize ?? 'none'"
+            [attr.placeholder]="fieldSchema().props?.placeholder || null"
+            [attr.rows]="fieldSchema().props?.rows ?? 3"
+            [style.resize]="fieldSchema().props?.resize ?? 'none'"
             [thySize]="size()"></textarea>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,8 +24,7 @@ import { ThyFormTextareaFieldProps } from '../types';
 })
 export class ThyDynamicFormTextareaField {
     readonly field = input.required<Field<SafeAny>>();
-    readonly props = input<ThyFormTextareaFieldProps>();
+    readonly fieldSchema = input.required<ThyFormTextareaFieldSchema>();
     readonly size = input<ThyFormControlSize>('md');
     readonly invalid = input(false);
-    readonly key = input('');
 }

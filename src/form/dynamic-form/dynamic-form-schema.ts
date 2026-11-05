@@ -24,12 +24,12 @@ import {
     ThyDynamicFormValue,
     ThyFormDateFieldProps,
     ThyFormDateRangeFieldProps,
+    ThyDynamicFormFieldSchema,
     ThyFormFieldAsyncValidator,
-    ThyFormFieldSchema,
+    ThyFormFieldBaseProps,
     ThyFormFieldValidator,
     ThyFormInputFieldProps,
     ThyFormNumberFieldProps,
-    ThyFormSelectFieldProps,
     ThyFormTextareaFieldProps
 } from './types';
 
@@ -38,12 +38,12 @@ interface DisabledDateValidationError extends ValidationError {
     readonly date: Date;
 }
 
-export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchema[]>): SchemaFn<ThyDynamicFormValue> {
+export function buildDynamicFormSchema(fields: Signal<readonly ThyDynamicFormFieldSchema[]>): SchemaFn<ThyDynamicFormValue> {
     return rootPath => {
         for (const field of fields()) {
             const fieldPath = rootPath[field.key] as unknown as SchemaPath<unknown>;
             const currentField = () => fields().find(candidate => candidate.key === field.key);
-            const currentProps = () => currentField()?.props;
+            const currentProps = () => currentField()?.props as ThyFormFieldBaseProps | undefined;
 
             // Signal Forms treats [] as present; multi-value required uses bindNonEmptyArrayRequired instead.
             required(fieldPath, {
@@ -72,7 +72,7 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchem
     };
 }
 
-function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyFormFieldSchema | undefined): void {
+function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyDynamicFormFieldSchema | undefined): void {
     const props = (): ThyFormInputFieldProps | ThyFormTextareaFieldProps | undefined => {
         const field = resolveField();
         if (field?.kind !== 'input' && field?.kind !== 'textarea') {
@@ -89,7 +89,7 @@ function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyFor
     });
 }
 
-function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () => ThyFormFieldSchema | undefined): void {
+function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () => ThyDynamicFormFieldSchema | undefined): void {
     const props = (): ThyFormNumberFieldProps | undefined => {
         const field = resolveField();
         if (field?.kind !== 'number') {
@@ -102,10 +102,11 @@ function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () 
     max(fieldPath, () => toOptionalNumber(props()?.max));
 }
 
-function bindNonEmptyArrayRequired(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFormFieldSchema | undefined): void {
+function bindNonEmptyArrayRequired(fieldPath: SchemaPath<unknown>, resolveField: () => ThyDynamicFormFieldSchema | undefined): void {
     validate(fieldPath, context => {
         const field = resolveField();
-        if (!isMultipleValueField(field) || !field.props?.required) {
+        const props = field?.props as ThyFormFieldBaseProps | undefined;
+        if (!isMultipleValueField(field) || !props?.required) {
             return null;
         }
         const value = context.value();
@@ -113,16 +114,15 @@ function bindNonEmptyArrayRequired(fieldPath: SchemaPath<unknown>, resolveField:
     });
 }
 
-/** select/member 等多选：props.multiple === true 时值通常为数组。 */
-function isMultipleValueField(field: ThyFormFieldSchema | undefined): boolean {
-    return (field?.props as ThyFormSelectFieldProps | undefined)?.multiple === true;
+function isMultipleValueField(field: ThyDynamicFormFieldSchema | undefined): boolean {
+    return (field?.props as ThyFormFieldBaseProps | undefined)?.multiple === true;
 }
 
 function toOptionalNumber(value: unknown): number | undefined {
     return coerceNumberProperty(value, null) ?? undefined;
 }
 
-function bindDateRules(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFormFieldSchema | undefined): void {
+function bindDateRules(fieldPath: SchemaPath<unknown>, resolveField: () => ThyDynamicFormFieldSchema | undefined): void {
     validate(fieldPath, context => {
         const field = resolveField();
         if (field?.kind !== 'date' && field?.kind !== 'dateRange') {

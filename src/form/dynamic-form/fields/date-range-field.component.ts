@@ -1,26 +1,26 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ThyFormControlSize } from 'ngx-tethys/core';
 import { Field, FormField } from '@angular/forms/signals';
-import { SafeAny } from 'ngx-tethys/types';
+import { ThyFormControlSize } from 'ngx-tethys/core';
 import { ThyRangePicker } from 'ngx-tethys/date-picker';
+import { SafeAny } from 'ngx-tethys/types';
 
-import { ThyFormDateRangeFieldProps } from '../types';
+import { ThyFormDateRangeFieldSchema } from '../types';
 
 @Component({
     selector: 'thy-dynamic-form-date-range-field',
     template: `
         <thy-range-picker
             [formField]="field()"
-            [id]="key()"
+            [id]="fieldSchema().key"
             [class.is-invalid]="invalid()"
             [thySize]="size()"
-            [thyPlaceholder]="props()?.placeholder"
-            [thyFormat]="props()?.format"
-            [thyMinDate]="props()?.min"
-            [thyMaxDate]="props()?.max"
-            [thyAllowClear]="props()?.allowClear ?? true"
-            [thyShowTime]="props()?.showTime ?? false"
-            [thyDisabledDate]="props()?.disabledDate"
+            [thyPlaceholder]="fieldSchema().props?.placeholder"
+            [thyFormat]="fieldSchema().props?.format"
+            [thyMinDate]="fieldSchema().props?.min"
+            [thyMaxDate]="fieldSchema().props?.max"
+            [thyAllowClear]="fieldSchema().props?.allowClear ?? true"
+            [thyShowTime]="fieldSchema().props?.showTime ?? false"
+            [thyDisabledDate]="fieldSchema().props?.disabledDate"
             [thyDisabled]="field()().disabled()"
             [thyReadonly]="field()().readonly()" />
     `,
@@ -29,8 +29,7 @@ import { ThyFormDateRangeFieldProps } from '../types';
 })
 export class ThyDynamicFormDateRangeField {
     readonly field = input.required<Field<SafeAny>>();
-    readonly props = input<ThyFormDateRangeFieldProps>();
+    readonly fieldSchema = input.required<ThyFormDateRangeFieldSchema>();
     readonly size = input<ThyFormControlSize>('md');
     readonly invalid = input(false);
-    readonly key = input('');
 }

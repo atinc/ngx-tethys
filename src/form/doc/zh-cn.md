@@ -68,23 +68,29 @@ schema 驱动时使用`thy-dynamic-form`：按`thyFields`生成字段树，用`t
 ### 自定义字段类型
 字段渲染走统一注册表：库预置 `input` / `textarea` / `number` / `select` / `checkbox` / `radio` / `switch` / `time` / `date` / `dateRange`；业务通过 `provideThyDynamicFormFieldTypes` 注册自定义 kind。**同名 kind 后注册覆盖先注册**，优先级：库预置 < DI。
 
-扩展约定（**不继承**任何库基类）：
-- 默认 duck-type inputs：`field`（模板内绑 `[formField]`）、`props`、`size`、`invalid`、`key`
-- 可选 `mapInputs(ctx) => Record`：将 outlet 上下文（含 `field` / `props` / `key` 等）映射为控件 input
-- Signal Forms 要求 `[formField]` 写在字段组件模板上，故不能把裸 `ThySelect` 直接当注册组件；库内置为轻量适配层，仅内部使用
+扩展约定：二次封装组件（不继承库字段组件）；schema 可用 `extends ThyFormFieldBaseSchema` 做类型扩展。
+- 固定下发：`field`、`fieldSchema`、`size`、`invalid`（模板内绑 `[formField]`；`key` / `props` 从 `fieldSchema` 取）
+- `props.multiple === true` 时默认值 `[]`，空数组不满足 `required`
+- Signal Forms 要求 `[formField]` 写在字段组件模板上，故不能把裸控件直接当注册组件
 
 ```ts
-import { provideThyDynamicFormFieldTypes } from 'ngx-tethys/form';
+import {
+  provideThyDynamicFormFieldTypes,
+  ThyFormFieldBaseSchema,
+  ThyFormFieldSchemaWith
+} from 'ngx-tethys/form';
+
+interface MemberProps { label?: string; multiple?: boolean; options?: { value: string; label: string }[] }
+interface MemberSchema extends ThyFormFieldBaseSchema<'member', MemberProps> {}
+type AppFieldSchema = ThyFormFieldSchemaWith<MemberSchema>;
 
 providers: [
-  provideThyDynamicFormFieldTypes([
-    { kind: 'member', component: AppMemberField, defaultValue: null }
-    // 或 mapInputs: ctx => ({ field: ctx.field, options: ctx.props?.options, key: ctx.key, ... })
-  ])
+  provideThyDynamicFormFieldTypes([{ kind: 'member', component: AppMemberField }])
 ]
 
-// schema
-{ key: 'assignee', kind: 'member', props: { label: '负责人', multiple: true } }
+const fields: AppFieldSchema[] = [
+  { key: 'assignee', kind: 'member', props: { label: '负责人', multiple: true, required: true } }
+];
 ```
 
 未注册的 kind 显示 `Unsupported field kind.`。
