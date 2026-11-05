@@ -21,7 +21,7 @@ import { ThyFormGroup } from '../form-group.component';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
 import { ThyFormDirective } from '../form.directive';
-import { createDynamicFormFieldTypeMap, THY_DYNAMIC_FORM_FIELD_TYPES, ThyDynamicFormFieldType } from './dynamic-form-field-types';
+import { createDynamicFormFieldTypeMap, injectThyDynamicFormFieldTypes, ThyDynamicFormFieldType } from './dynamic-form-field-types';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
@@ -111,8 +111,7 @@ export class ThyDynamicForm {
         return this.layout() === 'horizontal';
     }
 
-    private readonly injectedFieldTypes: readonly ThyDynamicFormFieldType[] =
-        (inject(THY_DYNAMIC_FORM_FIELD_TYPES, { optional: true }) as unknown as ThyDynamicFormFieldType[] | null) ?? [];
+    private readonly injectedFieldTypes = injectThyDynamicFormFieldTypes();
 
     protected readonly fieldTypeMap = computed(() =>
         createDynamicFormFieldTypeMap(THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES, this.injectedFieldTypes)

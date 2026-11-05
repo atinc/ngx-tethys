@@ -1,4 +1,4 @@
-import { InjectionToken, Provider, Type } from '@angular/core';
+import { inject, InjectionToken, Provider, Type } from '@angular/core';
 import { Field } from '@angular/forms/signals';
 import { ThyFormControlSize } from 'ngx-tethys/core';
 
@@ -26,6 +26,11 @@ export function provideThyDynamicFormFieldTypes(fieldTypes: ThyDynamicFormFieldT
         useValue: fieldType,
         multi: true
     }));
+}
+
+/** @internal */
+export function injectThyDynamicFormFieldTypes(): readonly ThyDynamicFormFieldType[] {
+    return (inject(THY_DYNAMIC_FORM_FIELD_TYPES, { optional: true }) as unknown as ThyDynamicFormFieldType[] | null) ?? [];
 }
 
 /**
