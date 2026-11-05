@@ -7,9 +7,9 @@ import {
     provideThyDynamicFormFieldTypes,
     ThyDynamicForm,
     ThyDynamicFormStatus,
+    ThyDynamicFormValue,
     ThyFormFieldSchema,
     ThyFormFieldValueChange,
-    ThyDynamicFormValue,
     ThyFormGroupFooter,
     ThyFormLayout
 } from 'ngx-tethys/form';
@@ -40,22 +40,8 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     selector: 'thy-form-dynamic-example',
     templateUrl: './dynamic.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        FormsModule,
-        JsonPipe,
-        ThyDynamicForm,
-        ThyButton,
-        ThyFormGroupFooter,
-        ThySelect,
-        ThyTag,
-        ThyRowDirective,
-        ThyColDirective
-    ],
-    providers: [
-        provideThyDynamicFormFieldTypes([
-            { kind: 'member', component: ThyDynamicFormMemberFieldExample, defaultValue: null }
-        ])
-    ]
+    imports: [FormsModule, JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThySelect, ThyTag, ThyRowDirective, ThyColDirective],
+    providers: [provideThyDynamicFormFieldTypes([{ kind: 'member', component: ThyDynamicFormMemberFieldExample, defaultValue: null }])]
 })
 export class ThyFormDynamicExampleComponent {
     value = signal<ThyDynamicFormValue>({});
@@ -173,10 +159,6 @@ export class ThyFormDynamicExampleComponent {
             errorMessages: {
                 required: 'Please select at least one member'
             },
-            // Signal Forms 的 required 视 [] 为非空，多选需额外校验
-            validators: [
-                ({ value }) => (!Array.isArray(value) || value.length === 0 ? { kind: 'required' } : null)
-            ],
             props: {
                 label: 'Assignee',
                 placeholder: 'Select member',

@@ -21,6 +21,7 @@ import { ThyFormDateRangeFieldProps } from '../types';
             [thyAllowClear]="props()?.allowClear ?? true"
             [thyShowTime]="props()?.showTime ?? false"
             [thyDisabledDate]="props()?.disabledDate"
+            [thyDisabled]="field()().disabled()"
             [thyReadonly]="field()().readonly()" />
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

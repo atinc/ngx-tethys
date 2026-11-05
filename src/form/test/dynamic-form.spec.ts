@@ -318,6 +318,47 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('.invalid-feedback')?.textContent).toBe('请填写名称');
     });
 
+    it('should default number fields to null instead of empty string', () => {
+        setFields([{ key: 'age', kind: 'number', props: { required: true } }]);
+        expect(testComponent.value).toEqual({ age: null });
+        expect(testComponent.dynamicForm().getField('age')().invalid()).toBe(true);
+    });
+
+    it('should treat empty array as required for multiple select', () => {
+        setFields([
+            {
+                key: 'tags',
+                kind: 'select',
+                defaultValue: [],
+                errorMessages: { required: '请至少选择一项' },
+                props: {
+                    required: true,
+                    multiple: true,
+                    options: [
+                        { value: 'a', label: 'A' },
+                        { value: 'b', label: 'B' }
+                    ]
+                }
+            }
+        ]);
+
+        expect(testComponent.dynamicForm().getField('tags')().invalid()).toBe(true);
+
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testComponent.submits).toEqual([]);
+        expect(formElement.querySelector('.invalid-feedback')?.textContent).toBe('请至少选择一项');
+
+        testComponent.dynamicForm().getField('tags')().value.set(['a']);
+        fixture.detectChanges();
+        expect(testComponent.dynamicForm().getField('tags')().invalid()).toBe(false);
+
+        fixture.debugElement.query(By.css('#submit')).nativeElement.click();
+        fixture.detectChanges();
+        expect(testComponent.submits).toEqual([{ tags: ['a'] }]);
+    });
+
     it('should emit form value from thySubmit when valid', () => {
         setFields([{ key: 'name', kind: 'input', props: { required: true } }]);
         setValue({ name: 'Ada' });
@@ -1149,7 +1190,7 @@ describe('dynamic-form custom field types via DI', () => {
                         kind: 'mapped-member',
                         component: TestMappedMemberFieldComponent,
                         defaultValue: null,
-                        mapProps: ctx => ({
+                        mapInputs: ctx => ({
                             control: ctx.field,
                             options: (ctx.props?.['options'] as unknown[]) ?? [],
                             controlId: ctx.key
@@ -1200,7 +1241,7 @@ describe('dynamic-form custom field types via DI', () => {
         expect(testComponent.value).toEqual({ owner: 'from-schema' });
     });
 
-    it('should apply mapProps when resolving outlet context', () => {
+    it('should apply mapInputs when resolving outlet context', () => {
         fixture = TestBed.createComponent(TestDynamicFormComponent);
         testComponent = fixture.componentInstance;
         testComponent.fields = [

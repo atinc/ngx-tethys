@@ -17,7 +17,7 @@ import { ThyDynamicFormTimeField } from './time-field.component';
 export const THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES: readonly ThyDynamicFormFieldType[] = [
     { kind: 'input', component: ThyDynamicFormInputField, defaultValue: '' },
     { kind: 'textarea', component: ThyDynamicFormTextareaField, defaultValue: '' },
-    { kind: 'number', component: ThyDynamicFormNumberField, defaultValue: '' },
+    { kind: 'number', component: ThyDynamicFormNumberField, defaultValue: null },
     { kind: 'select', component: ThyDynamicFormSelectField, defaultValue: null },
     { kind: 'checkbox', component: ThyDynamicFormCheckboxField, defaultValue: false },
     { kind: 'radio', component: ThyDynamicFormRadioField, defaultValue: null },

@@ -29,6 +29,7 @@ import {
     ThyFormFieldValidator,
     ThyFormInputFieldProps,
     ThyFormNumberFieldProps,
+    ThyFormSelectFieldProps,
     ThyFormTextareaFieldProps
 } from './types';
 
@@ -44,7 +45,10 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchem
             const currentField = () => fields().find(candidate => candidate.key === field.key);
             const currentProps = () => currentField()?.props;
 
-            required(fieldPath, { when: () => !!currentProps()?.required });
+            // Signal Forms treats [] as present; multi-value required uses bindNonEmptyArrayRequired instead.
+            required(fieldPath, {
+                when: () => !!currentProps()?.required && !isMultipleValueField(currentField())
+            });
             disabled(fieldPath, { when: () => !!currentProps()?.disabled });
             readonlyField(fieldPath, { when: () => !!currentProps()?.readonly });
             if (field.debounce !== undefined) {
@@ -61,6 +65,7 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyFormFieldSchem
                 bindDateRules(fieldPath, currentField);
             }
 
+            bindNonEmptyArrayRequired(fieldPath, currentField);
             bindCustomValidators(rootPath, fieldPath, field.validators ?? []);
             bindAsyncValidators(rootPath, fieldPath, field.asyncValidators ?? []);
         }
@@ -95,6 +100,22 @@ function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () 
 
     min(fieldPath, () => toOptionalNumber(props()?.min));
     max(fieldPath, () => toOptionalNumber(props()?.max));
+}
+
+function bindNonEmptyArrayRequired(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFormFieldSchema | undefined): void {
+    validate(fieldPath, context => {
+        const field = resolveField();
+        if (!isMultipleValueField(field) || !field.props?.required) {
+            return null;
+        }
+        const value = context.value();
+        return !Array.isArray(value) || value.length === 0 ? { kind: 'required' } : null;
+    });
+}
+
+/** select/member 等多选：props.multiple === true 时值通常为数组。 */
+function isMultipleValueField(field: ThyFormFieldSchema | undefined): boolean {
+    return (field?.props as ThyFormSelectFieldProps | undefined)?.multiple === true;
 }
 
 function toOptionalNumber(value: unknown): number | undefined {

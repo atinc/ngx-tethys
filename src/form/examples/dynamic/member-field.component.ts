@@ -22,6 +22,7 @@ interface MemberFieldProps {
             [formField]="field()"
             [id]="key()"
             [class.is-invalid]="invalid()"
+            [thyDisabled]="field()().disabled()"
             [thyMultiple]="props()?.multiple"
             [thyOptions]="props()?.options ?? []"
             [thyPlaceholder]="props()?.placeholder ?? 'Select member'"

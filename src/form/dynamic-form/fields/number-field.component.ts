@@ -13,6 +13,7 @@ import { ThyFormNumberFieldProps } from '../types';
             [formField]="field()"
             [id]="key()"
             [class.is-invalid]="invalid()"
+            [thyDisabled]="field()().disabled()"
             [thyPlaceholder]="props()?.placeholder || null"
             [thySuffix]="props()?.suffix"
             [thyMax]="props()?.max"

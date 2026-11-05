@@ -18,6 +18,7 @@ import { ThyFormTimeFieldProps } from '../types';
             [thyFormat]="props()?.format"
             [thyAllowClear]="props()?.allowClear ?? true"
             [thyShowSelectNow]="props()?.showSelectNow ?? true"
+            [thyDisabled]="field()().disabled()"
             [thyReadonly]="field()().readonly()" />
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -66,11 +66,11 @@ schema 驱动时使用`thy-dynamic-form`：按`thyFields`生成字段树，用`t
 - **其它**：内容投影操作区；`reset()`恢复`defaultValue`并清错；`(thyFieldValueChange)`里可改`thyFields`/`thyValue`；`key`/`kind`/校验器变化会重建字段树
 
 ### 自定义字段类型
-字段渲染走统一注册表（对标 Formily `mapProps`）：库预置 `input` / `textarea` / `number` / `select` / `checkbox` / `radio` / `switch` / `time` / `date` / `dateRange`；业务通过 `provideThyDynamicFormFieldTypes` 注册自定义 kind。**同名 kind 后注册覆盖先注册**，优先级：库预置 < DI。
+字段渲染走统一注册表：库预置 `input` / `textarea` / `number` / `select` / `checkbox` / `radio` / `switch` / `time` / `date` / `dateRange`；业务通过 `provideThyDynamicFormFieldTypes` 注册自定义 kind。**同名 kind 后注册覆盖先注册**，优先级：库预置 < DI。
 
 扩展约定（**不继承**任何库基类）：
 - 默认 duck-type inputs：`field`（模板内绑 `[formField]`）、`props`、`size`、`invalid`、`key`
-- 可选 `mapProps(ctx) => Record`：将渲染上下文映射为控件 input 名
+- 可选 `mapInputs(ctx) => Record`：将 outlet 上下文（含 `field` / `props` / `key` 等）映射为控件 input
 - Signal Forms 要求 `[formField]` 写在字段组件模板上，故不能把裸 `ThySelect` 直接当注册组件；库内置为轻量适配层，仅内部使用
 
 ```ts
@@ -79,7 +79,7 @@ import { provideThyDynamicFormFieldTypes } from 'ngx-tethys/form';
 providers: [
   provideThyDynamicFormFieldTypes([
     { kind: 'member', component: AppMemberField, defaultValue: null }
-    // 或 mapProps: ctx => ({ field: ctx.field, options: ctx.props?.options, ... })
+    // 或 mapInputs: ctx => ({ field: ctx.field, options: ctx.props?.options, key: ctx.key, ... })
   ])
 ]
 

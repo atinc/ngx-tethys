@@ -13,14 +13,14 @@ export interface ThyDynamicFormFieldOutletContext {
 
 /**
  * 动态表单字段类型注册项。
- * - 省略 mapProps：duck-type 下发 field / props / size / invalid / key
- * - 提供 mapProps：将上下文映射为控件 input 名（对标 Formily mapProps）
+ * - 省略 mapInputs：duck-type 下发 field / props / size / invalid / key
+ * - 提供 mapInputs：将 outlet 上下文（含 field / props / key 等）映射为控件 input
  */
 export interface ThyDynamicFormFieldType {
     kind: string;
     component: Type<unknown>;
     defaultValue?: unknown;
-    mapProps?: (ctx: ThyDynamicFormFieldOutletContext) => Record<string, unknown>;
+    mapInputs?: (ctx: ThyDynamicFormFieldOutletContext) => Record<string, unknown>;
 }
 
 export const THY_DYNAMIC_FORM_FIELD_TYPES = new InjectionToken<ThyDynamicFormFieldType>('THY_DYNAMIC_FORM_FIELD_TYPES');
@@ -58,5 +58,5 @@ export function resolveDynamicFormFieldOutletContext(
     fieldType: ThyDynamicFormFieldType,
     ctx: ThyDynamicFormFieldOutletContext
 ): Record<string, unknown> {
-    return fieldType.mapProps ? fieldType.mapProps(ctx) : { ...ctx };
+    return fieldType.mapInputs ? fieldType.mapInputs(ctx) : { ...ctx };
 }

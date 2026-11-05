@@ -10,18 +10,19 @@
         [thyLabelText]="field.props?.label"
         [thyLabelRequired]="!!field.props?.required">
         <div class="thy-dynamic-form-control">
+          @let fieldType = resolveFieldType(field.kind);
           <div class="thy-dynamic-form-control-input" [class.is-invalid]="invalid">
-            @if (resolveFieldType(field.kind); as fieldType) {
+            @if (fieldType) {
               <ng-container
                 *thyViewOutlet="
                   fieldType.component;
                   context: resolveFieldOutletContext(fieldType, field, fieldControl, invalid)
                 "></ng-container>
-            } @else {
-              <span class="invalid-feedback">Unsupported field kind.</span>
             }
           </div>
-          @if (invalid) {
+          @if (!fieldType) {
+            <div class="invalid-feedback">Unsupported field kind.</div>
+          } @else if (invalid) {
             <div class="invalid-feedback">{{ errorMessage(field, fieldState.errors()[0]) }}</div>
           }
         </div>

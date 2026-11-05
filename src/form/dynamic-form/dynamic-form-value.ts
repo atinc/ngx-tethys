@@ -45,8 +45,9 @@ function fieldDefaultValue(field: ThyFormFieldSchema, fieldType?: ThyDynamicForm
             return false;
         case 'input':
         case 'textarea':
-        case 'number':
             return '';
+        case 'number':
+            return null;
         default:
             return null;
     }
