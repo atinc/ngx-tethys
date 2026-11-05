@@ -1,4 +1,4 @@
-import { ThyDynamicFormFieldSchema, ThyDynamicFormValue, ThyFormFieldBaseProps } from './types';
+import { ThyDynamicFormFieldSchema, ThyDynamicFormValue } from './types';
 
 export function validateDynamicFormFields(fields: readonly ThyDynamicFormFieldSchema[]): readonly ThyDynamicFormFieldSchema[] {
     const keys = new Set<string>();
@@ -27,7 +27,7 @@ function fieldDefaultValue(field: ThyDynamicFormFieldSchema): unknown {
     if (field.defaultValue !== undefined) {
         return field.defaultValue;
     }
-    if ((field.props as ThyFormFieldBaseProps | undefined)?.multiple === true) {
+    if (field.props?.multiple === true) {
         return [];
     }
     switch (field.kind) {

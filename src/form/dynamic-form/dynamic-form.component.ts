@@ -21,11 +21,7 @@ import { ThyFormGroup } from '../form-group.component';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
 import { ThyFormDirective } from '../form.directive';
-import {
-    createDynamicFormFieldTypeMap,
-    THY_DYNAMIC_FORM_FIELD_TYPES,
-    ThyDynamicFormFieldType
-} from './dynamic-form-field-types';
+import { createDynamicFormFieldTypeMap, THY_DYNAMIC_FORM_FIELD_TYPES, ThyDynamicFormFieldType } from './dynamic-form-field-types';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
@@ -153,7 +149,6 @@ export class ThyDynamicForm {
     );
     private readonly fieldTreeSignal = signal<FieldTree<ThyDynamicFormValue> | undefined>(undefined);
     private previousFieldValue: ThyDynamicFormValue = {};
-    private readonly fieldOutletContextCache = new Map<string, Record<string, unknown>>();
 
     get fieldTree(): FieldTree<ThyDynamicFormValue> {
         return this.fieldTreeSignal()!;
@@ -206,25 +201,6 @@ export class ThyDynamicForm {
 
     protected resolveFieldType(kind: string): ThyDynamicFormFieldType | undefined {
         return this.fieldTypeMap().get(kind);
-    }
-
-    protected resolveFieldOutletContext(
-        field: ThyDynamicFormFieldSchema,
-        fieldControl: Field<unknown>,
-        invalid: boolean
-    ): Record<string, unknown> {
-        const next: Record<string, unknown> = {
-            field: fieldControl,
-            fieldSchema: field,
-            size: this.thySize(),
-            invalid
-        };
-        const cached = this.fieldOutletContextCache.get(field.key);
-        if (cached && isSameOutletContext(cached, next)) {
-            return cached;
-        }
-        this.fieldOutletContextCache.set(field.key, next);
-        return next;
     }
 
     private createFieldTree(): FieldTree<ThyDynamicFormValue> {
@@ -294,13 +270,4 @@ function isSameFieldTreeRebuildDependencies(
 
 function isSameReferences<T>(previous: readonly T[], current: readonly T[]): boolean {
     return previous.length === current.length && previous.every((item, index) => Object.is(item, current[index]));
-}
-
-function isSameOutletContext(previous: Record<string, unknown>, current: Record<string, unknown>): boolean {
-    const previousKeys = Object.keys(previous);
-    const currentKeys = Object.keys(current);
-    return (
-        previousKeys.length === currentKeys.length &&
-        previousKeys.every(key => Object.hasOwn(current, key) && Object.is(previous[key], current[key]))
-    );
 }

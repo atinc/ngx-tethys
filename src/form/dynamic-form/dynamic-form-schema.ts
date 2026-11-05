@@ -26,7 +26,6 @@ import {
     ThyFormDateRangeFieldProps,
     ThyDynamicFormFieldSchema,
     ThyFormFieldAsyncValidator,
-    ThyFormFieldBaseProps,
     ThyFormFieldValidator,
     ThyFormInputFieldProps,
     ThyFormNumberFieldProps,
@@ -43,9 +42,8 @@ export function buildDynamicFormSchema(fields: Signal<readonly ThyDynamicFormFie
         for (const field of fields()) {
             const fieldPath = rootPath[field.key] as unknown as SchemaPath<unknown>;
             const currentField = () => fields().find(candidate => candidate.key === field.key);
-            const currentProps = () => currentField()?.props as ThyFormFieldBaseProps | undefined;
+            const currentProps = () => currentField()?.props;
 
-            // Signal Forms treats [] as present; multi-value required uses bindNonEmptyArrayRequired instead.
             required(fieldPath, {
                 when: () => !!currentProps()?.required && !isMultipleValueField(currentField())
             });
@@ -78,7 +76,7 @@ function bindTextRules(fieldPath: SchemaPath<string>, resolveField: () => ThyDyn
         if (field?.kind !== 'input' && field?.kind !== 'textarea') {
             return undefined;
         }
-        return field.props as ThyFormInputFieldProps | ThyFormTextareaFieldProps | undefined;
+        return field.props;
     };
 
     minLength(fieldPath, () => toOptionalNumber(props()?.minlength));
@@ -95,7 +93,7 @@ function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () 
         if (field?.kind !== 'number') {
             return undefined;
         }
-        return field.props as ThyFormNumberFieldProps | undefined;
+        return field.props;
     };
 
     min(fieldPath, () => toOptionalNumber(props()?.min));
@@ -105,8 +103,7 @@ function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () 
 function bindNonEmptyArrayRequired(fieldPath: SchemaPath<unknown>, resolveField: () => ThyDynamicFormFieldSchema | undefined): void {
     validate(fieldPath, context => {
         const field = resolveField();
-        const props = field?.props as ThyFormFieldBaseProps | undefined;
-        if (!isMultipleValueField(field) || !props?.required) {
+        if (!isMultipleValueField(field) || !field?.props?.required) {
             return null;
         }
         const value = context.value();
@@ -115,7 +112,7 @@ function bindNonEmptyArrayRequired(fieldPath: SchemaPath<unknown>, resolveField:
 }
 
 function isMultipleValueField(field: ThyDynamicFormFieldSchema | undefined): boolean {
-    return (field?.props as ThyFormFieldBaseProps | undefined)?.multiple === true;
+    return field?.props?.multiple === true;
 }
 
 function toOptionalNumber(value: unknown): number | undefined {

@@ -30,7 +30,6 @@ export interface ThyFormFieldBaseProps {
     required?: boolean;
     readonly?: boolean;
     disabled?: boolean;
-    /** 多选时值为数组；空数组按未填处理 required。 */
     multiple?: boolean;
 }
 
@@ -146,8 +145,6 @@ export type ThyFormFieldSchema =
     | ThyFormDateFieldSchema
     | ThyFormDateRangeFieldSchema;
 
-/** 内置 + 自定义：`ThyFormFieldSchemaWith<MemberSchema>`。 */
 export type ThyFormFieldSchemaWith<TCustom extends ThyFormFieldBaseSchema> = ThyFormFieldSchema | TCustom;
 
-/** thyFields / 运行时字段（内置联合或任意自定义 BaseSchema）。 */
 export type ThyDynamicFormFieldSchema = ThyFormFieldSchemaWith<ThyFormFieldBaseSchema>;

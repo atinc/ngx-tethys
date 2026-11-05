@@ -4,7 +4,6 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 
 import { ThyDynamicFormFieldSchema } from './types';
 
-/** 动态表单字段渲染上下文：固定下发 field / fieldSchema / size / invalid。 */
 export interface ThyDynamicFormFieldOutletContext {
     field: Field<unknown>;
     fieldSchema: ThyDynamicFormFieldSchema;
@@ -12,7 +11,6 @@ export interface ThyDynamicFormFieldOutletContext {
     invalid: boolean;
 }
 
-/** 字段类型注册项。自定义 kind 通过二次封装组件对接约定 input。 */
 export interface ThyDynamicFormFieldType {
     kind: string;
     component: Type<unknown>;
