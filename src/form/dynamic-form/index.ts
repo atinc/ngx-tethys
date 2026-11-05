@@ -5,4 +5,5 @@ export {
     type ThyDynamicFormFieldOutletContext,
     type ThyDynamicFormFieldType
 } from './dynamic-form-field-types';
+export { thyDynamicFormSelectLikeInputs } from './fields';
 export * from './dynamic-form.component';

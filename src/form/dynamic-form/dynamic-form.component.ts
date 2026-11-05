@@ -1,5 +1,4 @@
 import { ThyFormControlSize } from 'ngx-tethys/core';
-import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 
 import {
     afterNextRender,
@@ -21,9 +20,9 @@ import { ThyFormGroup } from '../form-group.component';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
 import { ThyFormDirective } from '../form.directive';
+import { ThyDynamicFormControlOutlet } from './dynamic-form-control-outlet.directive';
 import {
     createDynamicFormFieldTypeMap,
-    resolveDynamicFormFieldOutletContext,
     THY_DYNAMIC_FORM_FIELD_TYPES,
     ThyDynamicFormFieldOutletContext,
     ThyDynamicFormFieldType
@@ -57,7 +56,7 @@ interface FieldTreeRebuildDependency {
     selector: 'thy-dynamic-form',
     templateUrl: './dynamic-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormRoot, ThyFormGroup, ThyViewOutletDirective],
+    imports: [FormRoot, ThyFormGroup, ThyDynamicFormControlOutlet],
     providers: [
         {
             provide: ThyFormDirective,
@@ -156,7 +155,7 @@ export class ThyDynamicForm {
     );
     private readonly fieldTreeSignal = signal<FieldTree<ThyDynamicFormValue> | undefined>(undefined);
     private previousFieldValue: ThyDynamicFormValue = {};
-    private readonly fieldOutletContextCache = new Map<string, Record<string, unknown>>();
+    private readonly fieldOutletContextCache = new Map<string, ThyDynamicFormFieldOutletContext>();
 
     get fieldTree(): FieldTree<ThyDynamicFormValue> {
         return this.fieldTreeSignal()!;
@@ -212,21 +211,26 @@ export class ThyDynamicForm {
     }
 
     protected resolveFieldOutletContext(
-        fieldType: ThyDynamicFormFieldType,
         field: ThyFormFieldSchema,
         fieldControl: Field<unknown>,
         invalid: boolean
-    ): Record<string, unknown> {
-        const ctx: ThyDynamicFormFieldOutletContext = {
+    ): ThyDynamicFormFieldOutletContext {
+        const next: ThyDynamicFormFieldOutletContext = {
             field: fieldControl,
             props: field.props as Record<string, unknown> | undefined,
             size: this.thySize(),
             invalid,
             key: field.key
         };
-        const next = resolveDynamicFormFieldOutletContext(fieldType, ctx);
         const cached = this.fieldOutletContextCache.get(field.key);
-        if (cached && isSameOutletContext(cached, next)) {
+        if (
+            cached &&
+            cached.field === next.field &&
+            cached.props === next.props &&
+            cached.size === next.size &&
+            cached.invalid === next.invalid &&
+            cached.key === next.key
+        ) {
             return cached;
         }
         this.fieldOutletContextCache.set(field.key, next);
@@ -302,11 +306,3 @@ function isSameReferences<T>(previous: readonly T[], current: readonly T[]): boo
     return previous.length === current.length && previous.every((item, index) => Object.is(item, current[index]));
 }
 
-function isSameOutletContext(previous: Record<string, unknown>, current: Record<string, unknown>): boolean {
-    const previousKeys = Object.keys(previous);
-    const currentKeys = Object.keys(current);
-    return (
-        previousKeys.length === currentKeys.length &&
-        previousKeys.every(key => Object.hasOwn(current, key) && Object.is(previous[key], current[key]))
-    );
-}

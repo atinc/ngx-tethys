@@ -6,6 +6,7 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 import {
     provideThyDynamicFormFieldTypes,
     ThyDynamicForm,
+    thyDynamicFormSelectLikeInputs,
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
     ThyFormFieldSchema,
@@ -17,8 +18,6 @@ import { ThyColDirective, ThyRowDirective } from 'ngx-tethys/grid';
 import { ThySelect, ThySelectOptionModel } from 'ngx-tethys/select';
 import { ThyTag } from 'ngx-tethys/tag';
 import { addDays, isWeekend, startOfDay } from 'ngx-tethys/util';
-
-import { ThyDynamicFormMemberFieldExample } from './member-field.component';
 
 const availabilityMinDate = startOfDay(new Date());
 const availabilityMaxDate = addDays(availabilityMinDate, 30);
@@ -41,7 +40,20 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
     templateUrl: './dynamic.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThySelect, ThyTag, ThyRowDirective, ThyColDirective],
-    providers: [provideThyDynamicFormFieldTypes([{ kind: 'member', component: ThyDynamicFormMemberFieldExample, defaultValue: null }])]
+    providers: [
+        provideThyDynamicFormFieldTypes([
+            {
+                kind: 'member',
+                component: ThySelect,
+                defaultValue: null,
+                attachFormField: true,
+                mapInputs: ctx => ({
+                    ...thyDynamicFormSelectLikeInputs(ctx),
+                    thyPlaceholder: (ctx.props?.['placeholder'] as string | undefined) ?? 'Select member'
+                })
+            }
+        ])
+    ]
 })
 export class ThyFormDynamicExampleComponent {
     value = signal<ThyDynamicFormValue>({});
@@ -137,6 +149,15 @@ export class ThyFormDynamicExampleComponent {
                 placeholder: 'Please type number larger than 10',
                 required: true,
                 min: 10
+            }
+        },
+        {
+            key: 'bio',
+            kind: 'textarea',
+            props: {
+                label: 'Bio',
+                placeholder: 'Please type bio',
+                rows: 3
             }
         },
         {

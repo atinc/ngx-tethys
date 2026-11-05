@@ -105,7 +105,7 @@ function bindNumberRules(fieldPath: SchemaPath<number | null>, resolveField: () 
 function bindNonEmptyArrayRequired(fieldPath: SchemaPath<unknown>, resolveField: () => ThyFormFieldSchema | undefined): void {
     validate(fieldPath, context => {
         const field = resolveField();
-        if (!isMultipleValueField(field) || !field.props?.required) {
+        if (!field || !isMultipleValueField(field) || !field.props?.required) {
             return null;
         }
         const value = context.value();

@@ -14,10 +14,7 @@
           <div class="thy-dynamic-form-control-input" [class.is-invalid]="invalid">
             @if (fieldType) {
               <ng-container
-                *thyViewOutlet="
-                  fieldType.component;
-                  context: resolveFieldOutletContext(fieldType, field, fieldControl, invalid)
-                "></ng-container>
+                *thyDynamicFormControlOutlet="fieldType; context: resolveFieldOutletContext(field, fieldControl, invalid)"></ng-container>
             }
           </div>
           @if (!fieldType) {
