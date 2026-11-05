@@ -53,6 +53,10 @@ $thy-dynamic-form-control-heights: (
         min-height: var(--thy-control-height);
         max-width: 100%;
 
+        > *:only-child {
+            display: contents;
+        }
+
         > :not(thy-checkbox, thy-switch, thy-radio-group, .form-check) {
             flex: 1 1 auto;
             width: 100%;
