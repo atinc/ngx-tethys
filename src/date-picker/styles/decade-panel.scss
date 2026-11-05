@@ -46,6 +46,15 @@
 .#{style.$calendar-prefix-cls}-decade-panel-cell {
     white-space: nowrap;
     text-align: center;
+
+    &.#{style.$calendar-prefix-cls}-decade-panel-cell-disabled .#{style.$calendar-prefix-cls}-decade-panel-decade {
+        &,
+        &:hover {
+            color: style.$disabled-color;
+            background: style.$disabled-bg;
+            cursor: variables.$disabled-cursor;
+        }
+    }
 }
 
 .#{style.$calendar-prefix-cls}-decade-panel-decade {
