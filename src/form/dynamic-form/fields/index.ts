@@ -18,7 +18,7 @@ import { ThyDynamicFormInputField } from './input-field.component';
 import { ThyDynamicFormRadioField } from './radio-field.component';
 import { ThyDynamicFormTextareaField } from './textarea-field.component';
 
-function hostControlInputs(ctx: ThyDynamicFormFieldOutletContext, options?: { readonly?: boolean }): Record<string, unknown> {
+function controlInputs(ctx: ThyDynamicFormFieldOutletContext, options?: { readonly?: boolean }): Record<string, unknown> {
     return {
         thyDisabled: ctx.field().disabled(),
         thySize: ctx.size,
@@ -26,10 +26,10 @@ function hostControlInputs(ctx: ThyDynamicFormFieldOutletContext, options?: { re
     };
 }
 
-function selectLikeInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string, unknown> {
+function selectInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string, unknown> {
     const props = ctx.props as ThyFormSelectFieldProps | undefined;
     return {
-        ...hostControlInputs(ctx),
+        ...controlInputs(ctx),
         thyOptions: props?.options ?? [],
         thyPlaceholder: props?.placeholder ?? '',
         thySearchable: props?.searchable,
@@ -43,7 +43,7 @@ function selectLikeInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string,
 function numberInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string, unknown> {
     const props = ctx.props as ThyFormNumberFieldProps | undefined;
     return {
-        ...hostControlInputs(ctx),
+        ...controlInputs(ctx),
         thyPlaceholder: props?.placeholder || null,
         thySuffix: props?.suffix,
         thyMax: props?.max,
@@ -52,10 +52,10 @@ function numberInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string, unk
     };
 }
 
-function timePickerLikeInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string, unknown> {
+function timePickerInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string, unknown> {
     const props = ctx.props as ThyFormTimeFieldProps | undefined;
     return {
-        ...hostControlInputs(ctx, { readonly: true }),
+        ...controlInputs(ctx, { readonly: true }),
         thyPlaceholder: props?.placeholder,
         thyFormat: props?.format,
         thyAllowClear: props?.allowClear ?? true,
@@ -66,7 +66,7 @@ function timePickerLikeInputs(ctx: ThyDynamicFormFieldOutletContext): Record<str
 function datePickerInputs(ctx: ThyDynamicFormFieldOutletContext): Record<string, unknown> {
     const props = ctx.props as ThyFormDateFieldProps | ThyFormDateRangeFieldProps | undefined;
     return {
-        ...hostControlInputs(ctx, { readonly: true }),
+        ...controlInputs(ctx, { readonly: true }),
         thyPlaceholder: props?.placeholder,
         thyFormat: props?.format,
         thyMinDate: props?.min,
@@ -82,7 +82,7 @@ export const THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES: readonly ThyDynamicFormFieldT
     { kind: 'input', component: ThyDynamicFormInputField, defaultValue: '' },
     { kind: 'textarea', component: ThyDynamicFormTextareaField, defaultValue: '' },
     { kind: 'number', component: ThyInputNumber, defaultValue: null, attachFormField: true, mapInputs: numberInputs },
-    { kind: 'select', component: ThySelect, defaultValue: null, attachFormField: true, mapInputs: selectLikeInputs },
+    { kind: 'select', component: ThySelect, defaultValue: null, attachFormField: true, mapInputs: selectInputs },
     {
         kind: 'checkbox',
         component: ThyCheckbox,
@@ -99,14 +99,12 @@ export const THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES: readonly ThyDynamicFormFieldT
         mapInputs: ctx => {
             const props = ctx.props as ThyFormSwitchFieldProps | undefined;
             return {
-                ...hostControlInputs(ctx),
+                ...controlInputs(ctx),
                 thyColor: props?.color
             };
         }
     },
-    { kind: 'time', component: ThyTimePicker, defaultValue: null, attachFormField: true, mapInputs: timePickerLikeInputs },
+    { kind: 'time', component: ThyTimePicker, defaultValue: null, attachFormField: true, mapInputs: timePickerInputs },
     { kind: 'date', component: ThyDatePicker, defaultValue: null, attachFormField: true, mapInputs: datePickerInputs },
     { kind: 'dateRange', component: ThyRangePicker, defaultValue: null, attachFormField: true, mapInputs: datePickerInputs }
 ];
-
-export { selectLikeInputs as thyDynamicFormSelectLikeInputs };

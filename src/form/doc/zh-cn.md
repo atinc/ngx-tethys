@@ -72,7 +72,7 @@ schema 驱动时使用`thy-dynamic-form`：按`thyFields`生成字段树，用`t
 - **不设 `attachFormField`**：下发 `field` / `props` / …（也可用 `mapInputs` 重命名），由组件模板自行绑定 `[formField]`（原生 input/textarea、内容投影的 radio 等）
 
 ```ts
-import { provideThyDynamicFormFieldTypes, thyDynamicFormSelectLikeInputs } from 'ngx-tethys/form';
+import { provideThyDynamicFormFieldTypes } from 'ngx-tethys/form';
 import { ThySelect } from 'ngx-tethys/select';
 
 providers: [
@@ -82,16 +82,24 @@ providers: [
       component: ThySelect,
       defaultValue: null,
       attachFormField: true,
-      mapInputs: ctx => ({
-        ...thyDynamicFormSelectLikeInputs(ctx),
-        thyPlaceholder: (ctx.props?.['placeholder'] as string | undefined) ?? '请选择成员'
-      })
+      mapInputs: ctx => {
+        const props = ctx.props;
+        return {
+          thyDisabled: ctx.field().disabled(),
+          thySize: ctx.size,
+          thyOptions: props?.['options'] ?? [],
+          thyPlaceholder: (props?.['placeholder'] as string | undefined) ?? '请选择自定义成员',
+          thyMultiple: props?.['multiple'],
+          thySearchable: props?.['searchable'],
+          thyClearable: props?.['clearable']
+        };
+      }
     }
   ])
 ]
 
 // schema
-{ key: 'assignee', kind: 'member', props: { label: '负责人', multiple: true } }
+{ key: 'customMember', kind: 'member', props: { label: '自定义成员', multiple: true } }
 ```
 
 未注册的 kind 显示 `Unsupported field kind.`。

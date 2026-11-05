@@ -6,7 +6,6 @@ import { ThyFormControlSize } from 'ngx-tethys/core';
 import {
     provideThyDynamicFormFieldTypes,
     ThyDynamicForm,
-    thyDynamicFormSelectLikeInputs,
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
     ThyFormFieldSchema,
@@ -47,10 +46,18 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
                 component: ThySelect,
                 defaultValue: null,
                 attachFormField: true,
-                mapInputs: ctx => ({
-                    ...thyDynamicFormSelectLikeInputs(ctx),
-                    thyPlaceholder: (ctx.props?.['placeholder'] as string | undefined) ?? 'Select member'
-                })
+                mapInputs: ctx => {
+                    const props = ctx.props;
+                    return {
+                        thyDisabled: ctx.field().disabled(),
+                        thySize: ctx.size,
+                        thyOptions: props?.['options'] ?? [],
+                        thyPlaceholder: (props?.['placeholder'] as string | undefined) ?? 'Select custom member',
+                        thyMultiple: props?.['multiple'],
+                        thySearchable: props?.['searchable'],
+                        thyClearable: props?.['clearable']
+                    };
+                }
             }
         ])
     ]
@@ -174,15 +181,15 @@ export class ThyFormDynamicExampleComponent {
             }
         },
         {
-            key: 'assignee',
+            key: 'customMember',
             kind: 'member',
             defaultValue: [],
             errorMessages: {
-                required: 'Please select at least one member'
+                required: 'Please select at least one custom member'
             },
             props: {
-                label: 'Assignee',
-                placeholder: 'Select member',
+                label: 'Custom Member',
+                placeholder: 'Select custom member',
                 required: true,
                 multiple: true,
                 options: [
