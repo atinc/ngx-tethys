@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.7](github.com/atinc/ngx-tethys/compare/22.0.6...22.0.7) (2026-11-05)
+
+
+### Bug Fixes
+
+* **date-picker:** year/month/quarter/decade panels are selectable when any day in period is enabled #TINFR-4189 ([#4028](/github.com/atinc/ngx-tethys/issues/4028)) ([6983e59](github.com/atinc/ngx-tethys/commits/6983e590117ead6ca26ddda45654eb0b4145d06e)), closes [#TINFR-4189](github.com/atinc/ngx-tethys/issues/TINFR-4189)
+* **reboot:** add margin reset for last paragraph in styles #NEXUS-6057 ([#4023](/github.com/atinc/ngx-tethys/issues/4023)) ([477de62](github.com/atinc/ngx-tethys/commits/477de6202da07dc9a7c49379aceae8cbb2604766)), closes [#NEXUS-6057](github.com/atinc/ngx-tethys/issues/NEXUS-6057)
+
+
+### Features
+
+* **form:** support thyLayout on dynamic-form with dedicated CSS grid layout #TINFR-4148 ([#4024](/github.com/atinc/ngx-tethys/issues/4024)) ([62dd3ab](github.com/atinc/ngx-tethys/commits/62dd3aba92b3e3f6410dee33a94406ec1a38cd38)), closes [#TINFR-4148](github.com/atinc/ngx-tethys/issues/TINFR-4148) [#TINFR-4148](github.com/atinc/ngx-tethys/issues/TINFR-4148)
+
 ## [22.0.6](github.com/atinc/ngx-tethys/compare/22.0.5...22.0.6) (2026-10-26)
 
 
