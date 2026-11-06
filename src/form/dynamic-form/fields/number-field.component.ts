@@ -12,6 +12,7 @@ import { ThyFormNumberFieldSchema } from '../types';
         <thy-input-number
             [formField]="field()"
             [id]="fieldSchema().key"
+            [attr.name]="fieldSchema().key"
             [class.is-invalid]="invalid()"
             [thyDisabled]="field()().disabled()"
             [thyPlaceholder]="fieldSchema().props?.placeholder || null"

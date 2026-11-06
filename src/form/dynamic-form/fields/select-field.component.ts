@@ -12,6 +12,7 @@ import { ThyFormSelectFieldSchema } from '../types';
         <thy-select
             [formField]="field()"
             [id]="fieldSchema().key"
+            [attr.name]="fieldSchema().key"
             [class.is-invalid]="invalid()"
             [thyDisabled]="field()().disabled()"
             [thyOptions]="fieldSchema().props?.options ?? []"

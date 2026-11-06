@@ -17,6 +17,7 @@ export interface ThyFormMemberFieldExampleSchema extends ThyFormFieldBaseSchema<
         <thy-select
             [formField]="field()"
             [id]="fieldSchema().key"
+            [attr.name]="fieldSchema().key"
             [class.is-invalid]="invalid()"
             [thyDisabled]="field()().disabled()"
             [thyMultiple]="fieldSchema().props?.multiple"

@@ -53,6 +53,8 @@ $thy-dynamic-form-control-heights: (
         min-height: var(--thy-control-height);
         max-width: 100%;
 
+        // Field outlet host must stay layout-transparent so stretch/exclude
+        // selectors still hit the real control. Do not wrap another non-contents layer.
         > *:only-child {
             display: contents;
         }
@@ -79,7 +81,6 @@ $thy-dynamic-form-control-heights: (
                 margin-left: 0;
             }
         }
-
     }
 
     .thy-dynamic-form-actions {
