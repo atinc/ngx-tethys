@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableSkeleton, ThyTableSkeletonColumn, ThyTableAppearance } from 'ngx-tethys/table';
 import { ThyRadioGroup, ThyRadio } from 'ngx-tethys/radio';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
@@ -8,7 +8,6 @@ import { NgClass } from '@angular/common';
 @Component({
     selector: 'thy-table-skeleton-example',
     templateUrl: './skeleton.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRadioGroup, ThyRadio, ThyButtonGroup, FormsModule, ThyTableSkeleton, NgClass, ThyButton]
 })
 export class ThyTableSkeletonExampleComponent {

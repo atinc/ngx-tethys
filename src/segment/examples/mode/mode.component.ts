@@ -1,10 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThySegment, ThySegmentItem } from 'ngx-tethys/segment';
 
 @Component({
     selector: 'thy-segment-mode-example',
     templateUrl: './mode.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegment, ThySegmentItem]
 })
 export class ThySegmentModeExampleComponent {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThySlider } from 'ngx-tethys/slider';
 import { FormsModule } from '@angular/forms';
 import { ThyInputDirective } from 'ngx-tethys/input';
@@ -7,7 +7,6 @@ import { ThyInputDirective } from 'ngx-tethys/input';
     selector: 'thy-slider-configurable',
     templateUrl: './configurable.component.html',
     styleUrls: ['./configurable.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider, FormsModule, ThyInputDirective]
 })
 export class ThySliderConfigurableExampleComponent implements OnInit {

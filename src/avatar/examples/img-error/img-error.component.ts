@@ -1,10 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 
 @Component({
     selector: 'thy-avatar-img-error-example',
     templateUrl: './img-error.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatar]
 })
 export class ThyAvatarImgErrorExampleComponent {

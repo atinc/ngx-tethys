@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThyNav, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 @Component({
     selector: 'thy-nav-pulled-example',
     templateUrl: './pulled.component.html',
     styleUrls: ['./pulled.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyNav, ThyNavItemDirective]
 })
 export class ThyNavPulledExampleComponent implements OnInit {

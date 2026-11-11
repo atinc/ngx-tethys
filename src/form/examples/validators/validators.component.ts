@@ -10,7 +10,7 @@ import {
     ThyFormDirective,
     ThyFormSubmitDirective
 } from 'ngx-tethys/form';
-import { Component, signal, WritableSignal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -23,7 +23,6 @@ import { ThyButton } from 'ngx-tethys/button';
 @Component({
     selector: 'thy-form-validators-example',
     templateUrl: './validators.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyFormGroup,
         ThySelect,

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyAvatar, ThyAvatarService } from 'ngx-tethys/avatar';
 import { CustomAvatarService } from './custom-avatar.service';
 
@@ -11,7 +11,6 @@ import { CustomAvatarService } from './custom-avatar.service';
             useClass: CustomAvatarService
         }
     ],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAvatar]
 })
 export class ThyAvatarCustomExampleComponent {

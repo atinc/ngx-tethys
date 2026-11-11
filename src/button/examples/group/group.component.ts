@@ -1,12 +1,11 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
 import { ThyIcon } from 'ngx-tethys/icon';
 
 @Component({
     selector: 'thy-button-group-example',
     templateUrl: './group.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, ThyButtonGroup, NgClass, ThyIcon]
 })
 export class ThyButtonGroupExampleComponent implements OnInit {

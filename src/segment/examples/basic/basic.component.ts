@@ -1,12 +1,11 @@
 import { NgStyle } from '@angular/common';
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThySegment, ThySegmentEvent, ThySegmentItem } from 'ngx-tethys/segment';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-segment-basic-example',
     templateUrl: './basic.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySegment, ThySegmentItem, NgStyle, ThyButton]
 })
 export class ThySegmentBasicExampleComponent {

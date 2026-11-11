@@ -1,11 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyInputNumber } from 'ngx-tethys/input-number';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-input-number-precision-example',
     templateUrl: './precision.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyInputNumber, FormsModule]
 })
 export class ThyInputNumberPrecisionExampleComponent {

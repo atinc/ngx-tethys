@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
@@ -17,7 +17,6 @@ import { ThyColorPickerDirective } from 'ngx-tethys/color-picker';
             }
         `
     ],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySpace, ThySpaceItemDirective, ThyColorPickerDirective, NgStyle, FormsModule]
 })
 export class ThyPlacementExampleComponent {

@@ -1,10 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyProgressStackedValue, ThyProgress } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-text-example',
     templateUrl: './text.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress]
 })
 export class ThyProgressTextExampleComponent {

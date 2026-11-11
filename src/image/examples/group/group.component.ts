@@ -1,10 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyImageDirective, ThyImageGroup } from 'ngx-tethys/image';
 
 @Component({
     selector: 'thy-image-group-example',
     templateUrl: './group.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyImageDirective, ThyImageGroup]
 })
 export class ThyImageGroupExampleComponent {

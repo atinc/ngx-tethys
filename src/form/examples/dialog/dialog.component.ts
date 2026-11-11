@@ -1,6 +1,6 @@
 import { finalize } from 'rxjs/operators';
 import { timer } from 'rxjs';
-import { Component, OnInit, TemplateRef, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject, signal } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyDialog, ThyDialogBody, ThyDialogHeader } from 'ngx-tethys/dialog';
 import { ThyFormGroup, ThyFormGroupFooter, ThyFormSubmitDirective, ThyFormDirective } from 'ngx-tethys/form';
@@ -14,7 +14,6 @@ import { ThyOption } from 'ngx-tethys/shared';
 @Component({
     selector: 'thy-form-dialog-example',
     templateUrl: './dialog.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyButton,
         ThyDialogHeader,
@@ -47,7 +46,7 @@ export class ThyFormDialogExampleComponent implements OnInit {
         }
     };
 
-    saving = false;
+    saving = signal(false);
 
     ngOnInit(): void {}
 
@@ -56,11 +55,11 @@ export class ThyFormDialogExampleComponent implements OnInit {
     }
 
     submit() {
-        this.saving = true;
+        this.saving.set(true);
         timer(1000)
             .pipe(
                 finalize(() => {
-                    this.saving = false;
+                    this.saving.set(false);
                 })
             )
             .subscribe(() => {

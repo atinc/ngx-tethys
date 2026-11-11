@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyBreadcrumb, ThyBreadcrumbItem } from 'ngx-tethys/breadcrumb';
 import { ThyDropdownDirective, ThyDropdownMenuComponent } from 'ngx-tethys/dropdown';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -7,7 +7,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
     selector: 'thy-breadcrumb-active-active-example',
     templateUrl: './with-active.component.html',
     styleUrls: ['./with-active.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyBreadcrumb, ThyBreadcrumbItem, ThyIcon, ThyDropdownDirective, ThyDropdownMenuComponent]
 })
 export class ThyBreadcrumbActiveExampleComponent {}

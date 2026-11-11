@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyAffix } from 'ngx-tethys/affix';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -11,7 +11,6 @@ import { ThyButton } from 'ngx-tethys/button';
             </button>
         </thy-affix>
     `,
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAffix, ThyButton]
 })
 export class ThyAffixChangeExampleComponent {

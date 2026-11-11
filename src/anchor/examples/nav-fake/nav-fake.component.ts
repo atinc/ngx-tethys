@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-anchor-nav-fake-example',
-    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './nav-fake.component.html'
 })
 export class ThyAnchorNavFakeExampleComponent implements OnInit {

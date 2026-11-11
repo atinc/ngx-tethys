@@ -1,10 +1,9 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ThyVote } from 'ngx-tethys/vote';
 
 @Component({
     selector: 'thy-vote-color-example',
     templateUrl: './color.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyVote]
 })
 export class ThyVoteColorExampleComponent {

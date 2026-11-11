@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThySlider } from 'ngx-tethys/slider';
 
 @Component({
@@ -7,7 +7,6 @@ import { ThySlider } from 'ngx-tethys/slider';
         <p>当前值为：{{ value }}</p>
         <thy-slider class="mt-2" (thyAfterChange)="value = $event.value"></thy-slider>
     `,
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider]
 })
 export class ThySliderDragEndCallbackExampleComponent implements OnInit {

@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { ThyAnchor, ThyAnchorLink } from 'ngx-tethys/anchor';
 
 @Component({
     selector: 'thy-anchor-horizontal-example',
     templateUrl: './horizontal.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyAnchor, ThyAnchorLink, NgStyle]
 })
 export class ThyAnchorHorizontalExampleComponent implements OnInit {

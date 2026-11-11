@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyCascader } from 'ngx-tethys/cascader';
@@ -8,7 +8,6 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
 @Component({
     selector: 'thy-cascader-auto-expand-example',
     templateUrl: './auto-expand.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCascader, FormsModule, ThyButton]
 })
 export class AutoExpandComponent implements OnInit {

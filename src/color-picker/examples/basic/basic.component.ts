@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyColorPickerDirective } from 'ngx-tethys/color-picker';
@@ -16,7 +16,6 @@ import { ThyColorPickerDirective } from 'ngx-tethys/color-picker';
             }
         `
     ],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyColorPickerDirective, NgStyle, FormsModule]
 })
 export class ThyBasicExampleComponent {

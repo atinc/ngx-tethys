@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyDialog, ThyDialogLayoutConfig } from 'ngx-tethys/dialog';
 import { ThyDialogFooterLayoutExampleComponent } from './dialog-layout.component';
 import { ThyButton } from 'ngx-tethys/button';
@@ -8,7 +8,6 @@ import { ThyCheckbox } from 'ngx-tethys/checkbox';
 @Component({
     selector: 'thy-dialog-layout-example',
     templateUrl: './layout.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton, FormsModule, ThyCheckbox]
 })
 export class ThyDialogLayoutExampleComponent {

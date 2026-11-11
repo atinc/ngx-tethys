@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import {
     ThyDropdownActiveDirective,
     ThyDropdownDirective,
@@ -11,7 +11,6 @@ import { ThyAction } from 'ngx-tethys/action';
 @Component({
     selector: 'thy-dropdown-active-example',
     templateUrl: './active.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyDropdownDirective,
         ThyList,

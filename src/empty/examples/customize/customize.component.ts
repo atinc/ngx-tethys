@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyEmpty } from 'ngx-tethys/empty';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -20,7 +20,6 @@ import { ThyButton } from 'ngx-tethys/button';
             }
         `
     ],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyEmpty, ThyButton]
 })
 export class ThyEmptyCustomizeExampleComponent {

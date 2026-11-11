@@ -1,5 +1,5 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
-import { Component, ElementRef, OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 const mockUsers = [
@@ -35,7 +35,6 @@ const mockUsers = [
             }
         `
     ],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyMentionDirective, FormsModule]
 })
 export class ThyMentionContenteditableExampleComponent implements OnInit {
