@@ -1,11 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyProgress, ThyProgressStackedValue } from 'ngx-tethys/progress';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 
 @Component({
     selector: 'thy-progress-stacked-example',
     templateUrl: './stacked.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProgress, ThySpace, ThySpaceItemDirective]
 })
 export class ThyProgressStackedExampleComponent {

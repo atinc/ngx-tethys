@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
@@ -7,7 +7,6 @@ import { ThyTable, ThyTableColumnComponent, ThyTableAppearance } from 'ngx-tethy
 @Component({
     selector: 'thy-table-appearance-example',
     templateUrl: './appearance.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon, ThyRadioGroup, ThyRadio, FormsModule]
 })
 export class ThyTableAppearanceExampleComponent implements OnInit {

@@ -15,7 +15,7 @@
           </thy-select>
         </thy-form-group>
         <thy-form-group-footer>
-          <button thyButton="primary" [thyLoading]="saving" (thyFormSubmit)="submit()">Submit</button>
+          <button thyButton="primary" [thyLoading]="saving()" (thyFormSubmit)="submit()">Submit</button>
           <button thyButton="default" thyAppearance="link" (click)="close()">Cancel</button>
         </thy-form-group-footer>
       </form>

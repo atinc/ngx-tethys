@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyDialog, ThyDialogConfig, ThyDialogRef } from 'ngx-tethys/dialog';
 
@@ -11,7 +11,6 @@ import { ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyDialog, ThyDialogCo
             <button thyButton="primary" (click)="dialogRef.close()">确定</button>
         </thy-dialog-footer>
     `,
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyDialogHeader, ThyDialogBody, ThyDialogFooter, ThyButton]
 })
 class ThyDialogPassDataContentComponent {
@@ -25,7 +24,6 @@ class ThyDialogPassDataContentComponent {
 @Component({
     selector: 'thy-dialog-pass-data-example',
     templateUrl: './pass-data.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyButton]
 })
 export class ThyDialogPassDataExampleComponent implements OnInit {

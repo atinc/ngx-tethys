@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyTimePicker } from 'ngx-tethys/time-picker';
 import { TinyDate } from 'ngx-tethys/util';
@@ -6,7 +6,6 @@ import { TinyDate } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-time-picker-readonly-example',
     templateUrl: './readonly.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTimePicker, FormsModule]
 })
 export class ThyTimePickerReadonlyExampleComponent {

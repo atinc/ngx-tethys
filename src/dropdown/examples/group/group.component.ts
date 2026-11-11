@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import {
     ThyDropdownDirective,
@@ -13,7 +13,6 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-dropdown-group-example',
     templateUrl: './group.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyDropdownDirective,
         ThyDropdownMenuComponent,

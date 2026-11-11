@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyFormControlSize } from 'ngx-tethys/core';
@@ -41,7 +41,6 @@ const PROJECTS: Record<string, ThySelectOptionModel[]> = {
 @Component({
     selector: 'thy-form-dynamic-example',
     templateUrl: './dynamic.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, JsonPipe, ThyDynamicForm, ThyButton, ThyFormGroupFooter, ThySelect, ThyTag, ThyRowDirective, ThyColDirective],
     providers: [provideThyDynamicFormFieldTypes([{ kind: 'member', component: ThyDynamicFormMemberFieldExample }])]
 })

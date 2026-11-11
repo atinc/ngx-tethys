@@ -7,7 +7,6 @@ import {
     DoCheck,
     afterEveryRender,
     signal,
-    ChangeDetectionStrategy
 } from '@angular/core';
 import { ThyAvatar } from 'ngx-tethys/avatar';
 import { ThyIcon } from 'ngx-tethys/icon';
@@ -33,24 +32,25 @@ function perfTracker() {
 @Component({
     selector: 'thy-table-perf-example',
     templateUrl: './perf.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyButton, ThyIcon, ThyAvatar]
 })
 export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, AfterContentChecked, DoCheck {
-    data = [
+    data = signal([
         { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
         { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
-    ];
+    ]);
 
     loadingDone = signal<boolean>(false);
 
     protected perfTracker = perfTracker();
 
     constructor() {
+        const initialData = this.data();
         for (let i = 4; i < 100; i++) {
-            this.data.push({ id: i, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' });
+            initialData.push({ id: i, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' });
         }
+        this.data.set(initialData);
 
         this.perfTracker.add('constructor');
         afterNextRender(() => {
@@ -83,7 +83,7 @@ export class ThyTablePerfExampleComponent implements OnInit, AfterViewInit, Afte
         this.perfTracker.reset('loading');
         this.loadingDone.set(false);
         setTimeout(() => {
-            this.data = [...this.data];
+            this.data.update(rows => [...rows]);
             this.loadingDone.set(true);
             this.perfTracker.reset('refreshing');
         });

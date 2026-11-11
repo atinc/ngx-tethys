@@ -1,12 +1,11 @@
 import { ThyMessageRef, ThyMessageService } from 'ngx-tethys/message';
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ThySpace, ThySpaceItemDirective } from 'ngx-tethys/space';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-message-close-example',
     templateUrl: './close.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySpace, ThySpaceItemDirective, ThyButton]
 })
 export class ThyMessageCloseExampleComponent implements OnInit {

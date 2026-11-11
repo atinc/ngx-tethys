@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyRadioGroup, ThyRadioButton } from 'ngx-tethys/radio';
 import { FormsModule } from '@angular/forms';
 import { ThySlider } from 'ngx-tethys/slider';
@@ -17,7 +17,6 @@ import { ThyInputDirective } from 'ngx-tethys/input';
         <input class="mt-4 mb-2" thyInput [(ngModel)]="customColor" />
         <thy-slider [thyColor]="customColor" [(ngModel)]="value"></thy-slider>
     `,
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThySlider, ThyRadioGroup, ThyRadioButton, FormsModule, ThyInputDirective]
 })
 export class ThySliderColorExampleComponent {

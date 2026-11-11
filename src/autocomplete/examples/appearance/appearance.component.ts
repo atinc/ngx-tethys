@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThyAutocomplete, ThyAutocompleteTriggerDirective } from 'ngx-tethys/autocomplete';
 import { ThyButton, ThyButtonGroup } from 'ngx-tethys/button';
@@ -10,7 +10,6 @@ import { ThyOption } from 'ngx-tethys/shared';
 @Component({
     selector: 'thy-autocomplete-appearance-example',
     templateUrl: './appearance.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ThyInputDirective,
         FormsModule,

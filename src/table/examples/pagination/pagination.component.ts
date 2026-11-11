@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ThyTableRowEvent, ThyPageChangedEvent, ThyTableColumnSkeletonType, ThyTable, ThyTableColumnComponent } from 'ngx-tethys/table';
 import { of } from 'rxjs';
 import { delay, finalize } from 'rxjs/operators';
@@ -7,11 +7,10 @@ import { ThyIcon } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-table-pagination-example',
     templateUrl: './pagination.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyTable, ThyTableColumnComponent, ThyIcon]
 })
 export class ThyTablePaginationExampleComponent implements OnInit {
-    data: { id: number; name: string; age: number; job: string; address: string }[] = [];
+    data = signal<{ id: number; name: string; age: number; job: string; address: string }[]>([]);
 
     public pagination = {
         index: 1,
@@ -56,13 +55,14 @@ export class ThyTablePaginationExampleComponent implements OnInit {
                         this.pagination.total - startIndex < this.pagination.size
                             ? this.pagination.total - startIndex
                             : this.pagination.size;
-                    this.data = [];
+                    const newData = [];
                     for (let i = startIndex; i < size + startIndex; i++) {
-                        this.data.push({
+                        newData.push({
                             ...originalData[this.getRandomIndex(originalData.length)],
                             id: i + 1
                         });
                     }
+                    this.data.set(newData);
                 },
                 error: error => {}
             });

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThyIcon } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
@@ -6,7 +6,6 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
     selector: 'thy-icon-twotone-example',
     templateUrl: './twotone.component.html',
     styleUrls: ['./twotone.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon, ThyTooltipDirective]
 })
 export class ThyIconTwotoneExampleComponent {

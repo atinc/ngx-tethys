@@ -1,12 +1,11 @@
 import { ThyIcon, ThyIconRegistry } from 'ngx-tethys/icon';
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'thy-icon-namespace-example',
     templateUrl: './namespace.component.html',
     styleUrls: ['./namespace.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyIcon]
 })
 export class ThyIconNamespaceExampleComponent {
