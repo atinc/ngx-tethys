@@ -27,14 +27,14 @@ export class ThyUploadDropExampleComponent {
                     fileName: event.files[i].name
                 })
                 .subscribe(result => {
-                    const files = this.queueFiles();
+                    const uploadFile = result.uploadFile!;
                     if (result.status === ThyUploadStatus.started) {
-                        files.push(result.uploadFile!);
+                        this.queueFiles.update(files => [...files, uploadFile]);
+                    } else if (result.status === ThyUploadStatus.uploading) {
+                        this.queueFiles.update(files => files.map(item => (item === uploadFile ? uploadFile : item)));
                     } else if (result.status === ThyUploadStatus.done) {
-                        const index = files.indexOf(result.uploadFile!);
-                        files.splice(index);
+                        this.queueFiles.update(files => files.filter(item => item !== uploadFile));
                     }
-                    this.queueFiles.set(files);
                 });
         }
     }

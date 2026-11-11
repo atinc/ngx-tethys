@@ -6,7 +6,7 @@
   <button thyButton="primary">Click to Upload Multiple Files</button>
 </thy-file-select>
 
-@for (queueFile of queueFiles; track $index) {
+@for (queueFile of queueFiles(); track queueFile) {
   <div>
     <div style="margin: 5px 0">
       {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime - {{ queueFile.progress.estimatedTimeHuman }}

@@ -1,5 +1,5 @@
 import { ThyFileSelect, ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ThyProgress } from 'ngx-tethys/progress';
 import { ThyButton } from 'ngx-tethys/button';
 
@@ -13,7 +13,7 @@ const UPLOAD_URL = `https://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay
 export class ThyUploadBasicExampleComponent {
     private thyUploadService = inject(ThyUploadService);
 
-    queueFiles: ThyUploadFile[] = [];
+    queueFiles = signal<ThyUploadFile[]>([]);
 
     selectFiles(event: { files: File[] }) {
         const uploadFiles = event.files.map(file => {
@@ -27,15 +27,15 @@ export class ThyUploadBasicExampleComponent {
         });
         this.thyUploadService.uploadBulk(uploadFiles).subscribe(
             result => {
+                const uploadFile = result.uploadFile!;
                 if (result.status === ThyUploadStatus.started) {
-                    console.log(`started: ${result.uploadFile.fileName}`);
-                    this.queueFiles.push(result.uploadFile);
+                    console.log(`started: ${uploadFile.fileName}`);
+                    this.queueFiles.update(files => [...files, uploadFile]);
+                } else if (result.status === ThyUploadStatus.uploading) {
+                    this.queueFiles.update(files => files.map(item => (item === uploadFile ? uploadFile : item)));
                 } else if (result.status === ThyUploadStatus.done) {
-                    console.log(`done: ${result.uploadFile.fileName}`);
-                    const index = this.queueFiles.indexOf(result.uploadFile);
-                    if (index > -1) {
-                        this.queueFiles.splice(index, 1);
-                    }
+                    console.log(`done: ${uploadFile.fileName}`);
+                    this.queueFiles.update(files => files.filter(item => item !== uploadFile));
                 }
             },
             error => {

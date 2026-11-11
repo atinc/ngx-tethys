@@ -1,7 +1,7 @@
 <thy-file-select [thyAcceptFolder]="acceptFolder" class="mt-2 d-inline-block" (thyOnFileSelect)="selectFiles($event)">
   <button thyButton="primary">Click to Upload Folder</button>
 </thy-file-select>
-@for (queueFile of queueFiles; track $index) {
+@for (queueFile of queueFiles(); track queueFile) {
   <div>
     <div style="margin: 5px 0">
       {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime -

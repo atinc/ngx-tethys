@@ -22,11 +22,11 @@ function perfTracker() {
     imports: [ThyNativeTableModule, ThyButton]
 })
 export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {
-    data = [
+    data = signal([
         { id: 0, name: 'Peter', age: 25, date: new Date(), rate: 3, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 1, name: 'James', age: 26, date: new Date(), rate: 3, job: 'Designer', address: 'Xian Economic Development Zone' },
         { id: 2, name: 'Tom', age: 30, date: new Date(), rate: 3, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
-    ];
+    ]);
 
     perfTracker = perfTracker();
 
@@ -47,8 +47,9 @@ export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {
     };
 
     constructor() {
+        const initialData = this.data();
         for (let i = 3; i < this.dataLength; i++) {
-            this.data.push({
+            initialData.push({
                 id: i,
                 name: 'Tom',
                 age: 10,
@@ -58,6 +59,7 @@ export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {
                 address: 'New Industrial Park, Shushan, Hefei, Anhui'
             });
         }
+        this.data.set(initialData);
 
         this.perfTracker.add('constructor');
 
@@ -99,7 +101,7 @@ export class ThyNativeTablePerformanceTextExampleComponent implements OnInit {
         this.lastIndex++;
         setTimeout(() => {
             // 修改数据
-            this.data = [{ ...this.newData, id: `${this.lastIndex}` as any, date: new Date(), rate: 3 }, ...this.data];
+            this.data.update(rows => [{ ...this.newData, id: `${this.lastIndex}` as any, date: new Date(), rate: 3 }, ...rows]);
             this.perfTracker.reset('refreshing');
         });
     }

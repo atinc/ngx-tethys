@@ -1,6 +1,6 @@
 import { ThyFileSelect, ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 import { ThyProgress } from 'ngx-tethys/progress';
 
@@ -14,7 +14,7 @@ export class ThyUploadAcceptFolderExampleComponent {
     private thyUploadService = inject(ThyUploadService);
 
     @ViewChild('file1', { static: true }) file1: ElementRef<HTMLInputElement>;
-    queueFiles: ThyUploadFile[] = [];
+    queueFiles = signal<ThyUploadFile[]>([]);
     acceptFolder = true;
 
     selectFiles(event: { files: File[] }) {
@@ -28,15 +28,15 @@ export class ThyUploadAcceptFolderExampleComponent {
             })
             .subscribe(
                 result => {
+                    const uploadFile = result.uploadFile!;
                     if (result.status === ThyUploadStatus.started) {
-                        console.log(`started: ${result.uploadFile.fileName}`);
-                        this.queueFiles.push(result.uploadFile);
+                        console.log(`started: ${uploadFile.fileName}`);
+                        this.queueFiles.update(files => [...files, uploadFile]);
+                    } else if (result.status === ThyUploadStatus.uploading) {
+                        this.queueFiles.update(files => files.map(item => (item === uploadFile ? uploadFile : item)));
                     } else if (result.status === ThyUploadStatus.done) {
-                        console.log(`done: ${result.uploadFile.fileName}`);
-                        const index = this.queueFiles.indexOf(result.uploadFile);
-                        if (index > -1) {
-                            this.queueFiles.splice(index, 1);
-                        }
+                        console.log(`done: ${uploadFile.fileName}`);
+                        this.queueFiles.update(files => files.filter(item => item !== uploadFile));
                     }
                 },
                 error => {
