@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThyProperties, ThyPropertyItem } from 'ngx-tethys/property';
 import { ThyTag } from 'ngx-tethys/tag';
 import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
@@ -8,7 +8,6 @@ import { ThyFlexibleText } from 'ngx-tethys/flexible-text';
     templateUrl: './basic.component.html',
     styleUrls: ['./basic.component.scss'],
     host: {},
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyProperties, ThyPropertyItem, ThyTag, ThyFlexibleText]
 })
 export class ThyPropertyBasicExampleComponent implements OnInit {
