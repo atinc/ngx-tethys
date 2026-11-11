@@ -1,5 +1,5 @@
 import { ThyFileDropDirective, ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
-import { Component, inject, signal, WritableSignal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyProgress } from 'ngx-tethys/progress';
 
@@ -8,7 +8,6 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
     selector: 'app-upload-drop-example',
     templateUrl: './drop.component.html',
     styleUrls: ['./drop.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyFileDropDirective, ThyProgress]
 })
 export class ThyUploadDropExampleComponent {
@@ -28,14 +27,14 @@ export class ThyUploadDropExampleComponent {
                     fileName: event.files[i].name
                 })
                 .subscribe(result => {
-                    const files = this.queueFiles();
+                    const uploadFile = result.uploadFile!;
                     if (result.status === ThyUploadStatus.started) {
-                        files.push(result.uploadFile!);
+                        this.queueFiles.update(files => [...files, uploadFile]);
+                    } else if (result.status === ThyUploadStatus.uploading) {
+                        this.queueFiles.update(files => files.map(item => (item === uploadFile ? uploadFile : item)));
                     } else if (result.status === ThyUploadStatus.done) {
-                        const index = files.indexOf(result.uploadFile!);
-                        files.splice(index);
+                        this.queueFiles.update(files => files.filter(item => item !== uploadFile));
                     }
-                    this.queueFiles.set(files);
                 });
         }
     }
