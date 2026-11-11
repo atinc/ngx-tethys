@@ -4,8 +4,8 @@ import { helpers } from 'ngx-tethys/util';
 import { inject, Injectable, Signal } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
-import { THY_VALIDATOR_CONFIG, ThyFormValidationMessages, ThyFormValidatorGlobalConfig } from './form.class';
 import { injectLocale, ThyFormLocale } from 'ngx-tethys/i18n';
+import { THY_VALIDATOR_CONFIG, ThyFormValidationMessages, ThyFormValidatorGlobalConfig } from './form.class';
 
 export const ERROR_VALUE_REPLACE_REGEX = /\{(.+?)\}/g;
 
@@ -90,6 +90,7 @@ export class ThyFormValidatorLoader {
 
     defaultShowError(element: HTMLElement, errorMessages: string[]) {
         if (element && element.parentElement) {
+            this.defaultRemoveError(element);
             const documentFrag = document.createDocumentFragment();
             const divNode = document.createElement('DIV');
             const textNode = document.createTextNode(errorMessages[0]);

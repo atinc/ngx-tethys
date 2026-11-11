@@ -459,6 +459,42 @@ describe('form validate', () => {
         assertFormDefaultState();
     }));
 
+    it('should clear feedbacks and not duplicate after reset when validateOn is change', fakeAsync(() => {
+        testComponent.loadingDone = false;
+        testComponent.validateConfig = {
+            ...testComponent.validateConfig,
+            validateOn: 'change'
+        };
+        fixture.detectChanges();
+        testComponent.loadingDone = true;
+        fixture.detectChanges();
+        tick();
+
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        formDirective = fixture.debugElement.query(By.directive(ThyFormDirective)).injector.get(ThyFormDirective);
+        formSubmitDebugElement = fixture.debugElement.query(By.directive(ThyFormSubmitDirective));
+
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        assertElementInvalidError('username', `user name is required`);
+
+        formDirective.validator.reset();
+        assertFormDefaultState();
+        tick(100);
+        assertFormDefaultState();
+
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        const input = formElement.querySelector('[name=username]')!;
+        expect(input.parentElement!.querySelectorAll('.invalid-feedback').length).toBe(1);
+        assertElementInvalidError('username', `user name is required`);
+
+        testComponent.model.name = 'content';
+        fixture.detectChanges();
+        tick(100);
+        fixture.detectChanges();
+        expect(input.parentElement!.querySelector('.invalid-feedback')).toBeFalsy();
+        expect(input.classList.contains('is-invalid')).toBe(false);
+    }));
+
     it('should manual set element error message success', fakeAsync(() => {
         assertFormDefaultState();
         testComponent.model.name = 'content';

@@ -63,10 +63,5 @@ export class ThyFormValidateExampleComponent {
 
     reset(form: ThyFormDirective) {
         form.validator.reset();
-        this.model = {
-            name: '',
-            password: '',
-            email: ''
-        };
     }
 }
