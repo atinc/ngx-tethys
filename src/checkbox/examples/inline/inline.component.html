@@ -2,6 +2,4 @@
   <label thyCheckbox thyInline="true" [(ngModel)]="inlineStatus" thyLabelText="Toggle inline"></label>
 </div>
 
-<label thyCheckbox thyLabelText="Dog 🐶" [thyInline]="inlineStatus"></label>
-<label thyCheckbox thyLabelText="Cat 🐱" [thyInline]="inlineStatus"></label>
-<label thyCheckbox thyLabelText="Rabbit 🐰" [thyInline]="inlineStatus"></label>
+<thy-checkbox-group [(ngModel)]="values" [thyOptions]="options" [thyInline]="inlineStatus"></thy-checkbox-group>

@@ -1,11 +1,10 @@
 <div class="body">
   <label
     thyCheckbox
-    [thyIndeterminate]="model.indeterminate"
-    [(ngModel)]="model.checkedAll"
-    (ngModelChange)="selectAll()"
-    thyLabelText="Check all"></label>
-  <label thyCheckbox [(ngModel)]="model.checked1" (ngModelChange)="select()" thyLabelText="Dog 🐶"></label>
-  <label thyCheckbox [(ngModel)]="model.checked2" (ngModelChange)="select()" thyLabelText="Cat 🐱"></label>
-  <label thyCheckbox [(ngModel)]="model.checked3" (ngModelChange)="select()" thyLabelText="Rabbit 🐰"></label>
+    [thyIndeterminate]="indeterminate"
+    [(ngModel)]="checkedAll"
+    (ngModelChange)="selectAll($event)"
+    thyLabelText="Check all"
+    class="mb-2"></label>
+  <thy-checkbox-group [(ngModel)]="values" [thyOptions]="options" (ngModelChange)="select($event)"></thy-checkbox-group>
 </div>
