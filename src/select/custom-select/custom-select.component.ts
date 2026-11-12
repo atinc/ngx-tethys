@@ -1260,6 +1260,10 @@ export class ThySelect extends TabIndexDisabledControlValueAccessorMixin impleme
 
     optionClick(event: { value: SafeAny; isUserInput: boolean }) {
         const { value, isUserInput } = event;
+        if (isUserInput && this.disabled) {
+            return;
+        }
+
         const options = this.options();
 
         if (this.isMultiple()) {

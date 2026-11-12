@@ -1461,6 +1461,32 @@ describe('ThyCustomSelect', () => {
                 expect(fixture.componentInstance.select().optionRenders.toArray()[0].selected()).toEqual(true);
             }));
 
+            it('should reject option clicks after thyDisabled changes on an open select', fakeAsync(() => {
+                const { control, foods } = fixture.componentInstance;
+                control.setValue(foods[0].value);
+                fixture.detectChanges();
+                trigger.click();
+                flush();
+                fixture.detectChanges();
+
+                const option = overlayContainerElement.querySelector<HTMLElement>(`[data-option-value="${foods[1].value}"]`)!;
+                expect(option).not.toBeNull();
+
+                fixture.componentInstance.selectDisabled = true;
+                fixture.detectChanges();
+                option.click();
+                flush();
+                fixture.detectChanges();
+                expect(control.value).toBe(foods[0].value);
+
+                fixture.componentInstance.selectDisabled = false;
+                fixture.detectChanges();
+                option.click();
+                flush();
+                fixture.detectChanges();
+                expect(control.value).toBe(foods[1].value);
+            }));
+
             it('should be able to select to an option using the ThyOptionRenderComponent API', fakeAsync(() => {
                 fixture.componentInstance.mode = 'multiple';
                 fixture.detectChanges();
