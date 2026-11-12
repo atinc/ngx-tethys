@@ -49,6 +49,7 @@
   (attach)="onOverlayAttach()">
   <div
     #overlayContainer
+    [attr.inert]="thyDisabled() ? '' : null"
     style="position: relative"
     [animate.enter]="animateEnterClass()"
     [animate.leave]="animateLeaveClass()"
