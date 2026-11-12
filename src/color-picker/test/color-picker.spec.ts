@@ -248,6 +248,20 @@ describe(`color-picker`, () => {
             expect(colorDefaultPanelElement).toBeTruthy();
         }));
 
+        it('should ignore a palette choice after the open color picker is disabled', fakeAsync(() => {
+            openDefaultPanel();
+            const picker = colorPickerDebugElement.componentInstance.colorPicker();
+            const change = spyOn(picker, 'onChangeFn');
+            fixtureInstance.disabled = true;
+            fixture.detectChanges();
+
+            picker.onModelChange('#333333');
+            fixture.detectChanges();
+            flush();
+
+            expect(change).not.toHaveBeenCalled();
+        }));
+
         it('should open color-picker panel when trigger is hover', fakeAsync(() => {
             fixtureInstance.trigger = 'hover';
             fixtureInstance.hasBackdrop = false;
