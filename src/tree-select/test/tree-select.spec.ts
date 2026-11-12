@@ -696,6 +696,21 @@ describe('ThyTreeSelect', () => {
                 expect(overlayContainerElement.querySelectorAll('a').length).toEqual(0);
             });
 
+            it('should make the open tree inert when disabled', () => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0].click();
+                fixture.detectChanges();
+
+                const panel = overlayContainerElement.querySelector('thy-tree-select-nodes') as HTMLElement;
+                expect(panel.inert).toBe(false);
+
+                fixture.componentInstance.disable = true;
+                fixture.detectChanges();
+
+                expect(panel.inert).toBe(true);
+            });
+
             it('should call onFocus methods when focus', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 const treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelect));
