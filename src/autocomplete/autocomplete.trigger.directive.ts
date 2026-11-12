@@ -257,7 +257,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private setValueAndClose(event: ThyOptionSelectionChangeEvent | null): void {
-        if (event && event.option) {
+        if (event && event.option && !this.inputElement.disabled) {
             this.setValue(event.option.thyLabelText()!);
         }
         this.closePanel();
@@ -287,11 +287,14 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         );
     }
 
+    private get inputElement(): HTMLInputElement | HTMLTextAreaElement {
+        const host: HTMLElement = this.elementRef.nativeElement;
+        return host.querySelector('input') ?? (host as HTMLInputElement | HTMLTextAreaElement);
+    }
+
     private setValue(value: string) {
-        const input = this.elementRef.nativeElement.querySelector('input');
-        const element = input ? input : this.elementRef.nativeElement;
-        element.value = value;
-        element.focus();
+        this.inputElement.value = value;
+        this.inputElement.focus();
     }
 
     private canOpen(): boolean {
