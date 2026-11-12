@@ -1,17 +1,21 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThyCheckbox, ThyCheckboxGroup, ThyCheckboxOption } from 'ngx-tethys/checkbox';
 
 @Component({
     selector: 'thy-checkbox-inline-example',
     templateUrl: './inline.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyCheckbox, FormsModule]
+    imports: [ThyCheckbox, ThyCheckboxGroup, FormsModule]
 })
-export class ThyCheckboxInlineExampleComponent implements OnInit {
+export class ThyCheckboxInlineExampleComponent {
     public inlineStatus = true;
 
-    constructor() {}
+    public values: Array<string | number> = ['dog'];
 
-    ngOnInit() {}
+    public options: ThyCheckboxOption[] = [
+        { label: 'Dog 🐶', value: 'dog' },
+        { label: 'Cat 🐱', value: 'cat' },
+        { label: 'Rabbit 🐰', value: 'rabbit' }
+    ];
 }
