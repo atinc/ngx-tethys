@@ -38,6 +38,7 @@
   (detach)="close()">
   <thy-tree-select-nodes
     thyStopPropagation
+    [attr.inert]="thyDisable() ? '' : null"
     [thyVirtualScroll]="thyVirtualScroll()"
     [loadState]="!isLoading()"
     [treeNodes]="thyVirtualScroll() ? virtualTreeNodes() : treeNodes()"
