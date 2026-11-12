@@ -35,6 +35,7 @@
   (detach)="close()">
   <div
     thyStopPropagation
+    [attr.inert]="disabled ? '' : null"
     [attr.tabindex]="-1"
     [ngClass]="dropDownClass()"
     [animate.enter]="animateEnterClass()"
