@@ -298,6 +298,10 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
     }
 
     onModelChange(value: string): void {
+        if (this.disabled) {
+            return;
+        }
+
         this.color = value;
         this.onChangeFn(value);
     }
