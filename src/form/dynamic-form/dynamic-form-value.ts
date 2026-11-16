@@ -1,6 +1,6 @@
-import { ThyDynamicFormValue, ThyFormFieldSchema } from './types';
+import { ThyDynamicFormFieldSchema, ThyDynamicFormValue } from './types';
 
-export function validateDynamicFormFields(fields: readonly ThyFormFieldSchema[]): readonly ThyFormFieldSchema[] {
+export function validateDynamicFormFields(fields: readonly ThyDynamicFormFieldSchema[]): readonly ThyDynamicFormFieldSchema[] {
     const keys = new Set<string>();
 
     for (const field of fields) {
@@ -13,7 +13,7 @@ export function validateDynamicFormFields(fields: readonly ThyFormFieldSchema[])
     return fields;
 }
 
-export function buildDynamicFormValue(fields: readonly ThyFormFieldSchema[], value?: ThyDynamicFormValue): ThyDynamicFormValue {
+export function buildDynamicFormValue(fields: readonly ThyDynamicFormFieldSchema[], value?: ThyDynamicFormValue): ThyDynamicFormValue {
     const result: ThyDynamicFormValue = {};
 
     for (const field of fields) {
@@ -23,19 +23,19 @@ export function buildDynamicFormValue(fields: readonly ThyFormFieldSchema[], val
     return result;
 }
 
-function fieldDefaultValue(field: ThyFormFieldSchema): unknown {
+function fieldDefaultValue(field: ThyDynamicFormFieldSchema): unknown {
     if (field.defaultValue !== undefined) {
         return field.defaultValue;
     }
+    if (field.props?.multiple === true) {
+        return [];
+    }
     switch (field.kind) {
-        case 'select':
-            return field.props?.multiple === true ? [] : null;
         case 'checkbox':
         case 'switch':
             return false;
         case 'input':
         case 'textarea':
-        case 'number':
             return '';
         default:
             return null;

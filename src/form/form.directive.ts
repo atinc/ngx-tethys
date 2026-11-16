@@ -9,18 +9,18 @@ import {
     OnDestroy,
     OnInit,
     Renderer2,
+    contentChildren,
+    effect,
     inject,
     input,
-    effect,
-    contentChildren,
     untracked
 } from '@angular/core';
 import { ControlContainer, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyFormValidatorService } from './form-validator.service';
 import { THY_FORM_CONFIG, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -116,6 +116,10 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+        const config = this.thyFormValidatorConfig();
+        if (config) {
+            this.validator.setValidatorConfig(config);
+        }
         this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
         this.validator.initializeFormControlsValidation([...this.controls()]);
         this.controlsInitialized = true;

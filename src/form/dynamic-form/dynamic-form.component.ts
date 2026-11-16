@@ -1,12 +1,5 @@
-import { ThyCheckbox } from 'ngx-tethys/checkbox';
 import { ThyFormControlSize } from 'ngx-tethys/core';
-import { ThyDatePicker, ThyRangePicker } from 'ngx-tethys/date-picker';
-import { ThyInputDirective } from 'ngx-tethys/input';
-import { ThyInputNumber } from 'ngx-tethys/input-number';
-import { ThyRadio, ThyRadioButton, ThyRadioGroup } from 'ngx-tethys/radio';
-import { ThySelect } from 'ngx-tethys/select';
-import { ThySwitch } from 'ngx-tethys/switch';
-import { ThyTimePicker } from 'ngx-tethys/time-picker';
+import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 
 import {
     afterNextRender,
@@ -22,27 +15,29 @@ import {
     signal,
     untracked
 } from '@angular/core';
-import { Field, FieldTree, form, FormField, FormRoot, ValidationError } from '@angular/forms/signals';
+import { Field, FieldTree, form, FormRoot, ValidationError } from '@angular/forms/signals';
 
 import { ThyFormGroup } from '../form-group.component';
 import { ThyFormValidatorLoader } from '../form-validator-loader';
 import { THY_FORM_CONFIG, ThyFormLayout } from '../form.class';
 import { ThyFormDirective } from '../form.directive';
+import { createDynamicFormFieldTypeMap, injectThyDynamicFormFieldTypes, ThyDynamicFormFieldType } from './dynamic-form-field-types';
 import { buildDynamicFormSchema } from './dynamic-form-schema';
 import { buildDynamicFormValue, isSameDynamicFormValue, validateDynamicFormFields } from './dynamic-form-value';
 import { resolveFieldErrorMessage } from './error-messages';
+import { THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES } from './fields';
 import {
+    ThyDynamicFormFieldSchema,
     ThyDynamicFormStatus,
     ThyDynamicFormValue,
     ThyFormFieldAsyncValidator,
-    ThyFormFieldSchema,
     ThyFormFieldValidator,
     ThyFormFieldValueChange
 } from './types';
 
 interface FieldTreeRebuildDependency {
     readonly key: string;
-    readonly kind: ThyFormFieldSchema['kind'];
+    readonly kind: string;
     readonly validators: readonly ThyFormFieldValidator[];
     readonly asyncValidators: readonly ThyFormFieldAsyncValidator[];
 }
@@ -56,22 +51,7 @@ interface FieldTreeRebuildDependency {
     selector: 'thy-dynamic-form',
     templateUrl: './dynamic-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        FormRoot,
-        FormField,
-        ThyFormGroup,
-        ThySelect,
-        ThyInputDirective,
-        ThyInputNumber,
-        ThyCheckbox,
-        ThyRadio,
-        ThyRadioButton,
-        ThyRadioGroup,
-        ThySwitch,
-        ThyTimePicker,
-        ThyDatePicker,
-        ThyRangePicker
-    ],
+    imports: [FormRoot, ThyFormGroup, ThyViewOutletDirective],
     providers: [
         {
             provide: ThyFormDirective,
@@ -92,11 +72,11 @@ interface FieldTreeRebuildDependency {
 })
 export class ThyDynamicForm {
     /**
-     * 字段配置。kind 支持 input、textarea、number、select、checkbox、radio、switch、time、date、dateRange
-     * @type ThyFormFieldSchema[]
+     * 字段配置。内置见 `ThyFormFieldSchema`；自定义用 `ThyFormFieldSchemaWith` 扩展。
+     * @type ThyDynamicFormFieldSchema[]
      * @default []
      */
-    readonly thyFields = input<ThyFormFieldSchema[]>([]);
+    readonly thyFields = input<ThyDynamicFormFieldSchema[]>([]);
 
     /** 表单值。支持双向绑定；不传时用各字段的 defaultValue */
     readonly thyValue = model<ThyDynamicFormValue>({});
@@ -130,6 +110,12 @@ export class ThyDynamicForm {
     get isHorizontal(): boolean {
         return this.layout() === 'horizontal';
     }
+
+    private readonly injectedFieldTypes = injectThyDynamicFormFieldTypes();
+
+    protected readonly fieldTypeMap = computed(() =>
+        createDynamicFormFieldTypeMap(THY_DYNAMIC_FORM_BUILTIN_FIELD_TYPES, this.injectedFieldTypes)
+    );
 
     /** 组件内部修改单个字段时触发。 */
     readonly thyFieldValueChange = output<ThyFormFieldValueChange>();
@@ -211,6 +197,10 @@ export class ThyDynamicForm {
         });
     }
 
+    protected resolveFieldType(kind: string): ThyDynamicFormFieldType | undefined {
+        return this.fieldTypeMap().get(kind);
+    }
+
     private createFieldTree(): FieldTree<ThyDynamicFormValue> {
         const normalizedValue = buildDynamicFormValue(this.fields(), this.thyValue());
         if (!isSameDynamicFormValue(this.thyValue(), normalizedValue)) {
@@ -241,7 +231,7 @@ export class ThyDynamicForm {
         return this.fieldTree[key] as unknown as Field<TValue>;
     }
 
-    protected errorMessage(field: ThyFormFieldSchema, error: ValidationError | undefined): string | null {
+    protected errorMessage(field: ThyDynamicFormFieldSchema, error: ValidationError | undefined): string | null {
         return resolveFieldErrorMessage(field, error, (name, code) => this.validatorLoader.getErrorMessage(name, code));
     }
 

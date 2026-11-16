@@ -1,12 +1,11 @@
 import { ThyCopyDirective, ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThyButton } from 'ngx-tethys/button';
 
 @Component({
     selector: 'thy-copy-notify-example',
     templateUrl: './notify.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyCopyDirective, ThyButton]
 })
 export class ThyCopyNotifyExampleComponent {

@@ -1,148 +1,25 @@
 <form [formRoot]="fieldTree" (reset)="handleReset($event)">
   <div class="thy-dynamic-form-fields">
-    @for (field of fields(); track field.key) {
-      @let fieldControl = getField(field.key);
-      @let fieldState = fieldControl();
+    @for (fieldSchema of fields(); track fieldSchema.key) {
+      @let field = getField(fieldSchema.key);
+      @let fieldState = field();
       @let invalid = fieldState.invalid() && fieldState.touched();
       <thy-form-group
         class="thy-dynamic-form-field"
-        [style.grid-column]="layout() === 'inline' ? null : 'span ' + (field.col ?? 12)"
-        [thyLabelText]="field.props?.label"
-        [thyLabelRequired]="!!field.props?.required">
+        [style.grid-column]="layout() === 'inline' ? null : 'span ' + (fieldSchema.col ?? 12)"
+        [thyLabelText]="fieldSchema.props?.label"
+        [thyLabelRequired]="!!fieldSchema.props?.required">
         <div class="thy-dynamic-form-control">
-          <div class="thy-dynamic-form-control-input">
-            @switch (field.kind) {
-              @case ('input') {
-                <input
-                  thyInput
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [name]="field.key"
-                  [class.is-invalid]="invalid"
-                  [attr.placeholder]="field.props?.placeholder || null"
-                  [attr.type]="field.props?.type || 'text'"
-                  [thySize]="thySize()" />
-              }
-              @case ('number') {
-                <thy-input-number
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [attr.name]="field.key"
-                  [class.is-invalid]="invalid"
-                  [thyPlaceholder]="field.props?.placeholder || null"
-                  [thySuffix]="field.props?.suffix"
-                  [thyMax]="field.props?.max"
-                  [thyMin]="field.props?.min"
-                  [thyStep]="field.props?.step"
-                  [thySize]="thySize()" />
-              }
-              @case ('textarea') {
-                <textarea
-                  thyInput
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [name]="field.key"
-                  [class.is-invalid]="invalid"
-                  [attr.placeholder]="field.props?.placeholder || null"
-                  [attr.rows]="field.props?.rows ?? 3"
-                  [style.resize]="field.props?.resize ?? 'none'"
-                  [thySize]="thySize()"></textarea>
-              }
-              @case ('select') {
-                <thy-select
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [attr.name]="field.key"
-                  [class.is-invalid]="invalid"
-                  [thyDisabled]="fieldState.disabled()"
-                  [thyOptions]="field.props?.options ?? []"
-                  [thyPlaceholder]="field.props?.placeholder ?? ''"
-                  [thySearchable]="field.props?.searchable"
-                  [thyClearable]="field.props?.clearable"
-                  [thyMultiple]="field.props?.multiple"
-                  [thyEmptyStateText]="field.props?.emptyText ?? ''"
-                  [thySearchEmptyText]="field.props?.searchEmptyText ?? ''"
-                  [thySize]="thySize()" />
-              }
-              @case ('checkbox') {
-                <thy-checkbox [formField]="fieldControl" [id]="field.key" [class.is-invalid]="invalid" />
-              }
-              @case ('radio') {
-                <thy-radio-group
-                  [formField]="fieldControl"
-                  [thySize]="thySize()"
-                  [thyLayout]="field.props?.layout"
-                  [thyDisabled]="fieldState.disabled()">
-                  @for (option of field.props?.options ?? []; track option.value) {
-                    @if (field.props?.button) {
-                      <label
-                        thyRadioButton
-                        [thyLabelText]="option.label"
-                        [thyValue]="option.value"
-                        [thyDisabled]="fieldState.disabled()"></label>
-                    } @else {
-                      <label thyRadio [thyLabelText]="option.label" [thyValue]="option.value" [thyDisabled]="fieldState.disabled()"></label>
-                    }
-                  }
-                </thy-radio-group>
-              }
-              @case ('switch') {
-                <thy-switch
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [thyColor]="field.props?.color"
-                  [thyDisabled]="fieldState.disabled()"
-                  [thySize]="thySize()" />
-              }
-              @case ('time') {
-                <thy-time-picker
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [class.is-invalid]="invalid"
-                  [thySize]="thySize()"
-                  [thyPlaceholder]="field.props?.placeholder"
-                  [thyFormat]="field.props?.format"
-                  [thyAllowClear]="field.props?.allowClear ?? true"
-                  [thyShowSelectNow]="field.props?.showSelectNow ?? true"
-                  [thyReadonly]="fieldState.readonly()" />
-              }
-              @case ('date') {
-                <thy-date-picker
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [class.is-invalid]="invalid"
-                  [thySize]="thySize()"
-                  [thyPlaceholder]="field.props?.placeholder"
-                  [thyFormat]="field.props?.format"
-                  [thyMinDate]="field.props?.min"
-                  [thyMaxDate]="field.props?.max"
-                  [thyAllowClear]="field.props?.allowClear ?? true"
-                  [thyShowTime]="field.props?.showTime ?? false"
-                  [thyDisabledDate]="field.props?.disabledDate"
-                  [thyReadonly]="fieldState.readonly()" />
-              }
-              @case ('dateRange') {
-                <thy-range-picker
-                  [formField]="fieldControl"
-                  [id]="field.key"
-                  [class.is-invalid]="invalid"
-                  [thySize]="thySize()"
-                  [thyPlaceholder]="field.props?.placeholder"
-                  [thyFormat]="field.props?.format"
-                  [thyMinDate]="field.props?.min"
-                  [thyMaxDate]="field.props?.max"
-                  [thyAllowClear]="field.props?.allowClear ?? true"
-                  [thyShowTime]="field.props?.showTime ?? false"
-                  [thyDisabledDate]="field.props?.disabledDate"
-                  [thyReadonly]="fieldState.readonly()" />
-              }
-              @default {
-                <span class="invalid-feedback">Unsupported field kind.</span>
-              }
+          @let fieldType = resolveFieldType(fieldSchema.kind);
+          <div class="thy-dynamic-form-control-input" [class.is-invalid]="invalid">
+            @if (fieldType) {
+              <ng-container *thyViewOutlet="fieldType.component; context: { field, fieldSchema, size: thySize(), invalid }"></ng-container>
             }
           </div>
-          @if (invalid) {
-            <div class="invalid-feedback">{{ errorMessage(field, fieldState.errors()[0]) }}</div>
+          @if (!fieldType) {
+            <div class="invalid-feedback">Unsupported field kind.</div>
+          } @else if (invalid) {
+            <div class="invalid-feedback">{{ errorMessage(fieldSchema, fieldState.errors()[0]) }}</div>
           }
         </div>
       </thy-form-group>

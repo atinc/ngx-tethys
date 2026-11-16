@@ -1,7 +1,7 @@
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
-import { of, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, FormControlName, FormGroupDirective, NgControl, NgForm, ValidationErrors } from '@angular/forms';
@@ -44,10 +44,14 @@ export class ThyFormValidatorService implements OnDestroy {
     }
 
     private _clearElementError(name: string) {
-        if (this.validations[name] && this.validations[name].hasError) {
-            this.validations[name].hasError = false;
-            this.validations[name].errorMessages = [];
-            this.thyFormValidateLoader.removeError(this._getElement(name) as HTMLElement);
+        if (!this.validations[name]) {
+            return;
+        }
+        this.validations[name].hasError = false;
+        this.validations[name].errorMessages = [];
+        const element = this._getElement(name);
+        if (element) {
+            this.thyFormValidateLoader.removeError(element);
         }
     }
 
@@ -68,19 +72,13 @@ export class ThyFormValidatorService implements OnDestroy {
     }
 
     private _setControlValidateByChange(control: NgControl) {
-        control
-            .valueChanges!.pipe(
-                debounceTime(100),
-                distinctUntilChanged(),
-                filter(item => {
-                    return item;
-                }),
-                switchMap(item => {
-                    this.validateControl(control.name as string);
-                    return of([]);
-                })
-            )
-            .subscribe();
+        control.valueChanges!.pipe(debounceTime(100), distinctUntilChanged(), takeUntil(this._destroy$)).subscribe(value => {
+            const name = control.name as string;
+            if (!this.validations[name]?.hasError && (isUndefinedOrNull(value) || value === '')) {
+                return;
+            }
+            this.validateControl(name);
+        });
     }
 
     private _setControlValidateByBlur(control: NgControl) {
@@ -116,14 +114,6 @@ export class ThyFormValidatorService implements OnDestroy {
                 this._clearElementError(name);
                 this._clearErrors();
             });
-        }
-    }
-
-    private _restFormControlValidation(name: string) {
-        const validation = this.validations[name];
-        if (validation) {
-            validation.hasError = false;
-            validation.errorMessages = [];
         }
     }
 
@@ -275,10 +265,10 @@ export class ThyFormValidatorService implements OnDestroy {
         this._ngForm.reset();
         for (const name in this.validations) {
             if (this.validations.hasOwnProperty(name)) {
-                this._restFormControlValidation(name);
                 this._clearElementError(name);
             }
         }
+        this._clearErrors();
     }
 
     setElementErrorMessage(name: string, message: string) {

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.8](github.com/atinc/ngx-tethys/compare/22.0.7...22.0.8) (2026-11-11)
+
+
+### Features
+
+* **form:** dynamic-form 自定义类型 ([#4026](/github.com/atinc/ngx-tethys/issues/4026)) ([8a3bf05](github.com/atinc/ngx-tethys/commits/8a3bf059d55518d7637c2fa2e652f776e849b681))
+
 ## [22.0.7](github.com/atinc/ngx-tethys/compare/22.0.6...22.0.7) (2026-11-05)
 
 
