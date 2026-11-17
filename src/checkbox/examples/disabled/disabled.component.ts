@@ -1,22 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyCheckbox, ThyCheckboxGroup, ThyCheckboxOption } from 'ngx-tethys/checkbox';
 
 @Component({
     selector: 'thy-checkbox-disabled-example',
     templateUrl: './disabled.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyCheckbox, FormsModule]
+    imports: [ThyCheckbox, ThyCheckboxGroup, FormsModule]
 })
-export class ThyCheckboxDisabledExampleComponent implements OnInit {
-    checked = true;
+export class ThyCheckboxDisabledExampleComponent {
+    values: Array<string | number> = ['apple'];
 
-    model = {
-        indeterminate: true,
-        checkedAll: false
-    };
+    groupValues: Array<string | number> = [];
 
-    constructor() {}
+    disabledOptions: ThyCheckboxOption[] = [
+        { label: 'Apple', value: 'apple' },
+        { label: 'Banana', value: 'banana', disabled: true }
+    ];
 
-    ngOnInit() {}
+    allDisabledOptions: ThyCheckboxOption[] = [
+        { label: 'Apple', value: 'apple' },
+        { label: 'Orange', value: 'orange' }
+    ];
 }

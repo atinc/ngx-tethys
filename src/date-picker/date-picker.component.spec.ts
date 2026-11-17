@@ -1079,7 +1079,9 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             const result = getCdkOverlayPane();
             fixture.detectChanges();
-            expect(result.style.transform).toBe('translateY(4px)');
+            // flexiblePosition may flip to top fallback when viewport space is insufficient (common in CI),
+            // so offset can be +4px (bottom*) or -4px (top*).
+            expect(result.style.transform).toMatch(/^translateY\(-?4px\)$/);
         }));
     });
 

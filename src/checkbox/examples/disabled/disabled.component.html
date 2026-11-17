@@ -1,11 +1,14 @@
-<label thyCheckbox thyLabelText="Disabled Checkbox" [thyDisabled]="true"></label>
+<div class="mb-4">
+  <p class="mb-2">单框禁用</p>
+  <label thyCheckbox thyLabelText="Checkbox" [thyDisabled]="true"></label>
+</div>
 
-<label
-  thyCheckbox
-  [thyIndeterminate]="model.indeterminate"
-  [(ngModel)]="model.checkedAll"
-  thyLabelText="Disabled Checkbox Indeterminate"
-  [disabled]="true">
-</label>
+<div class="mb-4">
+  <p class="mb-2">选项禁用</p>
+  <thy-checkbox-group [(ngModel)]="values" [thyOptions]="disabledOptions"></thy-checkbox-group>
+</div>
 
-<label thyCheckbox thyLabelText="Disabled Checkbox Checked" [(ngModel)]="checked" [disabled]="true"></label>
+<div class="mb-4">
+  <p class="mb-2">整组禁用</p>
+  <thy-checkbox-group [(ngModel)]="groupValues" [thyOptions]="allDisabledOptions" [thyDisabled]="true"></thy-checkbox-group>
+</div>
