@@ -1,1 +1,19 @@
-<ng-content></ng-content>
+@if (hasOptions()) {
+  @for (option of thyOptions(); track option.value) {
+    <label class="form-check" [class.form-check-checked]="isChecked(option.value)" [class.disabled]="isOptionDisabled(option)">
+      <input
+        class="form-check-input"
+        type="radio"
+        [attr.name]="name"
+        [checked]="isChecked(option.value)"
+        [disabled]="isOptionDisabled(option)"
+        [attr.tabindex]="isOptionDisabled(option) ? -1 : 0"
+        (change)="onRadioChange(option)" />
+      @if (option.label) {
+        <span class="form-check-label">{{ option.label }}</span>
+      }
+    </label>
+  }
+} @else {
+  <ng-content></ng-content>
+}

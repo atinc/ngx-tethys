@@ -8,7 +8,7 @@ export interface IThyRadioComponent {
 
 export interface IThyRadioGroupComponent {
     addRadio(radio: IThyRadioComponent): void;
-    updateValue(value: string, emit: boolean): void;
+    updateValue(value: string | number | boolean, emit: boolean): void;
     setGroup(): void;
 }
 

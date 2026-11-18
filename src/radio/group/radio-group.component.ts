@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, forwardRef, inject, input, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, forwardRef, inject, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -15,6 +15,28 @@ const buttonGroupSizeMap: Record<string, string> = {
 const radioGroupLayoutMap: Record<string, string> = {
     flex: 'radio-group-layout-flex'
 };
+
+let nextUniqueId = 0;
+
+/**
+ * Radio Group 选项
+ */
+export interface ThyRadioOption {
+    /**
+     * 选项展示文案
+     */
+    label: string;
+    /**
+     * 选项值；选中后作为 Group 的 ngModel 值
+     */
+    value: string | number | boolean;
+    /**
+     * 是否禁用该选项
+     */
+    disabled?: boolean;
+}
+
+export type ThyRadioGroupValue = string | number | boolean;
 
 /**
  * @name thy-radio-group
@@ -61,11 +83,10 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
      */
     readonly thyLayout = input<string>();
 
-    _innerValue!: string | number;
-
-    radios: Array<ThyRadio | ThyRadioButton> = [];
-
-    private hostRenderer = useHostRenderer();
+    /**
+     * 选项列表；非空时走 options 数据驱动（优先于 content 投影）
+     */
+    readonly thyOptions = input<ThyRadioOption[]>([]);
 
     /**
      * 是否禁用单选组合框
@@ -73,16 +94,45 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
      */
     readonly thyDisabled = input(false, { transform: coerceBooleanProperty });
 
-    onChange: (_: string) => void = () => null;
+    readonly hasOptions = computed(() => (this.thyOptions()?.length ?? 0) > 0);
+
+    readonly isGroupDisabled = computed(() => this.thyDisabled() || this.formDisabled());
+
+    readonly name = `thy-radio-group-${nextUniqueId++}`;
+
+    _innerValue!: ThyRadioGroupValue;
+
+    radios: Array<ThyRadio | ThyRadioButton> = [];
+
+    private hostRenderer = useHostRenderer();
+
+    private readonly formDisabled = signal(false);
+
+    onChange: (_: ThyRadioGroupValue) => void = () => null;
 
     onTouched: () => void = () => null;
+
+    isChecked(optionValue: ThyRadioGroupValue): boolean {
+        return this._innerValue === optionValue;
+    }
+
+    isOptionDisabled(option: ThyRadioOption): boolean {
+        return this.isGroupDisabled() || !!option.disabled;
+    }
+
+    onRadioChange(option: ThyRadioOption): void {
+        if (this.isOptionDisabled(option)) {
+            return;
+        }
+        this.updateValue(option.value, true);
+    }
 
     addRadio(radio: ThyRadio | ThyRadioButton): void {
         this.radios.push(radio);
         radio.thyChecked = radio.thyValue() === this._innerValue;
     }
 
-    updateValue(value: string, emit: boolean): void {
+    updateValue(value: ThyRadioGroupValue, emit: boolean): void {
         this._innerValue = value;
         this.radios.forEach(radio => {
             radio.thyChecked = radio.thyValue() === this._innerValue;
@@ -107,6 +157,7 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     }
 
     setDisabledState(isDisabled: boolean): void {
+        this.formDisabled.set(isDisabled);
         this.radios.forEach(radio => {
             radio.setDisabledState(isDisabled);
         });
