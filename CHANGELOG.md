@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.9](github.com/atinc/ngx-tethys/compare/22.0.8...22.0.9) (2026-11-18)
+
+
+### Features
+
+* **checkbox:** support ThyCheckboxGroup with thyOptions #TINFR-4191 ([#4031](/github.com/atinc/ngx-tethys/issues/4031)) ([f8e4a11](github.com/atinc/ngx-tethys/commits/f8e4a115eded7569f4f32a2323a80575a67a9b7e)), closes [#TINFR-4191](github.com/atinc/ngx-tethys/issues/TINFR-4191) [#TINFR-4191](github.com/atinc/ngx-tethys/issues/TINFR-4191)
+
 ## [22.0.8](github.com/atinc/ngx-tethys/compare/22.0.7...22.0.8) (2026-11-11)
 
 
