@@ -182,11 +182,7 @@ describe('thy-radio-group component', () => {
 @Component({
     selector: 'thy-radio-group-options-test',
     template: `
-        <thy-radio-group
-            [(ngModel)]="checkedValue"
-            [thyOptions]="options"
-            [thyDisabled]="disabled"
-            [thyLayout]="layout">
+        <thy-radio-group [(ngModel)]="checkedValue" [thyOptions]="options" [thyDisabled]="disabled" [thyLayout]="layout">
             <label thyRadio thyLabelText="投影一" [thyValue]="'a'"></label>
             <label thyRadio thyLabelText="投影二" [thyValue]="'b'"></label>
         </thy-radio-group>
