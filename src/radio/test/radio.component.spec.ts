@@ -207,12 +207,13 @@ class RadioGroupOptionsTestComponent {
 
 @Component({
     selector: 'thy-radio-group-options-reactive-test',
-    template: ` <thy-radio-group [formControl]="control" [thyOptions]="options"></thy-radio-group> `,
+    template: ` <thy-radio-group [formControl]="control" [thyOptions]="options" [thyDisabled]="disabled"></thy-radio-group> `,
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ThyRadioModule, ReactiveFormsModule]
 })
 class RadioGroupOptionsReactiveTestComponent {
     control = new FormControl<string | number | boolean | null>('apple');
+    disabled = false;
     options: ThyRadioOption[] = [
         { label: 'Apple', value: 'apple' },
         { label: 'On', value: true },
@@ -316,6 +317,61 @@ describe('thy-radio-group options mode', () => {
         expect(groupElement.querySelectorAll('[thyRadio]').length).toBe(2);
         expect(groupElement.textContent).toContain('投影一');
     }));
+
+    it('should keep content projection selection working after switching from options mode', fakeAsync(() => {
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        testComponent.options = [];
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        const labels = groupDebugElement.nativeElement.querySelectorAll('[thyRadio]') as NodeListOf<HTMLElement>;
+        expect(labels.length).toBe(2);
+        labels[1].click();
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        expect(testComponent.checkedValue).toBe('b');
+        expect(labels[1].classList.contains('form-check-checked')).toBe(true);
+    }));
+
+    it('should keep projected selection after options ↔ content round-trip', fakeAsync(() => {
+        testComponent.options = [];
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+        expect(groupDebugElement.nativeElement.querySelectorAll('[thyRadio]').length).toBe(2);
+
+        testComponent.options = [
+            { label: 'Apple', value: 'apple' },
+            { label: 'Pear', value: 'pear' }
+        ];
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        const groupElement = groupDebugElement.nativeElement as HTMLElement;
+        expect(groupElement.querySelectorAll('[thyRadio]').length).toBe(0);
+        expect(groupElement.querySelectorAll('input[type="radio"]').length).toBe(2);
+
+        testComponent.options = [];
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        const labels = groupElement.querySelectorAll('[thyRadio]') as NodeListOf<HTMLElement>;
+        expect(labels.length).toBe(2);
+        labels[0].click();
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+        expect(testComponent.checkedValue).toBe('a');
+        expect(labels[0].classList.contains('form-check-checked')).toBe(true);
+    }));
 });
 
 describe('thy-radio-group options reactive forms', () => {
@@ -360,5 +416,36 @@ describe('thy-radio-group options reactive forms', () => {
 
         const inputs = groupDebugElement.nativeElement.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>;
         expect(Array.from(inputs).every(input => input.disabled)).toBe(true);
+    }));
+
+    it('should keep formControl disable when thyDisabled toggles back to false', fakeAsync(() => {
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        testComponent.control.disable();
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        testComponent.disabled = true;
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        testComponent.disabled = false;
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        const inputs = groupDebugElement.nativeElement.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>;
+        expect(Array.from(inputs).every(input => input.disabled)).toBe(true);
+
+        const labels = groupDebugElement.nativeElement.querySelectorAll('.form-check') as NodeListOf<HTMLElement>;
+        labels[1].click();
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+        expect(testComponent.control.value).toBe('apple');
     }));
 });

@@ -19,7 +19,7 @@ import { ThyRadioModule } from "ngx-tethys/radio";
 - 单独使用时，可用 `thyRadio` 或 `thyRadioButton` 两种样式。
 - 从一组选项中单选时，使用 `thy-radio-group`：
   - 在组内放置 `thyRadio` / `thyRadioButton`；
-  - 或通过 `thyOptions` 配置选项列表。二者同时传入时，以 `thyOptions` 为准。
+  - 或通过 `thyOptions` 配置选项列表（`value` 组内应唯一）。二者同时传入时，以 `thyOptions` 为准。
 
 ## 代码示例
 

@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NgClass } from '@angular/common';
-import { Component, forwardRef, inject, input, OnInit } from '@angular/core';
+import { Component, forwardRef, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
@@ -25,7 +25,7 @@ import { IThyRadioComponent, THY_RADIO_GROUP_COMPONENT } from './radio.token';
     },
     imports: [NgClass]
 })
-export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComponent, OnInit {
+export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComponent, OnInit, OnDestroy {
     thyRadioGroupComponent = inject(THY_RADIO_GROUP_COMPONENT, { optional: true })!;
 
     name?: string;
@@ -44,6 +44,10 @@ export class ThyRadio extends ThyFormCheckBaseComponent implements IThyRadioComp
         if (this.thyRadioGroupComponent) {
             this.thyRadioGroupComponent.addRadio(this);
         }
+    }
+
+    ngOnDestroy() {
+        this.thyRadioGroupComponent?.removeRadio(this);
     }
 
     change() {
