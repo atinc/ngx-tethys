@@ -17,8 +17,8 @@ import { ThyRadioModule } from "ngx-tethys/radio";
 ## 如何使用
 
 - 单独使用时，可用 `thyRadio` 或 `thyRadioButton` 两种样式。
-- 需要互斥成组时，使用 `thy-radio-group`：
-  - 在 Group 内放置 `thyRadio` / `thyRadioButton` 子节点；
+- 从一组选项中单选时，使用 `thy-radio-group`：
+  - 在组内放置 `thyRadio` / `thyRadioButton`；
   - 或通过 `thyOptions` 配置选项列表。二者同时传入时，以 `thyOptions` 为准。
 
 ## 代码示例
