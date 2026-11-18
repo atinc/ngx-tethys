@@ -903,10 +903,12 @@ ng generate ngx-tethys:migrate-22
 **标记为废弃，将在 v23 彻底删除**
 
 - `thyTip` 参数已废弃，请使用 `thyTips`
+- `thyDone` 已废弃，请使用 `thyLoading`（默认 `true`，表示加载中；与旧属性语义相反）
 
 **自动迁移**
 
 - `thyTip` → `thyTips`
+- 仅 `thy-loading`：`thyDone` / `thyDone="true"` / `[thyDone]="true"` → `[thyLoading]="false"`；`thyDone="false"` / `[thyDone]="false"` 直接删除；`[thyDone]="done"` → `[thyLoading]="!(done)"`。同时写了 `thyLoading` 时按 `thyDone` 迁移，并去掉原来的 `thyLoading`
 
 ---
 

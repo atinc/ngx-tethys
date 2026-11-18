@@ -1,4 +1,4 @@
-@if (!thyDone()) {
+@if (isLoading()) {
   <span class="thy-loading-indicator">
     <span class="thy-loading-ellipsis">
       <span class="thy-spot"></span>
@@ -8,7 +8,7 @@
     }
   </span>
 }
-@if (thyIsMask() || thyDone()) {
+@if (thyIsMask() || !isLoading()) {
   <div class="thy-loading-container">
     <ng-content></ng-content>
   </div>

@@ -2,7 +2,7 @@
   <span class="mr-3">Loading state:</span>
   <thy-switch thySize="sm" [(ngModel)]="loading"></thy-switch>
 </div>
-<thy-loading [thyDone]="!loading"></thy-loading>
+<thy-loading [thyLoading]="loading"></thy-loading>
 @if (!loading) {
   <table class="table table-bordered">
     <thead>

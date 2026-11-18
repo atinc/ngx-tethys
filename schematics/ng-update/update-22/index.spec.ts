@@ -2317,4 +2317,39 @@ export class StatisticDemoComponent {
         expect(content).not.toMatch(/<thy-statistic[^>]*thyShape/);
         expect(content).not.toMatch(/<thy-statistic[^>]*\[thyShape\]/);
     });
+
+    it('should migrate deprecated thyDone on thy-loading', async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-22-test' });
+        const testTree = factory.addNewFile(
+            '/projects/update-22-test/src/app/loading-demo.component.ts',
+            `
+import { Component } from '@angular/core';
+import { ThyLoading } from 'ngx-tethys/loading';
+
+@Component({
+    selector: 'app-loading-demo',
+    template: \`
+        <thy-loading thyDone></thy-loading>
+        <thy-loading [thyDone]="done"></thy-loading>
+        <thy-loading thyDone="false"></thy-loading>
+        <thy-select thyDone="true"></thy-select>
+    \`,
+    imports: [ThyLoading]
+})
+export class LoadingDemoComponent {
+    done = true;
+}
+`
+        );
+
+        workspaceTree = await schematicRunner.runSchematic('migration-v22', undefined, testTree);
+        const content = workspaceTree.readContent('/projects/update-22-test/src/app/loading-demo.component.ts');
+        expect(content).toContain('<thy-loading [thyLoading]="false"></thy-loading>');
+        expect(content).toContain('<thy-loading [thyLoading]="!(done)"></thy-loading>');
+        expect(content).toContain('<thy-loading></thy-loading>');
+        expect(content).toContain('<thy-select thyDone="true" thySize="lg"></thy-select>');
+        expect(content).not.toMatch(/<thy-loading[^>]*thyDone/);
+    });
 });
