@@ -1,0 +1,6 @@
+<p>通过配置 <code>thyOptions</code> 渲染单选框。</p>
+<div class="mb-2">
+  <label thyCheckbox thyInline="true" [(ngModel)]="inlineStatus" thyLabelText="Toggle inline"></label>
+</div>
+
+<thy-radio-group [(ngModel)]="checkedValue" [thyOptions]="options" [thyLayout]="inlineStatus ? 'flex' : undefined"></thy-radio-group>

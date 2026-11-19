@@ -13,7 +13,14 @@ subtitle: 单选框
 ```ts
 import { ThyRadioModule } from "ngx-tethys/radio";
 ```
+
 ## 如何使用
-组件提供`thyRadio`和`thyRadioButton`两种指令，有radio和按钮两种样式展示方式，可单独使用，也可以配合`thy-radio-group`组合使用。
+
+- 单独使用时，可用 `thyRadio` 或 `thyRadioButton` 两种样式。
+- 从一组选项中单选时，使用 `thy-radio-group`：
+  - 在组内放置 `thyRadio` / `thyRadioButton`；
+  - 或通过 `thyOptions` 配置选项列表（`value` 组内应唯一）。二者同时传入时，以 `thyOptions` 为准。
+
+## 代码示例
 
 <examples />

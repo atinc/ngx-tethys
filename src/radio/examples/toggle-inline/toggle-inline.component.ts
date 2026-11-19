@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyRadio } from 'ngx-tethys/radio';
 import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThyRadio, ThyRadioGroup } from 'ngx-tethys/radio';
 
 @Component({
     selector: 'app-radio-toggle-inline-example',
     templateUrl: './toggle-inline.component.html',
-    imports: [ThyRadio, FormsModule, ThyCheckbox]
+    imports: [ThyRadio, ThyRadioGroup, FormsModule, ThyCheckbox]
 })
-export class ThyRadioToggleInlineExampleComponent implements OnInit {
-    public inlineStatus = false;
+export class ThyRadioToggleInlineExampleComponent {
+    inlineStatus = false;
 
-    constructor() {}
-
-    ngOnInit() {}
+    checkedValue = 1;
 }

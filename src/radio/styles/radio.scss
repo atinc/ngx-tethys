@@ -7,6 +7,21 @@
 
     &:not(.btn-group) {
         column-gap: variables.$form-check-inline-margin-r;
+
+        > .form-check {
+            display: inline-flex;
+            align-items: center;
+            padding-left: 0;
+            margin-bottom: 0;
+
+            .form-check-input {
+                position: relative;
+                flex-shrink: 0;
+                margin-top: 0;
+                margin-left: 0;
+                margin-right: variables.$form-check-inline-input-margin-r;
+            }
+        }
     }
 
     &.btn-group {
