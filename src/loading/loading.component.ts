@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyBooleanInput, coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 加载组件，页面调用接口等待请求时，给用户的反馈
@@ -30,7 +30,8 @@ export class ThyLoading {
      * @deprecated please use thyLoading, will be removed in v23
      */
     readonly thyDone = input(undefined, {
-        transform: (value: boolean | undefined) => (value === undefined || value === null ? undefined : coerceBooleanProperty(value))
+        transform: (value: ThyBooleanInput | undefined | null) =>
+            value === undefined || value === null ? undefined : coerceBooleanProperty(value)
     });
 
     readonly isLoading = computed(() => {

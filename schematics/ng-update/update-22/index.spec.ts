@@ -2349,7 +2349,7 @@ export class LoadingDemoComponent {
         expect(content).toContain('<thy-loading [thyLoading]="false"></thy-loading>');
         expect(content).toContain('<thy-loading [thyLoading]="!(done)"></thy-loading>');
         expect(content).toContain('<thy-loading></thy-loading>');
-        expect(content).toContain('<thy-select thyDone="true" thySize="lg"></thy-select>');
+        expect(content).toContain('<thy-select thyDone="true"></thy-select>');
         expect(content).not.toMatch(/<thy-loading[^>]*thyDone/);
     });
 });
