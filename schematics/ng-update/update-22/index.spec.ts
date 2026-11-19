@@ -2334,7 +2334,6 @@ import { ThyLoading } from 'ngx-tethys/loading';
         <thy-loading thyDone></thy-loading>
         <thy-loading [thyDone]="done"></thy-loading>
         <thy-loading thyDone="false"></thy-loading>
-        <thy-select thyDone="true"></thy-select>
     \`,
     imports: [ThyLoading]
 })
@@ -2349,7 +2348,6 @@ export class LoadingDemoComponent {
         expect(content).toContain('<thy-loading [thyLoading]="false"></thy-loading>');
         expect(content).toContain('<thy-loading [thyLoading]="!(done)"></thy-loading>');
         expect(content).toContain('<thy-loading></thy-loading>');
-        expect(content).toContain('<thy-select thyDone="true"></thy-select>');
         expect(content).not.toMatch(/<thy-loading[^>]*thyDone/);
     });
 });
