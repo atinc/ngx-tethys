@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyBooleanInput, coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 加载组件，页面调用接口等待请求时，给用户的反馈
@@ -13,17 +13,31 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     host: {
         class: 'thy-loading',
         '[class.thy-loading-simple]': 'thySimple()',
-        '[class.thy-loading-mask]': 'thyIsMask() && !thyDone()',
-        '[class.thy-loading-done]': 'thyDone()'
+        '[class.thy-loading-mask]': 'thyIsMask() && isLoading()',
+        '[class.thy-loading-done]': '!isLoading()'
     },
     imports: []
 })
 export class ThyLoading {
     /**
-     * 数据是否加载完成
-     * @default false
+     * 是否处于加载中。默认 true 表示加载中，false 表示加载结束
+     * @default true
      */
-    readonly thyDone = input(false, { transform: coerceBooleanProperty });
+    readonly thyLoading = input(true, { transform: coerceBooleanProperty });
+
+    /**
+     * 数据是否加载完成（已废弃，将在 v23 彻底移除），请使用 `thyLoading`，与 `thyLoading` 语义相反
+     * @deprecated please use thyLoading, will be removed in v23
+     */
+    readonly thyDone = input(undefined, {
+        transform: (value: ThyBooleanInput | undefined | null) =>
+            value === undefined || value === null ? undefined : coerceBooleanProperty(value)
+    });
+
+    readonly isLoading = computed(() => {
+        const done = this.thyDone();
+        return done !== undefined ? !done : this.thyLoading();
+    });
 
     /**
      * 自定义加载提示文案

@@ -128,4 +128,73 @@ describe('test loading', () => {
         const deprecatedLoading = deprecatedFixture.debugElement.query(By.directive(ThyLoading));
         expect(deprecatedLoading.nativeElement.textContent).toEqual('custom loading tip');
     });
+
+    it('should show the indicator when no loading input is set', () => {
+        const defaultFixture = TestBed.createComponent(TestLoadingDefaultComponent);
+        defaultFixture.detectChanges();
+        const loadingElement = defaultFixture.debugElement.query(By.directive(ThyLoading)).nativeElement as HTMLElement;
+        expect(loadingElement.classList).not.toContain('thy-loading-done');
+        expect(loadingElement.querySelector('.thy-loading-indicator')).toBeTruthy();
+    });
+
+    it('thyLoading', () => {
+        const stateFixture = TestBed.createComponent(TestLoadingStateComponent);
+        const stateComponent = stateFixture.componentInstance;
+        stateComponent.loading = false;
+        stateFixture.detectChanges();
+        const loadingElement = stateFixture.debugElement.query(By.directive(ThyLoading)).nativeElement as HTMLElement;
+        expect(loadingElement.classList).toContain('thy-loading-done');
+        expect(loadingElement.querySelector('.thy-loading-indicator')).toBeFalsy();
+
+        stateComponent.loading = true;
+        stateFixture.detectChanges();
+        expect(loadingElement.classList).not.toContain('thy-loading-done');
+        expect(loadingElement.querySelector('.thy-loading-indicator')).toBeTruthy();
+    });
+
+    it('should let an explicit thyDone override thyLoading', () => {
+        const bothFixture = TestBed.createComponent(TestLoadingBothComponent);
+        const bothComponent = bothFixture.componentInstance;
+        bothComponent.loading = false;
+        bothComponent.done = false;
+        bothFixture.detectChanges();
+        const loadingElement = bothFixture.debugElement.query(By.directive(ThyLoading)).nativeElement as HTMLElement;
+        expect(loadingElement.classList).not.toContain('thy-loading-done');
+        expect(loadingElement.querySelector('.thy-loading-indicator')).toBeTruthy();
+
+        bothComponent.loading = true;
+        bothComponent.done = true;
+        bothFixture.detectChanges();
+        expect(loadingElement.classList).toContain('thy-loading-done');
+        expect(loadingElement.querySelector('.thy-loading-indicator')).toBeFalsy();
+    });
 });
+
+@Component({
+    selector: 'test-loading-default',
+    template: `<thy-loading></thy-loading>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyLoading]
+})
+class TestLoadingDefaultComponent {}
+
+@Component({
+    selector: 'test-loading-state',
+    template: `<thy-loading [thyLoading]="loading"></thy-loading>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyLoading]
+})
+class TestLoadingStateComponent {
+    loading = true;
+}
+
+@Component({
+    selector: 'test-loading-both',
+    template: `<thy-loading [thyLoading]="loading" [thyDone]="done"></thy-loading>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyLoading]
+})
+class TestLoadingBothComponent {
+    loading = false;
+    done = false;
+}

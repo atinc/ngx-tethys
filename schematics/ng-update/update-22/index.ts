@@ -14,6 +14,7 @@ import { FormControlSizeTypeMigration } from './form-control-size-type-migration
 import { HeaderIconPrefixMigration } from './header-icon-prefix-migration';
 import { InputControlSizeMigration } from './input-control-size-migration';
 import { InputSearchAppearanceMigration } from './input-search-appearance-migration';
+import { LoadingDoneMigration } from './loading-done-migration';
 import { MenuThemeMigration } from './menu-theme-migration';
 import { NavInsideClosableMigration } from './nav-inside-closable-migration';
 import { SelectBorderlessMigration } from './select-borderless-migration';
@@ -36,6 +37,7 @@ const migrations: NullableDevkitMigration[] = [
     InputSearchAppearanceMigration,
     SelectBorderlessMigration,
     SelectPropsMigration,
+    LoadingDoneMigration,
     DividerDeeperMigration,
     ButtonAppearanceMigration,
     MenuThemeMigration,
