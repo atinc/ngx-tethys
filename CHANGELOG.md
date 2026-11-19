@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.10](github.com/atinc/ngx-tethys/compare/22.0.9...22.0.10) (2026-11-19)
+
+
+### Features
+
+* **loading:** add thyLoading and deprecate thyDone #TINFR-4204 ([#4051](/github.com/atinc/ngx-tethys/issues/4051)) ([52f417d](github.com/atinc/ngx-tethys/commits/52f417d204ae20137b4fa6607118479965540a16)), closes [#TINFR-4204](github.com/atinc/ngx-tethys/issues/TINFR-4204)
+* **radio:** support thyOptions on radio-group #TINFR-4200 ([#4049](/github.com/atinc/ngx-tethys/issues/4049)) ([9f341f6](github.com/atinc/ngx-tethys/commits/9f341f60f2f5f0619bfac174aba7482e6646c8d0)), closes [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200)
+
 ## [22.0.9](github.com/atinc/ngx-tethys/compare/22.0.8...22.0.9) (2026-11-18)
 
 
