@@ -216,7 +216,7 @@ export class ThyFormDynamicExampleComponent {
             props: {
                 label: 'Contact',
                 required: true,
-                layout: 'flex',
+                inline: true,
                 options: [
                     { value: 'email', label: 'Email' },
                     { value: 'phone', label: 'Phone' },

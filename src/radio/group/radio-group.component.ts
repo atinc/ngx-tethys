@@ -10,9 +10,7 @@ const buttonGroupSizeMap: Record<string, string> = {
     lg: 'btn-group-lg'
 };
 
-const radioGroupLayoutMap: Record<string, string> = {
-    flex: 'radio-group-layout-flex'
-};
+const radioGroupInlineClass = 'radio-group-layout-flex';
 
 let nextUniqueId = 0;
 
@@ -75,8 +73,15 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     readonly thySize = input<string>('md');
 
     /**
+     * 是否同一行展示
+     * @default false
+     */
+    readonly thyInline = input(false, { transform: coerceBooleanProperty });
+
+    /**
      * 布局
      * @type flex
+     * @deprecated 请使用 thyInline 代替
      */
     readonly thyLayout = input<string>();
 
@@ -195,9 +200,8 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
         if (size && buttonGroupSizeMap[size]) {
             classNames.push(buttonGroupSizeMap[size]);
         }
-        const layout = this.thyLayout();
-        if (layout && radioGroupLayoutMap[layout]) {
-            classNames.push(radioGroupLayoutMap[layout]);
+        if (this.thyInline() || this.thyLayout() === 'flex') {
+            classNames.push(radioGroupInlineClass);
         }
         this.hostRenderer.updateClass(classNames);
     }

@@ -3,4 +3,4 @@
   <label thyCheckbox thyInline="true" [(ngModel)]="inlineStatus" thyLabelText="Toggle inline"></label>
 </div>
 
-<thy-radio-group [(ngModel)]="checkedValue" [thyOptions]="options" [thyLayout]="inlineStatus ? 'flex' : undefined"></thy-radio-group>
+<thy-radio-group [(ngModel)]="checkedValue" [thyOptions]="options" [thyInline]="inlineStatus"></thy-radio-group>
