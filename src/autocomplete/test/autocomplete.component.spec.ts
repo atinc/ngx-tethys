@@ -322,6 +322,23 @@ describe('ThyAutocomplete', () => {
                 expect(overlayContainerElement.textContent).not.toContain('Steak');
             }));
 
+            it('should preserve the input value when an open option is clicked after disabling', fakeAsync(() => {
+                const input = trigger as HTMLInputElement;
+                input.value = 'Original';
+                dispatchFakeEvent(input, 'focusin');
+                fixture.detectChanges();
+                tick(500);
+
+                input.disabled = true;
+                const option = overlayContainerElement.querySelector('thy-option-render') as HTMLElement;
+                option.click();
+                fixture.detectChanges();
+                flush();
+
+                expect(input.value).toBe('Original');
+                expect(fixture.componentInstance.autocomplete().isOpened).toBe(false);
+            }));
+
             it('should emit closed event when the panel close', fakeAsync(() => {
                 const closedSpy = jasmine.createSpy('closed event spy callback');
                 fixture.componentInstance.autocomplete().thyClosed.subscribe(() => {
