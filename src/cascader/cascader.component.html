@@ -47,6 +47,7 @@
   <div
     [attr.tabindex]="-1"
     #menu
+    [attr.inert]="disabled ? '' : null"
     [ngClass]="menuCls"
     [ngStyle]="thyMenuStyle()"
     (mouseleave)="toggleMouseLeave($event)"

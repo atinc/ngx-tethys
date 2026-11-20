@@ -874,6 +874,19 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
         }));
 
+        it('should make the open menu inert while disabled', () => {
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const menu = overlayContainerElement.querySelector('.thy-cascader-menus') as HTMLElement;
+            expect(menu.inert).toBe(false);
+
+            component.disabled = true;
+            fixture.detectChanges();
+
+            expect(menu.inert).toBe(true);
+        });
+
         it('should support thyHasBackdrop to be true', fakeAsync(() => {
             component.hasBackdrop = true;
             fixture.detectChanges();
