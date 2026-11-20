@@ -349,6 +349,23 @@ describe('ThyDatePickerComponent', () => {
             expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeDefined();
         }));
 
+        it('should make an open calendar panel inert when the picker is disabled', fakeAsync(() => {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            const panel = getPickerContainer();
+            expect(panel.closest('[inert]')).toBeNull();
+
+            fixtureInstance.thyDisabled = true;
+            fixture.detectChanges();
+            expect(getPickerContainer()).toBe(panel);
+            expect(panel.closest('[inert]')).not.toBeNull();
+
+            fixtureInstance.thyDisabled = false;
+            fixture.detectChanges();
+            expect(panel.closest('[inert]')).toBeNull();
+        }));
+
         it('should support thyDisabledDate', fakeAsync(() => {
             fixture.detectChanges();
             const compareDate = new Date('2018-11-15 00:00:00');

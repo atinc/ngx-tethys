@@ -53,6 +53,7 @@
     #overlayContainer
     style="position: relative"
     class="thy-picker-container"
+    [attr.inert]="disabled() ? '' : null"
     [animate.enter]="animateEnterClass()"
     [animate.leave]="animateLeaveClass()">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
