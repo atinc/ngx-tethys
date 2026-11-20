@@ -779,13 +779,13 @@ describe('dynamic-form', () => {
         expect(formElement.querySelector('.thy-dynamic-form-actions')).toBeTruthy();
     });
 
-    it('should pass radio props.layout to thy-radio-group without coupling form layout', () => {
+    it('should pass radio props.inline to thy-radio-group without coupling form layout', () => {
         setFields([
             {
                 key: 'contact',
                 kind: 'radio',
                 props: {
-                    layout: 'flex',
+                    inline: true,
                     options: [
                         { value: 'email', label: 'Email' },
                         { value: 'phone', label: 'Phone' }
@@ -805,15 +805,35 @@ describe('dynamic-form', () => {
         ]);
 
         const groups = fixture.debugElement.queryAll(By.css('thy-radio-group'));
-        expect(groups[0].componentInstance.thyLayout()).toBe('flex');
+        expect(groups[0].componentInstance.thyInline()).toBe(true);
         expect(groups[0].nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
-        expect(groups[1].componentInstance.thyLayout()).toBeUndefined();
+        expect(groups[1].componentInstance.thyInline()).toBe(false);
         expect(groups[1].nativeElement.classList.contains('radio-group-layout-flex')).toBe(false);
 
         testComponent.layout = 'inline';
         fixture.detectChanges();
-        expect(groups[0].componentInstance.thyLayout()).toBe('flex');
-        expect(groups[1].componentInstance.thyLayout()).toBeUndefined();
+        expect(groups[0].componentInstance.thyInline()).toBe(true);
+        expect(groups[1].componentInstance.thyInline()).toBe(false);
+    });
+
+    it('should keep compatibility with legacy props.layout', () => {
+        setFields([
+            {
+                key: 'contact',
+                kind: 'radio',
+                props: {
+                    layout: 'flex',
+                    options: [
+                        { value: 'email', label: 'Email' },
+                        { value: 'phone', label: 'Phone' }
+                    ]
+                }
+            }
+        ]);
+
+        const group = fixture.debugElement.query(By.css('thy-radio-group'));
+        expect(group.componentInstance.thyInline()).toBe(true);
+        expect(group.nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
     });
 
     it('should reset values to defaultValue or empty and clear displayed errors', () => {
@@ -891,7 +911,7 @@ describe('dynamic-form', () => {
                 props: {
                     required: true,
                     label: 'Contact',
-                    layout: 'flex',
+                    inline: true,
                     options: [
                         { value: 'email', label: 'Email' },
                         { value: 'phone', label: 'Phone' }

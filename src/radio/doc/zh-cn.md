@@ -20,6 +20,7 @@ import { ThyRadioModule } from "ngx-tethys/radio";
 - 从一组选项中单选时，使用 `thy-radio-group`：
   - 在组内放置 `thyRadio` / `thyRadioButton`；
   - 或通过 `thyOptions` 配置选项列表（`value` 组内应唯一）。二者同时传入时，以 `thyOptions` 为准。
+  - 通过 `thyInline` 控制组内选项横向排列，默认纵向；旧的 `thyLayout="flex"` 已废弃，请改用 `thyInline`。
 
 ## 代码示例
 
