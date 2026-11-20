@@ -46,6 +46,21 @@ describe('ThyTimePickerComponent', () => {
             expect(getTimePickerPanel()).not.toBeNull();
         }));
 
+        it('should make the open time panel inert while disabled', fakeAsync(() => {
+            openOverlay();
+            const panel = getTimePickerPanel();
+            expect(panel.closest('[inert]')).toBeNull();
+
+            fixtureInstance.disabled = true;
+            fixture.detectChanges();
+            expect(getTimePickerPanel()).toBe(panel);
+            expect(panel.closest('[inert]')).not.toBeNull();
+
+            fixtureInstance.disabled = false;
+            fixture.detectChanges();
+            expect(panel.closest('[inert]')).toBeNull();
+        }));
+
         it('should close by click overlay outside when ThyBackdrop is false', fakeAsync(() => {
             openOverlay();
 
