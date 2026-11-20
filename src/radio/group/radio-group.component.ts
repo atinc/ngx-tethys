@@ -81,7 +81,7 @@ export class ThyRadioGroup implements IThyRadioGroupComponent, ControlValueAcces
     /**
      * 布局
      * @type flex
-     * @deprecated 请使用 thyInline 代替
+     * @deprecated please use thyInline, will be removed in v23
      */
     readonly thyLayout = input<string>();
 

@@ -91,7 +91,7 @@ export interface ThyFormRadioFieldProps extends ThyFormFieldBaseProps {
      */
     inline?: boolean;
     /**
-     * @deprecated 请使用 inline 代替
+     * @deprecated please use inline, will be removed in v23
      */
     layout?: 'flex';
     button?: boolean;
