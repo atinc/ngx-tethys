@@ -12,7 +12,7 @@ import { ThyFormRadioFieldSchema } from '../types';
         <thy-radio-group
             [formField]="field()"
             [thySize]="size()"
-            [thyInline]="fieldSchema().props?.inline || fieldSchema().props?.layout === 'flex'"
+            [thyInline]="fieldSchema().props?.inline ?? fieldSchema().props?.layout === 'flex'"
             [thyDisabled]="field()().disabled()">
             @for (option of fieldSchema().props?.options ?? []; track option.value) {
                 @if (fieldSchema().props?.button) {

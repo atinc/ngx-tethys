@@ -61,7 +61,7 @@ schema 驱动时使用`thy-dynamic-form`：按`thyFields`生成字段树，用`t
 - **布局**`thyLayout`：`horizontal`（默认）/ `vertical` / `inline`，未传回落`THY_FORM_CONFIG.layout`
 - **占宽**`col`：12 列 Grid，默认 12；`inline` 下忽略
 - **label 宽**`thyLabelWidth`：仅 Horizontal，默认`120px`，与`col`无关
-- **radio 选项方向**：字段`props.inline`为`true`时选项横向排列（兼容旧的`props.layout: 'flex'`），与表单`thyLayout`无关
+- **radio 选项方向**：字段`props.inline`为`true`时选项横向排列（兼容旧的`props.layout: 'flex'`，显式设置`props.inline`时以其为准），与表单`thyLayout`无关
 - **校验**：优先字段`errorMessages`，否则用`ThyFormValidatorLoader`；通过后`(thySubmit)`才发出值
 - **其它**：内容投影操作区；`reset()`恢复`defaultValue`并清错；`(thyFieldValueChange)`里可改`thyFields`/`thyValue`；`key`/`kind`/校验器变化会重建字段树
 

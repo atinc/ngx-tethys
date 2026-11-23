@@ -836,6 +836,27 @@ describe('dynamic-form', () => {
         expect(group.nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
     });
 
+    it('should prefer explicit props.inline over legacy props.layout', () => {
+        setFields([
+            {
+                key: 'contact',
+                kind: 'radio',
+                props: {
+                    inline: false,
+                    layout: 'flex',
+                    options: [
+                        { value: 'email', label: 'Email' },
+                        { value: 'phone', label: 'Phone' }
+                    ]
+                }
+            }
+        ]);
+
+        const group = fixture.debugElement.query(By.css('thy-radio-group'));
+        expect(group.componentInstance.thyInline()).toBe(false);
+        expect(group.nativeElement.classList.contains('radio-group-layout-flex')).toBe(false);
+    });
+
     it('should reset values to defaultValue or empty and clear displayed errors', () => {
         setFields([
             { key: 'name', kind: 'input', defaultValue: 'Ada', props: { required: true } },
