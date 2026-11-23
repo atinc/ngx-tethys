@@ -912,7 +912,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 48. thy-icon（`thy-icon` 指令）
+### 50. thy-icon（`thy-icon` 指令）
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -934,7 +934,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 50. thy-radio（`thy-radio-group`）
+### 51. thy-radio（`thy-radio-group`）
 
 **标记为废弃，将在 v23 彻底删除**
 
