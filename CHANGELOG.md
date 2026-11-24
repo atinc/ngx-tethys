@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.11](github.com/atinc/ngx-tethys/compare/22.0.10...22.0.11) (2026-11-24)
+
+
+### Features
+
+* **radio:** add thyInline 属性支持横向排列选项 #TINFR-4207 ([#4053](/github.com/atinc/ngx-tethys/issues/4053)) ([c44085a](github.com/atinc/ngx-tethys/commits/c44085ad32b002e4a0ef8625357278571c1c16df)), closes [#TINFR-4207](github.com/atinc/ngx-tethys/issues/TINFR-4207)
+
 ## [22.0.10](github.com/atinc/ngx-tethys/compare/22.0.9...22.0.10) (2026-11-19)
 
 
