@@ -86,6 +86,13 @@ export interface ThyFormRadioFieldProps extends ThyFormFieldBaseProps {
         value: string;
         label: string;
     }[];
+    /**
+     * 是否同一行展示
+     */
+    inline?: boolean;
+    /**
+     * @deprecated please use inline, will be removed in v23
+     */
     layout?: 'flex';
     button?: boolean;
 }

@@ -912,7 +912,7 @@ ng generate ngx-tethys:migrate-22
 
 ---
 
-### 48. thy-icon（`thy-icon` 指令）
+### 50. thy-icon（`thy-icon` 指令）
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -931,6 +931,20 @@ ng generate ngx-tethys:migrate-22
 - `thyIconSet` → `thySet`
 - `thyIconLegging` → `thyLegging`
 - `thyIconLinearGradient` → `thyLinearGradient`
+
+---
+
+### 51. thy-radio（`thy-radio-group`）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thy-radio-group` 的 `thyLayout` 已废弃，请使用 `thyInline`（横向排列）。`thyLayout="flex"` 与 `thyInline` 等价，目前仍兼容生效
+- 动态表单 `ThyFormRadioFieldProps.layout: 'flex'` 已废弃，请使用 `props.inline: true`；显式设置 `props.inline` 时以其为准（`props.inline: false` 时旧 `layout: 'flex'` 不再生效）
+- CSS 类 `radio-group-layout-flex` 保持不变，无需修改样式
+
+**自动迁移**
+
+- 无（旧属性仍兼容生效），请按上述对照手动替换
 
 ---
 

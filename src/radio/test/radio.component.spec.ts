@@ -182,7 +182,12 @@ describe('thy-radio-group component', () => {
 @Component({
     selector: 'thy-radio-group-options-test',
     template: `
-        <thy-radio-group [(ngModel)]="checkedValue" [thyOptions]="options" [thyDisabled]="disabled" [thyLayout]="layout">
+        <thy-radio-group
+            [(ngModel)]="checkedValue"
+            [thyOptions]="options"
+            [thyDisabled]="disabled"
+            [thyInline]="inline"
+            [thyLayout]="layout">
             <label thyRadio thyLabelText="投影一" [thyValue]="'a'"></label>
             <label thyRadio thyLabelText="投影二" [thyValue]="'b'"></label>
         </thy-radio-group>
@@ -193,6 +198,7 @@ describe('thy-radio-group component', () => {
 class RadioGroupOptionsTestComponent {
     checkedValue: string | number | boolean = 'apple';
     disabled = false;
+    inline = false;
     layout!: string;
     options: ThyRadioOption[] = [
         { label: 'Apple', value: 'apple' },
@@ -214,6 +220,20 @@ class RadioGroupOptionsReactiveTestComponent {
         { label: 'Apple', value: 'apple' },
         { label: 'On', value: true },
         { label: 'Off', value: false }
+    ];
+}
+
+@Component({
+    selector: 'thy-radio-group-inline-attribute-test',
+    template: ` <thy-radio-group [(ngModel)]="checkedValue" thyInline [thyOptions]="options"></thy-radio-group> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ThyRadioModule, FormsModule]
+})
+class RadioGroupInlineAttributeTestComponent {
+    checkedValue: string | number | boolean = 'apple';
+    options: ThyRadioOption[] = [
+        { label: 'Apple', value: 'apple' },
+        { label: 'Pear', value: 'pear' }
     ];
 }
 
@@ -289,10 +309,24 @@ describe('thy-radio-group options mode', () => {
         expect(Array.from(inputs).every(input => input.disabled)).toBe(true);
     }));
 
-    it('should apply thyLayout flex class in options mode', () => {
+    it('should apply inline flex class when thyInline is true', () => {
+        testComponent.inline = true;
+        fixture.detectChanges();
+        expect(groupDebugElement.nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
+    });
+
+    it('should apply flex class when deprecated thyLayout is flex', () => {
         testComponent.layout = 'flex';
         fixture.detectChanges();
         expect(groupDebugElement.nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
+    });
+
+    it('should coerce static thyInline attribute to true', () => {
+        const staticFixture = TestBed.createComponent(RadioGroupInlineAttributeTestComponent);
+        staticFixture.detectChanges();
+        const group = staticFixture.debugElement.query(By.directive(ThyRadioGroup));
+        expect(group.componentInstance.thyInline()).toBe(true);
+        expect(group.nativeElement.classList.contains('radio-group-layout-flex')).toBe(true);
     });
 
     it('should prefer options over projected content when thyOptions is not empty', () => {

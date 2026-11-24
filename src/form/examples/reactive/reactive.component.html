@@ -78,7 +78,7 @@
       <thy-switch name="switch" [(ngModel)]="model.switch" formControlName="switch"></thy-switch>
     </thy-form-group>
     <thy-form-group thyLabelText="Radio" thyLabelRequired thyLabelPaddingTopClear="true">
-      <thy-radio-group name="radio" [(ngModel)]="model.radio" formControlName="radio" thyLayout="flex">
+      <thy-radio-group name="radio" [(ngModel)]="model.radio" formControlName="radio" thyInline>
         <label thyRadio thyLabelText="Option1" thyValue="1"></label>
         <label thyRadio thyLabelText="Option2" thyValue="2"></label>
         <label thyRadio thyLabelText="Option3" thyValue="3"></label>
@@ -90,7 +90,7 @@
       <label thyCheckbox name="checkbox2" formControlName="checkbox2" thyLabelText="Option3" thyValue="3"></label>
     </thy-form-group>
     <thy-form-group thyLabelText="Radio Button" thyLabelRequired>
-      <thy-radio-group name="radioGroup" [(ngModel)]="model.radioButton" formControlName="radioGroup" thyLayout="flex">
+      <thy-radio-group name="radioGroup" [(ngModel)]="model.radioButton" formControlName="radioGroup" thyInline>
         <label thyRadioButton thyLabelText="Option1" thyValue="1"></label>
         <label thyRadioButton thyLabelText="Option2" thyValue="2"></label>
         <label thyRadioButton thyLabelText="Option3" thyValue="3"></label>
