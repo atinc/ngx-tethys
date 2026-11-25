@@ -428,18 +428,27 @@ export class ThyTimePicker implements OnInit, ControlValueAccessor {
     }
 
     private validateCustomizeInput(value: string): boolean {
-        let valid = false;
-        if (value.length > this.thyFormat().length) {
-            return valid;
-        }
         const formatRule = this.thyFormat().split(':');
         const formatter = value.split(':');
-        valid = !formatRule
-            .map((m, i) => {
-                return !!formatter[i];
-            })
-            .includes(false);
-        return valid;
+        if (formatter.length !== formatRule.length) {
+            return false;
+        }
+
+        return formatRule.every((formatPart, index) => {
+            const part = formatter[index];
+            if (!/^\d{1,2}$/.test(part)) {
+                return false;
+            }
+
+            const parsed = Number(part);
+            if (/^H+$/.test(formatPart)) {
+                return parsed >= 0 && parsed < 24;
+            }
+            if (/^m+$/.test(formatPart) || /^s+$/.test(formatPart)) {
+                return parsed >= 0 && parsed < 60;
+            }
+            return false;
+        });
     }
 
     private disabledUserOperation() {
