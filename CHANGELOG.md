@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [22.0.11](github.com/atinc/ngx-tethys/compare/22.0.10...22.0.11) (2026-11-24)
+
+
+### Features
+
+* **radio:** add thyInline 属性支持横向排列选项 #TINFR-4207 ([#4053](/github.com/atinc/ngx-tethys/issues/4053)) ([c44085a](github.com/atinc/ngx-tethys/commits/c44085ad32b002e4a0ef8625357278571c1c16df)), closes [#TINFR-4207](github.com/atinc/ngx-tethys/issues/TINFR-4207)
+
+## [22.0.10](github.com/atinc/ngx-tethys/compare/22.0.9...22.0.10) (2026-11-19)
+
+
+### Features
+
+* **loading:** add thyLoading and deprecate thyDone #TINFR-4204 ([#4051](/github.com/atinc/ngx-tethys/issues/4051)) ([52f417d](github.com/atinc/ngx-tethys/commits/52f417d204ae20137b4fa6607118479965540a16)), closes [#TINFR-4204](github.com/atinc/ngx-tethys/issues/TINFR-4204)
+* **radio:** support thyOptions on radio-group #TINFR-4200 ([#4049](/github.com/atinc/ngx-tethys/issues/4049)) ([9f341f6](github.com/atinc/ngx-tethys/commits/9f341f60f2f5f0619bfac174aba7482e6646c8d0)), closes [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200) [#TINFR-4200](github.com/atinc/ngx-tethys/issues/TINFR-4200)
+
+## [22.0.9](github.com/atinc/ngx-tethys/compare/22.0.8...22.0.9) (2026-11-18)
+
+
+### Features
+
+* **checkbox:** support ThyCheckboxGroup with thyOptions #TINFR-4191 ([#4031](/github.com/atinc/ngx-tethys/issues/4031)) ([f8e4a11](github.com/atinc/ngx-tethys/commits/f8e4a115eded7569f4f32a2323a80575a67a9b7e)), closes [#TINFR-4191](github.com/atinc/ngx-tethys/issues/TINFR-4191) [#TINFR-4191](github.com/atinc/ngx-tethys/issues/TINFR-4191)
+
 ## [22.0.8](github.com/atinc/ngx-tethys/compare/22.0.7...22.0.8) (2026-11-11)
 
 

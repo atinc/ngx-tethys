@@ -903,14 +903,16 @@ ng generate ngx-tethys:migrate-22
 **标记为废弃，将在 v23 彻底删除**
 
 - `thyTip` 参数已废弃，请使用 `thyTips`
+- `thyDone` 已废弃，请使用 `thyLoading`（默认 `true`，表示加载中；与旧属性语义相反）
 
 **自动迁移**
 
 - `thyTip` → `thyTips`
+- 仅 `thy-loading`：`thyDone` / `thyDone="true"` / `[thyDone]="true"` → `[thyLoading]="false"`；`thyDone="false"` / `[thyDone]="false"` 直接删除；`[thyDone]="done"` → `[thyLoading]="!(done)"`。同时写了 `thyLoading` 时按 `thyDone` 迁移，并去掉原来的 `thyLoading`
 
 ---
 
-### 48. thy-icon（`thy-icon` 指令）
+### 50. thy-icon（`thy-icon` 指令）
 
 **标记为废弃，将在 v23 彻底删除**
 
@@ -929,6 +931,20 @@ ng generate ngx-tethys:migrate-22
 - `thyIconSet` → `thySet`
 - `thyIconLegging` → `thyLegging`
 - `thyIconLinearGradient` → `thyLinearGradient`
+
+---
+
+### 51. thy-radio（`thy-radio-group`）
+
+**标记为废弃，将在 v23 彻底删除**
+
+- `thy-radio-group` 的 `thyLayout` 已废弃，请使用 `thyInline`（横向排列）。`thyLayout="flex"` 与 `thyInline` 等价，目前仍兼容生效
+- 动态表单 `ThyFormRadioFieldProps.layout: 'flex'` 已废弃，请使用 `props.inline: true`；显式设置 `props.inline` 时以其为准（`props.inline: false` 时旧 `layout: 'flex'` 不再生效）
+- CSS 类 `radio-group-layout-flex` 保持不变，无需修改样式
+
+**自动迁移**
+
+- 无（旧属性仍兼容生效），请按上述对照手动替换
 
 ---
 

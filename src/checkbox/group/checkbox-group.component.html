@@ -1,0 +1,18 @@
+@for (option of thyOptions(); track option.value) {
+  <label
+    class="thy-checkbox form-check"
+    [class.form-check-inline]="thyInline()"
+    [class.form-check-checked]="isChecked(option.value)"
+    [class.disabled]="isOptionDisabled(option)">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      [checked]="isChecked(option.value)"
+      [disabled]="isOptionDisabled(option)"
+      [attr.tabindex]="isOptionDisabled(option) ? -1 : 0"
+      (change)="onCheckboxChange(option, $event)" />
+    @if (option.label) {
+      <span class="form-check-label">{{ option.label }}</span>
+    }
+  </label>
+}

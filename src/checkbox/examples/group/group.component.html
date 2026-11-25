@@ -1,0 +1,6 @@
+<p>通过配置 <code>thyOptions</code> 渲染多选框组。</p>
+<div class="mb-2">
+  <label thyCheckbox thyInline="true" [(ngModel)]="inlineStatus" thyLabelText="Toggle inline"></label>
+</div>
+
+<thy-checkbox-group [(ngModel)]="values" [thyOptions]="options" [thyInline]="inlineStatus"></thy-checkbox-group>

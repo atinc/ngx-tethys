@@ -3,6 +3,8 @@
   <label thyCheckbox thyInline="true" [(ngModel)]="inlineStatus" thyLabelText="Toggle inline"></label>
 </div>
 
-<label thyRadio thyLabelText="选项一" [thyInline]="inlineStatus"></label>
-<label thyRadio thyLabelText="选项二" [thyInline]="inlineStatus"></label>
-<label thyRadio thyLabelText="选项三" [thyInline]="inlineStatus"></label>
+<thy-radio-group [(ngModel)]="checkedValue">
+  <label thyRadio thyLabelText="选项一" [thyValue]="1" [thyInline]="inlineStatus"></label>
+  <label thyRadio thyLabelText="选项二" [thyValue]="2" [thyInline]="inlineStatus"></label>
+  <label thyRadio thyLabelText="选项三" [thyValue]="3" [thyInline]="inlineStatus"></label>
+</thy-radio-group>

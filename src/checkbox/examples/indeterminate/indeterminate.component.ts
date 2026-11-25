@@ -1,41 +1,36 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyCheckbox } from 'ngx-tethys/checkbox';
+import { ThyCheckbox, ThyCheckboxGroup, ThyCheckboxOption } from 'ngx-tethys/checkbox';
 
 @Component({
     selector: 'thy-checkbox-indeterminate-example',
     templateUrl: './indeterminate.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [ThyCheckbox, FormsModule]
+    imports: [ThyCheckbox, ThyCheckboxGroup, FormsModule]
 })
-export class ThyCheckboxIndeterminateExampleComponent implements OnInit {
-    model = {
-        checked1: true,
-        checked2: false,
-        checked3: false,
-        indeterminate: true,
-        checkedAll: false
-    };
+export class ThyCheckboxIndeterminateExampleComponent {
+    options: ThyCheckboxOption[] = [
+        { label: 'Dog 🐶', value: 'dog' },
+        { label: 'Cat 🐱', value: 'cat' },
+        { label: 'Rabbit 🐰', value: 'rabbit' }
+    ];
 
-    constructor() {}
+    values: Array<string | number | boolean> = ['dog'];
 
-    ngOnInit(): void {}
+    checkedAll = false;
 
-    select() {
-        if (this.model.checked1 && this.model.checked2 && this.model.checked3) {
-            this.model.indeterminate = false;
-            this.model.checkedAll = true;
-        } else if (!this.model.checked1 && !this.model.checked2 && !this.model.checked3) {
-            this.model.indeterminate = false;
-            this.model.checkedAll = false;
-        } else {
-            this.model.indeterminate = true;
-            this.model.checkedAll = false;
-        }
+    indeterminate = true;
+
+    select(values: Array<string | number | boolean>) {
+        const total = this.options.length;
+        const checkedCount = values.length;
+        this.checkedAll = checkedCount === total;
+        this.indeterminate = checkedCount > 0 && checkedCount < total;
     }
 
-    selectAll() {
-        this.model.checked1 = this.model.checked2 = this.model.checked3 = this.model.checkedAll;
-        this.model.indeterminate = false;
+    selectAll(checked: boolean) {
+        this.values = checked ? this.options.map(option => option.value) : [];
+        this.indeterminate = false;
+        this.checkedAll = checked;
     }
 }
